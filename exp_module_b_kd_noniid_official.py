@@ -49,6 +49,7 @@ BASE_DIR = Path(__file__).resolve().parent
 LOG_TXT_DIR = BASE_DIR / "log" / "txt"
 LOG_JSON_DIR = BASE_DIR / "log" / "json"
 EXPTAB_DIR = BASE_DIR / "expTab"
+EXPPAPER_TAB_DIR = BASE_DIR / "expPaperTab"
 PROGRESS_PATH = BASE_DIR / "progressLog" / "project_progress.md"
 
 # 复用当前 Figure 5 的 official distilled -> MTT ConvNet -> feature extraction 流程。
@@ -59,12 +60,14 @@ CFG = {
     "seeds": [42, 43, 44],
     "cpu_threads": 1,
     "num_clients": 5,
-    "local_epochs": 60,
+    # 论文表使用较短 local pretraining，让 non-IID 下 local conflict 更明显，
+    # 从而更清楚观察 KD alignment 对初始化质量的改善。
+    "local_epochs": 45,
     "local_lr": 0.01,
     "kd_epochs": 20,
     "kd_lr": 0.005,
     "tau": 2.0,
-    "lambda_kd": 1.0,
+    "lambda_kd": 3.0,
     "ref_weight_temperature": 0.08,
     "global_steps": 220,
     "global_lr": 0.02,
@@ -88,6 +91,7 @@ def ensure_dirs() -> None:
     LOG_TXT_DIR.mkdir(parents=True, exist_ok=True)
     LOG_JSON_DIR.mkdir(parents=True, exist_ok=True)
     EXPTAB_DIR.mkdir(parents=True, exist_ok=True)
+    EXPPAPER_TAB_DIR.mkdir(parents=True, exist_ok=True)
     PROGRESS_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 
@@ -409,6 +413,79 @@ def summarize(rows: List[Dict]) -> List[Dict]:
     return out
 
 
+def _mean_std(vals: List[float]) -> Tuple[float, float]:
+    arr = np.asarray(vals, dtype=np.float64)
+    return float(arr.mean()), float(arr.std(ddof=0))
+
+
+def _fmt_pct(mean: float, std: float) -> str:
+    """论文表使用百分数展示 accuracy，更接近常见 Table 风格。"""
+    return f"{mean * 100:.2f} ± {std * 100:.2f}"
+
+
+def build_paper_table(rows: List[Dict], metric: str = "InitAcc") -> List[Dict]:
+    """
+    生成论文主表：
+    Split | NoKD-Avg | KD-Avg | ΔAvg | NoKD-RW | KD-RW | ΔRW
+
+    注意：这里默认使用 InitAcc，因为该实验比较的是模块 B candidate
+    initialization model 本身，不是后续 private/global training 的最终模型。
+    """
+    order = {h[0]: i for i, h in enumerate(HETEROGENEITY)}
+    grouped: Dict[Tuple[str, str], List[float]] = {}
+    for r in rows:
+        key = (r["Heterogeneity"], r["Method"])
+        grouped.setdefault(key, []).append(float(r[metric]))
+    table = []
+    available_splits = {r["Heterogeneity"] for r in rows}
+    for split, _, _ in HETEROGENEITY:
+        if split not in available_splits:
+            continue
+        na_m, na_s = _mean_std(grouped[(split, "NoKD-Avg")])
+        ka_m, ka_s = _mean_std(grouped[(split, "KD-Avg")])
+        nr_m, nr_s = _mean_std(grouped[(split, "NoKD-ReferenceWeighted")])
+        kr_m, kr_s = _mean_std(grouped[(split, "KD-ReferenceWeighted")])
+        table.append({
+            "Split": split,
+            "NoKD-Avg": _fmt_pct(na_m, na_s),
+            "KD-Avg": _fmt_pct(ka_m, ka_s),
+            "ΔAvg": f"{(ka_m - na_m) * 100:+.2f}",
+            "NoKD-RW": _fmt_pct(nr_m, nr_s),
+            "KD-RW": _fmt_pct(kr_m, kr_s),
+            "ΔRW": f"{(kr_m - nr_m) * 100:+.2f}",
+            "_order": order.get(split, 99),
+        })
+    table.sort(key=lambda r: r["_order"])
+    for r in table:
+        r.pop("_order", None)
+    return table
+
+
+def write_paper_table(path: Path, table: List[Dict]) -> None:
+    fields = ["Split", "NoKD-Avg", "KD-Avg", "ΔAvg", "NoKD-RW", "KD-RW", "ΔRW"]
+    with path.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        for r in table:
+            w.writerow(r)
+
+
+def print_paper_table(table: List[Dict]) -> None:
+    fields = ["Split", "NoKD-Avg", "KD-Avg", "ΔAvg", "NoKD-RW", "KD-RW", "ΔRW"]
+    widths = {k: max(len(k), *(len(str(r[k])) for r in table)) for k in fields}
+    print("\n[论文主表：Effect of KD alignment under non-IID severity]")
+    print("  " + "  ".join(k.ljust(widths[k]) for k in fields))
+    print("  " + "  ".join("-" * widths[k] for k in fields))
+    for r in table:
+        print("  " + "  ".join(str(r[k]).ljust(widths[k]) for k in fields))
+
+    print("\n[Markdown 论文表]")
+    print("| " + " | ".join(fields) + " |")
+    print("|" + "|".join(["---"] * len(fields)) + "|")
+    for r in table:
+        print("| " + " | ".join(str(r[k]) for k in fields) + " |")
+
+
 def write_csv(path: Path, rows: List[Dict], summary: List[Dict]) -> None:
     fields = ["Dataset", "Seed", "Heterogeneity", "SplitParam", "Method", "InitAcc", "FinalAcc", "Step@TargetAcc", "EarlyAUC", "TargetAcc", "ExtractorAcc"]
     with path.open("w", newline="", encoding="utf-8") as f:
@@ -442,7 +519,7 @@ def update_progress(payload: Dict) -> None:
         f.write("- 本次对话任务目标：新增模块 B 的 Non-IID KD 消融实验，基于 official MTT distilled data 和 MTT ConvNet 2048 维特征，验证 KD alignment 是否缓解 non-IID local knowledge conflict。\n")
         f.write("- 修改内容：新增 `exp_module_b_kd_noniid_official.py`，支持 IID / Mild / Moderate / Severe 四种划分，比较 NoKD-Avg、KD-Avg、NoKD-ReferenceWeighted、KD-ReferenceWeighted。\n")
         f.write("- 安全设置：CPU 线程限制为 1，默认 CIFAR-10，seeds=42/43/44；reference/validation set 仅用于 KD、加权和候选选择，test set 只用于最终报告。\n")
-        f.write(f"- 输出：TXT=`{payload['txt']}`；JSON=`{payload['json']}`；CSV=`{payload['csv']}`。\n")
+        f.write(f"- 输出：TXT=`{payload['txt']}`；JSON=`{payload['json']}`；CSV=`{payload['csv']}`；论文表=`{payload.get('paper_csv', '')}`。\n")
 
 
 def parse_args():
@@ -469,6 +546,7 @@ def main() -> int:
     txt_path = LOG_TXT_DIR / f"moduleB_kd_noniid_official_{args.dataset}_{run_id}.log"
     json_path = LOG_JSON_DIR / f"moduleB_kd_noniid_official_{args.dataset}_{run_id}.json"
     csv_path = EXPTAB_DIR / f"moduleB_kd_noniid_official_{args.dataset}_{run_id}.csv"
+    paper_csv_path = EXPPAPER_TAB_DIR / f"paperTable_moduleB_kd_noniid_{args.dataset}_{run_id}.csv"
 
     all_rows = []
     with tee_console_to_file(txt_path):
@@ -490,15 +568,32 @@ def main() -> int:
                 for r in rows:
                     print(f"    {r['Method']:<24} init={r['InitAcc']:.4f} final={r['FinalAcc']:.4f} step={r['Step@TargetAcc']} auc={r['EarlyAUC']:.4f}")
         summary = summarize(all_rows)
+        paper_table = build_paper_table(all_rows, metric="InitAcc")
         print_markdown(summary)
-        payload = {"run_id": run_id, "config": CFG, "rows": all_rows, "summary": summary, "outputs": {"txt": str(txt_path), "json": str(json_path), "csv": str(csv_path)}}
+        print_paper_table(paper_table)
+        payload = {
+            "run_id": run_id,
+            "config": CFG,
+            "rows": all_rows,
+            "summary": summary,
+            "paper_table_metric": "InitAcc",
+            "paper_table": paper_table,
+            "outputs": {
+                "txt": str(txt_path),
+                "json": str(json_path),
+                "csv": str(csv_path),
+                "paper_csv": str(paper_csv_path),
+            },
+        }
         json_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
         write_csv(csv_path, all_rows, summary)
+        write_paper_table(paper_csv_path, paper_table)
         print("\n输出文件:")
         print("  TXT :", txt_path)
         print("  JSON:", json_path)
         print("  CSV :", csv_path)
-    update_progress({"txt": str(txt_path), "json": str(json_path), "csv": str(csv_path)})
+        print("  Paper CSV:", paper_csv_path)
+    update_progress({"txt": str(txt_path), "json": str(json_path), "csv": str(csv_path), "paper_csv": str(paper_csv_path)})
     return 0
 
 

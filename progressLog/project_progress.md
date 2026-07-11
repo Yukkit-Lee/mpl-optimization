@@ -454,3 +454,13 @@
 - Push 恢复结果：用户已将新的 GitHub token 放入 `/home/lixujie/.config/codex-secrets/token.txt`；使用临时 `GIT_ASKPASS` 完成认证，不将 token 写入 remote URL 或 Git 配置。
 - Push 成功：已将本地 `main` 推送到 `https://github.com/Yukkit-Lee/mpl-optimization.git`，远端从 `769656c` 更新到 `9c51148`。
 - 后续约定：之后每次新增或修改代码/实验输出后，继续执行 `git status -> git add -> git commit -> git push origin main`，并使用本地 secret 文件进行临时认证。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-11 19:36 Asia/Shanghai
+- 本次对话任务目标：新增模块 B 的 Non-IID KD 消融实验，基于 official MTT distilled data 和 MTT ConvNet 2048 维特征，验证 KD alignment 是否缓解 non-IID local knowledge conflict。
+- 修改内容：新增 `exp_module_b_kd_noniid_official.py`，支持 IID / Mild / Moderate / Severe 四种划分，比较 NoKD-Avg、KD-Avg、NoKD-ReferenceWeighted、KD-ReferenceWeighted。
+- 安全设置：CPU 线程限制为 1，默认 CIFAR-10，seeds=42/43/44；reference/validation set 仅用于 KD、加权和候选选择，test set 只用于最终报告。
+- 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_noniid_official_cifar10_20260711_193539.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_noniid_official_cifar10_20260711_193539.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/moduleB_kd_noniid_official_cifar10_20260711_193539.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleB_kd_noniid_cifar10_20260711_193539.csv`。
+- 正式论文表结果：IID ΔAvg=+0.39、ΔRW=+2.37；Mild ΔAvg=+0.20、ΔRW=+2.37；Moderate ΔAvg=+0.46、ΔRW=+1.98；Severe ΔAvg=+2.73、ΔRW=+4.11。整体趋势为 KD 在 Avg/RW 两个分支均优于 NoKD，且 Severe Non-IID 下提升最大，可支撑“KD alignment 缓解 local knowledge conflict”的模块 B 论证。
