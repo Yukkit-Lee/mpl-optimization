@@ -1,0 +1,77 @@
+======================================================================
+实验 3：CIFAR-10 + DINO 特征提取 + TFE 密态多分类
+======================================================================
+run_id           : 20260416_152005
+Python           : /home/lixujie/.conda/envs/tfe/bin/python
+TensorFlow       : 1.15.5
+TF Encrypted     : 0.8.0
+timm             : 0.4.12
+Platform         : Linux-6.11.0-26-generic-x86_64-with-debian-trixie-sid
+
+[配置]
+  EXTRACTOR_NAME : dino_vits16
+  hub 模型名     : dino_vits16
+  timm 候选名    : ['vit_small_patch16_224_dino', 'vit_small_patch16_224.dino']
+  期望特征维度   : 384
+  INPUT_SIZE     : 224
+  TRAIN_SAMPLES  : 1000
+  TEST_SAMPLES   : 200
+  TFE_EPOCHS     : 30
+  TFE_LR         : 0.01
+  ABLATION_DIMS  : [128, 256, 0]
+
+[1/5] 加载 CIFAR-10...
+  训练集: 1000 张  测试集: 200 张
+  原始展平维度: 3072
+  加载耗时: 0.00s
+
+[2/5] DINO 特征提取（dino_vits16，本地明文，不进入 MPC）...
+  未命中缓存，开始提取 [train]...
+  extractor    : dino_vits16
+  hub 模型名   : dino_vits16
+  timm 候选名  : ['vit_small_patch16_224_dino', 'vit_small_patch16_224.dino']
+  期望特征维度 : 384
+  首次运行会下载权重，后续优先复用本地缓存
+  ⚠ 检测到 CUDA 初始化不稳定（可能是 torch 与显卡架构不匹配），自动回退 CPU
+  推理设备     : cpu
+  timm=0.4.12 未注册 DINO 候选模型，转 torch.hub 回退
+  尝试 torch.hub 本地缓存: /home/lixujie/.cache/torch/hub/facebookresearch_dino_main / dino_vits16
+  ✓ 模型加载成功，路径: torch.hub-local:dino_vits16
+  ✓ 特征维度确认: 384
+  开始提取 1000 张图像，batch_size=64...
+  提取完成，耗时 15.26s，特征形状: (1000, 384)
+  已缓存至: dino_feat_dino_vits16_train_1000_224.npz
+  未命中缓存，开始提取 [test]...
+  extractor    : dino_vits16
+  hub 模型名   : dino_vits16
+  timm 候选名  : ['vit_small_patch16_224_dino', 'vit_small_patch16_224.dino']
+  期望特征维度 : 384
+  首次运行会下载权重，后续优先复用本地缓存
+  ⚠ 检测到 CUDA 初始化不稳定（可能是 torch 与显卡架构不匹配），自动回退 CPU
+  推理设备     : cpu
+  timm=0.4.12 未注册 DINO 候选模型，转 torch.hub 回退
+  尝试 torch.hub 本地缓存: /home/lixujie/.cache/torch/hub/facebookresearch_dino_main / dino_vits16
+  ✓ 模型加载成功，路径: torch.hub-local:dino_vits16
+  ✓ 特征维度确认: 384
+  开始提取 200 张图像，batch_size=64...
+  提取完成，耗时 3.03s，特征形状: (200, 384)
+  已缓存至: dino_feat_dino_vits16_test_200_224.npz
+  原始像素维度  : 3072
+  DINO 特征维度 : 384
+  语义压缩比    : 0.1250  (384/3072 = 12.5%)
+  提取总耗时    : 18.29s
+
+[3/5] 运行子实验 A / B / C...
+
+─────────────────────────────────────────────────────────────────
+  实验 A：明文 DINO + Logistic Regression（上界基准）
+─────────────────────────────────────────────────────────────────
+  特征提取器      : dino_vits16
+  特征维度        : 384
+  LR 训练耗时     : 0.042s
+  Train Accuracy  : 1.0000
+  Test  Accuracy  : 0.9600
+
+─────────────────────────────────────────────────────────────────
+  实验 B：DINO 特征 → TFE 密态多分类（核心）
+─────────────────────────────────────────────────────────────────

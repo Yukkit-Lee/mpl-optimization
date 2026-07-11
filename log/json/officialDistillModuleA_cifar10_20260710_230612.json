@@ -1,0 +1,220 @@
+{
+  "run_id": "20260710_230612",
+  "dataset": "cifar10",
+  "config": {
+    "seed": 42,
+    "cpu_threads": 1,
+    "ipc": 50,
+    "train_steps": 1000,
+    "eval_interval": 100,
+    "plot_epsilon_annotations": false,
+    "batch_size": 128,
+    "test_batch_size": 256,
+    "lr": 0.01,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "use_diff_augment": true,
+    "use_cosine_scheduler": true,
+    "device": "auto",
+    "datasets": [
+      "cifar10",
+      "cifar100",
+      "tiny"
+    ]
+  },
+  "official_dir": "/home/lixujie/tmpWork/mtt_data/georgecazenavette/cifar10_50",
+  "image_files": [
+    "images_best.pt"
+  ],
+  "label_files": [
+    "labels_best.pt"
+  ],
+  "num_full_samples": 50000,
+  "num_distilled_samples": 500,
+  "compression_ratio": 0.01,
+  "train_steps_effective": 900,
+  "eval_interval_effective": 100,
+  "figure_note": "Figure 4 main plot does not annotate epsilon; DP privacy budget should be reported in a separate DP table/appendix figure.",
+  "results": [
+    {
+      "name": "Full-Data",
+      "num_samples": 50000,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.1254,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.4725,
+          "loss": 1.8626351356506348
+        },
+        {
+          "step": 200,
+          "test_acc": 0.5613,
+          "loss": 1.3096437454223633
+        },
+        {
+          "step": 300,
+          "test_acc": 0.6072,
+          "loss": 1.3267247676849365
+        },
+        {
+          "step": 400,
+          "test_acc": 0.6134,
+          "loss": 1.1689029932022095
+        },
+        {
+          "step": 500,
+          "test_acc": 0.6642,
+          "loss": 1.1638717651367188
+        },
+        {
+          "step": 600,
+          "test_acc": 0.6865,
+          "loss": 1.024323582649231
+        },
+        {
+          "step": 700,
+          "test_acc": 0.7003,
+          "loss": 0.9099645614624023
+        },
+        {
+          "step": 800,
+          "test_acc": 0.7066,
+          "loss": 0.9169116020202637
+        },
+        {
+          "step": 900,
+          "test_acc": 0.7094,
+          "loss": 0.8114271759986877
+        }
+      ],
+      "final_test_acc": 0.7094,
+      "train_time_s": 13.611167192459106
+    },
+    {
+      "name": "Random-Subset",
+      "num_samples": 500,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.1043,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.4141,
+          "loss": 0.9449789524078369
+        },
+        {
+          "step": 200,
+          "test_acc": 0.4354,
+          "loss": 0.40928953886032104
+        },
+        {
+          "step": 300,
+          "test_acc": 0.4668,
+          "loss": 0.1567813754081726
+        },
+        {
+          "step": 400,
+          "test_acc": 0.4774,
+          "loss": 0.07141564041376114
+        },
+        {
+          "step": 500,
+          "test_acc": 0.4824,
+          "loss": 0.03637779504060745
+        },
+        {
+          "step": 600,
+          "test_acc": 0.4806,
+          "loss": 0.02740820124745369
+        },
+        {
+          "step": 700,
+          "test_acc": 0.4875,
+          "loss": 0.024879243224859238
+        },
+        {
+          "step": 800,
+          "test_acc": 0.4868,
+          "loss": 0.028990494087338448
+        },
+        {
+          "step": 900,
+          "test_acc": 0.4878,
+          "loss": 0.022471658885478973
+        }
+      ],
+      "final_test_acc": 0.4878,
+      "train_time_s": 13.383409023284912
+    },
+    {
+      "name": "Official-Distilled",
+      "num_samples": 500,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.1024,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.5526,
+          "loss": 0.687372088432312
+        },
+        {
+          "step": 200,
+          "test_acc": 0.624,
+          "loss": 0.12088599801063538
+        },
+        {
+          "step": 300,
+          "test_acc": 0.6485,
+          "loss": 0.05221915990114212
+        },
+        {
+          "step": 400,
+          "test_acc": 0.6589,
+          "loss": 0.021203337237238884
+        },
+        {
+          "step": 500,
+          "test_acc": 0.6637,
+          "loss": 0.017304550856351852
+        },
+        {
+          "step": 600,
+          "test_acc": 0.6654,
+          "loss": 0.015877271071076393
+        },
+        {
+          "step": 700,
+          "test_acc": 0.6713,
+          "loss": 0.013437701389193535
+        },
+        {
+          "step": 800,
+          "test_acc": 0.6692,
+          "loss": 0.012865460477769375
+        },
+        {
+          "step": 900,
+          "test_acc": 0.6698,
+          "loss": 0.012587698176503181
+        }
+      ],
+      "final_test_acc": 0.6698,
+      "train_time_s": 8.507762670516968
+    }
+  ],
+  "outputs": {
+    "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/officialDistillModuleA_cifar10_20260710_230612.log",
+    "json": "/mnt/code/lixujie/tfe_experiments/log/json/officialDistillModuleA_cifar10_20260710_230612.json",
+    "csv": "/mnt/code/lixujie/tfe_experiments/expTab/officialDistillModuleA_cifar10_20260710_230612.csv",
+    "figure": "/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_official/figure4_official_distill_cifar10.png"
+  }
+}

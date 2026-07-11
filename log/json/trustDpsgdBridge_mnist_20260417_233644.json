@@ -1,0 +1,95 @@
+{
+  "run_id": "20260417_233644",
+  "dataset": "mnist",
+  "mode": "trust_dp",
+  "trust_t": 0.7,
+  "elapsed_s": 2.587,
+  "txt_log_file": "/mnt/code/lixujie/tfe_experiments/log/txt/trustDpsgd_mnist_20260417_233644.log",
+  "main_json_file": "/mnt/code/lixujie/tfe_experiments/log/json/trustDpsgd_mnist_20260417_233644.json",
+  "compare_json_file": null,
+  "module_b_cache": {
+    "policy": "best",
+    "meta_json": "/mnt/code/lixujie/tfe_experiments/init_model/module_b_best_mnist.json",
+    "weights_pt": "/mnt/code/lixujie/tfe_experiments/init_model/module_b_best_mnist.pt"
+  },
+  "module_b_candidate": {
+    "avg_ref_acc": 0.75,
+    "best_ref_acc": 0.525,
+    "best_local_idx": 2,
+    "chosen_init_type": "avg",
+    "avg_test_acc": 0.744,
+    "best_test_acc": 0.516,
+    "chosen_test_acc": 0.744
+  },
+  "figure5_tfe": {
+    "config": {
+      "epochs": 1,
+      "lr": 0.01,
+      "seed": 42,
+      "feat_dim": 144,
+      "num_classes": 10,
+      "protocol": "ABY3"
+    },
+    "curves": {
+      "random_init": [
+        {
+          "epoch": 1,
+          "iteration": 1,
+          "train_loss": 0.37708740234375,
+          "test_loss": 0.38051147132620117,
+          "train_acc": 0.146,
+          "test_acc": 0.118
+        }
+      ],
+      "avg_init": [
+        {
+          "epoch": 1,
+          "iteration": 1,
+          "train_loss": 0.23287200927734375,
+          "test_loss": 0.22088902395834784,
+          "train_acc": 0.767,
+          "test_acc": 0.753
+        }
+      ],
+      "best_init": [
+        {
+          "epoch": 1,
+          "iteration": 1,
+          "train_loss": 0.6352584838867188,
+          "test_loss": 0.6119237230268016,
+          "train_acc": 0.536,
+          "test_acc": 0.52
+        }
+      ]
+    },
+    "finals": {
+      "random_init": {
+        "final_train_acc": 0.146,
+        "final_test_acc": 0.118,
+        "final_train_loss": 0.37708740234375,
+        "final_test_loss": 0.38051147132620117,
+        "total_train_time_s": 0.21
+      },
+      "avg_init": {
+        "final_train_acc": 0.767,
+        "final_test_acc": 0.753,
+        "final_train_loss": 0.23287200927734375,
+        "final_test_loss": 0.22088902395834784,
+        "total_train_time_s": 0.208
+      },
+      "best_init": {
+        "final_train_acc": 0.536,
+        "final_test_acc": 0.52,
+        "final_train_loss": 0.6352584838867188,
+        "final_test_loss": 0.6119237230268016,
+        "total_train_time_s": 0.217
+      }
+    },
+    "winner": "avg_init"
+  },
+  "figure5_tfe_files": {
+    "figure5_json": "/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_mnist_20260417_233644.json",
+    "figure5_csv": "/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_mnist_20260417_233644.csv",
+    "figure5_png": "/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_mnist_20260417_233644.png"
+  }
+}

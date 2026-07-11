@@ -1,0 +1,220 @@
+{
+  "run_id": "20260710_224107",
+  "dataset": "cifar10",
+  "config": {
+    "seed": 42,
+    "cpu_threads": 1,
+    "ipc": 50,
+    "train_steps": 1000,
+    "eval_interval": 100,
+    "plot_epsilon_annotations": true,
+    "batch_size": 128,
+    "test_batch_size": 256,
+    "lr": 0.01,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "use_diff_augment": true,
+    "use_cosine_scheduler": true,
+    "device": "auto",
+    "datasets": [
+      "cifar10",
+      "cifar100",
+      "tiny"
+    ]
+  },
+  "official_dir": "/home/lixujie/tmpWork/mtt_data/georgecazenavette/cifar10_50",
+  "image_files": [
+    "images_best.pt"
+  ],
+  "label_files": [
+    "labels_best.pt"
+  ],
+  "num_full_samples": 50000,
+  "num_distilled_samples": 500,
+  "compression_ratio": 0.01,
+  "train_steps_effective": 900,
+  "eval_interval_effective": 100,
+  "epsilon_annotation_note": "PEA-style plot annotation only; not a real DP accountant for this non-DP module-A verification.",
+  "results": [
+    {
+      "name": "Full-Data",
+      "num_samples": 50000,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.0997,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.4803,
+          "loss": 1.7060737609863281
+        },
+        {
+          "step": 200,
+          "test_acc": 0.5674,
+          "loss": 1.3898438215255737
+        },
+        {
+          "step": 300,
+          "test_acc": 0.599,
+          "loss": 1.3109712600708008
+        },
+        {
+          "step": 400,
+          "test_acc": 0.6164,
+          "loss": 1.145007848739624
+        },
+        {
+          "step": 500,
+          "test_acc": 0.6625,
+          "loss": 1.236430287361145
+        },
+        {
+          "step": 600,
+          "test_acc": 0.6772,
+          "loss": 1.011844515800476
+        },
+        {
+          "step": 700,
+          "test_acc": 0.6958,
+          "loss": 0.9347943067550659
+        },
+        {
+          "step": 800,
+          "test_acc": 0.7021,
+          "loss": 0.9737511873245239
+        },
+        {
+          "step": 900,
+          "test_acc": 0.7068,
+          "loss": 0.8947871923446655
+        }
+      ],
+      "final_test_acc": 0.7068,
+      "train_time_s": 13.667897939682007
+    },
+    {
+      "name": "Random-Subset",
+      "num_samples": 500,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.1015,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.4173,
+          "loss": 0.8126589059829712
+        },
+        {
+          "step": 200,
+          "test_acc": 0.4525,
+          "loss": 0.43246182799339294
+        },
+        {
+          "step": 300,
+          "test_acc": 0.4635,
+          "loss": 0.15004095435142517
+        },
+        {
+          "step": 400,
+          "test_acc": 0.4749,
+          "loss": 0.07275766134262085
+        },
+        {
+          "step": 500,
+          "test_acc": 0.474,
+          "loss": 0.035279035568237305
+        },
+        {
+          "step": 600,
+          "test_acc": 0.4768,
+          "loss": 0.04638168588280678
+        },
+        {
+          "step": 700,
+          "test_acc": 0.4772,
+          "loss": 0.03031279519200325
+        },
+        {
+          "step": 800,
+          "test_acc": 0.4757,
+          "loss": 0.017083944752812386
+        },
+        {
+          "step": 900,
+          "test_acc": 0.4765,
+          "loss": 0.024644246324896812
+        }
+      ],
+      "final_test_acc": 0.4765,
+      "train_time_s": 13.556491374969482
+    },
+    {
+      "name": "Official-Distilled",
+      "num_samples": 500,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.0948,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.5456,
+          "loss": 0.8452082276344299
+        },
+        {
+          "step": 200,
+          "test_acc": 0.634,
+          "loss": 0.148990660905838
+        },
+        {
+          "step": 300,
+          "test_acc": 0.6563,
+          "loss": 0.054407645016908646
+        },
+        {
+          "step": 400,
+          "test_acc": 0.663,
+          "loss": 0.02438274584710598
+        },
+        {
+          "step": 500,
+          "test_acc": 0.6717,
+          "loss": 0.015572569333016872
+        },
+        {
+          "step": 600,
+          "test_acc": 0.6716,
+          "loss": 0.013796547427773476
+        },
+        {
+          "step": 700,
+          "test_acc": 0.6758,
+          "loss": 0.012970447540283203
+        },
+        {
+          "step": 800,
+          "test_acc": 0.6761,
+          "loss": 0.013132820837199688
+        },
+        {
+          "step": 900,
+          "test_acc": 0.6749,
+          "loss": 0.013070700690150261
+        }
+      ],
+      "final_test_acc": 0.6749,
+      "train_time_s": 8.52991771697998
+    }
+  ],
+  "outputs": {
+    "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/officialDistillModuleA_cifar10_20260710_224107.log",
+    "json": "/mnt/code/lixujie/tfe_experiments/log/json/officialDistillModuleA_cifar10_20260710_224107.json",
+    "csv": "/mnt/code/lixujie/tfe_experiments/expTab/officialDistillModuleA_cifar10_20260710_224107.csv",
+    "figure": "/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_official/figure4_official_distill_cifar10.png"
+  }
+}

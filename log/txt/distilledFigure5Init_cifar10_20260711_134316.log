@@ -1,0 +1,113 @@
+========================================================================================
+Figure 5：Official Distilled Compact Set -> Module B Init -> Convergence
+========================================================================================
+dataset      : cifar10
+run_id       : 20260711_134316
+cpu_threads  : 1
+feature_dim  : 2048
+global_steps : 900
+eval_interval: 25
+secure_agg   : False
+
+[1/4] 加载 official distilled compact training set 与 test set ...
+  distilled: (500, 3, 32, 32) (500,) ['images_best.pt']
+  test cap : (3000, 3, 32, 32) (3000,) / full_test=10000
+
+[2/4] 训练同款 MTT ConvNet feature extractor，并抽取模块 B 特征 ...
+  feature extractor device: cuda
+  extractor step=    1/900  test_acc=0.0987  loss=2.3341
+  extractor step=  100/900  test_acc=0.5383  loss=0.5862
+  extractor step=  200/900  test_acc=0.6533  loss=0.1398
+  extractor step=  300/900  test_acc=0.6627  loss=0.0418
+  extractor step=  400/900  test_acc=0.6683  loss=0.0332
+  extractor step=  500/900  test_acc=0.6773  loss=0.0250
+  extractor step=  600/900  test_acc=0.6693  loss=0.0152
+  extractor step=  700/900  test_acc=0.6747  loss=0.0126
+  extractor step=  800/900  test_acc=0.6700  loss=0.0151
+  extractor step=  900/900  test_acc=0.6713  loss=0.0129
+  extractor_test_acc: 0.6713
+  X_train_feat: (500, 2048)
+  X_test_feat : (3000, 2048)
+
+[3/4] 运行模块 B KD 初始化 ...
+========================================================================
+模块 b：KD-based Heterogeneity-aware Initialization（最简版）
+========================================================================
+feat_dim            : 2048
+num_classes         : 10
+num_clients         : 5
+classes_per_client  : None
+ref_size            : 125
+local_epochs/lr     : 80 0.01
+distill_epochs/lr   : 30 0.005
+tau/lambda_kd       : 2.0 1.0
+local_train_mode    : SGD
+run_figure5         : False
+device              : cpu
+
+[Step2] class-skew 划分统计
+  client  0 | n=115   | classes=[0, 1, 5, 7, 8] | hist={0: 13, 1: 25, 5: 17, 7: 10, 8: 50}
+  client  1 | n=78    | classes=[0, 1, 2, 5, 7] | hist={0: 13, 1: 25, 2: 13, 5: 17, 7: 10}
+  client  2 | n=118   | classes=[0, 2, 5, 6, 7, 9] | hist={0: 12, 2: 13, 5: 16, 6: 50, 7: 10, 9: 17}
+  client  3 | n=76    | classes=[0, 2, 4, 7, 9] | hist={0: 12, 2: 12, 4: 25, 7: 10, 9: 17}
+  client  4 | n=113   | classes=[2, 3, 4, 7, 9] | hist={2: 12, 3: 50, 4: 25, 7: 10, 9: 16}
+
+[Step3] local pretraining
+  client  0 | train_acc=1.0000 | val_acc=0.9565
+  client  1 | train_acc=1.0000 | val_acc=1.0000
+  client  2 | train_acc=1.0000 | val_acc=1.0000
+  client  3 | train_acc=1.0000 | val_acc=0.9333
+  client  4 | train_acc=1.0000 | val_acc=0.9565
+
+[Step4] reference set: X_ref=(125, 2048), y_ref=(125,)
+[Step5] ensemble teacher probs shape: (125, 10)
+
+[Step6] KD distillation
+  client  0 | before=0.9913 -> after=1.0000
+  client  1 | before=1.0000 -> after=1.0000
+  client  2 | before=1.0000 -> after=1.0000
+  client  3 | before=0.9868 -> after=1.0000
+  client  4 | before=0.9912 -> after=1.0000
+
+[Step7] 使用明文聚合 + 明文候选评估 ...
+
+[Step8] candidate comparison (明文)
+  avg_ref_acc   : 0.9280
+  best_ref_acc  : 0.8640
+  best_local_id : 0
+  chosen        : avg
+  aggregation   : 明文
+
+  [test set check]
+  avg_test_acc  : 0.5593
+  best_test_acc : 0.4900
+  chosen_test_acc: 0.5593
+
+[4/4] 候选初始化池 -> Reference-guided Selection -> 后续全局训练收敛对比 ...
+  selection reference: X_ref=(100, 2048), y_ref=(100,) (真实训练集 held-out)
+
+[Reference-guided Selection] 只使用 reference set，不使用 test set
+  target_ref_acc: 0.9950
+  Random Init                init_ref=0.0700 probe_ref=1.0000 score=0.2560 target_step=6
+  Avg Init                   init_ref=0.6000 probe_ref=1.0000 score=0.6800 target_step=6
+  Reference-Weighted Init    init_ref=0.5900 probe_ref=1.0000 score=0.6720 target_step=6
+  Distilled Prototype Init   init_ref=0.6500 probe_ref=0.7700 score=0.6740 target_step=None
+  Module-B Chosen Init: Avg Init
+  Random Init  step=    0/900 train_acc=0.1280 test_acc=0.1133
+  Random Init  step=  900/900 train_acc=1.0000 test_acc=0.6593
+  Avg Init     step=    0/900 train_acc=0.9440 test_acc=0.5593
+  Avg Init     step=  900/900 train_acc=1.0000 test_acc=0.6663
+  Reference-Weighted Init step=    0/900 train_acc=0.9560 test_acc=0.5610
+  Reference-Weighted Init step=  900/900 train_acc=1.0000 test_acc=0.6670
+  Distilled Prototype Init step=    0/900 train_acc=1.0000 test_acc=0.6513
+  Distilled Prototype Init step=  900/900 train_acc=1.0000 test_acc=0.6247
+
+[Figure5 结果]
+  Random Init                test_acc=0.6593 train_acc=1.0000 target_step=625 reached=True full_step=900
+  Avg Init                   test_acc=0.6663 train_acc=1.0000 target_step=200 reached=True full_step=900
+  Reference-Weighted Init    test_acc=0.6670 train_acc=1.0000 target_step=200 reached=True full_step=900
+  Distilled Prototype Init   test_acc=0.6247 train_acc=1.0000 target_step=900 reached=False full_step=900
+  winner: Reference-Weighted Init
+  reference_chosen: Avg Init
+图像: /mnt/code/lixujie/tfe_experiments/expFig/figure5_distilledInit/figure5_distilled_init_cifar10_20260711_134316.png
+JSON: /mnt/code/lixujie/tfe_experiments/log/json/distilledFigure5Init_cifar10_20260711_134316.json

@@ -1,0 +1,89 @@
+========================================================================================
+模块 A 验证：Dataset-Distilled Compact Training Set Construction
+========================================================================================
+run_id       : 20260709_194457
+train_steps  : 600
+eval_interval: 50
+batch_size   : 128
+lr           : 0.01
+cpu_threads  : 1
+device       : cuda
+
+[1/4] 加载本地 CIFAR-10 缓存...
+  Full train : (50000, 3, 32, 32) (50000,)
+  Test       : (10000, 3, 32, 32) (10000,)
+
+[2/4] 加载已有 distilled samples...
+  候选预筛选：用少量 optimizer steps 选择有效 distilled checkpoint
+    images_best_cifar10.pt     acc=0.5850  dir=mtt-distillation
+    images_best_cifar10.pt     acc=0.5865  dir=misty-galaxy-7
+    images_best.pt             acc=0.5885  dir=misty-galaxy-7
+    images_5000.pt             acc=0.5750  dir=misty-galaxy-7
+    images_4000.pt             acc=0.5785  dir=misty-galaxy-7
+    images_3000.pt             acc=0.5645  dir=misty-galaxy-7
+    images_best.pt             acc=0.5730  dir=restful-sound-8
+    images02_best.pt           acc=0.5710  dir=restful-sound-8
+    images_5000.pt             acc=0.5765  dir=restful-sound-8
+    images_4000.pt             acc=0.5505  dir=restful-sound-8
+    images_3000.pt             acc=0.5480  dir=restful-sound-8
+  选择候选: /mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_best.pt (probe_acc=0.5885)
+  images     : /mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_best.pt
+  labels     : /mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/labels_best.pt
+  shape      : (500, 3, 32, 32) (500,)
+  range      : [-5.6117, 5.6511]
+  compression: 0.0100 (1.00%)
+
+[3/4] 构造同规模 Random-Subset...
+  Random subset: (500, 3, 32, 32) (500,)
+
+[4/4] 训练三种数据来源（横轴为 Optimizer Steps）...
+  Full-Data       step=   50/600  test_acc=0.3882  loss=2.0056
+  Full-Data       step=  100/600  test_acc=0.4417  loss=1.5059
+  Full-Data       step=  150/600  test_acc=0.4907  loss=1.6351
+  Full-Data       step=  200/600  test_acc=0.4730  loss=1.4525
+  Full-Data       step=  250/600  test_acc=0.5416  loss=1.4269
+  Full-Data       step=  300/600  test_acc=0.5601  loss=1.3710
+  Full-Data       step=  350/600  test_acc=0.5801  loss=1.1456
+  Full-Data       step=  400/600  test_acc=0.5829  loss=1.2998
+  Full-Data       step=  450/600  test_acc=0.6009  loss=1.3450
+  Full-Data       step=  500/600  test_acc=0.6077  loss=1.2666
+  Full-Data       step=  550/600  test_acc=0.6081  loss=1.2926
+  Full-Data       step=  600/600  test_acc=0.6115  loss=1.3320
+  Random-Subset   step=   50/600  test_acc=0.3563  loss=1.6261
+  Random-Subset   step=  100/600  test_acc=0.4077  loss=1.2068
+  Random-Subset   step=  150/600  test_acc=0.4148  loss=0.8764
+  Random-Subset   step=  200/600  test_acc=0.4431  loss=0.6802
+  Random-Subset   step=  250/600  test_acc=0.4256  loss=0.5414
+  Random-Subset   step=  300/600  test_acc=0.4432  loss=0.4336
+  Random-Subset   step=  350/600  test_acc=0.4475  loss=0.3447
+  Random-Subset   step=  400/600  test_acc=0.4481  loss=0.3180
+  Random-Subset   step=  450/600  test_acc=0.4501  loss=0.2184
+  Random-Subset   step=  500/600  test_acc=0.4546  loss=0.2191
+  Random-Subset   step=  550/600  test_acc=0.4542  loss=0.2066
+  Random-Subset   step=  600/600  test_acc=0.4548  loss=0.2535
+  Distilled-Data  step=   50/600  test_acc=0.3842  loss=1.6261
+  Distilled-Data  step=  100/600  test_acc=0.5027  loss=0.9127
+  Distilled-Data  step=  150/600  test_acc=0.5486  loss=0.4849
+  Distilled-Data  step=  200/600  test_acc=0.5762  loss=0.3288
+  Distilled-Data  step=  250/600  test_acc=0.6001  loss=0.2280
+  Distilled-Data  step=  300/600  test_acc=0.6067  loss=0.1622
+  Distilled-Data  step=  350/600  test_acc=0.6134  loss=0.0972
+  Distilled-Data  step=  400/600  test_acc=0.6219  loss=0.1198
+  Distilled-Data  step=  450/600  test_acc=0.6288  loss=0.1035
+  Distilled-Data  step=  500/600  test_acc=0.6283  loss=0.0711
+  Distilled-Data  step=  550/600  test_acc=0.6311  loss=0.0793
+  Distilled-Data  step=  600/600  test_acc=0.6315  loss=0.0982
+
+========================================================================================
+[结果汇总]
+Method           Samples      Compression    FinalAcc     Time(s)     
+----------------------------------------------------------------------------------------
+Full-Data        50000        1.0000         0.6115       5.03        
+Random-Subset    500          0.0100         0.4548       5.01        
+Distilled-Data   500          0.0100         0.6315       5.00        
+========================================================================================
+Figure: /mnt/code/lixujie/tfe_experiments/expFig/figure4_distill/figure4_cifar10_distilled_verify.png
+CSV   : /mnt/code/lixujie/tfe_experiments/expTab/cifar10_distilled_moduleA_verify_20260709_194457.csv
+JSON  : /mnt/code/lixujie/tfe_experiments/log/json/cifar10_distilled_moduleA_verify_20260709_194457.json
+TXT   : /mnt/code/lixujie/tfe_experiments/log/txt/cifar10_distilled_moduleA_verify_20260709_194457.log
+ProgressLog: /mnt/code/lixujie/tfe_experiments/progressLog/20260709_moduleA_distilled_verify.md

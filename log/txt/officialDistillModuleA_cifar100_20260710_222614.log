@@ -1,0 +1,60 @@
+========================================================================================
+官方 MTT ipc=50 蒸馏数据：模块 A 验证实验
+========================================================================================
+dataset      : cifar100
+run_id       : 20260710_222614
+steps        : 1000
+eval_interval: 100
+cpu_threads  : 1
+device       : cuda
+
+[1/4] 加载 MTT 标准真实数据与测试集...
+  train_size: 50000  test_size: 10000  im_size: (32, 32)  classes: 100
+
+[2/4] 加载官方 ipc=50 蒸馏数据...
+  images: (5000, 3, 32, 32) ['images_best.pt']
+  labels: (5000,) ['labels_best.pt']
+  range : [-17.3901, 15.1620]
+  compression ratio: 0.1000 (10.00%)
+
+[3/4] 构造 Full / Random / Official-Distilled 三组 source...
+
+[4/4] 开始训练并记录曲线...
+  Full-Data          step=  100/1000  test_acc=0.1251  loss=3.9398
+  Full-Data          step=  200/1000  test_acc=0.1801  loss=3.6519
+  Full-Data          step=  300/1000  test_acc=0.2365  loss=3.4170
+  Full-Data          step=  400/1000  test_acc=0.2692  loss=3.3263
+  Full-Data          step=  500/1000  test_acc=0.2977  loss=2.9821
+  Full-Data          step=  600/1000  test_acc=0.3139  loss=3.2949
+  Full-Data          step=  700/1000  test_acc=0.3313  loss=2.9664
+  Full-Data          step=  800/1000  test_acc=0.3404  loss=2.9007
+  Full-Data          step=  900/1000  test_acc=0.3495  loss=3.0103
+  Full-Data          step= 1000/1000  test_acc=0.3502  loss=2.7622
+  Random-Subset      step=  100/1000  test_acc=0.1115  loss=3.9230
+  Random-Subset      step=  200/1000  test_acc=0.1716  loss=3.3382
+  Random-Subset      step=  300/1000  test_acc=0.2116  loss=3.0592
+  Random-Subset      step=  400/1000  test_acc=0.2432  loss=2.9628
+  Random-Subset      step=  500/1000  test_acc=0.2628  loss=2.5767
+  Random-Subset      step=  600/1000  test_acc=0.2825  loss=2.2280
+  Random-Subset      step=  700/1000  test_acc=0.2935  loss=2.4088
+  Random-Subset      step=  800/1000  test_acc=0.3025  loss=2.1852
+  Random-Subset      step=  900/1000  test_acc=0.3071  loss=2.2558
+  Random-Subset      step= 1000/1000  test_acc=0.3113  loss=2.1447
+  Official-Distilled step=  100/1000  test_acc=0.1678  loss=3.1438
+  Official-Distilled step=  200/1000  test_acc=0.2761  loss=2.0243
+  Official-Distilled step=  300/1000  test_acc=0.3352  loss=1.2535
+  Official-Distilled step=  400/1000  test_acc=0.3654  loss=1.0390
+  Official-Distilled step=  500/1000  test_acc=0.3847  loss=0.6513
+  Official-Distilled step=  600/1000  test_acc=0.3937  loss=0.4713
+  Official-Distilled step=  700/1000  test_acc=0.4044  loss=0.3836
+  Official-Distilled step=  800/1000  test_acc=0.4098  loss=0.3518
+  Official-Distilled step=  900/1000  test_acc=0.4171  loss=0.4329
+  Official-Distilled step= 1000/1000  test_acc=0.4176  loss=0.3019
+
+[结果汇总]
+  Full-Data          final_acc=0.3502  time=15.2s  samples=50000
+  Random-Subset      final_acc=0.3113  time=14.9s  samples=5000
+  Official-Distilled final_acc=0.4176  time=9.4s  samples=5000
+图像: /mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_official/figure4_official_distill_cifar100.png
+JSON: /mnt/code/lixujie/tfe_experiments/log/json/officialDistillModuleA_cifar100_20260710_222614.json
+CSV : /mnt/code/lixujie/tfe_experiments/expTab/officialDistillModuleA_cifar100_20260710_222614.csv

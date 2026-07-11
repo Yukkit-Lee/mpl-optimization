@@ -1,0 +1,154 @@
+{
+  "run_id": "20260416_183153",
+  "dataset": "cifar_dino",
+  "safe_mode": true,
+  "cpu_threads": 4,
+  "data": {
+    "source_feat": "dino_feat_dino_vits16_train_1000_224.npz | dino_feat_dino_vits16_test_1000_224.npz",
+    "source_label": "/mnt/code/lixujie/tfe_experiments/data/cifar10_tr1000_te1000_s42.npz",
+    "x_train_shape": [
+      1000,
+      384
+    ],
+    "x_test_shape": [
+      200,
+      384
+    ],
+    "y_train_shape": [
+      1000
+    ],
+    "y_test_shape": [
+      200
+    ]
+  },
+  "candidate": {
+    "avg_ref_acc": 0.5166666666666667,
+    "best_ref_acc": 0.36666666666666664,
+    "best_local_idx": 1,
+    "chosen_init_type": "avg",
+    "avg_test_acc": 0.325,
+    "best_test_acc": 0.245,
+    "chosen_test_acc": 0.325
+  },
+  "figure5": {
+    "config": {
+      "global_epochs": 3,
+      "global_lr": 0.01,
+      "seed": 42
+    },
+    "curves": {
+      "random_init": [
+        {
+          "epoch": 1,
+          "train_loss": 3.5435311794281006,
+          "test_loss": 3.8192479610443115,
+          "train_acc": 0.203,
+          "test_acc": 0.155
+        },
+        {
+          "epoch": 2,
+          "train_loss": 2.3572139739990234,
+          "test_loss": 2.6023595333099365,
+          "train_acc": 0.364,
+          "test_acc": 0.33
+        },
+        {
+          "epoch": 3,
+          "train_loss": 1.7632107734680176,
+          "test_loss": 2.1113033294677734,
+          "train_acc": 0.46,
+          "test_acc": 0.39
+        }
+      ],
+      "avg_init": [
+        {
+          "epoch": 1,
+          "train_loss": 1.9809882640838623,
+          "test_loss": 1.9507107734680176,
+          "train_acc": 0.481,
+          "test_acc": 0.495
+        },
+        {
+          "epoch": 2,
+          "train_loss": 1.7326061725616455,
+          "test_loss": 1.9814064502716064,
+          "train_acc": 0.633,
+          "test_acc": 0.585
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.8119327425956726,
+          "test_loss": 0.9666770100593567,
+          "train_acc": 0.736,
+          "test_acc": 0.675
+        }
+      ],
+      "best_init": [
+        {
+          "epoch": 1,
+          "train_loss": 2.445601463317871,
+          "test_loss": 2.811635732650757,
+          "train_acc": 0.408,
+          "test_acc": 0.37
+        },
+        {
+          "epoch": 2,
+          "train_loss": 1.7562000751495361,
+          "test_loss": 1.9913276433944702,
+          "train_acc": 0.556,
+          "test_acc": 0.52
+        },
+        {
+          "epoch": 3,
+          "train_loss": 1.042211890220642,
+          "test_loss": 1.2226108312606812,
+          "train_acc": 0.653,
+          "test_acc": 0.595
+        }
+      ]
+    },
+    "finals": {
+      "random_init": {
+        "final_train_acc": 0.46,
+        "final_test_acc": 0.39,
+        "final_train_loss": 1.7632107734680176,
+        "final_test_loss": 2.1113033294677734
+      },
+      "avg_init": {
+        "final_train_acc": 0.736,
+        "final_test_acc": 0.675,
+        "final_train_loss": 0.8119327425956726,
+        "final_test_loss": 0.9666770100593567
+      },
+      "best_init": {
+        "final_train_acc": 0.653,
+        "final_test_acc": 0.595,
+        "final_train_loss": 1.042211890220642,
+        "final_test_loss": 1.2226108312606812
+      }
+    },
+    "winner": "avg_init"
+  },
+  "figure5_files": {
+    "figure5_json": "/mnt/code/lixujie/tfe_experiments/log/figure5_curve_cifar_dino_20260416_183153.json",
+    "figure5_csv": "/mnt/code/lixujie/tfe_experiments/log/figure5_curve_cifar_dino_20260416_183153.csv",
+    "figure5_png": "/mnt/code/lixujie/tfe_experiments/log/figure5_curve_cifar_dino_20260416_183153.png"
+  },
+  "config": {
+    "num_clients": 3,
+    "classes_per_client": null,
+    "ref_size": 60,
+    "local_epochs": 2,
+    "local_lr": 0.01,
+    "tau": 2.0,
+    "lambda_kd": 1.0,
+    "distill_epochs": 2,
+    "distill_lr": 0.005,
+    "seed": 42,
+    "device": "cpu",
+    "run_figure5": true,
+    "global_epochs": 3,
+    "global_lr": 0.01
+  },
+  "elapsed_s": 0.244
+}

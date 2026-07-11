@@ -1,0 +1,228 @@
+{
+  "run_id": "20260421_204811",
+  "datasets": [
+    "mnist",
+    "cifar",
+    "imdb"
+  ],
+  "distribution": [
+    "iid",
+    "noniid"
+  ],
+  "cfg": {
+    "safe_mode": true,
+    "cpu_threads": 1,
+    "max_test_cap": 1000,
+    "num_clients": 5,
+    "classes_per_client": 0,
+    "ref_size": 200,
+    "local_epochs": 80,
+    "local_lr": 0.01,
+    "tau": 2.0,
+    "lambda_kd": 1.0,
+    "distill_epochs": 30,
+    "distill_lr": 0.005,
+    "device": "cpu",
+    "use_secure_aggregation": false,
+    "secure_max_threads": 1,
+    "max_epoch_log_lines": 10,
+    "local_use_dpsgd": false,
+    "local_dpsgd_batch_size": 64,
+    "local_dpsgd_clipping_norm": 1.0,
+    "local_dpsgd_noise_multiplier": 1.0,
+    "num_repeats": 1,
+    "seed_base": 42
+  },
+  "records": [
+    {
+      "dataset": "mnist",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.812,
+      "best_test_acc": 0.699
+    },
+    {
+      "dataset": "mnist",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.824,
+      "best_test_acc": 0.704
+    },
+    {
+      "dataset": "mnist",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.741,
+      "best_test_acc": 0.451
+    },
+    {
+      "dataset": "mnist",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.744,
+      "best_test_acc": 0.516
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.895,
+      "best_test_acc": 0.778
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.898,
+      "best_test_acc": 0.816
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.452,
+      "best_test_acc": 0.53
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.686,
+      "best_test_acc": 0.601
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.662,
+      "best_test_acc": 0.591
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.702,
+      "best_test_acc": 0.604
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.71,
+      "best_test_acc": 0.741
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.732,
+      "best_test_acc": 0.748
+    }
+  ],
+  "summary": {
+    "cifar::iid::without_kd": {
+      "avg_mean": 0.895,
+      "avg_std": 0.0,
+      "best_mean": 0.778,
+      "best_std": 0.0,
+      "n": 1
+    },
+    "cifar::iid::with_kd": {
+      "avg_mean": 0.898,
+      "avg_std": 0.0,
+      "best_mean": 0.816,
+      "best_std": 0.0,
+      "n": 1
+    },
+    "cifar::noniid::without_kd": {
+      "avg_mean": 0.452,
+      "avg_std": 0.0,
+      "best_mean": 0.53,
+      "best_std": 0.0,
+      "n": 1
+    },
+    "cifar::noniid::with_kd": {
+      "avg_mean": 0.686,
+      "avg_std": 0.0,
+      "best_mean": 0.601,
+      "best_std": 0.0,
+      "n": 1
+    },
+    "imdb::iid::without_kd": {
+      "avg_mean": 0.662,
+      "avg_std": 0.0,
+      "best_mean": 0.591,
+      "best_std": 0.0,
+      "n": 1
+    },
+    "imdb::iid::with_kd": {
+      "avg_mean": 0.702,
+      "avg_std": 0.0,
+      "best_mean": 0.604,
+      "best_std": 0.0,
+      "n": 1
+    },
+    "imdb::noniid::without_kd": {
+      "avg_mean": 0.71,
+      "avg_std": 0.0,
+      "best_mean": 0.741,
+      "best_std": 0.0,
+      "n": 1
+    },
+    "imdb::noniid::with_kd": {
+      "avg_mean": 0.732,
+      "avg_std": 0.0,
+      "best_mean": 0.748,
+      "best_std": 0.0,
+      "n": 1
+    },
+    "mnist::iid::without_kd": {
+      "avg_mean": 0.812,
+      "avg_std": 0.0,
+      "best_mean": 0.699,
+      "best_std": 0.0,
+      "n": 1
+    },
+    "mnist::iid::with_kd": {
+      "avg_mean": 0.824,
+      "avg_std": 0.0,
+      "best_mean": 0.704,
+      "best_std": 0.0,
+      "n": 1
+    },
+    "mnist::noniid::without_kd": {
+      "avg_mean": 0.741,
+      "avg_std": 0.0,
+      "best_mean": 0.451,
+      "best_std": 0.0,
+      "n": 1
+    },
+    "mnist::noniid::with_kd": {
+      "avg_mean": 0.744,
+      "avg_std": 0.0,
+      "best_mean": 0.516,
+      "best_std": 0.0,
+      "n": 1
+    }
+  },
+  "csv_path": "/mnt/code/lixujie/tfe_experiments/expTab/table3_init_compare_all_20260421_204811.csv",
+  "fig_paths": [
+    "/mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/table3_init_compare_mnist_20260421_204811.png",
+    "/mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/table3_init_compare_cifar_20260421_204811.png",
+    "/mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/table3_init_compare_imdb_20260421_204811.png"
+  ],
+  "txt_log": "/mnt/code/lixujie/tfe_experiments/log/txt/table3InitCompare_all_20260421_204811.log",
+  "elapsed_s": 1.231
+}

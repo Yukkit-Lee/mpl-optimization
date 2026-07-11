@@ -439,3 +439,11 @@
 - 正式结果摘要：Severe Non-IID 下 KD-Avg InitAcc=0.5857±0.0069，高于 NoKD-Avg 的 0.5666±0.0051；KD-ReferenceWeighted InitAcc=0.5839±0.0068，高于 NoKD-ReferenceWeighted 的 0.5091±0.0270；Step@TargetAcc 从 NoKD 的 20.0 降到 KD 的 0.0，说明 KD alignment 在强异构下明显缓解 local knowledge conflict。
 - 输出文件：TXT=`log/txt/moduleB_kd_noniid_official_cifar10_20260711_185926.log`；JSON=`log/json/moduleB_kd_noniid_official_cifar10_20260711_185926.json`；CSV=`expTab/moduleB_kd_noniid_official_cifar10_20260711_185926.csv`。
 - Git 设置：由于项目目录所在挂载不支持直接在工作区 `.git` 中 chmod lock，改用 `git init --separate-git-dir=/home/lixujie/tmpWork/mpl-optimization.gitdir`，Git 元数据放在 tmpWork，项目目录保留 `.git` 指针文件。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-11 19:10 Asia/Shanghai
+- 本次对话任务目标：解决 GitHub 自动 push 问题，并按用户新要求将 `expTab/`、`expFig/`、`log/` 实验输出纳入版本管理。
+- 修改内容：更新 `.gitignore`，取消对 `log/`、`expFig/`、`expTab/` 的整体忽略；继续忽略 `*.pt`、`*.pth`、`*.ckpt`、`data/`、`featureData/`、`distilledData/`、`init_model/`、`log/finalModel/` 等大文件或模型权重目录。
+- 安全说明：GitHub token 仅用于本次 push 的临时认证，不写入 remote URL、`.git/config` 或任何提交文件。

@@ -1,0 +1,76 @@
+========================================================================================
+模块 A 验证：Dataset-Distilled Compact Training Set Construction
+========================================================================================
+run_id       : 20260709_193900
+train_steps  : 600
+eval_interval: 50
+batch_size   : 128
+lr           : 0.03
+cpu_threads  : 1
+device       : cuda
+
+[1/4] 加载本地 CIFAR-10 缓存...
+  Full train : (50000, 3, 32, 32) (50000,)
+  Test       : (10000, 3, 32, 32) (10000,)
+
+[2/4] 加载已有 distilled samples...
+  images     : /mnt/code/lixujie/mtt-distillation/images_best_cifar10.pt
+  labels     : /mnt/code/lixujie/mtt-distillation/labels_best_cifar10.pt
+  shape      : (500, 3, 32, 32) (500,)
+  range      : [-5.6117, 5.6511]
+  compression: 0.0100 (1.00%)
+
+[3/4] 构造同规模 Random-Subset...
+  Random subset: (500, 3, 32, 32) (500,)
+
+[4/4] 训练三种数据来源（横轴为 Optimizer Steps）...
+  Full-Data       step=   50/600  test_acc=0.2882  loss=1.6462
+  Full-Data       step=  100/600  test_acc=0.3984  loss=1.4374
+  Full-Data       step=  150/600  test_acc=0.4679  loss=1.2325
+  Full-Data       step=  200/600  test_acc=0.5590  loss=1.1530
+  Full-Data       step=  250/600  test_acc=0.5175  loss=1.2623
+  Full-Data       step=  300/600  test_acc=0.5293  loss=1.2780
+  Full-Data       step=  350/600  test_acc=0.4186  loss=1.1086
+  Full-Data       step=  400/600  test_acc=0.5914  loss=0.9057
+  Full-Data       step=  450/600  test_acc=0.6166  loss=0.7862
+  Full-Data       step=  500/600  test_acc=0.4510  loss=0.9020
+  Full-Data       step=  550/600  test_acc=0.6121  loss=0.9307
+  Full-Data       step=  600/600  test_acc=0.5294  loss=0.8188
+  Random-Subset   step=   50/600  test_acc=0.3497  loss=1.2304
+  Random-Subset   step=  100/600  test_acc=0.3368  loss=0.7185
+  Random-Subset   step=  150/600  test_acc=0.3006  loss=0.3028
+  Random-Subset   step=  200/600  test_acc=0.3069  loss=0.1003
+  Random-Subset   step=  250/600  test_acc=0.4513  loss=0.0171
+  Random-Subset   step=  300/600  test_acc=0.4735  loss=0.0051
+  Random-Subset   step=  350/600  test_acc=0.4730  loss=0.0046
+  Random-Subset   step=  400/600  test_acc=0.4725  loss=0.0056
+  Random-Subset   step=  450/600  test_acc=0.4758  loss=0.0036
+  Random-Subset   step=  500/600  test_acc=0.4724  loss=0.0026
+  Random-Subset   step=  550/600  test_acc=0.4736  loss=0.0029
+  Random-Subset   step=  600/600  test_acc=0.4743  loss=0.0026
+  Distilled-Data  step=   50/600  test_acc=0.2661  loss=0.5331
+  Distilled-Data  step=  100/600  test_acc=0.3191  loss=0.0621
+  Distilled-Data  step=  150/600  test_acc=0.3097  loss=0.0185
+  Distilled-Data  step=  200/600  test_acc=0.3612  loss=0.0080
+  Distilled-Data  step=  250/600  test_acc=0.3585  loss=0.0048
+  Distilled-Data  step=  300/600  test_acc=0.3389  loss=0.0042
+  Distilled-Data  step=  350/600  test_acc=0.3449  loss=0.0038
+  Distilled-Data  step=  400/600  test_acc=0.3466  loss=0.0041
+  Distilled-Data  step=  450/600  test_acc=0.3423  loss=0.0024
+  Distilled-Data  step=  500/600  test_acc=0.3488  loss=0.0026
+  Distilled-Data  step=  550/600  test_acc=0.3427  loss=0.0027
+  Distilled-Data  step=  600/600  test_acc=0.3383  loss=0.0021
+
+========================================================================================
+[结果汇总]
+Method           Samples      Compression    FinalAcc     Time(s)     
+----------------------------------------------------------------------------------------
+Full-Data        50000        1.0000         0.5294       3.81        
+Random-Subset    500          0.0100         0.4743       3.51        
+Distilled-Data   500          0.0100         0.3383       3.52        
+========================================================================================
+Figure: /mnt/code/lixujie/tfe_experiments/expFig/figure4_distill/figure4_cifar10_distilled_verify.png
+CSV   : /mnt/code/lixujie/tfe_experiments/expTab/cifar10_distilled_moduleA_verify_20260709_193900.csv
+JSON  : /mnt/code/lixujie/tfe_experiments/log/json/cifar10_distilled_moduleA_verify_20260709_193900.json
+TXT   : /mnt/code/lixujie/tfe_experiments/log/txt/cifar10_distilled_moduleA_verify_20260709_193900.log
+ProgressLog: /mnt/code/lixujie/tfe_experiments/progressLog/20260709_moduleA_distilled_verify.md

@@ -1,0 +1,258 @@
+{
+  "run_id": "20260709_193900",
+  "config": {
+    "seed": 42,
+    "safe_mode": true,
+    "cpu_threads": 1,
+    "device": "auto",
+    "cifar_npz": "/mnt/code/lixujie/tfe_experiments/data/cifar10_tr50000_te10000_s42.npz",
+    "train_steps": 600,
+    "eval_interval": 50,
+    "batch_size": 128,
+    "test_batch_size": 512,
+    "lr": 0.03,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "num_classes": 10,
+    "max_test_samples": 10000,
+    "distilled_candidates": [
+      "/mnt/code/lixujie/mtt-distillation/images_best_cifar10.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_best_cifar10.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_best.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/images_best.pt"
+    ]
+  },
+  "device": "cuda",
+  "distilled_images": "/mnt/code/lixujie/mtt-distillation/images_best_cifar10.pt",
+  "distilled_labels": "/mnt/code/lixujie/mtt-distillation/labels_best_cifar10.pt",
+  "num_full_samples": 50000,
+  "num_distilled_samples": 500,
+  "compression_ratio": 0.01,
+  "results": [
+    {
+      "name": "Full-Data",
+      "num_samples": 50000,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.1,
+          "loss": null
+        },
+        {
+          "step": 50,
+          "test_acc": 0.2882,
+          "loss": 1.6461652517318726
+        },
+        {
+          "step": 100,
+          "test_acc": 0.3984,
+          "loss": 1.4374431371688843
+        },
+        {
+          "step": 150,
+          "test_acc": 0.4679,
+          "loss": 1.232517957687378
+        },
+        {
+          "step": 200,
+          "test_acc": 0.559,
+          "loss": 1.153027057647705
+        },
+        {
+          "step": 250,
+          "test_acc": 0.5175,
+          "loss": 1.2622807025909424
+        },
+        {
+          "step": 300,
+          "test_acc": 0.5293,
+          "loss": 1.2780213356018066
+        },
+        {
+          "step": 350,
+          "test_acc": 0.4186,
+          "loss": 1.1085951328277588
+        },
+        {
+          "step": 400,
+          "test_acc": 0.5914,
+          "loss": 0.9056693315505981
+        },
+        {
+          "step": 450,
+          "test_acc": 0.6166,
+          "loss": 0.7861888408660889
+        },
+        {
+          "step": 500,
+          "test_acc": 0.451,
+          "loss": 0.9020127058029175
+        },
+        {
+          "step": 550,
+          "test_acc": 0.6121,
+          "loss": 0.9306527972221375
+        },
+        {
+          "step": 600,
+          "test_acc": 0.5294,
+          "loss": 0.8188143968582153
+        }
+      ],
+      "final_test_acc": 0.5294,
+      "train_time_s": 3.808162212371826
+    },
+    {
+      "name": "Random-Subset",
+      "num_samples": 500,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.1,
+          "loss": null
+        },
+        {
+          "step": 50,
+          "test_acc": 0.3497,
+          "loss": 1.2303615808486938
+        },
+        {
+          "step": 100,
+          "test_acc": 0.3368,
+          "loss": 0.7185482978820801
+        },
+        {
+          "step": 150,
+          "test_acc": 0.3006,
+          "loss": 0.30279114842414856
+        },
+        {
+          "step": 200,
+          "test_acc": 0.3069,
+          "loss": 0.10033030807971954
+        },
+        {
+          "step": 250,
+          "test_acc": 0.4513,
+          "loss": 0.017149433493614197
+        },
+        {
+          "step": 300,
+          "test_acc": 0.4735,
+          "loss": 0.005090433172881603
+        },
+        {
+          "step": 350,
+          "test_acc": 0.473,
+          "loss": 0.004559241700917482
+        },
+        {
+          "step": 400,
+          "test_acc": 0.4725,
+          "loss": 0.005630730651319027
+        },
+        {
+          "step": 450,
+          "test_acc": 0.4758,
+          "loss": 0.003571179462596774
+        },
+        {
+          "step": 500,
+          "test_acc": 0.4724,
+          "loss": 0.0026199896819889545
+        },
+        {
+          "step": 550,
+          "test_acc": 0.4736,
+          "loss": 0.0028687601443380117
+        },
+        {
+          "step": 600,
+          "test_acc": 0.4743,
+          "loss": 0.0026327241212129593
+        }
+      ],
+      "final_test_acc": 0.4743,
+      "train_time_s": 3.5095012187957764
+    },
+    {
+      "name": "Distilled-Data",
+      "num_samples": 500,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.1,
+          "loss": null
+        },
+        {
+          "step": 50,
+          "test_acc": 0.2661,
+          "loss": 0.5330994725227356
+        },
+        {
+          "step": 100,
+          "test_acc": 0.3191,
+          "loss": 0.062079060822725296
+        },
+        {
+          "step": 150,
+          "test_acc": 0.3097,
+          "loss": 0.018506014719605446
+        },
+        {
+          "step": 200,
+          "test_acc": 0.3612,
+          "loss": 0.007958773523569107
+        },
+        {
+          "step": 250,
+          "test_acc": 0.3585,
+          "loss": 0.004840955138206482
+        },
+        {
+          "step": 300,
+          "test_acc": 0.3389,
+          "loss": 0.0041909245774149895
+        },
+        {
+          "step": 350,
+          "test_acc": 0.3449,
+          "loss": 0.003798644058406353
+        },
+        {
+          "step": 400,
+          "test_acc": 0.3466,
+          "loss": 0.004096804652363062
+        },
+        {
+          "step": 450,
+          "test_acc": 0.3423,
+          "loss": 0.002360815182328224
+        },
+        {
+          "step": 500,
+          "test_acc": 0.3488,
+          "loss": 0.0025526639074087143
+        },
+        {
+          "step": 550,
+          "test_acc": 0.3427,
+          "loss": 0.0027366639114916325
+        },
+        {
+          "step": 600,
+          "test_acc": 0.3383,
+          "loss": 0.0020549451000988483
+        }
+      ],
+      "final_test_acc": 0.3383,
+      "train_time_s": 3.5158677101135254
+    }
+  ],
+  "outputs": {
+    "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/cifar10_distilled_moduleA_verify_20260709_193900.log",
+    "json": "/mnt/code/lixujie/tfe_experiments/log/json/cifar10_distilled_moduleA_verify_20260709_193900.json",
+    "csv": "/mnt/code/lixujie/tfe_experiments/expTab/cifar10_distilled_moduleA_verify_20260709_193900.csv",
+    "figure": "/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill/figure4_cifar10_distilled_verify.png"
+  }
+}

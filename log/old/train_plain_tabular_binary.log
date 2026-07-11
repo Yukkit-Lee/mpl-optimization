@@ -1,0 +1,40 @@
+Python:   /home/lixujie/.conda/envs/tfe/bin/python
+日志文件: /mnt/code/lixujie/tfe_experiments/log/train_plain_tabular_binary.log
+
+============================================================
+Plain - 真实表格二分类训练
+============================================================
+run_id: 20260414_123046
+
+[1/3] 准备数据...
+      数据缓存: /mnt/code/lixujie/tfe_experiments/data/breast_cancer_split.npz
+      训练集: 455 样本, 30 特征
+      测试集: 114 样本
+
+[2/3] 训练明文 Logistic Regression...
+      train_accuracy: 0.989011
+      test_accuracy:  0.964912
+      total_time(s):  0.007791
+
+[3/3] 训练完成
+训练报告已写入: /mnt/code/lixujie/tfe_experiments/log/plain_tabular_training_report.json
+Python:   /home/lixujie/.conda/envs/tfe/bin/python
+日志文件: /mnt/code/lixujie/tfe_experiments/log/train_plain_tabular_binary.log
+
+============================================================
+Plain - 真实表格二分类训练
+============================================================
+run_id: 20260414_123152
+
+[1/3] 准备数据...
+      数据缓存: /mnt/code/lixujie/tfe_experiments/data/breast_cancer_split.npz
+      训练集: 455 样本, 30 特征
+      测试集: 114 样本
+
+[2/3] 训练明文 Logistic Regression...
+      train_accuracy: 0.989011
+      test_accuracy:  0.964912
+      total_time(s):  0.004553
+
+[3/3] 训练完成
+训练报告已写入: /mnt/code/lixujie/tfe_experiments/log/plain_tabular_training_report.json

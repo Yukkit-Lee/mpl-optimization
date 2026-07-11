@@ -1,0 +1,93 @@
+{
+  "run_id": "20260417_224848",
+  "dataset": "cifar",
+  "modes": {
+    "A_plain": {
+      "trust_info": {
+        "mode": "plain",
+        "trust_t": 0.7,
+        "sigma_min": 0.1,
+        "sigma_max": 2.0,
+        "effective_sigma": 0.0
+      },
+      "dp_info": {
+        "mode": "plain",
+        "batch_size": 64,
+        "clipping_norm": 1.0,
+        "effective_noise_multiplier": 0.0,
+        "noise_std": 0.0,
+        "delta": 1e-05,
+        "eps_estimate_upper_bound": Infinity,
+        "sampling_rate_q": 0.064,
+        "global_epochs": 100,
+        "note": "eps_estimate 为简化上界，精确 DP 分析请用 Opacus / dp-accounting"
+      },
+      "final_metrics": {
+        "final_train_loss": 0.091313,
+        "final_train_accuracy": 0.967,
+        "final_test_loss": 0.239722,
+        "final_test_accuracy": 0.922,
+        "total_train_time_s": 4.147,
+        "avg_epoch_time_s": 0.041
+      }
+    },
+    "B_fixed_dp": {
+      "trust_info": {
+        "mode": "fixed_dp",
+        "trust_t": 0.7,
+        "sigma_min": 1.0,
+        "sigma_max": 1.0,
+        "effective_sigma": 1.0
+      },
+      "dp_info": {
+        "mode": "fixed_dp",
+        "batch_size": 64,
+        "clipping_norm": 1.0,
+        "effective_noise_multiplier": 1.0,
+        "noise_std": 1.0,
+        "delta": 1e-05,
+        "eps_estimate_upper_bound": 47.9853,
+        "sampling_rate_q": 0.064,
+        "global_epochs": 100,
+        "note": "eps_estimate 为简化上界，精确 DP 分析请用 Opacus / dp-accounting"
+      },
+      "final_metrics": {
+        "final_train_loss": 0.097251,
+        "final_train_accuracy": 0.965,
+        "final_test_loss": 0.251777,
+        "final_test_accuracy": 0.909,
+        "total_train_time_s": 4.189,
+        "avg_epoch_time_s": 0.042
+      }
+    },
+    "C_trust_dp": {
+      "trust_info": {
+        "mode": "trust_dp",
+        "trust_t": 0.7,
+        "sigma_min": 0.1,
+        "sigma_max": 2.0,
+        "effective_sigma": 0.6700000000000002
+      },
+      "dp_info": {
+        "mode": "trust_dp",
+        "batch_size": 64,
+        "clipping_norm": 1.0,
+        "effective_noise_multiplier": 0.6700000000000002,
+        "noise_std": 0.6700000000000002,
+        "delta": 1e-05,
+        "eps_estimate_upper_bound": 71.6198,
+        "sampling_rate_q": 0.064,
+        "global_epochs": 100,
+        "note": "eps_estimate 为简化上界，精确 DP 分析请用 Opacus / dp-accounting"
+      },
+      "final_metrics": {
+        "final_train_loss": 0.094482,
+        "final_train_accuracy": 0.966,
+        "final_test_loss": 0.246243,
+        "final_test_accuracy": 0.916,
+        "total_train_time_s": 4.181,
+        "avg_epoch_time_s": 0.042
+      }
+    }
+  }
+}

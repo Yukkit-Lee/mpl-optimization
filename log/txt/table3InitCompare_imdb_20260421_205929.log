@@ -1,0 +1,55 @@
+======================================================================================
+PEA Table III 风格实验：Initialization Aggregation Strategy Comparison
+======================================================================================
+run_id             : 20260421_205929
+datasets           : ['imdb']
+distribution       : ['iid', 'noniid']
+num_repeats        : 5
+use_secure_agg     : True
+kd_compare         : [without_kd, with_kd]
+cpu_threads        : 1
+
+--------------------------------------------------------------------------------------
+[Dataset] imdb
+--------------------------------------------------------------------------------------
+X_train_feat       : (1000, 768)
+X_test_feat        : (1000, 768)
+source_feat        : /mnt/code/lixujie/tfe_experiments/featureData/imdb_RoBERTa_tr1000_te1000_seed42.npz
+
+  [Distribution] IID
+    seed=42   without_kd avg_test_acc=0.6620 best_test_acc=0.5910
+    seed=42   with_kd    avg_test_acc=0.7020 best_test_acc=0.6040
+    seed=43   without_kd avg_test_acc=0.7350 best_test_acc=0.5820
+    seed=43   with_kd    avg_test_acc=0.7340 best_test_acc=0.5860
+    seed=44   without_kd avg_test_acc=0.6630 best_test_acc=0.6620
+    seed=44   with_kd    avg_test_acc=0.6870 best_test_acc=0.6830
+    seed=45   without_kd avg_test_acc=0.6210 best_test_acc=0.6100
+    seed=45   with_kd    avg_test_acc=0.6460 best_test_acc=0.6200
+    seed=46   without_kd avg_test_acc=0.6020 best_test_acc=0.5420
+    seed=46   with_kd    avg_test_acc=0.6340 best_test_acc=0.5960
+
+  [Distribution] NONIID
+    seed=42   without_kd avg_test_acc=0.7100 best_test_acc=0.7410
+    seed=42   with_kd    avg_test_acc=0.7320 best_test_acc=0.7480
+    seed=43   without_kd avg_test_acc=0.5090 best_test_acc=0.6750
+    seed=43   with_kd    avg_test_acc=0.6430 best_test_acc=0.6910
+    seed=44   without_kd avg_test_acc=0.5770 best_test_acc=0.6770
+    seed=44   with_kd    avg_test_acc=0.6220 best_test_acc=0.6990
+    seed=45   without_kd avg_test_acc=0.5490 best_test_acc=0.6050
+    seed=45   with_kd    avg_test_acc=0.7120 best_test_acc=0.6700
+    seed=46   without_kd avg_test_acc=0.5240 best_test_acc=0.5410
+    seed=46   with_kd    avg_test_acc=0.5700 best_test_acc=0.5140
+
+======================================================================================
+Table III 扩展：with KD vs without KD 的初始化模型 accuracy
+Dataset | Dist | Avg(w/o KD) | Avg(w/ KD) | Best(w/o KD) | Best(w/ KD)
+--------------------------------------------------------------------------------------
+imdb    | IID    | 0.6566 ± 0.0457 | 0.6806 ± 0.0367 | 0.5974 ± 0.0392 | 0.6178 ± 0.0344
+imdb    | NONIID | 0.5738 ± 0.0719 | 0.6558 ± 0.0594 | 0.6478 ± 0.0686 | 0.6644 ± 0.0794
+======================================================================================
+CSV已写入 : /mnt/code/lixujie/tfe_experiments/expTab/table3_init_compare_imdb_20260421_205929.csv
+图已写入  :
+  - /mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/table3_init_compare_imdb_20260421_205929.png
+TXT日志   : /mnt/code/lixujie/tfe_experiments/log/txt/table3InitCompare_imdb_20260421_205929.log
+JSON日志  : /mnt/code/lixujie/tfe_experiments/log/json/table3InitCompare_imdb_20260421_205929.json
+总耗时(s) : 11.28

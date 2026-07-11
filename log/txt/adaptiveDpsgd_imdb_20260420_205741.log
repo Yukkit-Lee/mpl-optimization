@@ -1,0 +1,115 @@
+========================================================================
+桥接脚本：模块 b → 模块 c（Adaptive-Clipped Private Optimization）
+========================================================================
+run_id    : 20260420_205741
+dataset   : imdb
+mode      : adaptive_dp  (来自CFG)
+gamma     : 0.5  (来自CFG)
+eta_c     : 0.2  (来自CFG)
+C_init    : 0.1  (来自CFG)
+noise_backend: binomial_mpc  (来自CFG)
+init_type : chosen  (固定读取模块 b initial_global_model)
+epochs    : 800  (来自CFG)
+only_main : False
+only_figure5 : False
+X_train_feat : (1000, 768)  X_test_feat : (1000, 768)
+
+读取模块 b 初始化缓存成功（未执行模块 b 训练）...
+缓存文件: /mnt/code/lixujie/tfe_experiments/init_model/module_b_best_imdb.pt
+加载策略: best
+模块 b 缓存：chosen_init_type = avg
+模块 b 聚合方式: ABY3密态
+
+======================================================================
+B → C 桥接启动
+  模块 b 推荐 init_type : avg
+  本次使用 init_type    : chosen
+  训练模式              : adaptive_dp
+  gamma/eta_c/C_init    : 0.5/0.2/0.1
+  noise_backend         : binomial_mpc
+======================================================================
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 768)
+  N（全局样本数）  : 1000
+  特征维度         : 768
+  类别数           : 2
+  测试集形状       : (1000, 768)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : adaptive_dp
+  noise_backend             : binomial_mpc
+  noise_multiplier          : 1.0000
+  global_epochs             : 800
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 0.100000
+  gamma / eta_c             : 0.5 / 0.2
+  sigma_b_scale             : 20.0
+  ε 估算上界（供参考）      : 8.579571  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/800  train_loss=0.7352  train_acc=0.5000  test_loss=0.7350  test_acc=0.5000  C_t=0.110011  σ_eff=1.0124  ε=0.303  time=0.0s
+  Epoch   89/800  train_loss=0.6134  train_acc=0.6680  test_loss=0.6231  test_acc=0.6480  C_t=5.525219  σ_eff=1.0124  ε=2.862  time=0.0s
+  Epoch  178/800  train_loss=0.5238  train_acc=0.8210  test_loss=0.5341  test_acc=0.7980  C_t=4.730807  σ_eff=1.0124  ε=4.047  time=0.0s
+  Epoch  267/800  train_loss=0.4819  train_acc=0.8330  test_loss=0.4946  test_acc=0.8070  C_t=4.176991  σ_eff=1.0124  ε=4.957  time=0.0s
+  Epoch  356/800  train_loss=0.4478  train_acc=0.8360  test_loss=0.4645  test_acc=0.8260  C_t=3.818294  σ_eff=1.0124  ε=5.723  time=0.0s
+  Epoch  444/800  train_loss=0.4257  train_acc=0.8420  test_loss=0.4433  test_acc=0.8330  C_t=3.493648  σ_eff=1.0124  ε=6.392  time=0.0s
+  Epoch  533/800  train_loss=0.4082  train_acc=0.8510  test_loss=0.4272  test_acc=0.8370  C_t=3.192572  σ_eff=1.0124  ε=7.003  time=0.0s
+  Epoch  622/800  train_loss=0.3944  train_acc=0.8560  test_loss=0.4147  test_acc=0.8420  C_t=2.904356  σ_eff=1.0124  ε=7.565  time=0.0s
+  Epoch  711/800  train_loss=0.3821  train_acc=0.8570  test_loss=0.4029  test_acc=0.8460  C_t=2.712712  σ_eff=1.0124  ε=8.088  time=0.0s
+  Epoch  800/800  train_loss=0.3732  train_acc=0.8600  test_loss=0.3943  test_acc=0.8470  C_t=2.556404  σ_eff=1.0124  ε=8.580  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.8600
+  final_test_accuracy  : 0.8470
+  total_train_time (s) : 34.81
+  mode                 : adaptive_dp
+  final clipping_bound : 2.556404
+  noise_backend        : binomial_mpc
+
+[Figure5-TFE] random/avg/best 三初始化进入 TFE 密态训练
+  epochs/lr(base->eff) : 800/0.01->0.001
+  feat_dim/classes : 768/2
+  ε-accountant: mode=pea_aligned, epsilon_end=2.07, delta=1e-05, q=1.000, sigma_eff=1.0000, target_epsilon=None
+
+  -> 训练 random_init
+    it=   1/800  tr_loss=2.166946 te_loss=2.079490 tr_acc=0.6500 te_acc=0.6830 eps=0.073
+    it=  89/800  tr_loss=0.869751 te_loss=0.991070 tr_acc=0.7810 te_acc=0.7680 eps=0.690
+    it= 178/800  tr_loss=0.638916 te_loss=0.809951 tr_acc=0.8270 te_acc=0.7930 eps=0.976
+    it= 267/800  tr_loss=0.528458 te_loss=0.720819 tr_acc=0.8560 te_acc=0.8050 eps=1.196
+    it= 356/800  tr_loss=0.461090 te_loss=0.667634 tr_acc=0.8730 te_acc=0.8210 eps=1.381
+    [Converged] random_init 在 it=390 提前停止（patience=30）
+
+  -> 训练 avg_init
+    it=   1/800  tr_loss=0.850204 te_loss=0.873958 tr_acc=0.6670 te_acc=0.6510 eps=0.073
+    it=  89/800  tr_loss=0.367096 te_loss=0.447174 tr_acc=0.9010 te_acc=0.8700 eps=0.690
+    it= 178/800  tr_loss=0.321365 te_loss=0.430002 tr_acc=0.9210 te_acc=0.8750 eps=0.976
+    [Converged] avg_init 在 it=184 提前停止（patience=30）
+
+  -> 训练 best_init
+    it=   1/800  tr_loss=1.200424 te_loss=1.263800 tr_acc=0.5550 te_acc=0.5510 eps=0.073
+    it=  89/800  tr_loss=0.443268 te_loss=0.557723 tr_acc=0.8760 te_acc=0.8210 eps=0.690
+    it= 178/800  tr_loss=0.367630 te_loss=0.509506 tr_acc=0.9090 te_acc=0.8370 eps=0.976
+    [Converged] best_init 在 it=178 提前停止（patience=30）
+
+[Figure5-TFE] 最终对比（按 test_acc）:
+  random_init  test_acc=0.8210 train_acc=0.8840
+  avg_init     test_acc=0.8740 train_acc=0.9220
+  best_init    test_acc=0.8370 train_acc=0.9090
+  winner: avg_init
+
+Figure5(TFE) 文件已写入:
+   {'figure5_json': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_imdb_20260420_205741.json', 'figure5_csv': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_imdb_20260420_205741.csv', 'figure5_png': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_imdb_20260420_205741.png'}
+主JSON已写入: /mnt/code/lixujie/tfe_experiments/log/json/adaptiveDpsgd_imdb_20260420_205741.json
+桥接JSON已写入: /mnt/code/lixujie/tfe_experiments/log/json/adaptiveDpsgdBridge_imdb_20260420_205741.json
+TXT日志已写入: /mnt/code/lixujie/tfe_experiments/log/txt/adaptiveDpsgd_imdb_20260420_205741.log
+总耗时(s): 40.347

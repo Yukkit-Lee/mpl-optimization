@@ -1,0 +1,32 @@
+{
+  "run_id": "20260420_205015",
+  "dataset": "mnist",
+  "mode": "adaptive_dp",
+  "run_main": true,
+  "run_figure5": false,
+  "gamma": 0.5,
+  "eta_c": 0.2,
+  "C_init": 0.1,
+  "noise_backend": "binomial_mpc",
+  "elapsed_s": 31.941,
+  "txt_log_file": "/mnt/code/lixujie/tfe_experiments/log/txt/adaptiveDpsgd_mnist_20260420_205015.log",
+  "main_json_file": "/mnt/code/lixujie/tfe_experiments/log/json/adaptiveDpsgd_mnist_20260420_205015.json",
+  "compare_json_file": null,
+  "module_b_cache": {
+    "policy": "best",
+    "meta_json": "/mnt/code/lixujie/tfe_experiments/init_model/module_b_best_mnist.json",
+    "weights_pt": "/mnt/code/lixujie/tfe_experiments/init_model/module_b_best_mnist.pt"
+  },
+  "module_b_candidate": {
+    "avg_ref_acc": 0.75,
+    "best_ref_acc": 0.525,
+    "best_local_idx": 2,
+    "chosen_init_type": "avg",
+    "secure_aggregation": true,
+    "avg_test_acc": 0.744,
+    "best_test_acc": 0.516,
+    "chosen_test_acc": 0.744
+  },
+  "figure5_tfe": null,
+  "figure5_tfe_files": null
+}

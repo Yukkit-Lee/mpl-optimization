@@ -1,0 +1,103 @@
+==========================================================================================
+MNIST 整合实验：Plain-HOG / TFE-Raw / TFE-HOG / Figure4
+==========================================================================================
+run_id           : 20260418_113648
+Python           : /home/lixujie/.conda/envs/tfe/bin/python
+TensorFlow       : 1.15.5
+TF Encrypted     : 0.8.0
+Platform         : Linux-6.11.0-26-generic-x86_64-with-debian-trixie-sid
+
+[配置]
+  MAX_TRAIN_SAMPLES   : 1000
+  MAX_TEST_SAMPLES    : 10000
+  TFE_EPOCHS/LR       : 800/0.01
+  FIG4_EPSILON_END    : 2.07
+  FIG4_ANNOTATE_ITERS : [0, 300, 600, 800]
+  SAFE_MODE/THREADS   : True/2
+
+[1/6] 加载 MNIST 子集...
+  训练集样本数      : 1000
+  测试集样本数      : 10000
+  原始特征维度      : 784
+  加载耗时(s)       : 0.016
+
+[2/6] 提取 HOG 特征...
+  HOG 配置: orientations=9, pixels_per_cell=(7, 7), cells_per_block=(1, 1), block_norm=L2-Hys
+  HOG 输出维度: 144
+  HOG 配置: orientations=9, pixels_per_cell=(7, 7), cells_per_block=(1, 1), block_norm=L2-Hys
+  HOG 输出维度: 144
+  HOG 特征维度      : 144
+  压缩比例          : 0.1837
+  提取耗时(s)       : 1.550
+
+[3/6] 明文对照：HOG + Logistic Regression...
+  明文 Train Acc    : 1.0000
+  明文 Test  Acc    : 0.8993
+  明文训练耗时(s)   : 0.032
+
+[4/6] TFE：HOG 特征 -> 密态浅层多分类...
+  初始 Loss     : 1.906377
+  初始 Train Acc: 0.1280
+
+==========================================================================================
+Epoch    Loss           Train_Acc        Time(s)       
+==========================================================================================
+800      0.030768       0.948000         0.003         
+
+[5/6] TFE：Raw像素(784维) -> 密态浅层多分类...
+  初始 Loss     : 0.276891
+  初始 Train Acc: 0.1030
+
+==========================================================================================
+Epoch    Loss           Train_Acc        Time(s)       
+==========================================================================================
+800      0.038300       0.907000         0.007         
+
+[6/6] Figure4 风格：DP shallow training 曲线...
+
+[Figure4] 方法对比曲线：TFE HOG 浅层 vs TFE Raw 浅层
+  total_epochs      : 800
+  epsilon_end       : 2.07
+  annotate_iters    : [0, 300, 600, 800]
+
+  [Figure4 采样日志]
+  Iter      HOG_Acc     RAW_Acc     Epsilon
+  -----------------------------------------------
+  1         0.1370      0.1410      0.0732
+  89        0.5770      0.7120      0.6904
+  178       0.8320      0.7960      0.9764
+  267       0.9120      0.8310      1.1959
+  356       0.9370      0.8560      1.3809
+  444       0.9410      0.8710      1.5421
+  533       0.9470      0.8850      1.6896
+  622       0.9470      0.8940      1.8252
+  711       0.9470      0.9010      1.9515
+  800       0.9480      0.9070      2.0700
+
+  [Figure4 标注点]
+  eps=0.0000
+  eps=1.2676
+  eps=1.7927
+  eps=2.0700
+
+  Figure4 输出文件:
+    json : /mnt/code/lixujie/tfe_experiments/expFig/figure4/figure4_mnist_20260418_113648.json
+    csv  : /mnt/code/lixujie/tfe_experiments/expFig/figure4/figure4_mnist_20260418_113648.csv
+    png  : /mnt/code/lixujie/tfe_experiments/expFig/figure4/figure4_mnist_20260418_113648.png
+
+==========================================================================================
+MNIST 整合汇总表
+==========================================================================================
+Setup                    | FeatDim   | Compress   | TrainAcc   | TestAcc   | TrainTime(s) | Epoch@0.80
+-------------------------+-----------+------------+------------+-----------+--------------+-----------
+明文 HOG + LR              |       144 |     0.1837 |     1.0000 |    0.8993 |        0.032 |          -
+TFE HOG 浅层               |       144 |     0.1837 |     0.9480 |    0.8824 |        2.214 |        163
+TFE Raw 浅层               |       784 |     1.0000 |     0.9070 |    0.8019 |        5.861 |        186
+==========================================================================================
+TXT日志已写入: /mnt/code/lixujie/tfe_experiments/log/txt/mnistNew_20260418_113648.log
+JSON报告已写入: /mnt/code/lixujie/tfe_experiments/log/json/mnistNew_20260418_113648.json
+
+[说明] 为什么你之前 epsilon 会很大？
+  1) 常见原因是采用过于保守的上界近似（如 q=1 口径）。
+  2) 训练轮数高时，epsilon 会随迭代持续增长。
+  3) 本图改为按固定 iteration 点展示 epsilon_so_far，用于对齐 Figure4 的展示风格。

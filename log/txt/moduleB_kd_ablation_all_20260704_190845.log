@@ -1,0 +1,129 @@
+========================================================================================================
+模块 B KD 消融实验：NoKD vs KD initialization accuracy
+========================================================================================================
+run_id              : 20260704_190845
+datasets            : ['mnist', 'cifar', 'imdb']
+splits              : ['IID', 'Non-IID']
+num_repeats         : 5
+cpu_threads         : 1
+use_secure_agg      : False
+local_epochs/lr     : 80 0.01
+distill_epochs/lr   : 30 0.005
+tau/lambda_kd       : 2.0 1.0
+说明                : 只比较模块 B 初始化模型，不接入模块 C 后续训练
+
+--------------------------------------------------------------------------------------------------------
+[Dataset] MNIST
+--------------------------------------------------------------------------------------------------------
+source_feat         : /mnt/code/lixujie/tfe_experiments/featureData/mnist_hog_tr1000_te10000_seed42.npz
+X_train_feat        : (1000, 144)
+X_test_feat         : (1000, 144)
+
+  [Split] IID
+    seed=42   NoKD  avg=0.8120 best=0.6990
+    seed=42   KD    avg=0.8240 best=0.7040
+    seed=43   NoKD  avg=0.8120 best=0.6980
+    seed=43   KD    avg=0.8240 best=0.7470
+    seed=44   NoKD  avg=0.8170 best=0.6360
+    seed=44   KD    avg=0.8330 best=0.7140
+    seed=45   NoKD  avg=0.8130 best=0.7010
+    seed=45   KD    avg=0.8300 best=0.7330
+    seed=46   NoKD  avg=0.8120 best=0.6420
+    seed=46   KD    avg=0.8270 best=0.6730
+
+  [Split] Non-IID
+    seed=42   NoKD  avg=0.7410 best=0.4510
+    seed=42   KD    avg=0.7440 best=0.5160
+    seed=43   NoKD  avg=0.7450 best=0.4580
+    seed=43   KD    avg=0.7500 best=0.4720
+    seed=44   NoKD  avg=0.7620 best=0.4520
+    seed=44   KD    avg=0.7740 best=0.4750
+    seed=45   NoKD  avg=0.7290 best=0.4560
+    seed=45   KD    avg=0.7320 best=0.4740
+    seed=46   NoKD  avg=0.6900 best=0.4440
+    seed=46   KD    avg=0.6970 best=0.5270
+
+--------------------------------------------------------------------------------------------------------
+[Dataset] CIFAR-10
+--------------------------------------------------------------------------------------------------------
+source_feat         : /mnt/code/lixujie/tfe_experiments/featureData/cifar10_dino_tr1000_te1000_seed42.npz
+X_train_feat        : (1000, 384)
+X_test_feat         : (1000, 384)
+
+  [Split] IID
+    seed=42   NoKD  avg=0.8950 best=0.7780
+    seed=42   KD    avg=0.8980 best=0.8160
+    seed=43   NoKD  avg=0.8780 best=0.7950
+    seed=43   KD    avg=0.8860 best=0.8060
+    seed=44   NoKD  avg=0.9040 best=0.7940
+    seed=44   KD    avg=0.9110 best=0.8310
+    seed=45   NoKD  avg=0.8970 best=0.7890
+    seed=45   KD    avg=0.8980 best=0.8400
+    seed=46   NoKD  avg=0.8970 best=0.7940
+    seed=46   KD    avg=0.9030 best=0.8270
+
+  [Split] Non-IID
+    seed=42   NoKD  avg=0.4520 best=0.5300
+    seed=42   KD    avg=0.6860 best=0.6010
+    seed=43   NoKD  avg=0.5230 best=0.5340
+    seed=43   KD    avg=0.7300 best=0.5970
+    seed=44   NoKD  avg=0.5940 best=0.5310
+    seed=44   KD    avg=0.7110 best=0.6470
+    seed=45   NoKD  avg=0.4620 best=0.5360
+    seed=45   KD    avg=0.7930 best=0.6650
+    seed=46   NoKD  avg=0.4440 best=0.4700
+    seed=46   KD    avg=0.7420 best=0.5750
+
+--------------------------------------------------------------------------------------------------------
+[Dataset] IMDb
+--------------------------------------------------------------------------------------------------------
+source_feat         : /mnt/code/lixujie/tfe_experiments/featureData/imdb_RoBERTa_tr1000_te1000_seed42.npz
+X_train_feat        : (1000, 768)
+X_test_feat         : (1000, 768)
+
+  [Split] IID
+    seed=42   NoKD  avg=0.6620 best=0.5910
+    seed=42   KD    avg=0.7020 best=0.6040
+    seed=43   NoKD  avg=0.7350 best=0.5820
+    seed=43   KD    avg=0.7340 best=0.5860
+    seed=44   NoKD  avg=0.6630 best=0.6620
+    seed=44   KD    avg=0.6870 best=0.6830
+    seed=45   NoKD  avg=0.6210 best=0.6100
+    seed=45   KD    avg=0.6450 best=0.6200
+    seed=46   NoKD  avg=0.6020 best=0.5420
+    seed=46   KD    avg=0.6340 best=0.5960
+
+  [Split] Non-IID
+    seed=42   NoKD  avg=0.7100 best=0.7410
+    seed=42   KD    avg=0.7320 best=0.7480
+    seed=43   NoKD  avg=0.5080 best=0.6750
+    seed=43   KD    avg=0.6420 best=0.6910
+    seed=44   NoKD  avg=0.5770 best=0.6770
+    seed=44   KD    avg=0.6220 best=0.6990
+    seed=45   NoKD  avg=0.5460 best=0.6050
+    seed=45   KD    avg=0.7110 best=0.6700
+    seed=46   NoKD  avg=0.5230 best=0.5410
+    seed=46   KD    avg=0.5700 best=0.5140
+
+========================================================================================================
+Table X. Effect of consensus-guided distillation under heterogeneous data
+比较的是模块 B candidate initialization model 的 test accuracy，不是模块 C final model。
+--------------------------------------------------------------------------------------------------------
+Dataset    Split      NoKD-Avg           NoKD-Best          KD-Avg             KD-Best           
+--------------------------------------------------------------------------------------------------------
+MNIST      IID        0.8132 ± 0.0019    0.6752 ± 0.0296    0.8276 ± 0.0035    0.7142 ± 0.0254   
+MNIST      Non-IID    0.7334 ± 0.0241    0.4522 ± 0.0048    0.7394 ± 0.0252    0.4928 ± 0.0237   
+CIFAR-10   IID        0.8942 ± 0.0087    0.7900 ± 0.0064    0.8992 ± 0.0081    0.8240 ± 0.0118   
+CIFAR-10   Non-IID    0.4950 ± 0.0568    0.5202 ± 0.0252    0.7324 ± 0.0357    0.6170 ± 0.0335   
+IMDb       IID        0.6566 ± 0.0457    0.5974 ± 0.0392    0.6804 ± 0.0368    0.6178 ± 0.0344   
+IMDb       Non-IID    0.5728 ± 0.0724    0.6478 ± 0.0686    0.6554 ± 0.0592    0.6644 ± 0.0794   
+========================================================================================================
+
+输出文件:
+  CSV : /mnt/code/lixujie/tfe_experiments/expTab/module_b_kd_ablation_all_20260704_190845.csv
+  JSON: /mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_ablation_all_20260704_190845.json
+  TXT : /mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_ablation_all_20260704_190845.log
+  FIG : /mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/module_b_kd_ablation_mnist_20260704_190845.png
+  FIG : /mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/module_b_kd_ablation_cifar_20260704_190845.png
+  FIG : /mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/module_b_kd_ablation_imdb_20260704_190845.png
+总耗时(s): 4.96

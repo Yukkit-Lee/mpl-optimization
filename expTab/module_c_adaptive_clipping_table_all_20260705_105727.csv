@@ -1,0 +1,13 @@
+Dataset,Method,epsilon,Final Acc,Epoch@TargetAcc,Final C_T,Time(s),TargetAcc,NoiseBackend
+MNIST,Plain,inf,0.8340,101,0.700000,4.05,0.9000,gaussian
+MNIST,Fixed-DP,3.0711,0.8400,101,0.700000,4.09,0.9000,gaussian
+MNIST,Adaptive-DP,3.0333,0.8940,101,3.000000,4.11,0.9000,gaussian
+MNIST,Adaptive-DP + BinomialMPC,3.0333,0.9020,95,3.000000,4.17,0.9000,binomial_mpc
+CIFAR-10,Plain,inf,0.9130,6,0.700000,4.22,0.8500,gaussian
+CIFAR-10,Fixed-DP,3.0711,0.9100,5,0.700000,4.29,0.8500,gaussian
+CIFAR-10,Adaptive-DP,3.0333,0.9080,2,1.905184,4.31,0.8500,gaussian
+CIFAR-10,Adaptive-DP + BinomialMPC,3.0333,0.9130,2,2.264944,4.41,0.8500,binomial_mpc
+IMDb,Plain,inf,0.5000,101,0.700000,4.48,0.6800,gaussian
+IMDb,Fixed-DP,3.0711,0.5000,101,0.700000,4.50,0.6800,gaussian
+IMDb,Adaptive-DP,3.0333,0.6700,83,3.000000,4.50,0.6800,gaussian
+IMDb,Adaptive-DP + BinomialMPC,3.0333,0.6580,101,3.000000,4.55,0.6800,binomial_mpc

@@ -1,0 +1,16 @@
+========================================================================
+桥接脚本：模块 b → 模块 c（Adaptive-Clipped Private Optimization）
+========================================================================
+run_id    : 20260420_102033
+dataset   : mnist
+mode      : adaptive_dp  (来自CFG)
+gamma     : 0.5  (来自CFG)
+eta_c     : 0.2  (来自CFG)
+C_init    : 0.1  (来自CFG)
+noise_backend: gaussian  (来自CFG)
+init_type : chosen  (固定读取模块 b initial_global_model)
+epochs    : 800  (来自CFG)
+X_train_feat : (1000, 144)  X_test_feat : (1000, 144)
+dry_run=True，数据加载完成，跳过训练。
+TXT日志已写入: /mnt/code/lixujie/tfe_experiments/log/txt/adaptiveDpsgd_mnist_20260420_102033.log
+JSON日志已写入: /mnt/code/lixujie/tfe_experiments/log/json/adaptiveDpsgd_mnist_20260420_102033.json

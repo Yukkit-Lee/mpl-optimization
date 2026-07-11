@@ -1,0 +1,44 @@
+======================================================================================
+PEA Table III 风格实验：Initialization Aggregation Strategy Comparison
+======================================================================================
+run_id             : 20260421_204158
+datasets           : ['imdb']
+distribution       : ['iid', 'noniid']
+num_repeats        : 5
+use_secure_agg     : True
+cpu_threads        : 1
+
+--------------------------------------------------------------------------------------
+[Dataset] imdb
+--------------------------------------------------------------------------------------
+X_train_feat       : (1000, 768)
+X_test_feat        : (1000, 768)
+source_feat        : /mnt/code/lixujie/tfe_experiments/featureData/imdb_RoBERTa_tr1000_te1000_seed42.npz
+
+  [Distribution] IID
+    seed=42   avg_test_acc=0.7010 best_test_acc=0.6040
+    seed=43   avg_test_acc=0.7340 best_test_acc=0.5860
+    seed=44   avg_test_acc=0.6870 best_test_acc=0.6830
+    seed=45   avg_test_acc=0.6460 best_test_acc=0.6200
+    seed=46   avg_test_acc=0.6330 best_test_acc=0.5960
+
+  [Distribution] NONIID
+    seed=42   avg_test_acc=0.7320 best_test_acc=0.7480
+    seed=43   avg_test_acc=0.6420 best_test_acc=0.6910
+    seed=44   avg_test_acc=0.6210 best_test_acc=0.6990
+    seed=45   avg_test_acc=0.7100 best_test_acc=0.6700
+    seed=46   avg_test_acc=0.5680 best_test_acc=0.5140
+
+======================================================================================
+Table III 风格：不同 aggregation strategy 的初始化模型 accuracy
+Dataset | Distribution | Averaging Strategy | Accuracy Strategy
+--------------------------------------------------------------------------------------
+imdb    | IID          | 0.6802 ± 0.0368    | 0.6178 ± 0.0344   
+imdb    | NONIID       | 0.6546 ± 0.0597    | 0.6644 ± 0.0794   
+======================================================================================
+CSV已写入 : /mnt/code/lixujie/tfe_experiments/expTab/table3_init_compare_imdb_20260421_204158.csv
+图已写入  :
+  - /mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/table3_init_compare_imdb_20260421_204158.png
+TXT日志   : /mnt/code/lixujie/tfe_experiments/log/txt/table3InitCompare_imdb_20260421_204158.log
+JSON日志  : /mnt/code/lixujie/tfe_experiments/log/json/table3InitCompare_imdb_20260421_204158.json
+总耗时(s) : 6.131

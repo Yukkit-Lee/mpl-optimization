@@ -1,0 +1,103 @@
+========================================================================
+桥接脚本：模块 a 缓存特征 -> 模块 b KD 初始化
+========================================================================
+run_id          : 20260420_215944
+dataset         : cifar
+safe_mode       : True
+cpu_threads     : 4
+source_feat     : /mnt/code/lixujie/tfe_experiments/featureData/cifar10_dino_tr1000_te1000_seed42.npz
+source_label    : /mnt/code/lixujie/tfe_experiments/featureData/cifar10_dino_tr1000_te1000_seed42.npz
+X_train_feat    : (1000, 384)
+X_test_feat     : (1000, 384)
+y_train         : (1000,)
+y_test          : (1000,)
+local_train_mode: DPSGD
+dpsgd(batch/C/sigma): 64/1.0/1.0
+========================================================================
+模块 b：KD-based Heterogeneity-aware Initialization（最简版）
+========================================================================
+feat_dim            : 384
+num_classes         : 10
+num_clients         : 5
+classes_per_client  : None
+ref_size            : 200
+local_epochs/lr     : 80 0.01
+distill_epochs/lr   : 30 0.005
+tau/lambda_kd       : 2.0 1.0
+local_train_mode    : DPSGD
+dpsgd(batch/C/sigma): 64/1.0/1.0
+run_figure5         : False
+device              : cpu
+
+[Step2] class-skew 划分统计
+  client  0 | n=229   | classes=[0, 1, 5, 7, 8] | hist={0: 25, 1: 50, 5: 34, 7: 20, 8: 100}
+  client  1 | n=153   | classes=[0, 1, 2, 5, 7] | hist={0: 25, 1: 50, 2: 25, 5: 33, 7: 20}
+  client  2 | n=237   | classes=[0, 2, 5, 6, 7, 9] | hist={0: 25, 2: 25, 5: 33, 6: 100, 7: 20, 9: 34}
+  client  3 | n=153   | classes=[0, 2, 4, 7, 9] | hist={0: 25, 2: 25, 4: 50, 7: 20, 9: 33}
+  client  4 | n=228   | classes=[2, 3, 4, 7, 9] | hist={2: 25, 3: 100, 4: 50, 7: 20, 9: 33}
+
+[Step3] local pretraining
+  client  0 | train_acc=0.8579 | val_acc=0.9348
+  client  1 | train_acc=0.8361 | val_acc=0.7097
+  client  2 | train_acc=0.8158 | val_acc=0.7447
+  client  3 | train_acc=0.7049 | val_acc=0.6774
+  client  4 | train_acc=0.8352 | val_acc=0.6957
+
+[Step4] reference set: X_ref=(200, 384), y_ref=(200,)
+[Step5] ensemble teacher probs shape: (200, 10)
+
+[Step6] KD distillation
+  client  0 | before=0.8734 -> after=0.9389
+  client  1 | before=0.8105 -> after=0.9412
+  client  2 | before=0.8017 -> after=0.8945
+  client  3 | before=0.6993 -> after=0.7582
+  client  4 | before=0.8070 -> after=0.8070
+
+[Step7] 使用 ABY3 密态聚合 + 密态候选评估 ...
+
+======================================================================
+密态聚合（ABY3 Secure Aggregation）
+======================================================================
+  clients          : 5
+  feat_dim         : 384
+  num_classes      : 10
+  ref_size         : 200
+  max_threads      : 4
+
+[Step 1/2] 密态权重聚合 ...
+  [密态聚合] 5 个 client 模型 → ABY3 secret-share → 求平均
+  [密态聚合] 完成: W_avg shape=(384, 10), b_avg shape=(10,)
+
+[Step 2/2] 密态候选评估 ...
+
+[密态候选评估] 在 ABY3 中比较 avg vs best ...
+  [密态评估] avg_model: ref_acc=0.7900
+  [密态评估] best_model: ref_acc=0.5850
+  [密态候选评估] 胜者: avg (avg=0.7900, best=0.5850)
+
+[密态聚合] 完成，耗时 0.91s
+  avg_ref_acc     : 0.7900
+  best_ref_acc    : 0.5850
+  chosen          : avg
+======================================================================
+
+[Step8] candidate comparison (ABY3 密态)
+  avg_ref_acc   : 0.7900
+  best_ref_acc  : 0.5850
+  best_local_id : 3
+  chosen        : avg
+  aggregation   : ABY3 密态
+
+  [test set check]
+  avg_test_acc  : 0.7610
+  best_test_acc : 0.4970
+  chosen_test_acc: 0.7610
+
+[缓存] 模块 b 初始化模型已保存
+  latest_pt : /mnt/code/lixujie/tfe_experiments/init_model/module_b_init_cifar.pt
+  best_pt   : /mnt/code/lixujie/tfe_experiments/init_model/module_b_best_cifar.pt
+  best_upd  : True
+
+TXT日志已写入: /mnt/code/lixujie/tfe_experiments/log/txt/conInitModel_cifar_20260420_215944.log
+JSON日志已写入: /mnt/code/lixujie/tfe_experiments/log/json/conInitModel_cifar_20260420_215944.json
+总耗时(s): 3.997

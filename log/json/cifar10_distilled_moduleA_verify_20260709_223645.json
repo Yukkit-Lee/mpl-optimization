@@ -1,0 +1,309 @@
+{
+  "run_id": "20260709_223645",
+  "config": {
+    "seed": 42,
+    "safe_mode": true,
+    "cpu_threads": 1,
+    "device": "auto",
+    "cifar_npz": "/mnt/code/lixujie/tfe_experiments/data/cifar10_tr50000_te10000_s42.npz",
+    "train_steps": 1000,
+    "eval_interval": 100,
+    "batch_size": 128,
+    "test_batch_size": 512,
+    "lr": 0.01,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "real_input_space": "normalized",
+    "use_diff_augment": true,
+    "use_cosine_scheduler": true,
+    "auto_select_distilled": true,
+    "candidate_probe_steps": 600,
+    "candidate_probe_eval_samples": 2000,
+    "num_classes": 10,
+    "max_test_samples": 10000,
+    "distilled_candidates": [
+      "/mnt/code/lixujie/mtt-distillation/images_best_cifar10.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_best_cifar10.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_best.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_5000.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_4000.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_3000.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/images_best.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/images02_best.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/images_5000.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/images_4000.pt",
+      "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/images_3000.pt"
+    ]
+  },
+  "device": "cuda",
+  "distilled_images": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_best_cifar10.pt",
+  "distilled_labels": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/labels_best_cifar10.pt",
+  "candidate_probe_records": [
+    {
+      "image_path": "/mnt/code/lixujie/mtt-distillation/images_best_cifar10.pt",
+      "label_path": "/mnt/code/lixujie/mtt-distillation/labels_best_cifar10.pt",
+      "probe_acc": 0.6415,
+      "num_samples": 500
+    },
+    {
+      "image_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_best_cifar10.pt",
+      "label_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/labels_best_cifar10.pt",
+      "probe_acc": 0.642,
+      "num_samples": 500
+    },
+    {
+      "image_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_best.pt",
+      "label_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/labels_best.pt",
+      "probe_acc": 0.642,
+      "num_samples": 500
+    },
+    {
+      "image_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_5000.pt",
+      "label_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/labels_5000.pt",
+      "probe_acc": 0.625,
+      "num_samples": 500
+    },
+    {
+      "image_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_4000.pt",
+      "label_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/labels_4000.pt",
+      "probe_acc": 0.632,
+      "num_samples": 500
+    },
+    {
+      "image_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/images_3000.pt",
+      "label_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/misty-galaxy-7/labels_3000.pt",
+      "probe_acc": 0.6135,
+      "num_samples": 500
+    },
+    {
+      "image_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/images_best.pt",
+      "label_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/labels_best.pt",
+      "probe_acc": 0.632,
+      "num_samples": 500
+    },
+    {
+      "image_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/images02_best.pt",
+      "label_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/labels02_best.pt",
+      "probe_acc": 0.63,
+      "num_samples": 500
+    },
+    {
+      "image_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/images_5000.pt",
+      "label_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/labels_5000.pt",
+      "probe_acc": 0.629,
+      "num_samples": 500
+    },
+    {
+      "image_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/images_4000.pt",
+      "label_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/labels_4000.pt",
+      "probe_acc": 0.62,
+      "num_samples": 500
+    },
+    {
+      "image_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/images_3000.pt",
+      "label_path": "/mnt/code/lixujie/mtt-distillation/logged_files/CIFAR10/restful-sound-8/labels_3000.pt",
+      "probe_acc": 0.625,
+      "num_samples": 500
+    }
+  ],
+  "num_full_samples": 50000,
+  "num_distilled_samples": 500,
+  "compression_ratio": 0.01,
+  "results": [
+    {
+      "name": "Full-Data",
+      "num_samples": 50000,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.1201,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.4344,
+          "loss": 1.5283552408218384
+        },
+        {
+          "step": 200,
+          "test_acc": 0.4783,
+          "loss": 1.4443159103393555
+        },
+        {
+          "step": 300,
+          "test_acc": 0.5308,
+          "loss": 1.3872265815734863
+        },
+        {
+          "step": 400,
+          "test_acc": 0.5682,
+          "loss": 1.4064338207244873
+        },
+        {
+          "step": 500,
+          "test_acc": 0.5947,
+          "loss": 1.3453915119171143
+        },
+        {
+          "step": 600,
+          "test_acc": 0.6307,
+          "loss": 1.235750675201416
+        },
+        {
+          "step": 700,
+          "test_acc": 0.6411,
+          "loss": 1.1111172437667847
+        },
+        {
+          "step": 800,
+          "test_acc": 0.6536,
+          "loss": 1.174896001815796
+        },
+        {
+          "step": 900,
+          "test_acc": 0.6608,
+          "loss": 1.0984725952148438
+        },
+        {
+          "step": 1000,
+          "test_acc": 0.663,
+          "loss": 0.9887634515762329
+        }
+      ],
+      "final_test_acc": 0.663,
+      "train_time_s": 7.415785551071167
+    },
+    {
+      "name": "Random-Subset",
+      "num_samples": 500,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.1201,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.4082,
+          "loss": 1.2018814086914062
+        },
+        {
+          "step": 200,
+          "test_acc": 0.4319,
+          "loss": 0.6600829362869263
+        },
+        {
+          "step": 300,
+          "test_acc": 0.4398,
+          "loss": 0.39427149295806885
+        },
+        {
+          "step": 400,
+          "test_acc": 0.4486,
+          "loss": 0.23763971030712128
+        },
+        {
+          "step": 500,
+          "test_acc": 0.4514,
+          "loss": 0.1477196216583252
+        },
+        {
+          "step": 600,
+          "test_acc": 0.4565,
+          "loss": 0.11580754071474075
+        },
+        {
+          "step": 700,
+          "test_acc": 0.4564,
+          "loss": 0.049544334411621094
+        },
+        {
+          "step": 800,
+          "test_acc": 0.4579,
+          "loss": 0.0907023474574089
+        },
+        {
+          "step": 900,
+          "test_acc": 0.4597,
+          "loss": 0.05698277801275253
+        },
+        {
+          "step": 1000,
+          "test_acc": 0.4586,
+          "loss": 0.06945723295211792
+        }
+      ],
+      "final_test_acc": 0.4586,
+      "train_time_s": 7.336260795593262
+    },
+    {
+      "name": "Distilled-Data",
+      "num_samples": 500,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.1201,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.5016,
+          "loss": 0.9177930355072021
+        },
+        {
+          "step": 200,
+          "test_acc": 0.5729,
+          "loss": 0.3082250952720642
+        },
+        {
+          "step": 300,
+          "test_acc": 0.6061,
+          "loss": 0.11652861535549164
+        },
+        {
+          "step": 400,
+          "test_acc": 0.6277,
+          "loss": 0.08307060599327087
+        },
+        {
+          "step": 500,
+          "test_acc": 0.6292,
+          "loss": 0.03823678195476532
+        },
+        {
+          "step": 600,
+          "test_acc": 0.6374,
+          "loss": 0.047719404101371765
+        },
+        {
+          "step": 700,
+          "test_acc": 0.6383,
+          "loss": 0.025169292464852333
+        },
+        {
+          "step": 800,
+          "test_acc": 0.6413,
+          "loss": 0.03753373771905899
+        },
+        {
+          "step": 900,
+          "test_acc": 0.6431,
+          "loss": 0.03122010827064514
+        },
+        {
+          "step": 1000,
+          "test_acc": 0.6438,
+          "loss": 0.0375090017914772
+        }
+      ],
+      "final_test_acc": 0.6438,
+      "train_time_s": 7.335517168045044
+    }
+  ],
+  "outputs": {
+    "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/cifar10_distilled_moduleA_verify_20260709_223645.log",
+    "json": "/mnt/code/lixujie/tfe_experiments/log/json/cifar10_distilled_moduleA_verify_20260709_223645.json",
+    "csv": "/mnt/code/lixujie/tfe_experiments/expTab/cifar10_distilled_moduleA_verify_20260709_223645.csv",
+    "figure": "/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill/figure4_cifar10_distilled_verify.png"
+  }
+}

@@ -1,0 +1,1101 @@
+{
+  "run_id": "20260704_192613",
+  "config": {
+    "safe_mode": true,
+    "cpu_threads": 1,
+    "max_test_cap": 1000,
+    "num_repeats": 5,
+    "seed_base": 42,
+    "num_clients": 5,
+    "ref_size": 200,
+    "local_epochs": 80,
+    "local_lr": 0.01,
+    "tau": 2.0,
+    "lambda_kd": 1.0,
+    "distill_epochs": 30,
+    "distill_lr": 0.005,
+    "device": "cpu",
+    "max_epoch_log_lines": 10,
+    "use_secure_aggregation": false,
+    "secure_max_threads": 1,
+    "local_use_dpsgd": false,
+    "local_dpsgd_batch_size": 64,
+    "local_dpsgd_clipping_norm": 1.0,
+    "local_dpsgd_noise_multiplier": 1.0
+  },
+  "heterogeneity_levels": [
+    {
+      "name": "IID",
+      "key": "iid",
+      "classes_per_client": null,
+      "binary_alpha": null
+    },
+    {
+      "name": "Mild Non-IID",
+      "key": "mild",
+      "classes_per_client": 5,
+      "binary_alpha": 0.5
+    },
+    {
+      "name": "Severe Non-IID",
+      "key": "severe",
+      "classes_per_client": 2,
+      "binary_alpha": 0.1
+    }
+  ],
+  "datasets": [
+    "mnist",
+    "cifar",
+    "imdb"
+  ],
+  "records": [
+    {
+      "dataset": "mnist",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.812,
+      "best_test_acc": 0.699
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.824,
+      "best_test_acc": 0.704
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.812,
+      "best_test_acc": 0.698
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.824,
+      "best_test_acc": 0.747
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.817,
+      "best_test_acc": 0.636
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.833,
+      "best_test_acc": 0.714
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.813,
+      "best_test_acc": 0.701
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.83,
+      "best_test_acc": 0.733
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.812,
+      "best_test_acc": 0.642
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.827,
+      "best_test_acc": 0.673
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.741,
+      "best_test_acc": 0.451
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.744,
+      "best_test_acc": 0.516
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.745,
+      "best_test_acc": 0.458
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.75,
+      "best_test_acc": 0.472
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.762,
+      "best_test_acc": 0.452
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.774,
+      "best_test_acc": 0.475
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.729,
+      "best_test_acc": 0.456
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.732,
+      "best_test_acc": 0.474
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.69,
+      "best_test_acc": 0.444
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.697,
+      "best_test_acc": 0.527
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.657,
+      "best_test_acc": 0.311
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.68,
+      "best_test_acc": 0.345
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.716,
+      "best_test_acc": 0.324
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.728,
+      "best_test_acc": 0.344
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.761,
+      "best_test_acc": 0.354
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.778,
+      "best_test_acc": 0.347
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.666,
+      "best_test_acc": 0.231
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.68,
+      "best_test_acc": 0.249
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.689,
+      "best_test_acc": 0.328
+    },
+    {
+      "dataset": "mnist",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.706,
+      "best_test_acc": 0.346
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.895,
+      "best_test_acc": 0.778
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.898,
+      "best_test_acc": 0.816
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.878,
+      "best_test_acc": 0.795
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.886,
+      "best_test_acc": 0.806
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.904,
+      "best_test_acc": 0.794
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.911,
+      "best_test_acc": 0.831
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.897,
+      "best_test_acc": 0.789
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.898,
+      "best_test_acc": 0.84
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.897,
+      "best_test_acc": 0.794
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.903,
+      "best_test_acc": 0.827
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.452,
+      "best_test_acc": 0.53
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.686,
+      "best_test_acc": 0.601
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.523,
+      "best_test_acc": 0.534
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.73,
+      "best_test_acc": 0.597
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.594,
+      "best_test_acc": 0.531
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.711,
+      "best_test_acc": 0.647
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.462,
+      "best_test_acc": 0.536
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.793,
+      "best_test_acc": 0.665
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.444,
+      "best_test_acc": 0.47
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.742,
+      "best_test_acc": 0.575
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.358,
+      "best_test_acc": 0.431
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.549,
+      "best_test_acc": 0.512
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.375,
+      "best_test_acc": 0.199
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.56,
+      "best_test_acc": 0.552
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.487,
+      "best_test_acc": 0.292
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.481,
+      "best_test_acc": 0.47
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.269,
+      "best_test_acc": 0.199
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.43,
+      "best_test_acc": 0.478
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.421,
+      "best_test_acc": 0.284
+    },
+    {
+      "dataset": "cifar",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.684,
+      "best_test_acc": 0.397
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.662,
+      "best_test_acc": 0.591
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.702,
+      "best_test_acc": 0.604
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.735,
+      "best_test_acc": 0.582
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.734,
+      "best_test_acc": 0.586
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.663,
+      "best_test_acc": 0.662
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.687,
+      "best_test_acc": 0.683
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.621,
+      "best_test_acc": 0.61
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.645,
+      "best_test_acc": 0.62
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.602,
+      "best_test_acc": 0.542
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "iid",
+      "heterogeneity_name": "IID",
+      "split_param": "IID",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.634,
+      "best_test_acc": 0.596
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "alpha=0.5",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.632,
+      "best_test_acc": 0.741
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "alpha=0.5",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.723,
+      "best_test_acc": 0.733
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "alpha=0.5",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.636,
+      "best_test_acc": 0.675
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "alpha=0.5",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.655,
+      "best_test_acc": 0.695
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "alpha=0.5",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.633,
+      "best_test_acc": 0.677
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "alpha=0.5",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.652,
+      "best_test_acc": 0.707
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "alpha=0.5",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.608,
+      "best_test_acc": 0.605
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "alpha=0.5",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.73,
+      "best_test_acc": 0.675
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "alpha=0.5",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.548,
+      "best_test_acc": 0.541
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "mild",
+      "heterogeneity_name": "Mild Non-IID",
+      "split_param": "alpha=0.5",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.571,
+      "best_test_acc": 0.515
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "alpha=0.1",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.71,
+      "best_test_acc": 0.741
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "alpha=0.1",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.732,
+      "best_test_acc": 0.748
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "alpha=0.1",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.508,
+      "best_test_acc": 0.675
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "alpha=0.1",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.642,
+      "best_test_acc": 0.691
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "alpha=0.1",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.577,
+      "best_test_acc": 0.677
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "alpha=0.1",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.622,
+      "best_test_acc": 0.699
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "alpha=0.1",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.546,
+      "best_test_acc": 0.605
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "alpha=0.1",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.711,
+      "best_test_acc": 0.67
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "alpha=0.1",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.523,
+      "best_test_acc": 0.541
+    },
+    {
+      "dataset": "imdb",
+      "heterogeneity": "severe",
+      "heterogeneity_name": "Severe Non-IID",
+      "split_param": "alpha=0.1",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.57,
+      "best_test_acc": 0.514
+    }
+  ],
+  "summary": {
+    "cifar|iid": {
+      "level_name": "IID",
+      "split_param": "IID",
+      "nokd_avg_mean": 0.8942,
+      "nokd_avg_std": 0.008657944328765352,
+      "nokd_best_mean": 0.79,
+      "nokd_best_std": 0.006356099432828288,
+      "kd_avg_mean": 0.8992000000000001,
+      "kd_avg_std": 0.00813387976306511,
+      "kd_best_mean": 0.8239999999999998,
+      "kd_best_std": 0.011849050594878877,
+      "delta_avg": 0.0050000000000001155,
+      "delta_best": 0.03399999999999981,
+      "n": 5
+    },
+    "cifar|mild": {
+      "level_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "nokd_avg_mean": 0.495,
+      "nokd_avg_std": 0.05678732252888842,
+      "nokd_best_mean": 0.5202,
+      "nokd_best_std": 0.025190474390134082,
+      "kd_avg_mean": 0.7323999999999999,
+      "kd_avg_std": 0.03572450139610069,
+      "kd_best_mean": 0.617,
+      "kd_best_std": 0.03353803810600736,
+      "delta_avg": 0.23739999999999994,
+      "delta_best": 0.0968,
+      "n": 5
+    },
+    "cifar|severe": {
+      "level_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "nokd_avg_mean": 0.382,
+      "nokd_avg_std": 0.07202777242147641,
+      "nokd_best_mean": 0.281,
+      "nokd_best_std": 0.08494468788570596,
+      "kd_avg_mean": 0.5408000000000001,
+      "kd_avg_std": 0.08578438086271885,
+      "kd_best_mean": 0.48179999999999995,
+      "kd_best_std": 0.0513513388335689,
+      "delta_avg": 0.15880000000000005,
+      "delta_best": 0.20079999999999992,
+      "n": 5
+    },
+    "imdb|iid": {
+      "level_name": "IID",
+      "split_param": "IID",
+      "nokd_avg_mean": 0.6566,
+      "nokd_avg_std": 0.04574975409769981,
+      "nokd_best_mean": 0.5974,
+      "nokd_best_std": 0.039189794589918434,
+      "kd_avg_mean": 0.6804,
+      "kd_avg_std": 0.036848880580012185,
+      "kd_best_mean": 0.6178,
+      "kd_best_std": 0.034446480226577605,
+      "delta_avg": 0.023800000000000043,
+      "delta_best": 0.020399999999999974,
+      "n": 5
+    },
+    "imdb|mild": {
+      "level_name": "Mild Non-IID",
+      "split_param": "alpha=0.5",
+      "nokd_avg_mean": 0.6113999999999999,
+      "nokd_avg_std": 0.033248157843706154,
+      "nokd_best_mean": 0.6477999999999999,
+      "nokd_best_std": 0.06858104694447292,
+      "kd_avg_mean": 0.6662000000000001,
+      "kd_avg_std": 0.05776988835024697,
+      "kd_best_mean": 0.6649999999999999,
+      "kd_best_std": 0.07731494034143722,
+      "delta_avg": 0.05480000000000018,
+      "delta_best": 0.017199999999999993,
+      "n": 5
+    },
+    "imdb|severe": {
+      "level_name": "Severe Non-IID",
+      "split_param": "alpha=0.1",
+      "nokd_avg_mean": 0.5728000000000001,
+      "nokd_avg_std": 0.07244142461326943,
+      "nokd_best_mean": 0.6477999999999999,
+      "nokd_best_std": 0.06858104694447292,
+      "kd_avg_mean": 0.6554,
+      "kd_avg_std": 0.059240526668826975,
+      "kd_best_mean": 0.6644,
+      "kd_best_std": 0.07942946556536812,
+      "delta_avg": 0.0825999999999999,
+      "delta_best": 0.01660000000000006,
+      "n": 5
+    },
+    "mnist|iid": {
+      "level_name": "IID",
+      "split_param": "IID",
+      "nokd_avg_mean": 0.8131999999999999,
+      "nokd_avg_std": 0.0019390719429664921,
+      "nokd_best_mean": 0.6752,
+      "nokd_best_std": 0.02963376452629666,
+      "kd_avg_mean": 0.8276,
+      "kd_avg_std": 0.0034985711369071833,
+      "kd_best_mean": 0.7142000000000001,
+      "kd_best_std": 0.02541967741730802,
+      "delta_avg": 0.01440000000000008,
+      "delta_best": 0.039000000000000035,
+      "n": 5
+    },
+    "mnist|mild": {
+      "level_name": "Mild Non-IID",
+      "split_param": "classes/client=5",
+      "nokd_avg_mean": 0.7334,
+      "nokd_avg_std": 0.024137936945812104,
+      "nokd_best_mean": 0.45220000000000005,
+      "nokd_best_std": 0.004833218389437833,
+      "kd_avg_mean": 0.7394000000000001,
+      "kd_avg_std": 0.025231726060656278,
+      "kd_best_mean": 0.4928,
+      "kd_best_std": 0.023709913538433686,
+      "delta_avg": 0.006000000000000005,
+      "delta_best": 0.04059999999999997,
+      "n": 5
+    },
+    "mnist|severe": {
+      "level_name": "Severe Non-IID",
+      "split_param": "classes/client=2",
+      "nokd_avg_mean": 0.6978,
+      "nokd_avg_std": 0.03762658634529579,
+      "nokd_best_mean": 0.3096,
+      "nokd_best_std": 0.041706594202835595,
+      "kd_avg_mean": 0.7144,
+      "kd_avg_std": 0.03651629773128704,
+      "kd_best_mean": 0.32620000000000005,
+      "kd_best_std": 0.038612951195162476,
+      "delta_avg": 0.01660000000000006,
+      "delta_best": 0.01660000000000006,
+      "n": 5
+    }
+  },
+  "outputs": {
+    "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_heterogeneity_all_20260704_192613.log",
+    "json": "/mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_heterogeneity_all_20260704_192613.json",
+    "csv": "/mnt/code/lixujie/tfe_experiments/expTab/module_b_kd_heterogeneity_all_20260704_192613.csv",
+    "figures": [
+      "/mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/module_b_kd_heterogeneity_mnist_20260704_192613.png",
+      "/mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/module_b_kd_heterogeneity_cifar_20260704_192613.png",
+      "/mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/module_b_kd_heterogeneity_imdb_20260704_192613.png"
+    ]
+  },
+  "elapsed_s": 6.914746999740601
+}

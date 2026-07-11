@@ -1,0 +1,683 @@
+======================================================================================================================
+Table X. Effect of adaptive clipping in private optimization
+======================================================================================================================
+run_id          : 20260705_111456
+datasets        : ['mnist', 'cifar', 'imdb']
+epochs/lr       : 300/0.01
+batch_size      : 64
+noise_multiplier: 1.0
+fixed C         : 0.7
+adaptive C_init : 0.7
+target_acc      : {'mnist': 0.9, 'cifar': 0.9, 'imdb': 0.68}
+cpu_threads     : 1
+说明            : 读取模块 B latest init，不重跑模块 B
+
+----------------------------------------------------------------------------------------------------------------------
+[Dataset] MNIST
+----------------------------------------------------------------------------------------------------------------------
+source_feat     : /mnt/code/lixujie/tfe_experiments/featureData/mnist_hog_tr1000_te10000_seed42.npz
+X_train_feat    : (1000, 144)
+X_test_feat     : (1000, 144)
+moduleB_init    : /mnt/code/lixujie/tfe_experiments/init_model/module_b_init_mnist.pt
+chosen_init     : avg
+
+  运行方法: Plain | no DP
+  参数: clipping_norm=1e+06, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 144)
+  N（全局样本数）  : 1000
+  特征维度         : 144
+  类别数           : 10
+  测试集形状       : (1000, 144)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : plain
+  noise_backend             : gaussian
+  noise_multiplier          : 0.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 1000000.000000
+  ε 估算上界（供参考）      : inf  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=1.4896  train_acc=0.7730  test_loss=1.5090  test_acc=0.7750  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch   34/300  train_loss=0.3684  train_acc=0.9320  test_loss=0.4477  test_acc=0.8970  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch   67/300  train_loss=0.2509  train_acc=0.9540  test_loss=0.3581  test_acc=0.9090  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  100/300  train_loss=0.1973  train_acc=0.9660  test_loss=0.3262  test_acc=0.9060  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  133/300  train_loss=0.1644  train_acc=0.9740  test_loss=0.3111  test_acc=0.9090  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  167/300  train_loss=0.1411  train_acc=0.9820  test_loss=0.3030  test_acc=0.9110  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  200/300  train_loss=0.1243  train_acc=0.9880  test_loss=0.2987  test_acc=0.9090  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  233/300  train_loss=0.1113  train_acc=0.9900  test_loss=0.2962  test_acc=0.9090  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  266/300  train_loss=0.1009  train_acc=0.9920  test_loss=0.2951  test_acc=0.9070  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  300/300  train_loss=0.0921  train_acc=0.9930  test_loss=0.2947  test_acc=0.9070  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.9930
+  final_test_accuracy  : 0.9070
+  total_train_time (s) : 12.33
+  mode                 : plain
+  final clipping_bound : 1000000.000000
+  noise_backend        : gaussian
+  => final_acc=0.9070, eps=inf, epoch@target=39, C_T=nan, time=12.33s
+
+  运行方法: Fixed-DP | fixed clipping + Gaussian
+  参数: clipping_norm=0.7, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 144)
+  N（全局样本数）  : 1000
+  特征维度         : 144
+  类别数           : 10
+  测试集形状       : (1000, 144)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : fixed_dp
+  noise_backend             : gaussian
+  noise_multiplier          : 1.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 0.700000
+  ε 估算上界（供参考）      : 5.319226  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=1.6923  train_acc=0.7130  test_loss=1.7045  test_acc=0.7000  C_t=0.700000  σ_eff=1.0000  ε=0.307  time=0.0s
+  Epoch   34/300  train_loss=1.2066  train_acc=0.8060  test_loss=1.2309  test_acc=0.8080  C_t=0.700000  σ_eff=1.0000  ε=1.791  time=0.0s
+  Epoch   67/300  train_loss=0.9088  train_acc=0.8290  test_loss=0.9387  test_acc=0.8260  C_t=0.700000  σ_eff=1.0000  ε=2.514  time=0.0s
+  Epoch  100/300  train_loss=0.7262  train_acc=0.8450  test_loss=0.7579  test_acc=0.8400  C_t=0.700000  σ_eff=1.0000  ε=3.071  time=0.0s
+  Epoch  133/300  train_loss=0.6060  train_acc=0.8560  test_loss=0.6384  test_acc=0.8480  C_t=0.700000  σ_eff=1.0000  ε=3.542  time=0.0s
+  Epoch  167/300  train_loss=0.5213  train_acc=0.8660  test_loss=0.5568  test_acc=0.8540  C_t=0.700000  σ_eff=1.0000  ε=3.969  time=0.0s
+  Epoch  200/300  train_loss=0.4640  train_acc=0.8750  test_loss=0.5024  test_acc=0.8590  C_t=0.700000  σ_eff=1.0000  ε=4.343  time=0.0s
+  Epoch  233/300  train_loss=0.4223  train_acc=0.8770  test_loss=0.4623  test_acc=0.8650  C_t=0.700000  σ_eff=1.0000  ε=4.688  time=0.0s
+  Epoch  266/300  train_loss=0.3888  train_acc=0.8820  test_loss=0.4317  test_acc=0.8700  C_t=0.700000  σ_eff=1.0000  ε=5.009  time=0.0s
+  Epoch  300/300  train_loss=0.3610  train_acc=0.8890  test_loss=0.4071  test_acc=0.8710  C_t=0.700000  σ_eff=1.0000  ε=5.319  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.8890
+  final_test_accuracy  : 0.8710
+  total_train_time (s) : 12.42
+  mode                 : fixed_dp
+  final clipping_bound : 0.700000
+  noise_backend        : gaussian
+  => final_acc=0.8710, eps=5.3192, epoch@target=301, C_T=0.700000, time=12.42s
+
+  运行方法: Adaptive-DP | adaptive clipping + Gaussian
+  参数: clipping_norm=0.7, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 144)
+  N（全局样本数）  : 1000
+  特征维度         : 144
+  类别数           : 10
+  测试集形状       : (1000, 144)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : adaptive_dp
+  noise_backend             : gaussian
+  noise_multiplier          : 1.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 0.700000
+  gamma / eta_c             : 0.85 / 0.08
+  sigma_b_scale             : 20.0
+  quantile_beta / warmup    : 0.35 / 40
+  clip_min / clip_max       : 0.05 / 3.0
+  ε 估算上界（供参考）      : 5.253893  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=1.6923  train_acc=0.7130  test_loss=1.7045  test_acc=0.7000  C_t=3.000000  σ_eff=1.0124  ε=0.303  time=0.0s
+  Epoch   34/300  train_loss=0.5811  train_acc=0.8790  test_loss=0.6208  test_acc=0.8630  C_t=3.000000  σ_eff=1.0124  ε=1.769  time=0.0s
+  Epoch   67/300  train_loss=0.3811  train_acc=0.9020  test_loss=0.4318  test_acc=0.8830  C_t=3.000000  σ_eff=1.0124  ε=2.483  time=0.0s
+  Epoch  100/300  train_loss=0.3040  train_acc=0.9190  test_loss=0.3646  test_acc=0.8940  C_t=3.000000  σ_eff=1.0124  ε=3.033  time=0.0s
+  Epoch  133/300  train_loss=0.2634  train_acc=0.9280  test_loss=0.3323  test_acc=0.8980  C_t=3.000000  σ_eff=1.0124  ε=3.498  time=0.0s
+  Epoch  167/300  train_loss=0.2329  train_acc=0.9380  test_loss=0.3134  test_acc=0.9010  C_t=3.000000  σ_eff=1.0124  ε=3.920  time=0.0s
+  Epoch  200/300  train_loss=0.2111  train_acc=0.9440  test_loss=0.3002  test_acc=0.9050  C_t=3.000000  σ_eff=1.0124  ε=4.290  time=0.0s
+  Epoch  233/300  train_loss=0.1952  train_acc=0.9470  test_loss=0.2903  test_acc=0.9090  C_t=2.999319  σ_eff=1.0124  ε=4.630  time=0.0s
+  Epoch  266/300  train_loss=0.1816  train_acc=0.9490  test_loss=0.2855  test_acc=0.9090  C_t=2.813561  σ_eff=1.0124  ε=4.947  time=0.0s
+  Epoch  300/300  train_loss=0.1703  train_acc=0.9510  test_loss=0.2819  test_acc=0.9120  C_t=2.460848  σ_eff=1.0124  ε=5.254  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.9510
+  final_test_accuracy  : 0.9120
+  total_train_time (s) : 12.45
+  mode                 : adaptive_dp
+  final clipping_bound : 2.460848
+  noise_backend        : gaussian
+  => final_acc=0.9120, eps=5.2539, epoch@target=103, C_T=2.460848, time=12.45s
+
+  运行方法: Adaptive-DP + BinomialMPC | adaptive clipping + BinomialMPC
+  参数: clipping_norm=0.7, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 144)
+  N（全局样本数）  : 1000
+  特征维度         : 144
+  类别数           : 10
+  测试集形状       : (1000, 144)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : adaptive_dp
+  noise_backend             : binomial_mpc
+  noise_multiplier          : 1.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 0.700000
+  gamma / eta_c             : 0.85 / 0.08
+  sigma_b_scale             : 20.0
+  quantile_beta / warmup    : 0.35 / 40
+  clip_min / clip_max       : 0.05 / 3.0
+  ε 估算上界（供参考）      : 5.253893  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=1.6917  train_acc=0.7060  test_loss=1.7037  test_acc=0.7010  C_t=3.000000  σ_eff=1.0124  ε=0.303  time=0.0s
+  Epoch   34/300  train_loss=0.5849  train_acc=0.8710  test_loss=0.6272  test_acc=0.8580  C_t=3.000000  σ_eff=1.0124  ε=1.769  time=0.0s
+  Epoch   67/300  train_loss=0.3824  train_acc=0.9020  test_loss=0.4354  test_acc=0.8860  C_t=3.000000  σ_eff=1.0124  ε=2.483  time=0.0s
+  Epoch  100/300  train_loss=0.3054  train_acc=0.9170  test_loss=0.3682  test_acc=0.9020  C_t=3.000000  σ_eff=1.0124  ε=3.033  time=0.0s
+  Epoch  133/300  train_loss=0.2626  train_acc=0.9260  test_loss=0.3328  test_acc=0.9060  C_t=3.000000  σ_eff=1.0124  ε=3.498  time=0.0s
+  Epoch  167/300  train_loss=0.2314  train_acc=0.9360  test_loss=0.3134  test_acc=0.9090  C_t=2.998724  σ_eff=1.0124  ε=3.920  time=0.0s
+  Epoch  200/300  train_loss=0.2087  train_acc=0.9380  test_loss=0.3002  test_acc=0.9020  C_t=2.995800  σ_eff=1.0124  ε=4.290  time=0.0s
+  Epoch  233/300  train_loss=0.1922  train_acc=0.9420  test_loss=0.2899  test_acc=0.9040  C_t=2.995379  σ_eff=1.0124  ε=4.630  time=0.0s
+  Epoch  266/300  train_loss=0.1793  train_acc=0.9440  test_loss=0.2840  test_acc=0.9110  C_t=2.659135  σ_eff=1.0124  ε=4.947  time=0.0s
+  Epoch  300/300  train_loss=0.1692  train_acc=0.9460  test_loss=0.2802  test_acc=0.9140  C_t=2.347154  σ_eff=1.0124  ε=5.254  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.9460
+  final_test_accuracy  : 0.9140
+  total_train_time (s) : 12.70
+  mode                 : adaptive_dp
+  final clipping_bound : 2.347154
+  noise_backend        : binomial_mpc
+  => final_acc=0.9140, eps=5.2539, epoch@target=95, C_T=2.347154, time=12.70s
+
+----------------------------------------------------------------------------------------------------------------------
+[Dataset] CIFAR-10
+----------------------------------------------------------------------------------------------------------------------
+source_feat     : /mnt/code/lixujie/tfe_experiments/featureData/cifar10_dino_tr1000_te1000_seed42.npz
+X_train_feat    : (1000, 384)
+X_test_feat     : (1000, 384)
+moduleB_init    : /mnt/code/lixujie/tfe_experiments/init_model/module_b_init_cifar.pt
+chosen_init     : avg
+
+  运行方法: Plain | no DP
+  参数: clipping_norm=1e+06, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 384)
+  N（全局样本数）  : 1000
+  特征维度         : 384
+  类别数           : 10
+  测试集形状       : (1000, 384)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : plain
+  noise_backend             : gaussian
+  noise_multiplier          : 0.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 1000000.000000
+  ε 估算上界（供参考）      : inf  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=0.1933  train_acc=0.9440  test_loss=0.3618  test_acc=0.8770  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch   34/300  train_loss=0.0097  train_acc=1.0000  test_loss=0.2292  test_acc=0.9190  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch   67/300  train_loss=0.0052  train_acc=1.0000  test_loss=0.2307  test_acc=0.9210  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  100/300  train_loss=0.0035  train_acc=1.0000  test_loss=0.2333  test_acc=0.9200  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  133/300  train_loss=0.0027  train_acc=1.0000  test_loss=0.2362  test_acc=0.9210  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  167/300  train_loss=0.0022  train_acc=1.0000  test_loss=0.2384  test_acc=0.9210  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  200/300  train_loss=0.0018  train_acc=1.0000  test_loss=0.2408  test_acc=0.9200  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  233/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.2428  test_acc=0.9190  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  266/300  train_loss=0.0014  train_acc=1.0000  test_loss=0.2444  test_acc=0.9190  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  300/300  train_loss=0.0012  train_acc=1.0000  test_loss=0.2460  test_acc=0.9190  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 1.0000
+  final_test_accuracy  : 0.9190
+  total_train_time (s) : 12.95
+  mode                 : plain
+  final clipping_bound : 1000000.000000
+  noise_backend        : gaussian
+  => final_acc=0.9190, eps=inf, epoch@target=4, C_T=nan, time=12.95s
+
+  运行方法: Fixed-DP | fixed clipping + Gaussian
+  参数: clipping_norm=0.35, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 384)
+  N（全局样本数）  : 1000
+  特征维度         : 384
+  类别数           : 10
+  测试集形状       : (1000, 384)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : fixed_dp
+  noise_backend             : gaussian
+  noise_multiplier          : 1.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 0.350000
+  ε 估算上界（供参考）      : 5.319226  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=0.5621  train_acc=0.8360  test_loss=0.6841  test_acc=0.7790  C_t=0.350000  σ_eff=1.0000  ε=0.307  time=0.0s
+  Epoch   34/300  train_loss=0.2755  train_acc=0.9200  test_loss=0.3953  test_acc=0.8780  C_t=0.350000  σ_eff=1.0000  ε=1.791  time=0.0s
+  Epoch   67/300  train_loss=0.2101  train_acc=0.9390  test_loss=0.3309  test_acc=0.8860  C_t=0.350000  σ_eff=1.0000  ε=2.514  time=0.0s
+  Epoch  100/300  train_loss=0.1755  train_acc=0.9430  test_loss=0.2997  test_acc=0.8970  C_t=0.350000  σ_eff=1.0000  ε=3.071  time=0.0s
+  Epoch  133/300  train_loss=0.1540  train_acc=0.9510  test_loss=0.2823  test_acc=0.9050  C_t=0.350000  σ_eff=1.0000  ε=3.542  time=0.0s
+  Epoch  167/300  train_loss=0.1386  train_acc=0.9520  test_loss=0.2701  test_acc=0.9110  C_t=0.350000  σ_eff=1.0000  ε=3.969  time=0.0s
+  Epoch  200/300  train_loss=0.1303  train_acc=0.9550  test_loss=0.2643  test_acc=0.9150  C_t=0.350000  σ_eff=1.0000  ε=4.343  time=0.0s
+  Epoch  233/300  train_loss=0.1218  train_acc=0.9560  test_loss=0.2605  test_acc=0.9170  C_t=0.350000  σ_eff=1.0000  ε=4.688  time=0.0s
+  Epoch  266/300  train_loss=0.1166  train_acc=0.9560  test_loss=0.2611  test_acc=0.9130  C_t=0.350000  σ_eff=1.0000  ε=5.009  time=0.0s
+  Epoch  300/300  train_loss=0.1110  train_acc=0.9610  test_loss=0.2601  test_acc=0.9140  C_t=0.350000  σ_eff=1.0000  ε=5.319  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.9610
+  final_test_accuracy  : 0.9140
+  total_train_time (s) : 13.03
+  mode                 : fixed_dp
+  final clipping_bound : 0.350000
+  noise_backend        : gaussian
+  => final_acc=0.9140, eps=5.3192, epoch@target=107, C_T=0.350000, time=13.03s
+
+  运行方法: Adaptive-DP | adaptive clipping + Gaussian
+  参数: clipping_norm=0.35, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 384)
+  N（全局样本数）  : 1000
+  特征维度         : 384
+  类别数           : 10
+  测试集形状       : (1000, 384)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : adaptive_dp
+  noise_backend             : gaussian
+  noise_multiplier          : 1.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 0.700000
+  gamma / eta_c             : 0.85 / 0.08
+  sigma_b_scale             : 20.0
+  quantile_beta / warmup    : 0.35 / 40
+  clip_min / clip_max       : 0.05 / 3.0
+  ε 估算上界（供参考）      : 5.253893  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=0.5228  train_acc=0.8570  test_loss=0.6444  test_acc=0.7900  C_t=3.000000  σ_eff=1.0124  ε=0.303  time=0.0s
+  Epoch   34/300  train_loss=0.1143  train_acc=0.9600  test_loss=0.2821  test_acc=0.9050  C_t=3.000000  σ_eff=1.0124  ε=1.769  time=0.0s
+  Epoch   67/300  train_loss=0.0824  train_acc=0.9740  test_loss=0.2818  test_acc=0.9060  C_t=2.995506  σ_eff=1.0124  ε=2.483  time=0.0s
+  Epoch  100/300  train_loss=0.0685  train_acc=0.9730  test_loss=0.2845  test_acc=0.9080  C_t=1.905184  σ_eff=1.0124  ε=3.033  time=0.0s
+  Epoch  133/300  train_loss=0.0555  train_acc=0.9750  test_loss=0.2806  test_acc=0.9130  C_t=1.298767  σ_eff=1.0124  ε=3.498  time=0.0s
+  Epoch  167/300  train_loss=0.0502  train_acc=0.9820  test_loss=0.2753  test_acc=0.9170  C_t=0.881094  σ_eff=1.0124  ε=3.920  time=0.0s
+  Epoch  200/300  train_loss=0.0497  train_acc=0.9810  test_loss=0.2722  test_acc=0.9220  C_t=0.715382  σ_eff=1.0124  ε=4.290  time=0.0s
+  Epoch  233/300  train_loss=0.0466  train_acc=0.9810  test_loss=0.2715  test_acc=0.9210  C_t=0.605866  σ_eff=1.0124  ε=4.630  time=0.0s
+  Epoch  266/300  train_loss=0.0459  train_acc=0.9820  test_loss=0.2745  test_acc=0.9210  C_t=0.460599  σ_eff=1.0124  ε=4.947  time=0.0s
+  Epoch  300/300  train_loss=0.0447  train_acc=0.9830  test_loss=0.2771  test_acc=0.9220  C_t=0.439050  σ_eff=1.0124  ε=5.254  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.9830
+  final_test_accuracy  : 0.9220
+  total_train_time (s) : 13.07
+  mode                 : adaptive_dp
+  final clipping_bound : 0.439050
+  noise_backend        : gaussian
+  => final_acc=0.9220, eps=5.2539, epoch@target=10, C_T=0.439050, time=13.07s
+
+  运行方法: Adaptive-DP + BinomialMPC | adaptive clipping + BinomialMPC
+  参数: clipping_norm=0.35, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 384)
+  N（全局样本数）  : 1000
+  特征维度         : 384
+  类别数           : 10
+  测试集形状       : (1000, 384)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : adaptive_dp
+  noise_backend             : binomial_mpc
+  noise_multiplier          : 1.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 0.700000
+  gamma / eta_c             : 0.85 / 0.08
+  sigma_b_scale             : 20.0
+  quantile_beta / warmup    : 0.35 / 40
+  clip_min / clip_max       : 0.05 / 3.0
+  ε 估算上界（供参考）      : 5.253893  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=0.5232  train_acc=0.8560  test_loss=0.6461  test_acc=0.7860  C_t=3.000000  σ_eff=1.0124  ε=0.303  time=0.0s
+  Epoch   34/300  train_loss=0.1074  train_acc=0.9620  test_loss=0.2677  test_acc=0.9090  C_t=3.000000  σ_eff=1.0124  ε=1.769  time=0.0s
+  Epoch   67/300  train_loss=0.0822  train_acc=0.9730  test_loss=0.2697  test_acc=0.9070  C_t=3.000000  σ_eff=1.0124  ε=2.483  time=0.0s
+  Epoch  100/300  train_loss=0.0760  train_acc=0.9780  test_loss=0.2678  test_acc=0.9130  C_t=2.264944  σ_eff=1.0124  ε=3.033  time=0.0s
+  Epoch  133/300  train_loss=0.0673  train_acc=0.9830  test_loss=0.2687  test_acc=0.9150  C_t=1.459407  σ_eff=1.0124  ε=3.498  time=0.0s
+  Epoch  167/300  train_loss=0.0589  train_acc=0.9840  test_loss=0.2686  test_acc=0.9140  C_t=1.065774  σ_eff=1.0124  ε=3.920  time=0.0s
+  Epoch  200/300  train_loss=0.0537  train_acc=0.9860  test_loss=0.2587  test_acc=0.9180  C_t=0.784075  σ_eff=1.0124  ε=4.290  time=0.0s
+  Epoch  233/300  train_loss=0.0499  train_acc=0.9860  test_loss=0.2590  test_acc=0.9180  C_t=0.611649  σ_eff=1.0124  ε=4.630  time=0.0s
+  Epoch  266/300  train_loss=0.0480  train_acc=0.9860  test_loss=0.2548  test_acc=0.9200  C_t=0.523578  σ_eff=1.0124  ε=4.947  time=0.0s
+  Epoch  300/300  train_loss=0.0468  train_acc=0.9860  test_loss=0.2555  test_acc=0.9210  C_t=0.486868  σ_eff=1.0124  ε=5.254  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.9860
+  final_test_accuracy  : 0.9210
+  total_train_time (s) : 13.52
+  mode                 : adaptive_dp
+  final clipping_bound : 0.486868
+  noise_backend        : binomial_mpc
+  => final_acc=0.9210, eps=5.2539, epoch@target=24, C_T=0.486868, time=13.52s
+
+----------------------------------------------------------------------------------------------------------------------
+[Dataset] IMDb
+----------------------------------------------------------------------------------------------------------------------
+source_feat     : /mnt/code/lixujie/tfe_experiments/featureData/imdb_RoBERTa_tr1000_te1000_seed42.npz
+X_train_feat    : (1000, 768)
+X_test_feat     : (1000, 768)
+moduleB_init    : /mnt/code/lixujie/tfe_experiments/init_model/module_b_init_imdb.pt
+chosen_init     : avg
+
+  运行方法: Plain | no DP
+  参数: clipping_norm=1e+06, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 768)
+  N（全局样本数）  : 1000
+  特征维度         : 768
+  类别数           : 2
+  测试集形状       : (1000, 768)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : plain
+  noise_backend             : gaussian
+  noise_multiplier          : 0.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 1000000.000000
+  ε 估算上界（供参考）      : inf  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=0.6897  train_acc=0.5000  test_loss=0.6912  test_acc=0.5000  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch   34/300  train_loss=0.6368  train_acc=0.7110  test_loss=0.6426  test_acc=0.6940  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch   67/300  train_loss=0.5950  train_acc=0.8030  test_loss=0.6021  test_acc=0.7830  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  100/300  train_loss=0.5618  train_acc=0.8240  test_loss=0.5705  test_acc=0.8070  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  133/300  train_loss=0.5347  train_acc=0.8340  test_loss=0.5455  test_acc=0.8140  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  167/300  train_loss=0.5113  train_acc=0.8400  test_loss=0.5234  test_acc=0.8230  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  200/300  train_loss=0.4909  train_acc=0.8530  test_loss=0.5040  test_acc=0.8400  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  233/300  train_loss=0.4748  train_acc=0.8560  test_loss=0.4888  test_acc=0.8450  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  266/300  train_loss=0.4599  train_acc=0.8580  test_loss=0.4748  test_acc=0.8490  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+  Epoch  300/300  train_loss=0.4464  train_acc=0.8640  test_loss=0.4619  test_acc=0.8460  C_t=1000000.000000  σ_eff=0.0000  ε=inf  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.8640
+  final_test_accuracy  : 0.8460
+  total_train_time (s) : 13.61
+  mode                 : plain
+  final clipping_bound : 1000000.000000
+  noise_backend        : gaussian
+  => final_acc=0.8460, eps=inf, epoch@target=12, C_T=nan, time=13.61s
+
+  运行方法: Fixed-DP | fixed clipping + Gaussian
+  参数: clipping_norm=1.2, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 768)
+  N（全局样本数）  : 1000
+  特征维度         : 768
+  类别数           : 2
+  测试集形状       : (1000, 768)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : fixed_dp
+  noise_backend             : gaussian
+  noise_multiplier          : 1.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 1.200000
+  ε 估算上界（供参考）      : 5.319226  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=0.7439  train_acc=0.5000  test_loss=0.7448  test_acc=0.5000  C_t=1.200000  σ_eff=1.0000  ε=0.307  time=0.0s
+  Epoch   34/300  train_loss=0.7223  train_acc=0.5000  test_loss=0.7248  test_acc=0.5000  C_t=1.200000  σ_eff=1.0000  ε=1.791  time=0.0s
+  Epoch   67/300  train_loss=0.7035  train_acc=0.5000  test_loss=0.7072  test_acc=0.5000  C_t=1.200000  σ_eff=1.0000  ε=2.514  time=0.0s
+  Epoch  100/300  train_loss=0.6680  train_acc=0.5180  test_loss=0.6738  test_acc=0.5130  C_t=1.200000  σ_eff=1.0000  ε=3.071  time=0.0s
+  Epoch  133/300  train_loss=0.6601  train_acc=0.5540  test_loss=0.6680  test_acc=0.5410  C_t=1.200000  σ_eff=1.0000  ε=3.542  time=0.0s
+  Epoch  167/300  train_loss=0.6441  train_acc=0.6250  test_loss=0.6539  test_acc=0.6160  C_t=1.200000  σ_eff=1.0000  ε=3.969  time=0.0s
+  Epoch  200/300  train_loss=0.6298  train_acc=0.6720  test_loss=0.6416  test_acc=0.6610  C_t=1.200000  σ_eff=1.0000  ε=4.343  time=0.0s
+  Epoch  233/300  train_loss=0.6235  train_acc=0.6720  test_loss=0.6366  test_acc=0.6640  C_t=1.200000  σ_eff=1.0000  ε=4.688  time=0.0s
+  Epoch  266/300  train_loss=0.6084  train_acc=0.7120  test_loss=0.6236  test_acc=0.6950  C_t=1.200000  σ_eff=1.0000  ε=5.009  time=0.0s
+  Epoch  300/300  train_loss=0.5998  train_acc=0.7110  test_loss=0.6174  test_acc=0.6820  C_t=1.200000  σ_eff=1.0000  ε=5.319  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.7110
+  final_test_accuracy  : 0.6820
+  total_train_time (s) : 13.67
+  mode                 : fixed_dp
+  final clipping_bound : 1.200000
+  noise_backend        : gaussian
+  => final_acc=0.6820, eps=5.3192, epoch@target=262, C_T=1.200000, time=13.67s
+
+  运行方法: Adaptive-DP | adaptive clipping + Gaussian
+  参数: clipping_norm=1.2, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 768)
+  N（全局样本数）  : 1000
+  特征维度         : 768
+  类别数           : 2
+  测试集形状       : (1000, 768)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : adaptive_dp
+  noise_backend             : gaussian
+  noise_multiplier          : 1.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 0.700000
+  gamma / eta_c             : 0.85 / 0.08
+  sigma_b_scale             : 20.0
+  quantile_beta / warmup    : 0.35 / 40
+  clip_min / clip_max       : 0.05 / 3.0
+  ε 估算上界（供参考）      : 5.253893  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=0.7430  train_acc=0.5000  test_loss=0.7439  test_acc=0.5000  C_t=3.000000  σ_eff=1.0124  ε=0.303  time=0.0s
+  Epoch   34/300  train_loss=0.6920  train_acc=0.5000  test_loss=0.6969  test_acc=0.5000  C_t=3.000000  σ_eff=1.0124  ε=1.769  time=0.0s
+  Epoch   67/300  train_loss=0.6514  train_acc=0.5630  test_loss=0.6594  test_acc=0.5580  C_t=3.000000  σ_eff=1.0124  ε=2.483  time=0.0s
+  Epoch  100/300  train_loss=0.6133  train_acc=0.7080  test_loss=0.6279  test_acc=0.6700  C_t=3.000000  σ_eff=1.0124  ε=3.033  time=0.0s
+  Epoch  133/300  train_loss=0.5930  train_acc=0.7170  test_loss=0.6124  test_acc=0.6810  C_t=3.000000  σ_eff=1.0124  ε=3.498  time=0.0s
+  Epoch  167/300  train_loss=0.5766  train_acc=0.7180  test_loss=0.5994  test_acc=0.6860  C_t=3.000000  σ_eff=1.0124  ε=3.920  time=0.0s
+  Epoch  200/300  train_loss=0.5600  train_acc=0.7380  test_loss=0.5845  test_acc=0.6960  C_t=3.000000  σ_eff=1.0124  ε=4.290  time=0.0s
+  Epoch  233/300  train_loss=0.5437  train_acc=0.7420  test_loss=0.5690  test_acc=0.7140  C_t=3.000000  σ_eff=1.0124  ε=4.630  time=0.0s
+  Epoch  266/300  train_loss=0.5268  train_acc=0.7590  test_loss=0.5517  test_acc=0.7180  C_t=3.000000  σ_eff=1.0124  ε=4.947  time=0.0s
+  Epoch  300/300  train_loss=0.5122  train_acc=0.7630  test_loss=0.5364  test_acc=0.7350  C_t=3.000000  σ_eff=1.0124  ε=5.254  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.7630
+  final_test_accuracy  : 0.7350
+  total_train_time (s) : 13.84
+  mode                 : adaptive_dp
+  final clipping_bound : 3.000000
+  noise_backend        : gaussian
+  => final_acc=0.7350, eps=5.2539, epoch@target=83, C_T=3.000000, time=13.84s
+
+  运行方法: Adaptive-DP + BinomialMPC | adaptive clipping + BinomialMPC
+  参数: clipping_norm=1.2, C_init=0.7, clip_max=3, lr=0.01
+
+======================================================================
+模块 C：Adaptive-Clipped Private Optimization（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  D_lg_feat 形状   : (1000, 768)
+  N（全局样本数）  : 1000
+  特征维度         : 768
+  类别数           : 2
+  测试集形状       : (1000, 768)
+
+[3/5] 配置 DPSGD / Adaptive Clipping / Noise Backend ...
+  训练模式                  : adaptive_dp
+  noise_backend             : binomial_mpc
+  noise_multiplier          : 1.0000
+  global_epochs             : 300
+  global_lr                 : 0.01
+  batch_size                : 64
+  clipping_init             : 0.700000
+  gamma / eta_c             : 0.85 / 0.08
+  sigma_b_scale             : 20.0
+  quantile_beta / warmup    : 0.35 / 40
+  clip_min / clip_max       : 0.05 / 3.0
+  ε 估算上界（供参考）      : 5.253893  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 16 个 mini-batch
+  Epoch    1/300  train_loss=0.7425  train_acc=0.5000  test_loss=0.7434  test_acc=0.5000  C_t=3.000000  σ_eff=1.0124  ε=0.303  time=0.0s
+  Epoch   34/300  train_loss=0.7094  train_acc=0.5000  test_loss=0.7155  test_acc=0.5000  C_t=3.000000  σ_eff=1.0124  ε=1.769  time=0.0s
+  Epoch   67/300  train_loss=0.6642  train_acc=0.5290  test_loss=0.6730  test_acc=0.5220  C_t=3.000000  σ_eff=1.0124  ε=2.483  time=0.0s
+  Epoch  100/300  train_loss=0.6178  train_acc=0.6810  test_loss=0.6324  test_acc=0.6580  C_t=3.000000  σ_eff=1.0124  ε=3.033  time=0.0s
+  Epoch  133/300  train_loss=0.5937  train_acc=0.7060  test_loss=0.6115  test_acc=0.6930  C_t=3.000000  σ_eff=1.0124  ε=3.498  time=0.0s
+  Epoch  167/300  train_loss=0.5746  train_acc=0.7260  test_loss=0.5973  test_acc=0.6870  C_t=3.000000  σ_eff=1.0124  ε=3.920  time=0.0s
+  Epoch  200/300  train_loss=0.5610  train_acc=0.7270  test_loss=0.5857  test_acc=0.7020  C_t=3.000000  σ_eff=1.0124  ε=4.290  time=0.0s
+  Epoch  233/300  train_loss=0.5482  train_acc=0.7330  test_loss=0.5749  test_acc=0.7000  C_t=3.000000  σ_eff=1.0124  ε=4.630  time=0.0s
+  Epoch  266/300  train_loss=0.5351  train_acc=0.7340  test_loss=0.5629  test_acc=0.7120  C_t=3.000000  σ_eff=1.0124  ε=4.947  time=0.0s
+  Epoch  300/300  train_loss=0.5170  train_acc=0.7560  test_loss=0.5422  test_acc=0.7270  C_t=3.000000  σ_eff=1.0124  ε=5.254  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.7560
+  final_test_accuracy  : 0.7270
+  total_train_time (s) : 13.88
+  mode                 : adaptive_dp
+  final clipping_bound : 3.000000
+  noise_backend        : binomial_mpc
+  => final_acc=0.7270, eps=5.2539, epoch@target=108, C_T=3.000000, time=13.88s
+
+======================================================================================================================
+Table X. Effect of adaptive clipping in private optimization
+----------------------------------------------------------------------------------------------------------------------
+Dataset    Method                       ε          Final Acc    Epoch@Acc      Final C_T    Time(s)   
+----------------------------------------------------------------------------------------------------------------------
+MNIST      Plain                        inf        0.9070       39             N/A          12.33     
+MNIST      Fixed-DP                     5.319      0.8710       301            0.7000       12.42     
+MNIST      Adaptive-DP                  5.254      0.9120       103            2.4608       12.45     
+MNIST      Adaptive-DP + BinomialMPC    5.254      0.9140       95             2.3472       12.70     
+CIFAR-10   Plain                        inf        0.9190       4              N/A          12.95     
+CIFAR-10   Fixed-DP                     5.319      0.9140       107            0.3500       13.03     
+CIFAR-10   Adaptive-DP                  5.254      0.9220       10             0.4390       13.07     
+CIFAR-10   Adaptive-DP + BinomialMPC    5.254      0.9210       24             0.4869       13.52     
+IMDb       Plain                        inf        0.8460       12             N/A          13.61     
+IMDb       Fixed-DP                     5.319      0.6820       262            1.2000       13.67     
+IMDb       Adaptive-DP                  5.254      0.7350       83             3.0000       13.84     
+IMDb       Adaptive-DP + BinomialMPC    5.254      0.7270       108            3.0000       13.88     
+======================================================================================================================
+
+输出文件:
+  CSV : /mnt/code/lixujie/tfe_experiments/expTab/module_c_adaptive_clipping_table_all_20260705_111456.csv
+  JSON: /mnt/code/lixujie/tfe_experiments/log/json/moduleC_adaptive_clipping_table_all_20260705_111456.json
+  TXT : /mnt/code/lixujie/tfe_experiments/log/txt/moduleC_adaptive_clipping_table_all_20260705_111456.log
+  FIG[mnist] trajectory: /mnt/code/lixujie/tfe_experiments/expFig/moduleC_adaptive_clipping/adaptive_clipping_trajectory_mnist_20260705_111456.png
+  FIG[mnist] accuracy   : /mnt/code/lixujie/tfe_experiments/expFig/moduleC_adaptive_clipping/adaptive_clipping_accuracy_mnist_20260705_111456.png
+  FIG[cifar] trajectory: /mnt/code/lixujie/tfe_experiments/expFig/moduleC_adaptive_clipping/adaptive_clipping_trajectory_cifar_20260705_111456.png
+  FIG[cifar] accuracy   : /mnt/code/lixujie/tfe_experiments/expFig/moduleC_adaptive_clipping/adaptive_clipping_accuracy_cifar_20260705_111456.png
+  FIG[imdb] trajectory: /mnt/code/lixujie/tfe_experiments/expFig/moduleC_adaptive_clipping/adaptive_clipping_trajectory_imdb_20260705_111456.png
+  FIG[imdb] accuracy   : /mnt/code/lixujie/tfe_experiments/expFig/moduleC_adaptive_clipping/adaptive_clipping_accuracy_imdb_20260705_111456.png
+总耗时(s): 158.34

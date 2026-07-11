@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "experiment": "module_c_trust_dpsgd",
+    "run_id": "20260417_212215",
+    "dataset": "cifar",
+    "python": "3.6.13",
+    "platform": "Linux-6.11.0-26-generic-x86_64-with-debian-trixie-sid",
+    "pytorch": "1.10.1+cu102"
+  },
+  "config": {
+    "init_type": "from_module_b",
+    "feat_dim": 384,
+    "num_classes": 10,
+    "N_lg_feat": 1000,
+    "N_test": 1000,
+    "global_epochs": 1,
+    "global_lr": 0.01,
+    "batch_size": 64,
+    "clipping_norm": 1.0,
+    "noise_multiplier": 1.0,
+    "delta": 1e-05,
+    "seed": 42,
+    "device": "cpu"
+  },
+  "init_info": {
+    "init_type": "from_module_b"
+  },
+  "trust_info": {
+    "mode": "trust_dp",
+    "trust_t": 0.7,
+    "sigma_min": 0.1,
+    "sigma_max": 2.0,
+    "effective_sigma": 0.6700000000000002
+  },
+  "dp_info": {
+    "mode": "trust_dp",
+    "batch_size": 64,
+    "clipping_norm": 1.0,
+    "effective_noise_multiplier": 0.6700000000000002,
+    "noise_std": 0.6700000000000002,
+    "delta": 1e-05,
+    "eps_estimate_upper_bound": 7.162,
+    "sampling_rate_q": 0.064,
+    "global_epochs": 1,
+    "note": "eps_estimate 为简化上界，精确 DP 分析请用 Opacus / dp-accounting"
+  },
+  "final_metrics": {
+    "final_train_loss": 1.942123,
+    "final_train_accuracy": 0.416,
+    "final_test_loss": 2.004048,
+    "final_test_accuracy": 0.406,
+    "total_train_time_s": 0.044,
+    "avg_epoch_time_s": 0.044
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.942123,
+      "train_acc": 0.416,
+      "test_loss": 2.004048,
+      "test_acc": 0.406,
+      "mean_grad_norm": 77.1872,
+      "effective_sigma": 0.67,
+      "epoch_time_s": 0.044
+    }
+  ],
+  "model_pt": "/mnt/code/lixujie/tfe_experiments/log/module_c_cifar_trust_dp_20260417_212215_model.pt",
+  "notes": [
+    "★ 训练对象是 logically global feature dataset（D_lg_feat）",
+    "★ D_lg_feat = 所有 client 特征的逻辑拼合（本原型近似实现）",
+    "★ 特征为 feature-level 数据（模块 a 提取），非原始图像/文本",
+    "★ 后续可替换为真正的 TF-Encrypted / MPC secure backend",
+    "★ per-sample gradient 当前用 Python 循环（正确但较慢）",
+    "★ trust_t 抽象自 Truex et al. 2019 的 trust 参数"
+  ]
+}

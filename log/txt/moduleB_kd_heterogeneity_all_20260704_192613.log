@@ -1,0 +1,120 @@
+==================================================================================================================================
+模块 B KD 异构程度敏感性实验：IID / Mild Non-IID / Severe Non-IID
+==================================================================================================================================
+run_id              : 20260704_192613
+datasets            : ['mnist', 'cifar', 'imdb']
+num_repeats         : 5
+cpu_threads         : 1
+use_secure_agg      : False
+multi-class levels  : IID, classes_per_client=5, classes_per_client=2
+binary levels       : IID, alpha=0.5, alpha=0.1
+说明                : 只评估模块 B 初始化模型，不接入模块 C
+
+----------------------------------------------------------------------------------------------------------------------------------
+[Dataset] MNIST
+----------------------------------------------------------------------------------------------------------------------------------
+source_feat         : /mnt/code/lixujie/tfe_experiments/featureData/mnist_hog_tr1000_te10000_seed42.npz
+X_train_feat        : (1000, 144)
+X_test_feat         : (1000, 144)
+
+  [Heterogeneity] IID
+    seed=42   IID                NoKD-Avg=0.8120 KD-Avg=0.8240 Δ=+0.0120 | NoKD-Best=0.6990 KD-Best=0.7040 Δ=+0.0050
+    seed=43   IID                NoKD-Avg=0.8120 KD-Avg=0.8240 Δ=+0.0120 | NoKD-Best=0.6980 KD-Best=0.7470 Δ=+0.0490
+    seed=44   IID                NoKD-Avg=0.8170 KD-Avg=0.8330 Δ=+0.0160 | NoKD-Best=0.6360 KD-Best=0.7140 Δ=+0.0780
+    seed=45   IID                NoKD-Avg=0.8130 KD-Avg=0.8300 Δ=+0.0170 | NoKD-Best=0.7010 KD-Best=0.7330 Δ=+0.0320
+    seed=46   IID                NoKD-Avg=0.8120 KD-Avg=0.8270 Δ=+0.0150 | NoKD-Best=0.6420 KD-Best=0.6730 Δ=+0.0310
+
+  [Heterogeneity] Mild Non-IID
+    seed=42   classes/client=5   NoKD-Avg=0.7410 KD-Avg=0.7440 Δ=+0.0030 | NoKD-Best=0.4510 KD-Best=0.5160 Δ=+0.0650
+    seed=43   classes/client=5   NoKD-Avg=0.7450 KD-Avg=0.7500 Δ=+0.0050 | NoKD-Best=0.4580 KD-Best=0.4720 Δ=+0.0140
+    seed=44   classes/client=5   NoKD-Avg=0.7620 KD-Avg=0.7740 Δ=+0.0120 | NoKD-Best=0.4520 KD-Best=0.4750 Δ=+0.0230
+    seed=45   classes/client=5   NoKD-Avg=0.7290 KD-Avg=0.7320 Δ=+0.0030 | NoKD-Best=0.4560 KD-Best=0.4740 Δ=+0.0180
+    seed=46   classes/client=5   NoKD-Avg=0.6900 KD-Avg=0.6970 Δ=+0.0070 | NoKD-Best=0.4440 KD-Best=0.5270 Δ=+0.0830
+
+  [Heterogeneity] Severe Non-IID
+    seed=42   classes/client=2   NoKD-Avg=0.6570 KD-Avg=0.6800 Δ=+0.0230 | NoKD-Best=0.3110 KD-Best=0.3450 Δ=+0.0340
+    seed=43   classes/client=2   NoKD-Avg=0.7160 KD-Avg=0.7280 Δ=+0.0120 | NoKD-Best=0.3240 KD-Best=0.3440 Δ=+0.0200
+    seed=44   classes/client=2   NoKD-Avg=0.7610 KD-Avg=0.7780 Δ=+0.0170 | NoKD-Best=0.3540 KD-Best=0.3470 Δ=-0.0070
+    seed=45   classes/client=2   NoKD-Avg=0.6660 KD-Avg=0.6800 Δ=+0.0140 | NoKD-Best=0.2310 KD-Best=0.2490 Δ=+0.0180
+    seed=46   classes/client=2   NoKD-Avg=0.6890 KD-Avg=0.7060 Δ=+0.0170 | NoKD-Best=0.3280 KD-Best=0.3460 Δ=+0.0180
+
+----------------------------------------------------------------------------------------------------------------------------------
+[Dataset] CIFAR-10
+----------------------------------------------------------------------------------------------------------------------------------
+source_feat         : /mnt/code/lixujie/tfe_experiments/featureData/cifar10_dino_tr1000_te1000_seed42.npz
+X_train_feat        : (1000, 384)
+X_test_feat         : (1000, 384)
+
+  [Heterogeneity] IID
+    seed=42   IID                NoKD-Avg=0.8950 KD-Avg=0.8980 Δ=+0.0030 | NoKD-Best=0.7780 KD-Best=0.8160 Δ=+0.0380
+    seed=43   IID                NoKD-Avg=0.8780 KD-Avg=0.8860 Δ=+0.0080 | NoKD-Best=0.7950 KD-Best=0.8060 Δ=+0.0110
+    seed=44   IID                NoKD-Avg=0.9040 KD-Avg=0.9110 Δ=+0.0070 | NoKD-Best=0.7940 KD-Best=0.8310 Δ=+0.0370
+    seed=45   IID                NoKD-Avg=0.8970 KD-Avg=0.8980 Δ=+0.0010 | NoKD-Best=0.7890 KD-Best=0.8400 Δ=+0.0510
+    seed=46   IID                NoKD-Avg=0.8970 KD-Avg=0.9030 Δ=+0.0060 | NoKD-Best=0.7940 KD-Best=0.8270 Δ=+0.0330
+
+  [Heterogeneity] Mild Non-IID
+    seed=42   classes/client=5   NoKD-Avg=0.4520 KD-Avg=0.6860 Δ=+0.2340 | NoKD-Best=0.5300 KD-Best=0.6010 Δ=+0.0710
+    seed=43   classes/client=5   NoKD-Avg=0.5230 KD-Avg=0.7300 Δ=+0.2070 | NoKD-Best=0.5340 KD-Best=0.5970 Δ=+0.0630
+    seed=44   classes/client=5   NoKD-Avg=0.5940 KD-Avg=0.7110 Δ=+0.1170 | NoKD-Best=0.5310 KD-Best=0.6470 Δ=+0.1160
+    seed=45   classes/client=5   NoKD-Avg=0.4620 KD-Avg=0.7930 Δ=+0.3310 | NoKD-Best=0.5360 KD-Best=0.6650 Δ=+0.1290
+    seed=46   classes/client=5   NoKD-Avg=0.4440 KD-Avg=0.7420 Δ=+0.2980 | NoKD-Best=0.4700 KD-Best=0.5750 Δ=+0.1050
+
+  [Heterogeneity] Severe Non-IID
+    seed=42   classes/client=2   NoKD-Avg=0.3580 KD-Avg=0.5490 Δ=+0.1910 | NoKD-Best=0.4310 KD-Best=0.5120 Δ=+0.0810
+    seed=43   classes/client=2   NoKD-Avg=0.3750 KD-Avg=0.5600 Δ=+0.1850 | NoKD-Best=0.1990 KD-Best=0.5520 Δ=+0.3530
+    seed=44   classes/client=2   NoKD-Avg=0.4870 KD-Avg=0.4810 Δ=-0.0060 | NoKD-Best=0.2920 KD-Best=0.4700 Δ=+0.1780
+    seed=45   classes/client=2   NoKD-Avg=0.2690 KD-Avg=0.4300 Δ=+0.1610 | NoKD-Best=0.1990 KD-Best=0.4780 Δ=+0.2790
+    seed=46   classes/client=2   NoKD-Avg=0.4210 KD-Avg=0.6840 Δ=+0.2630 | NoKD-Best=0.2840 KD-Best=0.3970 Δ=+0.1130
+
+----------------------------------------------------------------------------------------------------------------------------------
+[Dataset] IMDb
+----------------------------------------------------------------------------------------------------------------------------------
+source_feat         : /mnt/code/lixujie/tfe_experiments/featureData/imdb_RoBERTa_tr1000_te1000_seed42.npz
+X_train_feat        : (1000, 768)
+X_test_feat         : (1000, 768)
+
+  [Heterogeneity] IID
+    seed=42   IID                NoKD-Avg=0.6620 KD-Avg=0.7020 Δ=+0.0400 | NoKD-Best=0.5910 KD-Best=0.6040 Δ=+0.0130
+    seed=43   IID                NoKD-Avg=0.7350 KD-Avg=0.7340 Δ=-0.0010 | NoKD-Best=0.5820 KD-Best=0.5860 Δ=+0.0040
+    seed=44   IID                NoKD-Avg=0.6630 KD-Avg=0.6870 Δ=+0.0240 | NoKD-Best=0.6620 KD-Best=0.6830 Δ=+0.0210
+    seed=45   IID                NoKD-Avg=0.6210 KD-Avg=0.6450 Δ=+0.0240 | NoKD-Best=0.6100 KD-Best=0.6200 Δ=+0.0100
+    seed=46   IID                NoKD-Avg=0.6020 KD-Avg=0.6340 Δ=+0.0320 | NoKD-Best=0.5420 KD-Best=0.5960 Δ=+0.0540
+
+  [Heterogeneity] Mild Non-IID
+    seed=42   alpha=0.5          NoKD-Avg=0.6320 KD-Avg=0.7230 Δ=+0.0910 | NoKD-Best=0.7410 KD-Best=0.7330 Δ=-0.0080
+    seed=43   alpha=0.5          NoKD-Avg=0.6360 KD-Avg=0.6550 Δ=+0.0190 | NoKD-Best=0.6750 KD-Best=0.6950 Δ=+0.0200
+    seed=44   alpha=0.5          NoKD-Avg=0.6330 KD-Avg=0.6520 Δ=+0.0190 | NoKD-Best=0.6770 KD-Best=0.7070 Δ=+0.0300
+    seed=45   alpha=0.5          NoKD-Avg=0.6080 KD-Avg=0.7300 Δ=+0.1220 | NoKD-Best=0.6050 KD-Best=0.6750 Δ=+0.0700
+    seed=46   alpha=0.5          NoKD-Avg=0.5480 KD-Avg=0.5710 Δ=+0.0230 | NoKD-Best=0.5410 KD-Best=0.5150 Δ=-0.0260
+
+  [Heterogeneity] Severe Non-IID
+    seed=42   alpha=0.1          NoKD-Avg=0.7100 KD-Avg=0.7320 Δ=+0.0220 | NoKD-Best=0.7410 KD-Best=0.7480 Δ=+0.0070
+    seed=43   alpha=0.1          NoKD-Avg=0.5080 KD-Avg=0.6420 Δ=+0.1340 | NoKD-Best=0.6750 KD-Best=0.6910 Δ=+0.0160
+    seed=44   alpha=0.1          NoKD-Avg=0.5770 KD-Avg=0.6220 Δ=+0.0450 | NoKD-Best=0.6770 KD-Best=0.6990 Δ=+0.0220
+    seed=45   alpha=0.1          NoKD-Avg=0.5460 KD-Avg=0.7110 Δ=+0.1650 | NoKD-Best=0.6050 KD-Best=0.6700 Δ=+0.0650
+    seed=46   alpha=0.1          NoKD-Avg=0.5230 KD-Avg=0.5700 Δ=+0.0470 | NoKD-Best=0.5410 KD-Best=0.5140 Δ=-0.0270
+
+==================================================================================================================================
+模块 B 异构程度敏感性实验：数据越异构，KD 是否越有价值
+----------------------------------------------------------------------------------------------------------------------------------
+Dataset    Heterogeneity    NoKD-Avg           KD-Avg             ΔAvg       NoKD-Best          KD-Best            ΔBest     
+----------------------------------------------------------------------------------------------------------------------------------
+MNIST      IID              0.8132 ± 0.0019    0.8276 ± 0.0035    +0.0144    0.6752 ± 0.0296    0.7142 ± 0.0254    +0.0390
+MNIST      Mild Non-IID     0.7334 ± 0.0241    0.7394 ± 0.0252    +0.0060    0.4522 ± 0.0048    0.4928 ± 0.0237    +0.0406
+MNIST      Severe Non-IID   0.6978 ± 0.0376    0.7144 ± 0.0365    +0.0166    0.3096 ± 0.0417    0.3262 ± 0.0386    +0.0166
+CIFAR-10   IID              0.8942 ± 0.0087    0.8992 ± 0.0081    +0.0050    0.7900 ± 0.0064    0.8240 ± 0.0118    +0.0340
+CIFAR-10   Mild Non-IID     0.4950 ± 0.0568    0.7324 ± 0.0357    +0.2374    0.5202 ± 0.0252    0.6170 ± 0.0335    +0.0968
+CIFAR-10   Severe Non-IID   0.3820 ± 0.0720    0.5408 ± 0.0858    +0.1588    0.2810 ± 0.0849    0.4818 ± 0.0514    +0.2008
+IMDb       IID              0.6566 ± 0.0457    0.6804 ± 0.0368    +0.0238    0.5974 ± 0.0392    0.6178 ± 0.0344    +0.0204
+IMDb       Mild Non-IID     0.6114 ± 0.0332    0.6662 ± 0.0578    +0.0548    0.6478 ± 0.0686    0.6650 ± 0.0773    +0.0172
+IMDb       Severe Non-IID   0.5728 ± 0.0724    0.6554 ± 0.0592    +0.0826    0.6478 ± 0.0686    0.6644 ± 0.0794    +0.0166
+==================================================================================================================================
+
+输出文件:
+  CSV : /mnt/code/lixujie/tfe_experiments/expTab/module_b_kd_heterogeneity_all_20260704_192613.csv
+  JSON: /mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_heterogeneity_all_20260704_192613.json
+  TXT : /mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_heterogeneity_all_20260704_192613.log
+  FIG : /mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/module_b_kd_heterogeneity_mnist_20260704_192613.png
+  FIG : /mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/module_b_kd_heterogeneity_cifar_20260704_192613.png
+  FIG : /mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/module_b_kd_heterogeneity_imdb_20260704_192613.png
+总耗时(s): 6.91

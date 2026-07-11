@@ -1,0 +1,46 @@
+================================================================================================
+Figure X. Clipping bound trajectory（Adaptive-DP，多 seed）
+================================================================================================
+run_id      : 20260705_114559
+datasets    : ['mnist', 'cifar', 'imdb']
+seeds       : [42, 43, 44]
+epochs      : 300
+cpu_threads : 1
+noise_backend: gaussian
+
+------------------------------------------------------------------------------------------------
+[Dataset] MNIST
+------------------------------------------------------------------------------------------------
+  seed=42 运行 Adaptive-DP ...
+    final_acc=0.9120, final_C_t=2.460848, eps=5.253893
+  seed=43 运行 Adaptive-DP ...
+    final_acc=0.9060, final_C_t=2.566182, eps=5.253893
+  seed=44 运行 Adaptive-DP ...
+    final_acc=0.8970, final_C_t=2.347843, eps=5.253893
+
+------------------------------------------------------------------------------------------------
+[Dataset] CIFAR-10
+------------------------------------------------------------------------------------------------
+  seed=42 运行 Adaptive-DP ...
+    final_acc=0.9220, final_C_t=0.439050, eps=5.253893
+  seed=43 运行 Adaptive-DP ...
+    final_acc=0.9180, final_C_t=0.432808, eps=5.253893
+  seed=44 运行 Adaptive-DP ...
+    final_acc=0.9260, final_C_t=0.453577, eps=5.253893
+
+------------------------------------------------------------------------------------------------
+[Dataset] IMDb
+------------------------------------------------------------------------------------------------
+  seed=42 运行 Adaptive-DP ...
+    final_acc=0.7350, final_C_t=3.000000, eps=5.253893
+  seed=43 运行 Adaptive-DP ...
+    final_acc=0.7410, final_C_t=3.000000, eps=5.253893
+  seed=44 运行 Adaptive-DP ...
+    final_acc=0.7340, final_C_t=3.000000, eps=5.253893
+
+输出文件:
+  FIG : /mnt/code/lixujie/tfe_experiments/expFig/moduleC_adaptive_clipping/clipping_bound_trajectory_multiseed_20260705_114559.png
+  CSV : /mnt/code/lixujie/tfe_experiments/expTab/module_c_clipping_trajectory_multiseed_20260705_114559.csv
+  JSON: /mnt/code/lixujie/tfe_experiments/log/json/moduleC_clipping_trajectory_multiseed_20260705_114559.json
+  TXT : /mnt/code/lixujie/tfe_experiments/log/txt/moduleC_clipping_trajectory_multiseed_20260705_114559.log
+总耗时(s): 118.68

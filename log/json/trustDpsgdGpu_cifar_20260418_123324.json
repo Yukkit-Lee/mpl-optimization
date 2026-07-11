@@ -1,0 +1,32 @@
+{
+  "run_id": "20260418_123324",
+  "status": "ok",
+  "python": "/home/lixujie/.conda/envs/distillation/bin/python3.9",
+  "dataset": "cifar",
+  "mode": "trust_dp",
+  "gpu_probe": {
+    "ok": true,
+    "torch_version": "2.8.0+cu128",
+    "cuda_available": true,
+    "device_name": "NVIDIA GeForce RTX 4090",
+    "sample": -1.1765215396881104
+  },
+  "elapsed_s": 2.445,
+  "main_json": "/mnt/code/lixujie/tfe_experiments/log/json/trustDpsgdGpu_cifar_20260418_123324.json",
+  "txt_log": "/mnt/code/lixujie/tfe_experiments/log/txt/trustDpsgdGpu_cifar_20260418_123324.log",
+  "module_b_cache": {
+    "policy": "best",
+    "meta_json": "/mnt/code/lixujie/tfe_experiments/init_model/module_b_best_cifar.json",
+    "weights_pt": "/mnt/code/lixujie/tfe_experiments/init_model/module_b_best_cifar.pt"
+  },
+  "module_b_candidate": {
+    "avg_ref_acc": 0.71,
+    "best_ref_acc": 0.645,
+    "best_local_idx": 2,
+    "chosen_init_type": "avg",
+    "avg_test_acc": 0.686,
+    "best_test_acc": 0.601,
+    "chosen_test_acc": 0.686
+  },
+  "figure5_tfe": null
+}

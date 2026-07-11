@@ -1,0 +1,140 @@
+========================================================================
+桥接脚本：模块 b → 模块 c（Trust-aware Secure DPSGD）
+========================================================================
+run_id    : 20260419_210605
+dataset   : imdb
+mode      : trust_dp  (来自CFG)
+trust_t   : 0.7  (来自CFG)
+init_type : chosen  (固定读取模块 b initial_global_model)
+epochs    : 800  (来自CFG)
+X_train_feat : (1000, 768)  X_test_feat : (1000, 768)
+
+读取模块 b 初始化缓存成功（未执行模块 b 训练）...
+缓存文件: /mnt/code/lixujie/tfe_experiments/init_model/module_b_best_imdb.pt
+加载策略: best
+模块 b 缓存：chosen_init_type = avg
+模块 b 聚合方式: ABY3密态
+
+======================================================================
+B → C 桥接启动
+  模块 b 推荐 init_type : avg
+  本次使用 init_type    : chosen
+  训练模式              : trust_dp
+  trust_t               : 0.7
+======================================================================
+
+======================================================================
+模块 C：Trust-aware Secure DPSGD（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+  加载来自模块 b 的 initial_global_model（深拷贝）
+  模型架构: LinearClassifier(
+  (fc): Linear(in_features=768, out_features=1, bias=True)
+)
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  ★ D_lg_feat 说明：
+    对应 PEA 中 'logically global dataset'
+    本原型 = 所有 client 特征的直接拼合（近似实现）
+    输入为 feature-level 特征（非原始图像/文本）
+    后续可替换为真正的 MPC secret-sharing 构建方式
+  D_lg_feat 形状   : (1000, 768)
+  N（全局样本数）  : 1000
+  特征维度         : 768
+  类别数           : 2
+  测试集形状       : (1000, 768)
+
+[3/5] 配置 DPSGD / trust-aware 噪声 ...
+  训练模式                  : trust_dp
+  trust_t                   : 0.7
+  sigma_min                 : 0.1
+  sigma_max                 : 2.0
+  噪声调度                  : cosine decay 2.0000 → 0.6700
+  学习率调度                : adaptive 0.01000 → 0.01728
+  effective_noise_multiplier: 0.6700  (静态参考值)
+  实际加噪标准差             : 0.6700  (= σ_eff × C)
+  clipping_norm             : 1.0
+  batch_size                : 64
+  global_epochs             : 800
+  global_lr                 : 0.01
+  ε 估算上界（供参考）      : 12.9646  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 15 个 mini-batch
+  Epoch    1/800  train_loss=0.7361  train_acc=0.5000  test_loss=0.7358  test_acc=0.5000  σ=2.000  lr=0.01000  ε=0.154  time=0.0s
+  Epoch   89/800  train_loss=0.6901  train_acc=0.5000  test_loss=0.6925  test_acc=0.5000  σ=1.960  lr=0.01010  ε=1.459  time=0.0s
+  Epoch  178/800  train_loss=0.6560  train_acc=0.5540  test_loss=0.6632  test_acc=0.5490  σ=1.844  lr=0.01041  ε=2.107  time=0.0s
+  Epoch  267/800  train_loss=0.6215  train_acc=0.7070  test_loss=0.6325  test_acc=0.6970  σ=1.667  lr=0.01095  ε=2.676  time=0.0s
+  Epoch  356/800  train_loss=0.5997  train_acc=0.7280  test_loss=0.6157  test_acc=0.6920  σ=1.449  lr=0.01175  ε=3.260  time=0.0s
+  Epoch  444/800  train_loss=0.6056  train_acc=0.6510  test_loss=0.6287  test_acc=0.6270  σ=1.221  lr=0.01280  ε=3.915  time=0.0s
+  Epoch  533/800  train_loss=0.5857  train_acc=0.6830  test_loss=0.6135  test_acc=0.6410  σ=1.003  lr=0.01412  ε=4.715  time=0.0s
+  Epoch  622/800  train_loss=0.5850  train_acc=0.6780  test_loss=0.6189  test_acc=0.6340  σ=0.826  lr=0.01556  ε=5.699  time=0.0s
+  Epoch  711/800  train_loss=0.5456  train_acc=0.7080  test_loss=0.5800  test_acc=0.6810  σ=0.710  lr=0.01678  ε=6.858  time=0.0s
+  Epoch  800/800  train_loss=0.5344  train_acc=0.7280  test_loss=0.5695  test_acc=0.6960  σ=0.670  lr=0.01728  ε=8.064  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.7280
+  final_test_accuracy  : 0.6960
+  total_train_time (s) : 32.31
+  mode                 : trust_dp
+  trust_t              : 0.7
+  effective σ           : 0.6700
+
+[Figure5-TFE] random/avg/best 三初始化进入 TFE 密态训练
+  epochs/lr(base->eff) : 800/0.01->0.001
+  feat_dim/classes : 768/2
+  ε-accountant: mode=pea_aligned, epsilon_end=2.07, delta=1e-05, q=1.000, sigma_eff=0.6700, target_epsilon=None
+
+  -> 训练 random_init
+    init      tr_loss=2.235580 te_loss=2.145069 tr_acc=0.6470 te_acc=0.6810
+    it=   1/800  tr_loss=2.166931 te_loss=2.079462 tr_acc=0.6500 te_acc=0.6830 eps=0.073
+    it=  89/800  tr_loss=0.869690 te_loss=0.990972 tr_acc=0.7810 te_acc=0.7680 eps=0.690
+    it= 178/800  tr_loss=0.638962 te_loss=0.810136 tr_acc=0.8270 te_acc=0.7920 eps=0.976
+    it= 267/800  tr_loss=0.528610 te_loss=0.721180 tr_acc=0.8570 te_acc=0.8050 eps=1.196
+    it= 356/800  tr_loss=0.461166 te_loss=0.667864 tr_acc=0.8730 te_acc=0.8240 eps=1.381
+    it= 444/800  tr_loss=0.415527 te_loss=0.633818 tr_acc=0.8930 te_acc=0.8260 eps=1.542
+    it= 533/800  tr_loss=0.381851 te_loss=0.610312 tr_acc=0.9050 te_acc=0.8340 eps=1.690
+    it= 622/800  tr_loss=0.356171 te_loss=0.593970 tr_acc=0.9110 te_acc=0.8430 eps=1.825
+    it= 711/800  tr_loss=0.335876 te_loss=0.582085 tr_acc=0.9200 te_acc=0.8450 eps=1.951
+    it= 800/800  tr_loss=0.319382 te_loss=0.573315 tr_acc=0.9300 te_acc=0.8430 eps=2.070
+
+  -> 训练 avg_init
+    init      tr_loss=0.906799 te_loss=0.926045 tr_acc=0.6350 te_acc=0.6060
+    it=   1/800  tr_loss=0.850235 te_loss=0.874016 tr_acc=0.6670 te_acc=0.6520 eps=0.073
+    it=  89/800  tr_loss=0.367050 te_loss=0.447084 tr_acc=0.9010 te_acc=0.8690 eps=0.690
+    it= 178/800  tr_loss=0.321320 te_loss=0.429874 tr_acc=0.9210 te_acc=0.8750 eps=0.976
+    it= 267/800  tr_loss=0.295441 te_loss=0.427137 tr_acc=0.9380 te_acc=0.8790 eps=1.196
+    it= 356/800  tr_loss=0.277924 te_loss=0.429154 tr_acc=0.9470 te_acc=0.8800 eps=1.381
+    it= 444/800  tr_loss=0.264999 te_loss=0.432909 tr_acc=0.9500 te_acc=0.8790 eps=1.542
+    it= 533/800  tr_loss=0.254730 te_loss=0.437408 tr_acc=0.9560 te_acc=0.8800 eps=1.690
+    it= 622/800  tr_loss=0.246292 te_loss=0.442213 tr_acc=0.9600 te_acc=0.8770 eps=1.825
+    it= 711/800  tr_loss=0.239182 te_loss=0.447075 tr_acc=0.9610 te_acc=0.8730 eps=1.951
+    it= 800/800  tr_loss=0.233032 te_loss=0.451730 tr_acc=0.9620 te_acc=0.8660 eps=2.070
+
+  -> 训练 best_init
+    init      tr_loss=1.300049 te_loss=1.357752 tr_acc=0.5350 te_acc=0.5240
+    it=   1/800  tr_loss=1.200439 te_loss=1.263768 tr_acc=0.5550 te_acc=0.5510 eps=0.073
+    it=  89/800  tr_loss=0.443268 te_loss=0.557739 tr_acc=0.8760 te_acc=0.8200 eps=0.690
+    it= 178/800  tr_loss=0.367599 te_loss=0.509456 tr_acc=0.9100 te_acc=0.8370 eps=0.976
+    it= 267/800  tr_loss=0.328506 te_loss=0.493414 tr_acc=0.9230 te_acc=0.8500 eps=1.196
+    it= 356/800  tr_loss=0.303711 te_loss=0.487636 tr_acc=0.9290 te_acc=0.8580 eps=1.381
+    it= 444/800  tr_loss=0.286301 te_loss=0.486215 tr_acc=0.9350 te_acc=0.8570 eps=1.542
+    it= 533/800  tr_loss=0.272934 te_loss=0.486730 tr_acc=0.9400 te_acc=0.8510 eps=1.690
+    it= 622/800  tr_loss=0.262238 te_loss=0.488071 tr_acc=0.9490 te_acc=0.8530 eps=1.825
+    it= 711/800  tr_loss=0.253372 te_loss=0.490024 tr_acc=0.9490 te_acc=0.8540 eps=1.951
+    it= 800/800  tr_loss=0.245804 te_loss=0.492207 tr_acc=0.9550 te_acc=0.8530 eps=2.070
+
+[Figure5-TFE] 最终对比（按 test_acc）:
+  random_init  test_acc=0.8430 train_acc=0.9300
+  avg_init     test_acc=0.8660 train_acc=0.9620
+  best_init    test_acc=0.8530 train_acc=0.9550
+  winner: avg_init
+
+Figure5(TFE) 文件已写入:
+   {'figure5_json': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_imdb_20260419_210605.json', 'figure5_csv': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_imdb_20260419_210605.csv', 'figure5_png': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_imdb_20260419_210605.png'}
+主JSON已写入: /mnt/code/lixujie/tfe_experiments/log/json/trustDpsgd_imdb_20260419_210605.json
+桥接JSON已写入: /mnt/code/lixujie/tfe_experiments/log/json/trustDpsgdBridge_imdb_20260419_210605.json
+TXT日志已写入: /mnt/code/lixujie/tfe_experiments/log/txt/trustDpsgd_imdb_20260419_210605.log
+总耗时(s): 43.632

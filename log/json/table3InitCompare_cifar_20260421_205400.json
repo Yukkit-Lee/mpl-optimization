@@ -1,0 +1,232 @@
+{
+  "run_id": "20260421_205400",
+  "datasets": [
+    "cifar"
+  ],
+  "distribution": [
+    "iid",
+    "noniid"
+  ],
+  "cfg": {
+    "safe_mode": true,
+    "cpu_threads": 1,
+    "max_test_cap": 1000,
+    "num_clients": 5,
+    "classes_per_client": 0,
+    "ref_size": 200,
+    "local_epochs": 80,
+    "local_lr": 0.01,
+    "tau": 2.0,
+    "lambda_kd": 1.0,
+    "distill_epochs": 30,
+    "distill_lr": 0.005,
+    "device": "cpu",
+    "use_secure_aggregation": true,
+    "secure_max_threads": 1,
+    "max_epoch_log_lines": 10,
+    "local_use_dpsgd": false,
+    "local_dpsgd_batch_size": 64,
+    "local_dpsgd_clipping_norm": 1.0,
+    "local_dpsgd_noise_multiplier": 1.0,
+    "num_repeats": 5,
+    "seed_base": 42
+  },
+  "records": [
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.895,
+      "best_test_acc": 0.778
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.898,
+      "best_test_acc": 0.816
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.878,
+      "best_test_acc": 0.795
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.886,
+      "best_test_acc": 0.806
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.904,
+      "best_test_acc": 0.794
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.911,
+      "best_test_acc": 0.831
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.897,
+      "best_test_acc": 0.789
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.898,
+      "best_test_acc": 0.84
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.897,
+      "best_test_acc": 0.794
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.903,
+      "best_test_acc": 0.827
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.452,
+      "best_test_acc": 0.53
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.686,
+      "best_test_acc": 0.601
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.523,
+      "best_test_acc": 0.534
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.73,
+      "best_test_acc": 0.597
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.594,
+      "best_test_acc": 0.531
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.711,
+      "best_test_acc": 0.647
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.462,
+      "best_test_acc": 0.536
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.793,
+      "best_test_acc": 0.665
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.443,
+      "best_test_acc": 0.47
+    },
+    {
+      "dataset": "cifar",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.742,
+      "best_test_acc": 0.575
+    }
+  ],
+  "summary": {
+    "cifar::iid::without_kd": {
+      "avg_mean": 0.8942,
+      "avg_std": 0.008657944328765352,
+      "best_mean": 0.79,
+      "best_std": 0.006356099432828288,
+      "n": 5
+    },
+    "cifar::iid::with_kd": {
+      "avg_mean": 0.8992000000000001,
+      "avg_std": 0.00813387976306511,
+      "best_mean": 0.8239999999999998,
+      "best_std": 0.011849050594878877,
+      "n": 5
+    },
+    "cifar::noniid::without_kd": {
+      "avg_mean": 0.4948,
+      "avg_std": 0.05696806122732279,
+      "best_mean": 0.5202,
+      "best_std": 0.025190474390134082,
+      "n": 5
+    },
+    "cifar::noniid::with_kd": {
+      "avg_mean": 0.7323999999999999,
+      "avg_std": 0.03572450139610069,
+      "best_mean": 0.617,
+      "best_std": 0.03353803810600736,
+      "n": 5
+    }
+  },
+  "csv_path": "/mnt/code/lixujie/tfe_experiments/expTab/table3_init_compare_cifar_20260421_205400.csv",
+  "fig_paths": [
+    "/mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/table3_init_compare_cifar_20260421_205400.png"
+  ],
+  "txt_log": "/mnt/code/lixujie/tfe_experiments/log/txt/table3InitCompare_cifar_20260421_205400.log",
+  "elapsed_s": 11.51
+}

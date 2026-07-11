@@ -1,0 +1,47 @@
+{
+  "run_id": "20260416_174950",
+  "dataset": "mnist_hog",
+  "safe_mode": true,
+  "cpu_threads": 4,
+  "data": {
+    "source_feat": "/mnt/code/lixujie/tfe_experiments/data/mnist_train1000_test10000_seed42.npz",
+    "source_label": "/mnt/code/lixujie/tfe_experiments/data/mnist_train1000_test10000_seed42.npz",
+    "x_train_shape": [
+      1000,
+      144
+    ],
+    "x_test_shape": [
+      1000,
+      144
+    ],
+    "y_train_shape": [
+      1000
+    ],
+    "y_test_shape": [
+      1000
+    ]
+  },
+  "candidate": {
+    "avg_ref_acc": 0.555,
+    "best_ref_acc": 0.335,
+    "best_local_idx": 1,
+    "chosen_init_type": "avg",
+    "avg_test_acc": 0.917,
+    "best_test_acc": 0.288,
+    "chosen_test_acc": 0.917
+  },
+  "config": {
+    "num_clients": 5,
+    "classes_per_client": null,
+    "ref_size": 200,
+    "local_epochs": 80,
+    "local_lr": 0.01,
+    "tau": 2.0,
+    "lambda_kd": 1.0,
+    "distill_epochs": 30,
+    "distill_lr": 0.005,
+    "seed": 42,
+    "device": "cpu"
+  },
+  "elapsed_s": 1.893
+}

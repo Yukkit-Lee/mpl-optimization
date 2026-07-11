@@ -1,0 +1,817 @@
+{
+  "run_id": "20260711_134430",
+  "dataset": "tiny",
+  "config": {
+    "seed": 42,
+    "cpu_threads": 1,
+    "ipc": 50,
+    "feature_dim": 2048,
+    "max_test_samples": 3000,
+    "feature_extractor_steps": null,
+    "num_clients": 5,
+    "classes_per_client": null,
+    "ref_size": 200,
+    "local_epochs": 80,
+    "local_lr": 0.01,
+    "distill_epochs": 30,
+    "distill_lr": 0.005,
+    "tau": 2.0,
+    "lambda_kd": 1.0,
+    "global_steps": 900,
+    "eval_interval": 50,
+    "global_lr": 0.0003,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "ref_weight_temperature": 0.08,
+    "prototype_weight_scale": 3.0,
+    "selection_probe_steps": 8,
+    "selection_probe_lr": 0.02,
+    "selection_target_ratio": 0.995,
+    "selection_gain_weight": 0.2,
+    "selection_ref_per_class": 10,
+    "selection_ref_max_samples": 1000,
+    "target_acc_ratio": 0.99,
+    "convergence_stop": false,
+    "convergence_min_steps": 200,
+    "convergence_patience": 6,
+    "convergence_min_delta": 0.0005,
+    "max_log_lines": 12,
+    "use_secure_aggregation": false,
+    "datasets": [
+      "cifar10",
+      "cifar100",
+      "tiny"
+    ],
+    "dataset_cfg": {
+      "official_dir": "/home/lixujie/tmpWork/mtt_data/georgecazenavette/tiny_50",
+      "mtt_dataset": "Tiny",
+      "model": "ConvNetD4",
+      "data_path": "/home/lixujie/tmpWork/mtt_tiny_work/data/tiny-imagenet-200",
+      "num_classes": "200",
+      "global_steps": "1200",
+      "eval_interval": "100",
+      "feature_dim": "2048",
+      "max_test_samples": "3000"
+    }
+  },
+  "moduleA": {
+    "type": "official_mtt_distilled_compact_set",
+    "feature_type": "mtt_convnet_penultimate_features",
+    "global_training_type": "end_to_end_convnet_classifier_initialized_by_module_b",
+    "extractor_test_acc": 0.179,
+    "ipc": 50,
+    "distilled_samples": 10000,
+    "full_train_size": 100000,
+    "compression_ratio": 0.1
+  },
+  "moduleB_candidate": {
+    "avg_ref_acc": 0.26,
+    "best_ref_acc": 0.185,
+    "best_local_idx": 4,
+    "chosen_init_type": "avg",
+    "secure_aggregation": false,
+    "avg_test_acc": 0.078,
+    "best_test_acc": 0.03933333333333333,
+    "chosen_test_acc": 0.078
+  },
+  "reference_weighted_info": {
+    "ref_accs": [
+      0.04600000008940697,
+      0.054999999701976776,
+      0.06300000101327896,
+      0.0729999989271164,
+      0.03799999877810478
+    ],
+    "ref_losses": [
+      5.104731559753418,
+      5.07221794128418,
+      5.0106611251831055,
+      5.038742542266846,
+      5.089459419250488
+    ],
+    "weights": [
+      0.17661243802917215,
+      0.1976420786670179,
+      0.21842828111112605,
+      0.24751166239274872,
+      0.15980553979993511
+    ],
+    "temperature": 0.08
+  },
+  "prototype_info": {
+    "class_counts": [
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50
+    ],
+    "weight_scale": 3.0
+  },
+  "reference_guided_selection": {
+    "chosen": "Distilled Prototype Init",
+    "target_ref_acc": 0.24477000676095487,
+    "probe_steps": 8,
+    "probe_lr": 0.02,
+    "gain_weight": 0.2,
+    "histories": {
+      "Random Init": [
+        {
+          "step": 0,
+          "ref_acc": 0.003000000026077032
+        },
+        {
+          "step": 2,
+          "ref_acc": 0.004999999888241291
+        },
+        {
+          "step": 4,
+          "ref_acc": 0.006000000052154064
+        },
+        {
+          "step": 6,
+          "ref_acc": 0.017000000923871994
+        },
+        {
+          "step": 8,
+          "ref_acc": 0.026000000536441803
+        }
+      ],
+      "Avg Init": [
+        {
+          "step": 0,
+          "ref_acc": 0.08500000089406967
+        },
+        {
+          "step": 2,
+          "ref_acc": 0.11699999868869781
+        },
+        {
+          "step": 4,
+          "ref_acc": 0.1509999930858612
+        },
+        {
+          "step": 6,
+          "ref_acc": 0.19300000369548798
+        },
+        {
+          "step": 8,
+          "ref_acc": 0.2460000067949295
+        }
+      ],
+      "Reference-Weighted Init": [
+        {
+          "step": 0,
+          "ref_acc": 0.08900000154972076
+        },
+        {
+          "step": 2,
+          "ref_acc": 0.12300000339746475
+        },
+        {
+          "step": 4,
+          "ref_acc": 0.16599999368190765
+        },
+        {
+          "step": 6,
+          "ref_acc": 0.20999999344348907
+        },
+        {
+          "step": 8,
+          "ref_acc": 0.24500000476837158
+        }
+      ],
+      "Distilled Prototype Init": [
+        {
+          "step": 0,
+          "ref_acc": 0.1850000023841858
+        },
+        {
+          "step": 2,
+          "ref_acc": 0.18700000643730164
+        },
+        {
+          "step": 4,
+          "ref_acc": 0.19099999964237213
+        },
+        {
+          "step": 6,
+          "ref_acc": 0.19300000369548798
+        },
+        {
+          "step": 8,
+          "ref_acc": 0.19699999690055847
+        }
+      ]
+    },
+    "summary": {
+      "Random Init": {
+        "init_ref_acc": 0.003000000026077032,
+        "probe_final_ref_acc": 0.026000000536441803,
+        "early_gain": 0.02300000051036477,
+        "selection_score": 0.007600000128149986,
+        "ref_target_step": null,
+        "reached_ref_target": false
+      },
+      "Avg Init": {
+        "init_ref_acc": 0.08500000089406967,
+        "probe_final_ref_acc": 0.2460000067949295,
+        "early_gain": 0.16100000590085983,
+        "selection_score": 0.11720000207424164,
+        "ref_target_step": 8,
+        "reached_ref_target": true
+      },
+      "Reference-Weighted Init": {
+        "init_ref_acc": 0.08900000154972076,
+        "probe_final_ref_acc": 0.24500000476837158,
+        "early_gain": 0.15600000321865082,
+        "selection_score": 0.12020000219345092,
+        "ref_target_step": 8,
+        "reached_ref_target": true
+      },
+      "Distilled Prototype Init": {
+        "init_ref_acc": 0.1850000023841858,
+        "probe_final_ref_acc": 0.19699999690055847,
+        "early_gain": 0.01199999451637268,
+        "selection_score": 0.18740000128746032,
+        "ref_target_step": null,
+        "reached_ref_target": false
+      }
+    }
+  },
+  "target_acc_for_curve_cut": 0.19965,
+  "curves": {
+    "Random Init": [
+      {
+        "step": 0,
+        "train_loss": 5.371900925445557,
+        "train_acc": 0.0059,
+        "test_loss": 5.406943684895833,
+        "test_acc": 0.0036666666666666666
+      },
+      {
+        "step": 100,
+        "train_loss": 5.185719134521484,
+        "train_acc": 0.02,
+        "test_loss": 5.283927042643229,
+        "test_acc": 0.007
+      },
+      {
+        "step": 200,
+        "train_loss": 5.021878186035156,
+        "train_acc": 0.0496,
+        "test_loss": 5.190552490234375,
+        "test_acc": 0.018
+      },
+      {
+        "step": 300,
+        "train_loss": 4.880674998474121,
+        "train_acc": 0.0857,
+        "test_loss": 5.110425537109375,
+        "test_acc": 0.029
+      },
+      {
+        "step": 400,
+        "train_loss": 4.758653015136718,
+        "train_acc": 0.1196,
+        "test_loss": 5.044868896484375,
+        "test_acc": 0.03933333333333333
+      },
+      {
+        "step": 500,
+        "train_loss": 4.657990629577637,
+        "train_acc": 0.1473,
+        "test_loss": 4.9758800048828125,
+        "test_acc": 0.052
+      },
+      {
+        "step": 600,
+        "train_loss": 4.5781143882751465,
+        "train_acc": 0.1722,
+        "test_loss": 4.934850972493489,
+        "test_acc": 0.05733333333333333
+      },
+      {
+        "step": 700,
+        "train_loss": 4.517670265197754,
+        "train_acc": 0.1863,
+        "test_loss": 4.8995841674804685,
+        "test_acc": 0.06933333333333333
+      },
+      {
+        "step": 800,
+        "train_loss": 4.476032894897461,
+        "train_acc": 0.2,
+        "test_loss": 4.883409810384115,
+        "test_acc": 0.07266666666666667
+      },
+      {
+        "step": 900,
+        "train_loss": 4.448793862915039,
+        "train_acc": 0.2085,
+        "test_loss": 4.868886474609375,
+        "test_acc": 0.074
+      },
+      {
+        "step": 1000,
+        "train_loss": 4.434587418365479,
+        "train_acc": 0.2136,
+        "test_loss": 4.859509399414063,
+        "test_acc": 0.07866666666666666
+      },
+      {
+        "step": 1100,
+        "train_loss": 4.429194178771973,
+        "train_acc": 0.215,
+        "test_loss": 4.85553438313802,
+        "test_acc": 0.078
+      },
+      {
+        "step": 1200,
+        "train_loss": 4.428420505523682,
+        "train_acc": 0.2155,
+        "test_loss": 4.854914876302083,
+        "test_acc": 0.07766666666666666
+      }
+    ],
+    "Avg Init": [
+      {
+        "step": 0,
+        "train_loss": 4.251808432769775,
+        "train_acc": 0.3496,
+        "test_loss": 4.799935384114583,
+        "test_acc": 0.078
+      },
+      {
+        "step": 100,
+        "train_loss": 4.124485855102539,
+        "train_acc": 0.3606,
+        "test_loss": 4.7437147013346355,
+        "test_acc": 0.085
+      },
+      {
+        "step": 200,
+        "train_loss": 4.006488670349121,
+        "train_acc": 0.396,
+        "test_loss": 4.673804646809896,
+        "test_acc": 0.09566666666666666
+      },
+      {
+        "step": 300,
+        "train_loss": 3.90198874206543,
+        "train_acc": 0.4199,
+        "test_loss": 4.606654907226562,
+        "test_acc": 0.107
+      },
+      {
+        "step": 400,
+        "train_loss": 3.8115326850891114,
+        "train_acc": 0.4406,
+        "test_loss": 4.570212280273437,
+        "test_acc": 0.11833333333333333
+      },
+      {
+        "step": 500,
+        "train_loss": 3.738508992767334,
+        "train_acc": 0.4593,
+        "test_loss": 4.510466023763021,
+        "test_acc": 0.129
+      },
+      {
+        "step": 600,
+        "train_loss": 3.6783626907348634,
+        "train_acc": 0.4736,
+        "test_loss": 4.494007039388021,
+        "test_acc": 0.13266666666666665
+      },
+      {
+        "step": 700,
+        "train_loss": 3.6337862266540526,
+        "train_acc": 0.484,
+        "test_loss": 4.464623942057291,
+        "test_acc": 0.14
+      },
+      {
+        "step": 800,
+        "train_loss": 3.602716412353516,
+        "train_acc": 0.4912,
+        "test_loss": 4.453553263346354,
+        "test_acc": 0.139
+      },
+      {
+        "step": 900,
+        "train_loss": 3.582685459136963,
+        "train_acc": 0.4956,
+        "test_loss": 4.447373128255208,
+        "test_acc": 0.13933333333333334
+      },
+      {
+        "step": 1000,
+        "train_loss": 3.571921314239502,
+        "train_acc": 0.4978,
+        "test_loss": 4.438835164388021,
+        "test_acc": 0.141
+      },
+      {
+        "step": 1100,
+        "train_loss": 3.567760459136963,
+        "train_acc": 0.4987,
+        "test_loss": 4.434214436848959,
+        "test_acc": 0.141
+      },
+      {
+        "step": 1200,
+        "train_loss": 3.567185188293457,
+        "train_acc": 0.4984,
+        "test_loss": 4.433928833007813,
+        "test_acc": 0.14166666666666666
+      }
+    ],
+    "Reference-Weighted Init": [
+      {
+        "step": 0,
+        "train_loss": 4.248789805603027,
+        "train_acc": 0.3549,
+        "test_loss": 4.791285298665365,
+        "test_acc": 0.086
+      },
+      {
+        "step": 100,
+        "train_loss": 4.121490296936035,
+        "train_acc": 0.3663,
+        "test_loss": 4.735097290039063,
+        "test_acc": 0.09066666666666667
+      },
+      {
+        "step": 200,
+        "train_loss": 4.003700706481934,
+        "train_acc": 0.3989,
+        "test_loss": 4.665955423990885,
+        "test_acc": 0.102
+      },
+      {
+        "step": 300,
+        "train_loss": 3.8993886779785156,
+        "train_acc": 0.4237,
+        "test_loss": 4.599620930989583,
+        "test_acc": 0.11
+      },
+      {
+        "step": 400,
+        "train_loss": 3.8090763320922854,
+        "train_acc": 0.4442,
+        "test_loss": 4.563912719726562,
+        "test_acc": 0.12533333333333332
+      },
+      {
+        "step": 500,
+        "train_loss": 3.7364301986694337,
+        "train_acc": 0.4616,
+        "test_loss": 4.504753316243489,
+        "test_acc": 0.13133333333333333
+      },
+      {
+        "step": 600,
+        "train_loss": 3.676431108093262,
+        "train_acc": 0.4742,
+        "test_loss": 4.488208536783854,
+        "test_acc": 0.135
+      },
+      {
+        "step": 700,
+        "train_loss": 3.6318690795898436,
+        "train_acc": 0.4849,
+        "test_loss": 4.460184773763021,
+        "test_acc": 0.14033333333333334
+      },
+      {
+        "step": 800,
+        "train_loss": 3.600928546142578,
+        "train_acc": 0.4937,
+        "test_loss": 4.447783243815104,
+        "test_acc": 0.14466666666666667
+      },
+      {
+        "step": 900,
+        "train_loss": 3.58095645904541,
+        "train_acc": 0.4978,
+        "test_loss": 4.442466756184896,
+        "test_acc": 0.14066666666666666
+      },
+      {
+        "step": 1000,
+        "train_loss": 3.570204698944092,
+        "train_acc": 0.4986,
+        "test_loss": 4.433844970703125,
+        "test_acc": 0.143
+      },
+      {
+        "step": 1100,
+        "train_loss": 3.5660480613708496,
+        "train_acc": 0.4989,
+        "test_loss": 4.429148396809896,
+        "test_acc": 0.14533333333333334
+      },
+      {
+        "step": 1200,
+        "train_loss": 3.5654757461547852,
+        "train_acc": 0.4986,
+        "test_loss": 4.428841084798177,
+        "test_acc": 0.145
+      }
+    ],
+    "Distilled Prototype Init": [
+      {
+        "step": 0,
+        "train_loss": 3.2347972705841066,
+        "train_acc": 0.7028,
+        "test_loss": 17.448880696614584,
+        "test_acc": 0.17266666666666666
+      },
+      {
+        "step": 100,
+        "train_loss": 1.2384206409454346,
+        "train_acc": 0.7526,
+        "test_loss": 8.46594453938802,
+        "test_acc": 0.15166666666666667
+      },
+      {
+        "step": 200,
+        "train_loss": 0.8443172981262207,
+        "train_acc": 0.7941,
+        "test_loss": 6.474098225911458,
+        "test_acc": 0.16766666666666666
+      },
+      {
+        "step": 300,
+        "train_loss": 0.7062880259513855,
+        "train_acc": 0.8196,
+        "test_loss": 5.7536845296223955,
+        "test_acc": 0.174
+      },
+      {
+        "step": 400,
+        "train_loss": 0.606618723487854,
+        "train_acc": 0.8442,
+        "test_loss": 5.329502197265625,
+        "test_acc": 0.19466666666666665
+      },
+      {
+        "step": 500,
+        "train_loss": 0.5850350839614868,
+        "train_acc": 0.8495,
+        "test_loss": 5.091973958333333,
+        "test_acc": 0.18933333333333333
+      },
+      {
+        "step": 600,
+        "train_loss": 0.5369840747833252,
+        "train_acc": 0.8629,
+        "test_loss": 5.285283772786459,
+        "test_acc": 0.18533333333333332
+      },
+      {
+        "step": 700,
+        "train_loss": 0.5227796653747558,
+        "train_acc": 0.8662,
+        "test_loss": 4.848632019042968,
+        "test_acc": 0.20033333333333334
+      }
+    ]
+  },
+  "finals": {
+    "Random Init": {
+      "final_test_acc": 0.07766666666666666,
+      "final_train_acc": 0.2155,
+      "target_step": 1200,
+      "plot_end_step": 1200,
+      "full_end_step": 1200,
+      "target_reached": false
+    },
+    "Avg Init": {
+      "final_test_acc": 0.14166666666666666,
+      "final_train_acc": 0.4984,
+      "target_step": 1200,
+      "plot_end_step": 1200,
+      "full_end_step": 1200,
+      "target_reached": false
+    },
+    "Reference-Weighted Init": {
+      "final_test_acc": 0.145,
+      "final_train_acc": 0.4986,
+      "target_step": 1200,
+      "plot_end_step": 1200,
+      "full_end_step": 1200,
+      "target_reached": false
+    },
+    "Distilled Prototype Init": {
+      "final_test_acc": 0.20166666666666666,
+      "final_train_acc": 0.8834,
+      "target_step": 700,
+      "plot_end_step": 700,
+      "full_end_step": 1200,
+      "target_reached": true
+    }
+  },
+  "winner": "Distilled Prototype Init",
+  "outputs": {
+    "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/distilledFigure5Init_tiny_20260711_134430.log",
+    "json": "/mnt/code/lixujie/tfe_experiments/log/json/distilledFigure5Init_tiny_20260711_134430.json",
+    "figure": "/mnt/code/lixujie/tfe_experiments/expFig/figure5_distilledInit/figure5_distilled_init_tiny_20260711_134430.png"
+  }
+}

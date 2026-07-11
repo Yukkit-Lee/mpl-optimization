@@ -1,0 +1,99 @@
+======================================================================
+实验 1：MNIST + HOG 特征提取 + TF-Encrypted 密态多分类
+======================================================================
+run_id           : 20260418_111021
+Python           : /home/lixujie/.conda/envs/tfe/bin/python
+TensorFlow       : 1.15.5
+TF Encrypted     : 0.8.0
+Platform         : Linux-6.11.0-26-generic-x86_64-with-debian-trixie-sid
+
+[配置]
+  MAX_TRAIN_SAMPLES  : 1000
+  MAX_TEST_SAMPLES   : 10000
+  HOG_ORIENTATIONS   : 9
+  HOG_PIXELS_PER_CELL: (7, 7)
+  HOG_CELLS_PER_BLOCK: (1, 1)
+  HOG_BLOCK_NORM     : L2-Hys
+  EPOCHS             : 500
+  LR                 : 0.01
+
+[1/4] 加载 MNIST 子集...
+  训练集: 1000 样本, 图像尺寸: (28, 28)
+  测试集: 10000 样本
+  原始输入维度 (展平): 784
+  数据加载耗时: 0.02s
+
+[2/4] 本地明文侧 HOG 特征提取（不进入 MPC）...
+  HOG 配置: orientations=9, pixels_per_cell=(7, 7), cells_per_block=(1, 1), block_norm=L2-Hys
+  HOG 输出维度: 144
+  ✓ 特征提取完成:
+    原始维度      : 784
+    HOG 特征维度  : 144  (理论值: 144)
+    压缩比例      : 0.1837  (144/784 = 18.4%)
+    HOG提取耗时   : 1.54s
+    特征缓存路径   : /mnt/code/lixujie/tfe_experiments/featureData/mnist_hog_tr1000_te10000_seed42.npz
+
+[3/4] TFE 密态训练（输入为 HOG 特征）...
+  进入 MPC 的特征维度: 144  （原始 784 维压缩至 18.4%）
+
+  初始 Loss     : 2.049200
+  初始 Train Acc: 0.0950
+
+==========================================================================================
+Epoch    Loss           Train_Acc        Time(s)       
+==========================================================================================
+1        1.793120       0.110000         0.100         
+56       0.253526       0.432000         0.003         
+111      0.107352       0.678000         0.002         
+167      0.063664       0.823000         0.002         
+222      0.046994       0.887000         0.002         
+278      0.039304       0.915000         0.002         
+333      0.035553       0.925000         0.002         
+389      0.033521       0.929000         0.003         
+444      0.032405       0.934000         0.003         
+500      0.031750       0.938000         0.002         
+
+[Figure4] 模块A-DP shallow training（epsilon sweep）
+  eps_list      : [1.0, 2.0, 4.0, 8.0, 16.0]
+  delta         : 1e-05
+  dp_epochs/lr  : 120/0.01
+  -> epsilon=1.0000, sigma=52.565218
+     test_acc=0.3513 train_acc=0.3720 epochs_ran=120 epsilon_final=1.0000
+  -> epsilon=2.0000, sigma=26.282609
+     test_acc=0.5726 train_acc=0.6170 epochs_ran=120 epsilon_final=2.0000
+  -> epsilon=4.0000, sigma=13.141304
+     test_acc=0.7380 train_acc=0.7590 epochs_ran=120 epsilon_final=4.0000
+  -> epsilon=8.0000, sigma=6.570652
+     test_acc=0.8002 train_acc=0.8160 epochs_ran=120 epsilon_final=8.0000
+  -> epsilon=16.0000, sigma=3.285326
+     test_acc=0.8207 train_acc=0.8340 epochs_ran=120 epsilon_final=16.0000
+
+[Figure4] 文件输出:
+  json : /mnt/code/lixujie/tfe_experiments/expFig/figure4/figure4_dp_mnist_20260418_111021.json
+  csv  : /mnt/code/lixujie/tfe_experiments/expFig/figure4/figure4_dp_mnist_20260418_111021.csv
+  png  : /mnt/code/lixujie/tfe_experiments/expFig/figure4/figure4_dp_mnist_20260418_111021.png
+
+
+[4/4] 实验结果汇总
+======================================================================
+  原始输入维度         : 784
+  HOG 特征维度         : 144
+  特征压缩比           : 18.4%
+  HOG 提取耗时         : 1.54s
+  总密态训练耗时       : 1.44s
+  平均每 epoch 耗时    : 0.00s
+  最终 Train Loss      : 0.031750
+  最终 Train Accuracy  : 0.9380
+  最终 Test  Accuracy  : 0.8732
+
+  实验验证状态: ✓ PASS
+    data_flow_ok                       : True
+    loss_computable                    : True
+    backward_optimizer_ok              : True
+    loss_changed                       : True
+    train_accuracy_changed             : True
+    loss_decreased                     : True
+
+  报告已写入: /mnt/code/lixujie/tfe_experiments/log/exp1_mnist_hog_report.json
+  日志已写入: /mnt/code/lixujie/tfe_experiments/log/exp1_mnist_hog_20260418_111021.log
+======================================================================

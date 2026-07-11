@@ -1,0 +1,103 @@
+==========================================================================================
+MNIST 整合实验：Plain-HOG / TFE-Raw / TFE-HOG / Figure4-DP
+==========================================================================================
+run_id           : 20260418_112434
+Python           : /home/lixujie/.conda/envs/tfe/bin/python
+TensorFlow       : 1.15.5
+TF Encrypted     : 0.8.0
+Platform         : Linux-6.11.0-26-generic-x86_64-with-debian-trixie-sid
+
+[配置]
+  MAX_TRAIN_SAMPLES   : 200
+  MAX_TEST_SAMPLES    : 200
+  TFE_EPOCHS/LR       : 3/0.01
+  FIG4_EPOCHS/LR      : 5/0.01
+  FIG4_BATCH_SIZE     : 64
+  FIG4_DELTA          : 1e-05
+  FIG4_TARGET_EPS_END : 2.1
+
+[1/6] 加载 MNIST 子集...
+  训练集样本数      : 200
+  测试集样本数      : 200
+  原始特征维度      : 784
+  加载耗时(s)       : 0.120
+
+[2/6] 提取 HOG 特征...
+  HOG 配置: orientations=9, pixels_per_cell=(7, 7), cells_per_block=(1, 1), block_norm=L2-Hys
+  HOG 输出维度: 144
+  HOG 配置: orientations=9, pixels_per_cell=(7, 7), cells_per_block=(1, 1), block_norm=L2-Hys
+  HOG 输出维度: 144
+  HOG 特征维度      : 144
+  压缩比例          : 0.1837
+  提取耗时(s)       : 0.059
+
+[3/6] 明文对照：HOG + Logistic Regression...
+  明文 Train Acc    : 1.0000
+  明文 Test  Acc    : 0.8550
+  明文训练耗时(s)   : 0.015
+
+[4/6] TFE：HOG 特征 -> 密态浅层多分类...
+  初始 Loss     : 1.913402
+  初始 Train Acc: 0.0850
+
+==========================================================================================
+Epoch    Loss           Train_Acc        Time(s)       
+==========================================================================================
+1        1.679637       0.090000         0.095         
+2        1.492737       0.095000         0.001         
+3        1.340952       0.115000         0.001         
+
+[5/6] TFE：Raw像素(784维) -> 密态浅层多分类...
+  初始 Loss     : 0.274451
+  初始 Train Acc: 0.0800
+
+==========================================================================================
+Epoch    Loss           Train_Acc        Time(s)       
+==========================================================================================
+1        0.200383       0.105000         0.095         
+2        0.185875       0.115000         0.003         
+3        0.176099       0.140000         0.002         
+
+[6/6] Figure4 风格：DP shallow training 曲线...
+
+[Figure4] DP shallow training（per-epoch epsilon accountant）
+  FIG4_EPOCHS            : 5
+  FIG4_BATCH_SIZE        : 64
+  FIG4_DELTA             : 1e-05
+  target_epsilon_end     : 2.1
+  calibrated_sigma       : 1.635022
+
+  [Figure4 采样日志]
+  Iter      Train_Acc   Test_Acc    Epsilon
+  -----------------------------------------------
+  1         0.1250      0.1100      0.9391
+  3         0.1300      0.1150      1.6267
+  5         0.1400      0.1150      2.1000
+
+  [Figure4 标注点]
+  target=0.25 -> iter=1 eps=0.9391 test_acc=0.1100
+  target=1.95 -> iter=4 eps=1.8783 test_acc=0.1150
+  target=2.05 -> iter=5 eps=2.1000 test_acc=0.1150
+  target=2.07 -> iter=5 eps=2.1000 test_acc=0.1150
+
+  Figure4 输出文件:
+    json : /mnt/code/lixujie/tfe_experiments/expFig/figure4/figure4_mnist_20260418_112434.json
+    csv  : /mnt/code/lixujie/tfe_experiments/expFig/figure4/figure4_mnist_20260418_112434.csv
+    png  : /mnt/code/lixujie/tfe_experiments/expFig/figure4/figure4_mnist_20260418_112434.png
+
+==========================================================================================
+MNIST 整合汇总表
+==========================================================================================
+Setup                    | FeatDim   | Compress   | TrainAcc   | TestAcc   | TrainTime(s) | Epoch@0.80
+-------------------------+-----------+------------+------------+-----------+--------------+-----------
+明文 HOG + LR              |       144 |     0.1837 |     1.0000 |    0.8550 |        0.015 |          -
+TFE HOG 浅层               |       144 |     0.1837 |     0.1150 |    0.1050 |        0.098 |         NA
+TFE Raw 浅层               |       784 |     1.0000 |     0.1400 |    0.1100 |        0.101 |         NA
+==========================================================================================
+TXT日志已写入: /mnt/code/lixujie/tfe_experiments/log/txt/mnistNew_20260418_112434.log
+JSON报告已写入: /mnt/code/lixujie/tfe_experiments/log/json/mnistNew_20260418_112434.json
+
+[说明] 为什么你之前 epsilon 会很大？
+  1) 若按 q=1（全量批）的上界近似，epsilon 会明显偏大。
+  2) epoch 越大、sigma 越小，epsilon 会持续增大。
+  3) 本脚本使用 q-aware 近似（q=batch_size/N）并反推 sigma，对齐到目标epsilon区间。

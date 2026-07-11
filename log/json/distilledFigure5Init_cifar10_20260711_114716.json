@@ -1,0 +1,275 @@
+{
+  "run_id": "20260711_114716",
+  "dataset": "cifar10",
+  "config": {
+    "seed": 42,
+    "cpu_threads": 1,
+    "ipc": 50,
+    "feature_dim": 2048,
+    "max_test_samples": 3000,
+    "feature_extractor_steps": null,
+    "num_clients": 5,
+    "classes_per_client": null,
+    "ref_size": 200,
+    "local_epochs": 80,
+    "local_lr": 0.01,
+    "distill_epochs": 30,
+    "distill_lr": 0.005,
+    "tau": 2.0,
+    "lambda_kd": 1.0,
+    "global_steps": 900,
+    "eval_interval": 50,
+    "global_lr": 0.001,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "ref_weight_temperature": 0.08,
+    "prototype_weight_scale": 3.0,
+    "target_acc_ratio": 0.985,
+    "convergence_stop": true,
+    "convergence_min_steps": 200,
+    "convergence_patience": 6,
+    "convergence_min_delta": 0.0005,
+    "max_log_lines": 12,
+    "use_secure_aggregation": false,
+    "datasets": [
+      "cifar10",
+      "cifar100",
+      "tiny"
+    ],
+    "dataset_cfg": {
+      "official_dir": "/home/lixujie/tmpWork/mtt_data/georgecazenavette/cifar10_50",
+      "mtt_dataset": "CIFAR10",
+      "model": "ConvNetD3",
+      "data_path": "/home/lixujie/tmpWork/mtt_cifar10_work/data",
+      "num_classes": "10",
+      "global_steps": "900",
+      "eval_interval": "25",
+      "feature_dim": "2048",
+      "max_test_samples": "3000"
+    }
+  },
+  "moduleA": {
+    "type": "official_mtt_distilled_compact_set",
+    "feature_type": "mtt_convnet_penultimate_features",
+    "global_training_type": "end_to_end_convnet_classifier_initialized_by_module_b",
+    "extractor_test_acc": 0.6846666666666666,
+    "ipc": 50,
+    "distilled_samples": 500,
+    "full_train_size": 50000,
+    "compression_ratio": 0.01
+  },
+  "moduleB_candidate": {
+    "avg_ref_acc": 0.936,
+    "best_ref_acc": 0.872,
+    "best_local_idx": 1,
+    "chosen_init_type": "avg",
+    "secure_aggregation": false,
+    "avg_test_acc": 0.5606666666666666,
+    "best_test_acc": 0.443,
+    "chosen_test_acc": 0.5606666666666666
+  },
+  "reference_weighted_info": {
+    "ref_accs": [
+      0.8640000224113464,
+      0.871999979019165,
+      0.8560000061988831,
+      0.8240000009536743,
+      0.8240000009536743
+    ],
+    "ref_losses": [
+      0.7043394446372986,
+      0.6969093084335327,
+      0.6642224788665771,
+      0.712189257144928,
+      0.6563845872879028
+    ],
+    "weights": [
+      0.23679464086067997,
+      0.2616984086895422,
+      0.21426060801997235,
+      0.1436231712149027,
+      0.1436231712149027
+    ],
+    "temperature": 0.08
+  },
+  "prototype_info": {
+    "class_counts": [
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50
+    ],
+    "weight_scale": 3.0
+  },
+  "target_acc_for_curve_cut": 0.6615916666666666,
+  "curves": {
+    "Random Init": [
+      {
+        "step": 0,
+        "train_loss": 2.3228497314453125,
+        "train_acc": 0.132,
+        "test_loss": 2.3176680908203124,
+        "test_acc": 0.146
+      },
+      {
+        "step": 25,
+        "train_loss": 1.4584674682617187,
+        "train_acc": 0.848,
+        "test_loss": 1.7800751444498697,
+        "test_acc": 0.49666666666666665
+      },
+      {
+        "step": 50,
+        "train_loss": 0.8159733276367187,
+        "train_acc": 0.99,
+        "test_loss": 1.4034556070963542,
+        "test_acc": 0.61
+      },
+      {
+        "step": 75,
+        "train_loss": 0.5209069366455078,
+        "train_acc": 0.998,
+        "test_loss": 1.235444819132487,
+        "test_acc": 0.636
+      },
+      {
+        "step": 100,
+        "train_loss": 0.3631235504150391,
+        "train_acc": 1.0,
+        "test_loss": 1.1543352661132813,
+        "test_acc": 0.6463333333333333
+      },
+      {
+        "step": 125,
+        "train_loss": 0.27672319030761716,
+        "train_acc": 1.0,
+        "test_loss": 1.107441131591797,
+        "test_acc": 0.652
+      },
+      {
+        "step": 150,
+        "train_loss": 0.21514958190917968,
+        "train_acc": 1.0,
+        "test_loss": 1.0736498158772787,
+        "test_acc": 0.6573333333333333
+      },
+      {
+        "step": 175,
+        "train_loss": 0.17703849029541016,
+        "train_acc": 1.0,
+        "test_loss": 1.0417015075683593,
+        "test_acc": 0.6606666666666666
+      },
+      {
+        "step": 200,
+        "train_loss": 0.14763090133666992,
+        "train_acc": 1.0,
+        "test_loss": 1.0202666066487631,
+        "test_acc": 0.6636666666666666
+      }
+    ],
+    "Avg Init": [
+      {
+        "step": 0,
+        "train_loss": 0.5955684204101562,
+        "train_acc": 0.956,
+        "test_loss": 1.3560152486165364,
+        "test_acc": 0.5606666666666666
+      },
+      {
+        "step": 25,
+        "train_loss": 0.40434852600097654,
+        "train_acc": 0.998,
+        "test_loss": 1.2199080098470052,
+        "test_acc": 0.6476666666666666
+      },
+      {
+        "step": 50,
+        "train_loss": 0.2747258911132813,
+        "train_acc": 1.0,
+        "test_loss": 1.1315704549153647,
+        "test_acc": 0.6596666666666666
+      },
+      {
+        "step": 75,
+        "train_loss": 0.20400475311279298,
+        "train_acc": 1.0,
+        "test_loss": 1.0753531443277995,
+        "test_acc": 0.664
+      }
+    ],
+    "Reference-Weighted Init": [
+      {
+        "step": 0,
+        "train_loss": 0.602403076171875,
+        "train_acc": 0.96,
+        "test_loss": 1.3585929463704427,
+        "test_acc": 0.562
+      },
+      {
+        "step": 25,
+        "train_loss": 0.40849154663085935,
+        "train_acc": 1.0,
+        "test_loss": 1.2192447814941407,
+        "test_acc": 0.646
+      },
+      {
+        "step": 50,
+        "train_loss": 0.2773310089111328,
+        "train_acc": 1.0,
+        "test_loss": 1.130867940266927,
+        "test_acc": 0.6593333333333333
+      },
+      {
+        "step": 75,
+        "train_loss": 0.20575779724121093,
+        "train_acc": 1.0,
+        "test_loss": 1.0739555104573568,
+        "test_acc": 0.6636666666666666
+      }
+    ],
+    "Distilled Prototype Init": [
+      {
+        "step": 0,
+        "train_loss": 1.1047549778595566e-05,
+        "train_acc": 1.0,
+        "test_loss": 4.066370035807291,
+        "test_acc": 0.667
+      }
+    ]
+  },
+  "finals": {
+    "Random Init": {
+      "final_test_acc": 0.6653333333333333,
+      "final_train_acc": 1.0,
+      "steps_ran": 200
+    },
+    "Avg Init": {
+      "final_test_acc": 0.6716666666666666,
+      "final_train_acc": 1.0,
+      "steps_ran": 75
+    },
+    "Reference-Weighted Init": {
+      "final_test_acc": 0.6656666666666666,
+      "final_train_acc": 1.0,
+      "steps_ran": 75
+    },
+    "Distilled Prototype Init": {
+      "final_test_acc": 0.6536666666666666,
+      "final_train_acc": 1.0,
+      "steps_ran": 0
+    }
+  },
+  "winner": "Avg Init",
+  "outputs": {
+    "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/distilledFigure5Init_cifar10_20260711_114716.log",
+    "json": "/mnt/code/lixujie/tfe_experiments/log/json/distilledFigure5Init_cifar10_20260711_114716.json",
+    "figure": "/mnt/code/lixujie/tfe_experiments/expFig/figure5_distilledInit/figure5_distilled_init_cifar10_20260711_114716.png"
+  }
+}

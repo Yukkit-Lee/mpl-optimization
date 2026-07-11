@@ -1,0 +1,26 @@
+{
+  "run_id": "20260417_233620",
+  "dataset": "mnist",
+  "mode": "trust_dp",
+  "trust_t": 0.7,
+  "dry_run": true,
+  "data": {
+    "source_feat": "/mnt/code/lixujie/tfe_experiments/featureData/mnist_hog_tr1000_te1000_seed42.npz",
+    "source_label": "/mnt/code/lixujie/tfe_experiments/data/mnist_train1000_test10000_seed42.npz",
+    "x_train_shape": [
+      1000,
+      144
+    ],
+    "x_test_shape": [
+      1000,
+      144
+    ],
+    "y_train_shape": [
+      1000
+    ],
+    "y_test_shape": [
+      1000
+    ]
+  },
+  "txt_log_file": "/mnt/code/lixujie/tfe_experiments/log/txt/trustDpsgd_mnist_20260417_233620.log"
+}

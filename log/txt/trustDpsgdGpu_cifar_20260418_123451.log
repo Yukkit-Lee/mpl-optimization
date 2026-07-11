@@ -1,0 +1,19 @@
+========================================================================
+模块C GPU正式运行器
+========================================================================
+run_id        : 20260418_123451
+python        : /home/lixujie/.conda/envs/distillation/bin/python3.9
+dataset       : cifar
+mode          : trust_dp
+global_epochs : 800
+cpu_threads   : 1
+cuda_probe    : {'ok': True, 'torch_version': '2.8.0+cu128', 'cuda_available': True, 'device_name': 'NVIDIA GeForce RTX 4090', 'sample': 1.266953706741333}
+安全模式线程限制已应用。
+X_train_feat   : (1000, 384)
+X_test_feat    : (1000, 384)
+module_b_cache : {'policy': 'best', 'meta_json': '/mnt/code/lixujie/tfe_experiments/init_model/module_b_best_cifar.json', 'weights_pt': '/mnt/code/lixujie/tfe_experiments/init_model/module_b_best_cifar.pt'}
+GPU主训练完成，main_json: /mnt/code/lixujie/tfe_experiments/log/json/trustDpsgdGpu_cifar_20260418_123451.json
+开始在 tfe 环境执行 Figure5-TFE ...
+Figure5-TFE 子进程结果: rc=1 files=None
+TXT日志: /mnt/code/lixujie/tfe_experiments/log/txt/trustDpsgdGpu_cifar_20260418_123451.log
+JSON报告: /mnt/code/lixujie/tfe_experiments/log/json/trustDpsgdGpu_cifar_20260418_123451.json

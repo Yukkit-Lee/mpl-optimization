@@ -1,0 +1,50 @@
+========================================================================================
+模块 B Non-IID KD 消融：official distilled features
+========================================================================================
+dataset      : cifar10
+seeds        : [42]
+cpu_threads  : 1
+heterogeneity: ['IID', 'Severe']
+
+[Seed 42] 准备 official distilled -> MTT ConvNet features ...
+  feature extractor device: cuda
+  extractor step=    1/900  test_acc=0.1000  loss=2.3635
+  extractor step=  100/900  test_acc=0.5520  loss=0.6737
+  extractor step=  200/900  test_acc=0.6360  loss=0.1478
+  extractor step=  300/900  test_acc=0.6707  loss=0.0443
+  extractor step=  400/900  test_acc=0.6793  loss=0.0178
+  extractor step=  500/900  test_acc=0.6737  loss=0.0163
+  extractor step=  600/900  test_acc=0.6767  loss=0.0142
+  extractor step=  700/900  test_acc=0.6727  loss=0.0120
+  extractor step=  800/900  test_acc=0.6730  loss=0.0108
+  extractor step=  900/900  test_acc=0.6730  loss=0.0126
+  feat: (500, 2048) test: (3000, 2048) ref: (100, 2048) extractor_acc: 0.6730
+
+  [Split] IID (classes_per_client=all)
+    NoKD-Avg                 init=0.6453 final=0.6793 step=0 auc=0.6726
+    NoKD-ReferenceWeighted   init=0.6417 final=0.6787 step=0 auc=0.6717
+    KD-Avg                   init=0.6480 final=0.6783 step=0 auc=0.6720
+    KD-ReferenceWeighted     init=0.6467 final=0.6787 step=0 auc=0.6715
+
+  [Split] Severe (classes_per_client=2)
+    NoKD-Avg                 init=0.5290 final=0.6783 step=20 auc=0.6575
+    NoKD-ReferenceWeighted   init=0.4677 final=0.6767 step=20 auc=0.6479
+    KD-Avg                   init=0.5727 final=0.6770 step=0 auc=0.6625
+    KD-ReferenceWeighted     init=0.5583 final=0.6777 step=20 auc=0.6617
+
+[Markdown 汇总表]
+| Dataset | Heterogeneity | SplitParam | Method | InitAcc | FinalAcc | Step@TargetAcc | EarlyAUC |
+|---|---|---|---|---|---|---|---|
+| cifar10 | IID | classes_per_client=all | KD-Avg | 0.6480 ± 0.0000 | 0.6783 ± 0.0000 | 0.0 | 0.6720 ± 0.0000 |
+| cifar10 | IID | classes_per_client=all | KD-ReferenceWeighted | 0.6467 ± 0.0000 | 0.6787 ± 0.0000 | 0.0 | 0.6715 ± 0.0000 |
+| cifar10 | IID | classes_per_client=all | NoKD-Avg | 0.6453 ± 0.0000 | 0.6793 ± 0.0000 | 0.0 | 0.6726 ± 0.0000 |
+| cifar10 | IID | classes_per_client=all | NoKD-ReferenceWeighted | 0.6417 ± 0.0000 | 0.6787 ± 0.0000 | 0.0 | 0.6717 ± 0.0000 |
+| cifar10 | Severe | classes_per_client=2 | KD-Avg | 0.5727 ± 0.0000 | 0.6770 ± 0.0000 | 0.0 | 0.6625 ± 0.0000 |
+| cifar10 | Severe | classes_per_client=2 | KD-ReferenceWeighted | 0.5583 ± 0.0000 | 0.6777 ± 0.0000 | 20.0 | 0.6617 ± 0.0000 |
+| cifar10 | Severe | classes_per_client=2 | NoKD-Avg | 0.5290 ± 0.0000 | 0.6783 ± 0.0000 | 20.0 | 0.6575 ± 0.0000 |
+| cifar10 | Severe | classes_per_client=2 | NoKD-ReferenceWeighted | 0.4677 ± 0.0000 | 0.6767 ± 0.0000 | 20.0 | 0.6479 ± 0.0000 |
+
+输出文件:
+  TXT : /mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_noniid_official_cifar10_20260711_185835.log
+  JSON: /mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_noniid_official_cifar10_20260711_185835.json
+  CSV : /mnt/code/lixujie/tfe_experiments/expTab/moduleB_kd_noniid_official_cifar10_20260711_185835.csv

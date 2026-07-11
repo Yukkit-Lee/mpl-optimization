@@ -37,10 +37,7 @@ official_data/*.npz
 init_model/
 log/finalModel/
 
-# Experiment outputs
-log/
-expFig/
-expTab/
+# Experiment outputs that should stay local unless explicitly needed
 wandb/
 runs/
 outputs/

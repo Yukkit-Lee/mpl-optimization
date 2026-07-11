@@ -1,0 +1,306 @@
+{
+  "run_id": "20260418_194128",
+  "dataset": "mnist",
+  "cfg": {
+    "trust_t_list": [
+      0.3,
+      0.7
+    ],
+    "sigma_min": 0.1,
+    "sigma_max": 2.0,
+    "noise_multiplier": 1.0,
+    "global_epochs": 5,
+    "global_lr": 0.01,
+    "batch_size": 64,
+    "clipping_norm": 1.0,
+    "delta": 1e-05,
+    "target_epsilon": null,
+    "seed": 42,
+    "device": "cuda",
+    "cpu_threads": 2,
+    "max_test_cap": 1000,
+    "max_epoch_log_lines": 10,
+    "annotate_epsilons": null,
+    "epsilon_mode": "pea_aligned",
+    "epsilon_end": 2.07,
+    "plot_plain_reference": true
+  },
+  "results": [
+    {
+      "label": "fixed_dp",
+      "mode": "fixed_dp",
+      "trust_t": 0.0,
+      "eff_sigma": 1.0,
+      "final_train_acc": 0.769,
+      "final_test_acc": 0.755,
+      "epochs_ran": 5,
+      "stopped_by_epsilon": false,
+      "trust_info": {
+        "mode": "fixed_dp",
+        "trust_t": 0.0,
+        "sigma_min": 1.0,
+        "sigma_max": 1.0,
+        "effective_sigma": 1.0
+      },
+      "dp_info": {
+        "mode": "fixed_dp",
+        "batch_size": 64,
+        "clipping_norm": 1.0,
+        "effective_noise_multiplier": 1.0,
+        "noise_std": 1.0,
+        "delta": 1e-05,
+        "eps_estimate_upper_bound": 0.6867,
+        "sampling_rate_q": 0.064,
+        "global_epochs": 5,
+        "target_epsilon": null,
+        "note": "eps_estimate 为 q-aware 简化上界，精确 DP 分析请用 Opacus / dp-accounting"
+      },
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 1.295047,
+          "train_acc": 0.755,
+          "test_loss": 1.334369,
+          "test_acc": 0.744,
+          "mean_grad_norm": 8.5112,
+          "effective_sigma": 1.0,
+          "epsilon_estimate": 0.307106,
+          "epoch_time_s": 0.205,
+          "epsilon_ablation": 0.925732
+        },
+        {
+          "epoch": 2,
+          "train_loss": 1.279364,
+          "train_acc": 0.761,
+          "test_loss": 1.318835,
+          "test_acc": 0.749,
+          "mean_grad_norm": 8.4304,
+          "effective_sigma": 1.0,
+          "epsilon_estimate": 0.434313,
+          "epoch_time_s": 0.136,
+          "epsilon_ablation": 1.309183
+        },
+        {
+          "epoch": 3,
+          "train_loss": 1.26323,
+          "train_acc": 0.765,
+          "test_loss": 1.302603,
+          "test_acc": 0.754,
+          "mean_grad_norm": 8.3716,
+          "effective_sigma": 1.0,
+          "epsilon_estimate": 0.531923,
+          "epoch_time_s": 0.135,
+          "epsilon_ablation": 1.603415
+        },
+        {
+          "epoch": 4,
+          "train_loss": 1.246274,
+          "train_acc": 0.768,
+          "test_loss": 1.28591,
+          "test_acc": 0.756,
+          "mean_grad_norm": 8.3225,
+          "effective_sigma": 1.0,
+          "epsilon_estimate": 0.614211,
+          "epoch_time_s": 0.136,
+          "epsilon_ablation": 1.851464
+        },
+        {
+          "epoch": 5,
+          "train_loss": 1.230129,
+          "train_acc": 0.769,
+          "test_loss": 1.270053,
+          "test_acc": 0.755,
+          "mean_grad_norm": 8.255,
+          "effective_sigma": 1.0,
+          "epsilon_estimate": 0.686709,
+          "epoch_time_s": 0.136,
+          "epsilon_ablation": 2.07
+        }
+      ]
+    },
+    {
+      "label": "trust_t=0.3",
+      "mode": "trust_dp",
+      "trust_t": 0.3,
+      "eff_sigma": 1.4300000000000002,
+      "final_train_acc": 0.769,
+      "final_test_acc": 0.754,
+      "epochs_ran": 5,
+      "stopped_by_epsilon": false,
+      "trust_info": {
+        "mode": "trust_dp",
+        "trust_t": 0.3,
+        "sigma_min": 0.1,
+        "sigma_max": 2.0,
+        "effective_sigma": 1.4300000000000002
+      },
+      "dp_info": {
+        "mode": "trust_dp",
+        "batch_size": 64,
+        "clipping_norm": 1.0,
+        "effective_noise_multiplier": 1.4300000000000002,
+        "noise_std": 1.4300000000000002,
+        "delta": 1e-05,
+        "eps_estimate_upper_bound": 0.4802,
+        "sampling_rate_q": 0.064,
+        "global_epochs": 5,
+        "target_epsilon": null,
+        "note": "eps_estimate 为 q-aware 简化上界，精确 DP 分析请用 Opacus / dp-accounting"
+      },
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 1.295088,
+          "train_acc": 0.757,
+          "test_loss": 1.334599,
+          "test_acc": 0.744,
+          "mean_grad_norm": 8.5117,
+          "effective_sigma": 1.43,
+          "epsilon_estimate": 0.214759,
+          "epoch_time_s": 0.136,
+          "epsilon_ablation": 0.925732
+        },
+        {
+          "epoch": 2,
+          "train_loss": 1.279967,
+          "train_acc": 0.762,
+          "test_loss": 1.319587,
+          "test_acc": 0.748,
+          "mean_grad_norm": 8.4307,
+          "effective_sigma": 1.43,
+          "epsilon_estimate": 0.303715,
+          "epoch_time_s": 0.138,
+          "epsilon_ablation": 1.309183
+        },
+        {
+          "epoch": 3,
+          "train_loss": 1.264061,
+          "train_acc": 0.763,
+          "test_loss": 1.303437,
+          "test_acc": 0.754,
+          "mean_grad_norm": 8.3742,
+          "effective_sigma": 1.43,
+          "epsilon_estimate": 0.371974,
+          "epoch_time_s": 0.137,
+          "epsilon_ablation": 1.603415
+        },
+        {
+          "epoch": 4,
+          "train_loss": 1.246876,
+          "train_acc": 0.768,
+          "test_loss": 1.28653,
+          "test_acc": 0.755,
+          "mean_grad_norm": 8.3247,
+          "effective_sigma": 1.43,
+          "epsilon_estimate": 0.429518,
+          "epoch_time_s": 0.137,
+          "epsilon_ablation": 1.851464
+        },
+        {
+          "epoch": 5,
+          "train_loss": 1.230715,
+          "train_acc": 0.769,
+          "test_loss": 1.270692,
+          "test_acc": 0.754,
+          "mean_grad_norm": 8.2568,
+          "effective_sigma": 1.43,
+          "epsilon_estimate": 0.480216,
+          "epoch_time_s": 0.136,
+          "epsilon_ablation": 2.07
+        }
+      ]
+    },
+    {
+      "label": "trust_t=0.7",
+      "mode": "trust_dp",
+      "trust_t": 0.7,
+      "eff_sigma": 0.6700000000000002,
+      "final_train_acc": 0.77,
+      "final_test_acc": 0.757,
+      "epochs_ran": 5,
+      "stopped_by_epsilon": false,
+      "trust_info": {
+        "mode": "trust_dp",
+        "trust_t": 0.7,
+        "sigma_min": 0.1,
+        "sigma_max": 2.0,
+        "effective_sigma": 0.6700000000000002
+      },
+      "dp_info": {
+        "mode": "trust_dp",
+        "batch_size": 64,
+        "clipping_norm": 1.0,
+        "effective_noise_multiplier": 0.6700000000000002,
+        "noise_std": 0.6700000000000002,
+        "delta": 1e-05,
+        "eps_estimate_upper_bound": 1.0249,
+        "sampling_rate_q": 0.064,
+        "global_epochs": 5,
+        "target_epsilon": null,
+        "note": "eps_estimate 为 q-aware 简化上界，精确 DP 分析请用 Opacus / dp-accounting"
+      },
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 1.29502,
+          "train_acc": 0.756,
+          "test_loss": 1.334196,
+          "test_acc": 0.745,
+          "mean_grad_norm": 8.5109,
+          "effective_sigma": 0.67,
+          "epsilon_estimate": 0.458367,
+          "epoch_time_s": 0.136,
+          "epsilon_ablation": 0.925732
+        },
+        {
+          "epoch": 2,
+          "train_loss": 1.278912,
+          "train_acc": 0.762,
+          "test_loss": 1.318266,
+          "test_acc": 0.749,
+          "mean_grad_norm": 8.4302,
+          "effective_sigma": 0.67,
+          "epsilon_estimate": 0.648228,
+          "epoch_time_s": 0.135,
+          "epsilon_ablation": 1.309183
+        },
+        {
+          "epoch": 3,
+          "train_loss": 1.262607,
+          "train_acc": 0.766,
+          "test_loss": 1.301976,
+          "test_acc": 0.753,
+          "mean_grad_norm": 8.3696,
+          "effective_sigma": 0.67,
+          "epsilon_estimate": 0.793914,
+          "epoch_time_s": 0.136,
+          "epsilon_ablation": 1.603415
+        },
+        {
+          "epoch": 4,
+          "train_loss": 1.245831,
+          "train_acc": 0.767,
+          "test_loss": 1.285453,
+          "test_acc": 0.755,
+          "mean_grad_norm": 8.3209,
+          "effective_sigma": 0.67,
+          "epsilon_estimate": 0.916733,
+          "epoch_time_s": 0.136,
+          "epsilon_ablation": 1.851464
+        },
+        {
+          "epoch": 5,
+          "train_loss": 1.229704,
+          "train_acc": 0.77,
+          "test_loss": 1.269586,
+          "test_acc": 0.757,
+          "mean_grad_norm": 8.2537,
+          "effective_sigma": 0.67,
+          "epsilon_estimate": 1.024939,
+          "epoch_time_s": 0.136,
+          "epsilon_ablation": 2.07
+        }
+      ]
+    }
+  ]
+}

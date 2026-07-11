@@ -1,0 +1,731 @@
+{
+  "run_id": "20260711_185835",
+  "config": {
+    "dataset": "cifar10",
+    "seeds": [
+      42
+    ],
+    "cpu_threads": 1,
+    "num_clients": 5,
+    "local_epochs": 20,
+    "local_lr": 0.01,
+    "kd_epochs": 8,
+    "kd_lr": 0.005,
+    "tau": 2.0,
+    "lambda_kd": 1.0,
+    "ref_weight_temperature": 0.08,
+    "global_steps": 80,
+    "global_lr": 0.02,
+    "eval_interval": 20,
+    "target_acc_ratio": 0.98,
+    "max_test_samples": 3000,
+    "selection_ref_per_class": 10,
+    "selection_ref_max_samples": 1000,
+    "feature_extractor_steps": null
+  },
+  "rows": [
+    {
+      "Dataset": "cifar10",
+      "Seed": 42,
+      "Heterogeneity": "IID",
+      "SplitParam": "classes_per_client=all",
+      "Method": "NoKD-Avg",
+      "InitAcc": 0.6453333497047424,
+      "FinalAcc": 0.6793333292007446,
+      "Step@TargetAcc": 0,
+      "EarlyAUC": 0.6725833341479301,
+      "TargetAcc": 0.6350400018692016,
+      "ExtractorAcc": 0.673,
+      "ClientHists": [
+        {
+          "0": 11,
+          "1": 17,
+          "2": 5,
+          "3": 9,
+          "4": 4,
+          "5": 6,
+          "6": 12,
+          "7": 12,
+          "8": 9,
+          "9": 15
+        },
+        {
+          "0": 15,
+          "1": 7,
+          "2": 15,
+          "3": 9,
+          "4": 13,
+          "5": 8,
+          "6": 8,
+          "7": 7,
+          "8": 9,
+          "9": 9
+        },
+        {
+          "0": 4,
+          "1": 7,
+          "2": 12,
+          "3": 12,
+          "4": 10,
+          "5": 13,
+          "6": 8,
+          "7": 17,
+          "8": 11,
+          "9": 6
+        },
+        {
+          "0": 12,
+          "1": 8,
+          "2": 11,
+          "3": 9,
+          "4": 15,
+          "5": 11,
+          "6": 8,
+          "7": 6,
+          "8": 13,
+          "9": 7
+        },
+        {
+          "0": 8,
+          "1": 11,
+          "2": 7,
+          "3": 11,
+          "4": 8,
+          "5": 12,
+          "6": 14,
+          "7": 8,
+          "8": 8,
+          "9": 13
+        }
+      ],
+      "History": [
+        {
+          "step": 0,
+          "test_acc": 0.6453333497047424
+        },
+        {
+          "step": 20,
+          "test_acc": 0.6726666688919067
+        },
+        {
+          "step": 40,
+          "test_acc": 0.6773333549499512
+        },
+        {
+          "step": 60,
+          "test_acc": 0.6779999732971191
+        },
+        {
+          "step": 80,
+          "test_acc": 0.6793333292007446
+        }
+      ]
+    },
+    {
+      "Dataset": "cifar10",
+      "Seed": 42,
+      "Heterogeneity": "IID",
+      "SplitParam": "classes_per_client=all",
+      "Method": "NoKD-ReferenceWeighted",
+      "InitAcc": 0.6416666507720947,
+      "FinalAcc": 0.6786666512489319,
+      "Step@TargetAcc": 0,
+      "EarlyAUC": 0.6717083230614662,
+      "TargetAcc": 0.6350400018692016,
+      "ExtractorAcc": 0.673,
+      "ClientHists": [
+        {
+          "0": 11,
+          "1": 17,
+          "2": 5,
+          "3": 9,
+          "4": 4,
+          "5": 6,
+          "6": 12,
+          "7": 12,
+          "8": 9,
+          "9": 15
+        },
+        {
+          "0": 15,
+          "1": 7,
+          "2": 15,
+          "3": 9,
+          "4": 13,
+          "5": 8,
+          "6": 8,
+          "7": 7,
+          "8": 9,
+          "9": 9
+        },
+        {
+          "0": 4,
+          "1": 7,
+          "2": 12,
+          "3": 12,
+          "4": 10,
+          "5": 13,
+          "6": 8,
+          "7": 17,
+          "8": 11,
+          "9": 6
+        },
+        {
+          "0": 12,
+          "1": 8,
+          "2": 11,
+          "3": 9,
+          "4": 15,
+          "5": 11,
+          "6": 8,
+          "7": 6,
+          "8": 13,
+          "9": 7
+        },
+        {
+          "0": 8,
+          "1": 11,
+          "2": 7,
+          "3": 11,
+          "4": 8,
+          "5": 12,
+          "6": 14,
+          "7": 8,
+          "8": 8,
+          "9": 13
+        }
+      ],
+      "History": [
+        {
+          "step": 0,
+          "test_acc": 0.6416666507720947
+        },
+        {
+          "step": 20,
+          "test_acc": 0.6746666431427002
+        },
+        {
+          "step": 40,
+          "test_acc": 0.6763333082199097
+        },
+        {
+          "step": 60,
+          "test_acc": 0.6756666898727417
+        },
+        {
+          "step": 80,
+          "test_acc": 0.6786666512489319
+        }
+      ]
+    },
+    {
+      "Dataset": "cifar10",
+      "Seed": 42,
+      "Heterogeneity": "IID",
+      "SplitParam": "classes_per_client=all",
+      "Method": "KD-Avg",
+      "InitAcc": 0.6480000019073486,
+      "FinalAcc": 0.6783333420753479,
+      "Step@TargetAcc": 0,
+      "EarlyAUC": 0.6720416620373726,
+      "TargetAcc": 0.6350400018692016,
+      "ExtractorAcc": 0.673,
+      "ClientHists": [
+        {
+          "0": 11,
+          "1": 17,
+          "2": 5,
+          "3": 9,
+          "4": 4,
+          "5": 6,
+          "6": 12,
+          "7": 12,
+          "8": 9,
+          "9": 15
+        },
+        {
+          "0": 15,
+          "1": 7,
+          "2": 15,
+          "3": 9,
+          "4": 13,
+          "5": 8,
+          "6": 8,
+          "7": 7,
+          "8": 9,
+          "9": 9
+        },
+        {
+          "0": 4,
+          "1": 7,
+          "2": 12,
+          "3": 12,
+          "4": 10,
+          "5": 13,
+          "6": 8,
+          "7": 17,
+          "8": 11,
+          "9": 6
+        },
+        {
+          "0": 12,
+          "1": 8,
+          "2": 11,
+          "3": 9,
+          "4": 15,
+          "5": 11,
+          "6": 8,
+          "7": 6,
+          "8": 13,
+          "9": 7
+        },
+        {
+          "0": 8,
+          "1": 11,
+          "2": 7,
+          "3": 11,
+          "4": 8,
+          "5": 12,
+          "6": 14,
+          "7": 8,
+          "8": 8,
+          "9": 13
+        }
+      ],
+      "History": [
+        {
+          "step": 0,
+          "test_acc": 0.6480000019073486
+        },
+        {
+          "step": 20,
+          "test_acc": 0.6736666560173035
+        },
+        {
+          "step": 40,
+          "test_acc": 0.675000011920929
+        },
+        {
+          "step": 60,
+          "test_acc": 0.6763333082199097
+        },
+        {
+          "step": 80,
+          "test_acc": 0.6783333420753479
+        }
+      ]
+    },
+    {
+      "Dataset": "cifar10",
+      "Seed": 42,
+      "Heterogeneity": "IID",
+      "SplitParam": "classes_per_client=all",
+      "Method": "KD-ReferenceWeighted",
+      "InitAcc": 0.6466666460037231,
+      "FinalAcc": 0.6786666512489319,
+      "Step@TargetAcc": 0,
+      "EarlyAUC": 0.6715000048279762,
+      "TargetAcc": 0.6350400018692016,
+      "ExtractorAcc": 0.673,
+      "ClientHists": [
+        {
+          "0": 11,
+          "1": 17,
+          "2": 5,
+          "3": 9,
+          "4": 4,
+          "5": 6,
+          "6": 12,
+          "7": 12,
+          "8": 9,
+          "9": 15
+        },
+        {
+          "0": 15,
+          "1": 7,
+          "2": 15,
+          "3": 9,
+          "4": 13,
+          "5": 8,
+          "6": 8,
+          "7": 7,
+          "8": 9,
+          "9": 9
+        },
+        {
+          "0": 4,
+          "1": 7,
+          "2": 12,
+          "3": 12,
+          "4": 10,
+          "5": 13,
+          "6": 8,
+          "7": 17,
+          "8": 11,
+          "9": 6
+        },
+        {
+          "0": 12,
+          "1": 8,
+          "2": 11,
+          "3": 9,
+          "4": 15,
+          "5": 11,
+          "6": 8,
+          "7": 6,
+          "8": 13,
+          "9": 7
+        },
+        {
+          "0": 8,
+          "1": 11,
+          "2": 7,
+          "3": 11,
+          "4": 8,
+          "5": 12,
+          "6": 14,
+          "7": 8,
+          "8": 8,
+          "9": 13
+        }
+      ],
+      "History": [
+        {
+          "step": 0,
+          "test_acc": 0.6466666460037231
+        },
+        {
+          "step": 20,
+          "test_acc": 0.671999990940094
+        },
+        {
+          "step": 40,
+          "test_acc": 0.6756666898727417
+        },
+        {
+          "step": 60,
+          "test_acc": 0.6756666898727417
+        },
+        {
+          "step": 80,
+          "test_acc": 0.6786666512489319
+        }
+      ]
+    },
+    {
+      "Dataset": "cifar10",
+      "Seed": 42,
+      "Heterogeneity": "Severe",
+      "SplitParam": "classes_per_client=2",
+      "Method": "NoKD-Avg",
+      "InitAcc": 0.5289999842643738,
+      "FinalAcc": 0.6783333420753479,
+      "Step@TargetAcc": 20,
+      "EarlyAUC": 0.6574999988079071,
+      "TargetAcc": 0.5612133121490478,
+      "ExtractorAcc": 0.673,
+      "ClientHists": [
+        {
+          "3": 50,
+          "5": 50
+        },
+        {
+          "2": 50,
+          "8": 50
+        },
+        {
+          "1": 50,
+          "6": 50
+        },
+        {
+          "7": 50,
+          "9": 50
+        },
+        {
+          "0": 50,
+          "4": 50
+        }
+      ],
+      "History": [
+        {
+          "step": 0,
+          "test_acc": 0.5289999842643738
+        },
+        {
+          "step": 20,
+          "test_acc": 0.67166668176651
+        },
+        {
+          "step": 40,
+          "test_acc": 0.6759999990463257
+        },
+        {
+          "step": 60,
+          "test_acc": 0.6786666512489319
+        },
+        {
+          "step": 80,
+          "test_acc": 0.6783333420753479
+        }
+      ]
+    },
+    {
+      "Dataset": "cifar10",
+      "Seed": 42,
+      "Heterogeneity": "Severe",
+      "SplitParam": "classes_per_client=2",
+      "Method": "NoKD-ReferenceWeighted",
+      "InitAcc": 0.4676666557788849,
+      "FinalAcc": 0.6766666769981384,
+      "Step@TargetAcc": 20,
+      "EarlyAUC": 0.6478749923408031,
+      "TargetAcc": 0.5612133121490478,
+      "ExtractorAcc": 0.673,
+      "ClientHists": [
+        {
+          "3": 50,
+          "5": 50
+        },
+        {
+          "2": 50,
+          "8": 50
+        },
+        {
+          "1": 50,
+          "6": 50
+        },
+        {
+          "7": 50,
+          "9": 50
+        },
+        {
+          "0": 50,
+          "4": 50
+        }
+      ],
+      "History": [
+        {
+          "step": 0,
+          "test_acc": 0.4676666557788849
+        },
+        {
+          "step": 20,
+          "test_acc": 0.668666660785675
+        },
+        {
+          "step": 40,
+          "test_acc": 0.6753333210945129
+        },
+        {
+          "step": 60,
+          "test_acc": 0.6753333210945129
+        },
+        {
+          "step": 80,
+          "test_acc": 0.6766666769981384
+        }
+      ]
+    },
+    {
+      "Dataset": "cifar10",
+      "Seed": 42,
+      "Heterogeneity": "Severe",
+      "SplitParam": "classes_per_client=2",
+      "Method": "KD-Avg",
+      "InitAcc": 0.5726666450500488,
+      "FinalAcc": 0.6769999861717224,
+      "Step@TargetAcc": 0,
+      "EarlyAUC": 0.6624583378434181,
+      "TargetAcc": 0.5612133121490478,
+      "ExtractorAcc": 0.673,
+      "ClientHists": [
+        {
+          "3": 50,
+          "5": 50
+        },
+        {
+          "2": 50,
+          "8": 50
+        },
+        {
+          "1": 50,
+          "6": 50
+        },
+        {
+          "7": 50,
+          "9": 50
+        },
+        {
+          "0": 50,
+          "4": 50
+        }
+      ],
+      "History": [
+        {
+          "step": 0,
+          "test_acc": 0.5726666450500488
+        },
+        {
+          "step": 20,
+          "test_acc": 0.675000011920929
+        },
+        {
+          "step": 40,
+          "test_acc": 0.675000011920929
+        },
+        {
+          "step": 60,
+          "test_acc": 0.675000011920929
+        },
+        {
+          "step": 80,
+          "test_acc": 0.6769999861717224
+        }
+      ]
+    },
+    {
+      "Dataset": "cifar10",
+      "Seed": 42,
+      "Heterogeneity": "Severe",
+      "SplitParam": "classes_per_client=2",
+      "Method": "KD-ReferenceWeighted",
+      "InitAcc": 0.5583333373069763,
+      "FinalAcc": 0.6776666641235352,
+      "Step@TargetAcc": 20,
+      "EarlyAUC": 0.6616666838526726,
+      "TargetAcc": 0.5612133121490478,
+      "ExtractorAcc": 0.673,
+      "ClientHists": [
+        {
+          "3": 50,
+          "5": 50
+        },
+        {
+          "2": 50,
+          "8": 50
+        },
+        {
+          "1": 50,
+          "6": 50
+        },
+        {
+          "7": 50,
+          "9": 50
+        },
+        {
+          "0": 50,
+          "4": 50
+        }
+      ],
+      "History": [
+        {
+          "step": 0,
+          "test_acc": 0.5583333373069763
+        },
+        {
+          "step": 20,
+          "test_acc": 0.6756666898727417
+        },
+        {
+          "step": 40,
+          "test_acc": 0.6756666898727417
+        },
+        {
+          "step": 60,
+          "test_acc": 0.6773333549499512
+        },
+        {
+          "step": 80,
+          "test_acc": 0.6776666641235352
+        }
+      ]
+    }
+  ],
+  "summary": [
+    {
+      "Dataset": "cifar10",
+      "Heterogeneity": "IID",
+      "SplitParam": "classes_per_client=all",
+      "Method": "KD-Avg",
+      "InitAcc": "0.6480 ± 0.0000",
+      "FinalAcc": "0.6783 ± 0.0000",
+      "Step@TargetAcc": "0.0",
+      "EarlyAUC": "0.6720 ± 0.0000"
+    },
+    {
+      "Dataset": "cifar10",
+      "Heterogeneity": "IID",
+      "SplitParam": "classes_per_client=all",
+      "Method": "KD-ReferenceWeighted",
+      "InitAcc": "0.6467 ± 0.0000",
+      "FinalAcc": "0.6787 ± 0.0000",
+      "Step@TargetAcc": "0.0",
+      "EarlyAUC": "0.6715 ± 0.0000"
+    },
+    {
+      "Dataset": "cifar10",
+      "Heterogeneity": "IID",
+      "SplitParam": "classes_per_client=all",
+      "Method": "NoKD-Avg",
+      "InitAcc": "0.6453 ± 0.0000",
+      "FinalAcc": "0.6793 ± 0.0000",
+      "Step@TargetAcc": "0.0",
+      "EarlyAUC": "0.6726 ± 0.0000"
+    },
+    {
+      "Dataset": "cifar10",
+      "Heterogeneity": "IID",
+      "SplitParam": "classes_per_client=all",
+      "Method": "NoKD-ReferenceWeighted",
+      "InitAcc": "0.6417 ± 0.0000",
+      "FinalAcc": "0.6787 ± 0.0000",
+      "Step@TargetAcc": "0.0",
+      "EarlyAUC": "0.6717 ± 0.0000"
+    },
+    {
+      "Dataset": "cifar10",
+      "Heterogeneity": "Severe",
+      "SplitParam": "classes_per_client=2",
+      "Method": "KD-Avg",
+      "InitAcc": "0.5727 ± 0.0000",
+      "FinalAcc": "0.6770 ± 0.0000",
+      "Step@TargetAcc": "0.0",
+      "EarlyAUC": "0.6625 ± 0.0000"
+    },
+    {
+      "Dataset": "cifar10",
+      "Heterogeneity": "Severe",
+      "SplitParam": "classes_per_client=2",
+      "Method": "KD-ReferenceWeighted",
+      "InitAcc": "0.5583 ± 0.0000",
+      "FinalAcc": "0.6777 ± 0.0000",
+      "Step@TargetAcc": "20.0",
+      "EarlyAUC": "0.6617 ± 0.0000"
+    },
+    {
+      "Dataset": "cifar10",
+      "Heterogeneity": "Severe",
+      "SplitParam": "classes_per_client=2",
+      "Method": "NoKD-Avg",
+      "InitAcc": "0.5290 ± 0.0000",
+      "FinalAcc": "0.6783 ± 0.0000",
+      "Step@TargetAcc": "20.0",
+      "EarlyAUC": "0.6575 ± 0.0000"
+    },
+    {
+      "Dataset": "cifar10",
+      "Heterogeneity": "Severe",
+      "SplitParam": "classes_per_client=2",
+      "Method": "NoKD-ReferenceWeighted",
+      "InitAcc": "0.4677 ± 0.0000",
+      "FinalAcc": "0.6767 ± 0.0000",
+      "Step@TargetAcc": "20.0",
+      "EarlyAUC": "0.6479 ± 0.0000"
+    }
+  ],
+  "outputs": {
+    "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_noniid_official_cifar10_20260711_185835.log",
+    "json": "/mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_noniid_official_cifar10_20260711_185835.json",
+    "csv": "/mnt/code/lixujie/tfe_experiments/expTab/moduleB_kd_noniid_official_cifar10_20260711_185835.csv"
+  }
+}

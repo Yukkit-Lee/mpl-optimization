@@ -1,0 +1,239 @@
+{
+  "run_id": "20260710_222709",
+  "dataset": "tiny",
+  "config": {
+    "seed": 42,
+    "cpu_threads": 1,
+    "ipc": 50,
+    "train_steps": 1000,
+    "eval_interval": 100,
+    "batch_size": 128,
+    "test_batch_size": 256,
+    "lr": 0.01,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "use_diff_augment": true,
+    "use_cosine_scheduler": true,
+    "device": "auto",
+    "datasets": [
+      "cifar10",
+      "cifar100",
+      "tiny"
+    ]
+  },
+  "official_dir": "/home/lixujie/tmpWork/mtt_data/georgecazenavette/tiny_50",
+  "image_files": [
+    "images_best_0.pt",
+    "images_best_1.pt",
+    "images_best_2.pt",
+    "images_best_3.pt",
+    "images_best_4.pt"
+  ],
+  "label_files": [
+    "labels_best_0.pt",
+    "labels_best_1.pt",
+    "labels_best_2.pt",
+    "labels_best_3.pt",
+    "labels_best_4.pt"
+  ],
+  "num_full_samples": 100000,
+  "num_distilled_samples": 10000,
+  "compression_ratio": 0.1,
+  "results": [
+    {
+      "name": "Full-Data",
+      "num_samples": 100000,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.0047,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.0233,
+          "loss": 5.147256374359131
+        },
+        {
+          "step": 200,
+          "test_acc": 0.0411,
+          "loss": 5.1062164306640625
+        },
+        {
+          "step": 300,
+          "test_acc": 0.0543,
+          "loss": 4.799158096313477
+        },
+        {
+          "step": 400,
+          "test_acc": 0.0761,
+          "loss": 4.736036777496338
+        },
+        {
+          "step": 500,
+          "test_acc": 0.0901,
+          "loss": 4.60814905166626
+        },
+        {
+          "step": 600,
+          "test_acc": 0.1034,
+          "loss": 4.418573379516602
+        },
+        {
+          "step": 700,
+          "test_acc": 0.1147,
+          "loss": 4.570775032043457
+        },
+        {
+          "step": 800,
+          "test_acc": 0.1242,
+          "loss": 4.407891273498535
+        },
+        {
+          "step": 900,
+          "test_acc": 0.1263,
+          "loss": 4.446809768676758
+        },
+        {
+          "step": 1000,
+          "test_acc": 0.1284,
+          "loss": 4.1519269943237305
+        }
+      ],
+      "final_test_acc": 0.1284,
+      "train_time_s": 39.14632296562195
+    },
+    {
+      "name": "Random-Subset",
+      "num_samples": 10000,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.005,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.0235,
+          "loss": 5.244184970855713
+        },
+        {
+          "step": 200,
+          "test_acc": 0.0398,
+          "loss": 4.759692192077637
+        },
+        {
+          "step": 300,
+          "test_acc": 0.0524,
+          "loss": 4.658329486846924
+        },
+        {
+          "step": 400,
+          "test_acc": 0.0651,
+          "loss": 4.486198425292969
+        },
+        {
+          "step": 500,
+          "test_acc": 0.081,
+          "loss": 4.4156317710876465
+        },
+        {
+          "step": 600,
+          "test_acc": 0.0947,
+          "loss": 4.259667873382568
+        },
+        {
+          "step": 700,
+          "test_acc": 0.107,
+          "loss": 4.142868995666504
+        },
+        {
+          "step": 800,
+          "test_acc": 0.1112,
+          "loss": 3.82999587059021
+        },
+        {
+          "step": 900,
+          "test_acc": 0.1155,
+          "loss": 3.9718425273895264
+        },
+        {
+          "step": 1000,
+          "test_acc": 0.117,
+          "loss": 4.089024066925049
+        }
+      ],
+      "final_test_acc": 0.117,
+      "train_time_s": 38.71296977996826
+    },
+    {
+      "name": "Official-Distilled",
+      "num_samples": 10000,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.0049,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.0315,
+          "loss": 4.847020626068115
+        },
+        {
+          "step": 200,
+          "test_acc": 0.0493,
+          "loss": 4.577752113342285
+        },
+        {
+          "step": 300,
+          "test_acc": 0.0684,
+          "loss": 4.138399600982666
+        },
+        {
+          "step": 400,
+          "test_acc": 0.0863,
+          "loss": 3.723621368408203
+        },
+        {
+          "step": 500,
+          "test_acc": 0.1047,
+          "loss": 3.501680612564087
+        },
+        {
+          "step": 600,
+          "test_acc": 0.1177,
+          "loss": 3.4405932426452637
+        },
+        {
+          "step": 700,
+          "test_acc": 0.1268,
+          "loss": 2.612250804901123
+        },
+        {
+          "step": 800,
+          "test_acc": 0.1395,
+          "loss": 2.5481865406036377
+        },
+        {
+          "step": 900,
+          "test_acc": 0.1452,
+          "loss": 2.8029427528381348
+        },
+        {
+          "step": 1000,
+          "test_acc": 0.145,
+          "loss": 2.604114532470703
+        }
+      ],
+      "final_test_acc": 0.145,
+      "train_time_s": 24.242680072784424
+    }
+  ],
+  "outputs": {
+    "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/officialDistillModuleA_tiny_20260710_222709.log",
+    "json": "/mnt/code/lixujie/tfe_experiments/log/json/officialDistillModuleA_tiny_20260710_222709.json",
+    "csv": "/mnt/code/lixujie/tfe_experiments/expTab/officialDistillModuleA_tiny_20260710_222709.csv",
+    "figure": "/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_official/figure4_official_distill_tiny.png"
+  }
+}

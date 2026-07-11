@@ -1,0 +1,84 @@
+========================================================================
+桥接脚本：模块 b → 模块 c（Trust-aware Secure DPSGD）
+========================================================================
+run_id    : 20260419_210327
+dataset   : cifar
+mode      : trust_dp  (来自CFG)
+trust_t   : 0.7  (来自CFG)
+init_type : chosen  (固定读取模块 b initial_global_model)
+epochs    : 300  (来自CFG)
+dataset_safety_override: {'cpu_threads': 1, 'global_epochs': 300, 'target_epsilon': 2.2, 'run_tfe_figure5': False}
+X_train_feat : (1000, 384)  X_test_feat : (1000, 384)
+
+读取模块 b 初始化缓存成功（未执行模块 b 训练）...
+缓存文件: /mnt/code/lixujie/tfe_experiments/init_model/module_b_best_cifar.pt
+加载策略: best
+模块 b 缓存：chosen_init_type = avg
+模块 b 聚合方式: ABY3密态
+
+======================================================================
+B → C 桥接启动
+  模块 b 推荐 init_type : avg
+  本次使用 init_type    : chosen
+  训练模式              : trust_dp
+  trust_t               : 0.7
+======================================================================
+
+======================================================================
+模块 C：Trust-aware Secure DPSGD（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+  加载来自模块 b 的 initial_global_model（深拷贝）
+  模型架构: LinearClassifier(
+  (fc): Linear(in_features=384, out_features=10, bias=True)
+)
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  ★ D_lg_feat 说明：
+    对应 PEA 中 'logically global dataset'
+    本原型 = 所有 client 特征的直接拼合（近似实现）
+    输入为 feature-level 特征（非原始图像/文本）
+    后续可替换为真正的 MPC secret-sharing 构建方式
+  D_lg_feat 形状   : (1000, 384)
+  N（全局样本数）  : 1000
+  特征维度         : 384
+  类别数           : 10
+  测试集形状       : (1000, 384)
+
+[3/5] 配置 DPSGD / trust-aware 噪声 ...
+  训练模式                  : trust_dp
+  trust_t                   : 0.7
+  sigma_min                 : 0.1
+  sigma_max                 : 2.0
+  噪声调度                  : cosine decay 2.0000 → 0.6700
+  学习率调度                : adaptive 0.01000 → 0.01728
+  effective_noise_multiplier: 0.6700  (静态参考值)
+  实际加噪标准差             : 0.6700  (= σ_eff × C)
+  clipping_norm             : 1.0
+  batch_size                : 64
+  global_epochs             : 300
+  global_lr                 : 0.01
+  ε 估算上界（供参考）      : 7.9391  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 15 个 mini-batch
+  Epoch    1/300  train_loss=0.5330  train_acc=0.7830  test_loss=0.7005  test_acc=0.7340  σ=2.000  lr=0.01000  ε=0.154  time=0.1s
+  Epoch   34/300  train_loss=0.1465  train_acc=0.9510  test_loss=0.2920  test_acc=0.9050  σ=1.958  lr=0.01011  ε=0.902  time=0.0s
+  Epoch   67/300  train_loss=0.1229  train_acc=0.9540  test_loss=0.2776  test_acc=0.9040  σ=1.843  lr=0.01042  ε=1.293  time=0.0s
+  Epoch  100/300  train_loss=0.1076  train_acc=0.9640  test_loss=0.2741  test_acc=0.9040  σ=1.667  lr=0.01095  ε=1.638  time=0.0s
+  Epoch  133/300  train_loss=0.0914  train_acc=0.9700  test_loss=0.2692  test_acc=0.9050  σ=1.453  lr=0.01173  ε=1.992  time=0.0s
+  [EarlyStop] 到达 target ε=2.2000，在 epoch=151 提前停止。
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.9710
+  final_test_accuracy  : 0.9120
+  total_train_time (s) : 6.04
+  mode                 : trust_dp
+  trust_t              : 0.7
+  effective σ           : 0.6700
+主JSON已写入: /mnt/code/lixujie/tfe_experiments/log/json/trustDpsgd_cifar_20260419_210327.json
+桥接JSON已写入: /mnt/code/lixujie/tfe_experiments/log/json/trustDpsgdBridge_cifar_20260419_210327.json
+TXT日志已写入: /mnt/code/lixujie/tfe_experiments/log/txt/trustDpsgd_cifar_20260419_210327.log
+总耗时(s): 6.599

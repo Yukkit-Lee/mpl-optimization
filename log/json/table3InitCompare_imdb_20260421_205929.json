@@ -1,0 +1,232 @@
+{
+  "run_id": "20260421_205929",
+  "datasets": [
+    "imdb"
+  ],
+  "distribution": [
+    "iid",
+    "noniid"
+  ],
+  "cfg": {
+    "safe_mode": true,
+    "cpu_threads": 1,
+    "max_test_cap": 1000,
+    "num_clients": 5,
+    "classes_per_client": 0,
+    "ref_size": 200,
+    "local_epochs": 80,
+    "local_lr": 0.01,
+    "tau": 2.0,
+    "lambda_kd": 1.0,
+    "distill_epochs": 30,
+    "distill_lr": 0.005,
+    "device": "cpu",
+    "use_secure_aggregation": true,
+    "secure_max_threads": 1,
+    "max_epoch_log_lines": 10,
+    "local_use_dpsgd": false,
+    "local_dpsgd_batch_size": 64,
+    "local_dpsgd_clipping_norm": 1.0,
+    "local_dpsgd_noise_multiplier": 1.0,
+    "num_repeats": 5,
+    "seed_base": 42
+  },
+  "records": [
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.662,
+      "best_test_acc": 0.591
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.702,
+      "best_test_acc": 0.604
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.735,
+      "best_test_acc": 0.582
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.734,
+      "best_test_acc": 0.586
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.663,
+      "best_test_acc": 0.662
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.687,
+      "best_test_acc": 0.683
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.621,
+      "best_test_acc": 0.61
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.646,
+      "best_test_acc": 0.62
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.602,
+      "best_test_acc": 0.542
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.634,
+      "best_test_acc": 0.596
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 42,
+      "avg_test_acc": 0.71,
+      "best_test_acc": 0.741
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 42,
+      "avg_test_acc": 0.732,
+      "best_test_acc": 0.748
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 43,
+      "avg_test_acc": 0.509,
+      "best_test_acc": 0.675
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 43,
+      "avg_test_acc": 0.643,
+      "best_test_acc": 0.691
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 44,
+      "avg_test_acc": 0.577,
+      "best_test_acc": 0.677
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 44,
+      "avg_test_acc": 0.622,
+      "best_test_acc": 0.699
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 45,
+      "avg_test_acc": 0.549,
+      "best_test_acc": 0.605
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 45,
+      "avg_test_acc": 0.712,
+      "best_test_acc": 0.67
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": false,
+      "seed": 46,
+      "avg_test_acc": 0.524,
+      "best_test_acc": 0.541
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "use_kd": true,
+      "seed": 46,
+      "avg_test_acc": 0.57,
+      "best_test_acc": 0.514
+    }
+  ],
+  "summary": {
+    "imdb::iid::without_kd": {
+      "avg_mean": 0.6566,
+      "avg_std": 0.04574975409769981,
+      "best_mean": 0.5974,
+      "best_std": 0.039189794589918434,
+      "n": 5
+    },
+    "imdb::iid::with_kd": {
+      "avg_mean": 0.6806,
+      "avg_std": 0.036658423315794685,
+      "best_mean": 0.6178,
+      "best_std": 0.034446480226577605,
+      "n": 5
+    },
+    "imdb::noniid::without_kd": {
+      "avg_mean": 0.5738,
+      "avg_std": 0.0719093874261212,
+      "best_mean": 0.6477999999999999,
+      "best_std": 0.06858104694447292,
+      "n": 5
+    },
+    "imdb::noniid::with_kd": {
+      "avg_mean": 0.6557999999999999,
+      "avg_std": 0.05938484655196139,
+      "best_mean": 0.6644,
+      "best_std": 0.07942946556536812,
+      "n": 5
+    }
+  },
+  "csv_path": "/mnt/code/lixujie/tfe_experiments/expTab/table3_init_compare_imdb_20260421_205929.csv",
+  "fig_paths": [
+    "/mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/table3_init_compare_imdb_20260421_205929.png"
+  ],
+  "txt_log": "/mnt/code/lixujie/tfe_experiments/log/txt/table3InitCompare_imdb_20260421_205929.log",
+  "elapsed_s": 11.28
+}

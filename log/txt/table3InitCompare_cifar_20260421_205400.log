@@ -1,0 +1,55 @@
+======================================================================================
+PEA Table III 风格实验：Initialization Aggregation Strategy Comparison
+======================================================================================
+run_id             : 20260421_205400
+datasets           : ['cifar']
+distribution       : ['iid', 'noniid']
+num_repeats        : 5
+use_secure_agg     : True
+kd_compare         : [without_kd, with_kd]
+cpu_threads        : 1
+
+--------------------------------------------------------------------------------------
+[Dataset] cifar
+--------------------------------------------------------------------------------------
+X_train_feat       : (1000, 384)
+X_test_feat        : (1000, 384)
+source_feat        : /mnt/code/lixujie/tfe_experiments/featureData/cifar10_dino_tr1000_te1000_seed42.npz
+
+  [Distribution] IID
+    seed=42   without_kd avg_test_acc=0.8950 best_test_acc=0.7780
+    seed=42   with_kd    avg_test_acc=0.8980 best_test_acc=0.8160
+    seed=43   without_kd avg_test_acc=0.8780 best_test_acc=0.7950
+    seed=43   with_kd    avg_test_acc=0.8860 best_test_acc=0.8060
+    seed=44   without_kd avg_test_acc=0.9040 best_test_acc=0.7940
+    seed=44   with_kd    avg_test_acc=0.9110 best_test_acc=0.8310
+    seed=45   without_kd avg_test_acc=0.8970 best_test_acc=0.7890
+    seed=45   with_kd    avg_test_acc=0.8980 best_test_acc=0.8400
+    seed=46   without_kd avg_test_acc=0.8970 best_test_acc=0.7940
+    seed=46   with_kd    avg_test_acc=0.9030 best_test_acc=0.8270
+
+  [Distribution] NONIID
+    seed=42   without_kd avg_test_acc=0.4520 best_test_acc=0.5300
+    seed=42   with_kd    avg_test_acc=0.6860 best_test_acc=0.6010
+    seed=43   without_kd avg_test_acc=0.5230 best_test_acc=0.5340
+    seed=43   with_kd    avg_test_acc=0.7300 best_test_acc=0.5970
+    seed=44   without_kd avg_test_acc=0.5940 best_test_acc=0.5310
+    seed=44   with_kd    avg_test_acc=0.7110 best_test_acc=0.6470
+    seed=45   without_kd avg_test_acc=0.4620 best_test_acc=0.5360
+    seed=45   with_kd    avg_test_acc=0.7930 best_test_acc=0.6650
+    seed=46   without_kd avg_test_acc=0.4430 best_test_acc=0.4700
+    seed=46   with_kd    avg_test_acc=0.7420 best_test_acc=0.5750
+
+======================================================================================
+Table III 扩展：with KD vs without KD 的初始化模型 accuracy
+Dataset | Dist | Avg(w/o KD) | Avg(w/ KD) | Best(w/o KD) | Best(w/ KD)
+--------------------------------------------------------------------------------------
+cifar   | IID    | 0.8942 ± 0.0087 | 0.8992 ± 0.0081 | 0.7900 ± 0.0064 | 0.8240 ± 0.0118
+cifar   | NONIID | 0.4948 ± 0.0570 | 0.7324 ± 0.0357 | 0.5202 ± 0.0252 | 0.6170 ± 0.0335
+======================================================================================
+CSV已写入 : /mnt/code/lixujie/tfe_experiments/expTab/table3_init_compare_cifar_20260421_205400.csv
+图已写入  :
+  - /mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/table3_init_compare_cifar_20260421_205400.png
+TXT日志   : /mnt/code/lixujie/tfe_experiments/log/txt/table3InitCompare_cifar_20260421_205400.log
+JSON日志  : /mnt/code/lixujie/tfe_experiments/log/json/table3InitCompare_cifar_20260421_205400.json
+总耗时(s) : 11.51

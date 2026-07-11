@@ -1,0 +1,273 @@
+{
+  "run_id": "20260710_230721",
+  "dataset": "tiny",
+  "config": {
+    "seed": 42,
+    "cpu_threads": 1,
+    "ipc": 50,
+    "train_steps": 1000,
+    "eval_interval": 100,
+    "plot_epsilon_annotations": false,
+    "batch_size": 128,
+    "test_batch_size": 256,
+    "lr": 0.01,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "use_diff_augment": true,
+    "use_cosine_scheduler": true,
+    "device": "auto",
+    "datasets": [
+      "cifar10",
+      "cifar100",
+      "tiny"
+    ]
+  },
+  "official_dir": "/home/lixujie/tmpWork/mtt_data/georgecazenavette/tiny_50",
+  "image_files": [
+    "images_best_0.pt",
+    "images_best_1.pt",
+    "images_best_2.pt",
+    "images_best_3.pt",
+    "images_best_4.pt"
+  ],
+  "label_files": [
+    "labels_best_0.pt",
+    "labels_best_1.pt",
+    "labels_best_2.pt",
+    "labels_best_3.pt",
+    "labels_best_4.pt"
+  ],
+  "num_full_samples": 100000,
+  "num_distilled_samples": 10000,
+  "compression_ratio": 0.1,
+  "train_steps_effective": 1200,
+  "eval_interval_effective": 100,
+  "figure_note": "Figure 4 main plot does not annotate epsilon; DP privacy budget should be reported in a separate DP table/appendix figure.",
+  "results": [
+    {
+      "name": "Full-Data",
+      "num_samples": 100000,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.0048,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.024,
+          "loss": 5.094651222229004
+        },
+        {
+          "step": 200,
+          "test_acc": 0.0405,
+          "loss": 5.081242561340332
+        },
+        {
+          "step": 300,
+          "test_acc": 0.055,
+          "loss": 4.829024314880371
+        },
+        {
+          "step": 400,
+          "test_acc": 0.076,
+          "loss": 4.8761820793151855
+        },
+        {
+          "step": 500,
+          "test_acc": 0.0975,
+          "loss": 4.6083574295043945
+        },
+        {
+          "step": 600,
+          "test_acc": 0.1091,
+          "loss": 4.420456409454346
+        },
+        {
+          "step": 700,
+          "test_acc": 0.1261,
+          "loss": 4.446565628051758
+        },
+        {
+          "step": 800,
+          "test_acc": 0.1312,
+          "loss": 4.231389999389648
+        },
+        {
+          "step": 900,
+          "test_acc": 0.147,
+          "loss": 4.380428314208984
+        },
+        {
+          "step": 1000,
+          "test_acc": 0.1524,
+          "loss": 3.9549996852874756
+        },
+        {
+          "step": 1100,
+          "test_acc": 0.1559,
+          "loss": 4.25447940826416
+        },
+        {
+          "step": 1200,
+          "test_acc": 0.157,
+          "loss": 4.05693244934082
+        }
+      ],
+      "final_test_acc": 0.157,
+      "train_time_s": 46.752482891082764
+    },
+    {
+      "name": "Random-Subset",
+      "num_samples": 10000,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.0052,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.025,
+          "loss": 5.192023277282715
+        },
+        {
+          "step": 200,
+          "test_acc": 0.0427,
+          "loss": 4.732398509979248
+        },
+        {
+          "step": 300,
+          "test_acc": 0.0569,
+          "loss": 4.706157684326172
+        },
+        {
+          "step": 400,
+          "test_acc": 0.0679,
+          "loss": 4.44269323348999
+        },
+        {
+          "step": 500,
+          "test_acc": 0.0821,
+          "loss": 4.341766834259033
+        },
+        {
+          "step": 600,
+          "test_acc": 0.0953,
+          "loss": 4.200142860412598
+        },
+        {
+          "step": 700,
+          "test_acc": 0.1086,
+          "loss": 4.077906608581543
+        },
+        {
+          "step": 800,
+          "test_acc": 0.1178,
+          "loss": 3.8295726776123047
+        },
+        {
+          "step": 900,
+          "test_acc": 0.1261,
+          "loss": 3.8521134853363037
+        },
+        {
+          "step": 1000,
+          "test_acc": 0.1292,
+          "loss": 3.770359516143799
+        },
+        {
+          "step": 1100,
+          "test_acc": 0.1326,
+          "loss": 3.700732707977295
+        },
+        {
+          "step": 1200,
+          "test_acc": 0.1339,
+          "loss": 3.8558731079101562
+        }
+      ],
+      "final_test_acc": 0.1339,
+      "train_time_s": 46.493674755096436
+    },
+    {
+      "name": "Official-Distilled",
+      "num_samples": 10000,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.0051,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.0262,
+          "loss": 5.003500938415527
+        },
+        {
+          "step": 200,
+          "test_acc": 0.0492,
+          "loss": 4.635754585266113
+        },
+        {
+          "step": 300,
+          "test_acc": 0.0681,
+          "loss": 4.309764385223389
+        },
+        {
+          "step": 400,
+          "test_acc": 0.0846,
+          "loss": 3.9894042015075684
+        },
+        {
+          "step": 500,
+          "test_acc": 0.0999,
+          "loss": 3.552187919616699
+        },
+        {
+          "step": 600,
+          "test_acc": 0.1156,
+          "loss": 3.0771026611328125
+        },
+        {
+          "step": 700,
+          "test_acc": 0.1372,
+          "loss": 2.6761889457702637
+        },
+        {
+          "step": 800,
+          "test_acc": 0.1503,
+          "loss": 2.4976141452789307
+        },
+        {
+          "step": 900,
+          "test_acc": 0.1598,
+          "loss": 2.108074426651001
+        },
+        {
+          "step": 1000,
+          "test_acc": 0.171,
+          "loss": 2.036682605743408
+        },
+        {
+          "step": 1100,
+          "test_acc": 0.1749,
+          "loss": 2.1620070934295654
+        },
+        {
+          "step": 1200,
+          "test_acc": 0.1771,
+          "loss": 2.0001449584960938
+        }
+      ],
+      "final_test_acc": 0.1771,
+      "train_time_s": 28.954652309417725
+    }
+  ],
+  "outputs": {
+    "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/officialDistillModuleA_tiny_20260710_230721.log",
+    "json": "/mnt/code/lixujie/tfe_experiments/log/json/officialDistillModuleA_tiny_20260710_230721.json",
+    "csv": "/mnt/code/lixujie/tfe_experiments/expTab/officialDistillModuleA_tiny_20260710_230721.csv",
+    "figure": "/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_official/figure4_official_distill_tiny.png"
+  }
+}

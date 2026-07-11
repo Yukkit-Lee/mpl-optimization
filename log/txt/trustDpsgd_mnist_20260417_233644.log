@@ -1,0 +1,97 @@
+========================================================================
+桥接脚本：模块 b → 模块 c（Trust-aware Secure DPSGD）
+========================================================================
+run_id    : 20260417_233644
+dataset   : mnist
+mode      : trust_dp  (来自CFG)
+trust_t   : 0.7  (来自CFG)
+init_type : chosen  (固定读取模块 b initial_global_model)
+epochs    : 1  (来自CFG)
+X_train_feat : (1000, 144)  X_test_feat : (1000, 144)
+
+读取模块 b 初始化缓存成功（未执行模块 b 训练）...
+缓存文件: /mnt/code/lixujie/tfe_experiments/init_model/module_b_best_mnist.pt
+加载策略: best
+模块 b 缓存：chosen_init_type = avg
+
+======================================================================
+B → C 桥接启动
+  模块 b 推荐 init_type : avg
+  本次使用 init_type    : chosen
+  训练模式              : trust_dp
+  trust_t               : 0.7
+======================================================================
+
+======================================================================
+模块 C：Trust-aware Secure DPSGD（特征级全局训练）
+======================================================================
+[1/5] 加载 initial global model ...
+  加载来自模块 b 的 initial_global_model（深拷贝）
+  模型架构: LinearClassifier(
+  (fc): Linear(in_features=144, out_features=10, bias=True)
+)
+
+[2/5] 构造 logically global feature dataset (D_lg_feat) ...
+  ★ D_lg_feat 说明：
+    对应 PEA 中 'logically global dataset'
+    本原型 = 所有 client 特征的直接拼合（近似实现）
+    输入为 feature-level 特征（非原始图像/文本）
+    后续可替换为真正的 MPC secret-sharing 构建方式
+  D_lg_feat 形状   : (1000, 144)
+  N（全局样本数）  : 1000
+  特征维度         : 144
+  类别数           : 10
+  测试集形状       : (1000, 144)
+
+[3/5] 配置 DPSGD / trust-aware 噪声 ...
+  训练模式                  : trust_dp
+  trust_t                   : 0.7
+  sigma_min                 : 0.1
+  sigma_max                 : 2.0
+  effective_noise_multiplier: 0.6700
+  实际加噪标准差             : 0.6700  (= σ_eff × C)
+  clipping_norm             : 1.0
+  batch_size                : 64
+  global_epochs             : 1
+  global_lr                 : 0.01
+  ε 估算上界（供参考）      : 7.1620  (δ=1e-05)
+
+[4/5] 执行全局训练 ...
+  N_lg=1000，batch_size=64，每 epoch 约 15 个 mini-batch
+  Epoch    1/1  train_loss=1.2950  train_acc=0.7560  test_loss=1.3342  test_acc=0.7450  σ_eff=0.670  time=0.0s
+
+[5/5] 汇总 & 写入报告 ...
+
+  [最终结果]
+  final_train_accuracy : 0.7560
+  final_test_accuracy  : 0.7450
+  total_train_time (s) : 0.04
+  mode                 : trust_dp
+  trust_t              : 0.7
+  effective σ           : 0.6700
+
+[Figure5-TFE] random/avg/best 三初始化进入 TFE 密态训练
+  epochs/lr : 1/0.01
+  feat_dim/classes : 144/10
+
+  -> 训练 random_init
+    it=   1/1    tr_loss=0.377087 te_loss=0.380511 tr_acc=0.1460 te_acc=0.1180
+
+  -> 训练 avg_init
+    it=   1/1    tr_loss=0.232872 te_loss=0.220889 tr_acc=0.7670 te_acc=0.7530
+
+  -> 训练 best_init
+    it=   1/1    tr_loss=0.635258 te_loss=0.611924 tr_acc=0.5360 te_acc=0.5200
+
+[Figure5-TFE] 最终对比（按 test_acc）:
+  random_init  test_acc=0.1180 train_acc=0.1460
+  avg_init     test_acc=0.7530 train_acc=0.7670
+  best_init    test_acc=0.5200 train_acc=0.5360
+  winner: avg_init
+
+Figure5(TFE) 文件已写入:
+   {'figure5_json': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_mnist_20260417_233644.json', 'figure5_csv': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_mnist_20260417_233644.csv', 'figure5_png': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_mnist_20260417_233644.png'}
+主JSON已写入: /mnt/code/lixujie/tfe_experiments/log/json/trustDpsgd_mnist_20260417_233644.json
+桥接JSON已写入: /mnt/code/lixujie/tfe_experiments/log/json/trustDpsgdBridge_mnist_20260417_233644.json
+TXT日志已写入: /mnt/code/lixujie/tfe_experiments/log/txt/trustDpsgd_mnist_20260417_233644.log
+总耗时(s): 2.587

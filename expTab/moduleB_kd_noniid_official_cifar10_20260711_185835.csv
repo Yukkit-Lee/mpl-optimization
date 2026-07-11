@@ -1,0 +1,20 @@
+Dataset,Seed,Heterogeneity,SplitParam,Method,InitAcc,FinalAcc,Step@TargetAcc,EarlyAUC,TargetAcc,ExtractorAcc
+cifar10,42,IID,classes_per_client=all,NoKD-Avg,0.6453333497047424,0.6793333292007446,0,0.6725833341479301,0.6350400018692016,0.673
+cifar10,42,IID,classes_per_client=all,NoKD-ReferenceWeighted,0.6416666507720947,0.6786666512489319,0,0.6717083230614662,0.6350400018692016,0.673
+cifar10,42,IID,classes_per_client=all,KD-Avg,0.6480000019073486,0.6783333420753479,0,0.6720416620373726,0.6350400018692016,0.673
+cifar10,42,IID,classes_per_client=all,KD-ReferenceWeighted,0.6466666460037231,0.6786666512489319,0,0.6715000048279762,0.6350400018692016,0.673
+cifar10,42,Severe,classes_per_client=2,NoKD-Avg,0.5289999842643738,0.6783333420753479,20,0.6574999988079071,0.5612133121490478,0.673
+cifar10,42,Severe,classes_per_client=2,NoKD-ReferenceWeighted,0.4676666557788849,0.6766666769981384,20,0.6478749923408031,0.5612133121490478,0.673
+cifar10,42,Severe,classes_per_client=2,KD-Avg,0.5726666450500488,0.6769999861717224,0,0.6624583378434181,0.5612133121490478,0.673
+cifar10,42,Severe,classes_per_client=2,KD-ReferenceWeighted,0.5583333373069763,0.6776666641235352,20,0.6616666838526726,0.5612133121490478,0.673
+,,,,,,,,,,
+SUMMARY,,,,,,,,,,
+Dataset,Heterogeneity,SplitParam,Method,InitAcc,FinalAcc,Step@TargetAcc,EarlyAUC
+cifar10,IID,classes_per_client=all,KD-Avg,0.6480 ± 0.0000,0.6783 ± 0.0000,0.0,0.6720 ± 0.0000
+cifar10,IID,classes_per_client=all,KD-ReferenceWeighted,0.6467 ± 0.0000,0.6787 ± 0.0000,0.0,0.6715 ± 0.0000
+cifar10,IID,classes_per_client=all,NoKD-Avg,0.6453 ± 0.0000,0.6793 ± 0.0000,0.0,0.6726 ± 0.0000
+cifar10,IID,classes_per_client=all,NoKD-ReferenceWeighted,0.6417 ± 0.0000,0.6787 ± 0.0000,0.0,0.6717 ± 0.0000
+cifar10,Severe,classes_per_client=2,KD-Avg,0.5727 ± 0.0000,0.6770 ± 0.0000,0.0,0.6625 ± 0.0000
+cifar10,Severe,classes_per_client=2,KD-ReferenceWeighted,0.5583 ± 0.0000,0.6777 ± 0.0000,20.0,0.6617 ± 0.0000
+cifar10,Severe,classes_per_client=2,NoKD-Avg,0.5290 ± 0.0000,0.6783 ± 0.0000,20.0,0.6575 ± 0.0000
+cifar10,Severe,classes_per_client=2,NoKD-ReferenceWeighted,0.4677 ± 0.0000,0.6767 ± 0.0000,20.0,0.6479 ± 0.0000

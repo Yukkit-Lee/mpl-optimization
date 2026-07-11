@@ -1,0 +1,64 @@
+========================================================================
+桥接脚本：模块 b → 模块 c（Adaptive-Clipped Private Optimization）
+========================================================================
+run_id    : 20260420_205055
+dataset   : mnist
+mode      : adaptive_dp  (来自CFG)
+gamma     : 0.5  (来自CFG)
+eta_c     : 0.2  (来自CFG)
+C_init    : 0.1  (来自CFG)
+noise_backend: binomial_mpc  (来自CFG)
+init_type : chosen  (固定读取模块 b initial_global_model)
+epochs    : 800  (来自CFG)
+only_main : False
+only_figure5 : True
+X_train_feat : (1000, 144)  X_test_feat : (1000, 144)
+
+读取模块 b 初始化缓存成功（未执行模块 b 训练）...
+缓存文件: /mnt/code/lixujie/tfe_experiments/init_model/module_b_best_mnist.pt
+加载策略: best
+模块 b 缓存：chosen_init_type = avg
+模块 b 聚合方式: ABY3密态
+
+[Figure5-TFE] random/avg/best 三初始化进入 TFE 密态训练
+  epochs/lr(base->eff) : 800/0.01->0.005
+  feat_dim/classes : 144/10
+  ε-accountant: mode=pea_aligned, epsilon_end=2.07, delta=1e-05, q=1.000, sigma_eff=1.0000, target_epsilon=None
+
+  -> 训练 random_init
+    it=   1/800  tr_loss=0.399423 te_loss=0.401533 tr_acc=0.1380 te_acc=0.1110 eps=0.073
+    it=  89/800  tr_loss=0.093256 te_loss=0.107183 tr_acc=0.6790 te_acc=0.6240 eps=0.690
+    it= 178/800  tr_loss=0.054813 te_loss=0.066618 tr_acc=0.8450 te_acc=0.7750 eps=0.976
+    it= 267/800  tr_loss=0.042188 te_loss=0.052547 tr_acc=0.9010 te_acc=0.8380 eps=1.196
+    it= 356/800  tr_loss=0.036858 te_loss=0.046436 tr_acc=0.9180 te_acc=0.8610 eps=1.381
+    it= 444/800  tr_loss=0.034273 te_loss=0.043466 tr_acc=0.9280 te_acc=0.8760 eps=1.542
+    [Converged] random_init 在 it=467 提前停止（patience=30）
+
+  -> 训练 avg_init
+    it=   1/800  tr_loss=0.261839 te_loss=0.247473 tr_acc=0.7570 te_acc=0.7500 eps=0.073
+    it=  89/800  tr_loss=0.044417 te_loss=0.051440 tr_acc=0.8950 te_acc=0.8550 eps=0.690
+    it= 178/800  tr_loss=0.035945 te_loss=0.043706 tr_acc=0.9310 te_acc=0.8750 eps=0.976
+    it= 267/800  tr_loss=0.033202 te_loss=0.041278 tr_acc=0.9330 te_acc=0.8880 eps=1.196
+    [Converged] avg_init 在 it=305 提前停止（patience=30）
+
+  -> 训练 best_init
+    it=   1/800  tr_loss=0.700853 te_loss=0.674419 tr_acc=0.5330 te_acc=0.5190 eps=0.073
+    it=  89/800  tr_loss=0.087231 te_loss=0.099211 tr_acc=0.7030 te_acc=0.6330 eps=0.690
+    it= 178/800  tr_loss=0.052531 te_loss=0.064064 tr_acc=0.8350 te_acc=0.7740 eps=0.976
+    it= 267/800  tr_loss=0.040961 te_loss=0.051327 tr_acc=0.8970 te_acc=0.8240 eps=1.196
+    it= 356/800  tr_loss=0.036090 te_loss=0.045742 tr_acc=0.9160 te_acc=0.8590 eps=1.381
+    it= 444/800  tr_loss=0.033752 te_loss=0.043056 tr_acc=0.9240 te_acc=0.8720 eps=1.542
+    it= 533/800  tr_loss=0.032506 te_loss=0.041646 tr_acc=0.9310 te_acc=0.8810 eps=1.690
+    [Converged] best_init 在 it=566 提前停止（patience=30）
+
+[Figure5-TFE] 最终对比（按 test_acc）:
+  random_init  test_acc=0.8760 train_acc=0.9290
+  avg_init     test_acc=0.8890 train_acc=0.9360
+  best_init    test_acc=0.8820 train_acc=0.9340
+  winner: avg_init
+
+Figure5(TFE) 文件已写入:
+   {'figure5_json': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_mnist_20260420_205055.json', 'figure5_csv': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_mnist_20260420_205055.csv', 'figure5_png': '/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_mnist_20260420_205055.png'}
+桥接JSON已写入: /mnt/code/lixujie/tfe_experiments/log/json/adaptiveDpsgdBridge_mnist_20260420_205055.json
+TXT日志已写入: /mnt/code/lixujie/tfe_experiments/log/txt/adaptiveDpsgd_mnist_20260420_205055.log
+总耗时(s): 6.246

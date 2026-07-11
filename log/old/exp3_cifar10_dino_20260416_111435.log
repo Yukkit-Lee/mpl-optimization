@@ -1,0 +1,30 @@
+======================================================================
+实验 3：CIFAR-10 + DINO/DINOv2 特征提取 + TFE 密态多分类
+======================================================================
+run_id              : 20260416_111435
+Python              : /home/lixujie/.conda/envs/tfe/bin/python
+TensorFlow          : 1.15.5
+TF Encrypted        : 0.8.0
+Platform            : Linux-6.11.0-26-generic-x86_64-with-debian-trixie-sid
+
+[配置]
+  EXTRACTOR_NAME    : dinov2_vits14
+  DINO_INPUT_SIZE   : 224
+  MAX_TRAIN_SAMPLES : 1000
+  MAX_TEST_SAMPLES  : 200
+  TFE_EPOCHS        : 30
+  TFE_LR            : 0.01
+  ABLATION_DIMS     : [128, 256, 512, 0]  (0=full)
+
+[1/5] 加载 CIFAR-10 子集...
+  训练集: 1000 张，形状: (32, 32, 3)
+  测试集: 200 张
+  原始输入维度 (展平): 3072 = 32×32×3
+  加载耗时: 0.00s
+
+[2/5] DINO 特征提取（dinov2_vits14，本地明文侧，不进入 MPC）...
+  未找到缓存，开始提取 [train] 特征...
+  使用设备: cuda
+  当前 timm 不支持目标模型，回退 torch.hub 加载...
+  尝试 torch.hub: repo=facebookresearch/dinov2, model=dinov2_vits14
+  尝试 torch.hub: repo=facebookresearch/dino:main, model=dino_vits16

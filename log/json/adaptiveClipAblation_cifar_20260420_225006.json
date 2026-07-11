@@ -1,0 +1,51 @@
+{
+  "run_id": "20260420_225006",
+  "dataset": "cifar",
+  "dry_run": true,
+  "cfg": {
+    "safe_mode": true,
+    "cpu_threads": 1,
+    "seed": 42,
+    "max_test_cap": 1000,
+    "include_plain": true,
+    "device": "cpu",
+    "global_epochs": 800,
+    "global_lr": 0.01,
+    "batch_size": 64,
+    "clipping_norm": 0.7,
+    "noise_multiplier": 1.0,
+    "noise_backend": "binomial_mpc",
+    "delta": 1e-05,
+    "target_epsilon": null,
+    "gamma": 0.85,
+    "eta_c": 0.08,
+    "C_init": 0.7,
+    "sigma_b_scale": 20.0,
+    "quantile_beta": 0.35,
+    "warmup_steps": 40,
+    "clip_min": 0.05,
+    "clip_max": 3.0,
+    "max_epoch_log_lines": 10,
+    "convergence_stop_for_plot": true,
+    "convergence_min_epochs": 40,
+    "convergence_patience": 30,
+    "convergence_min_delta": 0.0001,
+    "epsilon_plot_min_span": 0.5
+  },
+  "shapes": {
+    "x_train": [
+      1000,
+      384
+    ],
+    "x_test": [
+      1000,
+      384
+    ],
+    "y_train": [
+      1000
+    ],
+    "y_test": [
+      1000
+    ]
+  }
+}

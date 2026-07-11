@@ -1,0 +1,10 @@
+========================================================================
+模块C GPU正式运行器
+========================================================================
+run_id        : 20260418_123310
+python        : /home/lixujie/.conda/envs/distillation/bin/python3.9
+dataset       : cifar
+mode          : trust_dp
+global_epochs : 20
+cpu_threads   : 1
+cuda_probe    : {'ok': True, 'torch_version': '2.8.0+cu128', 'cuda_available': True, 'device_name': 'NVIDIA GeForce RTX 4090', 'sample': 1.468757152557373}

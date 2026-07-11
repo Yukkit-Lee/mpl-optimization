@@ -1,0 +1,146 @@
+{
+  "run_id": "20260417_234731",
+  "dataset": "cifar",
+  "mode": "trust_dp",
+  "trust_t": 0.7,
+  "elapsed_s": 2.438,
+  "txt_log_file": "/mnt/code/lixujie/tfe_experiments/log/txt/trustDpsgd_cifar_20260417_234731.log",
+  "main_json_file": "/mnt/code/lixujie/tfe_experiments/log/json/trustDpsgd_cifar_20260417_234731.json",
+  "compare_json_file": null,
+  "module_b_cache": {
+    "policy": "best",
+    "meta_json": "/mnt/code/lixujie/tfe_experiments/init_model/module_b_best_cifar.json",
+    "weights_pt": "/mnt/code/lixujie/tfe_experiments/init_model/module_b_best_cifar.pt"
+  },
+  "module_b_candidate": {
+    "avg_ref_acc": 0.71,
+    "best_ref_acc": 0.645,
+    "best_local_idx": 2,
+    "chosen_init_type": "avg",
+    "avg_test_acc": 0.686,
+    "best_test_acc": 0.601,
+    "chosen_test_acc": 0.686
+  },
+  "figure5_tfe": {
+    "config": {
+      "epochs": 2,
+      "lr": 0.01,
+      "seed": 42,
+      "feat_dim": 384,
+      "num_classes": 10,
+      "protocol": "ABY3"
+    },
+    "curves": {
+      "random_init": [
+        {
+          "epoch": 0,
+          "iteration": 0,
+          "train_loss": 1.0026397705078125,
+          "test_loss": 1.0048873741896058,
+          "train_acc": 0.078,
+          "test_acc": 0.101
+        },
+        {
+          "epoch": 1,
+          "iteration": 1,
+          "train_loss": 0.9626007080078125,
+          "test_loss": 0.9682519598319522,
+          "train_acc": 0.085,
+          "test_acc": 0.105
+        },
+        {
+          "epoch": 2,
+          "iteration": 2,
+          "train_loss": 0.926312255859375,
+          "test_loss": 0.935123055124276,
+          "train_acc": 0.087,
+          "test_acc": 0.114
+        }
+      ],
+      "avg_init": [
+        {
+          "epoch": 0,
+          "iteration": 0,
+          "train_loss": 0.2578460693359375,
+          "test_loss": 0.2569075416995297,
+          "train_acc": 0.906,
+          "test_acc": 0.851
+        },
+        {
+          "epoch": 1,
+          "iteration": 1,
+          "train_loss": 0.22905426025390624,
+          "test_loss": 0.22913727243093726,
+          "train_acc": 0.909,
+          "test_acc": 0.851
+        },
+        {
+          "epoch": 2,
+          "iteration": 2,
+          "train_loss": 0.20484619140625,
+          "test_loss": 0.2058360957540406,
+          "train_acc": 0.91,
+          "test_acc": 0.853
+        }
+      ],
+      "best_init": [
+        {
+          "epoch": 0,
+          "iteration": 0,
+          "train_loss": 0.43531341552734376,
+          "test_loss": 0.45736298575089934,
+          "train_acc": 0.746,
+          "test_acc": 0.703
+        },
+        {
+          "epoch": 1,
+          "iteration": 1,
+          "train_loss": 0.40286712646484374,
+          "test_loss": 0.42536022046092115,
+          "train_acc": 0.754,
+          "test_acc": 0.706
+        },
+        {
+          "epoch": 2,
+          "iteration": 2,
+          "train_loss": 0.374951171875,
+          "test_loss": 0.39783973359408287,
+          "train_acc": 0.753,
+          "test_acc": 0.707
+        }
+      ]
+    },
+    "finals": {
+      "random_init": {
+        "final_train_acc": 0.087,
+        "final_test_acc": 0.114,
+        "final_train_loss": 0.926312255859375,
+        "final_test_loss": 0.935123055124276,
+        "total_train_time_s": 0.224,
+        "effective_lr": 0.002
+      },
+      "avg_init": {
+        "final_train_acc": 0.91,
+        "final_test_acc": 0.853,
+        "final_train_loss": 0.20484619140625,
+        "final_test_loss": 0.2058360957540406,
+        "total_train_time_s": 0.242,
+        "effective_lr": 0.002
+      },
+      "best_init": {
+        "final_train_acc": 0.753,
+        "final_test_acc": 0.707,
+        "final_train_loss": 0.374951171875,
+        "final_test_loss": 0.39783973359408287,
+        "total_train_time_s": 0.223,
+        "effective_lr": 0.002
+      }
+    },
+    "winner": "avg_init"
+  },
+  "figure5_tfe_files": {
+    "figure5_json": "/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_cifar_20260417_234731.json",
+    "figure5_csv": "/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_cifar_20260417_234731.csv",
+    "figure5_png": "/mnt/code/lixujie/tfe_experiments/expFig/figure5_tfe_cifar_20260417_234731.png"
+  }
+}

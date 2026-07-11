@@ -1,0 +1,128 @@
+{
+  "run_id": "20260421_204158",
+  "datasets": [
+    "imdb"
+  ],
+  "distribution": [
+    "iid",
+    "noniid"
+  ],
+  "cfg": {
+    "safe_mode": true,
+    "cpu_threads": 1,
+    "max_test_cap": 1000,
+    "num_clients": 5,
+    "classes_per_client": 0,
+    "ref_size": 200,
+    "local_epochs": 80,
+    "local_lr": 0.01,
+    "tau": 2.0,
+    "lambda_kd": 1.0,
+    "distill_epochs": 30,
+    "distill_lr": 0.005,
+    "device": "cpu",
+    "use_secure_aggregation": true,
+    "secure_max_threads": 1,
+    "max_epoch_log_lines": 10,
+    "local_use_dpsgd": false,
+    "local_dpsgd_batch_size": 64,
+    "local_dpsgd_clipping_norm": 1.0,
+    "local_dpsgd_noise_multiplier": 1.0,
+    "num_repeats": 5,
+    "seed_base": 42
+  },
+  "records": [
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "seed": 42,
+      "avg_test_acc": 0.701,
+      "best_test_acc": 0.604
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "seed": 43,
+      "avg_test_acc": 0.734,
+      "best_test_acc": 0.586
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "seed": 44,
+      "avg_test_acc": 0.687,
+      "best_test_acc": 0.683
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "seed": 45,
+      "avg_test_acc": 0.646,
+      "best_test_acc": 0.62
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "iid",
+      "seed": 46,
+      "avg_test_acc": 0.633,
+      "best_test_acc": 0.596
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "seed": 42,
+      "avg_test_acc": 0.732,
+      "best_test_acc": 0.748
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "seed": 43,
+      "avg_test_acc": 0.642,
+      "best_test_acc": 0.691
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "seed": 44,
+      "avg_test_acc": 0.621,
+      "best_test_acc": 0.699
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "seed": 45,
+      "avg_test_acc": 0.71,
+      "best_test_acc": 0.67
+    },
+    {
+      "dataset": "imdb",
+      "distribution": "noniid",
+      "seed": 46,
+      "avg_test_acc": 0.568,
+      "best_test_acc": 0.514
+    }
+  ],
+  "summary": {
+    "imdb::iid": {
+      "avg_mean": 0.6801999999999999,
+      "avg_std": 0.036798913027425134,
+      "best_mean": 0.6178,
+      "best_std": 0.034446480226577605,
+      "n": 5
+    },
+    "imdb::noniid": {
+      "avg_mean": 0.6546000000000001,
+      "avg_std": 0.05974479056788132,
+      "best_mean": 0.6644,
+      "best_std": 0.07942946556536812,
+      "n": 5
+    }
+  },
+  "csv_path": "/mnt/code/lixujie/tfe_experiments/expTab/table3_init_compare_imdb_20260421_204158.csv",
+  "fig_paths": [
+    "/mnt/code/lixujie/tfe_experiments/expFig/table3_NonIID/table3_init_compare_imdb_20260421_204158.png"
+  ],
+  "txt_log": "/mnt/code/lixujie/tfe_experiments/log/txt/table3InitCompare_imdb_20260421_204158.log",
+  "elapsed_s": 6.131
+}
