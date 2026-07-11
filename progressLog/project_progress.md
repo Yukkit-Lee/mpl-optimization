@@ -447,3 +447,7 @@
 - 本次对话任务目标：解决 GitHub 自动 push 问题，并按用户新要求将 `expTab/`、`expFig/`、`log/` 实验输出纳入版本管理。
 - 修改内容：更新 `.gitignore`，取消对 `log/`、`expFig/`、`expTab/` 的整体忽略；继续忽略 `*.pt`、`*.pth`、`*.ckpt`、`data/`、`featureData/`、`distilledData/`、`init_model/`、`log/finalModel/` 等大文件或模型权重目录。
 - 安全说明：GitHub token 仅用于本次 push 的临时认证，不写入 remote URL、`.git/config` 或任何提交文件。
+- 当前 Git 状态：本地 `main` 已提交源码、`expTab/`、`expFig/`、`log/` 输出文件；当前领先远端 `origin/main` 1 个提交。
+- Push 排查结果：当前执行环境没有 GitHub CLI 登录态，`gh auth status` 显示未登录；Git 也没有可用 credential helper。
+- Push 失败原因：使用用户提供的 PAT 进行临时认证时，GitHub 返回 `Invalid username or token`，说明该 token 已失效、被 GitHub 自动撤销，或缺少私有仓库 `Contents: Read and write` / classic `repo` 权限。
+- 后续处理建议：需要重新生成一个有效 token，或在当前机器执行 `gh auth login` / 配置 SSH key。拿到有效凭据后即可执行 `git push origin main`，之后我可以在每次修改后自动 `git add -> git commit -> git push`。
