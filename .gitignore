@@ -1,0 +1,80 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Environments and local config
+.env
+.env.*
+.venv/
+venv/
+*.local
+
+# Large data / datasets / extracted features
+data/
+featureData/
+official_data/*.pt
+official_data/*.pth
+official_data/*.ckpt
+official_data/*.npz
+*.npz
+*.npy
+*.pkl
+*.pickle
+*.joblib
+*.model
+
+# Model weights / checkpoints
+*.pt
+*.pth
+*.ckpt
+*.onnx
+init_model/
+log/finalModel/
+
+# Experiment outputs
+log/
+expFig/
+expTab/
+wandb/
+runs/
+outputs/
+cache/
+.cache/
+
+# References / papers may be large copyrighted PDFs
+reference/*.pdf
+reference/*.zip
+reference/*.tar
+reference/*.tar.gz
+reference/*.png
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Distilled datasets and official evaluation outputs
+distilledData/
+official_data/*.csv
+official_data/*.json
+official_data/*.log
+official_data/__pycache__/
+
+# Generated reports at project root
+*_report.json
+real_tabular_training_report.json
+training_validation_report.json
+validation_report.json
