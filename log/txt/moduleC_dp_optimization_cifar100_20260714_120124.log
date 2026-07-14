@@ -1,0 +1,213 @@
+========================================================================================
+模块 C DP Optimization：Fixed Clipping vs Adaptive Clipping
+========================================================================================
+dataset: cifar100
+seeds: [42, 43, 44]
+cpu_threads: 1
+epochs/batch/lr: 120 256 0.08
+
+[Seed 42] 准备模块 A 特征与模块 B reference-guided chosen init ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0110  loss=4.6911
+  extractor step=   89/800  test_acc=0.1530  loss=3.6039
+  extractor step=  178/800  test_acc=0.2577  loss=2.5556
+  extractor step=  267/800  test_acc=0.3003  loss=1.5271
+  extractor step=  356/800  test_acc=0.3510  loss=1.2652
+  extractor step=  444/800  test_acc=0.3670  loss=0.7292
+  extractor step=  533/800  test_acc=0.3823  loss=0.7349
+  extractor step=  622/800  test_acc=0.3970  loss=0.6622
+  extractor step=  711/800  test_acc=0.3957  loss=0.4590
+  extractor step=  800/800  test_acc=0.3930  loss=0.6015
+  feature: (5000, 2048) test: (3000, 2048) extractor_acc: 0.3930
+  chosen_init: KD-Avg ref_scores: {'KD-Avg': 0.411, 'KD-ReferenceWeighted': 0.408, 'KD-Best': 0.227}
+  init_test_acc: 0.2890 target_acc: 0.3121
+
+  -> Plain
+    Plain                    epoch=   1/120 test_acc=0.3120 train_acc=0.8276 eps=inf C=3.0000
+    Plain                    epoch=  14/120 test_acc=0.3737 train_acc=0.9214 eps=inf C=3.0000
+    Plain                    epoch=  27/120 test_acc=0.3933 train_acc=0.9434 eps=inf C=3.0000
+    Plain                    epoch=  40/120 test_acc=0.4057 train_acc=0.9542 eps=inf C=3.0000
+    Plain                    epoch=  53/120 test_acc=0.4150 train_acc=0.9632 eps=inf C=3.0000
+    Plain                    epoch=  67/120 test_acc=0.4173 train_acc=0.9684 eps=inf C=3.0000
+    Plain                    epoch=  80/120 test_acc=0.4167 train_acc=0.9720 eps=inf C=3.0000
+    Plain                    epoch=  93/120 test_acc=0.4170 train_acc=0.9748 eps=inf C=3.0000
+    Plain                    epoch= 106/120 test_acc=0.4193 train_acc=0.9776 eps=inf C=3.0000
+    Plain                    epoch= 120/120 test_acc=0.4183 train_acc=0.9798 eps=inf C=3.0000
+
+  -> Fixed-DP
+    Fixed-DP                 epoch=   1/120 test_acc=0.2733 train_acc=0.7630 eps=0.204737 C=3.0000
+    Fixed-DP                 epoch=  14/120 test_acc=0.3120 train_acc=0.8394 eps=0.766056 C=3.0000
+    Fixed-DP                 epoch=  27/120 test_acc=0.3203 train_acc=0.8854 eps=1.063845 C=3.0000
+    Fixed-DP                 epoch=  40/120 test_acc=0.3290 train_acc=0.9098 eps=1.294871 C=3.0000
+    Fixed-DP                 epoch=  53/120 test_acc=0.3297 train_acc=0.9210 eps=1.490509 C=3.0000
+    Fixed-DP                 epoch=  67/120 test_acc=0.3253 train_acc=0.9328 eps=1.675845 C=3.0000
+    Fixed-DP                 epoch=  80/120 test_acc=0.3150 train_acc=0.9388 eps=1.831224 C=3.0000
+    Fixed-DP                 epoch=  93/120 test_acc=0.3197 train_acc=0.9434 eps=1.974413 C=3.0000
+    Fixed-DP                 epoch= 106/120 test_acc=0.3107 train_acc=0.9480 eps=2.107898 C=3.0000
+    Fixed-DP                 epoch= 120/120 test_acc=0.3057 train_acc=0.9542 eps=2.242783 C=3.0000
+
+  -> Adaptive-DP
+    Adaptive-DP              epoch=   1/120 test_acc=0.2973 train_acc=0.7892 eps=0.204737 C=2.0000
+    Adaptive-DP              epoch=  14/120 test_acc=0.3130 train_acc=0.8380 eps=0.766056 C=2.0000
+    Adaptive-DP              epoch=  27/120 test_acc=0.3277 train_acc=0.8838 eps=1.063845 C=2.0000
+    Adaptive-DP              epoch=  40/120 test_acc=0.3447 train_acc=0.9092 eps=1.294871 C=2.0000
+    Adaptive-DP              epoch=  53/120 test_acc=0.3507 train_acc=0.9216 eps=1.490509 C=2.0000
+    Adaptive-DP              epoch=  67/120 test_acc=0.3507 train_acc=0.9306 eps=1.675845 C=1.5539
+    Adaptive-DP              epoch=  80/120 test_acc=0.3510 train_acc=0.9362 eps=1.831224 C=1.0283
+    Adaptive-DP              epoch=  93/120 test_acc=0.3590 train_acc=0.9406 eps=1.974413 C=0.7638
+    Adaptive-DP              epoch= 106/120 test_acc=0.3563 train_acc=0.9430 eps=2.107898 C=0.6108
+    Adaptive-DP              epoch= 120/120 test_acc=0.3590 train_acc=0.9438 eps=2.242783 C=0.5078
+
+  -> Adaptive-DP+BinomialMPC
+    Adaptive-DP+BinomialMPC  epoch=   1/120 test_acc=0.2830 train_acc=0.7940 eps=0.204737 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  14/120 test_acc=0.3137 train_acc=0.8386 eps=0.766056 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  27/120 test_acc=0.3397 train_acc=0.8796 eps=1.063845 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  40/120 test_acc=0.3490 train_acc=0.9020 eps=1.294871 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  53/120 test_acc=0.3550 train_acc=0.9146 eps=1.490509 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  67/120 test_acc=0.3573 train_acc=0.9274 eps=1.675845 C=1.5137
+    Adaptive-DP+BinomialMPC  epoch=  80/120 test_acc=0.3617 train_acc=0.9338 eps=1.831224 C=1.0744
+    Adaptive-DP+BinomialMPC  epoch=  93/120 test_acc=0.3690 train_acc=0.9374 eps=1.974413 C=0.8040
+    Adaptive-DP+BinomialMPC  epoch= 106/120 test_acc=0.3693 train_acc=0.9402 eps=2.107898 C=0.6354
+    Adaptive-DP+BinomialMPC  epoch= 120/120 test_acc=0.3710 train_acc=0.9436 eps=2.242783 C=0.5126
+
+[Seed 43] 准备模块 A 特征与模块 B reference-guided chosen init ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0110  loss=4.6944
+  extractor step=   89/800  test_acc=0.1633  loss=3.2750
+  extractor step=  178/800  test_acc=0.2520  loss=2.4093
+  extractor step=  267/800  test_acc=0.3120  loss=1.5102
+  extractor step=  356/800  test_acc=0.3607  loss=1.2591
+  extractor step=  444/800  test_acc=0.3880  loss=1.0628
+  extractor step=  533/800  test_acc=0.3963  loss=0.8064
+  extractor step=  622/800  test_acc=0.4077  loss=0.5969
+  extractor step=  711/800  test_acc=0.4160  loss=0.5750
+  extractor step=  800/800  test_acc=0.4143  loss=0.5896
+  feature: (5000, 2048) test: (3000, 2048) extractor_acc: 0.4143
+  chosen_init: KD-Avg ref_scores: {'KD-Avg': 0.448, 'KD-ReferenceWeighted': 0.438, 'KD-Best': 0.22}
+  init_test_acc: 0.2883 target_acc: 0.3114
+
+  -> Plain
+    Plain                    epoch=   1/120 test_acc=0.3107 train_acc=0.8266 eps=inf C=3.0000
+    Plain                    epoch=  14/120 test_acc=0.3850 train_acc=0.9254 eps=inf C=3.0000
+    Plain                    epoch=  27/120 test_acc=0.4027 train_acc=0.9480 eps=inf C=3.0000
+    Plain                    epoch=  40/120 test_acc=0.4073 train_acc=0.9582 eps=inf C=3.0000
+    Plain                    epoch=  53/120 test_acc=0.4090 train_acc=0.9634 eps=inf C=3.0000
+    Plain                    epoch=  67/120 test_acc=0.4140 train_acc=0.9694 eps=inf C=3.0000
+    Plain                    epoch=  80/120 test_acc=0.4167 train_acc=0.9720 eps=inf C=3.0000
+    Plain                    epoch=  93/120 test_acc=0.4163 train_acc=0.9750 eps=inf C=3.0000
+    Plain                    epoch= 106/120 test_acc=0.4173 train_acc=0.9762 eps=inf C=3.0000
+    Plain                    epoch= 120/120 test_acc=0.4197 train_acc=0.9790 eps=inf C=3.0000
+
+  -> Fixed-DP
+    Fixed-DP                 epoch=   1/120 test_acc=0.2777 train_acc=0.7530 eps=0.204737 C=3.0000
+    Fixed-DP                 epoch=  14/120 test_acc=0.3133 train_acc=0.8516 eps=0.766056 C=3.0000
+    Fixed-DP                 epoch=  27/120 test_acc=0.3263 train_acc=0.8988 eps=1.063845 C=3.0000
+    Fixed-DP                 epoch=  40/120 test_acc=0.3413 train_acc=0.9168 eps=1.294871 C=3.0000
+    Fixed-DP                 epoch=  53/120 test_acc=0.3353 train_acc=0.9278 eps=1.490509 C=3.0000
+    Fixed-DP                 epoch=  67/120 test_acc=0.3293 train_acc=0.9330 eps=1.675845 C=3.0000
+    Fixed-DP                 epoch=  80/120 test_acc=0.3280 train_acc=0.9420 eps=1.831224 C=3.0000
+    Fixed-DP                 epoch=  93/120 test_acc=0.3243 train_acc=0.9470 eps=1.974413 C=3.0000
+    Fixed-DP                 epoch= 106/120 test_acc=0.3127 train_acc=0.9514 eps=2.107898 C=3.0000
+    Fixed-DP                 epoch= 120/120 test_acc=0.3133 train_acc=0.9584 eps=2.242783 C=3.0000
+
+  -> Adaptive-DP
+    Adaptive-DP              epoch=   1/120 test_acc=0.2873 train_acc=0.7890 eps=0.204737 C=2.0000
+    Adaptive-DP              epoch=  14/120 test_acc=0.3163 train_acc=0.8440 eps=0.766056 C=2.0000
+    Adaptive-DP              epoch=  27/120 test_acc=0.3407 train_acc=0.8920 eps=1.063845 C=2.0000
+    Adaptive-DP              epoch=  40/120 test_acc=0.3557 train_acc=0.9132 eps=1.294871 C=2.0000
+    Adaptive-DP              epoch=  53/120 test_acc=0.3570 train_acc=0.9272 eps=1.490509 C=2.0000
+    Adaptive-DP              epoch=  67/120 test_acc=0.3667 train_acc=0.9322 eps=1.675845 C=1.4341
+    Adaptive-DP              epoch=  80/120 test_acc=0.3683 train_acc=0.9404 eps=1.831224 C=0.9599
+    Adaptive-DP              epoch=  93/120 test_acc=0.3687 train_acc=0.9460 eps=1.974413 C=0.7296
+    Adaptive-DP              epoch= 106/120 test_acc=0.3730 train_acc=0.9490 eps=2.107898 C=0.5890
+    Adaptive-DP              epoch= 120/120 test_acc=0.3737 train_acc=0.9506 eps=2.242783 C=0.4860
+
+  -> Adaptive-DP+BinomialMPC
+    Adaptive-DP+BinomialMPC  epoch=   1/120 test_acc=0.2890 train_acc=0.7976 eps=0.204737 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  14/120 test_acc=0.3170 train_acc=0.8524 eps=0.766056 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  27/120 test_acc=0.3430 train_acc=0.8892 eps=1.063845 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  40/120 test_acc=0.3603 train_acc=0.9120 eps=1.294871 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  53/120 test_acc=0.3670 train_acc=0.9258 eps=1.490509 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  67/120 test_acc=0.3710 train_acc=0.9358 eps=1.675845 C=1.4462
+    Adaptive-DP+BinomialMPC  epoch=  80/120 test_acc=0.3760 train_acc=0.9420 eps=1.831224 C=1.0085
+    Adaptive-DP+BinomialMPC  epoch=  93/120 test_acc=0.3760 train_acc=0.9446 eps=1.974413 C=0.7564
+    Adaptive-DP+BinomialMPC  epoch= 106/120 test_acc=0.3803 train_acc=0.9472 eps=2.107898 C=0.6179
+    Adaptive-DP+BinomialMPC  epoch= 120/120 test_acc=0.3810 train_acc=0.9494 eps=2.242783 C=0.5155
+
+[Seed 44] 准备模块 A 特征与模块 B reference-guided chosen init ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0147  loss=4.6527
+  extractor step=   89/800  test_acc=0.1537  loss=3.2909
+  extractor step=  178/800  test_acc=0.2653  loss=2.6600
+  extractor step=  267/800  test_acc=0.3127  loss=1.6243
+  extractor step=  356/800  test_acc=0.3363  loss=1.0814
+  extractor step=  444/800  test_acc=0.3747  loss=0.9047
+  extractor step=  533/800  test_acc=0.3820  loss=0.6444
+  extractor step=  622/800  test_acc=0.3950  loss=0.4544
+  extractor step=  711/800  test_acc=0.3990  loss=0.6321
+  extractor step=  800/800  test_acc=0.3990  loss=0.5760
+  feature: (5000, 2048) test: (3000, 2048) extractor_acc: 0.3990
+  chosen_init: KD-Avg ref_scores: {'KD-Avg': 0.438, 'KD-ReferenceWeighted': 0.405, 'KD-Best': 0.225}
+  init_test_acc: 0.2830 target_acc: 0.3056
+
+  -> Plain
+    Plain                    epoch=   1/120 test_acc=0.3047 train_acc=0.8390 eps=inf C=3.0000
+    Plain                    epoch=  14/120 test_acc=0.3783 train_acc=0.9250 eps=inf C=3.0000
+    Plain                    epoch=  27/120 test_acc=0.3960 train_acc=0.9466 eps=inf C=3.0000
+    Plain                    epoch=  40/120 test_acc=0.4037 train_acc=0.9590 eps=inf C=3.0000
+    Plain                    epoch=  53/120 test_acc=0.4073 train_acc=0.9670 eps=inf C=3.0000
+    Plain                    epoch=  67/120 test_acc=0.4133 train_acc=0.9696 eps=inf C=3.0000
+    Plain                    epoch=  80/120 test_acc=0.4140 train_acc=0.9744 eps=inf C=3.0000
+    Plain                    epoch=  93/120 test_acc=0.4120 train_acc=0.9756 eps=inf C=3.0000
+    Plain                    epoch= 106/120 test_acc=0.4150 train_acc=0.9782 eps=inf C=3.0000
+    Plain                    epoch= 120/120 test_acc=0.4150 train_acc=0.9810 eps=inf C=3.0000
+
+  -> Fixed-DP
+    Fixed-DP                 epoch=   1/120 test_acc=0.2720 train_acc=0.7626 eps=0.204737 C=3.0000
+    Fixed-DP                 epoch=  14/120 test_acc=0.3110 train_acc=0.8460 eps=0.766056 C=3.0000
+    Fixed-DP                 epoch=  27/120 test_acc=0.3287 train_acc=0.8958 eps=1.063845 C=3.0000
+    Fixed-DP                 epoch=  40/120 test_acc=0.3307 train_acc=0.9156 eps=1.294871 C=3.0000
+    Fixed-DP                 epoch=  53/120 test_acc=0.3313 train_acc=0.9270 eps=1.490509 C=3.0000
+    Fixed-DP                 epoch=  67/120 test_acc=0.3317 train_acc=0.9364 eps=1.675845 C=3.0000
+    Fixed-DP                 epoch=  80/120 test_acc=0.3293 train_acc=0.9440 eps=1.831224 C=3.0000
+    Fixed-DP                 epoch=  93/120 test_acc=0.3290 train_acc=0.9476 eps=1.974413 C=3.0000
+    Fixed-DP                 epoch= 106/120 test_acc=0.3197 train_acc=0.9514 eps=2.107898 C=3.0000
+    Fixed-DP                 epoch= 120/120 test_acc=0.3220 train_acc=0.9538 eps=2.242783 C=3.0000
+
+  -> Adaptive-DP
+    Adaptive-DP              epoch=   1/120 test_acc=0.2880 train_acc=0.8066 eps=0.204737 C=2.0000
+    Adaptive-DP              epoch=  14/120 test_acc=0.3140 train_acc=0.8420 eps=0.766056 C=2.0000
+    Adaptive-DP              epoch=  27/120 test_acc=0.3407 train_acc=0.8884 eps=1.063845 C=2.0000
+    Adaptive-DP              epoch=  40/120 test_acc=0.3470 train_acc=0.9112 eps=1.294871 C=2.0000
+    Adaptive-DP              epoch=  53/120 test_acc=0.3560 train_acc=0.9270 eps=1.490509 C=2.0000
+    Adaptive-DP              epoch=  67/120 test_acc=0.3560 train_acc=0.9364 eps=1.675845 C=1.5871
+    Adaptive-DP              epoch=  80/120 test_acc=0.3693 train_acc=0.9422 eps=1.831224 C=1.0682
+    Adaptive-DP              epoch=  93/120 test_acc=0.3670 train_acc=0.9456 eps=1.974413 C=0.8066
+    Adaptive-DP              epoch= 106/120 test_acc=0.3653 train_acc=0.9476 eps=2.107898 C=0.6421
+    Adaptive-DP              epoch= 120/120 test_acc=0.3707 train_acc=0.9490 eps=2.242783 C=0.5205
+
+  -> Adaptive-DP+BinomialMPC
+    Adaptive-DP+BinomialMPC  epoch=   1/120 test_acc=0.2890 train_acc=0.8072 eps=0.204737 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  14/120 test_acc=0.3087 train_acc=0.8528 eps=0.766056 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  27/120 test_acc=0.3373 train_acc=0.8902 eps=1.063845 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  40/120 test_acc=0.3453 train_acc=0.9100 eps=1.294871 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  53/120 test_acc=0.3477 train_acc=0.9274 eps=1.490509 C=2.0000
+    Adaptive-DP+BinomialMPC  epoch=  67/120 test_acc=0.3600 train_acc=0.9364 eps=1.675845 C=1.5097
+    Adaptive-DP+BinomialMPC  epoch=  80/120 test_acc=0.3580 train_acc=0.9426 eps=1.831224 C=1.0430
+    Adaptive-DP+BinomialMPC  epoch=  93/120 test_acc=0.3623 train_acc=0.9472 eps=1.974413 C=0.7875
+    Adaptive-DP+BinomialMPC  epoch= 106/120 test_acc=0.3677 train_acc=0.9504 eps=2.107898 C=0.6216
+    Adaptive-DP+BinomialMPC  epoch= 120/120 test_acc=0.3640 train_acc=0.9522 eps=2.242783 C=0.5123
+
+[Markdown 汇总表]
+| Dataset | Method | ε | δ | noise_multiplier | clip/final_C | FinalAcc | Step@TargetAcc | EarlyAUC | Time(s) |
+|---|---|---|---|---|---|---|---|---|---|
+| cifar100 | Plain | inf | 1e-05 | 0 | 3.000 ± 0.000 | 0.4177 ± 0.0020 | 2.0 | 0.4036 ± 0.0019 | 1.34 ± 0.01 |
+| cifar100 | Fixed-DP | 2.243 ± 0.000 | 1e-05 | 1.2 | 3.000 ± 0.000 | 0.3137 ± 0.0067 | 15.3 | 0.3208 ± 0.0033 | 1.37 ± 0.00 |
+| cifar100 | Adaptive-DP | 2.243 ± 0.000 | 1e-05 | 1.2 | 0.505 ± 0.014 | 0.3678 ± 0.0063 | 12.0 | 0.3485 ± 0.0046 | 1.40 ± 0.01 |
+| cifar100 | Adaptive-DP+BinomialMPC | 2.243 ± 0.000 | 1e-05 | 1.2 | 0.513 ± 0.001 | 0.3720 ± 0.0070 | 13.3 | 0.3512 ± 0.0055 | 16.75 ± 0.10 |
+
+输出文件:
+  TXT: /mnt/code/lixujie/tfe_experiments/log/txt/moduleC_dp_optimization_cifar100_20260714_120124.log
+  JSON: /mnt/code/lixujie/tfe_experiments/log/json/moduleC_dp_optimization_cifar100_20260714_120124.json
+  CSV: /mnt/code/lixujie/tfe_experiments/expTab/moduleC_dp_optimization_cifar100_20260714_120124.csv
+  Paper CSV: /mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleC_dp_optimization_cifar100_20260714_120124.csv
