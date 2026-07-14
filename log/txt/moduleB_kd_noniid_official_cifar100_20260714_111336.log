@@ -1,0 +1,163 @@
+========================================================================================
+模块 B Non-IID KD 消融：official distilled features
+========================================================================================
+dataset      : cifar100
+seeds        : [42, 43, 44]
+cpu_threads  : 1
+heterogeneity: ['IID', 'Mild', 'Moderate', 'Severe']
+
+[Seed 42] 准备 official distilled -> MTT ConvNet features ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0107  loss=4.7035
+  extractor step=   89/800  test_acc=0.1553  loss=3.5786
+  extractor step=  178/800  test_acc=0.2580  loss=2.3718
+  extractor step=  267/800  test_acc=0.3157  loss=1.6360
+  extractor step=  356/800  test_acc=0.3533  loss=1.0667
+  extractor step=  444/800  test_acc=0.3667  loss=0.7847
+  extractor step=  533/800  test_acc=0.3940  loss=0.7780
+  extractor step=  622/800  test_acc=0.3987  loss=0.5039
+  extractor step=  711/800  test_acc=0.4057  loss=0.4945
+  extractor step=  800/800  test_acc=0.4027  loss=0.4312
+  feat: (5000, 2048) test: (3000, 2048) ref: (1000, 2048) extractor_acc: 0.4027
+
+  [Split] IID (classes_per_client=all)
+    NoKD-Avg                 init=0.2907 final=0.4047 step=20 auc=0.3812
+    NoKD-ReferenceWeighted   init=0.2900 final=0.4047 step=20 auc=0.3812
+    KD-Avg                   init=0.2970 final=0.4040 step=0 auc=0.3823
+    KD-ReferenceWeighted     init=0.3007 final=0.4030 step=0 auc=0.3823
+
+  [Split] Mild (classes_per_client=50)
+    NoKD-Avg                 init=0.2907 final=0.4047 step=20 auc=0.3810
+    NoKD-ReferenceWeighted   init=0.2833 final=0.4040 step=20 auc=0.3801
+    KD-Avg                   init=0.3047 final=0.4030 step=0 auc=0.3827
+    KD-ReferenceWeighted     init=0.2963 final=0.4023 step=20 auc=0.3819
+
+  [Split] Moderate (classes_per_client=25)
+    NoKD-Avg                 init=0.2897 final=0.4047 step=20 auc=0.3807
+    NoKD-ReferenceWeighted   init=0.2820 final=0.4043 step=20 auc=0.3810
+    KD-Avg                   init=0.2970 final=0.4030 step=0 auc=0.3821
+    KD-ReferenceWeighted     init=0.2973 final=0.4043 step=0 auc=0.3817
+
+  [Split] Severe (classes_per_client=10)
+    NoKD-Avg                 init=0.2397 final=0.4043 step=20 auc=0.3769
+    NoKD-ReferenceWeighted   init=0.2293 final=0.4023 step=20 auc=0.3755
+    KD-Avg                   init=0.2680 final=0.4030 step=0 auc=0.3788
+    KD-ReferenceWeighted     init=0.2647 final=0.4037 step=0 auc=0.3788
+
+[Seed 43] 准备 official distilled -> MTT ConvNet features ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0093  loss=4.6609
+  extractor step=   89/800  test_acc=0.1480  loss=3.4390
+  extractor step=  178/800  test_acc=0.2590  loss=2.1988
+  extractor step=  267/800  test_acc=0.3193  loss=1.7399
+  extractor step=  356/800  test_acc=0.3623  loss=1.1950
+  extractor step=  444/800  test_acc=0.3837  loss=0.8516
+  extractor step=  533/800  test_acc=0.3900  loss=0.6721
+  extractor step=  622/800  test_acc=0.4080  loss=0.6174
+  extractor step=  711/800  test_acc=0.4037  loss=0.5858
+  extractor step=  800/800  test_acc=0.4093  loss=0.5372
+  feat: (5000, 2048) test: (3000, 2048) ref: (1000, 2048) extractor_acc: 0.4093
+
+  [Split] IID (classes_per_client=all)
+    NoKD-Avg                 init=0.2953 final=0.4087 step=20 auc=0.3913
+    NoKD-ReferenceWeighted   init=0.2897 final=0.4107 step=20 auc=0.3910
+    KD-Avg                   init=0.3123 final=0.4090 step=0 auc=0.3922
+    KD-ReferenceWeighted     init=0.3060 final=0.4100 step=20 auc=0.3922
+
+  [Split] Mild (classes_per_client=50)
+    NoKD-Avg                 init=0.2993 final=0.4093 step=20 auc=0.3914
+    NoKD-ReferenceWeighted   init=0.2847 final=0.4093 step=20 auc=0.3909
+    KD-Avg                   init=0.3143 final=0.4097 step=0 auc=0.3925
+    KD-ReferenceWeighted     init=0.3053 final=0.4093 step=20 auc=0.3925
+
+  [Split] Moderate (classes_per_client=25)
+    NoKD-Avg                 init=0.2953 final=0.4097 step=20 auc=0.3913
+    NoKD-ReferenceWeighted   init=0.2767 final=0.4083 step=20 auc=0.3900
+    KD-Avg                   init=0.3130 final=0.4097 step=0 auc=0.3919
+    KD-ReferenceWeighted     init=0.2963 final=0.4100 step=20 auc=0.3915
+
+  [Split] Severe (classes_per_client=10)
+    NoKD-Avg                 init=0.2437 final=0.4090 step=20 auc=0.3871
+    NoKD-ReferenceWeighted   init=0.2200 final=0.4100 step=20 auc=0.3865
+    KD-Avg                   init=0.2727 final=0.4097 step=0 auc=0.3891
+    KD-ReferenceWeighted     init=0.2637 final=0.4110 step=20 auc=0.3890
+
+[Seed 44] 准备 official distilled -> MTT ConvNet features ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0113  loss=4.6666
+  extractor step=   89/800  test_acc=0.1590  loss=3.4569
+  extractor step=  178/800  test_acc=0.2590  loss=2.2332
+  extractor step=  267/800  test_acc=0.3253  loss=1.4195
+  extractor step=  356/800  test_acc=0.3707  loss=0.9187
+  extractor step=  444/800  test_acc=0.3793  loss=0.7753
+  extractor step=  533/800  test_acc=0.3977  loss=0.6792
+  extractor step=  622/800  test_acc=0.4060  loss=0.6337
+  extractor step=  711/800  test_acc=0.4093  loss=0.5069
+  extractor step=  800/800  test_acc=0.4140  loss=0.5067
+  feat: (5000, 2048) test: (3000, 2048) ref: (1000, 2048) extractor_acc: 0.4140
+
+  [Split] IID (classes_per_client=all)
+    NoKD-Avg                 init=0.2780 final=0.4063 step=20 auc=0.3851
+    NoKD-ReferenceWeighted   init=0.2753 final=0.4100 step=20 auc=0.3866
+    KD-Avg                   init=0.2920 final=0.4077 step=0 auc=0.3880
+    KD-ReferenceWeighted     init=0.2890 final=0.4097 step=0 auc=0.3890
+
+  [Split] Mild (classes_per_client=50)
+    NoKD-Avg                 init=0.2833 final=0.4073 step=20 auc=0.3855
+    NoKD-ReferenceWeighted   init=0.2760 final=0.4063 step=20 auc=0.3843
+    KD-Avg                   init=0.2967 final=0.4073 step=0 auc=0.3882
+    KD-ReferenceWeighted     init=0.2940 final=0.4080 step=0 auc=0.3878
+
+  [Split] Moderate (classes_per_client=25)
+    NoKD-Avg                 init=0.2770 final=0.4070 step=20 auc=0.3852
+    NoKD-ReferenceWeighted   init=0.2623 final=0.4067 step=20 auc=0.3838
+    KD-Avg                   init=0.2903 final=0.4080 step=0 auc=0.3875
+    KD-ReferenceWeighted     init=0.2833 final=0.4087 step=20 auc=0.3866
+
+  [Split] Severe (classes_per_client=10)
+    NoKD-Avg                 init=0.2300 final=0.4067 step=20 auc=0.3812
+    NoKD-ReferenceWeighted   init=0.2313 final=0.4077 step=20 auc=0.3805
+    KD-Avg                   init=0.2563 final=0.4080 step=0 auc=0.3843
+    KD-ReferenceWeighted     init=0.2540 final=0.4083 step=0 auc=0.3838
+
+[Markdown 汇总表]
+| Dataset | Heterogeneity | SplitParam | Method | InitAcc | FinalAcc | Step@TargetAcc | EarlyAUC |
+|---|---|---|---|---|---|---|---|
+| cifar100 | IID | classes_per_client=all | KD-Avg | 0.3004 ± 0.0087 | 0.4069 ± 0.0021 | 0.0 | 0.3875 ± 0.0041 |
+| cifar100 | IID | classes_per_client=all | KD-ReferenceWeighted | 0.2986 ± 0.0071 | 0.4076 ± 0.0032 | 6.7 | 0.3878 ± 0.0041 |
+| cifar100 | IID | classes_per_client=all | NoKD-Avg | 0.2880 ± 0.0073 | 0.4066 ± 0.0016 | 20.0 | 0.3859 ± 0.0042 |
+| cifar100 | IID | classes_per_client=all | NoKD-ReferenceWeighted | 0.2850 ± 0.0068 | 0.4084 ± 0.0027 | 20.0 | 0.3863 ± 0.0040 |
+| cifar100 | Mild | classes_per_client=50 | KD-Avg | 0.3052 ± 0.0072 | 0.4067 ± 0.0028 | 0.0 | 0.3878 ± 0.0040 |
+| cifar100 | Mild | classes_per_client=50 | KD-ReferenceWeighted | 0.2986 ± 0.0049 | 0.4066 ± 0.0030 | 13.3 | 0.3874 ± 0.0043 |
+| cifar100 | Mild | classes_per_client=50 | NoKD-Avg | 0.2911 ± 0.0065 | 0.4071 ± 0.0019 | 20.0 | 0.3859 ± 0.0042 |
+| cifar100 | Mild | classes_per_client=50 | NoKD-ReferenceWeighted | 0.2813 ± 0.0038 | 0.4066 ± 0.0022 | 20.0 | 0.3851 ± 0.0045 |
+| cifar100 | Moderate | classes_per_client=25 | KD-Avg | 0.3001 ± 0.0095 | 0.4069 ± 0.0028 | 0.0 | 0.3872 ± 0.0040 |
+| cifar100 | Moderate | classes_per_client=25 | KD-ReferenceWeighted | 0.2923 ± 0.0064 | 0.4077 ± 0.0024 | 13.3 | 0.3866 ± 0.0040 |
+| cifar100 | Moderate | classes_per_client=25 | NoKD-Avg | 0.2873 ± 0.0077 | 0.4071 ± 0.0020 | 20.0 | 0.3857 ± 0.0044 |
+| cifar100 | Moderate | classes_per_client=25 | NoKD-ReferenceWeighted | 0.2737 ± 0.0083 | 0.4064 ± 0.0016 | 20.0 | 0.3850 ± 0.0037 |
+| cifar100 | Severe | classes_per_client=10 | KD-Avg | 0.2657 ± 0.0069 | 0.4069 ± 0.0028 | 0.0 | 0.3841 ± 0.0042 |
+| cifar100 | Severe | classes_per_client=10 | KD-ReferenceWeighted | 0.2608 ± 0.0048 | 0.4077 ± 0.0030 | 6.7 | 0.3839 ± 0.0042 |
+| cifar100 | Severe | classes_per_client=10 | NoKD-Avg | 0.2378 ± 0.0057 | 0.4067 ± 0.0019 | 20.0 | 0.3817 ± 0.0042 |
+| cifar100 | Severe | classes_per_client=10 | NoKD-ReferenceWeighted | 0.2269 ± 0.0049 | 0.4067 ± 0.0032 | 20.0 | 0.3808 ± 0.0045 |
+
+[论文主表：Effect of KD alignment under non-IID severity]
+  Split     NoKD-Avg      KD-Avg        ΔAvg   NoKD-RW       KD-RW         ΔRW  
+  --------  ------------  ------------  -----  ------------  ------------  -----
+  IID       28.80 ± 0.73  30.04 ± 0.87  +1.24  28.50 ± 0.68  29.86 ± 0.71  +1.36
+  Mild      29.11 ± 0.65  30.52 ± 0.72  +1.41  28.13 ± 0.38  29.86 ± 0.49  +1.72
+  Moderate  28.73 ± 0.77  30.01 ± 0.95  +1.28  27.37 ± 0.83  29.23 ± 0.64  +1.87
+  Severe    23.78 ± 0.57  26.57 ± 0.69  +2.79  22.69 ± 0.49  26.08 ± 0.48  +3.39
+
+[Markdown 论文表]
+| Split | NoKD-Avg | KD-Avg | ΔAvg | NoKD-RW | KD-RW | ΔRW |
+|---|---|---|---|---|---|---|
+| IID | 28.80 ± 0.73 | 30.04 ± 0.87 | +1.24 | 28.50 ± 0.68 | 29.86 ± 0.71 | +1.36 |
+| Mild | 29.11 ± 0.65 | 30.52 ± 0.72 | +1.41 | 28.13 ± 0.38 | 29.86 ± 0.49 | +1.72 |
+| Moderate | 28.73 ± 0.77 | 30.01 ± 0.95 | +1.28 | 27.37 ± 0.83 | 29.23 ± 0.64 | +1.87 |
+| Severe | 23.78 ± 0.57 | 26.57 ± 0.69 | +2.79 | 22.69 ± 0.49 | 26.08 ± 0.48 | +3.39 |
+
+输出文件:
+  TXT : /mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_noniid_official_cifar100_20260714_111336.log
+  JSON: /mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_noniid_official_cifar100_20260714_111336.json
+  CSV : /mnt/code/lixujie/tfe_experiments/expTab/moduleB_kd_noniid_official_cifar100_20260714_111336.csv
+  Paper CSV: /mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleB_kd_noniid_cifar100_20260714_111336.csv

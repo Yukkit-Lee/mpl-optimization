@@ -464,3 +464,50 @@
 - 安全设置：CPU 线程限制为 1，默认 CIFAR-10，seeds=42/43/44；reference/validation set 仅用于 KD、加权和候选选择，test set 只用于最终报告。
 - 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_noniid_official_cifar10_20260711_193539.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_noniid_official_cifar10_20260711_193539.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/moduleB_kd_noniid_official_cifar10_20260711_193539.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleB_kd_noniid_cifar10_20260711_193539.csv`。
 - 正式论文表结果：IID ΔAvg=+0.39、ΔRW=+2.37；Mild ΔAvg=+0.20、ΔRW=+2.37；Moderate ΔAvg=+0.46、ΔRW=+1.98；Severe ΔAvg=+2.73、ΔRW=+4.11。整体趋势为 KD 在 Avg/RW 两个分支均优于 NoKD，且 Severe Non-IID 下提升最大，可支撑“KD alignment 缓解 local knowledge conflict”的模块 B 论证。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 11:13 Asia/Shanghai
+- 本次对话任务目标：新增模块 B 的 Non-IID KD 消融实验，基于 official MTT distilled data 和 MTT ConvNet 2048 维特征，验证 KD alignment 是否缓解 non-IID local knowledge conflict。
+- 修改内容：新增 `exp_module_b_kd_noniid_official.py`，支持 IID / Mild / Moderate / Severe 四种划分，比较 NoKD-Avg、KD-Avg、NoKD-ReferenceWeighted、KD-ReferenceWeighted。
+- 安全设置：CPU 线程限制为 1，默认 CIFAR-10，seeds=42/43/44；reference/validation set 仅用于 KD、加权和候选选择，test set 只用于最终报告。
+- 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_noniid_official_cifar100_20260714_111254.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_noniid_official_cifar100_20260714_111254.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/moduleB_kd_noniid_official_cifar100_20260714_111254.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleB_kd_noniid_cifar100_20260714_111254.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 11:19 Asia/Shanghai
+- 本次对话任务目标：新增模块 B 的 Non-IID KD 消融实验，基于 official MTT distilled data 和 MTT ConvNet 2048 维特征，验证 KD alignment 是否缓解 non-IID local knowledge conflict。
+- 修改内容：新增 `exp_module_b_kd_noniid_official.py`，支持 IID / Mild / Moderate / Severe 四种划分，比较 NoKD-Avg、KD-Avg、NoKD-ReferenceWeighted、KD-ReferenceWeighted。
+- 安全设置：CPU 线程限制为 1，默认 CIFAR-10，seeds=42/43/44；reference/validation set 仅用于 KD、加权和候选选择，test set 只用于最终报告。
+- 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_noniid_official_cifar100_20260714_111336.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_noniid_official_cifar100_20260714_111336.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/moduleB_kd_noniid_official_cifar100_20260714_111336.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleB_kd_noniid_cifar100_20260714_111336.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 11:21 Asia/Shanghai
+- 本次对话任务目标：新增模块 B 的 Non-IID KD 消融实验，基于 official MTT distilled data 和 MTT ConvNet 2048 维特征，验证 KD alignment 是否缓解 non-IID local knowledge conflict。
+- 修改内容：新增 `exp_module_b_kd_noniid_official.py`，支持 IID / Mild / Moderate / Severe 四种划分，比较 NoKD-Avg、KD-Avg、NoKD-ReferenceWeighted、KD-ReferenceWeighted。
+- 安全设置：CPU 线程限制为 1，默认 CIFAR-10，seeds=42/43/44；reference/validation set 仅用于 KD、加权和候选选择，test set 只用于最终报告。
+- 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_noniid_official_tiny_20260714_111936.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_noniid_official_tiny_20260714_111936.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/moduleB_kd_noniid_official_tiny_20260714_111936.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleB_kd_noniid_tiny_20260714_111936.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 11:41 Asia/Shanghai
+- 本次对话任务目标：新增模块 B 的 Non-IID KD 消融实验，基于 official MTT distilled data 和 MTT ConvNet 2048 维特征，验证 KD alignment 是否缓解 non-IID local knowledge conflict。
+- 修改内容：新增 `exp_module_b_kd_noniid_official.py`，支持 IID / Mild / Moderate / Severe 四种划分，比较 NoKD-Avg、KD-Avg、NoKD-ReferenceWeighted、KD-ReferenceWeighted。
+- 安全设置：CPU 线程限制为 1，默认 CIFAR-10，seeds=42/43/44；reference/validation set 仅用于 KD、加权和候选选择，test set 只用于最终报告。
+- 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/moduleB_kd_noniid_official_tiny_20260714_112119.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/moduleB_kd_noniid_official_tiny_20260714_112119.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/moduleB_kd_noniid_official_tiny_20260714_112119.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleB_kd_noniid_tiny_20260714_112119.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 11:36 Asia/Shanghai
+- 本次对话任务目标：在 CIFAR-10 已完成模块 B Non-IID KD 消融表的基础上，继续完成 CIFAR-100 与 Tiny ImageNet 的完整 Non-IID 表，并记录可用于论文筛选的数据。
+- 资源评估与安全设置：该任务包含 official distilled data 上的 MTT ConvNet feature extractor 训练、2048 维特征抽取、多 seed 多 split 的模块 B local/KD/probe 流程，属于 GPU 中等负载任务；已固定 `CUDA_VISIBLE_DEVICES=0`，并设置 OMP/MKL/OPENBLAS/NUMEXPR 线程均为 1，避免 CPU 过载。
+- 代码修改：更新 `exp_module_b_kd_noniid_official.py`，支持 `cifar100` 与 `tiny`；新增数据集专属 Non-IID split 配置，CIFAR-100 使用 classes_per_client=50/25/10，Tiny 使用 classes_per_client=100/50/20，避免 100/200 类任务中 5/3/2 过强且退化。
+- CIFAR-100 正式结果：论文表输出为 `expPaperTab/paperTable_moduleB_kd_noniid_cifar100_20260714_111336.csv`。主要趋势：IID ΔAvg=+1.24、ΔRW=+1.36；Mild ΔAvg=+1.41、ΔRW=+1.72；Moderate ΔAvg=+1.28、ΔRW=+1.87；Severe ΔAvg=+2.79、ΔRW=+3.39。该数据集趋势最好，KD 在所有 split 上优于 NoKD，且 Severe 提升最大。
+- Tiny ImageNet 正式结果：论文表输出为 `expPaperTab/paperTable_moduleB_kd_noniid_tiny_20260714_112119.csv`。主要趋势：IID ΔAvg=+1.01、ΔRW=+1.08；Mild ΔAvg=+0.96、ΔRW=+1.06；Moderate ΔAvg=+1.03、ΔRW=+1.08；Severe ΔAvg=+1.08、ΔRW=+0.87。Tiny 证明 KD 始终优于 NoKD，但 non-IID 越强提升越大的趋势不如 CIFAR-100 明显。
+- 论文建议：如果主文只放一张效果最好的表，优先选择 CIFAR-100；CIFAR-10 和 Tiny 可作为补充实验或 appendix，说明结论跨数据集成立。

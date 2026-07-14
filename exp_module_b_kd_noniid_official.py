@@ -86,6 +86,29 @@ HETEROGENEITY = [
     ("Severe", "classes_per_client=2", 2),
 ]
 
+DATASET_HETEROGENEITY = {
+    # CIFAR-10 类别少，直接沿用 5/3/2 class-skew。
+    "cifar10": HETEROGENEITY,
+    # CIFAR-100 / Tiny 类别更多，如果仍用 5/3/2 会过强且三个 split 差异不明显。
+    # 这里按类别总数设置 Mild/Moderate/Severe 的相对异构强度。
+    "cifar100": [
+        ("IID", "classes_per_client=all", None),
+        ("Mild", "classes_per_client=50", 50),
+        ("Moderate", "classes_per_client=25", 25),
+        ("Severe", "classes_per_client=10", 10),
+    ],
+    "tiny": [
+        ("IID", "classes_per_client=all", None),
+        ("Mild", "classes_per_client=100", 100),
+        ("Moderate", "classes_per_client=50", 50),
+        ("Severe", "classes_per_client=20", 20),
+    ],
+}
+
+
+def get_heterogeneity(dataset: str):
+    return DATASET_HETEROGENEITY.get(dataset, HETEROGENEITY)
+
 
 def ensure_dirs() -> None:
     LOG_TXT_DIR.mkdir(parents=True, exist_ok=True)
@@ -408,7 +431,8 @@ def summarize(rows: List[Dict]) -> List[Dict]:
             "Step@TargetAcc": "NA" if step_mean is None else f"{step_mean:.1f}",
             "EarlyAUC": f"{auc.mean():.4f} ± {auc.std(ddof=0):.4f}",
         })
-    order = {h[0]: i for i, h in enumerate(HETEROGENEITY)}
+    dataset = str(rows[0]["Dataset"]) if rows else str(CFG["dataset"])
+    order = {h[0]: i for i, h in enumerate(get_heterogeneity(dataset))}
     out.sort(key=lambda r: (r["Dataset"], order.get(r["Heterogeneity"], 99), r["Method"]))
     return out
 
@@ -431,14 +455,15 @@ def build_paper_table(rows: List[Dict], metric: str = "InitAcc") -> List[Dict]:
     注意：这里默认使用 InitAcc，因为该实验比较的是模块 B candidate
     initialization model 本身，不是后续 private/global training 的最终模型。
     """
-    order = {h[0]: i for i, h in enumerate(HETEROGENEITY)}
+    dataset = str(rows[0]["Dataset"]) if rows else str(CFG["dataset"])
+    order = {h[0]: i for i, h in enumerate(get_heterogeneity(dataset))}
     grouped: Dict[Tuple[str, str], List[float]] = {}
     for r in rows:
         key = (r["Heterogeneity"], r["Method"])
         grouped.setdefault(key, []).append(float(r[metric]))
     table = []
     available_splits = {r["Heterogeneity"] for r in rows}
-    for split, _, _ in HETEROGENEITY:
+    for split, _, _ in get_heterogeneity(dataset):
         if split not in available_splits:
             continue
         na_m, na_s = _mean_std(grouped[(split, "NoKD-Avg")])
@@ -524,7 +549,7 @@ def update_progress(payload: Dict) -> None:
 
 def parse_args():
     p = argparse.ArgumentParser(description="模块 B Non-IID KD 消融：official distilled features")
-    p.add_argument("--dataset", default="cifar10", choices=["cifar10"])
+    p.add_argument("--dataset", default="cifar10", choices=["cifar10", "cifar100", "tiny"])
     p.add_argument("--seeds", default="42,43,44", help="逗号分隔随机种子")
     p.add_argument("--quick", action="store_true", help="快速冒烟测试：只跑 seed=42 和 IID/Severe")
     return p.parse_args()
@@ -535,10 +560,10 @@ def main() -> int:
     args = parse_args()
     CFG["dataset"] = args.dataset
     CFG["seeds"] = [int(x) for x in args.seeds.split(",") if x.strip()]
-    heteros = HETEROGENEITY
+    heteros = get_heterogeneity(args.dataset)
     if args.quick:
         CFG["seeds"] = [CFG["seeds"][0]]
-        heteros = [HETEROGENEITY[0], HETEROGENEITY[-1]]
+        heteros = [heteros[0], heteros[-1]]
         CFG["local_epochs"] = 20
         CFG["kd_epochs"] = 8
         CFG["global_steps"] = 80
