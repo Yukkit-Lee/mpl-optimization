@@ -1,0 +1,284 @@
+========================================================================================
+End-to-End A+B+C Framework Experiment
+========================================================================================
+dataset: cifar100
+seeds: [42, 43, 44]
+cpu_threads: 1
+moduleC epochs/batch/lr: 120 256 0.08
+
+[Seed 42] Random Subset baseline features ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0113  loss=4.6485
+  extractor step=   89/800  test_acc=0.1147  loss=3.9455
+  extractor step=  178/800  test_acc=0.1680  loss=3.5016
+  extractor step=  267/800  test_acc=0.2007  loss=3.0162
+  extractor step=  356/800  test_acc=0.2280  loss=2.9349
+  extractor step=  444/800  test_acc=0.2567  loss=2.7141
+  extractor step=  533/800  test_acc=0.2717  loss=2.6824
+  extractor step=  622/800  test_acc=0.2823  loss=2.4890
+  extractor step=  711/800  test_acc=0.2903  loss=2.3230
+  extractor step=  800/800  test_acc=0.2873  loss=2.3068
+    Random Subset baseline   epoch=   1/120 test_acc=0.0300 train_acc=0.0394 eps=inf C=3.0000
+    Random Subset baseline   epoch=  14/120 test_acc=0.2220 train_acc=0.3820 eps=inf C=3.0000
+    Random Subset baseline   epoch=  27/120 test_acc=0.2503 train_acc=0.4792 eps=inf C=3.0000
+    Random Subset baseline   epoch=  40/120 test_acc=0.2693 train_acc=0.5474 eps=inf C=3.0000
+    Random Subset baseline   epoch=  53/120 test_acc=0.2777 train_acc=0.6000 eps=inf C=3.0000
+    Random Subset baseline   epoch=  67/120 test_acc=0.2820 train_acc=0.6444 eps=inf C=3.0000
+    Random Subset baseline   epoch=  80/120 test_acc=0.2830 train_acc=0.6778 eps=inf C=3.0000
+    Random Subset baseline   epoch=  93/120 test_acc=0.2843 train_acc=0.7108 eps=inf C=3.0000
+    Random Subset baseline   epoch= 106/120 test_acc=0.2857 train_acc=0.7402 eps=inf C=3.0000
+    Random Subset baseline   epoch= 120/120 test_acc=0.2900 train_acc=0.7632 eps=inf C=3.0000
+
+[Seed 42] Official Distilled features + Module B init ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0147  loss=4.6851
+  extractor step=   89/800  test_acc=0.1240  loss=3.7452
+  extractor step=  178/800  test_acc=0.2430  loss=2.6582
+  extractor step=  267/800  test_acc=0.3013  loss=1.6744
+  extractor step=  356/800  test_acc=0.3350  loss=1.3885
+  extractor step=  444/800  test_acc=0.3597  loss=0.9244
+  extractor step=  533/800  test_acc=0.3837  loss=0.7134
+  extractor step=  622/800  test_acc=0.3940  loss=0.8611
+  extractor step=  711/800  test_acc=0.4037  loss=0.8342
+  extractor step=  800/800  test_acc=0.3973  loss=0.6486
+    Distilled Only           epoch=   1/120 test_acc=0.0407 train_acc=0.0834 eps=inf C=3.0000
+    Distilled Only           epoch=  14/120 test_acc=0.3493 train_acc=0.8730 eps=inf C=3.0000
+    Distilled Only           epoch=  27/120 test_acc=0.3830 train_acc=0.9262 eps=inf C=3.0000
+    Distilled Only           epoch=  40/120 test_acc=0.3983 train_acc=0.9506 eps=inf C=3.0000
+    Distilled Only           epoch=  53/120 test_acc=0.4050 train_acc=0.9580 eps=inf C=3.0000
+    Distilled Only           epoch=  67/120 test_acc=0.4123 train_acc=0.9650 eps=inf C=3.0000
+    Distilled Only           epoch=  80/120 test_acc=0.4140 train_acc=0.9692 eps=inf C=3.0000
+    Distilled Only           epoch=  93/120 test_acc=0.4163 train_acc=0.9726 eps=inf C=3.0000
+    Distilled Only           epoch= 106/120 test_acc=0.4180 train_acc=0.9750 eps=inf C=3.0000
+    Distilled Only           epoch= 120/120 test_acc=0.4177 train_acc=0.9788 eps=inf C=3.0000
+  chosen_init: KD-Avg ref_scores: {'KD-Avg': 0.428, 'KD-ReferenceWeighted': 0.423, 'KD-Best': 0.22}
+    Distilled + Module-B Init epoch=   1/120 test_acc=0.3163 train_acc=0.8042 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  14/120 test_acc=0.3710 train_acc=0.9086 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  27/120 test_acc=0.3913 train_acc=0.9382 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  40/120 test_acc=0.4040 train_acc=0.9536 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  53/120 test_acc=0.4103 train_acc=0.9614 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  67/120 test_acc=0.4157 train_acc=0.9674 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  80/120 test_acc=0.4173 train_acc=0.9702 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  93/120 test_acc=0.4187 train_acc=0.9732 eps=inf C=3.0000
+    Distilled + Module-B Init epoch= 106/120 test_acc=0.4177 train_acc=0.9764 eps=inf C=3.0000
+    Distilled + Module-B Init epoch= 120/120 test_acc=0.4193 train_acc=0.9794 eps=inf C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=   1/120 test_acc=0.2787 train_acc=0.7348 eps=0.204737 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  14/120 test_acc=0.3090 train_acc=0.8174 eps=0.766056 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  27/120 test_acc=0.3277 train_acc=0.8752 eps=1.063845 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  40/120 test_acc=0.3323 train_acc=0.8988 eps=1.294871 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  53/120 test_acc=0.3340 train_acc=0.9216 eps=1.490509 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  67/120 test_acc=0.3283 train_acc=0.9242 eps=1.675845 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  80/120 test_acc=0.3173 train_acc=0.9376 eps=1.831224 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  93/120 test_acc=0.3157 train_acc=0.9408 eps=1.974413 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch= 106/120 test_acc=0.3103 train_acc=0.9458 eps=2.107898 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch= 120/120 test_acc=0.3167 train_acc=0.9486 eps=2.242783 C=3.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=   1/120 test_acc=0.2990 train_acc=0.7654 eps=0.204737 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  14/120 test_acc=0.3140 train_acc=0.8148 eps=0.766056 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  27/120 test_acc=0.3337 train_acc=0.8676 eps=1.063845 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  40/120 test_acc=0.3440 train_acc=0.8922 eps=1.294871 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  53/120 test_acc=0.3527 train_acc=0.9164 eps=1.490509 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  67/120 test_acc=0.3567 train_acc=0.9232 eps=1.675845 C=1.9001
+    Distilled + Module-B Init + Adaptive-DP epoch=  80/120 test_acc=0.3570 train_acc=0.9352 eps=1.831224 C=1.2607
+    Distilled + Module-B Init + Adaptive-DP epoch=  93/120 test_acc=0.3563 train_acc=0.9388 eps=1.974413 C=0.9245
+    Distilled + Module-B Init + Adaptive-DP epoch= 106/120 test_acc=0.3557 train_acc=0.9424 eps=2.107898 C=0.7396
+    Distilled + Module-B Init + Adaptive-DP epoch= 120/120 test_acc=0.3600 train_acc=0.9452 eps=2.242783 C=0.6004
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=   1/120 test_acc=0.2963 train_acc=0.7654 eps=0.204737 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  14/120 test_acc=0.3140 train_acc=0.8242 eps=0.766056 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  27/120 test_acc=0.3440 train_acc=0.8694 eps=1.063845 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  40/120 test_acc=0.3557 train_acc=0.8948 eps=1.294871 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  53/120 test_acc=0.3600 train_acc=0.9126 eps=1.490509 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  67/120 test_acc=0.3557 train_acc=0.9190 eps=1.675845 C=1.8869
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  80/120 test_acc=0.3607 train_acc=0.9306 eps=1.831224 C=1.2373
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  93/120 test_acc=0.3650 train_acc=0.9368 eps=1.974413 C=0.8970
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch= 106/120 test_acc=0.3690 train_acc=0.9392 eps=2.107898 C=0.7174
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch= 120/120 test_acc=0.3720 train_acc=0.9426 eps=2.242783 C=0.5814
+
+[Seed 43] Random Subset baseline features ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0120  loss=4.6894
+  extractor step=   89/800  test_acc=0.1127  loss=3.9058
+  extractor step=  178/800  test_acc=0.1673  loss=3.4463
+  extractor step=  267/800  test_acc=0.2047  loss=3.2234
+  extractor step=  356/800  test_acc=0.2377  loss=2.9587
+  extractor step=  444/800  test_acc=0.2573  loss=2.7042
+  extractor step=  533/800  test_acc=0.2727  loss=2.6224
+  extractor step=  622/800  test_acc=0.2823  loss=2.4505
+  extractor step=  711/800  test_acc=0.2917  loss=2.4991
+  extractor step=  800/800  test_acc=0.2890  loss=2.4607
+    Random Subset baseline   epoch=   1/120 test_acc=0.0290 train_acc=0.0354 eps=inf C=3.0000
+    Random Subset baseline   epoch=  14/120 test_acc=0.2243 train_acc=0.3672 eps=inf C=3.0000
+    Random Subset baseline   epoch=  27/120 test_acc=0.2593 train_acc=0.4814 eps=inf C=3.0000
+    Random Subset baseline   epoch=  40/120 test_acc=0.2730 train_acc=0.5474 eps=inf C=3.0000
+    Random Subset baseline   epoch=  53/120 test_acc=0.2813 train_acc=0.5934 eps=inf C=3.0000
+    Random Subset baseline   epoch=  67/120 test_acc=0.2867 train_acc=0.6384 eps=inf C=3.0000
+    Random Subset baseline   epoch=  80/120 test_acc=0.2897 train_acc=0.6740 eps=inf C=3.0000
+    Random Subset baseline   epoch=  93/120 test_acc=0.2907 train_acc=0.6990 eps=inf C=3.0000
+    Random Subset baseline   epoch= 106/120 test_acc=0.2907 train_acc=0.7244 eps=inf C=3.0000
+    Random Subset baseline   epoch= 120/120 test_acc=0.2897 train_acc=0.7488 eps=inf C=3.0000
+
+[Seed 43] Official Distilled features + Module B init ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0113  loss=4.6776
+  extractor step=   89/800  test_acc=0.1423  loss=3.5973
+  extractor step=  178/800  test_acc=0.2487  loss=2.5347
+  extractor step=  267/800  test_acc=0.2990  loss=1.9166
+  extractor step=  356/800  test_acc=0.3397  loss=1.0308
+  extractor step=  444/800  test_acc=0.3663  loss=1.0144
+  extractor step=  533/800  test_acc=0.3933  loss=0.6475
+  extractor step=  622/800  test_acc=0.3987  loss=0.6724
+  extractor step=  711/800  test_acc=0.4070  loss=0.6306
+  extractor step=  800/800  test_acc=0.4077  loss=0.5989
+    Distilled Only           epoch=   1/120 test_acc=0.0367 train_acc=0.0914 eps=inf C=3.0000
+    Distilled Only           epoch=  14/120 test_acc=0.3523 train_acc=0.8792 eps=inf C=3.0000
+    Distilled Only           epoch=  27/120 test_acc=0.3920 train_acc=0.9304 eps=inf C=3.0000
+    Distilled Only           epoch=  40/120 test_acc=0.4037 train_acc=0.9486 eps=inf C=3.0000
+    Distilled Only           epoch=  53/120 test_acc=0.4040 train_acc=0.9576 eps=inf C=3.0000
+    Distilled Only           epoch=  67/120 test_acc=0.4097 train_acc=0.9646 eps=inf C=3.0000
+    Distilled Only           epoch=  80/120 test_acc=0.4100 train_acc=0.9692 eps=inf C=3.0000
+    Distilled Only           epoch=  93/120 test_acc=0.4133 train_acc=0.9722 eps=inf C=3.0000
+    Distilled Only           epoch= 106/120 test_acc=0.4153 train_acc=0.9752 eps=inf C=3.0000
+    Distilled Only           epoch= 120/120 test_acc=0.4160 train_acc=0.9776 eps=inf C=3.0000
+  chosen_init: KD-ReferenceWeighted ref_scores: {'KD-Avg': 0.435, 'KD-ReferenceWeighted': 0.443, 'KD-Best': 0.215}
+    Distilled + Module-B Init epoch=   1/120 test_acc=0.3073 train_acc=0.8112 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  14/120 test_acc=0.3777 train_acc=0.9120 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  27/120 test_acc=0.3983 train_acc=0.9398 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  40/120 test_acc=0.4093 train_acc=0.9542 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  53/120 test_acc=0.4107 train_acc=0.9612 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  67/120 test_acc=0.4187 train_acc=0.9668 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  80/120 test_acc=0.4193 train_acc=0.9710 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  93/120 test_acc=0.4217 train_acc=0.9738 eps=inf C=3.0000
+    Distilled + Module-B Init epoch= 106/120 test_acc=0.4207 train_acc=0.9766 eps=inf C=3.0000
+    Distilled + Module-B Init epoch= 120/120 test_acc=0.4200 train_acc=0.9782 eps=inf C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=   1/120 test_acc=0.2713 train_acc=0.7320 eps=0.204737 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  14/120 test_acc=0.3070 train_acc=0.8276 eps=0.766056 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  27/120 test_acc=0.3347 train_acc=0.8778 eps=1.063845 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  40/120 test_acc=0.3263 train_acc=0.9026 eps=1.294871 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  53/120 test_acc=0.3320 train_acc=0.9148 eps=1.490509 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  67/120 test_acc=0.3270 train_acc=0.9266 eps=1.675845 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  80/120 test_acc=0.3227 train_acc=0.9348 eps=1.831224 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  93/120 test_acc=0.3260 train_acc=0.9400 eps=1.974413 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch= 106/120 test_acc=0.3230 train_acc=0.9442 eps=2.107898 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch= 120/120 test_acc=0.3203 train_acc=0.9480 eps=2.242783 C=3.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=   1/120 test_acc=0.2853 train_acc=0.7706 eps=0.204737 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  14/120 test_acc=0.3137 train_acc=0.8250 eps=0.766056 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  27/120 test_acc=0.3417 train_acc=0.8720 eps=1.063845 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  40/120 test_acc=0.3423 train_acc=0.8996 eps=1.294871 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  53/120 test_acc=0.3530 train_acc=0.9140 eps=1.490509 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  67/120 test_acc=0.3560 train_acc=0.9258 eps=1.675845 C=1.7072
+    Distilled + Module-B Init + Adaptive-DP epoch=  80/120 test_acc=0.3607 train_acc=0.9334 eps=1.831224 C=1.1930
+    Distilled + Module-B Init + Adaptive-DP epoch=  93/120 test_acc=0.3683 train_acc=0.9394 eps=1.974413 C=0.8867
+    Distilled + Module-B Init + Adaptive-DP epoch= 106/120 test_acc=0.3680 train_acc=0.9424 eps=2.107898 C=0.7079
+    Distilled + Module-B Init + Adaptive-DP epoch= 120/120 test_acc=0.3713 train_acc=0.9442 eps=2.242783 C=0.5685
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=   1/120 test_acc=0.2897 train_acc=0.7750 eps=0.204737 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  14/120 test_acc=0.3127 train_acc=0.8376 eps=0.766056 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  27/120 test_acc=0.3357 train_acc=0.8716 eps=1.063845 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  40/120 test_acc=0.3497 train_acc=0.8970 eps=1.294871 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  53/120 test_acc=0.3537 train_acc=0.9164 eps=1.490509 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  67/120 test_acc=0.3533 train_acc=0.9254 eps=1.675845 C=1.6776
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  80/120 test_acc=0.3587 train_acc=0.9334 eps=1.831224 C=1.1075
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  93/120 test_acc=0.3620 train_acc=0.9384 eps=1.974413 C=0.8470
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch= 106/120 test_acc=0.3620 train_acc=0.9410 eps=2.107898 C=0.6769
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch= 120/120 test_acc=0.3647 train_acc=0.9414 eps=2.242783 C=0.5407
+
+[Seed 44] Random Subset baseline features ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0127  loss=4.6707
+  extractor step=   89/800  test_acc=0.1043  loss=4.0930
+  extractor step=  178/800  test_acc=0.1663  loss=3.5039
+  extractor step=  267/800  test_acc=0.2033  loss=3.2900
+  extractor step=  356/800  test_acc=0.2253  loss=2.8101
+  extractor step=  444/800  test_acc=0.2413  loss=2.7861
+  extractor step=  533/800  test_acc=0.2603  loss=2.4987
+  extractor step=  622/800  test_acc=0.2720  loss=2.4296
+  extractor step=  711/800  test_acc=0.2770  loss=2.4152
+  extractor step=  800/800  test_acc=0.2790  loss=2.7130
+    Random Subset baseline   epoch=   1/120 test_acc=0.0417 train_acc=0.0404 eps=inf C=3.0000
+    Random Subset baseline   epoch=  14/120 test_acc=0.2223 train_acc=0.3690 eps=inf C=3.0000
+    Random Subset baseline   epoch=  27/120 test_acc=0.2520 train_acc=0.4732 eps=inf C=3.0000
+    Random Subset baseline   epoch=  40/120 test_acc=0.2670 train_acc=0.5430 eps=inf C=3.0000
+    Random Subset baseline   epoch=  53/120 test_acc=0.2753 train_acc=0.5906 eps=inf C=3.0000
+    Random Subset baseline   epoch=  67/120 test_acc=0.2863 train_acc=0.6360 eps=inf C=3.0000
+    Random Subset baseline   epoch=  80/120 test_acc=0.2877 train_acc=0.6690 eps=inf C=3.0000
+    Random Subset baseline   epoch=  93/120 test_acc=0.2907 train_acc=0.6996 eps=inf C=3.0000
+    Random Subset baseline   epoch= 106/120 test_acc=0.2907 train_acc=0.7262 eps=inf C=3.0000
+    Random Subset baseline   epoch= 120/120 test_acc=0.2873 train_acc=0.7558 eps=inf C=3.0000
+
+[Seed 44] Official Distilled features + Module B init ...
+  feature extractor device: cuda
+  extractor step=    1/800  test_acc=0.0083  loss=4.6755
+  extractor step=   89/800  test_acc=0.1647  loss=3.3283
+  extractor step=  178/800  test_acc=0.2650  loss=2.3631
+  extractor step=  267/800  test_acc=0.3177  loss=1.7126
+  extractor step=  356/800  test_acc=0.3493  loss=1.0675
+  extractor step=  444/800  test_acc=0.3763  loss=0.8878
+  extractor step=  533/800  test_acc=0.3957  loss=0.7061
+  extractor step=  622/800  test_acc=0.4020  loss=0.6376
+  extractor step=  711/800  test_acc=0.4073  loss=0.6753
+  extractor step=  800/800  test_acc=0.4073  loss=0.5437
+    Distilled Only           epoch=   1/120 test_acc=0.0527 train_acc=0.1006 eps=inf C=3.0000
+    Distilled Only           epoch=  14/120 test_acc=0.3557 train_acc=0.8902 eps=inf C=3.0000
+    Distilled Only           epoch=  27/120 test_acc=0.3920 train_acc=0.9328 eps=inf C=3.0000
+    Distilled Only           epoch=  40/120 test_acc=0.4033 train_acc=0.9532 eps=inf C=3.0000
+    Distilled Only           epoch=  53/120 test_acc=0.4097 train_acc=0.9618 eps=inf C=3.0000
+    Distilled Only           epoch=  67/120 test_acc=0.4153 train_acc=0.9672 eps=inf C=3.0000
+    Distilled Only           epoch=  80/120 test_acc=0.4160 train_acc=0.9702 eps=inf C=3.0000
+    Distilled Only           epoch=  93/120 test_acc=0.4147 train_acc=0.9738 eps=inf C=3.0000
+    Distilled Only           epoch= 106/120 test_acc=0.4153 train_acc=0.9756 eps=inf C=3.0000
+    Distilled Only           epoch= 120/120 test_acc=0.4143 train_acc=0.9788 eps=inf C=3.0000
+  chosen_init: KD-Avg ref_scores: {'KD-Avg': 0.422, 'KD-ReferenceWeighted': 0.411, 'KD-Best': 0.217}
+    Distilled + Module-B Init epoch=   1/120 test_acc=0.3153 train_acc=0.8320 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  14/120 test_acc=0.3847 train_acc=0.9238 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  27/120 test_acc=0.4050 train_acc=0.9462 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  40/120 test_acc=0.4170 train_acc=0.9584 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  53/120 test_acc=0.4150 train_acc=0.9654 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  67/120 test_acc=0.4160 train_acc=0.9684 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  80/120 test_acc=0.4177 train_acc=0.9722 eps=inf C=3.0000
+    Distilled + Module-B Init epoch=  93/120 test_acc=0.4197 train_acc=0.9740 eps=inf C=3.0000
+    Distilled + Module-B Init epoch= 106/120 test_acc=0.4190 train_acc=0.9770 eps=inf C=3.0000
+    Distilled + Module-B Init epoch= 120/120 test_acc=0.4197 train_acc=0.9792 eps=inf C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=   1/120 test_acc=0.2760 train_acc=0.7632 eps=0.204737 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  14/120 test_acc=0.3117 train_acc=0.8382 eps=0.766056 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  27/120 test_acc=0.3203 train_acc=0.8900 eps=1.063845 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  40/120 test_acc=0.3263 train_acc=0.9058 eps=1.294871 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  53/120 test_acc=0.3260 train_acc=0.9222 eps=1.490509 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  67/120 test_acc=0.3283 train_acc=0.9332 eps=1.675845 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  80/120 test_acc=0.3263 train_acc=0.9440 eps=1.831224 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch=  93/120 test_acc=0.3150 train_acc=0.9486 eps=1.974413 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch= 106/120 test_acc=0.3127 train_acc=0.9506 eps=2.107898 C=3.0000
+    Distilled + Module-B Init + Fixed-DP epoch= 120/120 test_acc=0.3047 train_acc=0.9556 eps=2.242783 C=3.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=   1/120 test_acc=0.2923 train_acc=0.7980 eps=0.204737 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  14/120 test_acc=0.3180 train_acc=0.8432 eps=0.766056 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  27/120 test_acc=0.3343 train_acc=0.8854 eps=1.063845 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  40/120 test_acc=0.3440 train_acc=0.9034 eps=1.294871 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  53/120 test_acc=0.3507 train_acc=0.9222 eps=1.490509 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP epoch=  67/120 test_acc=0.3573 train_acc=0.9328 eps=1.675845 C=1.5462
+    Distilled + Module-B Init + Adaptive-DP epoch=  80/120 test_acc=0.3603 train_acc=0.9384 eps=1.831224 C=1.0413
+    Distilled + Module-B Init + Adaptive-DP epoch=  93/120 test_acc=0.3633 train_acc=0.9434 eps=1.974413 C=0.7846
+    Distilled + Module-B Init + Adaptive-DP epoch= 106/120 test_acc=0.3630 train_acc=0.9446 eps=2.107898 C=0.6264
+    Distilled + Module-B Init + Adaptive-DP epoch= 120/120 test_acc=0.3667 train_acc=0.9462 eps=2.242783 C=0.5206
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=   1/120 test_acc=0.3027 train_acc=0.7958 eps=0.204737 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  14/120 test_acc=0.3110 train_acc=0.8332 eps=0.766056 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  27/120 test_acc=0.3373 train_acc=0.8798 eps=1.063845 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  40/120 test_acc=0.3523 train_acc=0.9044 eps=1.294871 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  53/120 test_acc=0.3527 train_acc=0.9224 eps=1.490509 C=2.0000
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  67/120 test_acc=0.3560 train_acc=0.9332 eps=1.675845 C=1.4836
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  80/120 test_acc=0.3630 train_acc=0.9410 eps=1.831224 C=1.0460
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch=  93/120 test_acc=0.3673 train_acc=0.9438 eps=1.974413 C=0.7703
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch= 106/120 test_acc=0.3663 train_acc=0.9446 eps=2.107898 C=0.6200
+    Distilled + Module-B Init + Adaptive-DP+BinomialMPC epoch= 120/120 test_acc=0.3693 train_acc=0.9486 eps=2.242783 C=0.5116
+
+[Markdown 汇总表]
+| Dataset | Method | A | B | C | ε | FinalAcc | Step@TargetAcc | EarlyAUC | Time | CompressionRatio |
+|---|---|---|---|---|---|---|---|---|---|---|
+| cifar100 | Random Subset baseline | RandomSubset | No | No | inf | 0.2890 ± 0.0012 | NA | 0.2643 ± 0.0018 | 1.36 ± 0.00 | 0.1000 |
+| cifar100 | Distilled Only | Distilled | No | No | inf | 0.4160 ± 0.0014 | 14.3 | 0.3895 ± 0.0013 | 1.37 ± 0.01 | 0.1000 |
+| cifar100 | Distilled + Module-B Init | Distilled | Yes | No | inf | 0.4197 ± 0.0003 | 7.3 | 0.4052 ± 0.0023 | 1.35 ± 0.00 | 0.1000 |
+| cifar100 | Distilled + Module-B Init + Fixed-DP | Distilled | Yes | fixed_dp | 2.243 ± 0.000 | 0.3139 ± 0.0067 | NA | 0.3195 ± 0.0016 | 1.44 ± 0.06 | 0.1000 |
+| cifar100 | Distilled + Module-B Init + Adaptive-DP | Distilled | Yes | adaptive_dp | 2.243 ± 0.000 | 0.3660 ± 0.0047 | 44.7 | 0.3462 ± 0.0013 | 1.43 ± 0.01 | 0.1000 |
+| cifar100 | Distilled + Module-B Init + Adaptive-DP+BinomialMPC | Distilled | Yes | adaptive_dp | 2.243 ± 0.000 | 0.3687 ± 0.0030 | 35.0 | 0.3493 ± 0.0020 | 17.99 ± 0.41 | 0.1000 |
+
+输出文件:
+  TXT: /mnt/code/lixujie/tfe_experiments/log/txt/end2end_ABC_framework_cifar100_20260714_200537.log
+  JSON: /mnt/code/lixujie/tfe_experiments/log/json/end2end_ABC_framework_cifar100_20260714_200537.json
+  CSV: /mnt/code/lixujie/tfe_experiments/expTab/end2end_ABC_framework_cifar100_20260714_200537.csv
+  Paper CSV: /mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_end2end_ABC_framework_cifar100_20260714_200537.csv

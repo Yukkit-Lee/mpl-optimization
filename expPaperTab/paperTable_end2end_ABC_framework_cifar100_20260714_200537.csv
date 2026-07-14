@@ -1,0 +1,7 @@
+Dataset,Method,A,B,C,ε,FinalAcc,Step@TargetAcc,EarlyAUC,Time,CompressionRatio
+cifar100,Random Subset baseline,RandomSubset,No,No,inf,0.2890 ± 0.0012,NA,0.2643 ± 0.0018,1.36 ± 0.00,0.1000
+cifar100,Distilled Only,Distilled,No,No,inf,0.4160 ± 0.0014,14.3,0.3895 ± 0.0013,1.37 ± 0.01,0.1000
+cifar100,Distilled + Module-B Init,Distilled,Yes,No,inf,0.4197 ± 0.0003,7.3,0.4052 ± 0.0023,1.35 ± 0.00,0.1000
+cifar100,Distilled + Module-B Init + Fixed-DP,Distilled,Yes,fixed_dp,2.243 ± 0.000,0.3139 ± 0.0067,NA,0.3195 ± 0.0016,1.44 ± 0.06,0.1000
+cifar100,Distilled + Module-B Init + Adaptive-DP,Distilled,Yes,adaptive_dp,2.243 ± 0.000,0.3660 ± 0.0047,44.7,0.3462 ± 0.0013,1.43 ± 0.01,0.1000
+cifar100,Distilled + Module-B Init + Adaptive-DP+BinomialMPC,Distilled,Yes,adaptive_dp,2.243 ± 0.000,0.3687 ± 0.0030,35.0,0.3493 ± 0.0020,17.99 ± 0.41,0.1000

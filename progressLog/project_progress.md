@@ -597,3 +597,12 @@
 - Tiny ImageNet 正式结果：Plain FinalAcc=0.1926±0.0057；Fixed-DP ε=1.211±0.000, FinalAcc=0.0586±0.0045, EarlyAUC=0.0491±0.0010；Adaptive-DP ε=1.211±0.000, FinalAcc=0.0682±0.0037, EarlyAUC=0.0586±0.0011；Adaptive-DP+BinomialMPC ε=1.211±0.000, FinalAcc=0.0761±0.0032, EarlyAUC=0.0618±0.0026。Tiny 绝对 DP 精度较低，但趋势与 CIFAR-100/CIFAR-10 一致。
 - 输出：CIFAR-10 论文表=`expPaperTab/paperTable_moduleC_dp_optimization_cifar10_20260714_184346.csv`；Tiny 论文表=`expPaperTab/paperTable_moduleC_dp_optimization_tiny_20260714_184432.csv`；对应完整 CSV/JSON/TXT 已保存到 `expTab/` 与 `log/`。
 - 论文建议：模块 C 主文优先放 CIFAR-100 或 CIFAR-10；CIFAR-100 ε 更接近常见 DP 展示区间且提升明显，CIFAR-10 提升幅度最大但 ε 较高，Tiny 可作为跨数据集趋势补充。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 20:07 Asia/Shanghai
+- 本次对话任务目标：新增完整框架 A+B+C end-to-end 实验，比较 Random Subset、Distilled Only、A+B Init、A+B+Fixed-DP、A+B+Adaptive-DP、A+B+Adaptive-DP+BinomialMPC。
+- 资源评估与安全设置：该任务会训练 random subset 与 official distilled 两套 feature extractor，并运行模块 B/C；已限制 CPU 线程为 1，单 GPU 串行执行，不做并行多 seed。
+- 关键结果：Distilled Only=0.4160 ± 0.0014；A+B=0.4197 ± 0.0003；A+B+Adaptive-DP=0.3660 ± 0.0047；A+B+BinomialMPC=0.3687 ± 0.0030。
+- 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/end2end_ABC_framework_cifar100_20260714_200537.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/end2end_ABC_framework_cifar100_20260714_200537.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/end2end_ABC_framework_cifar100_20260714_200537.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_end2end_ABC_framework_cifar100_20260714_200537.csv`。
