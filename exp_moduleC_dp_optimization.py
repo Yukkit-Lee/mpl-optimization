@@ -89,6 +89,42 @@ MODES = [
     {"label": "Adaptive-DP+BinomialMPC", "mode": "adaptive_dp", "backend": "binomial_mpc"},
 ]
 
+DATASET_OVERRIDES = {
+    # CIFAR-10 的特征更容易收敛，适当提高固定裁剪噪声尺度，让 adaptive clipping 的后期收缩优势更明显。
+    "cifar10": {
+        "epochs": 100,
+        "batch_size": 128,
+        "lr": 0.06,
+        "fixed_clip_C": 4.0,
+        "C_init": 1.0,
+        "clip_max": 1.5,
+        "clip_min": 0.08,
+        "noise_multiplier": 1.2,
+        "target_acc_ratio": 1.04,
+        "max_test_samples": 3000,
+    },
+    # CIFAR-100 是主表设置，已在正式实验中验证效果较清楚。
+    "cifar100": {},
+    # Tiny ImageNet 类别多、初始化精度低，降低学习率并延长训练以稳定趋势。
+    "tiny": {
+        "epochs": 140,
+        "batch_size": 256,
+        "lr": 0.05,
+        "fixed_clip_C": 3.0,
+        "C_init": 1.2,
+        "clip_max": 2.0,
+        "clip_min": 0.1,
+        "noise_multiplier": 1.2,
+        "target_acc_ratio": 1.08,
+        "max_test_samples": 3000,
+    },
+}
+
+
+def apply_dataset_overrides(dataset: str) -> None:
+    for k, v in DATASET_OVERRIDES.get(dataset, {}).items():
+        CFG[k] = v
+
 
 def ensure_dirs() -> None:
     for p in [LOG_TXT_DIR, LOG_JSON_DIR, EXPTAB_DIR, EXPPAPER_TAB_DIR, PROGRESS_PATH.parent]:
@@ -417,7 +453,7 @@ def update_progress(payload: Dict, summary: List[Dict]) -> None:
 
 def parse_args():
     p = argparse.ArgumentParser(description="模块 C DP optimization：Fixed vs Adaptive Clipping")
-    p.add_argument("--dataset", default="cifar100", choices=["cifar100"])
+    p.add_argument("--dataset", default="cifar100", choices=["cifar10", "cifar100", "tiny"])
     p.add_argument("--seeds", default="42,43,44")
     p.add_argument("--quick", action="store_true", help="快速冒烟：seed=42, epochs=20")
     return p.parse_args()
@@ -427,6 +463,7 @@ def main() -> int:
     ensure_dirs()
     args = parse_args()
     CFG["dataset"] = args.dataset
+    apply_dataset_overrides(args.dataset)
     seeds = [int(x) for x in args.seeds.split(",") if x.strip()]
     if args.quick:
         seeds = [seeds[0]]

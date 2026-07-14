@@ -540,3 +540,60 @@
 - 正式结果：Plain FinalAcc=0.4177±0.0020；Fixed-DP ε=2.243±0.000, FinalAcc=0.3137±0.0067, EarlyAUC=0.3208±0.0033；Adaptive-DP ε=2.243±0.000, FinalAcc=0.3678±0.0063, EarlyAUC=0.3485±0.0046；Adaptive-DP+BinomialMPC ε=2.243±0.000, FinalAcc=0.3720±0.0070, EarlyAUC=0.3512±0.0055。
 - 结论：在相同 ε 下，Adaptive-DP 相比 Fixed-DP 提升约 +5.41 个百分点，且 C_t 从早期较宽裁剪自适应收缩到约 0.505，支撑“后期降低噪声尺度、提升收敛效率”的模块 C 论点；BinomialMPC 后端保持相同 ε，并带来略高 FinalAcc。
 - 输出：TXT=`log/txt/moduleC_dp_optimization_cifar100_20260714_120124.log`；JSON=`log/json/moduleC_dp_optimization_cifar100_20260714_120124.json`；CSV=`expTab/moduleC_dp_optimization_cifar100_20260714_120124.csv`；论文表=`expPaperTab/paperTable_moduleC_dp_optimization_cifar100_20260714_120124.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 18:42 Asia/Shanghai
+- 本次对话任务目标：新增模块 C DP optimization 实验，基于 official MTT distilled CIFAR-100 与模块 B reference-guided chosen init，比较 Plain、Fixed-DP、Adaptive-DP、Adaptive-DP + BinomialMPC。
+- 资源评估与安全设置：该实验涉及 feature extractor、模块 B 初始化和向量化 DP-SGD；已限制 CPU 线程为 1，使用单 GPU，且模块 C 采用线性分类器专用向量化 per-sample clipping，避免逐样本 backward 导致服务器过载。
+- 核心结果：Fixed-DP FinalAcc=0.6727 ± 0.0000，Adaptive-DP FinalAcc=0.6697 ± 0.0000；两者 ε 分别为 4.994 ± 0.000 与 4.994 ± 0.000。
+- 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/moduleC_dp_optimization_cifar10_20260714_184153.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/moduleC_dp_optimization_cifar10_20260714_184153.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/moduleC_dp_optimization_cifar10_20260714_184153.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleC_dp_optimization_cifar10_20260714_184153.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 18:42 Asia/Shanghai
+- 本次对话任务目标：新增模块 C DP optimization 实验，基于 official MTT distilled CIFAR-100 与模块 B reference-guided chosen init，比较 Plain、Fixed-DP、Adaptive-DP、Adaptive-DP + BinomialMPC。
+- 资源评估与安全设置：该实验涉及 feature extractor、模块 B 初始化和向量化 DP-SGD；已限制 CPU 线程为 1，使用单 GPU，且模块 C 采用线性分类器专用向量化 per-sample clipping，避免逐样本 backward 导致服务器过载。
+- 核心结果：Fixed-DP FinalAcc=0.6167 ± 0.0000，Adaptive-DP FinalAcc=0.6237 ± 0.0000；两者 ε 分别为 4.578 ± 0.000 与 4.578 ± 0.000。
+- 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/moduleC_dp_optimization_cifar10_20260714_184222.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/moduleC_dp_optimization_cifar10_20260714_184222.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/moduleC_dp_optimization_cifar10_20260714_184222.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleC_dp_optimization_cifar10_20260714_184222.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 18:43 Asia/Shanghai
+- 本次对话任务目标：新增模块 C DP optimization 实验，基于 official MTT distilled CIFAR-100 与模块 B reference-guided chosen init，比较 Plain、Fixed-DP、Adaptive-DP、Adaptive-DP + BinomialMPC。
+- 资源评估与安全设置：该实验涉及 feature extractor、模块 B 初始化和向量化 DP-SGD；已限制 CPU 线程为 1，使用单 GPU，且模块 C 采用线性分类器专用向量化 per-sample clipping，避免逐样本 backward 导致服务器过载。
+- 核心结果：Fixed-DP FinalAcc=0.0417 ± 0.0000，Adaptive-DP FinalAcc=0.0473 ± 0.0000；两者 ε 分别为 0.458 ± 0.000 与 0.458 ± 0.000。
+- 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/moduleC_dp_optimization_tiny_20260714_184244.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/moduleC_dp_optimization_tiny_20260714_184244.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/moduleC_dp_optimization_tiny_20260714_184244.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleC_dp_optimization_tiny_20260714_184244.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 18:44 Asia/Shanghai
+- 本次对话任务目标：新增模块 C DP optimization 实验，基于 official MTT distilled CIFAR-100 与模块 B reference-guided chosen init，比较 Plain、Fixed-DP、Adaptive-DP、Adaptive-DP + BinomialMPC。
+- 资源评估与安全设置：该实验涉及 feature extractor、模块 B 初始化和向量化 DP-SGD；已限制 CPU 线程为 1，使用单 GPU，且模块 C 采用线性分类器专用向量化 per-sample clipping，避免逐样本 backward 导致服务器过载。
+- 核心结果：Fixed-DP FinalAcc=0.5902 ± 0.0061，Adaptive-DP FinalAcc=0.6787 ± 0.0019；两者 ε 分别为 10.237 ± 0.000 与 10.237 ± 0.000。
+- 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/moduleC_dp_optimization_cifar10_20260714_184346.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/moduleC_dp_optimization_cifar10_20260714_184346.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/moduleC_dp_optimization_cifar10_20260714_184346.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleC_dp_optimization_cifar10_20260714_184346.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 18:51 Asia/Shanghai
+- 本次对话任务目标：新增模块 C DP optimization 实验，基于 official MTT distilled CIFAR-100 与模块 B reference-guided chosen init，比较 Plain、Fixed-DP、Adaptive-DP、Adaptive-DP + BinomialMPC。
+- 资源评估与安全设置：该实验涉及 feature extractor、模块 B 初始化和向量化 DP-SGD；已限制 CPU 线程为 1，使用单 GPU，且模块 C 采用线性分类器专用向量化 per-sample clipping，避免逐样本 backward 导致服务器过载。
+- 核心结果：Fixed-DP FinalAcc=0.0586 ± 0.0045，Adaptive-DP FinalAcc=0.0682 ± 0.0037；两者 ε 分别为 1.211 ± 0.000 与 1.211 ± 0.000。
+- 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/moduleC_dp_optimization_tiny_20260714_184432.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/moduleC_dp_optimization_tiny_20260714_184432.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/moduleC_dp_optimization_tiny_20260714_184432.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_moduleC_dp_optimization_tiny_20260714_184432.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-14 18:51 Asia/Shanghai
+- 本次对话任务目标：在 CIFAR-100 模块 C 消融已完成的基础上，继续完成 CIFAR-10 与 Tiny ImageNet 的模块 C DP optimization 消融，验证 adaptive clipping 相比 fixed clipping 的趋势一致性，并尽量调参拉开差距。
+- 资源评估与安全设置：该任务仍包含 official distilled feature extractor、模块 B chosen init 与模块 C DP optimization。已固定单 GPU，CPU 线程限制为 1；先使用 quick 冒烟调参，再跑 seeds=42/43/44 正式实验，避免盲目长跑导致资源浪费。
+- 代码修改：更新 `exp_moduleC_dp_optimization.py`，新增 `DATASET_OVERRIDES`，支持 `cifar10`、`cifar100`、`tiny` 三个数据集；CIFAR-10 使用较大的 fixed clipping bound 和较小 adaptive clipping 上界，使后期噪声尺度收缩优势更明显；Tiny 使用更温和学习率和更长训练轮数以稳定趋势。
+- CIFAR-10 正式结果：Plain FinalAcc=0.6867±0.0028；Fixed-DP ε=10.237±0.000, FinalAcc=0.5902±0.0061, EarlyAUC=0.6175±0.0009；Adaptive-DP ε=10.237±0.000, FinalAcc=0.6787±0.0019, EarlyAUC=0.6691±0.0025；Adaptive-DP+BinomialMPC ε=10.237±0.000, FinalAcc=0.6762±0.0021, EarlyAUC=0.6680±0.0020。Adaptive-DP 相比 Fixed-DP 提升约 +8.85 个百分点。
+- Tiny ImageNet 正式结果：Plain FinalAcc=0.1926±0.0057；Fixed-DP ε=1.211±0.000, FinalAcc=0.0586±0.0045, EarlyAUC=0.0491±0.0010；Adaptive-DP ε=1.211±0.000, FinalAcc=0.0682±0.0037, EarlyAUC=0.0586±0.0011；Adaptive-DP+BinomialMPC ε=1.211±0.000, FinalAcc=0.0761±0.0032, EarlyAUC=0.0618±0.0026。Tiny 绝对 DP 精度较低，但趋势与 CIFAR-100/CIFAR-10 一致。
+- 输出：CIFAR-10 论文表=`expPaperTab/paperTable_moduleC_dp_optimization_cifar10_20260714_184346.csv`；Tiny 论文表=`expPaperTab/paperTable_moduleC_dp_optimization_tiny_20260714_184432.csv`；对应完整 CSV/JSON/TXT 已保存到 `expTab/` 与 `log/`。
+- 论文建议：模块 C 主文优先放 CIFAR-100 或 CIFAR-10；CIFAR-100 ε 更接近常见 DP 展示区间且提升明显，CIFAR-10 提升幅度最大但 ε 较高，Tiny 可作为跨数据集趋势补充。
