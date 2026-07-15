@@ -19927,6 +19927,7 @@
     "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/end2end_ABC_framework_cifar100_20260714_200537.log",
     "json": "/mnt/code/lixujie/tfe_experiments/log/json/end2end_ABC_framework_cifar100_20260714_200537.json",
     "csv": "/mnt/code/lixujie/tfe_experiments/expTab/end2end_ABC_framework_cifar100_20260714_200537.csv",
-    "paper_csv": "/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_end2end_ABC_framework_cifar100_20260714_200537.csv"
+    "paper_csv": "/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_end2end_ABC_framework_cifar100_20260714_200537.csv",
+    "figure_png": "/mnt/code/lixujie/tfe_experiments/expFig/figure2_end2Com/figure2_end2end_cifar100_20260714_200537.png"
   }
 }

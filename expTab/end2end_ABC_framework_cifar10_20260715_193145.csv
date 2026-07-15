@@ -1,0 +1,19 @@
+Dataset,Seed,Method,ModuleA,ModuleB,ModuleC,NoiseBackend,Epsilon,FinalAcc,Step@TargetAcc,EarlyAUC,Time,CompressionRatio,FinalC
+cifar10,42,Random Subset baseline,RandomSubset,No,No,none,inf,0.466333,NA,0.4605908232323231,0.2773170471191406,0.01,4.0
+cifar10,42,Distilled Only,Distilled,No,No,none,inf,0.668,18,0.6571615606060607,0.28673696517944336,0.01,4.0
+cifar10,42,Distilled + Module-B Init,Distilled,Yes,No,none,inf,0.673667,7,0.6719007676767675,0.28108811378479004,0.01,4.0
+cifar10,42,Distilled + Module-B Init + Fixed-DP,Distilled,Yes,fixed_dp,gaussian,10.236855,0.578667,NA,0.6081093838383838,0.29119062423706055,0.01,4.0
+cifar10,42,Distilled + Module-B Init + Adaptive-DP,Distilled,Yes,adaptive_dp,gaussian,10.236855,0.665667,21,0.6587053989898989,0.30672192573547363,0.01,0.189313
+cifar10,42,Distilled + Module-B Init + Adaptive-DP+BinomialMPC,Distilled,Yes,adaptive_dp,binomial_mpc,10.236855,0.660333,52,0.6530303535353534,0.5935771465301514,0.01,0.183721
+cifar10,43,Random Subset baseline,RandomSubset,No,No,none,inf,0.506333,NA,0.49997132323232324,0.2817702293395996,0.01,4.0
+cifar10,43,Distilled Only,Distilled,No,No,none,inf,0.682333,16,0.6661498484848485,0.273205041885376,0.01,4.0
+cifar10,43,Distilled + Module-B Init,Distilled,Yes,No,none,inf,0.668,20,0.6594360202020202,0.27643346786499023,0.01,4.0
+cifar10,43,Distilled + Module-B Init + Fixed-DP,Distilled,Yes,fixed_dp,gaussian,10.236855,0.581667,NA,0.6039679696969698,0.2843623161315918,0.01,4.0
+cifar10,43,Distilled + Module-B Init + Adaptive-DP,Distilled,Yes,adaptive_dp,gaussian,10.236855,0.657667,NA,0.6363148636363636,0.3007385730743408,0.01,0.203191
+cifar10,43,Distilled + Module-B Init + Adaptive-DP+BinomialMPC,Distilled,Yes,adaptive_dp,binomial_mpc,10.236855,0.653333,NA,0.6351633181818183,0.6114790439605713,0.01,0.190606
+cifar10,44,Random Subset baseline,RandomSubset,No,No,none,inf,0.480333,NA,0.47487703030303025,0.28423285484313965,0.01,4.0
+cifar10,44,Distilled Only,Distilled,No,No,none,inf,0.668667,14,0.6580286666666667,0.2828094959259033,0.01,4.0
+cifar10,44,Distilled + Module-B Init,Distilled,Yes,No,none,inf,0.673667,7,0.6718450202020202,0.28446531295776367,0.01,4.0
+cifar10,44,Distilled + Module-B Init + Fixed-DP,Distilled,Yes,fixed_dp,gaussian,10.236855,0.589,NA,0.6175875656565657,0.2905385494232178,0.01,4.0
+cifar10,44,Distilled + Module-B Init + Adaptive-DP,Distilled,Yes,adaptive_dp,gaussian,10.236855,0.669667,34,0.6624680000000001,0.31295013427734375,0.01,0.174442
+cifar10,44,Distilled + Module-B Init + Adaptive-DP+BinomialMPC,Distilled,Yes,adaptive_dp,binomial_mpc,10.236855,0.669,37,0.6591919090909091,0.602830171585083,0.01,0.176919

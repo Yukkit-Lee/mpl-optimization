@@ -606,3 +606,14 @@
 - 资源评估与安全设置：该任务会训练 random subset 与 official distilled 两套 feature extractor，并运行模块 B/C；已限制 CPU 线程为 1，单 GPU 串行执行，不做并行多 seed。
 - 关键结果：Distilled Only=0.4160 ± 0.0014；A+B=0.4197 ± 0.0003；A+B+Adaptive-DP=0.3660 ± 0.0047；A+B+BinomialMPC=0.3687 ± 0.0030。
 - 输出：TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/end2end_ABC_framework_cifar100_20260714_200537.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/end2end_ABC_framework_cifar100_20260714_200537.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/end2end_ABC_framework_cifar100_20260714_200537.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_end2end_ABC_framework_cifar100_20260714_200537.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-15 19:32 Asia/Shanghai
+- 本次对话任务目标：将完整框架 A+B+C 结果改为 Figure 2 风格“end-to-end comparison of different model training methods”主图展示；只保留 RandomSub-TFE、Distilled-TFE、Ours-TFE、Ours-TFE* 四条方法，并在 CIFAR-100 图确认后继续跑 CIFAR-10 end-to-end。
+- 资源评估与安全设置：CIFAR-100 作图仅读取已有 JSON，资源很轻；CIFAR-10 正式实验会训练 random subset 与 official distilled 两套 feature extractor，并运行模块 B/C，已限制 CPU 线程为 1，单 GPU 串行执行 seeds=42/43/44。
+- 代码修改：更新 `exp_end2end_framework.py`，新增 `--plot_json` 离线补图入口和自动生成 `expFig/figure2_end2Com/figure2_end2end_{dataset}_{run_id}.png`；图中使用 test accuracy 曲线，Ours-TFE* 以 I 字形误差棒标注 ε，风格对齐 PEA Figure 2。
+- CIFAR-100 主图结果：RandomSub-TFE=0.2890±0.0012，Distilled-TFE=0.4160±0.0014，Ours-TFE=0.4197±0.0003，Ours-TFE*=0.3687±0.0030，ε=2.243±0.000。Figure=`expFig/figure2_end2Com/figure2_end2end_cifar100_20260714_200537.png`。
+- CIFAR-10 正式结果：RandomSub-TFE=0.4843±0.0166，Distilled-TFE=0.6730±0.0066，Ours-TFE=0.6718±0.0027，Ours-TFE*=0.6609±0.0064，ε=10.237±0.000。Figure=`expFig/figure2_end2Com/figure2_end2end_cifar10_20260715_193145.png`。
+- 输出：CIFAR-10 TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/end2end_ABC_framework_cifar10_20260715_193145.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/end2end_ABC_framework_cifar10_20260715_193145.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/end2end_ABC_framework_cifar10_20260715_193145.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_end2end_ABC_framework_cifar10_20260715_193145.csv`。

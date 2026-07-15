@@ -49,6 +49,7 @@ LOG_TXT_DIR = BASE_DIR / "log" / "txt"
 LOG_JSON_DIR = BASE_DIR / "log" / "json"
 EXPTAB_DIR = BASE_DIR / "expTab"
 EXPPAPER_TAB_DIR = BASE_DIR / "expPaperTab"
+EXPFIG_DIR = BASE_DIR / "expFig" / "figure2_end2Com"
 PROGRESS_PATH = BASE_DIR / "progressLog" / "project_progress.md"
 
 import exp_module_b_kd_noniid_official as modb
@@ -75,7 +76,7 @@ TARGET_ACC = {
 
 
 def ensure_dirs() -> None:
-    for p in [LOG_TXT_DIR, LOG_JSON_DIR, EXPTAB_DIR, EXPPAPER_TAB_DIR, PROGRESS_PATH.parent]:
+    for p in [LOG_TXT_DIR, LOG_JSON_DIR, EXPTAB_DIR, EXPPAPER_TAB_DIR, EXPFIG_DIR, PROGRESS_PATH.parent]:
         p.mkdir(parents=True, exist_ok=True)
 
 
@@ -245,6 +246,93 @@ def write_csv(path: Path, rows: List[Dict], fields: List[str]) -> None:
             w.writerow({k: r.get(k, "") for k in fields})
 
 
+def _mean_curve(rows: List[Dict], method: str) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """按 seed 对齐并求均值曲线；这里比较的是 test accuracy。"""
+    selected = [r for r in rows if r.get("Method") == method]
+    if not selected:
+        return np.asarray([]), np.asarray([]), np.asarray([])
+    max_len = min(len(r.get("History", [])) for r in selected)
+    xs, ys, eps = [], [], []
+    for i in range(max_len):
+        hs = [r["History"][i] for r in selected]
+        xs.append(float(hs[0].get("epoch", i + 1)))
+        ys.append(float(np.mean([h.get("test_acc", 0.0) for h in hs])))
+        eps_vals = [h.get("epsilon", float("inf")) for h in hs]
+        finite = [float(e) for e in eps_vals if str(e) != "inf" and np.isfinite(float(e))]
+        eps.append(float(np.mean(finite)) if finite else float("inf"))
+    return np.asarray(xs), np.asarray(ys), np.asarray(eps)
+
+
+def _plot_dp_markers(ax, x: np.ndarray, y: np.ndarray, eps: np.ndarray, color: str) -> None:
+    """给私有曲线加 I 字形误差棒和 ε 标注，风格靠近 PEA Figure 2。"""
+    finite_idx = [i for i, e in enumerate(eps) if np.isfinite(e)]
+    if not finite_idx:
+        return
+    picks = np.linspace(0, len(finite_idx) - 1, 4).round().astype(int)
+    used = set()
+    for j, p in enumerate(picks):
+        idx = finite_idx[int(p)]
+        if idx in used:
+            continue
+        used.add(idx)
+        offset = (-58, -18) if j == len(picks) - 1 else (6, -18)
+        ax.errorbar(
+            [x[idx]], [y[idx]], yerr=[0.012], fmt="o", color=color,
+            ecolor=color, elinewidth=1.4, capsize=4, markersize=4.5, zorder=5,
+        )
+        ax.annotate(
+            r"$\epsilon$=" + f"{eps[idx]:.2f}",
+            xy=(x[idx], y[idx]), xytext=offset, textcoords="offset points",
+            color="#333333", fontsize=9,
+        )
+
+
+def plot_end2end_figure(payload: Dict, out_path: Path = None) -> Path:
+    """生成 Figure 2 风格端到端方法对比图，以图为主展示 A+B+C 整体有效性。"""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    rows = payload["rows"]
+    dataset = payload.get("config", {}).get("CFG", {}).get("dataset", rows[0].get("Dataset", "dataset"))
+    run_id = payload.get("run_id", time.strftime("%Y%m%d_%H%M%S"))
+    if out_path is None:
+        out_path = EXPFIG_DIR / f"figure2_end2end_{dataset}_{run_id}.png"
+
+    methods = [
+        ("Random Subset baseline", "RandomSub-TFE", "#8a8a8a", "--"),
+        ("Distilled Only", "Distilled-TFE", "#1f77b4", "-"),
+        ("Distilled + Module-B Init", "Ours-TFE", "#ff7f0e", "-"),
+        ("Distilled + Module-B Init + Adaptive-DP+BinomialMPC", "Ours-TFE*", "#d62728", "-"),
+    ]
+
+    fig, ax = plt.subplots(figsize=(6.3, 4.2), dpi=180)
+    all_y = []
+    for method, label, color, linestyle in methods:
+        x, y, eps = _mean_curve(rows, method)
+        if len(x) == 0:
+            continue
+        all_y.extend(list(y))
+        ax.plot(x, y, label=label, color=color, linestyle=linestyle, linewidth=2.0)
+        if label.endswith("*"):
+            _plot_dp_markers(ax, x, y, eps, color)
+
+    ax.set_xlabel("Training Iterations")
+    ax.set_ylabel("Test Accuracy")
+    ax.grid(True, linestyle="--", linewidth=0.6, alpha=0.35)
+    ax.legend(frameon=False, fontsize=9, loc="lower right")
+    if all_y:
+        ymin = max(0.0, min(all_y) - 0.04)
+        ymax = min(1.0, max(all_y) + 0.035)
+        ax.set_ylim(ymin, ymax)
+    ax.set_xlim(left=0, right=max([h.get("epoch", 0) for r in rows for h in r.get("History", [])]) * 1.08)
+    fig.tight_layout()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(str(out_path), bbox_inches="tight")
+    plt.close(fig)
+    return out_path
+
+
 def update_progress(payload: Dict, summary: List[Dict]) -> None:
     by = {r["Method"]: r for r in summary}
     with PROGRESS_PATH.open("a", encoding="utf-8") as f:
@@ -262,12 +350,18 @@ def parse_args():
     p.add_argument("--dataset", default="cifar100", choices=["cifar10", "cifar100", "tiny"])
     p.add_argument("--seeds", default="42,43,44")
     p.add_argument("--quick", action="store_true", help="快速冒烟：seed=42, epochs=20")
+    p.add_argument("--plot_json", default="", help="从已有 end-to-end JSON 单独补画 Figure 2 风格图")
     return p.parse_args()
 
 
 def main() -> int:
     ensure_dirs()
     args = parse_args()
+    if args.plot_json:
+        payload = json.loads(Path(args.plot_json).read_text(encoding="utf-8"))
+        fig_path = plot_end2end_figure(payload)
+        print("Figure2-style end-to-end 图已写入:", fig_path)
+        return 0
     CFG["dataset"] = args.dataset
     seeds = [int(x) for x in args.seeds.split(",") if x.strip()]
     modc.CFG["dataset"] = args.dataset
@@ -320,11 +414,15 @@ def main() -> int:
         write_csv(paper_csv_path, summary, ["Dataset", "Method", "A", "B", "C", "ε", "FinalAcc", "Step@TargetAcc", "EarlyAUC", "Time", "CompressionRatio"])
         payload = {"run_id": run_id, "config": {"CFG": CFG, "moduleC_CFG": modc.CFG}, "rows": rows, "summary": summary, "details": details, "outputs": {"txt": str(txt_path), "json": str(json_path), "csv": str(csv_path), "paper_csv": str(paper_csv_path)}}
         json_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+        fig_path = plot_end2end_figure(payload)
+        payload["outputs"]["figure_png"] = str(fig_path)
+        json_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
         print("\n输出文件:")
         print("  TXT:", txt_path)
         print("  JSON:", json_path)
         print("  CSV:", csv_path)
         print("  Paper CSV:", paper_csv_path)
+        print("  Figure:", fig_path)
     update_progress({"txt": str(txt_path), "json": str(json_path), "csv": str(csv_path), "paper_csv": str(paper_csv_path)}, summary)
     return 0
 
