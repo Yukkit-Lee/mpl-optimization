@@ -1,0 +1,123 @@
+## main...origin/main
+ M .gitignore
+ M LICENSE.txt
+ M buffer.py
+ M distill.py
+ M docs/all_grid.png
+ M docs/animation.gif
+ M docs/eagle_jacket.jpg
+ M docs/flamingo_shirt.jpg
+ M docs/imagefruit.png
+ M docs/imagesquawk.png
+ M docs/imagesquawk_tex.png
+ M docs/method.gif
+ M docs/parrot_dress.jpg
+ M docs/penguin_shirt.jpg
+ M docs/penguins1_horizontal.png
+ M docs/texture_teaser.png
+ M networks.py
+ M readme.md
+ M reparam_module.py
+ M requirements.txt
+ M requirements_10_2.yaml
+ M requirements_11_3.yaml
+ M utils.py
+?? 2pc_nssmpc.py
+?? 3pc_generic.py
+?? 3pc_ka.py
+?? 3pc_ka_STL10.py
+?? 3pc_nssmpc.py
+?? VisualizeDatav2.py
+?? __pycache__/
+?? ablation_ka.py
+?? ablation_table7_20260323_205005.csv
+?? ablation_table7_20260323_210200.csv
+?? answer.md
+?? bestStudent_3pc_cifar10_cifar10_204550.pth
+?? bestStudent_3pc_stl10_stl10_185001.pth
+?? bestStudent_3pc_stl10_stl10_205751.pth
+?? best_2pc_stl10.pth
+?? best_pldk.pth
+?? best_student.pth
+?? best_student_3pc.pth
+?? best_student_3pc_cifar10.pth
+?? best_student_3pc_ka.pth
+?? best_student_3pc_ka_generic.pth
+?? best_student_3pc_ka_generic_9580cifar.pth
+?? best_student_3pc_ka_generic_stl10_cifar10.pth
+?? best_student_3pc_stl10_noKa.pth
+?? best_student_3pc_stl10_stl10.pth
+?? best_student_3pc_stl10_stl10_high.pth
+?? best_student_3pc_stl10_stl10_low.pth
+?? best_student_real.pth
+?? best_student_stl10.pth
+?? buffers/
+?? checkDataSimiliar.py
+?? checkTeacherModel.py
+?? checkmpc.py
+?? comparisonFig/
+?? cryptenCode/
+?? cryptgpu_integration.md
+?? data/
+?? distilled_images_grid.png
+?? dp_baselines.py
+?? dp_baselines_results/
+?? expTable.md
+?? fed_baselines_results/
+?? fed_distill_baselines.py
+?? images_best_cifar10.pt
+?? images_best_stl10.pt
+?? ka_cache_cifar10.pkl
+?? ka_cache_stl10.pkl
+?? labels_batch_0.pt
+?? labels_batch_1.pt
+?? labels_best_cifar10.pt
+?? labels_best_stl10.pt
+?? logged_files/
+?? mia_attack.py
+?? mia_attack_stl10.py
+?? mia_results_stl10/
+?? mpc_full.py
+?? newComparisonFig/
+?? newComparisonFigSolo/
+?? nssdemo.py
+?? nssmpcLog/
+?? nssmpcLog_3pc/
+?? nssmpcLog_3pc_KA/
+?? nssmpcLog_generic/
+?? nssmpc_pldk_env.yaml
+?? overhead_analysis.py
+?? overhead_table8_20260327_204036.csv
+?? papers_figure/
+?? papers_figure_latex/
+?? party0.py
+?? party1.py
+?? pldk_STL10.py
+?? pldk_nssmpc.py
+?? pldk_train.py
+?? pldk_train_noKD.py
+?? pldk_train_v2.py
+?? plot_figure.py
+?? plot_figure_latex.py
+?? quick_baseline.py
+?? quick_mpc_test_v2.py
+?? quick_test.py
+?? readme2.md
+?? step2.py
+?? stl10_baselines.py
+?? stl10_baselines/
+?? teacher_a_resnet18.pth
+?? teacher_b_resnet18.pth
+?? teacher_resnet18_cifar10.pth
+?? teacher_resnet18_stl10.pth
+?? teacher_resnet18_stl10_low.pth
+?? testModel.py
+?? test_teacherModel.py
+?? train_full.py
+?? train_teacher.py
+?? train_teacherB.py
+?? train_teacher_stl10.py
+?? trashFig/
+?? visualizeData.py
+?? visualize_distilled_images.py
+?? wandb/

@@ -1,0 +1,2 @@
+origin	https://github.com/GeorgeCazenavette/mtt-distillation.git (fetch)
+origin	https://github.com/GeorgeCazenavette/mtt-distillation.git (push)

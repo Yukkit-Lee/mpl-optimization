@@ -21,7 +21,7 @@
   python exp_trust_ablation.py --dataset imdb
 
   # 指定 GPU 解释器运行（推荐）：
-  /home/lixujie/.conda/envs/distillation/bin/python exp_trust_ablation.py --dataset cifar
+  conda run -n distillation python exp_trust_ablation.py --dataset cifar
 """
 
 import argparse

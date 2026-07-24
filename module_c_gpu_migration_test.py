@@ -55,7 +55,10 @@ def run_cmd(cmd, timeout=120):
 
 
 def find_python_of_env(env_name: str):
-    p = Path(f"/home/lixujie/.conda/envs/{env_name}/bin/python")
+    envs_root = Path(
+        os.environ.get("CONDA_ENVS_ROOT", str(Path.home() / ".conda" / "envs"))
+    ).expanduser()
+    p = envs_root / env_name / "bin" / "python"
     return str(p) if p.exists() else None
 
 

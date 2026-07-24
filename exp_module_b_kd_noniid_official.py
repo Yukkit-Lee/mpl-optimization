@@ -45,7 +45,10 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-BASE_DIR = Path(__file__).resolve().parent
+from project_paths import PATHS
+
+SOURCE_DIR = Path(__file__).resolve().parent
+BASE_DIR = PATHS.output_root
 LOG_TXT_DIR = BASE_DIR / "log" / "txt"
 LOG_JSON_DIR = BASE_DIR / "log" / "json"
 EXPTAB_DIR = BASE_DIR / "expTab"

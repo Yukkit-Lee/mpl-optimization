@@ -45,9 +45,12 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-BASE_DIR = Path(__file__).resolve().parent
-MTT_REPO = Path("/mnt/code/lixujie/mtt-distillation")
-OFFICIAL_ROOT = Path("/home/lixujie/tmpWork/mtt_data/georgecazenavette")
+from project_paths import PATHS
+
+SOURCE_DIR = Path(__file__).resolve().parent
+BASE_DIR = PATHS.output_root
+MTT_REPO = PATHS.mtt_root
+OFFICIAL_ROOT = PATHS.official_mtt_root
 LOG_TXT_DIR = BASE_DIR / "log" / "txt"
 LOG_JSON_DIR = BASE_DIR / "log" / "json"
 EXPTAB_DIR = BASE_DIR / "expTab"
@@ -80,7 +83,7 @@ DATASET_CFG = {
         "official_dir": OFFICIAL_ROOT / "cifar10_50",
         "mtt_dataset": "CIFAR10",
         "model": "ConvNetD3",
-        "data_path": Path("/home/lixujie/tmpWork/mtt_cifar10_work/data"),
+        "data_path": PATHS.cifar10_data_root,
         "num_classes": 10,
         "full_train_size": 50000,
         "fig_name": "figure4_official_distill_cifar10.png",
@@ -91,7 +94,7 @@ DATASET_CFG = {
         "official_dir": OFFICIAL_ROOT / "cifar100_50",
         "mtt_dataset": "CIFAR100",
         "model": "ConvNetD3",
-        "data_path": Path("/home/lixujie/tmpWork/mtt_cifar100_work/data"),
+        "data_path": PATHS.cifar100_data_root,
         "num_classes": 100,
         "full_train_size": 50000,
         "fig_name": "figure4_official_distill_cifar100.png",
@@ -102,7 +105,7 @@ DATASET_CFG = {
         "official_dir": OFFICIAL_ROOT / "tiny_50",
         "mtt_dataset": "Tiny",
         "model": "ConvNetD4",
-        "data_path": Path("/home/lixujie/tmpWork/mtt_tiny_work/data/tiny-imagenet-200"),
+        "data_path": PATHS.tiny_imagenet_root,
         "num_classes": 200,
         "full_train_size": 100000,
         "fig_name": "figure4_official_distill_tiny.png",

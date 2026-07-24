@@ -1,0 +1,21 @@
+# 旧 TF-Encrypted 环境，仅用于复现实验，不与现代 CUDA 环境合并。
+tensorflow==1.15.5
+tensorflow-estimator==1.15.1
+tensorboard==1.15.0
+tf-encrypted==0.8.0
+numpy==1.19.2
+scipy==1.5.4
+scikit-image==0.17.2
+scikit-learn==0.24.2
+protobuf==3.19.6
+h5py==2.10.0
+Keras-Applications==1.0.8
+Keras-Preprocessing==1.1.2
+torch==1.10.1
+torchvision==0.11.2
+timm==0.4.12
+transformers==4.18.0
+tokenizers==0.12.1
+gensim==4.2.0
+tqdm==4.64.1
+

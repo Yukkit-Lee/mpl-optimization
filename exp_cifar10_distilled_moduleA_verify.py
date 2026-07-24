@@ -47,7 +47,10 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-BASE_DIR = Path(__file__).resolve().parent
+from project_paths import PATHS
+
+SOURCE_DIR = Path(__file__).resolve().parent
+BASE_DIR = PATHS.output_root
 DATA_DIR = BASE_DIR / "data"
 LOG_DIR = BASE_DIR / "log"
 LOG_TXT_DIR = LOG_DIR / "txt"
@@ -57,7 +60,7 @@ EXPFIG_DIR = BASE_DIR / "expFig"
 FIG_DIR = EXPFIG_DIR / "figure4_distill"
 PROGRESS_DIR = BASE_DIR / "progressLog"
 
-MTT_DIR = Path("/mnt/code/lixujie/mtt-distillation")
+MTT_DIR = PATHS.mtt_root
 
 CFG = {
     "seed": 42,

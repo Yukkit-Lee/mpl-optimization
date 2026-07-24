@@ -3,8 +3,8 @@
 用途：验证官网发布的 MTT 蒸馏数据在标准测试集上的 test accuracy。
 
 本脚本只做“官方蒸馏数据质量检查”，不改动现有模块 A/B/C。
-数据来源默认：/home/lixujie/tmpWork/mtt_data/georgecazenavette
-结果输出默认：/mnt/code/lixujie/tfe_experiments/official_data
+数据来源默认：由 OFFICIAL_MTT_ROOT 或 DATA_ROOT 环境变量解析
+结果输出默认：由 OUTPUT_ROOT 环境变量解析到 official_data
 
 评估口径：尽量复用 MTT 官方仓库中的 get_dataset / get_network / evaluate_synset。
 注意：当前用户确认下载的官方数据全部为非 ZCA 版本，因此本脚本统一使用 standard/non-ZCA 预处理。
@@ -31,11 +31,14 @@ from pathlib import Path
 import numpy as np
 import torch
 
-PROJECT_DIR = Path("/mnt/code/lixujie/tfe_experiments")
-MTT_REPO = Path("/mnt/code/lixujie/mtt-distillation")
-OFFICIAL_ROOT = Path("/home/lixujie/tmpWork/mtt_data/georgecazenavette")
-OUTPUT_DIR = PROJECT_DIR / "official_data"
-TMP_DATA_ROOT = Path("/home/lixujie/tmpWork")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from project_paths import PATHS
+
+PROJECT_DIR = PATHS.project_root
+MTT_REPO = PATHS.mtt_root
+OFFICIAL_ROOT = PATHS.official_mtt_root
+OUTPUT_DIR = PATHS.output_root / "official_data"
+TMP_DATA_ROOT = PATHS.data_root
 
 # 正式验证配置：如需更快冒烟，可临时改小 EVAL_EPOCHS。
 EVAL_EPOCHS = 300

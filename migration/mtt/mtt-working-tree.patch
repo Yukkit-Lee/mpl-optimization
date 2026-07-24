@@ -1,0 +1,144 @@
+diff --git a/.gitignore b/.gitignore
+old mode 100644
+new mode 100755
+diff --git a/LICENSE.txt b/LICENSE.txt
+old mode 100644
+new mode 100755
+diff --git a/buffer.py b/buffer.py
+old mode 100644
+new mode 100755
+diff --git a/distill.py b/distill.py
+old mode 100644
+new mode 100755
+diff --git a/docs/all_grid.png b/docs/all_grid.png
+old mode 100644
+new mode 100755
+diff --git a/docs/animation.gif b/docs/animation.gif
+old mode 100644
+new mode 100755
+diff --git a/docs/eagle_jacket.jpg b/docs/eagle_jacket.jpg
+old mode 100644
+new mode 100755
+diff --git a/docs/flamingo_shirt.jpg b/docs/flamingo_shirt.jpg
+old mode 100644
+new mode 100755
+diff --git a/docs/imagefruit.png b/docs/imagefruit.png
+old mode 100644
+new mode 100755
+diff --git a/docs/imagesquawk.png b/docs/imagesquawk.png
+old mode 100644
+new mode 100755
+diff --git a/docs/imagesquawk_tex.png b/docs/imagesquawk_tex.png
+old mode 100644
+new mode 100755
+diff --git a/docs/method.gif b/docs/method.gif
+old mode 100644
+new mode 100755
+diff --git a/docs/parrot_dress.jpg b/docs/parrot_dress.jpg
+old mode 100644
+new mode 100755
+diff --git a/docs/penguin_shirt.jpg b/docs/penguin_shirt.jpg
+old mode 100644
+new mode 100755
+diff --git a/docs/penguins1_horizontal.png b/docs/penguins1_horizontal.png
+old mode 100644
+new mode 100755
+diff --git a/docs/texture_teaser.png b/docs/texture_teaser.png
+old mode 100644
+new mode 100755
+diff --git a/networks.py b/networks.py
+old mode 100644
+new mode 100755
+diff --git a/readme.md b/readme.md
+old mode 100644
+new mode 100755
+diff --git a/reparam_module.py b/reparam_module.py
+old mode 100644
+new mode 100755
+diff --git a/requirements.txt b/requirements.txt
+old mode 100644
+new mode 100755
+diff --git a/requirements_10_2.yaml b/requirements_10_2.yaml
+old mode 100644
+new mode 100755
+diff --git a/requirements_11_3.yaml b/requirements_11_3.yaml
+old mode 100644
+new mode 100755
+diff --git a/utils.py b/utils.py
+old mode 100644
+new mode 100755
+index 51f71e6..611a599
+--- a/utils.py
++++ b/utils.py
+@@ -64,6 +64,36 @@ def get_dataset(dataset, data_path, batch_size=1, subset="imagenette", args=None
+         class_names = dst_train.classes
+         class_map = {x:x for x in range(num_classes)}
+ 
++    elif dataset == 'MNIST':
++        # 本项目适配：优先读取 tfe_experiments/data 中已经缓存好的 MNIST npz，
++        # 避免 torchvision 在网络/镜像不稳定时重新下载原始 idx 文件。
++        channel = 1
++        im_size = (28, 28)
++        num_classes = 10
++        mean = [0.1307]
++        std = [0.3081]
++        class_names = [str(i) for i in range(num_classes)]
++        class_map = {x: x for x in range(num_classes)}
++
++        npz_path = os.path.join(data_path, "mnist_train60000_test10000_seed42.npz")
++        if os.path.exists(npz_path):
++            z = np.load(npz_path)
++            x_train = torch.tensor(z["x_train"], dtype=torch.float32).unsqueeze(1)
++            y_train = torch.tensor(z["y_train"], dtype=torch.long)
++            x_test = torch.tensor(z["x_test"], dtype=torch.float32).unsqueeze(1)
++            y_test = torch.tensor(z["y_test"], dtype=torch.long)
++            if not args.zca:
++                x_train = (x_train - mean[0]) / std[0]
++                x_test = (x_test - mean[0]) / std[0]
++            dst_train = TensorDataset(x_train, y_train)
++            dst_test = TensorDataset(x_test, y_test)
++        else:
++            if args.zca:
++                transform = transforms.Compose([transforms.ToTensor()])
++            else:
++                transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean=mean, std=std)])
++            dst_train = datasets.MNIST(data_path, train=True, download=True, transform=transform)
++            dst_test = datasets.MNIST(data_path, train=False, download=True, transform=transform)
+ 
+     elif dataset == 'Tiny':
+         channel = 3
+@@ -80,6 +110,27 @@ def get_dataset(dataset, data_path, batch_size=1, subset="imagenette", args=None
+         class_names = dst_train.classes
+         class_map = {x:x for x in range(num_classes)}
+ 
++    elif dataset == 'STL10':
++        channel = 3
++        im_size = (32, 32) if args.res else (96, 96)  # 如果指定res就用32×32
++        num_classes = 10
++        mean = [0.4467, 0.4398, 0.4066]  # STL-10的均值（需要计算）
++        std = [0.2603, 0.2566, 0.2713]   # STL-10的标准差
++        
++        if args.zca:
++            transform = transforms.Compose([transforms.ToTensor(),
++                                            transforms.Resize(im_size)])  # 缩放！
++        else:
++            transform = transforms.Compose([transforms.ToTensor(),
++                                            transforms.Resize(im_size),  # 缩放！
++                                            transforms.Normalize(mean=mean, std=std)])
++        
++        from torchvision.datasets import STL10
++        dst_train = STL10(data_path, split='train', download=True, transform=transform)
++        dst_test = STL10(data_path, split='test', download=True, transform=transform)
++        class_names = dst_train.classes
++        class_map = {x: x for x in range(num_classes)}
++
+ 
+     elif dataset == 'ImageNet':
+         channel = 3
+@@ -673,4 +724,4 @@ AUGMENT_FNS = {
+     'flip': [rand_flip],
+     'scale': [rand_scale],
+     'rotate': [rand_rotate],
+-}
+\ No newline at end of file
++}

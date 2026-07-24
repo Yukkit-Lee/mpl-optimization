@@ -1,0 +1,24 @@
+ .gitignore                    |   0
+ LICENSE.txt                   |   0
+ buffer.py                     |   0
+ distill.py                    |   0
+ docs/all_grid.png             | Bin 753857 -> 753857 bytes
+ docs/animation.gif            | Bin 24953661 -> 24953661 bytes
+ docs/eagle_jacket.jpg         | Bin 455484 -> 455484 bytes
+ docs/flamingo_shirt.jpg       | Bin 683513 -> 683513 bytes
+ docs/imagefruit.png           | Bin 555016 -> 555016 bytes
+ docs/imagesquawk.png          | Bin 551866 -> 551866 bytes
+ docs/imagesquawk_tex.png      | Bin 7099800 -> 7099800 bytes
+ docs/method.gif               | Bin 2114518 -> 2114518 bytes
+ docs/parrot_dress.jpg         | Bin 429151 -> 429151 bytes
+ docs/penguin_shirt.jpg        | Bin 1039956 -> 1039956 bytes
+ docs/penguins1_horizontal.png | Bin 1745376 -> 1745376 bytes
+ docs/texture_teaser.png       | Bin 1788259 -> 1788259 bytes
+ networks.py                   |   0
+ readme.md                     |   0
+ reparam_module.py             |   0
+ requirements.txt              |   0
+ requirements_10_2.yaml        |   0
+ requirements_11_3.yaml        |   0
+ utils.py                      |  53 +++++++++++++++++++++++++++++++++++++++++-
+ 23 files changed, 52 insertions(+), 1 deletion(-)

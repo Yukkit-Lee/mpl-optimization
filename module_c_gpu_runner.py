@@ -25,15 +25,24 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
+from project_paths import PATHS
+
+BASE_DIR = PATHS.output_root
 LOG_DIR = BASE_DIR / "log"
 LOG_TXT_DIR = LOG_DIR / "txt"
 LOG_JSON_DIR = LOG_DIR / "json"
 DATA_DIR = BASE_DIR / "data"
 
-# 默认解释器路径（可通过命令行覆盖）
-DEFAULT_GPU_PY = "/home/lixujie/.conda/envs/distillation/bin/python"
-DEFAULT_TFE_PY = "/home/lixujie/.conda/envs/tfe/bin/python"
+# 默认解释器路径可通过环境变量或命令行覆盖，避免绑定本机用户目录。
+CONDA_ENVS_ROOT = Path(
+    os.environ.get("CONDA_ENVS_ROOT", str(Path.home() / ".conda" / "envs"))
+).expanduser()
+DEFAULT_GPU_PY = os.environ.get(
+    "DISTILLATION_PYTHON", str(CONDA_ENVS_ROOT / "distillation" / "bin" / "python")
+)
+DEFAULT_TFE_PY = os.environ.get(
+    "TFE_PYTHON", str(CONDA_ENVS_ROOT / "tfe" / "bin" / "python")
+)
 
 
 def ensure_dirs():

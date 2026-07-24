@@ -617,3 +617,17 @@
 - CIFAR-100 主图结果：RandomSub-TFE=0.2890±0.0012，Distilled-TFE=0.4160±0.0014，Ours-TFE=0.4197±0.0003，Ours-TFE*=0.3687±0.0030，ε=2.243±0.000。Figure=`expFig/figure2_end2Com/figure2_end2end_cifar100_20260714_200537.png`。
 - CIFAR-10 正式结果：RandomSub-TFE=0.4843±0.0166，Distilled-TFE=0.6730±0.0066，Ours-TFE=0.6718±0.0027，Ours-TFE*=0.6609±0.0064，ε=10.237±0.000。Figure=`expFig/figure2_end2Com/figure2_end2end_cifar10_20260715_193145.png`。
 - 输出：CIFAR-10 TXT=`/mnt/code/lixujie/tfe_experiments/log/txt/end2end_ABC_framework_cifar10_20260715_193145.log`；JSON=`/mnt/code/lixujie/tfe_experiments/log/json/end2end_ABC_framework_cifar10_20260715_193145.json`；CSV=`/mnt/code/lixujie/tfe_experiments/expTab/end2end_ABC_framework_cifar10_20260715_193145.csv`；论文表=`/mnt/code/lixujie/tfe_experiments/expPaperTab/paperTable_end2end_ABC_framework_cifar10_20260715_193145.csv`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-24 23:47 Asia/Shanghai
+- 本次对话任务目标：把当前论文项目实际适配为可迁移到 AutoDL 的双环境、可配置路径、真实 MTT 工作区和最小关键资产恢复方案；不运行正式长实验、不移动或删除原始文件。
+- 资源评估与安全设置：盘点和语法验证属于低负载任务；资产 SHA256 与复制采用单进程串行 I/O，没有启动训练或 DataLoader 并行。迁移包约 1.2 GiB，未复制约 7 GiB MTT 历史 checkpoints 和约 2.7 GiB expert buffers。
+- 环境固化：新增 `environment.yml`、`requirements.txt`、`environment-tfe-legacy.yml`、`requirements-tfe-legacy.txt`，现代 Python 3.9/PyTorch 2.8 CUDA 12.8 与旧 Python 3.6/TensorFlow 1.15.5/TF-Encrypted 0.8.0 完全分离；完整 pip/Conda/explicit/system/GPU 快照保存到 `migration/env_snapshots/`，并清除了本机 Conda prefix 和本地构建路径。
+- 路径适配：新增 `project_paths.py` 和本机/AutoDL 环境变量模板；最新 official distilled、Figure5、模块 B、模块 C、end-to-end 与官方数据验证入口统一支持 `PROJECT_ROOT`、`MTT_ROOT`、`DATA_ROOT`、`OFFICIAL_MTT_ROOT`、`OUTPUT_ROOT`，算法、随机种子和实验超参数未改动。
+- MTT 封存：基线为 `main@50dccea47ba48b9cfb3b9c59375d7da92e4e603b`；保存 40 MiB `mtt-history.bundle`、完整 binary patch、54 个未跟踪源码归档、全部未跟踪文件清单和 SHA256。临时目录恢复演练成功，tracked patch 恢复 53 行实际差异，新增源码数量为 54。
+- 资产盘点：新增 `migration/artifact-manifest.md` 与 67 项关键资产 SHA256；official ipc50 和三套原始数据归档进入最小包，expert buffers、手工蒸馏数据、旧 featureData/checkpoints 只盘点且保留原位。
+- 文档与工具：新增 `AUTODL_MIGRATION.md`、`scripts/restore_mtt_snapshot.sh`、`scripts/check_autodl_env.py`、`scripts/verify_artifacts.py`；完成现代环境 CUDA/资产检查、环境变量输出隔离检查、YAML 解析和全部改动脚本语法检查。
+- 迁移包：目录 `/home/lixujie/tmpWork/autodl_migration_bundle_20260724_234652`；上传归档 `/home/lixujie/tmpWork/autodl_migration_bundle_20260724_234652.tar`；归档 SHA256=`389d0c84f941af31adfebfa9b1a42269e00c2f8431fc1ff84f5022a17fb06ca1`。
+- 已知风险：旧 TFE 环境缺少 TF-Encrypted `aux` 与 `secure_random` custom ops，会回退到 insecure randomness；AutoDL 上如需生产级安全声明，必须针对 TensorFlow 1.15.5 重新编译对应 `.so`。
