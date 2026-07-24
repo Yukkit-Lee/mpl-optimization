@@ -629,5 +629,5 @@
 - MTT 封存：基线为 `main@50dccea47ba48b9cfb3b9c59375d7da92e4e603b`；保存 40 MiB `mtt-history.bundle`、完整 binary patch、54 个未跟踪源码归档、全部未跟踪文件清单和 SHA256。临时目录恢复演练成功，tracked patch 恢复 53 行实际差异，新增源码数量为 54。
 - 资产盘点：新增 `migration/artifact-manifest.md` 与 67 项关键资产 SHA256；official ipc50 和三套原始数据归档进入最小包，expert buffers、手工蒸馏数据、旧 featureData/checkpoints 只盘点且保留原位。
 - 文档与工具：新增 `AUTODL_MIGRATION.md`、`scripts/restore_mtt_snapshot.sh`、`scripts/check_autodl_env.py`、`scripts/verify_artifacts.py`；完成现代环境 CUDA/资产检查、环境变量输出隔离检查、YAML 解析和全部改动脚本语法检查。
-- 迁移包：目录 `/home/lixujie/tmpWork/autodl_migration_bundle_20260724_234652`；上传归档 `/home/lixujie/tmpWork/autodl_migration_bundle_20260724_234652.tar`；归档大小 1,188,761,600 bytes；归档 SHA256=`e1fd3c57fd8d5e1800c9a6ecdee4905aaa34885ac0212f6593ee29a0ca353ef3`。
+- 迁移包：目录 `/home/lixujie/tmpWork/autodl_migration_bundle_20260724_234652`；上传归档 `/home/lixujie/tmpWork/autodl_migration_bundle_20260724_234652.tar`；归档大小 1,188,761,600 bytes；归档 SHA256=`d6587b435487cbb2474e5fd900558ffca8d4313554e89c9cc6dbea024b507a00`。
 - 已知风险：旧 TFE 环境缺少 TF-Encrypted `aux` 与 `secure_random` custom ops，会回退到 insecure randomness；AutoDL 上如需生产级安全声明，必须针对 TensorFlow 1.15.5 重新编译对应 `.so`。

@@ -70,7 +70,7 @@ bash scripts/restore_mtt_snapshot.sh
 
 ```bash
 git -C "$MTT_ROOT" status --short --branch
-sha256sum -c "$PROJECT_ROOT/migration/mtt/SHA256SUMS"
+(cd "$PROJECT_ROOT" && sha256sum -c migration/mtt/SHA256SUMS)
 ```
 
 ## 5. 恢复迁移包资产
@@ -158,4 +158,3 @@ requirements。该环境目前缺 TF-Encrypted `aux` 和 `secure_random` 自定�
 - 不在 TFE 环境运行 RTX 4090 深度模型。
 - 正式长实验前先运行 `scripts/check_autodl_env.py`。
 - 当前迁移过程没有删除、移动或覆盖原始数据，也没有执行正式长实验。
-
