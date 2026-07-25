@@ -1,0 +1,100 @@
+{
+  "run_id": "20260725_122921",
+  "track": "secure_system_tfe_lightweight",
+  "dataset": "cifar10",
+  "cpu_threads": 1,
+  "resolved_config": {
+    "cpu_threads": 1,
+    "samples": 50,
+    "steps": 10,
+    "learning_rate": 0.0001,
+    "seed": 42
+  },
+  "fallback_used": false,
+  "nonprivate_secure_sanity": {
+    "status": "PASS",
+    "backend": "tfe_mpc",
+    "protocol": "ABY3",
+    "model": "Flatten+Dense",
+    "input_samples": 50,
+    "input_dimension": 3072,
+    "input_bytes": 614400,
+    "model_parameter_bytes": 245840,
+    "steps": 10,
+    "loss_history": [
+      0.4107086181640625,
+      0.391815185546875,
+      0.37487030029296875,
+      0.3595184326171875,
+      0.345574951171875,
+      0.33282012939453126,
+      0.32113800048828123,
+      0.3103790283203125,
+      0.30045013427734374,
+      0.29123992919921876,
+      0.28265838623046874
+    ],
+    "initial_accuracy_revealed": 0.08,
+    "final_accuracy_revealed": 0.1,
+    "runtime_s": 0.7030825614929199,
+    "communication_bytes": "N/A: local TFE ABY3 runtime exposes no transport counter",
+    "communication_rounds": "N/A: local TFE ABY3 runtime exposes no round counter",
+    "network_configuration": "single-process local simulation; LAN/WAN not measured",
+    "secret_shared_inputs": [
+      "flattened_distilled_images",
+      "onehot_labels",
+      "model_parameters"
+    ],
+    "revealed_values": [
+      "loss",
+      "prediction_logits",
+      "final_model_parameters"
+    ],
+    "source_files": [
+      "/home/lixujie/tmpWork/mtt_data/georgecazenavette/cifar10_50/images_best.pt"
+    ]
+  },
+  "capability_audit": {
+    "nonprivate_secret_shared_training": {
+      "status": "SUPPORTED",
+      "available_primitives": [
+        "private variables",
+        "Dense",
+        "matmul/add",
+        "SGD update"
+      ]
+    },
+    "fixed_dp_exact_per_example_clipping": {
+      "status": "BLOCKED",
+      "reason": "TFE 0.8.0 lacks a validated graph for exact per-example gradient norms, secure comparison-based clipping, and adaptive quantile updates for this model.",
+      "missing_primitives": [
+        "validated per-example autograd graph",
+        "stable secure norm/comparison clipping pipeline"
+      ]
+    },
+    "adaptive_clipping": {
+      "status": "BLOCKED",
+      "reason": "TFE 0.8.0 lacks a validated graph for exact per-example gradient norms, secure comparison-based clipping, and adaptive quantile updates for this model.",
+      "required_order": "use C_t this step; update C_{t+1} for next step"
+    },
+    "tfe_mpc_noise_generation": {
+      "status": "BLOCKED",
+      "reason": "TF 1.15.5 secure-random custom op is missing; available module targets a different TensorFlow version.",
+      "expected_custom_op": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.5.so",
+      "found_custom_ops": [
+        "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.2.so"
+      ],
+      "numpy_binomial_simulation_is_mpc": false
+    },
+    "full_mtt_convnet": {
+      "status": "BLOCKED",
+      "reason": "TFE layers do not provide the GroupNorm used by the exact MTT ConvNet."
+    }
+  },
+  "limitations": [
+    "This is a representative lightweight TFE system validation, not the full-ConvNet algorithmic pipeline.",
+    "Revealed values are explicitly listed; no end-to-end secure selection is claimed.",
+    "Fixed/Adaptive secure DP-SGD is BLOCKED rather than replaced by plaintext or insecure random noise."
+  ],
+  "total_runtime_s": 1.1672987937927246
+}

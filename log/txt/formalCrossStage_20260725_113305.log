@@ -1,0 +1,38 @@
+========================================================================================
+FORMAL CROSS-STAGE EXPERIMENT
+run_id               : 20260725_113305
+datasets             : ['cifar10', 'cifar100', 'tiny']
+seeds                : [42, 43, 44]
+cpu_threads          : 1
+visible_gpu          : 0
+splits               : {'cifar10': {'IID': None, 'Mild Non-IID': 5, 'Severe Non-IID': 2}, 'cifar100': {'IID': None, 'Mild Non-IID': 50, 'Severe Non-IID': 10}, 'tiny': {'IID': None, 'Mild Non-IID': 100, 'Severe Non-IID': 20}}
+formal_config        : {'cifar10': {'local_steps': 80, 'kd_steps': 40, 'b_curve_steps': 200, 'c_steps': 150, 'batch_size': 32, 'test_samples': 0}, 'cifar100': {'local_steps': 60, 'kd_steps': 30, 'b_curve_steps': 160, 'c_steps': 150, 'batch_size': 32, 'test_samples': 0}, 'tiny': {'local_steps': 40, 'kd_steps': 20, 'b_curve_steps': 120, 'c_steps': 120, 'batch_size': 16, 'test_samples': 0}}
+privacy              : noise=1.2, delta=1e-05, batch=4
+estimated_runs       : 264 (B=108 C=27 E2E=45 pilots=81 TFE=3)
+expected_json        : /mnt/code/lixujie/tfe_experiments/log/json/formalCrossStage_20260725_113305.json
+expected_csv         : /mnt/code/lixujie/tfe_experiments/expTab/formalCrossStage_20260725_113305.csv
+expected_txt         : /mnt/code/lixujie/tfe_experiments/log/txt/formalCrossStage_20260725_113305.log
+expected_fig_dir     : /mnt/code/lixujie/tfe_experiments/expFig/formal_cross_stage
+========================================================================================
+
+########################################################################################
+[DATASET START] cifar10 2026-07-25 11:33:05
+
+[SEED] dataset=cifar10 seed=42
+  [B split] IID classes_per_client=None
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+  [B split] Mild Non-IID classes_per_client=5
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+  [B split] Severe Non-IID classes_per_client=2
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+    [C tune/ref-only] gamma=0.5 eta=0.01 score=0.3870 C=11.324->12.024 bounds=(5.061,18.266)
+    [C formal] plain steps=150

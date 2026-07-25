@@ -326,8 +326,14 @@ def train_local_convnet(
     batch_size: int,
     lr: float,
     device: torch.device,
+    initial_model: Optional[nn.Module] = None,
 ) -> nn.Module:
-    model = build_convnet(dataset, seed, device)
+    # 完整神经网络做参数聚合时，各客户端必须共享同一初始参数排列。
+    model = (
+        deepcopy(initial_model).to(device)
+        if initial_model is not None
+        else build_convnet(dataset, seed, device)
+    )
     optimizer = torch.optim.SGD(model.parameters(), lr=float(lr), momentum=0.9)
     rng = np.random.RandomState(seed + 19)
     for _ in range(int(steps)):
@@ -353,6 +359,60 @@ def ensemble_teacher_probabilities(models: List[nn.Module], x_ref: torch.Tensor,
     return torch.stack(probabilities).mean(0)
 
 
+def reference_guided_teacher_probabilities(
+    models: List[nn.Module],
+    x_ref: torch.Tensor,
+    y_ref: torch.Tensor,
+    tau: float,
+    weight_temperature: float,
+    device: torch.device,
+) -> Tuple[torch.Tensor, torch.Tensor]:
+    """
+    按 heldout reference 上的逐类可靠性构造共识 teacher。
+
+    每个类别分别计算各 local model 的负对数似然，再经 softmax(-loss/T)
+    得到 client 权重。这样 severe Non-IID 下由擅长相应类别的 client 主导
+    soft target，而不是让所有 client 无差别平均。该过程不读取 test set。
+    """
+    probabilities = []
+    with torch.no_grad():
+        for model in models:
+            model = model.to(device).eval()
+            chunks = []
+            for start in range(0, len(x_ref), 128):
+                chunks.append(
+                    F.softmax(
+                        model(x_ref[start:start + 128].to(device)) / float(tau),
+                        dim=1,
+                    ).cpu()
+                )
+            probabilities.append(torch.cat(chunks))
+            model.cpu()
+    stacked = torch.stack(probabilities)  # [client, sample, class]
+    num_classes = int(stacked.shape[-1])
+    class_losses = torch.full(
+        (len(models), num_classes),
+        float("inf"),
+        dtype=stacked.dtype,
+    )
+    for class_id in range(num_classes):
+        ids = torch.nonzero(y_ref == class_id, as_tuple=False).reshape(-1)
+        if len(ids) == 0:
+            class_losses[:, class_id] = 0.0
+            continue
+        for client_id in range(len(models)):
+            p_true = stacked[client_id, ids, class_id].clamp_min(1e-8)
+            class_losses[client_id, class_id] = -torch.log(p_true).mean()
+    class_weights = torch.softmax(
+        -class_losses / max(float(weight_temperature), 1e-6),
+        dim=0,
+    )
+    sample_weights = class_weights[:, y_ref.long()]
+    teacher = torch.sum(stacked * sample_weights.unsqueeze(-1), dim=0)
+    teacher = teacher / teacher.sum(dim=1, keepdim=True).clamp_min(1e-8)
+    return teacher, class_weights
+
+
 def distill_full_convnet(
     source_model: nn.Module,
     x_local: torch.Tensor,
@@ -366,8 +426,9 @@ def distill_full_convnet(
     tau: float,
     lambda_kd: float,
     device: torch.device,
+    local_supervised_weight: float = 1.0,
 ) -> nn.Module:
-    """同时更新 ConvNet feature layers 和 classifier，不冻结任何层。"""
+    """同时更新完整 ConvNet；以 KD 对齐为主时可降低本地监督项权重。"""
     model = deepcopy(source_model).to(device)
     optimizer = torch.optim.SGD(model.parameters(), lr=float(lr), momentum=0.9)
     rng = np.random.RandomState(seed + 31)
@@ -381,7 +442,7 @@ def distill_full_convnet(
         supervised = F.cross_entropy(model(xb), yb)
         log_prob = F.log_softmax(model(xr) / float(tau), dim=1)
         kd_loss = F.kl_div(log_prob, teacher, reduction="batchmean") * float(tau) ** 2
-        loss = supervised + float(lambda_kd) * kd_loss
+        loss = float(local_supervised_weight) * supervised + float(lambda_kd) * kd_loss
         loss.backward()
         optimizer.step()
     return model.cpu()
@@ -493,6 +554,7 @@ def run_stage_b(
 ) -> Dict:
     assert_split_boundaries(bundle)
     splits = make_client_splits(bundle["y_train"], num_clients, classes_per_client, seed)
+    shared_initial_model = build_convnet(dataset, seed, device).cpu()
     local_models = []
     for client_id, ids in enumerate(splits):
         local_models.append(train_local_convnet(
@@ -504,6 +566,7 @@ def run_stage_b(
             batch_size,
             local_lr,
             device,
+            initial_model=shared_initial_model,
         ))
     teacher = ensemble_teacher_probabilities(local_models, bundle["x_ref"], tau, device)
     distilled_models = []
@@ -627,6 +690,9 @@ def train_stage_c_convnet(
     target_reference_accuracy: Optional[float] = None,
     delta: float = 1e-5,
     noise_mechanism: str = "gaussian",
+    adaptive_c_min: float = 1e-3,
+    adaptive_c_max: float = 100.0,
+    evaluate_test: bool = True,
 ) -> Dict:
     """在同一完整 ConvNet 上执行 Plain、Fixed-DP 或 Adaptive-DP。"""
     if mode not in ("plain", "fixed_dp", "adaptive_dp"):
@@ -697,21 +763,26 @@ def train_stage_c_convnet(
                 # 本轮使用 C_t，更新后的 C_{t+1} 从下一轮开始使用。
                 current_c = float(np.clip(
                     current_c * np.exp(-float(eta_c) * (float(np.mean(np.asarray(norms) <= current_c)) - float(gamma))),
-                    1e-3,
-                    100.0,
+                    float(adaptive_c_min),
+                    float(adaptive_c_max),
                 ))
             accountant.step()
         if step % max(1, int(eval_interval)) == 0 or step == int(steps):
             ref_loss, ref_acc = evaluate_model(model, bundle["x_ref"], bundle["y_ref"], device)
-            test_loss, test_acc = evaluate_model(model, bundle["x_test"], bundle["y_test"], device)
+            if evaluate_test:
+                test_loss, test_acc = evaluate_model(
+                    model, bundle["x_test"], bundle["y_test"], device
+                )
+            else:
+                test_loss, test_acc = None, None
             if target_reference_accuracy is not None and target_step is None and ref_acc >= target_reference_accuracy:
                 target_step = int(step)
             history.append({
                 "step": int(step),
                 "reference_loss": float(ref_loss),
                 "reference_accuracy": float(ref_acc),
-                "test_loss_readonly": float(test_loss),
-                "test_accuracy_readonly": float(test_acc),
+                "test_loss_readonly": float(test_loss) if test_loss is not None else None,
+                "test_accuracy_readonly": float(test_acc) if test_acc is not None else None,
                 "mean_total_grad_norm": float(mean_norm),
                 "mean_layer_grad_norms": layer_norms,
                 "clipped_fraction": float(clipped_fraction),
@@ -738,7 +809,10 @@ def train_stage_c_convnet(
         "target_reference_accuracy": target_reference_accuracy,
         "step_at_target_reference_accuracy": target_step,
         "time_s": float(time.time() - started),
-        "final_test_accuracy": float(history[-1]["test_accuracy_readonly"]),
+        "final_test_accuracy": (
+            float(history[-1]["test_accuracy_readonly"])
+            if history[-1]["test_accuracy_readonly"] is not None else None
+        ),
         "final_reference_accuracy": float(history[-1]["reference_accuracy"]),
         "final_c": float(history[-1]["clipping_bound_next"]),
         "privacy": accountant.metadata() if accountant is not None else {
@@ -751,7 +825,28 @@ def train_stage_c_convnet(
             "steps": int(steps),
             "limitation": PRIVACY_LIMITATION,
         },
+        "test_evaluation_enabled": bool(evaluate_test),
+        "adaptive_c_bounds": [float(adaptive_c_min), float(adaptive_c_max)],
     }
+
+
+def reference_gradient_norms(
+    model: nn.Module,
+    bundle: Dict,
+    device: torch.device,
+    max_samples: int = 16,
+) -> List[float]:
+    """仅使用 heldout reference set 估计完整 ConvNet 的逐样本梯度范数。"""
+    assert_split_boundaries(bundle)
+    count = min(int(max_samples), len(bundle["y_ref"]))
+    probe = deepcopy(model).to(device)
+    _, norms = _per_example_gradients(
+        probe,
+        bundle["x_ref"][:count].to(device),
+        bundle["y_ref"][:count].to(device),
+    )
+    probe.cpu()
+    return [float(value) for value in norms]
 
 
 def json_safe_stage_b(stage_b: Dict) -> Dict:

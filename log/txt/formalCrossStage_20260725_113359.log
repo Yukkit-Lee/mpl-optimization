@@ -1,0 +1,304 @@
+========================================================================================
+FORMAL CROSS-STAGE EXPERIMENT
+run_id               : 20260725_113359
+datasets             : ['cifar10', 'cifar100', 'tiny']
+seeds                : [42, 43, 44]
+cpu_threads          : 1
+visible_gpu          : 0
+splits               : {'cifar10': {'IID': None, 'Mild Non-IID': 5, 'Severe Non-IID': 2}, 'cifar100': {'IID': None, 'Mild Non-IID': 50, 'Severe Non-IID': 10}, 'tiny': {'IID': None, 'Mild Non-IID': 100, 'Severe Non-IID': 20}}
+formal_config        : {'cifar10': {'local_steps': 80, 'kd_steps': 40, 'b_curve_steps': 200, 'c_steps': 150, 'batch_size': 32, 'test_samples': 0}, 'cifar100': {'local_steps': 60, 'kd_steps': 30, 'b_curve_steps': 160, 'c_steps': 150, 'batch_size': 32, 'test_samples': 0}, 'tiny': {'local_steps': 40, 'kd_steps': 20, 'b_curve_steps': 120, 'c_steps': 120, 'batch_size': 16, 'test_samples': 0}}
+privacy              : noise=1.2, delta=1e-05, batch=4
+estimated_runs       : 264 (B=108 C=27 E2E=45 pilots=81 TFE=3)
+expected_json        : /mnt/code/lixujie/tfe_experiments/log/json/formalCrossStage_20260725_113359.json
+expected_csv         : /mnt/code/lixujie/tfe_experiments/expTab/formalCrossStage_20260725_113359.csv
+expected_txt         : /mnt/code/lixujie/tfe_experiments/log/txt/formalCrossStage_20260725_113359.log
+expected_fig_dir     : /mnt/code/lixujie/tfe_experiments/expFig/formal_cross_stage
+========================================================================================
+
+########################################################################################
+[DATASET START] cifar10 2026-07-25 11:33:59
+
+[SEED] dataset=cifar10 seed=42
+  [B split] IID classes_per_client=None
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+  [B split] Mild Non-IID classes_per_client=5
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+  [B split] Severe Non-IID classes_per_client=2
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+    [C tune/ref-only] gamma=0.5 eta=0.01 score=0.3870 C=11.324->12.024 bounds=(5.061,18.266)
+    [C formal] plain steps=150
+    [C formal] fixed_dp steps=150
+    [C formal] adaptive_dp steps=150
+[SEED COMPLETE] dataset=cifar10 seed=42 2026-07-25 11:34:30
+
+[SEED] dataset=cifar10 seed=43
+  [B split] IID classes_per_client=None
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+  [B split] Mild Non-IID classes_per_client=5
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+  [B split] Severe Non-IID classes_per_client=2
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+    [C tune/ref-only] gamma=0.6 eta=0.05 score=0.3940 C=11.973->13.737 bounds=(5.662,19.576)
+    [C formal] plain steps=150
+    [C formal] fixed_dp steps=150
+    [C formal] adaptive_dp steps=150
+[SEED COMPLETE] dataset=cifar10 seed=43 2026-07-25 11:35:00
+
+[SEED] dataset=cifar10 seed=44
+  [B split] IID classes_per_client=None
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+  [B split] Mild Non-IID classes_per_client=5
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+  [B split] Severe Non-IID classes_per_client=2
+    [B curve] NoKD steps=200
+    [B curve] KD-Avg steps=200
+    [B curve] KD-ReferenceWeighted steps=200
+    [B curve] KD-Best steps=200
+    [C tune/ref-only] gamma=0.4 eta=0.01 score=0.3965 C=11.290->11.663 bounds=(5.089,18.018)
+    [C formal] plain steps=150
+    [C formal] fixed_dp steps=150
+    [C formal] adaptive_dp steps=150
+[SEED COMPLETE] dataset=cifar10 seed=44 2026-07-25 11:35:30
+[DATASET COMPLETE] cifar10 figures: /mnt/code/lixujie/tfe_experiments/expFig/formal_cross_stage/moduleB_figure5_cifar10_20260725_113359.png, /mnt/code/lixujie/tfe_experiments/expFig/formal_cross_stage/moduleC_cifar10_20260725_113359.png, /mnt/code/lixujie/tfe_experiments/expFig/formal_cross_stage/end2end_cifar10_20260725_113359.png
+
+########################################################################################
+[DATASET START] cifar100 2026-07-25 11:35:31
+
+[SEED] dataset=cifar100 seed=42
+  [B split] IID classes_per_client=None
+    [B curve] NoKD steps=160
+    [B curve] KD-Avg steps=160
+    [B curve] KD-ReferenceWeighted steps=160
+    [B curve] KD-Best steps=160
+  [B split] Mild Non-IID classes_per_client=50
+    [B curve] NoKD steps=160
+    [B curve] KD-Avg steps=160
+    [B curve] KD-ReferenceWeighted steps=160
+    [B curve] KD-Best steps=160
+  [B split] Severe Non-IID classes_per_client=10
+    [B curve] NoKD steps=160
+    [B curve] KD-Avg steps=160
+    [B curve] KD-ReferenceWeighted steps=160
+    [B curve] KD-Best steps=160
+    [C tune/ref-only] gamma=0.6 eta=0.03 score=0.0207 C=26.952->41.019 bounds=(13.240,43.398)
+    [C formal] plain steps=150
+    [C formal] fixed_dp steps=150
+    [C formal] adaptive_dp steps=150
+[SEED COMPLETE] dataset=cifar100 seed=42 2026-07-25 11:36:01
+
+[SEED] dataset=cifar100 seed=43
+  [B split] IID classes_per_client=None
+    [B curve] NoKD steps=160
+    [B curve] KD-Avg steps=160
+    [B curve] KD-ReferenceWeighted steps=160
+    [B curve] KD-Best steps=160
+  [B split] Mild Non-IID classes_per_client=50
+    [B curve] NoKD steps=160
+    [B curve] KD-Avg steps=160
+    [B curve] KD-ReferenceWeighted steps=160
+    [B curve] KD-Best steps=160
+  [B split] Severe Non-IID classes_per_client=10
+    [B curve] NoKD steps=160
+    [B curve] KD-Avg steps=160
+    [B curve] KD-ReferenceWeighted steps=160
+    [B curve] KD-Best steps=160
+    [C tune/ref-only] gamma=0.5 eta=0.05 score=0.0269 C=26.702->41.043 bounds=(12.962,41.043)
+    [C formal] plain steps=150
+    [C formal] fixed_dp steps=150
+    [C formal] adaptive_dp steps=150
+[SEED COMPLETE] dataset=cifar100 seed=43 2026-07-25 11:36:31
+
+[SEED] dataset=cifar100 seed=44
+  [B split] IID classes_per_client=None
+    [B curve] NoKD steps=160
+    [B curve] KD-Avg steps=160
+    [B curve] KD-ReferenceWeighted steps=160
+    [B curve] KD-Best steps=160
+  [B split] Mild Non-IID classes_per_client=50
+    [B curve] NoKD steps=160
+    [B curve] KD-Avg steps=160
+    [B curve] KD-ReferenceWeighted steps=160
+    [B curve] KD-Best steps=160
+  [B split] Severe Non-IID classes_per_client=10
+    [B curve] NoKD steps=160
+    [B curve] KD-Avg steps=160
+    [B curve] KD-ReferenceWeighted steps=160
+    [B curve] KD-Best steps=160
+    [C tune/ref-only] gamma=0.4 eta=0.01 score=0.0280 C=27.441->30.403 bounds=(13.261,43.180)
+    [C formal] plain steps=150
+    [C formal] fixed_dp steps=150
+    [C formal] adaptive_dp steps=150
+[SEED COMPLETE] dataset=cifar100 seed=44 2026-07-25 11:37:02
+[DATASET COMPLETE] cifar100 figures: /mnt/code/lixujie/tfe_experiments/expFig/formal_cross_stage/moduleB_figure5_cifar100_20260725_113359.png, /mnt/code/lixujie/tfe_experiments/expFig/formal_cross_stage/moduleC_cifar100_20260725_113359.png, /mnt/code/lixujie/tfe_experiments/expFig/formal_cross_stage/end2end_cifar100_20260725_113359.png
+
+########################################################################################
+[DATASET START] tiny 2026-07-25 11:37:02
+
+[SEED] dataset=tiny seed=42
+  [B split] IID classes_per_client=None
+    [B curve] NoKD steps=120
+    [B curve] KD-Avg steps=120
+    [B curve] KD-ReferenceWeighted steps=120
+    [B curve] KD-Best steps=120
+  [B split] Mild Non-IID classes_per_client=100
+    [B curve] NoKD steps=120
+    [B curve] KD-Avg steps=120
+    [B curve] KD-ReferenceWeighted steps=120
+    [B curve] KD-Best steps=120
+  [B split] Severe Non-IID classes_per_client=20
+    [B curve] NoKD steps=120
+    [B curve] KD-Avg steps=120
+    [B curve] KD-ReferenceWeighted steps=120
+    [B curve] KD-Best steps=120
+    [C tune/ref-only] gamma=0.6 eta=0.05 score=0.0125 C=25.982->40.017 bounds=(12.769,40.017)
+    [C formal] plain steps=120
+    [C formal] fixed_dp steps=120
+    [C formal] adaptive_dp steps=120
+[SEED COMPLETE] dataset=tiny seed=42 2026-07-25 11:38:40
+
+[SEED] dataset=tiny seed=43
+  [B split] IID classes_per_client=None
+    [B curve] NoKD steps=120
+    [B curve] KD-Avg steps=120
+    [B curve] KD-ReferenceWeighted steps=120
+    [B curve] KD-Best steps=120
+  [B split] Mild Non-IID classes_per_client=100
+    [B curve] NoKD steps=120
+    [B curve] KD-Avg steps=120
+    [B curve] KD-ReferenceWeighted steps=120
+    [B curve] KD-Best steps=120
+  [B split] Severe Non-IID classes_per_client=20
+    [B curve] NoKD steps=120
+    [B curve] KD-Avg steps=120
+    [B curve] KD-ReferenceWeighted steps=120
+    [B curve] KD-Best steps=120
+    [C tune/ref-only] gamma=0.5 eta=0.03 score=0.0073 C=25.128->38.375 bounds=(12.225,38.375)
+    [C formal] plain steps=120
+    [C formal] fixed_dp steps=120
+    [C formal] adaptive_dp steps=120
+[SEED COMPLETE] dataset=tiny seed=43 2026-07-25 11:40:17
+
+[SEED] dataset=tiny seed=44
+  [B split] IID classes_per_client=None
+    [B curve] NoKD steps=120
+    [B curve] KD-Avg steps=120
+    [B curve] KD-ReferenceWeighted steps=120
+    [B curve] KD-Best steps=120
+  [B split] Mild Non-IID classes_per_client=100
+    [B curve] NoKD steps=120
+    [B curve] KD-Avg steps=120
+    [B curve] KD-ReferenceWeighted steps=120
+    [B curve] KD-Best steps=120
+  [B split] Severe Non-IID classes_per_client=20
+    [B curve] NoKD steps=120
+    [B curve] KD-Avg steps=120
+    [B curve] KD-ReferenceWeighted steps=120
+    [B curve] KD-Best steps=120
+    [C tune/ref-only] gamma=0.4 eta=0.03 score=0.0107 C=25.789->36.414 bounds=(12.729,39.590)
+    [C formal] plain steps=120
+    [C formal] fixed_dp steps=120
+    [C formal] adaptive_dp steps=120
+[SEED COMPLETE] dataset=tiny seed=44 2026-07-25 11:41:55
+[DATASET COMPLETE] tiny figures: /mnt/code/lixujie/tfe_experiments/expFig/formal_cross_stage/moduleB_figure5_tiny_20260725_113359.png, /mnt/code/lixujie/tfe_experiments/expFig/formal_cross_stage/moduleC_tiny_20260725_113359.png, /mnt/code/lixujie/tfe_experiments/expFig/formal_cross_stage/end2end_tiny_20260725_113359.png
+[TFE formal] dataset=cifar10 samples=50 steps=10
+"tfe_mpc_noise_generation": {
+      "status": "BLOCKED",
+      "reason": "TF 1.15.5 secure-random custom op is missing; available module targets a different TensorFlow version.",
+      "expected_custom_op": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.5.so",
+      "found_custom_ops": [
+        "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.2.so"
+      ],
+      "numpy_binomial_simulation_is_mpc": false
+    },
+    "full_mtt_convnet": {
+      "status": "BLOCKED",
+      "reason": "TFE layers do not provide the GroupNorm used by the exact MTT ConvNet."
+    }
+  },
+  "limitations": [
+    "This is a representative lightweight TFE system validation, not the full-ConvNet algorithmic pipeline.",
+    "Revealed values are explicitly listed; no end-to-end secure selection is claimed.",
+    "Fixed/Adaptive secure DP-SGD is BLOCKED rather than replaced by plaintext or insecure random noise."
+  ],
+  "total_runtime_s": 1.156580924987793
+}
+output: /mnt/code/lixujie/tfe_experiments/log/json/stageC_tfe_secure_system_cifar10_20260725_114156.json
+
+[TFE formal] dataset=cifar100 samples=100 steps=10
+fe_mpc_noise_generation": {
+      "status": "BLOCKED",
+      "reason": "TF 1.15.5 secure-random custom op is missing; available module targets a different TensorFlow version.",
+      "expected_custom_op": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.5.so",
+      "found_custom_ops": [
+        "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.2.so"
+      ],
+      "numpy_binomial_simulation_is_mpc": false
+    },
+    "full_mtt_convnet": {
+      "status": "BLOCKED",
+      "reason": "TFE layers do not provide the GroupNorm used by the exact MTT ConvNet."
+    }
+  },
+  "limitations": [
+    "This is a representative lightweight TFE system validation, not the full-ConvNet algorithmic pipeline.",
+    "Revealed values are explicitly listed; no end-to-end secure selection is claimed.",
+    "Fixed/Adaptive secure DP-SGD is BLOCKED rather than replaced by plaintext or insecure random noise."
+  ],
+  "total_runtime_s": 3.6096062660217285
+}
+output: /mnt/code/lixujie/tfe_experiments/log/json/stageC_tfe_secure_system_cifar100_20260725_114200.json
+
+[TFE formal] dataset=tiny samples=200 steps=10
+   "tfe_mpc_noise_generation": {
+      "status": "BLOCKED",
+      "reason": "TF 1.15.5 secure-random custom op is missing; available module targets a different TensorFlow version.",
+      "expected_custom_op": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.5.so",
+      "found_custom_ops": [
+        "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.2.so"
+      ],
+      "numpy_binomial_simulation_is_mpc": false
+    },
+    "full_mtt_convnet": {
+      "status": "BLOCKED",
+      "reason": "TFE layers do not provide the GroupNorm used by the exact MTT ConvNet."
+    }
+  },
+  "limitations": [
+    "This is a representative lightweight TFE system validation, not the full-ConvNet algorithmic pipeline.",
+    "Revealed values are explicitly listed; no end-to-end secure selection is claimed.",
+    "Fixed/Adaptive secure DP-SGD is BLOCKED rather than replaced by plaintext or insecure random noise."
+  ],
+  "total_runtime_s": 16.10851263999939
+}
+output: /mnt/code/lixujie/tfe_experiments/log/json/stageC_tfe_secure_system_tiny_20260725_114217.json
+
+
+FORMAL_COMPLETE
+json: /mnt/code/lixujie/tfe_experiments/log/json/formalCrossStage_20260725_113359.json
+csv : /mnt/code/lixujie/tfe_experiments/expTab/formalCrossStage_20260725_113359.csv
+txt : /mnt/code/lixujie/tfe_experiments/log/txt/formalCrossStage_20260725_113359.log
+runtime_s: 497.8550145626068

@@ -658,3 +658,18 @@
 - Phase 4：安装并固定 `opacus==1.5.4`，新增 Stage-C Opacus RDP accountant 与 5 个单元测试；Fixed/Adaptive 统一会计，binomial simulation ε 标记 N/A；target 只由 heldout reference 构造，test 仅固定间隔只读与最终报告。提交 `fab546e`。
 - Phase 5：CIFAR-10/CIFAR-100/Tiny 三数据集 2-step end-to-end smoke 全部通过；CIFAR-10 完整可行配置完成 5 clients、45 local steps/client、20 KD steps/client、60 Stage-C steps/mode，chosen=`KD-Best`，Fixed/Adaptive ε=`0.6958885645`。当前 Adaptive `C_t` 增至约 57.4 并导致性能下降，该限制被如实保留，后续只能用 heldout reference 调参。
 - 输出：统一 JSON=`log/json/crossStageConvNet_unified_20260725_110656.json`；统一 CSV=`expTab/crossStageConvNet_unified_20260725_110656.csv`；Figure5 quick PNG=`expFig/figure5_crossStageConvNet/crossStageConvNet_figure5_cifar10_20260725_110712.png`；边界文档=`CROSS_STAGE_PIPELINE.md`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-25 12:30 CST
+- 本次对话任务目标：完成重构后的正式论文实验，不把 smoke test 当正式结果；覆盖 Module B、Module C、End-to-End 与轻量 TFE 安全系统验证，并生成完整日志、JSON、CSV 和最终曲线。
+- 资源与防死机措施：全程固定 `CUDA_VISIBLE_DEVICES=0`、CPU/BLAS/PyTorch 线程数 1；dataset/split/method/seed 串行；使用 `scripts/run_safe_experiment.sh` 的仓库 `flock` 与可轮询 PTY；每个 seed 写 partial JSON；方法间显式 GC 和 CUDA cache 清理；Matplotlib 改为不导入 PyTorch 的独立 CPU 进程。
+- 正式配置：3 数据集、3 seeds；Module B 使用 IID/Mild/Severe 与 NoKD/KD-Avg/KD-ReferenceWeighted/KD-Best，Figure 5 为完整 800 optimizer steps；Module C 使用 Plain/Fixed-DP/Adaptive-DP，300 steps、DP batch=16、noise multiplier=1.2、delta=1e-5；共执行 237 个串行子运行。
+- 关键修复：完整 ConvNet client 改为共享同一 base initialization，保证参数聚合可比；teacher 改为 heldout reference 上逐类可靠性加权的 ensemble；Adaptive 参数只在 reference pilots 上选择并使用 reference gradient quantile 限制 C_t；test 仅固定间隔只读报告。
+- Adaptive 诊断：reference pilot 常使 C_t 下降，但 300-step 正式阶段受训练梯度分布漂移影响仍会上升；均值轨迹约为 CIFAR-10 3.03→6.78、CIFAR-100 34.14→42.11、Tiny 29.60→37.73。虽然不再达到旧版无界 57.4，但这仍是当前限制，不能宣称所有数据集均获得 Adaptive 优势。
+- 正式结果：CIFAR-10 Adaptive-DP=0.2608+/-0.0056、Fixed-DP=0.2553+/-0.0044（epsilon=2.8391）；CIFAR-100 为 0.0388+/-0.0059 对 0.0386+/-0.0019（epsilon=0.5488）；Tiny 为 0.0131+/-0.0014 对 0.0162+/-0.0018（epsilon=0.4585）。因此如实保留 Tiny negative result，不宣称三数据集全面占优。
+- Module B 结论：KD 在 CIFAR-10 IID 将 Step@Target 从 320 降至 80，并在 Tiny 三种异构强度下有小幅最终精度提升；但 CIFAR-10/CIFAR-100 severe 的 NoKD final accuracy 仍更高，论文应强调收敛速度与数据集依赖，而非普遍最终精度优势。
+- End-to-End：CIFAR-100 与 Tiny 的 Distilled+Stage B 在 300-step 预算下明显高于 Distilled-only（0.1797 vs 0.0591；0.0427 vs 0.0104）；CIFAR-10 则为 0.3257 vs 0.3658，保留负结果。
+- TFE 边界：3 数据集完成 50/100/200 samples、10 steps 的 ABY3 Flatten+Dense 轻量验证；明确不是 full ConvNet 或 full Adaptive-DP；reveal loss/logits/final parameters；通信指标 N/A；缺失 TF 1.15.5 secure-random custom op 与 TFE GroupNorm 支持继续标记 BLOCKED。
+- 最终产物：`log/json/formalCrossStage_20260725_121001.json`、`expTab/formalCrossStage_20260725_121001.csv`、`log/txt/formalCrossStage_20260725_121001.log`、`expPaperTab/formal{ModuleB,ModuleC,End2End}_20260725_121001.csv`，以及 `expFig/formal_cross_stage/` 下 9 张正式 PNG。

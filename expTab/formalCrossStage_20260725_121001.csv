@@ -1,0 +1,181 @@
+AdaptiveEta,AdaptiveGamma,Dataset,EarlyAUC,FinalAccuracy,FinalC,InitialReferenceAccuracy,MeanClippedFraction,Method,NoiseMultiplier,PrivacyScope,RuntimeS,SampleRate,Section,Seed,Split,SplitParam,StageA,StageB,StageC,StageCDelta,StageCEpsilon,StepAtTargetAcc,Steps,TargetAccuracy,TargetSource
+,,cifar10,0.5296388888888889,0.565,,0.44,,NoKD,,,3.388379216194153,,ModuleB,42,IID,,,,,,,480,,0.62,heldout_reference_set
+,,cifar10,0.5285833333333333,0.5651,,0.56,,KD-Avg,,,3.3780678510665894,,ModuleB,42,IID,,,,,,,80,,0.62,heldout_reference_set
+,,cifar10,0.5287277777777778,0.565,,0.56,,KD-ReferenceWeighted,,,3.3712927103042603,,ModuleB,42,IID,,,,,,,80,,0.62,heldout_reference_set
+,,cifar10,0.4814833333333333,0.5293,,0.6,,KD-Best,,,3.38052499294281,,ModuleB,42,IID,,,,,,,80,,0.62,heldout_reference_set
+,,cifar10,0.5237277777777777,0.5618,,0.42,,NoKD,,,3.342744469642639,,ModuleB,42,Mild Non-IID,5,,,,,,,,0.76,heldout_reference_set
+,,cifar10,0.49890555555555555,0.5408,,0.68,,KD-Avg,,,3.3345922231674194,,ModuleB,42,Mild Non-IID,5,,,,,,320,,0.76,heldout_reference_set
+,,cifar10,0.4988777777777777,0.5404,,0.68,,KD-ReferenceWeighted,,,3.3423019647598267,,ModuleB,42,Mild Non-IID,5,,,,,,320,,0.76,heldout_reference_set
+,,cifar10,0.4326944444444445,0.4914,,0.74,,KD-Best,,,3.331915497779846,,ModuleB,42,Mild Non-IID,5,,,,,,480,,0.76,heldout_reference_set
+,,cifar10,0.4900333333333334,0.5479,,0.28,,NoKD,,,3.342318296432495,,ModuleB,42,Severe Non-IID,2,,,,,,,,0.9400000000000001,heldout_reference_set
+,,cifar10,0.4190722222222222,0.4795,,0.92,,KD-Avg,,,3.341080665588379,,ModuleB,42,Severe Non-IID,2,,,,,,,,0.9400000000000001,heldout_reference_set
+,,cifar10,0.41925,0.4811,,0.92,,KD-ReferenceWeighted,,,3.3323237895965576,,ModuleB,42,Severe Non-IID,2,,,,,,,,0.9400000000000001,heldout_reference_set
+,,cifar10,0.37799444444444447,0.4333,,0.92,,KD-Best,,,3.3353068828582764,,ModuleB,42,Severe Non-IID,2,,,,,,,,0.9400000000000001,heldout_reference_set
+,,cifar10,0.3136888888888889,0.3449,3.06639831124126,,0.0,plain,0.0,,1.3079752922058105,0.032,ModuleC,42,,,,,,,inf,,300,,heldout_reference_set
+,,cifar10,0.2543111111111111,0.2604,3.06639831124126,,0.9875,fixed_dp,1.2,,6.009662866592407,0.032,ModuleC,42,,,,,,1e-05,2.839103494331054,,300,,heldout_reference_set
+0.03,0.1,cifar10,0.2574222222222222,0.2665,6.867180980215777,,0.98125,adaptive_dp,1.2,,6.179662227630615,0.032,ModuleC,42,,,,,,1e-05,2.839103494331054,,300,,heldout_reference_set
+,,cifar10,0.2692111111111111,0.3125,,,,Random subset baseline,,none,1.5000038146972656,,EndToEnd,42,,,False,False,False,,inf,,,,
+,,cifar10,0.28571111111111114,0.3432,,,,Distilled only,,none,1.4984726905822754,,EndToEnd,42,,,True,False,False,,inf,,,,
+,,cifar10,0.3136888888888889,0.3449,,,,Distilled + Stage B,,none,1.3079752922058105,,EndToEnd,42,,,True,True,False,,inf,,,,
+,,cifar10,0.2543111111111111,0.2604,,,,Distilled + Stage B + Fixed-DP,,stage_c_only,6.009662866592407,,EndToEnd,42,,,True,True,True,,2.839103494331054,,,,
+,,cifar10,0.2574222222222222,0.2665,,,,Distilled + Stage B + Adaptive-DP,,stage_c_only,6.179662227630615,,EndToEnd,42,,,True,True,True,,2.839103494331054,,,,
+,,cifar10,0.5296722222222223,0.5599,,0.38,,NoKD,,,3.392275869846344,,ModuleB,43,IID,,,,,,,160,,0.54,heldout_reference_set
+,,cifar10,0.5284333333333333,0.5625,,0.52,,KD-Avg,,,3.3811305165290833,,ModuleB,43,IID,,,,,,,80,,0.54,heldout_reference_set
+,,cifar10,0.5283055555555556,0.5625,,0.52,,KD-ReferenceWeighted,,,3.378050148487091,,ModuleB,43,IID,,,,,,,80,,0.54,heldout_reference_set
+,,cifar10,0.48608333333333337,0.5365,,0.52,,KD-Best,,,3.3860870003700256,,ModuleB,43,IID,,,,,,,480,,0.54,heldout_reference_set
+,,cifar10,0.5301833333333333,0.5671,,0.28,,NoKD,,,3.3409526348114014,,ModuleB,43,Mild Non-IID,5,,,,,,,,0.74,heldout_reference_set
+,,cifar10,0.49947777777777774,0.5477,,0.64,,KD-Avg,,,3.3423032760620117,,ModuleB,43,Mild Non-IID,5,,,,,,160,,0.74,heldout_reference_set
+,,cifar10,0.49788333333333334,0.5465,,0.62,,KD-ReferenceWeighted,,,3.3431644439697266,,ModuleB,43,Mild Non-IID,5,,,,,,160,,0.74,heldout_reference_set
+,,cifar10,0.43807777777777784,0.497,,0.72,,KD-Best,,,3.341273784637451,,ModuleB,43,Mild Non-IID,5,,,,,,800,,0.74,heldout_reference_set
+,,cifar10,0.4988666666666667,0.5518,,0.14,,NoKD,,,3.3432738184928894,,ModuleB,43,Severe Non-IID,2,,,,,,,,0.9400000000000001,heldout_reference_set
+,,cifar10,0.41518333333333335,0.4853,,0.92,,KD-Avg,,,3.3438257575035095,,ModuleB,43,Severe Non-IID,2,,,,,,,,0.9400000000000001,heldout_reference_set
+,,cifar10,0.41512222222222217,0.4851,,0.92,,KD-ReferenceWeighted,,,3.3444175124168396,,ModuleB,43,Severe Non-IID,2,,,,,,,,0.9400000000000001,heldout_reference_set
+,,cifar10,0.3707611111111111,0.4418,,0.92,,KD-Best,,,3.3468357920646667,,ModuleB,43,Severe Non-IID,2,,,,,,,,0.9400000000000001,heldout_reference_set
+,,cifar10,0.29845,0.3349,2.857869290384546,,0.0,plain,0.0,,1.3014867305755615,0.032,ModuleC,43,,,,,,,inf,,300,,heldout_reference_set
+,,cifar10,0.2473722222222222,0.2527,2.857869290384546,,0.99375,fixed_dp,1.2,,6.062399625778198,0.032,ModuleC,43,,,,,,1e-05,2.839103494331054,,300,,heldout_reference_set
+0.05,0.2,cifar10,0.24964444444444442,0.2605,10.670303756575436,,0.96875,adaptive_dp,1.2,,6.004366397857666,0.032,ModuleC,43,,,,,,1e-05,2.839103494331054,,300,,heldout_reference_set
+,,cifar10,0.28852222222222224,0.3257,,,,Random subset baseline,,none,1.4999268054962158,,EndToEnd,43,,,False,False,False,,inf,,,,
+,,cifar10,0.30775555555555556,0.3801,,,,Distilled only,,none,1.4987382888793945,,EndToEnd,43,,,True,False,False,,inf,,,,
+,,cifar10,0.29845,0.3349,,,,Distilled + Stage B,,none,1.3014867305755615,,EndToEnd,43,,,True,True,False,,inf,,,,
+,,cifar10,0.2473722222222222,0.2527,,,,Distilled + Stage B + Fixed-DP,,stage_c_only,6.062399625778198,,EndToEnd,43,,,True,True,True,,2.839103494331054,,,,
+,,cifar10,0.24964444444444442,0.2605,,,,Distilled + Stage B + Adaptive-DP,,stage_c_only,6.004366397857666,,EndToEnd,43,,,True,True,True,,2.839103494331054,,,,
+,,cifar10,0.5265388888888888,0.5585,,0.48,,NoKD,,,3.342024087905884,,ModuleB,44,IID,,,,,,,,,0.68,heldout_reference_set
+,,cifar10,0.5210555555555556,0.5597,,0.66,,KD-Avg,,,3.3416519165039062,,ModuleB,44,IID,,,,,,,80,,0.68,heldout_reference_set
+,,cifar10,0.5208222222222223,0.5598,,0.66,,KD-ReferenceWeighted,,,3.341064929962158,,ModuleB,44,IID,,,,,,,80,,0.68,heldout_reference_set
+,,cifar10,0.48292777777777773,0.5283,,0.62,,KD-Best,,,3.343212604522705,,ModuleB,44,IID,,,,,,,160,,0.68,heldout_reference_set
+,,cifar10,0.5257833333333334,0.561,,0.36,,NoKD,,,3.3381561040878296,,ModuleB,44,Mild Non-IID,5,,,,,,,,0.76,heldout_reference_set
+,,cifar10,0.49198333333333333,0.5434,,0.74,,KD-Avg,,,3.335453152656555,,ModuleB,44,Mild Non-IID,5,,,,,,240,,0.76,heldout_reference_set
+,,cifar10,0.4908944444444444,0.542,,0.74,,KD-ReferenceWeighted,,,3.3457635641098022,,ModuleB,44,Mild Non-IID,5,,,,,,320,,0.76,heldout_reference_set
+,,cifar10,0.4308722222222222,0.4872,,0.74,,KD-Best,,,3.343034863471985,,ModuleB,44,Mild Non-IID,5,,,,,,160,,0.76,heldout_reference_set
+,,cifar10,0.4981888888888889,0.547,,0.16,,NoKD,,,3.3398397564888,,ModuleB,44,Severe Non-IID,2,,,,,,,,0.96,heldout_reference_set
+,,cifar10,0.3985111111111111,0.4584,,0.92,,KD-Avg,,,3.338987171649933,,ModuleB,44,Severe Non-IID,2,,,,,,80,,0.96,heldout_reference_set
+,,cifar10,0.3984055555555555,0.4584,,0.92,,KD-ReferenceWeighted,,,3.342363178730011,,ModuleB,44,Severe Non-IID,2,,,,,,80,,0.96,heldout_reference_set
+,,cifar10,0.3680388888888889,0.4257,,0.94,,KD-Best,,,3.3367581963539124,,ModuleB,44,Severe Non-IID,2,,,,,,,,0.96,heldout_reference_set
+,,cifar10,0.2691111111111111,0.2974,1.9591493612794257,,0.0,plain,0.0,,1.308241367340088,0.032,ModuleC,44,,,,,,,inf,30,300,,heldout_reference_set
+,,cifar10,0.25069444444444444,0.2529,1.9591493612794257,,0.96875,fixed_dp,1.2,,6.195968151092529,0.032,ModuleC,44,,,,,,1e-05,2.839103494331054,,300,,heldout_reference_set
+0.03,0.1,cifar10,0.2512888888888889,0.2554,2.7975957278532055,,0.95625,adaptive_dp,1.2,,5.975816011428833,0.032,ModuleC,44,,,,,,1e-05,2.839103494331054,,300,,heldout_reference_set
+,,cifar10,0.2717611111111111,0.3245,,,,Random subset baseline,,none,1.5009944438934326,,EndToEnd,44,,,False,False,False,,inf,,,,
+,,cifar10,0.3034944444444445,0.3741,,,,Distilled only,,none,1.498077154159546,,EndToEnd,44,,,True,False,False,,inf,,,,
+,,cifar10,0.2691111111111111,0.2974,,,,Distilled + Stage B,,none,1.308241367340088,,EndToEnd,44,,,True,True,False,,inf,30,,,
+,,cifar10,0.25069444444444444,0.2529,,,,Distilled + Stage B + Fixed-DP,,stage_c_only,6.195968151092529,,EndToEnd,44,,,True,True,True,,2.839103494331054,,,,
+,,cifar10,0.2512888888888889,0.2554,,,,Distilled + Stage B + Adaptive-DP,,stage_c_only,5.975816011428833,,EndToEnd,44,,,True,True,True,,2.839103494331054,,,,
+,,cifar100,0.2923777777777778,0.3074,,0.266,,NoKD,,,3.4819117188453674,,ModuleB,42,IID,,,,,,,,,0.41400000000000003,heldout_reference_set
+,,cifar100,0.2936666666666667,0.3068,,0.328,,KD-Avg,,,3.487952768802643,,ModuleB,42,IID,,,,,,,,,0.41400000000000003,heldout_reference_set
+,,cifar100,0.2935388888888889,0.3077,,0.322,,KD-ReferenceWeighted,,,3.4805122017860413,,ModuleB,42,IID,,,,,,,,,0.41400000000000003,heldout_reference_set
+,,cifar100,0.2758722222222222,0.2916,,0.394,,KD-Best,,,3.4982858300209045,,ModuleB,42,IID,,,,,,,240,,0.41400000000000003,heldout_reference_set
+,,cifar100,0.2917944444444444,0.3077,,0.29,,NoKD,,,3.4778411388397217,,ModuleB,42,Mild Non-IID,50,,,,,,,,0.434,heldout_reference_set
+,,cifar100,0.28729444444444446,0.3073,,0.376,,KD-Avg,,,3.4808807373046875,,ModuleB,42,Mild Non-IID,50,,,,,,800,,0.434,heldout_reference_set
+,,cifar100,0.28784444444444446,0.3054,,0.382,,KD-ReferenceWeighted,,,3.4801723957061768,,ModuleB,42,Mild Non-IID,50,,,,,,800,,0.434,heldout_reference_set
+,,cifar100,0.26685000000000003,0.2845,,0.414,,KD-Best,,,3.475410223007202,,ModuleB,42,Mild Non-IID,50,,,,,,80,,0.434,heldout_reference_set
+,,cifar100,0.23213888888888887,0.2642,,0.204,,NoKD,,,3.4899292588233948,,ModuleB,42,Severe Non-IID,10,,,,,,,,0.526,heldout_reference_set
+,,cifar100,0.2285333333333333,0.2589,,0.474,,KD-Avg,,,3.4914358258247375,,ModuleB,42,Severe Non-IID,10,,,,,,,,0.526,heldout_reference_set
+,,cifar100,0.22645,0.2582,,0.486,,KD-ReferenceWeighted,,,3.48868590593338,,ModuleB,42,Severe Non-IID,10,,,,,,720,,0.526,heldout_reference_set
+,,cifar100,0.19908888888888887,0.2245,,0.506,,KD-Best,,,3.497596800327301,,ModuleB,42,Severe Non-IID,10,,,,,,80,,0.526,heldout_reference_set
+,,cifar100,0.16166666666666668,0.1733,37.90562488824071,,0.0,plain,0.0,,1.3611695766448975,0.0032,ModuleC,42,,,,,,,inf,120,300,,heldout_reference_set
+,,cifar100,0.057449999999999994,0.0376,37.90562488824071,,0.9125,fixed_dp,1.2,,5.908346176147461,0.0032,ModuleC,42,,,,,,1e-05,0.5488445893010219,,300,,heldout_reference_set
+0.03,0.1,cifar100,0.06708888888888889,0.0373,41.47535996048947,,0.91875,adaptive_dp,1.2,,5.920721530914307,0.0032,ModuleC,42,,,,,,1e-05,0.5488445893010219,,300,,heldout_reference_set
+,,cifar100,0.030572222222222223,0.0508,,,,Random subset baseline,,none,1.5498619079589844,,EndToEnd,42,,,False,False,False,,inf,,,,
+,,cifar100,0.033677777777777786,0.056,,,,Distilled only,,none,1.5452179908752441,,EndToEnd,42,,,True,False,False,,inf,,,,
+,,cifar100,0.16166666666666668,0.1733,,,,Distilled + Stage B,,none,1.3611695766448975,,EndToEnd,42,,,True,True,False,,inf,120,,,
+,,cifar100,0.057449999999999994,0.0376,,,,Distilled + Stage B + Fixed-DP,,stage_c_only,5.908346176147461,,EndToEnd,42,,,True,True,True,,0.5488445893010219,,,,
+,,cifar100,0.06708888888888889,0.0373,,,,Distilled + Stage B + Adaptive-DP,,stage_c_only,5.920721530914307,,EndToEnd,42,,,True,True,True,,0.5488445893010219,,,,
+,,cifar100,0.2895055555555555,0.3053,,0.238,,NoKD,,,3.484686017036438,,ModuleB,43,IID,,,,,,,,,0.35400000000000004,heldout_reference_set
+,,cifar100,0.2911222222222222,0.306,,0.282,,KD-Avg,,,3.48304283618927,,ModuleB,43,IID,,,,,,,,,0.35400000000000004,heldout_reference_set
+,,cifar100,0.2911888888888889,0.3058,,0.288,,KD-ReferenceWeighted,,,3.4774972200393677,,ModuleB,43,IID,,,,,,,,,0.35400000000000004,heldout_reference_set
+,,cifar100,0.27498333333333336,0.2906,,0.334,,KD-Best,,,3.4833186864852905,,ModuleB,43,IID,,,,,,,160,,0.35400000000000004,heldout_reference_set
+,,cifar100,0.2891055555555555,0.3083,,0.278,,NoKD,,,3.4756706953048706,,ModuleB,43,Mild Non-IID,50,,,,,,,,0.402,heldout_reference_set
+,,cifar100,0.28755555555555556,0.3065,,0.37,,KD-Avg,,,3.478503108024597,,ModuleB,43,Mild Non-IID,50,,,,,,,,0.402,heldout_reference_set
+,,cifar100,0.28800000000000003,0.3073,,0.372,,KD-ReferenceWeighted,,,3.4758108854293823,,ModuleB,43,Mild Non-IID,50,,,,,,,,0.402,heldout_reference_set
+,,cifar100,0.2611833333333333,0.2815,,0.382,,KD-Best,,,3.480110764503479,,ModuleB,43,Mild Non-IID,50,,,,,,240,,0.402,heldout_reference_set
+,,cifar100,0.22937222222222226,0.2636,,0.152,,NoKD,,,3.4900602102279663,,ModuleB,43,Severe Non-IID,10,,,,,,,,0.524,heldout_reference_set
+,,cifar100,0.2277666666666667,0.2558,,0.468,,KD-Avg,,,3.4816566705703735,,ModuleB,43,Severe Non-IID,10,,,,,,,,0.524,heldout_reference_set
+,,cifar100,0.22940000000000002,0.2576,,0.47,,KD-ReferenceWeighted,,,3.4798308610916138,,ModuleB,43,Severe Non-IID,10,,,,,,,,0.524,heldout_reference_set
+,,cifar100,0.20376666666666668,0.2295,,0.504,,KD-Best,,,3.4769612550735474,,ModuleB,43,Severe Non-IID,10,,,,,,,,0.524,heldout_reference_set
+,,cifar100,0.17247222222222222,0.1827,39.79318932018251,,0.0,plain,0.0,,1.3605053424835205,0.0032,ModuleC,43,,,,,,,inf,,300,,heldout_reference_set
+,,cifar100,0.06258888888888889,0.0374,39.79318932018251,,0.8625,fixed_dp,1.2,,5.999063491821289,0.0032,ModuleC,43,,,,,,1e-05,0.5488445893010219,,300,,heldout_reference_set
+0.03,0.1,cifar100,0.07026666666666666,0.0337,42.8121000910045,,0.925,adaptive_dp,1.2,,5.982537746429443,0.0032,ModuleC,43,,,,,,1e-05,0.5488445893010219,,300,,heldout_reference_set
+,,cifar100,0.030594444444444445,0.0458,,,,Random subset baseline,,none,1.561760663986206,,EndToEnd,43,,,False,False,False,,inf,,,,
+,,cifar100,0.03795,0.0631,,,,Distilled only,,none,1.553394079208374,,EndToEnd,43,,,True,False,False,,inf,,,,
+,,cifar100,0.17247222222222222,0.1827,,,,Distilled + Stage B,,none,1.3605053424835205,,EndToEnd,43,,,True,True,False,,inf,,,,
+,,cifar100,0.06258888888888889,0.0374,,,,Distilled + Stage B + Fixed-DP,,stage_c_only,5.999063491821289,,EndToEnd,43,,,True,True,True,,0.5488445893010219,,,,
+,,cifar100,0.07026666666666666,0.0337,,,,Distilled + Stage B + Adaptive-DP,,stage_c_only,5.982537746429443,,EndToEnd,43,,,True,True,True,,0.5488445893010219,,,,
+,,cifar100,0.28728888888888887,0.3052,,0.266,,NoKD,,,3.483666241168976,,ModuleB,44,IID,,,,,,,,,0.374,heldout_reference_set
+,,cifar100,0.28794444444444445,0.307,,0.316,,KD-Avg,,,3.486239492893219,,ModuleB,44,IID,,,,,,,,,0.374,heldout_reference_set
+,,cifar100,0.28735555555555553,0.3064,,0.312,,KD-ReferenceWeighted,,,3.4719868302345276,,ModuleB,44,IID,,,,,,,,,0.374,heldout_reference_set
+,,cifar100,0.27117777777777774,0.2887,,0.354,,KD-Best,,,3.4831073880195618,,ModuleB,44,IID,,,,,,,160,,0.374,heldout_reference_set
+,,cifar100,0.2855444444444445,0.307,,0.27,,NoKD,,,3.482063055038452,,ModuleB,44,Mild Non-IID,50,,,,,,,,0.42200000000000004,heldout_reference_set
+,,cifar100,0.2868222222222222,0.3079,,0.368,,KD-Avg,,,3.4737913608551025,,ModuleB,44,Mild Non-IID,50,,,,,,800,,0.42200000000000004,heldout_reference_set
+,,cifar100,0.28652777777777777,0.309,,0.372,,KD-ReferenceWeighted,,,3.4890005588531494,,ModuleB,44,Mild Non-IID,50,,,,,,800,,0.42200000000000004,heldout_reference_set
+,,cifar100,0.24885,0.2702,,0.402,,KD-Best,,,3.4822216033935547,,ModuleB,44,Mild Non-IID,50,,,,,,80,,0.42200000000000004,heldout_reference_set
+,,cifar100,0.22918333333333332,0.2664,,0.168,,NoKD,,,3.4876336455345154,,ModuleB,44,Severe Non-IID,10,,,,,,,,0.518,heldout_reference_set
+,,cifar100,0.2249,0.2565,,0.472,,KD-Avg,,,3.4787582755088806,,ModuleB,44,Severe Non-IID,10,,,,,,80,,0.518,heldout_reference_set
+,,cifar100,0.22507222222222226,0.2568,,0.474,,KD-ReferenceWeighted,,,3.484480082988739,,ModuleB,44,Severe Non-IID,10,,,,,,80,,0.518,heldout_reference_set
+,,cifar100,0.2078888888888889,0.2324,,0.498,,KD-Best,,,3.471951901912689,,ModuleB,44,Severe Non-IID,10,,,,,,80,,0.518,heldout_reference_set
+,,cifar100,0.17432222222222218,0.183,38.99864143235245,,0.0,plain,0.0,,1.3513169288635254,0.0032,ModuleC,44,,,,,,,inf,90,300,,heldout_reference_set
+,,cifar100,0.06484444444444444,0.0407,38.99864143235245,,0.89375,fixed_dp,1.2,,6.195840358734131,0.0032,ModuleC,44,,,,,,1e-05,0.5488445893010219,,300,,heldout_reference_set
+0.03,0.1,cifar100,0.07447777777777778,0.0453,42.03601750596571,,0.95625,adaptive_dp,1.2,,6.009999752044678,0.0032,ModuleC,44,,,,,,1e-05,0.5488445893010219,,300,,heldout_reference_set
+,,cifar100,0.03231111111111111,0.0488,,,,Random subset baseline,,none,1.5534813404083252,,EndToEnd,44,,,False,False,False,,inf,,,,
+,,cifar100,0.037566666666666665,0.0583,,,,Distilled only,,none,1.5450663566589355,,EndToEnd,44,,,True,False,False,,inf,,,,
+,,cifar100,0.17432222222222218,0.183,,,,Distilled + Stage B,,none,1.3513169288635254,,EndToEnd,44,,,True,True,False,,inf,90,,,
+,,cifar100,0.06484444444444444,0.0407,,,,Distilled + Stage B + Fixed-DP,,stage_c_only,6.195840358734131,,EndToEnd,44,,,True,True,True,,0.5488445893010219,,,,
+,,cifar100,0.07447777777777778,0.0453,,,,Distilled + Stage B + Adaptive-DP,,stage_c_only,6.009999752044678,,EndToEnd,44,,,True,True,True,,0.5488445893010219,,,,
+,,tiny,0.057300000000000004,0.0608,,0.059,,NoKD,,,9.97392189502716,,ModuleB,42,IID,,,,,,,,,0.101,heldout_reference_set
+,,tiny,0.05969444444444445,0.0634,,0.067,,KD-Avg,,,9.989172577857971,,ModuleB,42,IID,,,,,,,,,0.101,heldout_reference_set
+,,tiny,0.05956111111111111,0.0624,,0.066,,KD-ReferenceWeighted,,,9.978761553764343,,ModuleB,42,IID,,,,,,,,,0.101,heldout_reference_set
+,,tiny,0.05155,0.0528,,0.081,,KD-Best,,,9.987274765968323,,ModuleB,42,IID,,,,,,,,,0.101,heldout_reference_set
+,,tiny,0.05839444444444444,0.0614,,0.041,,NoKD,,,9.957619726657867,,ModuleB,42,Mild Non-IID,100,,,,,,,,0.08600000000000001,heldout_reference_set
+,,tiny,0.05979444444444444,0.0627,,0.05,,KD-Avg,,,9.96693331003189,,ModuleB,42,Mild Non-IID,100,,,,,,,,0.08600000000000001,heldout_reference_set
+,,tiny,0.06008888888888889,0.0621,,0.048,,KD-ReferenceWeighted,,,9.97484689950943,,ModuleB,42,Mild Non-IID,100,,,,,,,,0.08600000000000001,heldout_reference_set
+,,tiny,0.05332777777777778,0.056,,0.066,,KD-Best,,,9.970854341983795,,ModuleB,42,Mild Non-IID,100,,,,,,,,0.08600000000000001,heldout_reference_set
+,,tiny,0.04411666666666667,0.0525,,0.03,,NoKD,,,10.003803133964539,,ModuleB,42,Severe Non-IID,20,,,,,,,,0.093,heldout_reference_set
+,,tiny,0.04677777777777778,0.0538,,0.045,,KD-Avg,,,10.00886881351471,,ModuleB,42,Severe Non-IID,20,,,,,,640,,0.093,heldout_reference_set
+,,tiny,0.04721111111111112,0.0539,,0.049,,KD-ReferenceWeighted,,,10.006438374519348,,ModuleB,42,Severe Non-IID,20,,,,,,560,,0.093,heldout_reference_set
+,,tiny,0.03852222222222222,0.0418,,0.073,,KD-Best,,,10.016483187675476,,ModuleB,42,Severe Non-IID,20,,,,,,400,,0.093,heldout_reference_set
+,,tiny,0.03471111111111111,0.0363,31.734680896431648,,0.0,plain,0.0,,4.754826068878174,0.0016,ModuleC,42,,,,,,,inf,,300,,heldout_reference_set
+,,tiny,0.02173888888888889,0.0149,31.734680896431648,,0.8625,fixed_dp,1.2,,10.299077987670898,0.0016,ModuleC,42,,,,,,1e-05,0.4584982706350513,,300,,heldout_reference_set
+0.03,0.3,tiny,0.022633333333333335,0.0139,38.279332052998086,,0.65,adaptive_dp,1.2,,10.614383459091187,0.0016,ModuleC,42,,,,,,1e-05,0.4584982706350513,,300,,heldout_reference_set
+,,tiny,0.00901111111111111,0.0115,,,,Random subset baseline,,none,5.343868255615234,,EndToEnd,42,,,False,False,False,,inf,,,,
+,,tiny,0.007227777777777777,0.0097,,,,Distilled only,,none,5.340557336807251,,EndToEnd,42,,,True,False,False,,inf,,,,
+,,tiny,0.03471111111111111,0.0363,,,,Distilled + Stage B,,none,4.754826068878174,,EndToEnd,42,,,True,True,False,,inf,,,,
+,,tiny,0.02173888888888889,0.0149,,,,Distilled + Stage B + Fixed-DP,,stage_c_only,10.299077987670898,,EndToEnd,42,,,True,True,True,,0.4584982706350513,,,,
+,,tiny,0.022633333333333335,0.0139,,,,Distilled + Stage B + Adaptive-DP,,stage_c_only,10.614383459091187,,EndToEnd,42,,,True,True,True,,0.4584982706350513,,,,
+,,tiny,0.05257222222222223,0.0588,,0.045,,NoKD,,,9.97191470861435,,ModuleB,43,IID,,,,,,,,,0.10200000000000001,heldout_reference_set
+,,tiny,0.05463333333333333,0.0603,,0.056,,KD-Avg,,,9.98018616437912,,ModuleB,43,IID,,,,,,,,,0.10200000000000001,heldout_reference_set
+,,tiny,0.0547888888888889,0.0597,,0.06,,KD-ReferenceWeighted,,,9.98060292005539,,ModuleB,43,IID,,,,,,,,,0.10200000000000001,heldout_reference_set
+,,tiny,0.04866111111111111,0.0528,,0.082,,KD-Best,,,9.986787497997284,,ModuleB,43,IID,,,,,,,,,0.10200000000000001,heldout_reference_set
+,,tiny,0.05510555555555556,0.0605,,0.043,,NoKD,,,9.977869153022766,,ModuleB,43,Mild Non-IID,100,,,,,,,,0.113,heldout_reference_set
+,,tiny,0.05566111111111111,0.0619,,0.051,,KD-Avg,,,9.990477442741394,,ModuleB,43,Mild Non-IID,100,,,,,,,,0.113,heldout_reference_set
+,,tiny,0.05605,0.0611,,0.049,,KD-ReferenceWeighted,,,9.990659356117249,,ModuleB,43,Mild Non-IID,100,,,,,,,,0.113,heldout_reference_set
+,,tiny,0.052294444444444435,0.0551,,0.093,,KD-Best,,,9.992103457450867,,ModuleB,43,Mild Non-IID,100,,,,,,,,0.113,heldout_reference_set
+,,tiny,0.046127777777777774,0.0529,,0.026,,NoKD,,,9.975353479385376,,ModuleB,43,Severe Non-IID,20,,,,,,,,0.10300000000000001,heldout_reference_set
+,,tiny,0.04657777777777778,0.0582,,0.055,,KD-Avg,,,9.98687195777893,,ModuleB,43,Severe Non-IID,20,,,,,,480,,0.10300000000000001,heldout_reference_set
+,,tiny,0.04699444444444444,0.0581,,0.055,,KD-ReferenceWeighted,,,9.986284494400024,,ModuleB,43,Severe Non-IID,20,,,,,,480,,0.10300000000000001,heldout_reference_set
+,,tiny,0.053427777777777775,0.0569,,0.083,,KD-Best,,,9.972190618515015,,ModuleB,43,Severe Non-IID,20,,,,,,240,,0.10300000000000001,heldout_reference_set
+,,tiny,0.04895,0.0505,31.479941351656,,0.0,plain,0.0,,4.755948543548584,0.0016,ModuleC,43,,,,,,,inf,,300,,heldout_reference_set
+,,tiny,0.029683333333333332,0.0182,31.479941351656,,0.9,fixed_dp,1.2,,10.26855206489563,0.0016,ModuleC,43,,,,,,1e-05,0.4584982706350513,,300,,heldout_reference_set
+0.03,0.1,tiny,0.02814444444444444,0.0139,36.643115291115485,,0.8875,adaptive_dp,1.2,,10.239149332046509,0.0016,ModuleC,43,,,,,,1e-05,0.4584982706350513,,300,,heldout_reference_set
+,,tiny,0.007166666666666667,0.0093,,,,Random subset baseline,,none,5.343082904815674,,EndToEnd,43,,,False,False,False,,inf,,,,
+,,tiny,0.008466666666666667,0.0122,,,,Distilled only,,none,5.337069034576416,,EndToEnd,43,,,True,False,False,,inf,,,,
+,,tiny,0.04895,0.0505,,,,Distilled + Stage B,,none,4.755948543548584,,EndToEnd,43,,,True,True,False,,inf,,,,
+,,tiny,0.029683333333333332,0.0182,,,,Distilled + Stage B + Fixed-DP,,stage_c_only,10.26855206489563,,EndToEnd,43,,,True,True,True,,0.4584982706350513,,,,
+,,tiny,0.02814444444444444,0.0139,,,,Distilled + Stage B + Adaptive-DP,,stage_c_only,10.239149332046509,,EndToEnd,43,,,True,True,True,,0.4584982706350513,,,,
+,,tiny,0.05378333333333333,0.0583,,0.048,,NoKD,,,9.976201176643372,,ModuleB,44,IID,,,,,,,,,0.10200000000000001,heldout_reference_set
+,,tiny,0.055127777777777776,0.0596,,0.06,,KD-Avg,,,9.98803198337555,,ModuleB,44,IID,,,,,,,,,0.10200000000000001,heldout_reference_set
+,,tiny,0.05513333333333333,0.0605,,0.06,,KD-ReferenceWeighted,,,9.985478520393372,,ModuleB,44,IID,,,,,,,,,0.10200000000000001,heldout_reference_set
+,,tiny,0.04772777777777777,0.0517,,0.082,,KD-Best,,,9.97102701663971,,ModuleB,44,IID,,,,,,,,,0.10200000000000001,heldout_reference_set
+,,tiny,0.053577777777777766,0.0595,,0.041,,NoKD,,,9.99149614572525,,ModuleB,44,Mild Non-IID,100,,,,,,,,0.106,heldout_reference_set
+,,tiny,0.05435555555555556,0.0604,,0.042,,KD-Avg,,,9.999421656131744,,ModuleB,44,Mild Non-IID,100,,,,,,,,0.106,heldout_reference_set
+,,tiny,0.053844444444444445,0.0596,,0.046,,KD-ReferenceWeighted,,,9.975642502307892,,ModuleB,44,Mild Non-IID,100,,,,,,,,0.106,heldout_reference_set
+,,tiny,0.04726111111111111,0.0505,,0.086,,KD-Best,,,9.97833377122879,,ModuleB,44,Mild Non-IID,100,,,,,,,,0.106,heldout_reference_set
+,,tiny,0.040294444444444445,0.0474,,0.033,,NoKD,,,10.000055849552155,,ModuleB,44,Severe Non-IID,20,,,,,,,,0.09000000000000001,heldout_reference_set
+,,tiny,0.04367222222222222,0.0504,,0.041,,KD-Avg,,,9.999221861362457,,ModuleB,44,Severe Non-IID,20,,,,,,240,,0.09000000000000001,heldout_reference_set
+,,tiny,0.043727777777777775,0.0513,,0.042,,KD-ReferenceWeighted,,,9.99704509973526,,ModuleB,44,Severe Non-IID,20,,,,,,240,,0.09000000000000001,heldout_reference_set
+,,tiny,0.043116666666666664,0.0462,,0.07,,KD-Best,,,10.018946945667267,,ModuleB,44,Severe Non-IID,20,,,,,,160,,0.09000000000000001,heldout_reference_set
+,,tiny,0.039322222222222224,0.0412,32.32788432994981,,0.0,plain,0.0,,4.747781991958618,0.0016,ModuleC,44,,,,,,,inf,210,300,,heldout_reference_set
+,,tiny,0.023488888888888892,0.0155,32.32788432994981,,0.85,fixed_dp,1.2,,10.619536399841309,0.0016,ModuleC,44,,,,,,1e-05,0.4584982706350513,,300,,heldout_reference_set
+0.03,0.2,tiny,0.021805555555555557,0.0115,38.270530055330724,,0.84375,adaptive_dp,1.2,,10.611830472946167,0.0016,ModuleC,44,,,,,,1e-05,0.4584982706350513,,300,,heldout_reference_set
+,,tiny,0.007344444444444445,0.0104,,,,Random subset baseline,,none,5.360437393188477,,EndToEnd,44,,,False,False,False,,inf,,,,
+,,tiny,0.006955555555555556,0.0094,,,,Distilled only,,none,5.33854866027832,,EndToEnd,44,,,True,False,False,,inf,,,,
+,,tiny,0.039322222222222224,0.0412,,,,Distilled + Stage B,,none,4.747781991958618,,EndToEnd,44,,,True,True,False,,inf,210,,,
+,,tiny,0.023488888888888892,0.0155,,,,Distilled + Stage B + Fixed-DP,,stage_c_only,10.619536399841309,,EndToEnd,44,,,True,True,True,,0.4584982706350513,,,,
+,,tiny,0.021805555555555557,0.0115,,,,Distilled + Stage B + Adaptive-DP,,stage_c_only,10.611830472946167,,EndToEnd,44,,,True,True,True,,0.4584982706350513,,,,

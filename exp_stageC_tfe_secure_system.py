@@ -64,8 +64,22 @@ def _load_small_distilled_batch(dataset):
     for image_path, label_path in zip(image_files, label_files):
         images.append(torch.load(str(image_path), map_location="cpu").float())
         labels.append(torch.load(str(label_path), map_location="cpu").long().view(-1))
-    x = torch.cat(images)[:int(CFG["samples"])].numpy().astype(np.float32)
-    y = torch.cat(labels)[:int(CFG["samples"])].numpy().astype(np.int64)
+    all_x = torch.cat(images)
+    all_y = torch.cat(labels)
+    rng = np.random.RandomState(int(CFG["seed"]))
+    selected = []
+    per_class = max(1, int(CFG["samples"]) // int(num_classes))
+    for class_id in range(int(num_classes)):
+        ids = np.where(all_y.numpy() == class_id)[0]
+        rng.shuffle(ids)
+        selected.extend(ids[:per_class].tolist())
+    if len(selected) < int(CFG["samples"]):
+        remaining = np.setdiff1d(np.arange(len(all_y)), np.asarray(selected))
+        rng.shuffle(remaining)
+        selected.extend(remaining[:int(CFG["samples"]) - len(selected)].tolist())
+    selected = np.asarray(selected[:int(CFG["samples"])], dtype=np.int64)
+    x = all_x[selected].numpy().astype(np.float32)
+    y = all_y[selected].numpy().astype(np.int64)
     x = x.reshape(len(x), -1)
     # 固定公共预处理；不访问 test set。
     mean = x.mean(axis=0, keepdims=True)
@@ -201,7 +215,16 @@ def capability_audit():
 def main():
     parser = argparse.ArgumentParser(description="TFE lightweight Stage-C secure-system validation")
     parser.add_argument("--dataset", default="cifar10", choices=["cifar10", "cifar100", "tiny"])
+    parser.add_argument("--samples", type=int, default=None)
+    parser.add_argument("--steps", type=int, default=None)
+    parser.add_argument("--learning_rate", type=float, default=None)
     args = parser.parse_args()
+    if args.samples is not None:
+        CFG["samples"] = max(1, int(args.samples))
+    if args.steps is not None:
+        CFG["steps"] = max(1, int(args.steps))
+    if args.learning_rate is not None:
+        CFG["learning_rate"] = float(args.learning_rate)
     started = time.time()
     sanity = run_nonprivate_secure_sanity(args.dataset)
     payload = {
@@ -209,6 +232,7 @@ def main():
         "track": "secure_system_tfe_lightweight",
         "dataset": args.dataset,
         "cpu_threads": 1,
+        "resolved_config": dict(CFG),
         "fallback_used": False,
         "nonprivate_secure_sanity": sanity,
         "capability_audit": capability_audit(),
