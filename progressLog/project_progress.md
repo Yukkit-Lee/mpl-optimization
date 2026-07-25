@@ -715,3 +715,4 @@
 - Phase 6 自动衔接（19:42）：新增 `new_prepare_phase6_public_formal.py`。它只读取 CIFAR-100/Tiny pilot 的 reference history，以连续 5 个 interval 提升小于 0.2pp 检测平台期并按 1.25 倍冻结正式 epoch（下限 300）；不读取 test。pilot 队列完成后会原子切换活动队列到 6 个 public formal seeds。
 - Phase 6 public 质量门（19:47）：新增 `new_report_phase6_public.py`，在三数据集 9 个正式 seed 全部完成后输出 `new_expTab/new_secure_feature` CSV、`new_expFig/new_secure_feature` PNG/PDF 和 JSON；逐 seed 检查“95% official 与绝对差 2pp 中更严格者”。失败时返回非零并停止后续队列，不把不合格结果包装为正式结果。
 - DP-MTT 完整 validation 链（19:54）：新增单卡串行队列生成器，public 质量门通过后依次运行 CIFAR-10 5 parties×2 experts×50 epochs、5000 MTT iterations、reference-only encoder pilot，再按 reference 平台期冻结一次 readonly test。若相对 public 仍落后超过 10pp，报告 `NOT_READY_FOR_PAPER` 并停止，不直接扩展到三数据集正式 seeds。
+- 重启自恢复（19:56）：已安装并启用 `new_secure_feature_single_gpu_resume.service`，同时为用户 `lixujie` 启用 systemd linger；即使 SSH 会话断开或系统重启后尚未重新登录，用户级 supervisor 也能从磁盘活动队列恢复 tmux。GitHub token 文件权限从 0644 收紧为 0600。
