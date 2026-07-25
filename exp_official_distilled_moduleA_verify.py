@@ -1,24 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-用途：使用官网发布的 MTT ipc=50 蒸馏数据验证新的模块 A：
-Dataset-Distilled Compact Training Set Construction。
+用途：使用官网发布的 MTT ipc=50 蒸馏图像验证新的模块 A：
+Dataset-Distilled Compact Image Set Construction。
 
 实验只验证模块 A，不接入模块 B/KD 初始化，也不接入模块 C/DP 私有优化。
-对每个数据集比较三种训练数据来源：
-1) Full-Data：完整真实训练集采样训练
-2) Random-Subset：从真实训练集中随机抽取与官方 distilled samples 同规模的子集
-3) Official-Distilled：官网 MTT ipc=50 蒸馏样本
+本脚本明确不提取 2048 维特征，也不训练浅层分类器，而是比较：
+1) Full Images -> ConvNet Training
+2) Randomly Sampled Images -> Same ConvNet Training
+3) Distilled Images -> Same ConvNet Training
 
 三者使用同一个 MTT ConvNet、同一 optimizer/lr，从随机初始化开始训练。
 横轴是 Optimizer Steps，纵轴是 Test Accuracy；不同数据集使用不同 iteration 终点以贴近 PEA Figure 4 风格。
 主图不标 epsilon，专注证明 distilled samples 用极少数据量保留主要训练效用。
+汇总指标包括样本数量、压缩率、Final Accuracy、Step@TargetAcc 和训练时间。
 
 输出：
 - TXT 日志：log/txt/officialDistillModuleA_{dataset}_{run_id}.log
 - JSON 结果：log/json/officialDistillModuleA_{dataset}_{run_id}.json
-- CSV 表格：expTab/officialDistillModuleA_{dataset}_{run_id}.csv
-- 曲线图：expFig/figure4_distill_official/figure4_official_distill_{dataset}.png
+- 曲线历史：expTab/stageA_directImage_{dataset}_{run_id}.csv
+- 论文汇总表：expPaperTab/stageA_directImage_summary_{dataset}_{run_id}.csv
+- 曲线图：expFig/figure4_distill_direct/figure4_stageA_direct_images_{dataset}.png
 """
 
 import os
@@ -54,7 +56,8 @@ OFFICIAL_ROOT = PATHS.official_mtt_root
 LOG_TXT_DIR = BASE_DIR / "log" / "txt"
 LOG_JSON_DIR = BASE_DIR / "log" / "json"
 EXPTAB_DIR = BASE_DIR / "expTab"
-EXPFIG_DIR = BASE_DIR / "expFig" / "figure4_distill_official"
+EXPPAPER_TAB_DIR = BASE_DIR / "expPaperTab"
+EXPFIG_DIR = BASE_DIR / "expFig" / "figure4_distill_direct"
 PROGRESS_PATH = BASE_DIR / "progressLog" / "project_progress.md"
 
 CFG = {
@@ -86,9 +89,11 @@ DATASET_CFG = {
         "data_path": PATHS.cifar10_data_root,
         "num_classes": 10,
         "full_train_size": 50000,
-        "fig_name": "figure4_official_distill_cifar10.png",
+        "fig_name": "figure4_stageA_direct_images_cifar10.png",
         "train_steps": 900,
         "eval_interval": 100,
+        # 目标阈值在实验前固定，不根据本次 test 曲线选择。
+        "target_accuracy": 0.60,
     },
     "cifar100": {
         "official_dir": OFFICIAL_ROOT / "cifar100_50",
@@ -97,9 +102,10 @@ DATASET_CFG = {
         "data_path": PATHS.cifar100_data_root,
         "num_classes": 100,
         "full_train_size": 50000,
-        "fig_name": "figure4_official_distill_cifar100.png",
+        "fig_name": "figure4_stageA_direct_images_cifar100.png",
         "train_steps": 800,
         "eval_interval": 100,
+        "target_accuracy": 0.30,
     },
     "tiny": {
         "official_dir": OFFICIAL_ROOT / "tiny_50",
@@ -108,10 +114,11 @@ DATASET_CFG = {
         "data_path": PATHS.tiny_imagenet_root,
         "num_classes": 200,
         "full_train_size": 100000,
-        "fig_name": "figure4_official_distill_tiny.png",
+        "fig_name": "figure4_stageA_direct_images_tiny.png",
         # Tiny ImageNet 任务更难，400 steps 还明显没到较好状态；这里按实际曲线延长训练。
         "train_steps": 1200,
         "eval_interval": 100,
+        "target_accuracy": 0.15,
     },
 }
 
@@ -120,6 +127,7 @@ def ensure_dirs() -> None:
     LOG_TXT_DIR.mkdir(parents=True, exist_ok=True)
     LOG_JSON_DIR.mkdir(parents=True, exist_ok=True)
     EXPTAB_DIR.mkdir(parents=True, exist_ok=True)
+    EXPPAPER_TAB_DIR.mkdir(parents=True, exist_ok=True)
     EXPFIG_DIR.mkdir(parents=True, exist_ok=True)
     PROGRESS_PATH.parent.mkdir(parents=True, exist_ok=True)
 
@@ -279,9 +287,18 @@ def evaluate(model, testloader, device: torch.device) -> float:
     return float(correct / max(1, total))
 
 
-def train_source(name: str, source: Dict, dataset: str, testloader, channel, num_classes, im_size, device: torch.device, seed: int, steps: int, interval: int) -> Dict:
+def first_step_at_target(history: List[Dict], target_accuracy: float):
+    """返回首次达到预设 test accuracy 的评估步；未达到时返回 None。"""
+    for record in history:
+        if float(record["test_acc"]) >= float(target_accuracy):
+            return int(record["step"])
+    return None
+
+
+def train_source(name: str, source: Dict, dataset: str, testloader, channel, num_classes, im_size, device: torch.device, seed: int, steps: int, interval: int, target_accuracy: float) -> Dict:
     from utils import get_network
     set_safe_runtime(seed)
+    # 三种图像来源都从相同随机种子创建同款 ConvNet，不经过特征提取器或浅层模型。
     model = get_network(DATASET_CFG[dataset]["model"], channel, num_classes, im_size, dist=False).to(device)
     opt = torch.optim.SGD(model.parameters(), lr=float(CFG["lr"]), momentum=float(CFG["momentum"]), weight_decay=float(CFG["weight_decay"]))
     steps = int(steps)
@@ -316,12 +333,16 @@ def train_source(name: str, source: Dict, dataset: str, testloader, channel, num
             acc = evaluate(model, testloader, device)
             history.append({"step": int(step), "test_acc": acc, "loss": last_loss})
             print(f"  {name:<18} step={step:>5}/{steps}  test_acc={acc:.4f}  loss={last_loss:.4f}")
+    train_time_s = float(time.time() - t0)
     return {
         "name": name,
+        "model": str(DATASET_CFG[dataset]["model"]),
         "num_samples": int(source["num_samples"]),
         "history": history,
         "final_test_acc": float(history[-1]["test_acc"]),
-        "train_time_s": float(time.time() - t0),
+        "target_accuracy": float(target_accuracy),
+        "step_at_target_acc": first_step_at_target(history, target_accuracy),
+        "train_time_s": train_time_s,
     }
 
 
@@ -329,7 +350,11 @@ def plot_results(dataset: str, results: List[Dict], distilled_n: int, full_n: in
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    colors = {"Full-Data": "#4c78a8", "Random-Subset": "#9aa0a6", "Official-Distilled": "#f58518"}
+    colors = {
+        "Full Images": "#4c78a8",
+        "Randomly Sampled Images": "#9aa0a6",
+        "Distilled Images": "#f58518",
+    }
     # 固定画布尺寸和 dpi，保证三个数据集输出图大小一致。
     fig, ax = plt.subplots(figsize=(8.8, 5.2), dpi=190)
     for r in results:
@@ -347,13 +372,36 @@ def plot_results(dataset: str, results: List[Dict], distilled_n: int, full_n: in
     plt.close(fig)
 
 
-def save_csv(results: List[Dict], csv_path: Path) -> None:
+def save_history_csv(results: List[Dict], csv_path: Path) -> None:
     with csv_path.open("w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(["Method", "Step", "TestAcc", "Loss", "NumSamples", "TrainTimeSec"])
         for r in results:
             for h in r["history"]:
                 w.writerow([r["name"], h["step"], f"{h['test_acc']:.6f}", "" if h["loss"] is None else f"{h['loss']:.6f}", r["num_samples"], f"{r['train_time_s']:.3f}"])
+
+
+def save_summary_csv(dataset: str, results: List[Dict], full_n: int, summary_path: Path) -> None:
+    """保存可直接用于论文表格的 Stage A 五项指标。"""
+    with summary_path.open("w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f, lineterminator="\n")
+        w.writerow([
+            "Dataset", "Method", "Model", "NumSamples", "CompressionRatio",
+            "FinalAccuracy", "TargetAccuracy", "Step@TargetAcc", "TrainTimeSec",
+        ])
+        for r in results:
+            step_text = "" if r["step_at_target_acc"] is None else int(r["step_at_target_acc"])
+            w.writerow([
+                dataset,
+                r["name"],
+                r["model"],
+                r["num_samples"],
+                f"{r['num_samples'] / float(full_n):.6f}",
+                f"{r['final_test_acc']:.6f}",
+                f"{r['target_accuracy']:.6f}",
+                step_text,
+                f"{r['train_time_s']:.3f}",
+            ])
 
 
 def run_dataset(dataset: str) -> Dict:
@@ -361,14 +409,16 @@ def run_dataset(dataset: str) -> Dict:
     from utils import get_dataset
     cfg = DATASET_CFG[dataset]
     run_id = time.strftime("%Y%m%d_%H%M%S")
-    log_path = LOG_TXT_DIR / f"officialDistillModuleA_{dataset}_{run_id}.log"
-    json_path = LOG_JSON_DIR / f"officialDistillModuleA_{dataset}_{run_id}.json"
-    csv_path = EXPTAB_DIR / f"officialDistillModuleA_{dataset}_{run_id}.csv"
+    output_stem = f"stageA_directImage_{dataset}_{run_id}"
+    log_path = LOG_TXT_DIR / f"{output_stem}.log"
+    json_path = LOG_JSON_DIR / f"{output_stem}.json"
+    csv_path = EXPTAB_DIR / f"{output_stem}.csv"
+    summary_path = EXPPAPER_TAB_DIR / f"stageA_directImage_summary_{dataset}_{run_id}.csv"
     fig_path = EXPFIG_DIR / cfg["fig_name"]
 
     with tee_console_to_file(log_path):
         print("=" * 88)
-        print("官方 MTT ipc=50 蒸馏数据：模块 A 验证实验")
+        print("Stage A：蒸馏紧凑图像集 -> 同款 ConvNet 直接训练")
         print("=" * 88)
         print("dataset      :", dataset)
         print("run_id       :", run_id)
@@ -376,6 +426,8 @@ def run_dataset(dataset: str) -> Dict:
         interval = int(cfg.get("eval_interval", CFG["eval_interval"]))
         print("steps        :", steps)
         print("eval_interval:", interval)
+        target_accuracy = float(cfg["target_accuracy"])
+        print("target_acc   :", target_accuracy)
         print("cpu_threads  :", CFG["cpu_threads"])
         device = select_device()
         print("device       :", device)
@@ -394,32 +446,73 @@ def run_dataset(dataset: str) -> Dict:
         print("  range : [{:.4f}, {:.4f}]".format(float(x_dist.min()), float(x_dist.max())))
         print("  compression ratio: {:.4f} ({:.2f}%)".format(distilled_n / full_n, distilled_n / full_n * 100.0))
 
-        print("\n[3/4] 构造 Full / Random / Official-Distilled 三组 source...")
+        print("\n[3/4] 构造 Full / Randomly Sampled / Distilled 三组图像 source...")
         rng = np.random.RandomState(int(CFG["seed"]))
         all_indices = np.arange(full_n)
         rand_indices = rng.choice(full_n, size=distilled_n, replace=False)
         sources = [
-            ("Full-Data", {"kind": "dataset", "dataset": dst_train, "indices": all_indices, "num_samples": full_n}),
-            ("Random-Subset", {"kind": "dataset", "dataset": dst_train, "indices": rand_indices, "num_samples": distilled_n}),
-            ("Official-Distilled", {"kind": "tensor", "x": x_dist, "y": y_dist, "num_samples": distilled_n}),
+            ("Full Images", {"kind": "dataset", "dataset": dst_train, "indices": all_indices, "num_samples": full_n}),
+            ("Randomly Sampled Images", {"kind": "dataset", "dataset": dst_train, "indices": rand_indices, "num_samples": distilled_n}),
+            ("Distilled Images", {"kind": "tensor", "x": x_dist, "y": y_dist, "num_samples": distilled_n}),
         ]
 
-        print("\n[4/4] 开始训练并记录曲线...")
+        print("\n[4/4] 三种图像来源分别直接训练同款 ConvNet...")
+        print("  数据流边界: Images -> ConvNet；feature extractor=False，shallow classifier=False")
         results = []
         for name, source in sources:
-            results.append(train_source(name, source, dataset, testloader, channel, num_classes, im_size, device, seed=int(CFG["seed"]), steps=steps, interval=interval))
+            results.append(train_source(
+                name, source, dataset, testloader, channel, num_classes, im_size,
+                device, seed=int(CFG["seed"]), steps=steps, interval=interval,
+                target_accuracy=target_accuracy,
+            ))
 
-        save_csv(results, csv_path)
+        save_history_csv(results, csv_path)
+        save_summary_csv(dataset, results, full_n, summary_path)
         plot_results(dataset, results, distilled_n, full_n, fig_path, max_step=steps)
-        payload = {"run_id": run_id, "dataset": dataset, "config": CFG, "official_dir": str(cfg["official_dir"]), "image_files": img_files, "label_files": lab_files, "num_full_samples": full_n, "num_distilled_samples": distilled_n, "compression_ratio": distilled_n / full_n, "train_steps_effective": steps, "eval_interval_effective": interval, "figure_note": "Figure 4 main plot does not annotate epsilon; DP privacy budget should be reported in a separate DP table/appendix figure.", "results": results, "outputs": {"txt": str(log_path), "json": str(json_path), "csv": str(csv_path), "figure": str(fig_path)}}
+        payload = {
+            "run_id": run_id,
+            "dataset": dataset,
+            "experiment": "stage_a_direct_image_convnet_comparison",
+            "stage_a_pipeline": "images -> same MTT ConvNet training",
+            "uses_feature_extractor": False,
+            "uses_shallow_classifier": False,
+            "config": CFG,
+            "official_dir": str(cfg["official_dir"]),
+            "image_files": img_files,
+            "label_files": lab_files,
+            "num_full_samples": full_n,
+            "num_distilled_samples": distilled_n,
+            "compression_ratio": distilled_n / full_n,
+            "target_accuracy": target_accuracy,
+            "train_steps_effective": steps,
+            "eval_interval_effective": interval,
+            "figure_note": "Figure 4 compares image sources through the same ConvNet; no feature extractor, shallow classifier, KD, or DP is used.",
+            "results": results,
+            "outputs": {
+                "txt": str(log_path),
+                "json": str(json_path),
+                "history_csv": str(csv_path),
+                "summary_csv": str(summary_path),
+                "figure": str(fig_path),
+            },
+        }
         json_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
 
         print("\n[结果汇总]")
+        print("  Method                    Samples   Ratio      FinalAcc  Target   Step@Target  Time(s)")
+        print("  " + "-" * 86)
         for r in results:
-            print(f"  {r['name']:<18} final_acc={r['final_test_acc']:.4f}  time={r['train_time_s']:.1f}s  samples={r['num_samples']}")
+            step_text = "NA" if r["step_at_target_acc"] is None else str(r["step_at_target_acc"])
+            ratio = r["num_samples"] / float(full_n)
+            print(
+                f"  {r['name']:<25} {r['num_samples']:<9d} {ratio:<10.4f} "
+                f"{r['final_test_acc']:<9.4f} {r['target_accuracy']:<8.2f} "
+                f"{step_text:<12} {r['train_time_s']:.2f}"
+            )
         print("图像:", fig_path)
         print("JSON:", json_path)
-        print("CSV :", csv_path)
+        print("历史 CSV:", csv_path)
+        print("论文汇总 CSV:", summary_path)
         return payload
 
 
@@ -428,18 +521,22 @@ def update_progress(datasets: List[str], outputs: List[Dict]) -> None:
         f.write("\n---\n\n")
         f.write("## 项目进展记录\n")
         f.write(f"- 时间：{time.strftime('%Y-%m-%d %H:%M')} Asia/Shanghai\n")
-        f.write("- 本次对话任务目标：使用官网高精度 ipc=50 蒸馏数据重新做模块 A 验证实验，覆盖 CIFAR-10、CIFAR-100、Tiny ImageNet。\n")
-        f.write("- 实验设计：每个数据集比较 Full-Data、Random-Subset、Official-Distilled 三种训练数据来源，横轴为 Optimizer Steps，纵轴为 Test Accuracy。\n")
+        f.write("- 本次对话任务目标：移除 Stage A 的特征提取/浅层模型表述与依赖，直接比较三种图像来源训练同款 ConvNet 的效果。\n")
+        f.write("- 实验设计：Full Images、Randomly Sampled Images、Distilled Images 分别从相同随机初始化训练同款 MTT ConvNet；不接入 2048 维特征、浅层分类器、模块 B 或模块 C。\n")
         f.write(f"- 安全设置：CPU 线程限制为 {CFG['cpu_threads']}，使用 distillation 环境和单卡 GPU，避免 CPU 过载。\n")
         f.write(f"- 关键参数：ipc=50，不同数据集使用不同 iteration 终点；batch_size={CFG['batch_size']}, lr={CFG['lr']}。\n")
-        f.write("- 绘图规范：Figure 4 主图不标 epsilon，不显示 dataset/distilled samples/ratio 说明框；三张图固定相同画布尺寸。\n")
+        f.write("- 输出指标：样本数量、压缩率、Final Accuracy、预设目标精度的 Step@TargetAcc、训练时间；Figure 4 横轴为 Optimizer Steps，纵轴为 Test Accuracy。\n")
         for out in outputs:
             acc_text = ", ".join([f"{r['name']}={r['final_test_acc']:.4f}" for r in out["results"]])
-            f.write(f"- {out['dataset']}：train_steps={out['train_steps_effective']}，distilled_samples={out['num_distilled_samples']}，compression_ratio={out['compression_ratio']:.4f}；final_acc: {acc_text}；输出图={out['outputs']['figure']}；JSON={out['outputs']['json']}。\n")
+            step_text = ", ".join([
+                f"{r['name']}={'NA' if r['step_at_target_acc'] is None else r['step_at_target_acc']}"
+                for r in out["results"]
+            ])
+            f.write(f"- {out['dataset']}：train_steps={out['train_steps_effective']}，distilled_samples={out['num_distilled_samples']}，compression_ratio={out['compression_ratio']:.4f}；final_acc: {acc_text}；Step@TargetAcc: {step_text}；输出图={out['outputs']['figure']}；JSON={out['outputs']['json']}。\n")
 
 
 def parse_args():
-    p = argparse.ArgumentParser(description="官方 MTT ipc=50 蒸馏数据模块 A 验证")
+    p = argparse.ArgumentParser(description="Stage A：三种图像来源直接训练同款 ConvNet")
     p.add_argument("--dataset", default="all", choices=["all", "cifar10", "cifar100", "tiny"])
     p.add_argument("--steps", type=int, default=None)
     p.add_argument("--eval_interval", type=int, default=None)

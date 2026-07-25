@@ -1,0 +1,62 @@
+========================================================================================
+Stage A：蒸馏紧凑图像集 -> 同款 ConvNet 直接训练
+========================================================================================
+dataset      : cifar10
+run_id       : 20260725_100011
+steps        : 900
+eval_interval: 100
+target_acc   : 0.6
+cpu_threads  : 1
+device       : cuda
+
+[1/4] 加载 MTT 标准真实数据与测试集...
+  train_size: 50000  test_size: 10000  im_size: (32, 32)  classes: 10
+
+[2/4] 加载官方 ipc=50 蒸馏数据...
+  images: (500, 3, 32, 32) ['images_best.pt']
+  labels: (500,) ['labels_best.pt']
+  range : [-10.8344, 9.6783]
+  compression ratio: 0.0100 (1.00%)
+
+[3/4] 构造 Full / Randomly Sampled / Distilled 三组图像 source...
+
+[4/4] 三种图像来源分别直接训练同款 ConvNet...
+  数据流边界: Images -> ConvNet；feature extractor=False，shallow classifier=False
+  Full Images        step=  100/900  test_acc=0.4868  loss=1.8182
+  Full Images        step=  200/900  test_acc=0.5564  loss=1.3917
+  Full Images        step=  300/900  test_acc=0.6052  loss=1.2718
+  Full Images        step=  400/900  test_acc=0.6247  loss=1.1394
+  Full Images        step=  500/900  test_acc=0.6601  loss=1.1460
+  Full Images        step=  600/900  test_acc=0.6740  loss=1.0523
+  Full Images        step=  700/900  test_acc=0.6898  loss=0.9384
+  Full Images        step=  800/900  test_acc=0.7040  loss=0.9199
+  Full Images        step=  900/900  test_acc=0.7050  loss=0.9042
+  Randomly Sampled Images step=  100/900  test_acc=0.3979  loss=0.8055
+  Randomly Sampled Images step=  200/900  test_acc=0.4407  loss=0.4380
+  Randomly Sampled Images step=  300/900  test_acc=0.4655  loss=0.1491
+  Randomly Sampled Images step=  400/900  test_acc=0.4732  loss=0.0745
+  Randomly Sampled Images step=  500/900  test_acc=0.4769  loss=0.0362
+  Randomly Sampled Images step=  600/900  test_acc=0.4773  loss=0.0382
+  Randomly Sampled Images step=  700/900  test_acc=0.4804  loss=0.0311
+  Randomly Sampled Images step=  800/900  test_acc=0.4821  loss=0.0220
+  Randomly Sampled Images step=  900/900  test_acc=0.4826  loss=0.0226
+  Distilled Images   step=  100/900  test_acc=0.5736  loss=0.6455
+  Distilled Images   step=  200/900  test_acc=0.6558  loss=0.1550
+  Distilled Images   step=  300/900  test_acc=0.6728  loss=0.0377
+  Distilled Images   step=  400/900  test_acc=0.6800  loss=0.0236
+  Distilled Images   step=  500/900  test_acc=0.6768  loss=0.0178
+  Distilled Images   step=  600/900  test_acc=0.6787  loss=0.0159
+  Distilled Images   step=  700/900  test_acc=0.6820  loss=0.0143
+  Distilled Images   step=  800/900  test_acc=0.6810  loss=0.0135
+  Distilled Images   step=  900/900  test_acc=0.6813  loss=0.0101
+
+[结果汇总]
+  Method                    Samples   Ratio      FinalAcc  Target   Step@Target  Time(s)
+  --------------------------------------------------------------------------------------
+  Full Images               50000     1.0000     0.7050    0.60     300          13.95
+  Randomly Sampled Images   500       0.0100     0.4826    0.60     NA           13.58
+  Distilled Images          500       0.0100     0.6813    0.60     200          8.64
+图像: /mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_direct/figure4_stageA_direct_images_cifar10.png
+JSON: /mnt/code/lixujie/tfe_experiments/log/json/stageA_directImage_cifar10_20260725_100011.json
+历史 CSV: /mnt/code/lixujie/tfe_experiments/expTab/stageA_directImage_cifar10_20260725_100011.csv
+论文汇总 CSV: /mnt/code/lixujie/tfe_experiments/expPaperTab/stageA_directImage_summary_cifar10_20260725_100011.csv

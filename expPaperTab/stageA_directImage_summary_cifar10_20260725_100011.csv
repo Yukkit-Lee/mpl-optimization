@@ -1,0 +1,4 @@
+Dataset,Method,Model,NumSamples,CompressionRatio,FinalAccuracy,TargetAccuracy,Step@TargetAcc,TrainTimeSec
+cifar10,Full Images,ConvNetD3,50000,1.000000,0.705000,0.600000,300,13.947
+cifar10,Randomly Sampled Images,ConvNetD3,500,0.010000,0.482600,0.600000,,13.577
+cifar10,Distilled Images,ConvNetD3,500,0.010000,0.681300,0.600000,200,8.641

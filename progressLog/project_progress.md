@@ -631,3 +631,16 @@
 - 文档与工具：新增 `AUTODL_MIGRATION.md`、`scripts/restore_mtt_snapshot.sh`、`scripts/check_autodl_env.py`、`scripts/verify_artifacts.py`；完成现代环境 CUDA/资产检查、环境变量输出隔离检查、YAML 解析和全部改动脚本语法检查。
 - 迁移包：目录 `/home/lixujie/tmpWork/autodl_migration_bundle_20260724_234652`；上传归档 `/home/lixujie/tmpWork/autodl_migration_bundle_20260724_234652.tar`；归档大小 1,188,761,600 bytes；归档 SHA256=`d6587b435487cbb2474e5fd900558ffca8d4313554e89c9cc6dbea024b507a00`。
 - 已知风险：旧 TFE 环境缺少 TF-Encrypted `aux` 与 `secure_random` custom ops，会回退到 insecure randomness；AutoDL 上如需生产级安全声明，必须针对 TensorFlow 1.15.5 重新编译对应 `.so`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-25 10:03 Asia/Shanghai
+- 本次对话任务目标：移除 Stage A 的特征提取/浅层模型表述与依赖，直接比较三种图像来源训练同款 ConvNet 的效果。
+- 实验设计：Full Images、Randomly Sampled Images、Distilled Images 分别从相同随机初始化训练同款 MTT ConvNet；不接入 2048 维特征、浅层分类器、模块 B 或模块 C。
+- 安全设置：CPU 线程限制为 1，使用 distillation 环境和单卡 GPU，避免 CPU 过载。
+- 关键参数：ipc=50，不同数据集使用不同 iteration 终点；batch_size=128, lr=0.01。
+- 输出指标：样本数量、压缩率、Final Accuracy、预设目标精度的 Step@TargetAcc、训练时间；Figure 4 横轴为 Optimizer Steps，纵轴为 Test Accuracy。
+- cifar10：train_steps=900，distilled_samples=500，compression_ratio=0.0100；final_acc: Full Images=0.7050, Randomly Sampled Images=0.4826, Distilled Images=0.6813；Step@TargetAcc: Full Images=300, Randomly Sampled Images=NA, Distilled Images=200；输出图=/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_direct/figure4_stageA_direct_images_cifar10.png；JSON=/mnt/code/lixujie/tfe_experiments/log/json/stageA_directImage_cifar10_20260725_100011.json。
+- cifar100：train_steps=800，distilled_samples=5000，compression_ratio=0.1000；final_acc: Full Images=0.3209, Randomly Sampled Images=0.2881, Distilled Images=0.4079；Step@TargetAcc: Full Images=600, Randomly Sampled Images=NA, Distilled Images=300；输出图=/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_direct/figure4_stageA_direct_images_cifar100.png；JSON=/mnt/code/lixujie/tfe_experiments/log/json/stageA_directImage_cifar100_20260725_100048.json。
+- tiny：train_steps=1200，distilled_samples=10000，compression_ratio=0.1000；final_acc: Full Images=0.1591, Randomly Sampled Images=0.1333, Distilled Images=0.1792；Step@TargetAcc: Full Images=1000, Randomly Sampled Images=NA, Distilled Images=800；输出图=/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_direct/figure4_stageA_direct_images_tiny.png；JSON=/mnt/code/lixujie/tfe_experiments/log/json/stageA_directImage_tiny_20260725_100121.json。

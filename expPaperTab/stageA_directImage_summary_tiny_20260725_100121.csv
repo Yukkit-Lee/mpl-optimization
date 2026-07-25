@@ -1,0 +1,4 @@
+Dataset,Method,Model,NumSamples,CompressionRatio,FinalAccuracy,TargetAccuracy,Step@TargetAcc,TrainTimeSec
+tiny,Full Images,ConvNetD4,100000,1.000000,0.159100,0.150000,1000,54.781
+tiny,Randomly Sampled Images,ConvNetD4,10000,0.100000,0.133300,0.150000,,47.040
+tiny,Distilled Images,ConvNetD4,10000,0.100000,0.179200,0.150000,800,28.997

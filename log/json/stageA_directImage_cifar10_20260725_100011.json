@@ -1,0 +1,235 @@
+{
+  "run_id": "20260725_100011",
+  "dataset": "cifar10",
+  "experiment": "stage_a_direct_image_convnet_comparison",
+  "stage_a_pipeline": "images -> same MTT ConvNet training",
+  "uses_feature_extractor": false,
+  "uses_shallow_classifier": false,
+  "config": {
+    "seed": 42,
+    "cpu_threads": 1,
+    "ipc": 50,
+    "train_steps": 1000,
+    "eval_interval": 100,
+    "plot_epsilon_annotations": false,
+    "batch_size": 128,
+    "test_batch_size": 256,
+    "lr": 0.01,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "use_diff_augment": true,
+    "use_cosine_scheduler": true,
+    "device": "auto",
+    "datasets": [
+      "cifar10",
+      "cifar100",
+      "tiny"
+    ]
+  },
+  "official_dir": "/home/lixujie/tmpWork/mtt_data/georgecazenavette/cifar10_50",
+  "image_files": [
+    "images_best.pt"
+  ],
+  "label_files": [
+    "labels_best.pt"
+  ],
+  "num_full_samples": 50000,
+  "num_distilled_samples": 500,
+  "compression_ratio": 0.01,
+  "target_accuracy": 0.6,
+  "train_steps_effective": 900,
+  "eval_interval_effective": 100,
+  "figure_note": "Figure 4 compares image sources through the same ConvNet; no feature extractor, shallow classifier, KD, or DP is used.",
+  "results": [
+    {
+      "name": "Full Images",
+      "model": "ConvNetD3",
+      "num_samples": 50000,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.0933,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.4868,
+          "loss": 1.818197250366211
+        },
+        {
+          "step": 200,
+          "test_acc": 0.5564,
+          "loss": 1.3917099237442017
+        },
+        {
+          "step": 300,
+          "test_acc": 0.6052,
+          "loss": 1.2717907428741455
+        },
+        {
+          "step": 400,
+          "test_acc": 0.6247,
+          "loss": 1.1393541097640991
+        },
+        {
+          "step": 500,
+          "test_acc": 0.6601,
+          "loss": 1.1460367441177368
+        },
+        {
+          "step": 600,
+          "test_acc": 0.674,
+          "loss": 1.0523158311843872
+        },
+        {
+          "step": 700,
+          "test_acc": 0.6898,
+          "loss": 0.9384164214134216
+        },
+        {
+          "step": 800,
+          "test_acc": 0.704,
+          "loss": 0.9198565483093262
+        },
+        {
+          "step": 900,
+          "test_acc": 0.705,
+          "loss": 0.9041719436645508
+        }
+      ],
+      "final_test_acc": 0.705,
+      "target_accuracy": 0.6,
+      "step_at_target_acc": 300,
+      "train_time_s": 13.94737958908081
+    },
+    {
+      "name": "Randomly Sampled Images",
+      "model": "ConvNetD3",
+      "num_samples": 500,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.104,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.3979,
+          "loss": 0.805548369884491
+        },
+        {
+          "step": 200,
+          "test_acc": 0.4407,
+          "loss": 0.43799519538879395
+        },
+        {
+          "step": 300,
+          "test_acc": 0.4655,
+          "loss": 0.14907868206501007
+        },
+        {
+          "step": 400,
+          "test_acc": 0.4732,
+          "loss": 0.07450804114341736
+        },
+        {
+          "step": 500,
+          "test_acc": 0.4769,
+          "loss": 0.03622986376285553
+        },
+        {
+          "step": 600,
+          "test_acc": 0.4773,
+          "loss": 0.038224682211875916
+        },
+        {
+          "step": 700,
+          "test_acc": 0.4804,
+          "loss": 0.031097518280148506
+        },
+        {
+          "step": 800,
+          "test_acc": 0.4821,
+          "loss": 0.021967127919197083
+        },
+        {
+          "step": 900,
+          "test_acc": 0.4826,
+          "loss": 0.02255898527801037
+        }
+      ],
+      "final_test_acc": 0.4826,
+      "target_accuracy": 0.6,
+      "step_at_target_acc": null,
+      "train_time_s": 13.576760530471802
+    },
+    {
+      "name": "Distilled Images",
+      "model": "ConvNetD3",
+      "num_samples": 500,
+      "history": [
+        {
+          "step": 0,
+          "test_acc": 0.0984,
+          "loss": null
+        },
+        {
+          "step": 100,
+          "test_acc": 0.5736,
+          "loss": 0.6454711556434631
+        },
+        {
+          "step": 200,
+          "test_acc": 0.6558,
+          "loss": 0.1549639105796814
+        },
+        {
+          "step": 300,
+          "test_acc": 0.6728,
+          "loss": 0.03767774626612663
+        },
+        {
+          "step": 400,
+          "test_acc": 0.68,
+          "loss": 0.023557256907224655
+        },
+        {
+          "step": 500,
+          "test_acc": 0.6768,
+          "loss": 0.01777469553053379
+        },
+        {
+          "step": 600,
+          "test_acc": 0.6787,
+          "loss": 0.015876267105340958
+        },
+        {
+          "step": 700,
+          "test_acc": 0.682,
+          "loss": 0.014304221607744694
+        },
+        {
+          "step": 800,
+          "test_acc": 0.681,
+          "loss": 0.013546310365200043
+        },
+        {
+          "step": 900,
+          "test_acc": 0.6813,
+          "loss": 0.01014363206923008
+        }
+      ],
+      "final_test_acc": 0.6813,
+      "target_accuracy": 0.6,
+      "step_at_target_acc": 200,
+      "train_time_s": 8.640874147415161
+    }
+  ],
+  "outputs": {
+    "txt": "/mnt/code/lixujie/tfe_experiments/log/txt/stageA_directImage_cifar10_20260725_100011.log",
+    "json": "/mnt/code/lixujie/tfe_experiments/log/json/stageA_directImage_cifar10_20260725_100011.json",
+    "history_csv": "/mnt/code/lixujie/tfe_experiments/expTab/stageA_directImage_cifar10_20260725_100011.csv",
+    "summary_csv": "/mnt/code/lixujie/tfe_experiments/expPaperTab/stageA_directImage_summary_cifar10_20260725_100011.csv",
+    "figure": "/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_direct/figure4_stageA_direct_images_cifar10.png"
+  }
+}
