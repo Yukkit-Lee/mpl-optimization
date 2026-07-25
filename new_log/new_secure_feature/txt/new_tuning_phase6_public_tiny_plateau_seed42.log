@@ -1,0 +1,19 @@
+[2026-07-25T19:42:55+08:00] task=tuning_phase6_public_tiny_plateau_seed42 resource=gpu0 attempt=0
+============================================================================================
+Stage A Phase 2：唯一共享 ConvNet -> 冻结 2048-D representation
+dataset=tiny track=public_mtt_benchmark samples=10000 epochs=700 device=cuda
+split_sizes={'encoder_train': 9600, 'reference': 200, 'selection': 200} cpu_threads=1 num_workers=0 include_test=False
+output: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_public_pilots/new_tiny_seed42/public_mtt_benchmark/tiny
+============================================================================================
+  epoch=   1/ 700 train_loss=5.2264 train_acc=0.0192 ref_acc=0.0350
+  epoch=  78/ 700 train_loss=0.0188 train_acc=0.9999 ref_acc=0.8400
+  epoch= 156/ 700 train_loss=0.0171 train_acc=1.0000 ref_acc=0.8800
+  epoch= 234/ 700 train_loss=0.0143 train_acc=1.0000 ref_acc=0.8750
+  epoch= 311/ 700 train_loss=0.0139 train_acc=1.0000 ref_acc=0.8950
+  epoch= 389/ 700 train_loss=0.0122 train_acc=1.0000 ref_acc=0.8950
+  epoch= 467/ 700 train_loss=0.0110 train_acc=1.0000 ref_acc=0.9050
+  epoch= 544/ 700 train_loss=0.0103 train_acc=1.0000 ref_acc=0.9000
+  epoch= 622/ 700 train_loss=0.0097 train_acc=1.0000 ref_acc=0.9150
+  epoch= 700/ 700 train_loss=0.0095 train_acc=1.0000 ref_acc=0.9100
+encoder_sha256: b5921e6dff5d1c0e52fad3fffd667adbc0e45f0caed4d11f3af9e2badfc79c2f
+feature_cache: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_public_pilots/new_tiny_seed42/public_mtt_benchmark/tiny/new_feature_cache_tiny_public_mtt_benchmark_seed42.pt

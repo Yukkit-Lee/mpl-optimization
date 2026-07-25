@@ -1,0 +1,14 @@
+{
+  "schema": "new_phase6_dp_validation_plan_v1",
+  "dataset": "cifar10",
+  "seed": 42,
+  "cpu_threads": 1,
+  "num_workers": 0,
+  "visible_gpu": 0,
+  "test_loaded": false,
+  "expert_subruns": 10,
+  "expert_epochs": 50,
+  "distill_iterations": 5000,
+  "ipc": 10,
+  "queue": "/mnt/code/lixujie/tfe_experiments/new_configs/new_secure_feature/new_gpu0_phase6_dp_validation.tsv"
+}

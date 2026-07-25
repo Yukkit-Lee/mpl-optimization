@@ -1,0 +1,10 @@
+Dataset,Seed,Source,OfficialReferenceAccuracy,StrictQualityGate,FinalTestAccuracy,Passed,Epochs,TestUsage
+CIFAR-10,42,Official MTT ipc=50,0.6884,0.6684,0.6788,True,300,final_readonly_after_reference_freeze
+CIFAR-10,43,Official MTT ipc=50,0.6884,0.6684,0.6856,True,300,final_readonly_after_reference_freeze
+CIFAR-10,44,Official MTT ipc=50,0.6884,0.6684,0.6704,True,300,final_readonly_after_reference_freeze
+CIFAR-100,42,Official MTT ipc=50,0.4587,0.4387,0.4488,True,300,final_readonly_after_reference_freeze
+CIFAR-100,43,Official MTT ipc=50,0.4587,0.4387,0.4498,True,300,final_readonly_after_reference_freeze
+CIFAR-100,44,Official MTT ipc=50,0.4587,0.4387,0.4399,True,300,final_readonly_after_reference_freeze
+Tiny ImageNet,42,Official MTT ipc=50,0.2558,0.24301,0.2671,True,300,final_readonly_after_reference_freeze
+Tiny ImageNet,43,Official MTT ipc=50,0.2558,0.24301,0.2673,True,300,final_readonly_after_reference_freeze
+Tiny ImageNet,44,Official MTT ipc=50,0.2558,0.24301,0.2579,True,300,final_readonly_after_reference_freeze

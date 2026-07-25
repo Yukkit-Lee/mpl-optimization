@@ -26,7 +26,7 @@
 |---|---:|---:|---|
 | Stage-A DP experts | 3 datasets x 3 seeds x 5 parties x 2 experts | 90 | PENDING |
 | Stage-A DP-MTT | 3 datasets x 3 seeds | 9 | PENDING |
-| Module-A comparison | 3 datasets x 3 seeds x 4 sources | 36 | IN_PROGRESS |
+| Module-A comparison | 3 datasets x 3 seeds x 4 sources | 36 | IN_PROGRESS (official MTT 9/9 complete) |
 | Module-B formal | convergence + IID/Mild/Severe | 99 | PENDING |
 | Module-C formal | Plain + Fixed/Adaptive at 3 privacy points | 72 | PENDING |
 | End-to-End | 3 datasets x 3 seeds x 6 ablations | 54 | PENDING |
@@ -72,8 +72,21 @@
   三个 seed 均通过严格门槛 0.6684，后续恢复时跳过。
 - CIFAR-10 DP-MTT validation 当前 test accuracy=0.3020，落后 public
   约 37.6 个百分点，因此保持 `NOT_READY_FOR_PAPER` 并继续 validation 调参。
-- CIFAR-100 与 Tiny ImageNet public MTT reference-only plateau pilots 尚未完成；
-  已生成单 GPU 串行恢复队列，pilot 不读取 test。
+- CIFAR-100 与 Tiny ImageNet public MTT reference-only plateau pilots 已完成；
+  两者均在 reference 上冻结 300 个正式 epoch，pilot 不读取 test。
+- Public MTT 三数据集正式 9 seeds 已全部完成且通过严格质量门：
+  CIFAR-10 `0.6783 +/- 0.0076`、CIFAR-100 `0.4462 +/- 0.0055`、
+  Tiny ImageNet `0.2641 +/- 0.0054`。逐 seed 的 test 只在 pilot 冻结配置后
+  进行一次只读评估。
+- 正式结果已写入
+  `new_expTab/new_secure_feature/new_phase6_public_mtt_{results,summary}.csv`
+  和 `new_expFig/new_secure_feature/new_phase6_public_mtt_reference_curves.*`。
+  正式 encoder 使用全部 synthetic 样本，因此图中 reference 曲线只作为
+  冻结后拟合诊断，不能解释为独立 validation 泛化曲线；质量门以只读 test
+  结果为准。
+- CIFAR-10 完整 DP-MTT validation 已在单 GPU 队列中启动：
+  5 parties x 2 experts x 50 epochs -> 5000 MTT iterations ->
+  reference-only encoder pilot。当前仍是 tuning/validation，不计入正式均值。
 
 ## Resume Audit 2026-07-25 19:36 CST
 
@@ -85,3 +98,17 @@
 - 活动队列保存在
   `new_configs/new_secure_feature/new_active_single_gpu_queue.txt`，supervisor
   只恢复该队列中未完成且未 FAILED 的任务。
+
+## Formal Resume 2026-07-25 20:29 CST
+
+- Public MTT formal queue completed without retry: CIFAR-100 seeds 42/43/44
+  test accuracy `0.4488/0.4498/0.4399`; Tiny ImageNet seeds 42/43/44
+  test accuracy `0.2671/0.2673/0.2579`.
+- `new_expTab` and `new_expFig` are no longer empty. All generated public
+  artifacts use the required `new_` prefix and the report status is
+  `QUALITY_GATE_PASS`.
+- The active persisted queue is now
+  `new_configs/new_secure_feature/new_gpu0_phase6_dp_validation.tsv`.
+- Runtime remains pinned to CPU core 0 with one training process on GPU 0;
+  GPU 1 remains unused, DataLoader workers remain zero, and swap usage remains
+  zero.

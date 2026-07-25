@@ -1,0 +1,138 @@
+{
+  "schema": "new_phase6_public_mtt_results_v1",
+  "status": "QUALITY_GATE_PASS",
+  "test_tuning": false,
+  "rows": [
+    {
+      "Dataset": "CIFAR-10",
+      "Seed": 42,
+      "Source": "Official MTT ipc=50",
+      "OfficialReferenceAccuracy": 0.6884,
+      "StrictQualityGate": 0.6684,
+      "FinalTestAccuracy": 0.6788,
+      "Passed": true,
+      "Epochs": 300,
+      "TestUsage": "final_readonly_after_reference_freeze"
+    },
+    {
+      "Dataset": "CIFAR-10",
+      "Seed": 43,
+      "Source": "Official MTT ipc=50",
+      "OfficialReferenceAccuracy": 0.6884,
+      "StrictQualityGate": 0.6684,
+      "FinalTestAccuracy": 0.6856,
+      "Passed": true,
+      "Epochs": 300,
+      "TestUsage": "final_readonly_after_reference_freeze"
+    },
+    {
+      "Dataset": "CIFAR-10",
+      "Seed": 44,
+      "Source": "Official MTT ipc=50",
+      "OfficialReferenceAccuracy": 0.6884,
+      "StrictQualityGate": 0.6684,
+      "FinalTestAccuracy": 0.6704,
+      "Passed": true,
+      "Epochs": 300,
+      "TestUsage": "final_readonly_after_reference_freeze"
+    },
+    {
+      "Dataset": "CIFAR-100",
+      "Seed": 42,
+      "Source": "Official MTT ipc=50",
+      "OfficialReferenceAccuracy": 0.4587,
+      "StrictQualityGate": 0.4387,
+      "FinalTestAccuracy": 0.4488,
+      "Passed": true,
+      "Epochs": 300,
+      "TestUsage": "final_readonly_after_reference_freeze"
+    },
+    {
+      "Dataset": "CIFAR-100",
+      "Seed": 43,
+      "Source": "Official MTT ipc=50",
+      "OfficialReferenceAccuracy": 0.4587,
+      "StrictQualityGate": 0.4387,
+      "FinalTestAccuracy": 0.4498,
+      "Passed": true,
+      "Epochs": 300,
+      "TestUsage": "final_readonly_after_reference_freeze"
+    },
+    {
+      "Dataset": "CIFAR-100",
+      "Seed": 44,
+      "Source": "Official MTT ipc=50",
+      "OfficialReferenceAccuracy": 0.4587,
+      "StrictQualityGate": 0.4387,
+      "FinalTestAccuracy": 0.4399,
+      "Passed": true,
+      "Epochs": 300,
+      "TestUsage": "final_readonly_after_reference_freeze"
+    },
+    {
+      "Dataset": "Tiny ImageNet",
+      "Seed": 42,
+      "Source": "Official MTT ipc=50",
+      "OfficialReferenceAccuracy": 0.2558,
+      "StrictQualityGate": 0.24301,
+      "FinalTestAccuracy": 0.2671,
+      "Passed": true,
+      "Epochs": 300,
+      "TestUsage": "final_readonly_after_reference_freeze"
+    },
+    {
+      "Dataset": "Tiny ImageNet",
+      "Seed": 43,
+      "Source": "Official MTT ipc=50",
+      "OfficialReferenceAccuracy": 0.2558,
+      "StrictQualityGate": 0.24301,
+      "FinalTestAccuracy": 0.2673,
+      "Passed": true,
+      "Epochs": 300,
+      "TestUsage": "final_readonly_after_reference_freeze"
+    },
+    {
+      "Dataset": "Tiny ImageNet",
+      "Seed": 44,
+      "Source": "Official MTT ipc=50",
+      "OfficialReferenceAccuracy": 0.2558,
+      "StrictQualityGate": 0.24301,
+      "FinalTestAccuracy": 0.2579,
+      "Passed": true,
+      "Epochs": 300,
+      "TestUsage": "final_readonly_after_reference_freeze"
+    }
+  ],
+  "summary": [
+    {
+      "Dataset": "CIFAR-10",
+      "Seeds": 3,
+      "MeanTestAccuracy": 0.6782666666666666,
+      "StdTestAccuracy": 0.007614022152143587,
+      "StrictQualityGate": 0.6684,
+      "AllSeedsPassed": true
+    },
+    {
+      "Dataset": "CIFAR-100",
+      "Seeds": 3,
+      "MeanTestAccuracy": 0.44616666666666666,
+      "StdTestAccuracy": 0.005450076452063137,
+      "StrictQualityGate": 0.4387,
+      "AllSeedsPassed": true
+    },
+    {
+      "Dataset": "Tiny ImageNet",
+      "Seeds": 3,
+      "MeanTestAccuracy": 0.2641,
+      "StdTestAccuracy": 0.005370288632839006,
+      "StrictQualityGate": 0.24301,
+      "AllSeedsPassed": true
+    }
+  ],
+  "outputs": {
+    "csv": "/mnt/code/lixujie/tfe_experiments/new_expTab/new_secure_feature/new_phase6_public_mtt_results.csv",
+    "summary_csv": "/mnt/code/lixujie/tfe_experiments/new_expTab/new_secure_feature/new_phase6_public_mtt_summary.csv",
+    "png": "/mnt/code/lixujie/tfe_experiments/new_expFig/new_secure_feature/new_phase6_public_mtt_reference_curves.png",
+    "pdf": "/mnt/code/lixujie/tfe_experiments/new_expFig/new_secure_feature/new_phase6_public_mtt_reference_curves.pdf"
+  }
+}

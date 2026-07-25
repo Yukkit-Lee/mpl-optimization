@@ -716,3 +716,15 @@
 - Phase 6 public 质量门（19:47）：新增 `new_report_phase6_public.py`，在三数据集 9 个正式 seed 全部完成后输出 `new_expTab/new_secure_feature` CSV、`new_expFig/new_secure_feature` PNG/PDF 和 JSON；逐 seed 检查“95% official 与绝对差 2pp 中更严格者”。失败时返回非零并停止后续队列，不把不合格结果包装为正式结果。
 - DP-MTT 完整 validation 链（19:54）：新增单卡串行队列生成器，public 质量门通过后依次运行 CIFAR-10 5 parties×2 experts×50 epochs、5000 MTT iterations、reference-only encoder pilot，再按 reference 平台期冻结一次 readonly test。若相对 public 仍落后超过 10pp，报告 `NOT_READY_FOR_PAPER` 并停止，不直接扩展到三数据集正式 seeds。
 - 重启自恢复（19:56）：已安装并启用 `new_secure_feature_single_gpu_resume.service`，同时为用户 `lixujie` 启用 systemd linger；即使 SSH 会话断开或系统重启后尚未重新登录，用户级 supervisor 也能从磁盘活动队列恢复 tmux。GitHub token 文件权限从 0644 收紧为 0600。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-25 20:29 Asia/Shanghai
+- 本次对话任务目标：检查上次异常中断后的完成度，并严格按 `plan/new_codex_secure_feature_full_formal_prompt.md` 恢复尚未完成的正式实验；已完成项跳过，新任务固定 CPU 线程为 1、`DataLoader num_workers=0`、仅使用 GPU 0，并持续生成 `new_` 前缀结果。
+- 中断原因审计：主机于 2026-07-25 17:48 发生突发重启；上一 boot 与当前 boot 的可读内核日志中均未发现 OOM、NVIDIA Xid、kernel panic、watchdog、thermal 或 hardware error。日志在重启前直接中断，因此根因只能标记为“外部/突发主机重启，内核未记录原因”，不能归因于训练资源爆炸。
+- 防死机与恢复：正式训练 Python 固定 affinity 为 CPU core 0，GPU 0 同时最多一个任务，GPU 1 空闲；每 epoch 原子保存模型、optimizer、scheduler 和 RNG；60 秒 heartbeat；tmux 由 `systemd --user` + linger 托管，重启后从磁盘活动队列跳过 COMPLETE 并恢复未完成项。运行期间显存约 1.5-4.5 GiB、RSS 约 1.4-1.8 GiB、swap 始终为 0。
+- Phase 6 public-MTT 正式结果：CIFAR-10 seeds 42/43/44=`0.6788/0.6856/0.6704`，mean±std=`0.6783±0.0076`；CIFAR-100=`0.4488/0.4498/0.4399`，`0.4462±0.0055`；Tiny ImageNet=`0.2671/0.2673/0.2579`，`0.2641±0.0054`。9/9 seeds 均通过各数据集严格门槛。
+- 新正式产物：`new_expTab/new_secure_feature/new_phase6_public_mtt_results.csv`、`new_phase6_public_mtt_summary.csv`；`new_expFig/new_secure_feature/new_phase6_public_mtt_reference_curves.png/.pdf`；`new_log/new_secure_feature/json/new_phase6_public_mtt_results.json`。
+- 结果边界：正式 encoder epoch 由独立 reference-only pilot 冻结，正式轮次随后使用全部 synthetic 样本，test 只做一次只读最终评估。因此当前图中的 reference 曲线仅是冻结后训练诊断，不能作为独立泛化曲线；正式质量结论来自只读 test 的三 seed 统计。
+- 当前运行：活动队列已切换为 CIFAR-10 完整 DP-MTT validation，顺序为 5 parties×2 experts×50 epochs、5000 次 MTT、reference-only encoder pilot 和一次冻结 test。该轮仍属于 validation，不计入正式均值；若质量门不通过将保留结果并继续 reference-only 调参。

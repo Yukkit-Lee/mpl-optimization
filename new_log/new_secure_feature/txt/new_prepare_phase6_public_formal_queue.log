@@ -1,0 +1,7 @@
+[2026-07-25T19:59:31+08:00] task=prepare_phase6_public_formal_queue resource=gpu0 attempt=0
+Phase 6 public formal freeze
+cpu_threads=1 num_workers=0 visible_gpu=0 formal_tasks=6
+  cifar100: plateau=240 formal_epochs=300 ref_best=0.9600 gate=0.4387
+  tiny: plateau=240 formal_epochs=300 ref_best=0.9200 gate=0.2430
+queue=/mnt/code/lixujie/tfe_experiments/new_configs/new_secure_feature/new_gpu0_phase6_public_formal.tsv
+activated=True

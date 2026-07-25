@@ -1,0 +1,6 @@
+[2026-07-25T20:28:27+08:00] task=prepare_phase6_dp_validation_queue resource=gpu0 attempt=0
+Phase 6 DP-MTT validation queue
+dataset=cifar10 seed=42 experts=10x50epochs distill_iterations=5000
+cpu_threads=1 num_workers=0 visible_gpu=0 test_loaded=False
+queue=/mnt/code/lixujie/tfe_experiments/new_configs/new_secure_feature/new_gpu0_phase6_dp_validation.tsv
+activated=True

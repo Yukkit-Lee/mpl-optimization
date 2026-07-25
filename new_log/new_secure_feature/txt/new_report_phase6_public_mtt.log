@@ -1,0 +1,10 @@
+[2026-07-25T20:28:26+08:00] task=report_phase6_public_mtt resource=gpu0 attempt=0
+Phase 6 public MTT formal summary
+| Dataset | Mean ± Std | Gate | All seeds pass |
+|---|---:|---:|:---:|
+| CIFAR-10 | 0.6783 ± 0.0076 | 0.6684 | True |
+| CIFAR-100 | 0.4462 ± 0.0055 | 0.4387 | True |
+| Tiny ImageNet | 0.2641 ± 0.0054 | 0.2430 | True |
+status=QUALITY_GATE_PASS
+table=/mnt/code/lixujie/tfe_experiments/new_expTab/new_secure_feature/new_phase6_public_mtt_results.csv
+figure=/mnt/code/lixujie/tfe_experiments/new_expFig/new_secure_feature/new_phase6_public_mtt_reference_curves.png
