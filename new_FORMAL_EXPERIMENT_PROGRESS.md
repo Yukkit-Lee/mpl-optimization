@@ -105,6 +105,10 @@
   public-reference accuracy 分别为 `0.2940` 和 `0.3280`；二者均未加载
   benchmark test/raw private data。`late10` 相对 round2 baseline 提升
   3.6pp，进入 round4：从 checkpoint 续跑 2500→5000 MTT iterations。
+- Round4 首次恢复诊断：`map_location=cuda` 会把 checkpoint 内 CPU RNG
+  state 一并移动到 GPU，导致 PyTorch 拒绝恢复。已在共享恢复函数中将
+  CPU/CUDA RNG state 显式规范为 CPU ByteTensor；仅修复断点恢复，不改变
+  算法、seed、隐私会计或训练超参数。
 
 ## Resume Audit 2026-07-25 19:36 CST
 

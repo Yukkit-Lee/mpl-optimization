@@ -153,9 +153,13 @@ def capture_rng_state() -> Dict[str, Any]:
 def restore_rng_state(state: Dict[str, Any]) -> None:
     random.setstate(state["python"])
     np.random.set_state(state["numpy"])
-    torch.set_rng_state(state["torch_cpu"])
+    # Checkpoints may be loaded with map_location="cuda", which also moves RNG
+    # byte tensors. PyTorch requires CPU ByteTensor objects for both setters.
+    torch.set_rng_state(state["torch_cpu"].detach().cpu())
     if torch.cuda.is_available() and "torch_cuda" in state:
-        torch.cuda.set_rng_state_all(state["torch_cuda"])
+        torch.cuda.set_rng_state_all(
+            [rng_state.detach().cpu() for rng_state in state["torch_cuda"]]
+        )
 
 
 def atomic_torch_save(payload: Any, path: Path) -> None:
