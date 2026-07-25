@@ -1,0 +1,37 @@
+================================================================================================
+New Secure Feature Pipeline：正式实验冻结配置
+================================================================================================
+datasets             : ['cifar10', 'cifar100', 'tiny']
+formal_seeds         : [42, 43, 44]
+tuning_seeds         : [42, 43]
+cpu_threads/process  : 1
+DataLoader workers   : 0
+feature_dim/norm     : 2048/1.0
+Stage-C epsilon      : [1.0, 3.0, 8.0]
+Stage-C delta        : 1e-05
+secure RNG backend   : chacha20_box_muller_4sample
+
+[正式运行数量；validation tuning trials 另计且不得删除]
+  stage_a_dp_experts      :   90
+  stage_a_dp_mtt          :    9
+  module_a_comparison     :   36
+  module_b_formal         :   99
+  module_c_formal         :   72
+  end_to_end              :   54
+  tfe_system_scales       :    9
+  minimum_total           :  369
+
+[预期输出路径]
+  json                    : /mnt/code/lixujie/tfe_experiments/new_log/new_secure_feature/json
+  txt                     : /mnt/code/lixujie/tfe_experiments/new_log/new_secure_feature/txt
+  tables                  : /mnt/code/lixujie/tfe_experiments/new_expTab/new_secure_feature
+  figures                 : /mnt/code/lixujie/tfe_experiments/new_expFig/new_secure_feature
+  models                  : /mnt/code/lixujie/tfe_experiments/new_init_model/new_secure_feature
+  cache                   : /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature
+  secret_sidecars         : /home/lixujie/tmpWork/new_secure_feature_secrets
+
+[执行约束]
+  正式任务仅通过 tmux + resource lock + heartbeat + checkpoint 启动。
+  数据集串行；每张 GPU 同时最多一个进程；TFE 串行。
+  validation/reference 冻结超参数前禁止读取 test 指标。
+================================================================================================

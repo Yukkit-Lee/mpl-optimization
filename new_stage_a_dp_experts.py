@@ -149,8 +149,8 @@ def train_one_expert(
         "new_dp_expert_checkpoint_{}_party{:02d}_expert{:02d}.pt".format(dataset, party_id, expert_id)
     )
     secret_path = SECRET_ROOT / dataset / (
-        "new_dp_expert_csprng_key_{}_party{:02d}_expert{:02d}.pt".format(
-            dataset, party_id, expert_id
+        "new_dp_expert_csprng_key_{}_seed{}_party{:02d}_expert{:02d}.pt".format(
+            dataset, args.seed, party_id, expert_id
         )
     )
     if trajectory_path.exists() and not args.force:

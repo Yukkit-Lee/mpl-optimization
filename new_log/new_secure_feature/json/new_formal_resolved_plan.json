@@ -1,0 +1,108 @@
+{
+  "schema": "new_formal_resolved_plan_v1",
+  "config_path": "/mnt/code/lixujie/tfe_experiments/new_configs/new_secure_feature/new_formal_config.json",
+  "config": {
+    "pipeline": "new_secure_feature_pipeline",
+    "datasets": [
+      "cifar10",
+      "cifar100",
+      "tiny"
+    ],
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "tuning_seeds": [
+      42,
+      43
+    ],
+    "cpu_threads": 1,
+    "num_workers": 0,
+    "heartbeat_seconds": 60,
+    "max_retries": 2,
+    "minimum_free_disk_gib": 25,
+    "minimum_available_ram_gib": 16,
+    "feature_dim": 2048,
+    "feature_l2_bound": 1.0,
+    "stage_c_target_epsilons": [
+      1.0,
+      3.0,
+      8.0
+    ],
+    "stage_c_delta": 1e-05,
+    "stage_a_dp_mtt": {
+      "num_parties": 5,
+      "num_experts_per_party": 2,
+      "expert_epochs": 50,
+      "expert_batch_size": 256,
+      "expert_learning_rate": 0.05,
+      "expert_noise_multiplier": 1.5,
+      "expert_max_grad_norm": 1.0,
+      "secure_rng_required": true,
+      "secure_rng_status": "READY_CUSTOM_CHACHA20_BACKEND",
+      "secure_rng_backend": "chacha20_box_muller_4sample",
+      "secure_rng_secret_root_env": "NEW_SECRET_ROOT",
+      "delta": 1e-05,
+      "ipc": 10,
+      "distill_iterations": {
+        "cifar10": 5000,
+        "cifar100": 10000,
+        "tiny": 15000
+      },
+      "synthetic_steps": 20,
+      "image_initialization": "random_noise",
+      "distillation_raw_data_access": false
+    },
+    "quality_gates": {
+      "stage_a_reference_ratio": 0.95,
+      "stage_a_absolute_gap": 0.02,
+      "stage_b_final_gap": 0.005,
+      "stage_b_step_ratio": 0.8,
+      "stage_b_severe_gain": 0.01,
+      "stage_c_adaptive_gain": 0.01,
+      "end_to_end_final_gain": 0.02,
+      "end_to_end_step_ratio": 0.8
+    },
+    "formal_epochs": {
+      "cifar10": {
+        "stage_b_min": 50,
+        "stage_b_max": 150,
+        "stage_c_min": 50,
+        "stage_c_max": 150
+      },
+      "cifar100": {
+        "stage_b_min": 100,
+        "stage_b_max": 300,
+        "stage_c_min": 100,
+        "stage_c_max": 300
+      },
+      "tiny": {
+        "stage_b_min": 150,
+        "stage_b_max": 400,
+        "stage_c_min": 150,
+        "stage_c_max": 400
+      }
+    }
+  },
+  "run_counts": {
+    "stage_a_dp_experts": 90,
+    "stage_a_dp_mtt": 9,
+    "module_a_comparison": 36,
+    "module_b_formal": 99,
+    "module_c_formal": 72,
+    "end_to_end": 54,
+    "tfe_system_scales": 9,
+    "minimum_total": 369
+  },
+  "expected_paths": {
+    "json": "/mnt/code/lixujie/tfe_experiments/new_log/new_secure_feature/json",
+    "txt": "/mnt/code/lixujie/tfe_experiments/new_log/new_secure_feature/txt",
+    "tables": "/mnt/code/lixujie/tfe_experiments/new_expTab/new_secure_feature",
+    "figures": "/mnt/code/lixujie/tfe_experiments/new_expFig/new_secure_feature",
+    "models": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_secure_feature",
+    "cache": "/mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature",
+    "secret_sidecars": "/home/lixujie/tmpWork/new_secure_feature_secrets"
+  },
+  "test_tuning_allowed": false
+}
