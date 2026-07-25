@@ -1,0 +1,15 @@
+{
+  "schema": "new_phase6_dp_trajectory_tuning_round4_result_v1",
+  "status": "TUNING_IMPROVED_NOT_READY",
+  "dataset": "cifar10",
+  "seed": 42,
+  "selection_metric": "external_public_mtt_reference_accuracy",
+  "round3_accuracy_2500": 0.328,
+  "round4_accuracy_5000": 0.358,
+  "absolute_gain": 0.02999999999999997,
+  "public_mtt_formal_mean": 0.6782666666666667,
+  "remaining_gap": 0.3202666666666667,
+  "within_ten_percentage_points": false,
+  "test_loaded": false,
+  "next_step": "tune DP expert utility using public reference only"
+}

@@ -1,0 +1,48 @@
+[2026-07-25T21:34:11+08:00] task=tuning_phase6_dp_round4_late10_5000_mtt resource=gpu0 attempt=0
+Traceback (most recent call last):
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_distill.py", line 278, in <module>
+    raise SystemExit(main())
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_distill.py", line 140, in main
+    restore_rng_state(checkpoint["rng_state"])
+  File "/mnt/code/lixujie/tfe_experiments/new_secure_feature_models.py", line 156, in restore_rng_state
+    torch.set_rng_state(state["torch_cpu"])
+  File "/home/lixujie/.conda/envs/distillation/lib/python3.9/site-packages/torch/random.py", line 19, in set_rng_state
+    default_generator.set_state(new_state)
+TypeError: RNG state must be a torch.ByteTensor
+[2026-07-25T21:34:29+08:00] task=tuning_phase6_dp_round4_late10_5000_mtt resource=gpu0 attempt=1
+Traceback (most recent call last):
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_distill.py", line 278, in <module>
+    raise SystemExit(main())
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_distill.py", line 140, in main
+    restore_rng_state(checkpoint["rng_state"])
+  File "/mnt/code/lixujie/tfe_experiments/new_secure_feature_models.py", line 156, in restore_rng_state
+    torch.set_rng_state(state["torch_cpu"])
+  File "/home/lixujie/.conda/envs/distillation/lib/python3.9/site-packages/torch/random.py", line 19, in set_rng_state
+    default_generator.set_state(new_state)
+TypeError: RNG state must be a torch.ByteTensor
+[2026-07-25T21:34:46+08:00] task=tuning_phase6_dp_round4_late10_5000_mtt resource=gpu0 attempt=2
+Traceback (most recent call last):
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_distill.py", line 278, in <module>
+    raise SystemExit(main())
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_distill.py", line 140, in main
+    restore_rng_state(checkpoint["rng_state"])
+  File "/mnt/code/lixujie/tfe_experiments/new_secure_feature_models.py", line 156, in restore_rng_state
+    torch.set_rng_state(state["torch_cpu"])
+  File "/home/lixujie/.conda/envs/distillation/lib/python3.9/site-packages/torch/random.py", line 19, in set_rng_state
+    default_generator.set_state(new_state)
+TypeError: RNG state must be a torch.ByteTensor
+[2026-07-25T21:37:11+08:00] task=tuning_phase6_dp_round4_late10_5000_mtt resource=gpu0 attempt=0
+从 iteration 2500 恢复 DP-MTT
+========================================================================================
+Stage A Track B：DP trajectories -> MTT post-processing
+dataset=cifar10 trajectories=10 ipc=10 iterations=5000 syn_steps=30
+raw_data_access=False pix_init=noise cpu_threads=1 num_workers=0
+stage_a_epsilon=5.88773730651083 delta=1e-05
+output: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_dp_mtt_cifar10_round3/new_late10/new_distilled/cifar10
+========================================================================================
+  iteration= 2778/ 5000 trajectory_loss=0.989541 synthetic_lr=0.006697
+  iteration= 3333/ 5000 trajectory_loss=0.991887 synthetic_lr=0.007343
+  iteration= 3889/ 5000 trajectory_loss=0.992164 synthetic_lr=0.007924
+  iteration= 4444/ 5000 trajectory_loss=0.985286 synthetic_lr=0.008510
+  iteration= 5000/ 5000 trajectory_loss=0.991570 synthetic_lr=0.008916
+result: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_dp_mtt_cifar10_round3/new_late10/new_distilled/cifar10/new_dp_mtt_images_cifar10_ipc10_seed42.pt

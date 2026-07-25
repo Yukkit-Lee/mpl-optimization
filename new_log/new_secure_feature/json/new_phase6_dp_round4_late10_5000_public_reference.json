@@ -1,0 +1,16 @@
+{
+  "schema": "new_stage_a_public_reference_evaluation_v1",
+  "status": "COMPLETE",
+  "dataset": "cifar10",
+  "seed": 42,
+  "encoder": "/mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_dp_mtt_cifar10_round4/new_late10_5000/new_encoder/dp_mtt/cifar10/new_shared_encoder_cifar10_dp_mtt_seed42.pt",
+  "encoder_sha256": "1ddb938cda2f9ac31ce6a391d463e442be0df62107d136827b4bdfdf078e53ca",
+  "reference_source": "official_mtt_ipc50_public_synthetic",
+  "reference_samples": 500,
+  "public_reference_accuracy": 0.358,
+  "test_loaded": false,
+  "raw_private_data_loaded": false,
+  "selection_only": true,
+  "cpu_threads": 1,
+  "num_workers": 0
+}

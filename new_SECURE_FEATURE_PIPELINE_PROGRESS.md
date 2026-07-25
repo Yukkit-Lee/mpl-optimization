@@ -10,7 +10,8 @@
 
 ## Resource Contract
 
-- 本轮恢复后仅使用 GPU 0；GPU 1 保持空闲，任何时刻最多一个训练进程。
+- Public MTT 主线允许 GPU 0/1 各运行一个相互独立的 PyTorch 正式任务；
+  每张卡最多一个进程并使用独立锁。首个 feature-quality 队列仅使用 GPU 0。
 - Every process fixes CPU, BLAS and PyTorch threads to 1.
 - `DataLoader(num_workers=0, persistent_workers=False)`.
 - No multiprocessing pool or implicit parallel preprocessing.
@@ -69,6 +70,9 @@
 - Phase 6 已完成 CIFAR-10 public MTT 三个正式 seed；CIFAR-100/Tiny
   validation pilot 与其余正式矩阵仍在进行。
 - No smoke result will be promoted into a formal result.
+- `plan/new_public_mtt_mainline_codex_prompt.md` 已将 Public MTT 设为论文
+  主线；DP-MTT 状态为 `DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE`，不再阻塞
+  Phase 7--10。当前先验证 frozen 2048-D features 的 plain linear quality。
 
 ## Resume Safety Evidence
 

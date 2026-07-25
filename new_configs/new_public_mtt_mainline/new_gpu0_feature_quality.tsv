@@ -1,0 +1,3 @@
+# task_id	checkpoint	command
+public_mainline_prepare_test_free_caches	/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_test_free_feature_cache_manifest.json	/home/lixujie/.conda/envs/distillation/bin/python /mnt/code/lixujie/tfe_experiments/new_prepare_public_mtt_reference_caches.py
+public_mainline_feature_quality	/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_feature_quality_formal.json	/home/lixujie/.conda/envs/distillation/bin/python /mnt/code/lixujie/tfe_experiments/new_public_mtt_feature_quality.py --phase all --device cuda

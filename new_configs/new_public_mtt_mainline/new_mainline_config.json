@@ -1,0 +1,50 @@
+{
+  "schema": "new_public_mtt_mainline_config_v1",
+  "pipeline": "new_public_mtt_mainline",
+  "datasets": ["cifar10", "cifar100", "tiny"],
+  "tuning_seeds": [42, 43],
+  "formal_seeds": [42, 43, 44],
+  "cpu_threads_per_process": 1,
+  "num_workers": 0,
+  "gpu_devices": [0, 1],
+  "max_processes_per_gpu": 1,
+  "feature_dim": 2048,
+  "feature_l2_bound": 1.0,
+  "stage_a_track": "public_mtt_benchmark",
+  "stage_a_epsilon": "N/A",
+  "stage_a_dp_protected": false,
+  "dp_mtt_status": "DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE",
+  "linear_probe": {
+    "tuning_steps": {
+      "cifar10": 800,
+      "cifar100": 1200,
+      "tiny": 1500
+    },
+    "formal_steps": {
+      "cifar10": 1600,
+      "cifar100": 2400,
+      "tiny": 3000
+    },
+    "batch_size": {
+      "cifar10": 64,
+      "cifar100": 128,
+      "tiny": 128
+    },
+    "eval_points": 20,
+    "candidates": [
+      {"optimizer": "adamw", "learning_rate": 0.001, "weight_decay": 0.0},
+      {"optimizer": "adamw", "learning_rate": 0.003, "weight_decay": 0.0001},
+      {"optimizer": "adamw", "learning_rate": 0.01, "weight_decay": 0.0001},
+      {"optimizer": "sgd", "learning_rate": 0.1, "weight_decay": 0.0},
+      {"optimizer": "sgd", "learning_rate": 0.3, "weight_decay": 0.0001},
+      {"optimizer": "sgd", "learning_rate": 1.0, "weight_decay": 0.0001}
+    ]
+  },
+  "quality_reference_means": {
+    "cifar10": 0.6782666666666667,
+    "cifar100": 0.44616666666666666,
+    "tiny": 0.2641
+  },
+  "quality_max_absolute_gap": 0.02,
+  "test_tuning_forbidden": true
+}

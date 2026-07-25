@@ -734,3 +734,14 @@
 - 单 GPU 恢复执行（2026-07-25 21:09）：systemd + tmux 已接管 round3 队列，固定 `CPU core 0 / threads=1 / num_workers=0 / CUDA_VISIBLE_DEVICES=0`，GPU 1 保持空闲；首个 `late3` 任务已生成可恢复 checkpoint。启动时可用内存约 181 GiB、GPU0 显存约 6.5 GiB、温度 57°C，未触发资源保护阈值。
 - DP-MTT round3 结果（2026-07-25 21:31）：`late3=0.2940`、`late10=0.3280`（external official-MTT public reference，500 samples，`test_loaded=False`）。`late10` 比 round2 的 `0.2920` 提升 3.6pp，达到 coarse tuning 的 +2pp 门槛；新增 round4 队列从其 checkpoint 继续至 5000 MTT iterations，并使用全新 encoder 目录复评，仍不访问 test。
 - Round4 恢复修复（2026-07-25 21:34）：首次从 2500-step checkpoint 加载时，`map_location=cuda` 将 CPU RNG state 移到 GPU，触发 `RNG state must be a torch.ByteTensor`。已修复 `restore_rng_state`，恢复前将 CPU/CUDA RNG byte tensors 显式转回 CPU；训练算法、seed、DP ε 和超参数均不变，交由自动重试继续。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-26 01:20 Asia/Shanghai
+- 本次对话任务目标：执行 `plan/new_public_mtt_mainline_codex_prompt.md`，将 Official Public MTT 切换为论文主线，解除 DP-MTT 对 Module B/C/End-to-End/TFE 的阻塞，并在安全持久队列中启动正式实验。
+- 主线变更：DP-MTT 已保留为 `DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE`，不删除既有 Round2--4 结果；Public MTT 三数据集 3 seeds 的共享 encoder/2048-D feature cache 成为后续唯一主线输入。
+- 首个质量门：新增 reference-only 线性探针调参和冻结后 3-seed 正式评估。调参共 36 runs，正式评估 9 runs；tuning 不向训练函数提供 test tensor，正式配置冻结后才执行一次只读 test。
+- 安全策略：CPU/BLAS/PyTorch 每进程 1 线程，`num_workers=0`，首队列只使用 GPU0；沿用 systemd+tmux、60 秒 heartbeat、100-step checkpoint、失败熔断和断点恢复。
+- 新增文件：`new_PUBLIC_MTT_MAINLINE_PROGRESS.md`、`new_public_mtt_mainline_common.py`、`new_public_mtt_feature_quality.py`、`new_prepare_public_mtt_mainline.py`、`new_tests/new_test_public_mtt_mainline.py` 及 `new_configs/new_public_mtt_mainline/new_mainline_config.json`。
+- Test 隔离加固：现有正式 feature cache 文件包含只读 test tensor，因此新增 `new_prepare_public_mtt_reference_caches.py`，先生成物理上不含 `x_test/y_test` 的 `new_test_free_features` 缓存；所有 tuning 仅允许加载该缓存，冻结 formal 配置后才加载原始正式 cache。

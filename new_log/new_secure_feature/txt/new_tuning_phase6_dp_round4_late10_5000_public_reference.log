@@ -1,0 +1,6 @@
+[2026-07-25T21:50:13+08:00] task=tuning_phase6_dp_round4_late10_5000_public_reference resource=gpu0 attempt=0
+====================================================================================
+Stage-A external public reference evaluation
+dataset=cifar10 samples=500 accuracy=0.358000
+test_loaded=False raw_private_data_loaded=False
+output=/mnt/code/lixujie/tfe_experiments/new_log/new_secure_feature/json/new_phase6_dp_round4_late10_5000_public_reference.json

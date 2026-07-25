@@ -6,9 +6,12 @@
   "cpu_threads": 1,
   "num_workers": 0,
   "gpu_policy": {
-    "visible_devices": [0],
-    "max_training_processes": 1
+    "visible_devices": [0, 1],
+    "max_training_processes": 2,
+    "max_processes_per_gpu": 1
   },
+  "paper_mainline": "public_mtt_benchmark",
+  "dp_mtt_status": "DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE",
   "heartbeat_seconds": 60,
   "max_retries": 2,
   "minimum_free_disk_gib": 25,

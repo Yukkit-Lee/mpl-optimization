@@ -1,0 +1,42 @@
+{
+  "schema": "new_public_mtt_mainline_resolved_plan_v1",
+  "status": "FEATURE_QUALITY_GATE_READY",
+  "dp_mtt_status": "DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE",
+  "datasets": [
+    "cifar10",
+    "cifar100",
+    "tiny"
+  ],
+  "tuning_seeds": [
+    42,
+    43
+  ],
+  "formal_seeds": [
+    42,
+    43,
+    44
+  ],
+  "resolved_runs": {
+    "feature_quality_tuning": 36,
+    "feature_quality_formal": 9,
+    "first_queue_total": 46
+  },
+  "resource_policy": {
+    "cpu_threads_per_process": 1,
+    "num_workers": 0,
+    "visible_gpu": 0,
+    "max_processes_on_gpu": 1,
+    "heartbeat_seconds": 60,
+    "checkpoint_interval_steps": 100
+  },
+  "test_policy": {
+    "tuning_test_loaded": false,
+    "formal_test_usage": "single_final_readonly_after_config_freeze"
+  },
+  "queue": "/mnt/code/lixujie/tfe_experiments/new_configs/new_public_mtt_mainline/new_gpu0_feature_quality.tsv",
+  "expected_outputs": [
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_test_free_feature_cache_manifest.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_feature_quality_tuning.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_feature_quality_formal.json"
+  ]
+}

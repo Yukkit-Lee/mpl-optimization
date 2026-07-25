@@ -6,6 +6,13 @@
 不能标记正式完成；所有超参数必须先在 reference/validation set 冻结，test set
 只允许在正式配置冻结后只读评估。
 
+## Mainline Override 2026-07-26
+
+`plan/new_public_mtt_mainline_codex_prompt.md` supersedes the previous
+DP-MTT blocking rule. Public MTT is now the paper mainline; DP-MTT is retained
+as `DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE`. Phase 7--10 can proceed after the
+Public-MTT frozen 2048-D feature quality gate passes.
+
 ## Resolved Resource Policy
 
 - Branch: `new-secure-feature-pipeline`
@@ -24,8 +31,8 @@
 
 | Phase | Scope | Minimum runs | Status |
 |---|---:|---:|---|
-| Stage-A DP experts | 3 datasets x 3 seeds x 5 parties x 2 experts | 90 | PENDING |
-| Stage-A DP-MTT | 3 datasets x 3 seeds | 9 | PENDING |
+| Stage-A DP experts | supplement after mainline | 90 | DEFERRED |
+| Stage-A DP-MTT | supplement after mainline | 9 | DEFERRED |
 | Module-A comparison | 3 datasets x 3 seeds x 4 sources | 36 | IN_PROGRESS (official MTT 9/9 complete) |
 | Module-B formal | convergence + IID/Mild/Severe | 99 | PENDING |
 | Module-C formal | Plain + Fixed/Adaptive at 3 privacy points | 72 | PENDING |
@@ -41,7 +48,7 @@
 - [x] Phase 3 implementation: TFE/ABY3 Stage B
 - [x] Phase 4 implementation: secure Fixed DP-SGD
 - [x] Phase 5 implementation: secure Adaptive DP-SGD
-- [ ] Phase 6 formal Module-A
+- [ ] Phase 6 formal Module-A (Public reference 9/9 complete; efficiency pending)
 - [ ] Phase 7 formal Module-B
 - [ ] Phase 8 formal Module-C
 - [ ] Phase 9 formal End-to-End
