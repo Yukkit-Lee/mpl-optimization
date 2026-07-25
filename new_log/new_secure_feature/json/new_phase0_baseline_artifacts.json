@@ -1,0 +1,33 @@
+{
+  "captured_at": "2026-07-25T14:34:00+08:00",
+  "baseline_branch": "cross-stage-refactor",
+  "baseline_commit": "0a7a254b6313b39dc8d367d28825028286a0750e",
+  "policy": "仅记录旧正式结果路径；新路线不覆盖、不复制、不修改这些结果。",
+  "latest_formal_artifacts": [
+    "log/json/formalCrossStage_20260725_121001.json",
+    "expTab/formalCrossStage_20260725_121001.csv",
+    "expFig/formal_cross_stage/moduleB_figure5_cifar10_20260725_121001.png",
+    "expFig/formal_cross_stage/moduleB_figure5_cifar100_20260725_121001.png",
+    "expFig/formal_cross_stage/moduleB_figure5_tiny_20260725_121001.png",
+    "expFig/formal_cross_stage/moduleC_cifar10_20260725_121001.png",
+    "expFig/formal_cross_stage/moduleC_cifar100_20260725_121001.png",
+    "expFig/formal_cross_stage/moduleC_tiny_20260725_121001.png",
+    "expFig/formal_cross_stage/end2end_cifar10_20260725_121001.png",
+    "expFig/formal_cross_stage/end2end_cifar100_20260725_121001.png",
+    "expFig/formal_cross_stage/end2end_tiny_20260725_121001.png",
+    "log/json/stageC_tfe_secure_system_cifar10_20260725_122921.json",
+    "log/json/stageC_tfe_secure_system_cifar100_20260725_122742.json",
+    "log/json/stageC_tfe_secure_system_tiny_20260725_122759.json"
+  ],
+  "reference_source_files": [
+    "exp_official_distilled_moduleA_verify.py",
+    "exp_official_distilled_figure5_init.py",
+    "feature_kd_init.py",
+    "feature_kd_bridge.py",
+    "secure_aggregation.py",
+    "module_c_adaptive_dpsgd.py",
+    "module_c_adaptive_bridge.py",
+    "exp_end_to_end_framework.py",
+    "exp_formal_cross_stage.py"
+  ]
+}

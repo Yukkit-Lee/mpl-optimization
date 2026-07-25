@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "pipeline": "new_secure_feature_pipeline",
+  "branch": "new-secure-feature-pipeline",
+  "baseline_commit": "0a7a254b6313b39dc8d367d28825028286a0750e",
+  "status": "PHASE_1_IN_PROGRESS",
+  "created_at": "2026-07-25T14:04:00+08:00",
+  "updated_at": "2026-07-25T14:34:00+08:00",
+  "resource_policy": {
+    "cpu_threads_per_process": 1,
+    "data_loader_num_workers": 0,
+    "max_processes_per_gpu": 1,
+    "gpu_locks": [
+      "/tmp/new_secure_feature_gpu0.lock",
+      "/tmp/new_secure_feature_gpu1.lock"
+    ],
+    "tfe_lock": "/tmp/new_secure_feature_tfe.lock",
+    "heartbeat_seconds": 60,
+    "max_retries": 2,
+    "minimum_free_disk_gib": 25,
+    "minimum_available_ram_gib": 16
+  },
+  "environments": {
+    "modern_python": "/home/lixujie/.conda/envs/distillation/bin/python",
+    "legacy_tfe_python": "/home/lixujie/.conda/envs/tfe/bin/python",
+    "tmux": "/home/lixujie/tmpWork/new_tmux_runtime/bin/tmux"
+  },
+  "phases": {
+    "phase_0": "COMPLETE",
+    "phase_1": "IN_PROGRESS",
+    "phase_2": "PENDING",
+    "phase_3": "PENDING",
+    "phase_4": "PENDING",
+    "phase_5": "PENDING",
+    "phase_6": "PENDING",
+    "phase_7": "PENDING",
+    "phase_8": "PENDING",
+    "phase_9": "PENDING",
+    "phase_10": "PENDING"
+  },
+  "tuning_trials": [],
+  "formal_runs": [],
+  "blocked_items": [
+    {
+      "phase": "phase_0",
+      "item": "legacy_tfe_custom_ops",
+      "status": "OPEN",
+      "reason": "TensorFlow 1.15.5 对应的 TF Encrypted aux 与 secure_random 自定义算子缺失；安全随机性声明暂不可用。"
+    }
+  ],
+  "security_claims": [
+    {
+      "claim": "Phase 0 仅建立隔离运行与审计基础设施，尚未产生任何新算法或正式精度结果。",
+      "supported": true
+    }
+  ]
+}

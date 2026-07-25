@@ -673,3 +673,14 @@
 - End-to-End：CIFAR-100 与 Tiny 的 Distilled+Stage B 在 300-step 预算下明显高于 Distilled-only（0.1797 vs 0.0591；0.0427 vs 0.0104）；CIFAR-10 则为 0.3257 vs 0.3658，保留负结果。
 - TFE 边界：3 数据集完成 50/100/200 samples、10 steps 的 ABY3 Flatten+Dense 轻量验证；明确不是 full ConvNet 或 full Adaptive-DP；reveal loss/logits/final parameters；通信指标 N/A；缺失 TF 1.15.5 secure-random custom op 与 TFE GroupNorm 支持继续标记 BLOCKED。
 - 最终产物：`log/json/formalCrossStage_20260725_121001.json`、`expTab/formalCrossStage_20260725_121001.csv`、`log/txt/formalCrossStage_20260725_121001.log`、`expPaperTab/formal{ModuleB,ModuleC,End2End}_20260725_121001.csv`，以及 `expFig/formal_cross_stage/` 下 9 张正式 PNG。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-25 14:34 Asia/Shanghai
+- 本次对话任务目标：严格执行 `plan/new_codex_secure_feature_full_formal_prompt.md`，在隔离分支重建可会计 DP-MTT Stage A、共享 2048 维特征、真实 TFE/ABY3 Stage B 与 Stage C，并完成三数据集正式实验和系统评估；不得以 smoke test 或随机精度作为完成标准。
+- 资源评估与安全设置：检测到两张 RTX 4090（各 24,564 MiB）、188 GiB RAM；项目盘剩余约 110 GiB、系统盘剩余约 61 GiB。所有进程固定 CPU/BLAS/PyTorch 线程为 1，`DataLoader num_workers=0`，每张 GPU 同时最多一个任务，TFE 串行；磁盘低于 25 GiB 或可用内存低于 16 GiB时拒绝启动。
+- Phase 0：从基线 `cross-stage-refactor@0a7a254` 创建隔离分支 `new-secure-feature-pipeline`；建立全部 `new_` 前缀目录、manifest、进度文件、双 GPU/TFE 串行队列、资源锁、60 秒 heartbeat、checkpoint/resume、两次异常重试和资源监控。
+- 持久运行：系统原本没有 tmux，已在 `/home/lixujie/tmpWork/new_tmux_runtime` 隔离安装 tmux 3.7b，未修改训练环境；会话 `new_secure_feature_formal` 包含 `gpu0/gpu1/tfe/monitor/report` 五个窗口。
+- 环境证据：现代环境 Python 3.9.7、PyTorch 2.8.0+cu128、torchvision 0.23.0+cu128、cuDNN 91002、Opacus 1.5.4；旧环境 Python 3.6.13、TensorFlow 1.15.5、TF Encrypted 0.8.0。旧 TFE 缺少对应 aux/secure_random custom ops，已标记为开放阻塞项，不能声称安全随机性。
+- Phase 0 输出：`new_SECURE_FEATURE_PIPELINE_PROGRESS.md`、`new_SECURE_FEATURE_EXPERIMENT_MANIFEST.json`、`new_log/new_secure_feature/json/new_phase0_environment.json`、`new_log/new_secure_feature/json/new_phase0_baseline_artifacts.json` 和 `new_scripts/new_*.sh`。
