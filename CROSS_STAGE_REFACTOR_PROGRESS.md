@@ -4,7 +4,7 @@
 
 - [x] Phase 0: Baseline snapshot and branch
 - [x] Phase 1: Remove 2048-D feature path from main A->B->C
-- [ ] Phase 2: Clarify and implement plaintext/MPC boundary
+- [x] Phase 2: Clarify and implement plaintext/MPC boundary
 - [ ] Phase 3: Add TFE secure-system Stage-C validation
 - [ ] Phase 4: Repair privacy accounting and test-set boundary
 - [ ] Phase 5: Final end-to-end regression and documentation
@@ -98,7 +98,30 @@
 
 ## Phase 2
 
-- Status: `PENDING`
+- Status: `COMPLETED`
+- `secure_aggregation.py` now exposes explicit, non-interchangeable backends:
+  - `plaintext_aggregate_and_select`
+  - `tfe_mpc_aggregate_and_select`
+  - `aggregate_and_select(backend=..., allow_plaintext_fallback=False)`
+- Silent plaintext fallback was removed from `feature_kd_init.py`.
+- Existing non-legacy callers explicitly request `backend="tfe_mpc"`.
+- TFE scope is truthful:
+  - ABY3 computes linear-parameter averaging and candidate logits.
+  - Averaged parameters and candidate logits are revealed.
+  - Accuracy and candidate argmax happen after reveal.
+  - Scope name: `secure_score_computation_with_revealed_selection`.
+- Required metadata is printed and returned:
+  - `backend`
+  - `protocol`
+  - `secret_shared_inputs`
+  - `revealed_values`
+  - `fallback_used=False`
+  - `selection_security_scope`
+- Safe validation:
+  - distillation environment plaintext API test passed.
+  - missing explicit backend guard passed.
+  - old TFE environment ABY3 two-client, four-feature micro-test passed with one CPU thread.
+- Full ConvNet KD/aggregation remains in the algorithmic PyTorch plaintext pipeline and is not mislabeled MPC.
 
 ## Phase 3
 

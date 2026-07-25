@@ -974,15 +974,17 @@ def run_kd_hetero_init_pipeline(
     if _use_secure:
         try:
             import secure_aggregation as sa
-        except ImportError:
-            if verbose:
-                print("[警告] secure_aggregation.py 不可用，回退到明文聚合")
-            _use_secure = False
+        except ImportError as exc:
+            raise RuntimeError(
+                "已请求 tfe_mpc 聚合，但 secure_aggregation.py 不可用；禁止静默回退明文"
+            ) from exc
 
     if _use_secure:
         if verbose:
-            print("\n[Step7] 使用 ABY3 密态聚合 + 密态候选评估 ...")
-        sa_result = sa.secure_aggregate_and_select(
+            print("\n[Step7] 使用 ABY3 聚合 + reveal 后候选选择系统验证 ...")
+        sa_result = sa.aggregate_and_select(
+            backend="tfe_mpc",
+            allow_plaintext_fallback=False,
             distill_models=distill_models,
             best_local_model=best_model_plain,
             X_ref=X_ref,

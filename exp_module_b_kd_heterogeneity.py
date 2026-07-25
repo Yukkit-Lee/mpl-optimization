@@ -294,7 +294,9 @@ def run_one_setting(
 
     if bool(CFG["use_secure_aggregation"]):
         import secure_aggregation as sa
-        sa_result = sa.secure_aggregate_and_select(
+        sa_result = sa.aggregate_and_select(
+            backend="tfe_mpc",
+            allow_plaintext_fallback=False,
             distill_models=final_models,
             best_local_model=best_model_plain,
             X_ref=X_ref,
