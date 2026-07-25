@@ -103,3 +103,6 @@ experiments using the same encoder/scaler signatures.
 - Candidate test accuracy is evaluated only after all formal candidate models
   exist. That report cannot modify the frozen configuration and explicitly
   defers Step@TargetAcc/EarlyAUC to secure Stage-C convergence.
+- The first complete formal run (CIFAR-10 seed 42 IID) produced NoKD/KD-Avg/
+  KD-ReferenceWeighted test accuracies of `0.5879/0.6172/0.6153` at the
+  read-only reporting boundary. Its 30-row epoch history is complete.

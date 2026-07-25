@@ -75,6 +75,7 @@ run/
 # New secure-feature route: keep source/reports, exclude local runtime state and weights
 new_cache/
 new_init_model/
+new_checkpoint/
 new_log/new_secure_feature/heartbeat/
 new_log/new_secure_feature/pids/
 new_log/new_secure_feature/status/
