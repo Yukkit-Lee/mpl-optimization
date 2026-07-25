@@ -15,6 +15,7 @@ import os
 import random
 import sys
 import time
+import warnings
 from pathlib import Path
 from typing import Dict, List, Sequence
 
@@ -27,6 +28,10 @@ from opacus.validators import ModuleValidator
 from torch.utils.data import DataLoader, Subset
 from torchvision import datasets, transforms
 
+from new_cryptographic_gaussian import (
+    ChaCha20GaussianSampler,
+    install_opacus_chacha20_noise,
+)
 from new_secure_feature_models import (
     DATASET_SPECS,
     atomic_torch_save,
@@ -45,6 +50,12 @@ PROJECT_ROOT = Path(os.environ.get("NEW_PROJECT_ROOT", Path(__file__).resolve().
 DATA_ROOT = Path(os.environ.get("NEW_DATA_ROOT", "/home/lixujie/tmpWork"))
 OUTPUT_ROOT = Path(os.environ.get("NEW_OUTPUT_ROOT", str(PROJECT_ROOT)))
 DEFAULT_OUTPUT = OUTPUT_ROOT / "new_cache" / "new_secure_feature" / "new_stage_a_dp_trajectories"
+SECRET_ROOT = Path(
+    os.environ.get(
+        "NEW_SECRET_ROOT",
+        str(DATA_ROOT / "new_secure_feature_secrets"),
+    )
+)
 
 RAW_DATA_PATHS = {
     "cifar10": DATA_ROOT / "mtt_cifar10_work" / "data",
@@ -137,6 +148,11 @@ def train_one_expert(
     checkpoint_path = output_dir / (
         "new_dp_expert_checkpoint_{}_party{:02d}_expert{:02d}.pt".format(dataset, party_id, expert_id)
     )
+    secret_path = SECRET_ROOT / dataset / (
+        "new_dp_expert_csprng_key_{}_party{:02d}_expert{:02d}.pt".format(
+            dataset, party_id, expert_id
+        )
+    )
     if trajectory_path.exists() and not args.force:
         print("  跳过已完成轨迹: {}".format(trajectory_path.name), flush=True)
         return trajectory_path
@@ -163,15 +179,29 @@ def train_one_expert(
         momentum=args.momentum,
         weight_decay=args.weight_decay,
     )
-    try:
-        privacy_engine = PrivacyEngine(accountant="rdp", secure_mode=args.secure_rng)
-    except Exception as exc:
-        if args.secure_rng:
-            raise RuntimeError(
-                "正式 DP expert 要求 secure RNG，但 torchcsprng 与当前 PyTorch/CUDA 不兼容；"
-                "禁止静默回退。原始错误: {}".format(exc)
-            ) from exc
-        raise
+    secure_sampler = None
+    secure_backend = "torch_default_gaussian"
+    if args.secure_rng:
+        if secret_path.exists() and not args.force:
+            secret_state = torch.load(str(secret_path), map_location="cpu", weights_only=False)
+            secure_sampler = ChaCha20GaussianSampler()
+            secure_sampler.load_state_dict(secret_state)
+        else:
+            secure_sampler = ChaCha20GaussianSampler()
+            secret_path.parent.mkdir(parents=True, exist_ok=True)
+            atomic_torch_save(secure_sampler.state_dict(), secret_path)
+            os.chmod(str(secret_path), 0o600)
+        install_opacus_chacha20_noise(secure_sampler)
+        secure_backend = "chacha20_box_muller_4sample"
+    # secure_rng=True 时由上面的 ChaCha20 后端替换噪声函数，因此不触发
+    # 与当前 CUDA/PyTorch ABI 不兼容的旧 torchcsprng 二进制扩展。
+    with warnings.catch_warnings():
+        warnings.filterwarnings(
+            "ignore",
+            message="Secure RNG turned off.*",
+            category=UserWarning,
+        )
+        privacy_engine = PrivacyEngine(accountant="rdp", secure_mode=False)
     model, optimizer, private_loader = privacy_engine.make_private(
         module=model,
         optimizer=optimizer,
@@ -194,6 +224,12 @@ def train_one_expert(
         start_epoch = int(checkpoint["next_epoch"])
         optimizer_steps = int(checkpoint["optimizer_steps"])
         restore_rng_state(checkpoint["rng_state"])
+        if "loader_generator_state" in checkpoint:
+            loader_generator.set_state(checkpoint["loader_generator_state"])
+        if args.secure_rng:
+            if "secure_sampler_counter_state" not in checkpoint:
+                raise RuntimeError("secure_rng 恢复要求 checkpoint 包含 CSPRNG counter")
+            secure_sampler.load_counter_state_dict(checkpoint["secure_sampler_counter_state"])
         print("  从 epoch {} 恢复 expert".format(start_epoch), flush=True)
 
     log_epochs = build_log_epochs(args.epochs)
@@ -229,6 +265,10 @@ def train_one_expert(
             "accountant_state": privacy_engine.accountant.state_dict(),
             "trajectory": trajectory,
             "rng_state": capture_rng_state(),
+            "loader_generator_state": loader_generator.get_state(),
+            "secure_sampler_counter_state": (
+                secure_sampler.counter_state_dict() if secure_sampler is not None else None
+            ),
         }
         atomic_torch_save(checkpoint, checkpoint_path)
         if epoch + 1 in log_epochs:
@@ -268,6 +308,13 @@ def train_one_expert(
         "runtime_seconds": time.time() - started,
         "raw_data_access": "expert_training_only",
         "secure_rng": args.secure_rng,
+        "secure_rng_backend": secure_backend,
+        "secure_rng_key_fingerprint": (
+            secure_sampler.key_fingerprint if secure_sampler is not None else None
+        ),
+        "secure_rng_key_storage": (
+            "external_mode_0600_sidecar" if secure_sampler is not None else None
+        ),
     }
     atomic_torch_save(payload, trajectory_path)
     return trajectory_path
@@ -324,6 +371,9 @@ def write_manifest(dataset: str, output_dir: Path, args, party_splits: List[np.n
         "epochs_per_expert": args.epochs,
         "delta": args.delta,
         "secure_rng": args.secure_rng,
+        "secure_rng_backend": (
+            "chacha20_box_muller_4sample" if args.secure_rng else "torch_default_gaussian"
+        ),
         "privacy_assumptions": [
             "蒸馏优化不得重新访问 raw training data",
             "发布的 synthetic images 只能由此 manifest 中的 DP trajectories 生成",
@@ -361,7 +411,7 @@ def make_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--secure_rng",
         action="store_true",
-        help="正式运行启用 Opacus secure RNG；不可用时硬失败，不允许回退",
+        help="正式运行启用 ChaCha20 CSPRNG 高斯后端；不允许普通 RNG 回退",
     )
     parser.add_argument("--force", action="store_true")
     return parser

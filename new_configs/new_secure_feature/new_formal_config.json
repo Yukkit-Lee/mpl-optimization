@@ -22,7 +22,9 @@
     "expert_noise_multiplier": 1.5,
     "expert_max_grad_norm": 1.0,
     "secure_rng_required": true,
-    "secure_rng_status": "BLOCKED_TORCHCSPRNG_CUDA10_2_ABI",
+    "secure_rng_status": "READY_CUSTOM_CHACHA20_BACKEND",
+    "secure_rng_backend": "chacha20_box_muller_4sample",
+    "secure_rng_secret_root_env": "NEW_SECRET_ROOT",
     "delta": 1e-5,
     "ipc": 10,
     "distill_iterations": {

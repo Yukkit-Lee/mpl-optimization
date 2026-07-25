@@ -61,8 +61,13 @@ class StageADPTrajectoryTests(unittest.TestCase):
 
     def test_secure_rng_has_no_silent_fallback(self):
         source = (ROOT / "new_stage_a_dp_experts.py").read_text(encoding="utf-8")
-        self.assertIn("secure_mode=args.secure_rng", source)
-        self.assertIn("禁止静默回退", source)
+        backend = (ROOT / "new_cryptographic_gaussian.py").read_text(encoding="utf-8")
+        self.assertIn("ChaCha20GaussianSampler", source)
+        self.assertIn("install_opacus_chacha20_noise", source)
+        self.assertIn("external_mode_0600_sidecar", source)
+        self.assertNotIn('"secure_sampler_state":', source)
+        self.assertIn("algorithms.ChaCha20", backend)
+        self.assertIn("secure_mode=True", backend)
 
 
 if __name__ == "__main__":

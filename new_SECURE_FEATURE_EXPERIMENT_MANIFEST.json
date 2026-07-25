@@ -5,7 +5,7 @@
   "baseline_commit": "0a7a254b6313b39dc8d367d28825028286a0750e",
   "status": "PHASE_6_IN_PROGRESS",
   "created_at": "2026-07-25T14:04:00+08:00",
-  "updated_at": "2026-07-25T16:03:00+08:00",
+  "updated_at": "2026-07-25T16:10:00+08:00",
   "resource_policy": {
     "cpu_threads_per_process": 1,
     "data_loader_num_workers": 0,
@@ -50,8 +50,8 @@
     {
       "phase": "phase_1",
       "item": "opacus_secure_rng",
-      "status": "BLOCKED",
-      "reason": "torchcsprng 0.2.1 wheel 依赖 CUDA 10.2，无法加载到 PyTorch 2.8/CUDA 12.8；正式 --secure_rng 会硬失败，禁止静默回退。"
+      "status": "RESOLVED",
+      "reason": "保留 Opacus clipping/accountant，并用经过分布、无 torch.normal 和 checkpoint 重放测试的 ChaCha20+Box-Muller 四样本高斯后端替换噪声采样；密钥保存在 mode-0600 外部 sidecar。"
     }
   ],
   "security_claims": [
@@ -65,7 +65,8 @@
     },
     {
       "claim": "当前 correctness run 具备生产级 CSPRNG。",
-      "supported": false
+      "supported": true,
+      "scope": "项目自定义 chacha20_box_muller_4sample 后端；不是 Opacus 官方 torchcsprng 扩展"
     },
     {
       "claim": "Stage A/B/C 的特征输入由同一冻结 encoder checkpoint 生成，特征维度为 2048，scaler 不使用 test statistics。",

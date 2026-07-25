@@ -1,0 +1,66 @@
+[2026-07-25T16:07:46+08:00] task=phase1_secure_rng_diag resource=gpu0 attempt=0
+========================================================================================
+Stage A Track B：DP-SGD experts -> DP trajectories
+dataset=cifar10 records=50000 parties=50 experts/party=1 epochs=1
+device=cuda cpu_threads=1 num_workers=0 noise=1.5 clip=1.0 delta=1e-05 secure_rng=True
+selected_party_ids=[0]
+预计总 expert runs: 1
+output: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_stage_a_secure_rng_diagnostic/cifar10
+========================================================================================
+/home/lixujie/.conda/envs/distillation/lib/python3.9/site-packages/opacus/privacy_engine.py:96: UserWarning: Secure RNG turned off. This is perfectly fine for experimentation as it allows for much faster training performance, but remember to turn it on and retrain one last time before production with ``secure_mode`` turned on.
+  warnings.warn(
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+Traceback (most recent call last):
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_experts.py", line 445, in <module>
+    raise SystemExit(main())
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_experts.py", line 429, in main
+    train_one_expert(
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_experts.py", line 249, in train_one_expert
+    os.chmod(str(checkpoint_path), 0o600)
+PermissionError: [Errno 1] Operation not permitted: '/mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_stage_a_secure_rng_diagnostic/cifar10/new_dp_expert_checkpoint_cifar10_party00_expert00.pt'
+[2026-07-25T16:08:03+08:00] task=phase1_secure_rng_diag resource=gpu0 attempt=1
+========================================================================================
+Stage A Track B：DP-SGD experts -> DP trajectories
+dataset=cifar10 records=50000 parties=50 experts/party=1 epochs=1
+device=cuda cpu_threads=1 num_workers=0 noise=1.5 clip=1.0 delta=1e-05 secure_rng=True
+selected_party_ids=[0]
+预计总 expert runs: 1
+output: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_stage_a_secure_rng_diagnostic/cifar10
+========================================================================================
+/home/lixujie/.conda/envs/distillation/lib/python3.9/site-packages/opacus/privacy_engine.py:96: UserWarning: Secure RNG turned off. This is perfectly fine for experimentation as it allows for much faster training performance, but remember to turn it on and retrain one last time before production with ``secure_mode`` turned on.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_experts.py", line 445, in <module>
+    raise SystemExit(main())
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_experts.py", line 429, in main
+    train_one_expert(
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_experts.py", line 200, in train_one_expert
+    restore_rng_state(checkpoint["rng_state"])
+  File "/mnt/code/lixujie/tfe_experiments/new_secure_feature_models.py", line 156, in restore_rng_state
+    torch.set_rng_state(state["torch_cpu"])
+  File "/home/lixujie/.conda/envs/distillation/lib/python3.9/site-packages/torch/random.py", line 19, in set_rng_state
+    default_generator.set_state(new_state)
+TypeError: RNG state must be a torch.ByteTensor
+[2026-07-25T16:08:20+08:00] task=phase1_secure_rng_diag resource=gpu0 attempt=2
+========================================================================================
+Stage A Track B：DP-SGD experts -> DP trajectories
+dataset=cifar10 records=50000 parties=50 experts/party=1 epochs=1
+device=cuda cpu_threads=1 num_workers=0 noise=1.5 clip=1.0 delta=1e-05 secure_rng=True
+selected_party_ids=[0]
+预计总 expert runs: 1
+output: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_stage_a_secure_rng_diagnostic/cifar10
+========================================================================================
+/home/lixujie/.conda/envs/distillation/lib/python3.9/site-packages/opacus/privacy_engine.py:96: UserWarning: Secure RNG turned off. This is perfectly fine for experimentation as it allows for much faster training performance, but remember to turn it on and retrain one last time before production with ``secure_mode`` turned on.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_experts.py", line 445, in <module>
+    raise SystemExit(main())
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_experts.py", line 429, in main
+    train_one_expert(
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_a_dp_experts.py", line 200, in train_one_expert
+    restore_rng_state(checkpoint["rng_state"])
+  File "/mnt/code/lixujie/tfe_experiments/new_secure_feature_models.py", line 156, in restore_rng_state
+    torch.set_rng_state(state["torch_cpu"])
+  File "/home/lixujie/.conda/envs/distillation/lib/python3.9/site-packages/torch/random.py", line 19, in set_rng_state
+    default_generator.set_state(new_state)
+TypeError: RNG state must be a torch.ByteTensor

@@ -1,0 +1,12 @@
+[2026-07-25T16:09:50+08:00] task=phase1_secure_rng_diag_v2 resource=gpu0 attempt=0
+========================================================================================
+Stage A Track B：DP-SGD experts -> DP trajectories
+dataset=cifar10 records=50000 parties=50 experts/party=1 epochs=1
+device=cuda cpu_threads=1 num_workers=0 noise=1.5 clip=1.0 delta=1e-05 secure_rng=True
+selected_party_ids=[0]
+预计总 expert runs: 1
+output: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_stage_a_secure_rng_diagnostic_v2/cifar10
+========================================================================================
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=00 expert=00 epoch=   1/   1 loss=2.3299 train_acc=0.1064 epsilon=1.7613
+manifest: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_stage_a_secure_rng_diagnostic_v2/cifar10/new_stage_a_dp_trajectory_manifest_cifar10.json
