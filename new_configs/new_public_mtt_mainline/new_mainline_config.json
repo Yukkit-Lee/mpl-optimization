@@ -70,16 +70,34 @@
     "batch_size": 256,
     "init_scale": 0.01,
     "splits": ["iid", "mild", "severe"],
+    "reference_per_class": 5,
     "epoch_budget": {
       "cifar10": {"local_epochs": 20, "distill_epochs": 10},
       "cifar100": {"local_epochs": 30, "distill_epochs": 15},
-      "tiny": {"local_epochs": 40, "distill_epochs": 20}
+      "tiny": {"local_epochs": 20, "distill_epochs": 10}
     },
-    "tuning_grid": {
-      "local_lr": [0.05, 0.1],
-      "distill_lr": [0.01, 0.03],
-      "lambda_kd": [0.1, 0.5],
-      "weight_temperature": [0.1, 0.3]
+    "tuning_grid_by_dataset": {
+      "cifar10": {
+        "local_lr": [0.1],
+        "distill_lr": [0.03],
+        "lambda_kd": [0.1],
+        "weight_temperature": [0.003, 0.005, 0.01],
+        "reference_supervised_weight": [1.0, 2.0]
+      },
+      "cifar100": {
+        "local_lr": [0.1],
+        "distill_lr": [0.03],
+        "lambda_kd": [0.1],
+        "weight_temperature": [0.003, 0.005, 0.01],
+        "reference_supervised_weight": [1.0, 2.0]
+      },
+      "tiny": {
+        "local_lr": [0.1],
+        "distill_lr": [0.03],
+        "lambda_kd": [0.1],
+        "weight_temperature": [0.005],
+        "reference_supervised_weight": [1.0, 2.0]
+      }
     }
   },
   "test_tuning_forbidden": true

@@ -14,13 +14,13 @@ PYTHON = os.environ.get(
 )
 QUEUE = (
     ROOT
-    / "new_configs/new_public_mtt_mainline/new_gpu0_stage_b_tuning.tsv"
+    / "new_configs/new_public_mtt_mainline/new_gpu0_stage_b_tuning_round2.tsv"
 )
 ACTIVE = ROOT / "new_configs/new_secure_feature/new_active_single_gpu_queue.txt"
 PLAN = (
     ROOT
     / "new_log/new_public_mtt_mainline/json"
-    / "new_stage_b_tuning_plan.json"
+    / "new_stage_b_tuning_round2_plan.json"
 )
 
 
@@ -31,21 +31,43 @@ def main():
     parser.add_argument("--activate", action="store_true")
     args = parser.parse_args()
     config = load_config()
-    candidates = 1
-    for values in config["module_b"]["tuning_grid"].values():
-        candidates *= len(values)
+    candidates_by_dataset = {}
+    for dataset in config["datasets"]:
+        candidates = 1
+        for values in config["module_b"]["tuning_grid_by_dataset"][
+            dataset
+        ].values():
+            candidates *= len(values)
+        candidates_by_dataset[dataset] = candidates
     rows = ["# task_id\tcheckpoint\tcommand"]
     outputs = []
+    manifest = (
+        ROOT
+        / "new_cache/new_public_mtt_mainline/new_stage_b_npz_round2"
+        / "new_stage_b_npz_manifest.json"
+    )
+    rows.append(
+        (
+            "public_mainline_stage_b_round2_export\t{manifest}\t"
+            "{python} {script} --dataset all --output_tag "
+            "new_stage_b_npz_round2 --reference_per_class 5"
+        ).format(
+            manifest=manifest,
+            python=PYTHON,
+            script=ROOT / "new_export_public_mtt_stage_b_npz.py",
+        )
+    )
     for dataset in config["datasets"]:
         output = (
             ROOT
             / "new_log/new_public_mtt_mainline/json/new_stage_b_tuning"
-            / "new_stage_b_tuning_{}.json".format(dataset)
+            / "new_stage_b_tuning_round2_{}.json".format(dataset)
         )
         rows.append(
             (
-                "public_mainline_stage_b_tune_{dataset}\t{output}\t"
-                "{python} {script} --dataset {dataset}"
+                "public_mainline_stage_b_round2_tune_{dataset}\t{output}\t"
+                "{python} {script} --dataset {dataset} --cache_tag "
+                "new_stage_b_npz_round2 --round_tag round2"
             ).format(
                 dataset=dataset,
                 output=output,
@@ -57,8 +79,7 @@ def main():
     QUEUE.parent.mkdir(parents=True, exist_ok=True)
     QUEUE.write_text("\n".join(rows) + "\n", encoding="utf-8")
     logical_runs = (
-        len(config["datasets"])
-        * candidates
+        sum(candidates_by_dataset.values())
         * len(config["tuning_seeds"])
         * len(config["module_b"]["splits"])
     )
@@ -68,7 +89,7 @@ def main():
         "datasets": config["datasets"],
         "tuning_seeds": config["tuning_seeds"],
         "splits": config["module_b"]["splits"],
-        "candidate_count_per_dataset": candidates,
+        "candidate_count_per_dataset": candidates_by_dataset,
         "logical_reference_only_runs": logical_runs,
         "queue_tasks": len(rows) - 1,
         "test_loaded": False,
@@ -95,7 +116,7 @@ def main():
     print("datasets={}".format(config["datasets"]))
     print(
         "candidates/dataset={} seeds={} splits={}".format(
-            candidates,
+            candidates_by_dataset,
             config["tuning_seeds"],
             config["module_b"]["splits"],
         )

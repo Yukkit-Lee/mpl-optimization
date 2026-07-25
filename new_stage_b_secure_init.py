@@ -239,16 +239,28 @@ def plaintext_reference(
                     np.matmul(x_reference, weights[client_id]) + biases[client_id]
                 )
                 kd_error = ref_logits - teacher
+                reference_error = ref_logits - y_reference_hot
                 grad_w = np.matmul(x_train[batch].T, local_error) / float(
                     len(batch)
                 )
                 grad_w += float(args.lambda_kd) * np.matmul(
                     x_reference.T, kd_error
                 ) / float(len(x_reference))
+                reference_weight = float(
+                    getattr(args, "reference_supervised_weight", 0.0)
+                )
+                if reference_weight > 0.0:
+                    grad_w += reference_weight * np.matmul(
+                        x_reference.T, reference_error
+                    ) / float(len(x_reference))
                 grad_b = np.sum(local_error, axis=0) / float(len(batch))
                 grad_b += float(args.lambda_kd) * np.sum(kd_error, axis=0) / float(
                     len(x_reference)
                 )
+                if reference_weight > 0.0:
+                    grad_b += reference_weight * np.sum(
+                        reference_error, axis=0
+                    ) / float(len(x_reference))
                 weights[client_id] -= float(args.distill_lr) * grad_w
                 biases[client_id] -= float(args.distill_lr) * grad_b
 
@@ -520,6 +532,7 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
                 + biases[client_id]
             )
             kd_error = ref_logits - teacher_logits
+            reference_error = ref_logits - reference_y
             grad_w = secure_chunked_matmul(
                 tfe,
                 tfe.transpose(batch_x),
@@ -534,12 +547,26 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
                 kd_error,
                 args.matmul_chunk_size,
             ) * (1.0 / float(len(data["x_reference"])))
+            reference_weight = float(
+                getattr(args, "reference_supervised_weight", 0.0)
+            )
+            if reference_weight > 0.0:
+                grad_w = grad_w + reference_weight * secure_chunked_matmul(
+                    tfe,
+                    tfe.transpose(reference_x),
+                    reference_error,
+                    args.matmul_chunk_size,
+                ) * (1.0 / float(len(data["x_reference"])))
             grad_b = tfe.reduce_sum(local_error, axis=0) * (
                 1.0 / float(args.batch_size)
             )
             grad_b = grad_b + float(args.lambda_kd) * tfe.reduce_sum(
                 kd_error, axis=0
             ) * (1.0 / float(len(data["x_reference"])))
+            if reference_weight > 0.0:
+                grad_b = grad_b + reference_weight * tfe.reduce_sum(
+                    reference_error, axis=0
+                ) * (1.0 / float(len(data["x_reference"])))
             new_weight = weights[client_id] - float(args.distill_lr) * grad_w
             new_bias = biases[client_id] - float(args.distill_lr) * grad_b
             distill_ops.append(
@@ -889,6 +916,12 @@ def parse_args():
     parser.add_argument("--distill_epochs", type=int, default=10)
     parser.add_argument("--distill_lr", type=float, default=0.02)
     parser.add_argument("--lambda_kd", type=float, default=0.5)
+    parser.add_argument(
+        "--reference_supervised_weight",
+        type=float,
+        default=0.0,
+        help="Secure calibration loss weight on the independent reference set",
+    )
     parser.add_argument("--weight_temperature", type=float, default=0.2)
     parser.add_argument("--init_scale", type=float, default=0.01)
     parser.add_argument("--precision_fractional", type=int, default=16)
@@ -1091,6 +1124,9 @@ def main():
             "distill_epochs": int(args.distill_epochs),
             "distill_lr": float(args.distill_lr),
             "lambda_kd": float(args.lambda_kd),
+            "reference_supervised_weight": float(
+                args.reference_supervised_weight
+            ),
             "weight_temperature": float(args.weight_temperature),
             "precision_fractional": int(args.precision_fractional),
             "matmul_chunk_size": int(args.matmul_chunk_size),

@@ -14,7 +14,6 @@ from new_public_mtt_mainline_common import ROOT, load_config
 from new_secure_feature_models import configure_single_thread_runtime
 
 
-NPZ_ROOT = ROOT / "new_cache/new_public_mtt_mainline/new_stage_b_npz"
 JSON_ROOT = ROOT / "new_log/new_public_mtt_mainline/json/new_stage_b_tuning"
 
 
@@ -48,11 +47,13 @@ def teacher_disagreement(x, weights, biases):
 
 def candidate_grid(dataset, config):
     base = config["module_b"]["epoch_budget"][dataset]
+    grid = config["module_b"]["tuning_grid_by_dataset"][dataset]
     combinations = itertools.product(
-        config["module_b"]["tuning_grid"]["local_lr"],
-        config["module_b"]["tuning_grid"]["distill_lr"],
-        config["module_b"]["tuning_grid"]["lambda_kd"],
-        config["module_b"]["tuning_grid"]["weight_temperature"],
+        grid["local_lr"],
+        grid["distill_lr"],
+        grid["lambda_kd"],
+        grid["weight_temperature"],
+        grid["reference_supervised_weight"],
     )
     return [
         {
@@ -63,19 +64,26 @@ def candidate_grid(dataset, config):
             "distill_lr": distill_lr,
             "lambda_kd": lambda_kd,
             "weight_temperature": temperature,
+            "reference_supervised_weight": reference_supervised_weight,
         }
-        for index, (local_lr, distill_lr, lambda_kd, temperature) in enumerate(
-            combinations, start=1
-        )
+        for index, (
+            local_lr,
+            distill_lr,
+            lambda_kd,
+            temperature,
+            reference_supervised_weight,
+        ) in enumerate(combinations, start=1)
     ]
 
 
-def run_candidate(dataset, candidate, config):
+def run_candidate(dataset, candidate, config, cache_tag):
     rows = []
     num_classes = {"cifar10": 10, "cifar100": 100, "tiny": 200}[dataset]
     for seed in config["tuning_seeds"]:
         cache_path = (
-            NPZ_ROOT
+            ROOT
+            / "new_cache/new_public_mtt_mainline"
+            / cache_tag
             / dataset
             / "new_stage_b_features_{}_seed{}.npz".format(dataset, seed)
         )
@@ -104,6 +112,9 @@ def run_candidate(dataset, candidate, config):
                 lambda_kd=candidate["lambda_kd"],
                 distill_lr=candidate["distill_lr"],
                 weight_temperature=candidate["weight_temperature"],
+                reference_supervised_weight=candidate[
+                    "reference_supervised_weight"
+                ],
             )
             result = secure_b.plaintext_reference(
                 data["x_encoder_train"],
@@ -177,6 +188,8 @@ def main():
     parser.add_argument(
         "--dataset", choices=("cifar10", "cifar100", "tiny"), required=True
     )
+    parser.add_argument("--cache_tag", default="new_stage_b_npz_round2")
+    parser.add_argument("--round_tag", default="round2")
     args = parser.parse_args()
     configure_single_thread_runtime(42)
     config = load_config()
@@ -202,7 +215,7 @@ def main():
         .tolist()
     )
     for index, candidate in enumerate(candidates, start=1):
-        rows = run_candidate(args.dataset, candidate, config)
+        rows = run_candidate(args.dataset, candidate, config, args.cache_tag)
         score = candidate_score(rows)
         results.append(
             {"candidate": candidate, "selection_score": score, "rows": rows}
@@ -227,7 +240,9 @@ def main():
         "winner": winner,
         "candidates": results,
     }
-    output = JSON_ROOT / "new_stage_b_tuning_{}.json".format(args.dataset)
+    output = JSON_ROOT / "new_stage_b_tuning_{}_{}.json".format(
+        args.round_tag, args.dataset
+    )
     atomic_json(payload, output)
     print("winner={}".format(winner["candidate"]), flush=True)
     print("output={}".format(output), flush=True)
