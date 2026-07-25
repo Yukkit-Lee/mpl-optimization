@@ -44,7 +44,7 @@
   - The sanity run temporarily targeted the fixed Figure 4 filename. Its 2-step image was copied to the baseline directory and the committed formal Figure 4 PNG was restored immediately.
 - Known limitation:
   - The legacy Stage A plotting entry uses a fixed figure filename; new cross-stage outputs must use timestamped names.
-- Git commit: pending Phase 0 commit.
+- Git commit: `2203070` (`Snapshot cross-stage refactor baseline`).
 - Baseline key outputs:
   - `log/json/stageA_directImage_cifar10_20260725_100011.json`
   - `log/json/stageA_directImage_cifar100_20260725_100048.json`
