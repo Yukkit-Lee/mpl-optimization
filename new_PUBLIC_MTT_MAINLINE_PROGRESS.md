@@ -96,3 +96,10 @@ experiments using the same encoder/scaler signatures.
 - The formal Stage-B manifest contains 27 serial TFE tasks: three datasets,
   three seeds, and IID/Mild/Severe splits. Every run checkpoints each epoch
   and records a complete local/KD epoch timing history.
+- The formal queue is active in the persistent `tfe` tmux window. Effective
+  compute is pinned to CPU core 0 with GPU disabled; the hosting systemd cgroup
+  has 120 GiB memory high and 140 GiB hard limits so oversized TFE graphs fail
+  recoverably instead of exhausting the 188 GiB host.
+- Candidate test accuracy is evaluated only after all formal candidate models
+  exist. That report cannot modify the frozen configuration and explicitly
+  defers Step@TargetAcc/EarlyAUC to secure Stage-C convergence.

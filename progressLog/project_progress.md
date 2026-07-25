@@ -763,3 +763,5 @@
 - TFE Python 3.6 控制台恢复修复（2026-07-26 02:30）：首次低温 correctness 尚未建图即因 `LC_ALL=C` 下 stdout 使用 ASCII、中文标题触发 `UnicodeEncodeError`；统一安全环境新增 `PYTHONIOENCODING=UTF-8`，继续保留 C locale 的稳定资源字段解析。失败日志保留，使用新 checkpoint 路径重跑。
 - Stage B 低温密态质量门（2026-07-26 02:32）：真实 TFE/ABY3、2048-D、16-bit fractional、`temperature=0.005` correctness 完成；selected/RW 参数相对 NumPy 最大误差约 `7.3e-5/7.1e-5`，secure Avg 与 RW 最大差约 `9.4e-3`，确认低温权重未退化。正式接口新增每个 local/KD epoch 的 batches、epoch time 和累计时间 history。
 - Stage B 正式队列准备（2026-07-26 02:32）：新增 3 datasets × 3 seeds × IID/Mild/Severe 共 27 个 ABY3 串行任务的 manifest 生成器；GPU 禁用、CPU core0/threads1、`num_workers=0`，每 epoch checkpoint，并仅在显式 formal ablation boundary 释放 NoKD/KD-Avg/KD-RW 候选。
+- Stage B 正式启动与资源硬保护（2026-07-26 02:36）：首个 CIFAR-10 seed42 IID 完整任务由 tmux `tfe` 窗口启动；实际总 CPU 约 100%、affinity 仅 core0、swap=0。systemd cgroup 运行时设置 `MemoryHigh=120G / MemoryMax=140G / MemorySwapMax=4G`，超限只终止可恢复任务，避免拖垮 188 GiB 主机。
+- Stage B 冻结后报告接口（2026-07-26 02:36）：新增候选初始化只读 test 报告器；仅在 27 个安全任务全部完成后评估 NoKD/KD-Avg/KD-RW，输出三 seed mean±std、IID→Severe retention、TFE runtime、CSV/JSON/TXT 与 Non-IID 图。test 结果不反馈给选参；EarlyAUC/Step@Target 明确留给后续 Secure Stage-C convergence，不伪造。
