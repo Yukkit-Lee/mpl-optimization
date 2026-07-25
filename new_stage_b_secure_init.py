@@ -221,6 +221,10 @@ def plaintext_reference(
         ],
         axis=0,
     )
+    nokd_weights = [value.copy() for value in weights]
+    nokd_biases = [value.copy() for value in biases]
+    nokd_avg_w = np.mean(nokd_weights, axis=0)
+    nokd_avg_b = np.mean(nokd_biases, axis=0)
     for epoch in range(int(args.distill_epochs)):
         for client_id, indices in enumerate(client_indices):
             for batch in deterministic_batches(
@@ -270,6 +274,10 @@ def plaintext_reference(
     else:
         selected_w, selected_b, selected_name = avg_w, avg_b, "KD-Avg"
     return {
+        "nokd_weights": nokd_weights,
+        "nokd_biases": nokd_biases,
+        "nokd_avg_w": nokd_avg_w,
+        "nokd_avg_b": nokd_avg_b,
         "weights": weights,
         "biases": biases,
         "teacher": teacher,
@@ -461,13 +469,43 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
                 else teacher_expression + logits
             )
         teacher_expression = teacher_expression * (1.0 / float(args.num_clients))
+        nokd_avg_w_expression = weights[0]
+        nokd_avg_b_expression = biases[0]
+        for client_id in range(1, int(args.num_clients)):
+            nokd_avg_w_expression = nokd_avg_w_expression + weights[client_id]
+            nokd_avg_b_expression = nokd_avg_b_expression + biases[client_id]
+        nokd_avg_w_expression = nokd_avg_w_expression * (
+            1.0 / float(args.num_clients)
+        )
+        nokd_avg_b_expression = nokd_avg_b_expression * (
+            1.0 / float(args.num_clients)
+        )
         teacher_logits = tfe.define_private_variable(
             np.zeros(
                 (len(data["x_reference"]), int(args.num_classes)), dtype=np.float32
             ),
             name="teacher_logits",
         )
-        teacher_assign = tfe.assign(teacher_logits, teacher_expression)
+        nokd_avg_w = tfe.define_private_variable(
+            np.zeros(
+                (int(args.feature_dim), int(args.num_classes)),
+                dtype=np.float32,
+            ),
+            name="nokd_avg_weight",
+        )
+        nokd_avg_b = tfe.define_private_variable(
+            np.zeros((int(args.num_classes),), dtype=np.float32),
+            name="nokd_avg_bias",
+        )
+        teacher_assign = secure_simultaneous_assign(
+            tf,
+            [
+                (teacher_logits, teacher_expression),
+                (nokd_avg_w, nokd_avg_w_expression),
+                (nokd_avg_b, nokd_avg_b_expression),
+            ],
+            "new_atomic_teacher_and_nokd_snapshot",
+        )
 
         distill_ops = []
         for client_id in range(int(args.num_clients)):
@@ -584,6 +622,8 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
                 "local_ops": local_ops,
                 "teacher_logits": teacher_logits,
                 "teacher_assign": teacher_assign,
+                "nokd_avg_w": nokd_avg_w,
+                "nokd_avg_b": nokd_avg_b,
                 "distill_ops": distill_ops,
                 "avg_w": avg_w,
                 "avg_b": avg_b,
@@ -719,11 +759,48 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
         if (epoch + 1) % int(args.checkpoint_interval) == 0:
             save_checkpoint(graph, session, args.checkpoint_prefix, state)
 
-    selected_w, selected_b = session.run(
-        [graph["selected_w"].reveal(), graph["selected_b"].reveal()]
-    )
+    candidate_fetches = [
+        graph["selected_w"].reveal(),
+        graph["selected_b"].reveal(),
+    ]
+    if args.formal_candidate_release:
+        candidate_fetches.extend(
+            [
+                graph["nokd_avg_w"].reveal(),
+                graph["nokd_avg_b"].reveal(),
+                graph["avg_w"].reveal(),
+                graph["avg_b"].reveal(),
+                graph["rw_w"].reveal(),
+                graph["rw_b"].reveal(),
+            ]
+        )
+    candidate_values = session.run(candidate_fetches)
+    selected_w, selected_b = candidate_values[:2]
+    released_candidates = None
     diagnostics = None
     revealed_values = ["final_selected_stage_b_weight", "final_selected_stage_b_bias"]
+    if args.formal_candidate_release:
+        released_candidates = {
+            "NoKD": {
+                "weight": np.asarray(candidate_values[2], dtype=np.float32),
+                "bias": np.asarray(candidate_values[3], dtype=np.float32),
+            },
+            "KD-Avg": {
+                "weight": np.asarray(candidate_values[4], dtype=np.float32),
+                "bias": np.asarray(candidate_values[5], dtype=np.float32),
+            },
+            "KD-ReferenceWeighted": {
+                "weight": np.asarray(candidate_values[6], dtype=np.float32),
+                "bias": np.asarray(candidate_values[7], dtype=np.float32),
+            },
+        }
+        revealed_values.extend(
+            [
+                "formal_ablation_nokd_candidate",
+                "formal_ablation_kd_avg_candidate",
+                "formal_ablation_kd_reference_weighted_candidate",
+            ]
+        )
     if args.correctness_reveal:
         diagnostic_fetches = [
             graph["teacher_logits"].reveal(),
@@ -788,6 +865,7 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
         "selected_w": np.asarray(selected_w, dtype=np.float32),
         "selected_b": np.asarray(selected_b, dtype=np.float32),
         "diagnostics": diagnostics,
+        "released_candidates": released_candidates,
         "revealed_values": revealed_values,
         "runtime_seconds": float(runtime),
         "checkpoint_state": state,
@@ -818,6 +896,14 @@ def parse_args():
     parser.add_argument("--checkpoint_interval", type=int, default=5)
     parser.add_argument("--correctness_reveal", action="store_true")
     parser.add_argument("--run_plaintext_reference", action="store_true")
+    parser.add_argument(
+        "--formal_candidate_release",
+        action="store_true",
+        help=(
+            "Release NoKD/KD-Avg/KD-ReferenceWeighted outputs only at the "
+            "explicit formal ablation boundary"
+        ),
+    )
     return parser.parse_args()
 
 
@@ -930,6 +1016,27 @@ def main():
                 )
             ),
         }
+        if secure["released_candidates"] is not None:
+            correctness.update(
+                {
+                    "nokd_avg_weight_max_abs_error": float(
+                        np.max(
+                            np.abs(
+                                secure["released_candidates"]["NoKD"]["weight"]
+                                - plaintext["nokd_avg_w"]
+                            )
+                        )
+                    ),
+                    "nokd_avg_bias_max_abs_error": float(
+                        np.max(
+                            np.abs(
+                                secure["released_candidates"]["NoKD"]["bias"]
+                                - plaintext["nokd_avg_b"]
+                            )
+                        )
+                    ),
+                }
+            )
 
     model_path = os.path.join(
         args.output_dir,
@@ -944,6 +1051,27 @@ def main():
         feature_dim=np.asarray([args.feature_dim], dtype=np.int64),
         num_classes=np.asarray([args.num_classes], dtype=np.int64),
     )
+    candidate_paths = {}
+    if secure["released_candidates"] is not None:
+        for method, candidate in secure["released_candidates"].items():
+            safe_name = method.lower().replace("-", "_")
+            candidate_path = os.path.join(
+                args.output_dir,
+                "new_secure_stage_b_candidate_{}_{}_{}_seed{}.npz".format(
+                    safe_name, args.dataset, args.split, args.seed
+                ),
+            )
+            atomic_npz_save(
+                candidate_path,
+                weight=candidate["weight"],
+                bias=candidate["bias"],
+                feature_dim=np.asarray([args.feature_dim], dtype=np.int64),
+                num_classes=np.asarray([args.num_classes], dtype=np.int64),
+            )
+            candidate_paths[method] = {
+                "path": candidate_path,
+                "sha256": sha256_file(candidate_path),
+            }
     report = {
         "schema": "new_secure_stage_b_report_v1",
         "status": "COMPLETE",
@@ -989,6 +1117,7 @@ def main():
                 "selection_bit",
             ],
             "revealed_values": secure["revealed_values"],
+            "formal_candidate_release": bool(args.formal_candidate_release),
             "selection_scope": (
                 "fully_secret_selection_final_model_only"
                 if not args.correctness_reveal
@@ -999,6 +1128,7 @@ def main():
         },
         "selected_model_path": model_path,
         "selected_model_sha256": sha256_file(model_path),
+        "formal_candidate_models": candidate_paths,
         "runtime_seconds": float(time.time() - started),
         "correctness": correctness,
     }
