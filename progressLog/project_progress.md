@@ -745,3 +745,4 @@
 - 安全策略：CPU/BLAS/PyTorch 每进程 1 线程，`num_workers=0`，首队列只使用 GPU0；沿用 systemd+tmux、60 秒 heartbeat、100-step checkpoint、失败熔断和断点恢复。
 - 新增文件：`new_PUBLIC_MTT_MAINLINE_PROGRESS.md`、`new_public_mtt_mainline_common.py`、`new_public_mtt_feature_quality.py`、`new_prepare_public_mtt_mainline.py`、`new_tests/new_test_public_mtt_mainline.py` 及 `new_configs/new_public_mtt_mainline/new_mainline_config.json`。
 - Test 隔离加固：现有正式 feature cache 文件包含只读 test tensor，因此新增 `new_prepare_public_mtt_reference_caches.py`，先生成物理上不含 `x_test/y_test` 的 `new_test_free_features` 缓存；所有 tuning 仅允许加载该缓存，冻结 formal 配置后才加载原始正式 cache。
+- 2048-D 特征质量门完成（2026-07-26 01:27）：36 个 reference-only tuning runs 与 9 个 frozen formal runs 均一次完成。CIFAR-10=`0.6782±0.0071`、CIFAR-100=`0.4384±0.0046`、Tiny=`0.2619±0.0061`，均高于预先声明门槛；状态 `QUALITY_GATE_PASS`。冻结配置分别为 AdamW `lr=1e-3,wd=0` 与 AdamW `lr=3e-3,wd=1e-4`（CIFAR-100/Tiny），后续不得依据 test 修改。

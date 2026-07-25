@@ -1,0 +1,11 @@
+[2026-07-26T01:26:16+08:00] task=public_mainline_prepare_test_free_caches resource=gpu0 attempt=0
+test-free cache: cifar10 seed=42 samples=480
+test-free cache: cifar10 seed=43 samples=480
+test-free cache: cifar10 seed=44 samples=480
+test-free cache: cifar100 seed=42 samples=4800
+test-free cache: cifar100 seed=43 samples=4800
+test-free cache: cifar100 seed=44 samples=4800
+test-free cache: tiny seed=42 samples=9600
+test-free cache: tiny seed=43 samples=9600
+test-free cache: tiny seed=44 samples=9600
+manifest=/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_test_free_feature_cache_manifest.json

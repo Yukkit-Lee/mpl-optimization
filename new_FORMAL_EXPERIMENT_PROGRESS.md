@@ -13,6 +13,10 @@ DP-MTT blocking rule. Public MTT is now the paper mainline; DP-MTT is retained
 as `DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE`. Phase 7--10 can proceed after the
 Public-MTT frozen 2048-D feature quality gate passes.
 
+The frozen linear-probe test results are CIFAR-10 `0.6782 +/- 0.0071`,
+CIFAR-100 `0.4384 +/- 0.0046`, and Tiny ImageNet `0.2619 +/- 0.0061`.
+All three exceed their predeclared two-point quality thresholds.
+
 ## Resolved Resource Policy
 
 - Branch: `new-secure-feature-pipeline`

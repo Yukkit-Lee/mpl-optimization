@@ -25,7 +25,7 @@ Official Public MTT Images
 ## Status
 
 - [x] Public MTT ConvNet formal reference: 3 datasets x 3 seeds.
-- [ ] Frozen 2048-D linear-probe quality gate.
+- [x] Frozen 2048-D linear-probe quality gate.
 - [ ] Module A Full/Random/Public efficiency.
 - [ ] Secure Module B convergence.
 - [ ] Secure Module B IID/Mild/Severe.
@@ -43,3 +43,12 @@ optimizer configuration is frozen. The required test thresholds are:
 - CIFAR-10: at least `0.6583`.
 - CIFAR-100: at least `0.4262`.
 - Tiny ImageNet: at least `0.2441`.
+
+## Frozen Feature Quality Result
+
+- CIFAR-10: `0.6782 +/- 0.0071`, required `0.6583`.
+- CIFAR-100: `0.4384 +/- 0.0046`, required `0.4262`.
+- Tiny ImageNet: `0.2619 +/- 0.0061`, required `0.2441`.
+- Tuning used physically test-free caches and seeds 42/43 only.
+- Formal test evaluation used seeds 42/43/44 after optimizer freeze.
+- Status: `QUALITY_GATE_PASS`.

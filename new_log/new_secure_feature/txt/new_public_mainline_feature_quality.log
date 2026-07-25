@@ -1,0 +1,75 @@
+[2026-07-26T01:26:26+08:00] task=public_mainline_feature_quality resource=gpu0 attempt=0
+========================================================================================
+Public MTT mainline: frozen 2048-D feature quality gate
+datasets=['cifar10', 'cifar100', 'tiny'] tuning_seeds=[42, 43] formal_seeds=[42, 43, 44]
+cpu_threads=1 num_workers=0 device=cuda test_tuning=False
+tuning_output=/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_feature_quality_tuning.json
+formal_output=/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_feature_quality_formal.json
+========================================================================================
+[FeatureQuality:Tuning] resolved_trials=36
+  [1/36] cifar10 seed=42 candidate=0 ref_acc=1.0000
+  [2/36] cifar10 seed=42 candidate=1 ref_acc=1.0000
+  [3/36] cifar10 seed=42 candidate=2 ref_acc=1.0000
+  [4/36] cifar10 seed=42 candidate=3 ref_acc=1.0000
+  [5/36] cifar10 seed=42 candidate=4 ref_acc=1.0000
+  [6/36] cifar10 seed=42 candidate=5 ref_acc=1.0000
+  [7/36] cifar10 seed=43 candidate=0 ref_acc=1.0000
+  [8/36] cifar10 seed=43 candidate=1 ref_acc=1.0000
+  [9/36] cifar10 seed=43 candidate=2 ref_acc=1.0000
+  [10/36] cifar10 seed=43 candidate=3 ref_acc=1.0000
+  [11/36] cifar10 seed=43 candidate=4 ref_acc=1.0000
+  [12/36] cifar10 seed=43 candidate=5 ref_acc=1.0000
+  [13/36] cifar100 seed=42 candidate=0 ref_acc=0.9800
+  [14/36] cifar100 seed=42 candidate=1 ref_acc=1.0000
+  [15/36] cifar100 seed=42 candidate=2 ref_acc=1.0000
+  [16/36] cifar100 seed=42 candidate=3 ref_acc=0.9700
+  [17/36] cifar100 seed=42 candidate=4 ref_acc=0.9800
+  [18/36] cifar100 seed=42 candidate=5 ref_acc=0.9800
+  [19/36] cifar100 seed=43 candidate=0 ref_acc=0.9900
+  [20/36] cifar100 seed=43 candidate=1 ref_acc=0.9800
+  [21/36] cifar100 seed=43 candidate=2 ref_acc=0.9800
+  [22/36] cifar100 seed=43 candidate=3 ref_acc=0.9800
+  [23/36] cifar100 seed=43 candidate=4 ref_acc=0.9800
+  [24/36] cifar100 seed=43 candidate=5 ref_acc=0.9800
+  [25/36] tiny seed=42 candidate=0 ref_acc=0.9850
+  [26/36] tiny seed=42 candidate=1 ref_acc=0.9900
+  [27/36] tiny seed=42 candidate=2 ref_acc=0.9900
+  [28/36] tiny seed=42 candidate=3 ref_acc=0.9300
+  [29/36] tiny seed=42 candidate=4 ref_acc=0.9650
+  [30/36] tiny seed=42 candidate=5 ref_acc=0.9700
+  [31/36] tiny seed=43 candidate=0 ref_acc=0.9950
+  [32/36] tiny seed=43 candidate=1 ref_acc=0.9950
+  [33/36] tiny seed=43 candidate=2 ref_acc=0.9950
+  [34/36] tiny seed=43 candidate=3 ref_acc=0.9400
+  [35/36] tiny seed=43 candidate=4 ref_acc=0.9700
+  [36/36] tiny seed=43 candidate=5 ref_acc=0.9850
+[FeatureQuality:Formal] resolved_runs=9
+  [1/9] cifar10 seed=42 selection=1.0000 test=0.6835
+  [2/9] cifar10 seed=43 selection=1.0000 test=0.6810
+  [3/9] cifar10 seed=44 selection=1.0000 test=0.6702
+  [4/9] cifar100 seed=42 selection=1.0000 test=0.4423
+  [5/9] cifar100 seed=43 selection=1.0000 test=0.4395
+  [6/9] cifar100 seed=44 selection=1.0000 test=0.4333
+  [7/9] tiny seed=42 selection=1.0000 test=0.2651
+  [8/9] tiny seed=43 selection=1.0000 test=0.2657
+  [9/9] tiny seed=44 selection=1.0000 test=0.2549
+{
+  "cifar10": {
+    "mean_test_accuracy": 0.6782333333333334,
+    "sample_std": 0.0070684746114938616,
+    "required_accuracy": 0.6582666666666667,
+    "quality_gate_pass": true
+  },
+  "cifar100": {
+    "mean_test_accuracy": 0.43836666666666674,
+    "sample_std": 0.004605793453177568,
+    "required_accuracy": 0.42616666666666664,
+    "quality_gate_pass": true
+  },
+  "tiny": {
+    "mean_test_accuracy": 0.26189999999999997,
+    "sample_std": 0.006069596362197396,
+    "required_accuracy": 0.2441,
+    "quality_gate_pass": true
+  }
+}
