@@ -1,0 +1,18 @@
+[2026-07-25T15:13:03+08:00] task=phase3_stage_b_correctness_retest5 resource=tfe attempt=0
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar10 split=mild clients=3 feature_dim=2048 classes=3
+local_epochs=2 distill_epochs=2 batch_size=4 cpu_threads=1 num_workers=0
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=new_cache/new_secure_feature/new_phase3_correctness/new_stage_b_retest5_output
+============================================================================================
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageB-local] epoch=1/2
+[StageB-local] epoch=2/2
+[StageB-KD] epoch=1/2
+[StageB-KD] epoch=2/2
+selected_model=new_cache/new_secure_feature/new_phase3_correctness/new_stage_b_retest5_output/new_secure_stage_b_selected_cifar10_mild_seed42.npz
+report=new_cache/new_secure_feature/new_phase3_correctness/new_stage_b_retest5_output/new_secure_stage_b_report_cifar10_mild_seed42.json
+correctness={'selected_weight_max_abs_error': 1645358.866636506, 'selected_bias_max_abs_error': 1935.4884095521609, 'avg_weight_max_abs_error': 875596.1705516774, 'rw_weight_max_abs_error': 1676344.7471548372, 'avg_rw_secure_max_abs_difference': 1153618.7304992676, 'local_weight_max_abs_errors': [1645283.5925882086, 8.989451453089714e-05, 1683873.049319256]}

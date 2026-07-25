@@ -1,0 +1,122 @@
+[2026-07-25T15:31:47+08:00] task=phase3_tfe_multihead_updates resource=tfe attempt=0
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py:212: where (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py:648: The name tf.assign is deprecated. Please use tf.compat.v1.assign instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:159: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:78: The name tf.GraphOptions is deprecated. Please use tf.compat.v1.GraphOptions instead.
+
+{
+  "status": "FAIL",
+  "maximum_error": 3978644.905168238,
+  "rows": [
+    {
+      "updated_client": 0,
+      "all_head_weight_errors": [
+        3978644.905168238,
+        1.52557622641325e-05,
+        1.5257115592248738e-05
+      ]
+    },
+    {
+      "updated_client": 1,
+      "all_head_weight_errors": [
+        3978644.905168238,
+        3977212.843562694,
+        1.5257115592248738e-05
+      ]
+    },
+    {
+      "updated_client": 2,
+      "all_head_weight_errors": [
+        3978644.905168238,
+        3977212.843562694,
+        2.836331259459257e-05
+      ]
+    }
+  ]
+}
+[2026-07-25T15:32:09+08:00] task=phase3_tfe_multihead_updates resource=tfe attempt=1
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py:212: where (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py:648: The name tf.assign is deprecated. Please use tf.compat.v1.assign instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:159: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:78: The name tf.GraphOptions is deprecated. Please use tf.compat.v1.GraphOptions instead.
+
+{
+  "status": "FAIL",
+  "maximum_error": 3947106.630824238,
+  "rows": [
+    {
+      "updated_client": 0,
+      "all_head_weight_errors": [
+        2.7496746042743325e-05,
+        1.52557622641325e-05,
+        1.5257115592248738e-05
+      ]
+    },
+    {
+      "updated_client": 1,
+      "all_head_weight_errors": [
+        2.7496746042743325e-05,
+        2.9211631044745445e-05,
+        1.5257115592248738e-05
+      ]
+    },
+    {
+      "updated_client": 2,
+      "all_head_weight_errors": [
+        2.7496746042743325e-05,
+        2.9211631044745445e-05,
+        3947106.630824238
+      ]
+    }
+  ]
+}
+[2026-07-25T15:32:31+08:00] task=phase3_tfe_multihead_updates resource=tfe attempt=2
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py:212: where (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py:648: The name tf.assign is deprecated. Please use tf.compat.v1.assign instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:159: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:78: The name tf.GraphOptions is deprecated. Please use tf.compat.v1.GraphOptions instead.
+
+Traceback (most recent call last):
+  File "new_tests/new_secure_feature/new_test_tfe_multihead_updates.py", line 137, in <module>
+    raise SystemExit(main())
+  File "new_tests/new_secure_feature/new_test_tfe_multihead_updates.py", line 111, in main
+    session.run(updates[client_id], feed_dict={raw_x: x_batch, raw_y: y_batch})
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/session.py", line 93, in run
+    sanitized_fetches, feed_dict=feed_dict,
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/client/session.py", line 956, in run
+    run_metadata_ptr)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/client/session.py", line 1180, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/client/session.py", line 1359, in _do_run
+    run_metadata)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/client/session.py", line 1365, in _do_call
+    return fn(*args)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/client/session.py", line 1350, in _run_fn
+    target_list, run_metadata)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/client/session.py", line 1443, in _call_tf_sessionrun
+    run_metadata)
+KeyboardInterrupt

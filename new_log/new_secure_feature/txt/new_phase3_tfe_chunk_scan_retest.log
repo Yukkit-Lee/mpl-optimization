@@ -1,0 +1,46 @@
+[2026-07-25T15:19:28+08:00] task=phase3_tfe_chunk_scan_retest resource=tfe attempt=0
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "PASS",
+  "feature_dim": 2048,
+  "rows": [
+    {
+      "chunk_size": 2048,
+      "value": 0.0007171630859375,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 2.7415226213634014e-06,
+      "pass": true
+    },
+    {
+      "chunk_size": 256,
+      "value": 0.000701904296875,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 1.80003116838634e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 64,
+      "value": 0.000701904296875,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 1.80003116838634e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 16,
+      "value": 0.0009002685546875,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 0.0001803639461286366,
+      "pass": true
+    },
+    {
+      "chunk_size": 4,
+      "value": 0.0006866455078125,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 3.32591007463634e-05,
+      "pass": true
+    }
+  ]
+}

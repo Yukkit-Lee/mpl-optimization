@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "seeded_random_deterministic": true,
+  "secure_seed_shape": [
+    8
+  ],
+  "secure_seed_dtype": "int32",
+  "zero_groups": 16,
+  "zero_nonzero_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "zero_max_uint64": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

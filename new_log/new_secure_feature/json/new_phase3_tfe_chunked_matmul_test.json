@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "feature_dim": 2048,
+  "rows": [
+    {
+      "chunk_size": 2048,
+      "value": 0.0007171630859375,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 2.7415226213634014e-06,
+      "pass": true
+    },
+    {
+      "chunk_size": 256,
+      "value": 0.000732421875,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 1.2517266441136599e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 64,
+      "value": 0.0007171630859375,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 2.7415226213634014e-06,
+      "pass": true
+    },
+    {
+      "chunk_size": 16,
+      "value": 0.000762939453125,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 4.30348445661366e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 4,
+      "value": 0.0005645751953125,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 0.0001553294132463634,
+      "pass": true
+    }
+  ]
+}

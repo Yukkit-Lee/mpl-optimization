@@ -1,0 +1,10 @@
+[2026-07-25T15:18:38+08:00] task=phase3_tfe_chunk_scan resource=tfe attempt=0
+Traceback (most recent call last):
+  File "new_tests/new_secure_feature/new_test_tfe_chunked_matmul.py", line 21, in <module>
+    from new_stage_b_secure_init import secure_chunked_matmul
+ModuleNotFoundError: No module named 'new_stage_b_secure_init'
+[2026-07-25T15:18:53+08:00] task=phase3_tfe_chunk_scan resource=tfe attempt=1
+Traceback (most recent call last):
+  File "new_tests/new_secure_feature/new_test_tfe_chunked_matmul.py", line 21, in <module>
+    from new_stage_b_secure_init import secure_chunked_matmul
+ModuleNotFoundError: No module named 'new_stage_b_secure_init'

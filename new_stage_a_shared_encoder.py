@@ -425,6 +425,31 @@ def main() -> int:
         "stage_a_delta": source["stage_a_delta"],
     }
     atomic_torch_save(cache, cache_path)
+    legacy_npz_path = output_dir / "new_feature_cache_{}_{}_seed{}.npz".format(
+        args.dataset, args.track, args.seed
+    )
+    np.savez_compressed(
+        str(legacy_npz_path),
+        x_encoder_train=transformed["encoder_train"].numpy().astype(np.float32),
+        y_encoder_train=labels[splits["encoder_train"]].numpy().astype(np.int64),
+        x_reference=transformed["reference"].numpy().astype(np.float32),
+        y_reference=labels[splits["reference"]].numpy().astype(np.int64),
+        x_selection=transformed["selection"].numpy().astype(np.float32),
+        y_selection=labels[splits["selection"]].numpy().astype(np.int64),
+        x_test=(
+            transformed["test"].numpy().astype(np.float32)
+            if args.include_test
+            else np.empty((0, 2048), dtype=np.float32)
+        ),
+        y_test=(
+            test_labels.numpy().astype(np.int64)
+            if args.include_test
+            else np.empty((0,), dtype=np.int64)
+        ),
+        feature_dim=np.asarray([2048], dtype=np.int64),
+        input_norm_bound=np.asarray([args.feature_norm_bound], dtype=np.float32),
+        test_loaded=np.asarray([int(args.include_test)], dtype=np.int8),
+    )
     metadata = {
         "dataset": args.dataset,
         "stage_a_track": args.track,
@@ -435,6 +460,8 @@ def main() -> int:
         "scaler_sha256": sha256_file(scaler_path),
         "feature_cache_path": str(cache_path),
         "feature_cache_sha256": sha256_file(cache_path),
+        "legacy_npz_path": str(legacy_npz_path),
+        "legacy_npz_sha256": sha256_file(legacy_npz_path),
         "input_norm_bound": args.feature_norm_bound,
         "best_reference_accuracy": best_reference,
         "test_loaded": args.include_test,

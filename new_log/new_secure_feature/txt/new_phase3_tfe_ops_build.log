@@ -1,0 +1,32 @@
+[2026-07-25T14:58:40+08:00] task=phase3_tfe_ops_build resource=tfe attempt=0
+mkdir -p tf_encrypted/operations/aux
+g++ -std=c++11 -shared operations/aux/aux_kernels.cc -o tf_encrypted/operations/aux/aux_module_tf_1.15.5.so \
+	-fPIC  -I/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tensorflow_core/include -D_GLIBCXX_USE_CXX11_ABI=0 -L/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tensorflow_core -l:libtensorflow_framework.so.1 -O2
+curl -OL https://github.com/jedisct1/libsodium/archive/1.0.17.tar.gz
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100    14  100    14    0     0      8      0  0:00:01  0:00:01 --:--:--     8
+mkdir -p build
+tar -xvf 1.0.17.tar.gz -C build
+tar: This does not look like a tar archive
+
+gzip: stdin: not in gzip format
+tar: Child returned status 1
+tar: Error is not recoverable: exiting now
+make: *** [Makefile:295: /home/lixujie/tmpWork/new_tf_encrypted_src/build/lib/libsodium.a] Error 2
+[2026-07-25T14:59:02+08:00] task=phase3_tfe_ops_build resource=tfe attempt=1
+make: Nothing to be done for 'aux'.
+curl -OL https://github.com/jedisct1/libsodium/archive/1.0.17.tar.gz
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100    14  100    14    0     0      9      0  0:00:01  0:00:01 --:--:--    51
+mkdir -p build
+tar -xvf 1.0.17.tar.gz -C build
+tar: This does not look like a tar archive
+
+gzip: stdin: not in gzip format
+tar: Child returned status 1
+tar: Error is not recoverable: exiting now
+make: *** [Makefile:295: /home/lixujie/tmpWork/new_tf_encrypted_src/build/lib/libsodium.a] Error 2

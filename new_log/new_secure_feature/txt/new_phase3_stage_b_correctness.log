@@ -1,0 +1,43 @@
+[2026-07-25T15:08:07+08:00] task=phase3_stage_b_correctness resource=tfe attempt=0
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar10 split=mild clients=3 feature_dim=2048 classes=3
+local_epochs=2 distill_epochs=2 batch_size=4 cpu_threads=1 num_workers=0
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=new_cache/new_secure_feature/new_phase3_correctness/new_stage_b_output
+============================================================================================
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+Traceback (most recent call last):
+  File "new_stage_b_secure_init.py", line 901, in <module>
+    raise SystemExit(main())
+  File "new_stage_b_secure_init.py", line 767, in main
+    data, client_indices, initial_weights, initial_biases, args
+  File "new_stage_b_secure_init.py", line 534, in run_secure_stage_b
+    data, client_indices, initial_weights, initial_biases, args
+  File "new_stage_b_secure_init.py", line 480, in build_secure_graph
+    selected_w = tfe.select(choose_rw, avg_w, rw_w)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/protocol.py", line 107, in cache_nodes
+    result = func(self, *args, **kwargs)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 1910, in select
+    return self.mul_ab(y - x, choice_bit) + x
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/protocol.py", line 107, in cache_nodes
+    result = func(self, *args, **kwargs)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 1635, in mul_ab
+    return self.dispatch("mul_ab", x, y)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 2117, in dispatch
+    return func(self, *args, **kwargs)  # pylint: disable=not-callable
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 4049, in _mul_ab_private_private
+    w = __mul_ab_routine(prot, x_shares[0][0], y, 0)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 4099, in __mul_ab_routine
+    prot.pairwise_nonces()[idx2],
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 1159, in _ot
+    c_on_helper.value, w_on_helper[1], w_on_helper[0], v2=False
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py", line 209, in where
+    (shape[i] // condition.shape[i]) for i in range(len(shape))
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py", line 209, in <listcomp>
+    (shape[i] // condition.shape[i]) for i in range(len(shape))
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/framework/tensor_shape.py", line 870, in __getitem__
+    return self._dims[key]
+IndexError: list index out of range

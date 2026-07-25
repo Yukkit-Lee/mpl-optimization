@@ -1,0 +1,11 @@
+[2026-07-25T15:00:53+08:00] task=phase3_tfe_custom_ops_test resource=tfe attempt=0
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+Traceback (most recent call last):
+  File "new_tests/new_secure_feature/new_test_tfe_custom_ops.py", line 126, in <module>
+    raise SystemExit(main())
+  File "new_tests/new_secure_feature/new_test_tfe_custom_ops.py", line 82, in main
+    aux_path = aux.SO_PATH.format(dn=os.path.dirname(tfe.__file__), tfv=tf.__version__)
+AttributeError: module 'tf_encrypted.operations.aux' has no attribute 'SO_PATH'

@@ -692,3 +692,6 @@
 - Phase 2 实现：新增 `new_stage_a_shared_encoder.py`，public-MTT 与 DP-MTT 均按 synthetic class 分层拆为 encoder-train/reference/selection；只训练一个共享 MTT ConvNet，冻结后统一提取 classifier 前 2048 维表示。
 - Phase 2 数据边界：encoder checkpoint 只由 synthetic reference accuracy 选择；Stage-B selection split 独立保留；scaler 只拟合 synthetic encoder-train features；test 默认不加载，冻结正式配置后才允许显式只读编码。
 - Phase 2 correctness：CIFAR-10 official ipc=50 形成 400/50/50 互斥划分；唯一 encoder SHA256=`da49c86e20e1cb8e3720d7816f1f1d642c33345c325c94c8c68faa1a06aa6ead`；三组特征均为 2048 维且 L2 norm≤1。1 epoch reference accuracy=0.14 仅用于管线诊断，不是正式质量结果。
+- Phase 3 自定义算子：从 TFE `51de98f` 源码为 TensorFlow 1.15.5 编译并安装 `aux` 与 `secure_random`；相同 seed 确定性、非种子随机性及 16 组 `2048×3` ABY3 零共享严格抵消全部通过，旧“insecure randomness fallback”阻塞已消除。
+- Phase 3 数值诊断：2048 维分块 private matmul、单头/重复更新均正确；多头更新的百万级随机误差被定位为旧 TFE 在 W/b 两个相互依赖变量并行 assign 时的跨变量读写竞态，并新增无 reveal 的 replicated-share 原子赋值屏障。
+- Phase 3 correctness：三次独立多头测试最大权重误差低于 `3.1e-5`；完整 local MSE → teacher logits → logit-MSE KD → KD-Avg/KD-ReferenceWeighted → private score comparison/mux 链路相对 NumPy 最大误差低于 `9.6e-5`。该结果仅为 correctness，不作为正式论文精度。

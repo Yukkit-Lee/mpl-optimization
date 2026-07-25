@@ -1,0 +1,58 @@
+[2026-07-25T15:08:51+08:00] task=phase3_stage_b_correctness_retest resource=tfe attempt=0
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar10 split=mild clients=3 feature_dim=2048 classes=3
+local_epochs=2 distill_epochs=2 batch_size=4 cpu_threads=1 num_workers=0
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=new_cache/new_secure_feature/new_phase3_correctness/new_stage_b_retest_output
+============================================================================================
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+Traceback (most recent call last):
+  File "new_stage_b_secure_init.py", line 909, in <module>
+    raise SystemExit(main())
+  File "new_stage_b_secure_init.py", line 775, in main
+    data, client_indices, initial_weights, initial_biases, args
+  File "new_stage_b_secure_init.py", line 542, in run_secure_stage_b
+    data, client_indices, initial_weights, initial_biases, args
+  File "new_stage_b_secure_init.py", line 483, in build_secure_graph
+    [int(args.feature_dim), int(args.num_classes)],
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/protocol.py", line 107, in cache_nodes
+    result = func(self, *args, **kwargs)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 1726, in tile
+    return self.dispatch("tile", x, multiples)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 2117, in dispatch
+    return func(self, *args, **kwargs)  # pylint: disable=not-callable
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 4687, in _tile_private
+    z[i][0] = factory.tile(xs[i][0], multiples)
+AttributeError: 'Factory' object has no attribute 'tile'
+[2026-07-25T15:09:11+08:00] task=phase3_stage_b_correctness_retest resource=tfe attempt=1
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar10 split=mild clients=3 feature_dim=2048 classes=3
+local_epochs=2 distill_epochs=2 batch_size=4 cpu_threads=1 num_workers=0
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=new_cache/new_secure_feature/new_phase3_correctness/new_stage_b_retest_output
+============================================================================================
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+Traceback (most recent call last):
+  File "new_stage_b_secure_init.py", line 909, in <module>
+    raise SystemExit(main())
+  File "new_stage_b_secure_init.py", line 775, in main
+    data, client_indices, initial_weights, initial_biases, args
+  File "new_stage_b_secure_init.py", line 542, in run_secure_stage_b
+    data, client_indices, initial_weights, initial_biases, args
+  File "new_stage_b_secure_init.py", line 483, in build_secure_graph
+    [int(args.feature_dim), int(args.num_classes)],
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/protocol.py", line 107, in cache_nodes
+    result = func(self, *args, **kwargs)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 1726, in tile
+    return self.dispatch("tile", x, multiples)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 2117, in dispatch
+    return func(self, *args, **kwargs)  # pylint: disable=not-callable
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/protocol/aby3/aby3.py", line 4687, in _tile_private
+    z[i][0] = factory.tile(xs[i][0], multiples)
+AttributeError: 'Factory' object has no attribute 'tile'

@@ -1,0 +1,42 @@
+[2026-07-25T15:10:07+08:00] task=phase3_stage_b_correctness_retest2 resource=tfe attempt=0
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar10 split=mild clients=3 feature_dim=2048 classes=3
+local_epochs=2 distill_epochs=2 batch_size=4 cpu_threads=1 num_workers=0
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=new_cache/new_secure_feature/new_phase3_correctness/new_stage_b_retest2_output
+============================================================================================
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+Traceback (most recent call last):
+  File "new_stage_b_secure_init.py", line 903, in <module>
+    raise SystemExit(main())
+  File "new_stage_b_secure_init.py", line 769, in main
+    data, client_indices, initial_weights, initial_biases, args
+  File "new_stage_b_secure_init.py", line 545, in run_secure_stage_b
+    session = tfe.Session(config=config)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/session.py", line 45, in __init__
+    default_target, config_proto = config.get_tf_config(**tf_config_kwargs)
+AttributeError: get_tf_config
+[2026-07-25T15:10:27+08:00] task=phase3_stage_b_correctness_retest2 resource=tfe attempt=1
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar10 split=mild clients=3 feature_dim=2048 classes=3
+local_epochs=2 distill_epochs=2 batch_size=4 cpu_threads=1 num_workers=0
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=new_cache/new_secure_feature/new_phase3_correctness/new_stage_b_retest2_output
+============================================================================================
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+Traceback (most recent call last):
+  File "new_stage_b_secure_init.py", line 903, in <module>
+    raise SystemExit(main())
+  File "new_stage_b_secure_init.py", line 769, in main
+    data, client_indices, initial_weights, initial_biases, args
+  File "new_stage_b_secure_init.py", line 545, in run_secure_stage_b
+    session = tfe.Session(config=config)
+  File "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/session.py", line 45, in __init__
+    default_target, config_proto = config.get_tf_config(**tf_config_kwargs)
+AttributeError: get_tf_config

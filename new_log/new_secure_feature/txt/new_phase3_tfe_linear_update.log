@@ -1,0 +1,13 @@
+[2026-07-25T15:21:16+08:00] task=phase3_tfe_linear_update resource=tfe attempt=0
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "PASS",
+  "logits_max_abs_error": 8.833053288981318e-05,
+  "grad_w_max_abs_error": 1.9308412447571754e-05,
+  "grad_b_max_abs_error": 3.485381603240967e-05,
+  "weight_max_abs_error": 2.9246555641293526e-05,
+  "bias_max_abs_error": 1.2665404938161373e-05
+}

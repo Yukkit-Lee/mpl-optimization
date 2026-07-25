@@ -25,7 +25,7 @@
 - [x] Phase 0: Preserve baseline and create branch
 - [x] Phase 1: Implement real Stage-A privacy mechanism (secure RNG blocker recorded)
 - [x] Phase 2: Build shared 2048-D representation pipeline
-- [ ] Phase 3: Implement secure Stage-B computation
+- [x] Phase 3: Implement secure Stage-B computation
 - [ ] Phase 4: Implement secure Stage-C Fixed DP-SGD
 - [ ] Phase 5: Implement secure Stage-C Adaptive DP-SGD
 - [ ] Phase 6: Complete Module-A formal experiments
@@ -42,7 +42,7 @@
 - Home filesystem: 61 GiB initially available.
 - Modern environment: Python 3.9.7, PyTorch 2.8.0+cu128, torchvision 0.23.0+cu128, cuDNN 91002, Opacus 1.5.4.
 - Legacy environment: Python 3.6.13, TensorFlow 1.15.5, TF Encrypted 0.8.0.
-- Legacy limitation: TFE secure-random and aux custom ops for TF 1.15.5 are missing.
+- TFE aux 与 secure-random custom ops 已针对 TF 1.15.5 编译、安装并通过测试。
 - tmux was absent from the host and installed into isolated `new_tmux_runtime`; the training environment was not modified.
 - Baseline artifact inventory: `new_log/new_secure_feature/json/new_phase0_baseline_artifacts.json`.
 - Environment snapshot: `new_log/new_secure_feature/json/new_phase0_environment.json`.
@@ -83,3 +83,16 @@
 - Scaler scope is `synthetic_encoder_train_only`; every output feature has L2 norm at most 1.
 - Test data was not loaded during correctness or tuning.
 - The one-epoch reference accuracy of 0.14 is diagnostic only and is not a formal quality result.
+
+## Phase 3 Evidence
+
+- TFE source commit: `51de98f9c2208d5d4bd716bf7316d3cd4e0bf434`.
+- `aux_module_tf_1.15.5.so` SHA256: `d0522709c817c63e770327fc69e5dc4e422a9f3a7cd3e0af19b0a4375a485c73`.
+- `secure_random_module_tf_1.15.5.so` SHA256: `7f3ab2d053761f1f60eb511547d0839285ffc341788f7f5b179c8e52dc24d340`.
+- 16 组 `2048x3` ABY3 zero sharing 在模 `2^64` 下严格抵消。
+- 2048 维 private matmul、单头更新和重复更新 correctness 通过。
+- 已定位并修复旧 TFE 多变量 assign 竞态；三次独立三头测试最大误差均低于 `3.1e-5`。
+- 完整 local MSE、teacher aggregation、logit-MSE KD、Avg/RW 构造、secure score comparison 与 mux correctness 通过。
+- 完整链路相对 NumPy reference 最大误差低于 `9.6e-5`。
+- 默认只 reveal 最终 selected initializer；correctness 额外 reveal 均写入 JSON。
+- 当前执行是单机 ABY3 模拟；网络通信 bytes 尚未测量。

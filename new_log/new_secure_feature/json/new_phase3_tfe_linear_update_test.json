@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "logits_max_abs_error": 9.477493586018682e-05,
+  "grad_w_max_abs_error": 2.0190607756376266e-05,
+  "grad_b_max_abs_error": 3.038346767425537e-05,
+  "weight_max_abs_error": 2.8055277653038502e-05,
+  "bias_max_abs_error": 3.7600984796881676e-06
+}

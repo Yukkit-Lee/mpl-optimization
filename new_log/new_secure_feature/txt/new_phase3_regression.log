@@ -1,0 +1,559 @@
+[2026-07-25T15:46:03+08:00] task=phase3_regression resource=tfe attempt=0
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 0.080s
+
+OK
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "PASS",
+  "python": "3.6.13 |Anaconda, Inc.| (default, Jun  4 2021, 14:25:59) \n[GCC 7.5.0]",
+  "tensorflow": "1.15.5",
+  "tf_encrypted": "0.8.0",
+  "aux_loaded": true,
+  "secure_random_loaded": true,
+  "comparison": [
+    1,
+    0,
+    1
+  ],
+  "comparison_expected": [
+    1,
+    0,
+    1
+  ],
+  "exp_max_abs_error": 6.67572021484375e-05,
+  "inv_sqrt_max_abs_error": 0.004208683967590332,
+  "secure_random_unique_count": 32,
+  "aux_so": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/aux/aux_module_tf_1.15.5.so",
+  "aux_sha256": "d0522709c817c63e770327fc69e5dc4e422a9f3a7cd3e0af19b0a4375a485c73",
+  "secure_random_so": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.5.so",
+  "secure_random_sha256": "7f3ab2d053761f1f60eb511547d0839285ffc341788f7f5b179c8e52dc24d340"
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:159: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:78: The name tf.GraphOptions is deprecated. Please use tf.compat.v1.GraphOptions instead.
+
+{
+  "status": "PASS",
+  "seeded_random_deterministic": true,
+  "secure_seed_shape": [
+    8
+  ],
+  "secure_seed_dtype": "int32",
+  "zero_groups": 16,
+  "zero_nonzero_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "zero_max_uint64": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "PASS",
+  "feature_dim": 2048,
+  "rows": [
+    {
+      "chunk_size": 2048,
+      "value": 0.0007171630859375,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 2.7415226213634014e-06,
+      "pass": true
+    },
+    {
+      "chunk_size": 256,
+      "value": 0.000701904296875,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 1.80003116838634e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 64,
+      "value": 0.0007171630859375,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 2.7415226213634014e-06,
+      "pass": true
+    },
+    {
+      "chunk_size": 16,
+      "value": 0.0007476806640625,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 2.77760555036366e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 4,
+      "value": 0.0009002685546875,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 0.0001803639461286366,
+      "pass": true
+    }
+  ]
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "FAIL",
+  "logits_max_abs_error": 5.64014189876616e-05,
+  "grad_w_max_abs_error": 2.058129757642746e-05,
+  "grad_b_max_abs_error": 1.5124678611755371e-05,
+  "weight_max_abs_error": 3974404.047043576,
+  "bias_max_abs_error": 1.3844342902302742e-05
+}
+[2026-07-25T15:47:22+08:00] task=phase3_regression resource=tfe attempt=1
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 0.077s
+
+OK
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "PASS",
+  "python": "3.6.13 |Anaconda, Inc.| (default, Jun  4 2021, 14:25:59) \n[GCC 7.5.0]",
+  "tensorflow": "1.15.5",
+  "tf_encrypted": "0.8.0",
+  "aux_loaded": true,
+  "secure_random_loaded": true,
+  "comparison": [
+    1,
+    0,
+    1
+  ],
+  "comparison_expected": [
+    1,
+    0,
+    1
+  ],
+  "exp_max_abs_error": 6.67572021484375e-05,
+  "inv_sqrt_max_abs_error": 0.004208683967590332,
+  "secure_random_unique_count": 32,
+  "aux_so": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/aux/aux_module_tf_1.15.5.so",
+  "aux_sha256": "d0522709c817c63e770327fc69e5dc4e422a9f3a7cd3e0af19b0a4375a485c73",
+  "secure_random_so": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.5.so",
+  "secure_random_sha256": "7f3ab2d053761f1f60eb511547d0839285ffc341788f7f5b179c8e52dc24d340"
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:159: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:78: The name tf.GraphOptions is deprecated. Please use tf.compat.v1.GraphOptions instead.
+
+{
+  "status": "PASS",
+  "seeded_random_deterministic": true,
+  "secure_seed_shape": [
+    8
+  ],
+  "secure_seed_dtype": "int32",
+  "zero_groups": 16,
+  "zero_nonzero_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "zero_max_uint64": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "PASS",
+  "feature_dim": 2048,
+  "rows": [
+    {
+      "chunk_size": 2048,
+      "value": 0.000701904296875,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 1.80003116838634e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 256,
+      "value": 0.000701904296875,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 1.80003116838634e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 64,
+      "value": 0.000762939453125,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 4.30348445661366e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 16,
+      "value": 0.0006866455078125,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 3.32591007463634e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 4,
+      "value": 0.0008392333984375,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 0.0001193287898786366,
+      "pass": true
+    }
+  ]
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "PASS",
+  "logits_max_abs_error": 7.660741539439186e-05,
+  "grad_w_max_abs_error": 1.906091347336769e-05,
+  "grad_b_max_abs_error": 1.9595026969909668e-05,
+  "weight_max_abs_error": 3.0066657927818596e-05,
+  "bias_max_abs_error": 1.3844342902302742e-05
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+usage: new_test_tfe_repeated_local.py [-h] --client_id CLIENT_ID
+                                      --feature_cache FEATURE_CACHE --output
+                                      OUTPUT
+new_test_tfe_repeated_local.py: error: the following arguments are required: --client_id, --feature_cache, --output
+[2026-07-25T15:48:42+08:00] task=phase3_regression resource=tfe attempt=2
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 0.077s
+
+OK
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "PASS",
+  "python": "3.6.13 |Anaconda, Inc.| (default, Jun  4 2021, 14:25:59) \n[GCC 7.5.0]",
+  "tensorflow": "1.15.5",
+  "tf_encrypted": "0.8.0",
+  "aux_loaded": true,
+  "secure_random_loaded": true,
+  "comparison": [
+    1,
+    0,
+    1
+  ],
+  "comparison_expected": [
+    1,
+    0,
+    1
+  ],
+  "exp_max_abs_error": 6.67572021484375e-05,
+  "inv_sqrt_max_abs_error": 0.004193425178527832,
+  "secure_random_unique_count": 32,
+  "aux_so": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/aux/aux_module_tf_1.15.5.so",
+  "aux_sha256": "d0522709c817c63e770327fc69e5dc4e422a9f3a7cd3e0af19b0a4375a485c73",
+  "secure_random_so": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.5.so",
+  "secure_random_sha256": "7f3ab2d053761f1f60eb511547d0839285ffc341788f7f5b179c8e52dc24d340"
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:159: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:78: The name tf.GraphOptions is deprecated. Please use tf.compat.v1.GraphOptions instead.
+
+{
+  "status": "PASS",
+  "seeded_random_deterministic": true,
+  "secure_seed_shape": [
+    8
+  ],
+  "secure_seed_dtype": "int32",
+  "zero_groups": 16,
+  "zero_nonzero_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "zero_max_uint64": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "PASS",
+  "feature_dim": 2048,
+  "rows": [
+    {
+      "chunk_size": 2048,
+      "value": 0.0007171630859375,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 2.7415226213634014e-06,
+      "pass": true
+    },
+    {
+      "chunk_size": 256,
+      "value": 0.000732421875,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 1.2517266441136599e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 64,
+      "value": 0.0007171630859375,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 2.7415226213634014e-06,
+      "pass": true
+    },
+    {
+      "chunk_size": 16,
+      "value": 0.000762939453125,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 4.30348445661366e-05,
+      "pass": true
+    },
+    {
+      "chunk_size": 4,
+      "value": 0.0005645751953125,
+      "expected": 0.0007199046085588634,
+      "max_abs_error": 0.0001553294132463634,
+      "pass": true
+    }
+  ]
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "PASS",
+  "logits_max_abs_error": 9.477493586018682e-05,
+  "grad_w_max_abs_error": 2.0190607756376266e-05,
+  "grad_b_max_abs_error": 3.038346767425537e-05,
+  "weight_max_abs_error": 2.8055277653038502e-05,
+  "bias_max_abs_error": 3.7600984796881676e-06
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py:619: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py:212: where (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py:648: The name tf.assign is deprecated. Please use tf.compat.v1.assign instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:159: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:78: The name tf.GraphOptions is deprecated. Please use tf.compat.v1.GraphOptions instead.
+
+{
+  "status": "PASS",
+  "client_id": 1,
+  "num_samples": 11,
+  "rows": [
+    {
+      "step": 1,
+      "weight_max_abs_error": 2.9806571546941996e-05,
+      "bias_max_abs_error": 1.4871475286781788e-05,
+      "actual_weight_abs_max": 0.0039215087890625
+    },
+    {
+      "step": 2,
+      "weight_max_abs_error": 3.76235693693161e-05,
+      "bias_max_abs_error": 2.719741314649582e-05,
+      "actual_weight_abs_max": 0.0052032470703125
+    },
+    {
+      "step": 3,
+      "weight_max_abs_error": 4.7399429604411125e-05,
+      "bias_max_abs_error": 2.3311004042625427e-05,
+      "actual_weight_abs_max": 0.00738525390625
+    },
+    {
+      "step": 4,
+      "weight_max_abs_error": 4.723499296233058e-05,
+      "bias_max_abs_error": 3.920309245586395e-05,
+      "actual_weight_abs_max": 0.011749267578125
+    },
+    {
+      "step": 5,
+      "weight_max_abs_error": 5.8226432884112e-05,
+      "bias_max_abs_error": 4.629604518413544e-05,
+      "actual_weight_abs_max": 0.013916015625
+    },
+    {
+      "step": 6,
+      "weight_max_abs_error": 7.045871461741626e-05,
+      "bias_max_abs_error": 6.111524999141693e-05,
+      "actual_weight_abs_max": 0.01715087890625
+    }
+  ]
+}
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py:212: where (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/tensor/native.py:648: The name tf.assign is deprecated. Please use tf.compat.v1.assign instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:159: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/config.py:78: The name tf.GraphOptions is deprecated. Please use tf.compat.v1.GraphOptions instead.
+
+{
+  "status": "PASS",
+  "maximum_error": 2.957353717647493e-05,
+  "rows": [
+    {
+      "updated_client": 0,
+      "pre_update_errors": {
+        "logits": 4.222989082336426e-05,
+        "grad_w": 2.7239322662353516e-05,
+        "grad_b": 2.9292714316397905e-05
+      },
+      "all_head_weight_errors": [
+        2.8794165700674057e-05,
+        1.52557622641325e-05,
+        1.5257115592248738e-05
+      ]
+    },
+    {
+      "updated_client": 1,
+      "pre_update_errors": {
+        "logits": 0.00010165940329898149,
+        "grad_w": 2.777576446533203e-05,
+        "grad_b": 3.2961368560791016e-05
+      },
+      "all_head_weight_errors": [
+        2.8794165700674057e-05,
+        2.957353717647493e-05,
+        1.5257115592248738e-05
+      ]
+    },
+    {
+      "updated_client": 2,
+      "pre_update_errors": {
+        "logits": 6.939892773516476e-05,
+        "grad_w": 2.8325128369033337e-05,
+        "grad_b": 3.8663740269839764e-05
+      },
+      "all_head_weight_errors": [
+        2.8794165700674057e-05,
+        2.957353717647493e-05,
+        2.9203351004980505e-05
+      ]
+    }
+  ]
+}
