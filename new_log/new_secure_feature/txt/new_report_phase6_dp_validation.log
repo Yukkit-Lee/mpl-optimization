@@ -1,0 +1,48 @@
+[2026-07-25T21:03:37+08:00] task=report_phase6_dp_validation resource=gpu0 attempt=0
+{
+  "schema": "new_phase6_dp_validation_result_v1",
+  "status": "NOT_READY_FOR_PAPER",
+  "dataset": "cifar10",
+  "seed": 42,
+  "stage_a_epsilon": 5.88773730651083,
+  "stage_a_delta": 1e-05,
+  "num_expert_trajectories": 10,
+  "dp_mtt_test_accuracy": 0.352,
+  "public_mtt_mean_accuracy": 0.6782666666666667,
+  "absolute_gap": 0.3262666666666667,
+  "maximum_allowed_gap": 0.1,
+  "test_tuning": false,
+  "next_step": "continue validation tuning of experts/trajectories/MTT"
+}
+[2026-07-25T21:03:52+08:00] task=report_phase6_dp_validation resource=gpu0 attempt=1
+{
+  "schema": "new_phase6_dp_validation_result_v1",
+  "status": "NOT_READY_FOR_PAPER",
+  "dataset": "cifar10",
+  "seed": 42,
+  "stage_a_epsilon": 5.88773730651083,
+  "stage_a_delta": 1e-05,
+  "num_expert_trajectories": 10,
+  "dp_mtt_test_accuracy": 0.352,
+  "public_mtt_mean_accuracy": 0.6782666666666667,
+  "absolute_gap": 0.3262666666666667,
+  "maximum_allowed_gap": 0.1,
+  "test_tuning": false,
+  "next_step": "continue validation tuning of experts/trajectories/MTT"
+}
+[2026-07-25T21:04:07+08:00] task=report_phase6_dp_validation resource=gpu0 attempt=2
+{
+  "schema": "new_phase6_dp_validation_result_v1",
+  "status": "NOT_READY_FOR_PAPER",
+  "dataset": "cifar10",
+  "seed": 42,
+  "stage_a_epsilon": 5.88773730651083,
+  "stage_a_delta": 1e-05,
+  "num_expert_trajectories": 10,
+  "dp_mtt_test_accuracy": 0.352,
+  "public_mtt_mean_accuracy": 0.6782666666666667,
+  "absolute_gap": 0.3262666666666667,
+  "maximum_allowed_gap": 0.1,
+  "test_tuning": false,
+  "next_step": "continue validation tuning of experts/trajectories/MTT"
+}

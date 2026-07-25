@@ -1,0 +1,120 @@
+[2026-07-25T20:29:08+08:00] task=tuning_phase6_dp_experts_cifar10_full_seed42 resource=gpu0 attempt=0
+========================================================================================
+Stage A Track B：DP-SGD experts -> DP trajectories
+dataset=cifar10 records=50000 parties=5 experts/party=2 epochs=50
+device=cuda cpu_threads=1 num_workers=0 noise=1.5 clip=1.0 delta=1e-05 secure_rng=True
+selected_party_ids=[0, 1, 2, 3, 4]
+预计总 expert runs: 10
+output: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_dp_mtt_cifar10_round2/new_seed42/new_trajectories/cifar10
+========================================================================================
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=00 expert=00 epoch=   1/  50 loss=2.2932 train_acc=0.1226 epsilon=0.6963
+  party=00 expert=00 epoch=   6/  50 loss=1.9828 train_acc=0.3369 epsilon=1.3459
+  party=00 expert=00 epoch=  11/  50 loss=1.8789 train_acc=0.3628 epsilon=1.8097
+  party=00 expert=00 epoch=  17/  50 loss=1.7632 train_acc=0.4066 epsilon=2.2587
+  party=00 expert=00 epoch=  22/  50 loss=1.7164 train_acc=0.4176 epsilon=2.5825
+  party=00 expert=00 epoch=  28/  50 loss=1.6574 train_acc=0.4296 epsilon=2.9324
+  party=00 expert=00 epoch=  33/  50 loss=1.6204 train_acc=0.4436 epsilon=3.2003
+  party=00 expert=00 epoch=  39/  50 loss=1.5666 train_acc=0.4628 epsilon=3.5006
+  party=00 expert=00 epoch=  44/  50 loss=1.5324 train_acc=0.4758 epsilon=3.7366
+  party=00 expert=00 epoch=  50/  50 loss=1.5347 train_acc=0.4767 epsilon=4.0058
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=00 expert=01 epoch=   1/  50 loss=2.2574 train_acc=0.1660 epsilon=0.6963
+  party=00 expert=01 epoch=   6/  50 loss=1.9835 train_acc=0.3346 epsilon=1.3459
+  party=00 expert=01 epoch=  11/  50 loss=1.8850 train_acc=0.3640 epsilon=1.8097
+  party=00 expert=01 epoch=  17/  50 loss=1.7672 train_acc=0.4090 epsilon=2.2587
+  party=00 expert=01 epoch=  22/  50 loss=1.7094 train_acc=0.4265 epsilon=2.5825
+  party=00 expert=01 epoch=  28/  50 loss=1.6285 train_acc=0.4400 epsilon=2.9324
+  party=00 expert=01 epoch=  33/  50 loss=1.6103 train_acc=0.4502 epsilon=3.2003
+  party=00 expert=01 epoch=  39/  50 loss=1.5404 train_acc=0.4704 epsilon=3.5006
+  party=00 expert=01 epoch=  44/  50 loss=1.5091 train_acc=0.4842 epsilon=3.7366
+  party=00 expert=01 epoch=  50/  50 loss=1.5329 train_acc=0.4766 epsilon=4.0058
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=01 expert=00 epoch=   1/  50 loss=2.2617 train_acc=0.1563 epsilon=0.6963
+  party=01 expert=00 epoch=   6/  50 loss=1.9648 train_acc=0.3299 epsilon=1.3459
+  party=01 expert=00 epoch=  11/  50 loss=1.8433 train_acc=0.3784 epsilon=1.8097
+  party=01 expert=00 epoch=  17/  50 loss=1.7567 train_acc=0.4036 epsilon=2.2587
+  party=01 expert=00 epoch=  22/  50 loss=1.7003 train_acc=0.4127 epsilon=2.5825
+  party=01 expert=00 epoch=  28/  50 loss=1.6329 train_acc=0.4420 epsilon=2.9324
+  party=01 expert=00 epoch=  33/  50 loss=1.6080 train_acc=0.4424 epsilon=3.2003
+  party=01 expert=00 epoch=  39/  50 loss=1.5732 train_acc=0.4609 epsilon=3.5006
+  party=01 expert=00 epoch=  44/  50 loss=1.5432 train_acc=0.4702 epsilon=3.7366
+  party=01 expert=00 epoch=  50/  50 loss=1.5256 train_acc=0.4791 epsilon=4.0058
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=01 expert=01 epoch=   1/  50 loss=2.2485 train_acc=0.1836 epsilon=0.6963
+  party=01 expert=01 epoch=   6/  50 loss=1.9654 train_acc=0.3321 epsilon=1.3459
+  party=01 expert=01 epoch=  11/  50 loss=1.8614 train_acc=0.3725 epsilon=1.8097
+  party=01 expert=01 epoch=  17/  50 loss=1.7855 train_acc=0.3842 epsilon=2.2587
+  party=01 expert=01 epoch=  22/  50 loss=1.7780 train_acc=0.3922 epsilon=2.5825
+  party=01 expert=01 epoch=  28/  50 loss=1.7110 train_acc=0.4179 epsilon=2.9324
+  party=01 expert=01 epoch=  33/  50 loss=1.6585 train_acc=0.4321 epsilon=3.2003
+  party=01 expert=01 epoch=  39/  50 loss=1.6164 train_acc=0.4483 epsilon=3.5006
+  party=01 expert=01 epoch=  44/  50 loss=1.5711 train_acc=0.4633 epsilon=3.7366
+  party=01 expert=01 epoch=  50/  50 loss=1.5450 train_acc=0.4744 epsilon=4.0058
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=02 expert=00 epoch=   1/  50 loss=2.2778 train_acc=0.1533 epsilon=0.6963
+  party=02 expert=00 epoch=   6/  50 loss=1.9814 train_acc=0.3250 epsilon=1.3459
+  party=02 expert=00 epoch=  11/  50 loss=1.8543 train_acc=0.3691 epsilon=1.8097
+  party=02 expert=00 epoch=  17/  50 loss=1.8002 train_acc=0.3829 epsilon=2.2587
+  party=02 expert=00 epoch=  22/  50 loss=1.7350 train_acc=0.4065 epsilon=2.5825
+  party=02 expert=00 epoch=  28/  50 loss=1.6656 train_acc=0.4320 epsilon=2.9324
+  party=02 expert=00 epoch=  33/  50 loss=1.6094 train_acc=0.4493 epsilon=3.2003
+  party=02 expert=00 epoch=  39/  50 loss=1.5994 train_acc=0.4500 epsilon=3.5006
+  party=02 expert=00 epoch=  44/  50 loss=1.5774 train_acc=0.4652 epsilon=3.7366
+  party=02 expert=00 epoch=  50/  50 loss=1.5394 train_acc=0.4709 epsilon=4.0058
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=02 expert=01 epoch=   1/  50 loss=2.2825 train_acc=0.1433 epsilon=0.6963
+  party=02 expert=01 epoch=   6/  50 loss=2.0025 train_acc=0.3125 epsilon=1.3459
+  party=02 expert=01 epoch=  11/  50 loss=1.8622 train_acc=0.3674 epsilon=1.8097
+  party=02 expert=01 epoch=  17/  50 loss=1.7955 train_acc=0.3921 epsilon=2.2587
+  party=02 expert=01 epoch=  22/  50 loss=1.7200 train_acc=0.4083 epsilon=2.5825
+  party=02 expert=01 epoch=  28/  50 loss=1.7216 train_acc=0.4123 epsilon=2.9324
+  party=02 expert=01 epoch=  33/  50 loss=1.6622 train_acc=0.4244 epsilon=3.2003
+  party=02 expert=01 epoch=  39/  50 loss=1.5972 train_acc=0.4441 epsilon=3.5006
+  party=02 expert=01 epoch=  44/  50 loss=1.5820 train_acc=0.4512 epsilon=3.7366
+  party=02 expert=01 epoch=  50/  50 loss=1.5829 train_acc=0.4621 epsilon=4.0058
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=03 expert=00 epoch=   1/  50 loss=2.2463 train_acc=0.1651 epsilon=0.6963
+  party=03 expert=00 epoch=   6/  50 loss=1.9808 train_acc=0.3277 epsilon=1.3459
+  party=03 expert=00 epoch=  11/  50 loss=1.8603 train_acc=0.3863 epsilon=1.8097
+  party=03 expert=00 epoch=  17/  50 loss=1.7767 train_acc=0.4000 epsilon=2.2587
+  party=03 expert=00 epoch=  22/  50 loss=1.7191 train_acc=0.4128 epsilon=2.5825
+  party=03 expert=00 epoch=  28/  50 loss=1.6968 train_acc=0.4152 epsilon=2.9324
+  party=03 expert=00 epoch=  33/  50 loss=1.6309 train_acc=0.4420 epsilon=3.2003
+  party=03 expert=00 epoch=  39/  50 loss=1.6008 train_acc=0.4522 epsilon=3.5006
+  party=03 expert=00 epoch=  44/  50 loss=1.5680 train_acc=0.4626 epsilon=3.7366
+  party=03 expert=00 epoch=  50/  50 loss=1.5080 train_acc=0.4818 epsilon=4.0058
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=03 expert=01 epoch=   1/  50 loss=2.2674 train_acc=0.1618 epsilon=0.6963
+  party=03 expert=01 epoch=   6/  50 loss=1.9923 train_acc=0.3305 epsilon=1.3459
+  party=03 expert=01 epoch=  11/  50 loss=1.8767 train_acc=0.3633 epsilon=1.8097
+  party=03 expert=01 epoch=  17/  50 loss=1.7713 train_acc=0.3948 epsilon=2.2587
+  party=03 expert=01 epoch=  22/  50 loss=1.7027 train_acc=0.4222 epsilon=2.5825
+  party=03 expert=01 epoch=  28/  50 loss=1.6407 train_acc=0.4329 epsilon=2.9324
+  party=03 expert=01 epoch=  33/  50 loss=1.5943 train_acc=0.4518 epsilon=3.2003
+  party=03 expert=01 epoch=  39/  50 loss=1.5634 train_acc=0.4566 epsilon=3.5006
+  party=03 expert=01 epoch=  44/  50 loss=1.5216 train_acc=0.4692 epsilon=3.7366
+  party=03 expert=01 epoch=  50/  50 loss=1.4972 train_acc=0.4830 epsilon=4.0058
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=04 expert=00 epoch=   1/  50 loss=2.2683 train_acc=0.1617 epsilon=0.6963
+  party=04 expert=00 epoch=   6/  50 loss=1.9853 train_acc=0.3230 epsilon=1.3459
+  party=04 expert=00 epoch=  11/  50 loss=1.8656 train_acc=0.3702 epsilon=1.8097
+  party=04 expert=00 epoch=  17/  50 loss=1.7419 train_acc=0.4130 epsilon=2.2587
+  party=04 expert=00 epoch=  22/  50 loss=1.7266 train_acc=0.4116 epsilon=2.5825
+  party=04 expert=00 epoch=  28/  50 loss=1.6678 train_acc=0.4300 epsilon=2.9324
+  party=04 expert=00 epoch=  33/  50 loss=1.6189 train_acc=0.4491 epsilon=3.2003
+  party=04 expert=00 epoch=  39/  50 loss=1.5809 train_acc=0.4562 epsilon=3.5006
+  party=04 expert=00 epoch=  44/  50 loss=1.5638 train_acc=0.4654 epsilon=3.7366
+  party=04 expert=00 epoch=  50/  50 loss=1.6001 train_acc=0.4545 epsilon=4.0058
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=04 expert=01 epoch=   1/  50 loss=2.2705 train_acc=0.1550 epsilon=0.6963
+  party=04 expert=01 epoch=   6/  50 loss=1.9781 train_acc=0.3279 epsilon=1.3459
+  party=04 expert=01 epoch=  11/  50 loss=1.8794 train_acc=0.3662 epsilon=1.8097
+  party=04 expert=01 epoch=  17/  50 loss=1.7691 train_acc=0.4107 epsilon=2.2587
+  party=04 expert=01 epoch=  22/  50 loss=1.7047 train_acc=0.4330 epsilon=2.5825
+  party=04 expert=01 epoch=  28/  50 loss=1.6803 train_acc=0.4288 epsilon=2.9324
+  party=04 expert=01 epoch=  33/  50 loss=1.6125 train_acc=0.4479 epsilon=3.2003
+  party=04 expert=01 epoch=  39/  50 loss=1.5638 train_acc=0.4621 epsilon=3.5006
+  party=04 expert=01 epoch=  44/  50 loss=1.5409 train_acc=0.4682 epsilon=3.7366
+  party=04 expert=01 epoch=  50/  50 loss=1.5387 train_acc=0.4744 epsilon=4.0058
+manifest: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_dp_mtt_cifar10_round2/new_seed42/new_trajectories/cifar10/new_stage_a_dp_trajectory_manifest_cifar10.json

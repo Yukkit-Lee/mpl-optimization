@@ -728,3 +728,5 @@
 - 新正式产物：`new_expTab/new_secure_feature/new_phase6_public_mtt_results.csv`、`new_phase6_public_mtt_summary.csv`；`new_expFig/new_secure_feature/new_phase6_public_mtt_reference_curves.png/.pdf`；`new_log/new_secure_feature/json/new_phase6_public_mtt_results.json`。
 - 结果边界：正式 encoder epoch 由独立 reference-only pilot 冻结，正式轮次随后使用全部 synthetic 样本，test 只做一次只读最终评估。因此当前图中的 reference 曲线仅是冻结后训练诊断，不能作为独立泛化曲线；正式质量结论来自只读 test 的三 seed 统计。
 - 当前运行：活动队列已切换为 CIFAR-10 完整 DP-MTT validation，顺序为 5 parties×2 experts×50 epochs、5000 次 MTT、reference-only encoder pilot 和一次冻结 test。该轮仍属于 validation，不计入正式均值；若质量门不通过将保留结果并继续 reference-only 调参。
+- DP-MTT round2 诊断（21:05）：10 个 DP experts 全部完成，机构内顺序组合/机构间并行组合后 Stage-A `ε=5.8877, δ=1e-5`；5000-step MTT 保持 `raw_data_access=False`。reference-only encoder pilot 最佳准确率为 `0.90`，冻结后一次只读 test 为 `0.3520`，比 public mean 低 32.63pp，明确标记 `NOT_READY_FOR_PAPER`。
+- 调参边界修正（21:05）：当前 MTT 只抽取 expert epoch 0–20 的片段，未充分利用后半程较稳定轨迹。新增 `new_eval_stage_a_public_reference.py`，使用 official MTT ipc50 作为外部 public synthetic reference 评估冻结 DP encoder；该入口不加载 benchmark test 或 raw private records。下一轮先调 `max_start_epoch/expert_epochs`，选择依据只允许 public reference accuracy。

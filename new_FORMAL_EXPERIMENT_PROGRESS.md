@@ -87,6 +87,12 @@
 - CIFAR-10 完整 DP-MTT validation 已在单 GPU 队列中启动：
   5 parties x 2 experts x 50 epochs -> 5000 MTT iterations ->
   reference-only encoder pilot。当前仍是 tuning/validation，不计入正式均值。
+- CIFAR-10 DP-MTT round 2 已完成并在冻结后只读 test 得到 `0.3520`，
+  相对 public mean 低 `0.3263`，状态为 `NOT_READY_FOR_PAPER`。encoder
+  reference pilot 的最佳值为 `0.90`，继续增加 encoder epoch 不能解决差距。
+- 下一轮 tuning 将复用相同 DP trajectories 和相同 Stage-A epsilon，优先搜索
+  MTT 的轨迹起点/目标跨度；新增 external public-MTT reference evaluator，
+  该入口不加载 raw private data 或 benchmark test，避免继续用 test 调参。
 
 ## Resume Audit 2026-07-25 19:36 CST
 

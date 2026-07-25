@@ -1,0 +1,8 @@
+{
+  "schema": "new_phase6_dp_validation_final_plan_v1",
+  "selection_source": "synthetic_reference_only",
+  "test_tuning": false,
+  "detected_plateau_epoch": 240,
+  "formal_epochs": 300,
+  "queue": "/mnt/code/lixujie/tfe_experiments/new_configs/new_secure_feature/new_gpu0_phase6_dp_validation_final.tsv"
+}

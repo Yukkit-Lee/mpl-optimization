@@ -1,0 +1,4 @@
+[2026-07-25T21:02:38+08:00] task=prepare_phase6_dp_validation_final resource=gpu0 attempt=0
+DP-MTT frozen validation: plateau=240 formal_epochs=300 test_tuning=False
+queue=/mnt/code/lixujie/tfe_experiments/new_configs/new_secure_feature/new_gpu0_phase6_dp_validation_final.tsv
+activated=True
