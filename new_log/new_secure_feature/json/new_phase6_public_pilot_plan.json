@@ -1,0 +1,48 @@
+{
+  "schema": "new_phase6_public_pilot_plan_v1",
+  "cpu_threads": 1,
+  "num_workers": 0,
+  "visible_gpu": 0,
+  "tasks": [
+    {
+      "task_id": "tuning_phase6_public_cifar100_plateau_seed42",
+      "dataset": "cifar100",
+      "seed": 42,
+      "purpose": "reference_only_plateau_detection",
+      "test_loaded": false,
+      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_public_pilots/new_cifar100_seed42/public_mtt_benchmark/cifar100/new_shared_encoder_checkpoint_cifar100_public_mtt_benchmark_seed42.pt",
+      "configuration": {
+        "epochs": 500,
+        "batch_size": 256,
+        "eval_batch_size": 512,
+        "learning_rate": 0.01
+      }
+    },
+    {
+      "task_id": "tuning_phase6_public_tiny_plateau_seed42",
+      "dataset": "tiny",
+      "seed": 42,
+      "purpose": "reference_only_plateau_detection",
+      "test_loaded": false,
+      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_public_pilots/new_tiny_seed42/public_mtt_benchmark/tiny/new_shared_encoder_checkpoint_tiny_public_mtt_benchmark_seed42.pt",
+      "configuration": {
+        "epochs": 700,
+        "batch_size": 128,
+        "eval_batch_size": 256,
+        "learning_rate": 0.01
+      }
+    }
+  ],
+  "queue": "/mnt/code/lixujie/tfe_experiments/new_configs/new_secure_feature/new_gpu0_phase6_public_pilots.tsv",
+  "already_complete_and_skipped": {
+    "dataset": "cifar10",
+    "formal_round": 3,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "mean_test_accuracy": 0.6782666666666667,
+    "quality_gate": 0.6684
+  }
+}

@@ -1,0 +1,19 @@
+[2026-07-25T16:22:00+08:00] task=stageA_cifar10_dp_mtt_pilot resource=gpu0 attempt=0
+========================================================================================
+Stage A Track B：DP trajectories -> MTT post-processing
+dataset=cifar10 trajectories=5 ipc=10 iterations=500 syn_steps=20
+raw_data_access=False pix_init=noise cpu_threads=1 num_workers=0
+stage_a_epsilon=2.457147018845989 delta=1e-05
+output: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_round_1/new_dp_mtt_seed42/cifar10
+========================================================================================
+  iteration=    1/  500 trajectory_loss=1.042095 synthetic_lr=0.009921
+  iteration=   56/  500 trajectory_loss=1.005527 synthetic_lr=0.005354
+  iteration=  111/  500 trajectory_loss=0.997800 synthetic_lr=0.003357
+  iteration=  167/  500 trajectory_loss=0.997511 synthetic_lr=0.002575
+  iteration=  222/  500 trajectory_loss=0.996984 synthetic_lr=0.002332
+  iteration=  278/  500 trajectory_loss=0.996438 synthetic_lr=0.002177
+  iteration=  333/  500 trajectory_loss=0.997109 synthetic_lr=0.002127
+  iteration=  389/  500 trajectory_loss=0.997235 synthetic_lr=0.002144
+  iteration=  444/  500 trajectory_loss=0.996426 synthetic_lr=0.002255
+  iteration=  500/  500 trajectory_loss=0.997772 synthetic_lr=0.002302
+result: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_round_1/new_dp_mtt_seed42/cifar10/new_dp_mtt_images_cifar10_ipc10_seed42.pt

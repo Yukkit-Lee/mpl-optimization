@@ -11,6 +11,11 @@ export BLIS_NUM_THREADS=1
 export TOKENIZERS_PARALLELISM=false
 export PYTHONNOUSERSITE=1
 export MALLOC_ARENA_MAX=1
+export TF_NUM_INTRAOP_THREADS=1
+export TF_NUM_INTEROP_THREADS=1
+export CUDA_DEVICE_MAX_CONNECTIONS=1
+export NEW_CPU_CORE="${NEW_CPU_CORE:-0}"
+export NEW_SINGLE_GPU="${NEW_SINGLE_GPU:-0}"
 
 export NEW_PROJECT_ROOT="${NEW_PROJECT_ROOT:-/mnt/code/lixujie/tfe_experiments}"
 export NEW_MTT_ROOT="${NEW_MTT_ROOT:-/mnt/code/lixujie/mtt-distillation}"

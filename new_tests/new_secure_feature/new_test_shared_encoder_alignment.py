@@ -36,6 +36,13 @@ class SharedEncoderAlignmentTests(unittest.TestCase):
         self.assertFalse(values[1] & values[2])
         self.assertEqual(sum(map(len, values)), len(labels))
 
+    def test_fixed_holdout_per_class_preserves_more_encoder_samples(self):
+        labels = torch.arange(10).repeat_interleave(50)
+        splits = stratified_synthetic_splits(labels, 42, holdout_per_class=1)
+        self.assertEqual(len(splits["encoder_train"]), 480)
+        self.assertEqual(len(splits["reference"]), 10)
+        self.assertEqual(len(splits["selection"]), 10)
+
     def test_scaler_uses_train_statistics_and_enforces_norm(self):
         train = torch.randn(30, 2048)
         reference = torch.randn(10, 2048)

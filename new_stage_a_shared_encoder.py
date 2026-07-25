@@ -99,7 +99,11 @@ def load_dp_mtt(dataset: str, dp_root: Path, seed: int, ipc: int) -> Dict:
     }
 
 
-def stratified_synthetic_splits(labels: torch.Tensor, seed: int) -> Dict[str, torch.Tensor]:
+def stratified_synthetic_splits(
+    labels: torch.Tensor,
+    seed: int,
+    holdout_per_class: int = 0,
+) -> Dict[str, torch.Tensor]:
     """逐类切分，保证 encoder/reference/selection 三者互斥且均覆盖全部类别。"""
 
     rng = np.random.RandomState(seed)
@@ -110,11 +114,18 @@ def stratified_synthetic_splits(labels: torch.Tensor, seed: int) -> Dict[str, to
         count = len(indices)
         if count < 3:
             raise ValueError("每类至少需要 3 个 synthetic samples，当前 class {} 只有 {}".format(class_id, count))
-        reference_count = max(1, int(round(count * 0.1)))
-        selection_count = max(1, int(round(count * 0.1)))
+        if holdout_per_class > 0:
+            reference_count = int(holdout_per_class)
+            selection_count = int(holdout_per_class)
+        else:
+            reference_count = max(1, int(round(count * 0.1)))
+            selection_count = max(1, int(round(count * 0.1)))
         if count - reference_count - selection_count < 1:
-            reference_count = 1
-            selection_count = 1
+            raise ValueError(
+                "holdout_per_class={} 导致 class {} 无 encoder-train 样本".format(
+                    holdout_per_class, class_id
+                )
+            )
         result["reference"].extend(indices[:reference_count].tolist())
         result["selection"].extend(indices[reference_count : reference_count + selection_count].tolist())
         result["encoder_train"].extend(indices[reference_count + selection_count :].tolist())
@@ -159,8 +170,14 @@ def evaluate_tensor(model, images: torch.Tensor, labels: torch.Tensor, device: t
 def train_shared_encoder(source: Dict, dataset: str, splits: Dict[str, torch.Tensor], args, device: torch.device, output_dir: Path):
     images = source["images"]
     labels = source["labels"]
-    x_train = images[splits["encoder_train"]]
-    y_train = labels[splits["encoder_train"]]
+    if args.encoder_use_all_synthetic:
+        # 正式 epoch 预算已由独立 reference pilot 冻结后，encoder 可利用 Stage-A
+        # 的完整 synthetic output；Stage-B feature splits 仍保持互斥。
+        x_train = images
+        y_train = labels
+    else:
+        x_train = images[splits["encoder_train"]]
+        y_train = labels[splits["encoder_train"]]
     x_reference = images[splits["reference"]]
     y_reference = labels[splits["reference"]]
     model = build_mtt_convnet(dataset, args.seed, device)
@@ -259,6 +276,9 @@ def train_shared_encoder(source: Dict, dataset: str, splits: Dict[str, torch.Ten
                 ),
                 flush=True,
             )
+    if args.encoder_use_all_synthetic:
+        # reference 已参与 encoder training 时不能再用于 checkpoint selection。
+        best_state = copy.deepcopy(model.state_dict())
     model.load_state_dict(best_state)
     return model, history, best_reference, time.time() - started
 
@@ -327,6 +347,17 @@ def main() -> int:
     parser.add_argument("--momentum", type=float, default=0.9)
     parser.add_argument("--weight_decay", type=float, default=5e-4)
     parser.add_argument("--feature_norm_bound", type=float, default=1.0)
+    parser.add_argument(
+        "--holdout_per_class",
+        type=int,
+        default=0,
+        help="大于 0 时每类固定保留同样数量的 reference 和 selection；0 使用各 10%",
+    )
+    parser.add_argument(
+        "--encoder_use_all_synthetic",
+        action="store_true",
+        help="仅在独立 pilot 已冻结 epoch 后启用；Stage-B feature splits 仍保持互斥",
+    )
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--device", choices=("cuda", "cpu"), default="cuda")
     parser.add_argument("--augmentation", action="store_true")
@@ -342,7 +373,9 @@ def main() -> int:
         if args.track == "public_mtt_benchmark"
         else load_dp_mtt(args.dataset, args.dp_root, args.seed, args.dp_ipc)
     )
-    splits = stratified_synthetic_splits(source["labels"], args.seed)
+    splits = stratified_synthetic_splits(
+        source["labels"], args.seed, args.holdout_per_class
+    )
     output_dir = args.output_dir / args.track / args.dataset
     output_dir.mkdir(parents=True, exist_ok=True)
     print("=" * 92, flush=True)
@@ -387,8 +420,13 @@ def main() -> int:
         for name, indices in splits.items()
     }
     test_labels = None
+    test_accuracy = None
     if args.include_test:
         test_images, test_labels = materialize_dataset(load_test_dataset(args.dataset))
+        # test 只在 reference 已完成模型选择并冻结后读取一次，不参与任何调参。
+        test_accuracy = evaluate_tensor(
+            model, test_images, test_labels, device, args.eval_batch_size
+        )
         raw_features["test"] = extract_features(model, test_images, device, args.eval_batch_size)
     transformed, scaler = fit_and_apply_scaler(
         raw_features["encoder_train"], raw_features, args.feature_norm_bound
@@ -409,6 +447,7 @@ def main() -> int:
         "scaler_sha256": sha256_file(scaler_path),
         "input_norm_bound": args.feature_norm_bound,
         "split_indices": splits,
+        "holdout_per_class": args.holdout_per_class,
         "x_encoder_train": transformed["encoder_train"],
         "y_encoder_train": labels[splits["encoder_train"]],
         "x_reference": transformed["reference"],
@@ -419,8 +458,23 @@ def main() -> int:
         "y_test": test_labels,
         "test_loaded": args.include_test,
         "scaler_fit_scope": "synthetic_encoder_train_only",
-        "encoder_selection_scope": "synthetic_reference_only",
+        "encoder_selection_scope": (
+            "prior_independent_reference_pilot"
+            if args.encoder_use_all_synthetic
+            else "synthetic_reference_only"
+        ),
+        "encoder_training_scope": (
+            "all_synthetic_after_independent_pilot_freeze"
+            if args.encoder_use_all_synthetic
+            else "synthetic_encoder_train_split_only"
+        ),
+        "encoder_checkpoint_selection": (
+            "frozen_final_epoch"
+            if args.encoder_use_all_synthetic
+            else "best_synthetic_reference"
+        ),
         "test_usage": "final_readonly_encoding" if args.include_test else "not_loaded",
+        "final_test_accuracy": test_accuracy,
         "stage_a_epsilon": source["stage_a_epsilon"],
         "stage_a_delta": source["stage_a_delta"],
     }
@@ -464,7 +518,11 @@ def main() -> int:
         "legacy_npz_sha256": sha256_file(legacy_npz_path),
         "input_norm_bound": args.feature_norm_bound,
         "best_reference_accuracy": best_reference,
+        "holdout_per_class": args.holdout_per_class,
+        "encoder_use_all_synthetic": args.encoder_use_all_synthetic,
         "test_loaded": args.include_test,
+        "final_test_accuracy": test_accuracy,
+        "test_usage": "final_readonly_after_reference_freeze" if args.include_test else "not_loaded",
         "status": "COMPLETE",
     }
     metadata_path = output_dir / "new_shared_feature_metadata_{}_{}_seed{}.json".format(
@@ -473,6 +531,8 @@ def main() -> int:
     metadata_path.write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8")
     print("encoder_sha256: {}".format(encoder_sha256), flush=True)
     print("feature_cache: {}".format(cache_path), flush=True)
+    if test_accuracy is not None:
+        print("final_test_accuracy: {:.6f}".format(test_accuracy), flush=True)
     return 0
 
 

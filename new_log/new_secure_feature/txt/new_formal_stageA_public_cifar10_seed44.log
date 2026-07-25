@@ -1,0 +1,20 @@
+[2026-07-25T16:18:30+08:00] task=formal_stageA_public_cifar10_seed44 resource=gpu1 attempt=0
+============================================================================================
+Stage A Phase 2：唯一共享 ConvNet -> 冻结 2048-D representation
+dataset=cifar10 track=public_mtt_benchmark samples=500 epochs=300 device=cuda
+split_sizes={'encoder_train': 400, 'reference': 50, 'selection': 50} cpu_threads=1 num_workers=0 include_test=True
+output: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_formal_phase6/new_public_mtt/new_seed44/public_mtt_benchmark/cifar10
+============================================================================================
+  epoch=   1/ 300 train_loss=2.3672 train_acc=0.0850 ref_acc=0.1000
+  epoch=  34/ 300 train_loss=0.5301 train_acc=0.8500 ref_acc=0.6800
+  epoch=  67/ 300 train_loss=0.1251 train_acc=0.9800 ref_acc=0.8000
+  epoch= 100/ 300 train_loss=0.0305 train_acc=1.0000 ref_acc=0.9000
+  epoch= 133/ 300 train_loss=0.0187 train_acc=1.0000 ref_acc=0.9000
+  epoch= 167/ 300 train_loss=0.0147 train_acc=1.0000 ref_acc=0.9000
+  epoch= 200/ 300 train_loss=0.0106 train_acc=1.0000 ref_acc=0.8800
+  epoch= 233/ 300 train_loss=0.0080 train_acc=1.0000 ref_acc=0.9000
+  epoch= 266/ 300 train_loss=0.0094 train_acc=1.0000 ref_acc=0.9000
+  epoch= 300/ 300 train_loss=0.0074 train_acc=1.0000 ref_acc=0.9000
+encoder_sha256: ed38bdf0c8a6faff913983cb3b98f9d281b4650c174335cee37040939b01e81d
+feature_cache: /mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_formal_phase6/new_public_mtt/new_seed44/public_mtt_benchmark/cifar10/new_feature_cache_cifar10_public_mtt_benchmark_seed44.pt
+final_test_accuracy: 0.572400

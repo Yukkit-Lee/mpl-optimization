@@ -70,6 +70,7 @@ def render(payload: Dict) -> str:
         "tuning_seeds         : {}".format(config["tuning_seeds"]),
         "cpu_threads/process  : {}".format(config["cpu_threads"]),
         "DataLoader workers   : {}".format(config["num_workers"]),
+        "GPU policy           : {}".format(config["gpu_policy"]),
         "feature_dim/norm     : {}/{}".format(
             config["feature_dim"], config["feature_l2_bound"]
         ),
@@ -91,7 +92,7 @@ def render(payload: Dict) -> str:
             "",
             "[执行约束]",
             "  正式任务仅通过 tmux + resource lock + heartbeat + checkpoint 启动。",
-            "  数据集串行；每张 GPU 同时最多一个进程；TFE 串行。",
+            "  数据集串行；仅使用 GPU 0 且同时最多一个训练进程；TFE 串行。",
             "  validation/reference 冻结超参数前禁止读取 test 指标。",
             "=" * 96,
         ]
@@ -108,6 +109,11 @@ def main() -> int:
         raise RuntimeError("正式配置必须 cpu_threads=1 且 num_workers=0")
     if len(set(config["formal_seeds"])) < 3:
         raise RuntimeError("正式实验至少需要 3 个不同 seed")
+    if config.get("gpu_policy") != {
+        "visible_devices": [0],
+        "max_training_processes": 1,
+    }:
+        raise RuntimeError("本轮正式配置必须仅使用 GPU 0 且最多一个训练进程")
     payload = {
         "schema": "new_formal_resolved_plan_v1",
         "config_path": str(args.config.resolve()),

@@ -1,0 +1,15 @@
+[Unit]
+Description=New secure feature single-GPU formal experiment supervisor
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/mnt/code/lixujie/tfe_experiments
+Environment=NEW_SINGLE_GPU=0
+Environment=NEW_CPU_CORE=0
+ExecStart=/bin/bash /mnt/code/lixujie/tfe_experiments/new_scripts/new_single_gpu_supervisor.sh
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=default.target

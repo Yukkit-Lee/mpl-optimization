@@ -6,6 +6,7 @@ formal_seeds         : [42, 43, 44]
 tuning_seeds         : [42, 43]
 cpu_threads/process  : 1
 DataLoader workers   : 0
+GPU policy           : {'visible_devices': [0], 'max_training_processes': 1}
 feature_dim/norm     : 2048/1.0
 Stage-C epsilon      : [1.0, 3.0, 8.0]
 Stage-C delta        : 1e-05
@@ -32,6 +33,6 @@ secure RNG backend   : chacha20_box_muller_4sample
 
 [执行约束]
   正式任务仅通过 tmux + resource lock + heartbeat + checkpoint 启动。
-  数据集串行；每张 GPU 同时最多一个进程；TFE 串行。
+  数据集串行；仅使用 GPU 0 且同时最多一个训练进程；TFE 串行。
   validation/reference 冻结超参数前禁止读取 test 指标。
 ================================================================================================

@@ -11,9 +11,10 @@
 - Branch: `new-secure-feature-pipeline`
 - CPU threads per process: 1
 - DataLoader workers: 0
-- GPU processes: at most one process on each RTX 4090
+- GPU processes: exactly one formal process on GPU 0; GPU 1 is intentionally unused
 - TFE processes: serial, protected by `/tmp/new_secure_feature_tfe.lock`
-- Persistent session: `new_secure_feature_formal`
+- Persistent session: `new_secure_feature_single_gpu_formal`
+- Reboot recovery: `systemd --user` supervisor reloads the active queue from disk
 - Heartbeat: every 60 seconds
 - Automatic retries: at most 2
 - Checkpoint/resume: mandatory
@@ -25,7 +26,7 @@
 |---|---:|---:|---|
 | Stage-A DP experts | 3 datasets x 3 seeds x 5 parties x 2 experts | 90 | PENDING |
 | Stage-A DP-MTT | 3 datasets x 3 seeds | 9 | PENDING |
-| Module-A comparison | 3 datasets x 3 seeds x 4 sources | 36 | PENDING |
+| Module-A comparison | 3 datasets x 3 seeds x 4 sources | 36 | IN_PROGRESS |
 | Module-B formal | convergence + IID/Mild/Severe | 99 | PENDING |
 | Module-C formal | Plain + Fixed/Adaptive at 3 privacy points | 72 | PENDING |
 | End-to-End | 3 datasets x 3 seeds x 6 ablations | 54 | PENDING |
@@ -66,5 +67,21 @@
 - Backend: `chacha20_box_muller_4sample`; no `torch.normal` fallback.
 - Key storage: external mode-0600 sidecar; project checkpoint stores only
   counter and key fingerprint.
-- No formal accuracy result has been produced by this route yet.
+- CIFAR-10 public MTT Round 3 已完成正式 seeds 42/43/44，test accuracy
+  分别为 0.6788/0.6856/0.6704，mean=0.6783、sample std=0.0076；
+  三个 seed 均通过严格门槛 0.6684，后续恢复时跳过。
+- CIFAR-10 DP-MTT validation 当前 test accuracy=0.3020，落后 public
+  约 37.6 个百分点，因此保持 `NOT_READY_FOR_PAPER` 并继续 validation 调参。
+- CIFAR-100 与 Tiny ImageNet public MTT reference-only plateau pilots 尚未完成；
+  已生成单 GPU 串行恢复队列，pilot 不读取 test。
 
+## Resume Audit 2026-07-25 19:36 CST
+
+- 上一轮结束后主机于 2026-07-25 17:48 重启；可读取的内核日志中没有 OOM、
+  GPU Xid、watchdog 或 kernel panic 证据，不能归因于训练内存爆炸。
+- 重启导致旧 tmux socket 消失，但磁盘 checkpoint 和 COMPLETE 状态均保留。
+- 当前安全策略固定 CPU core 0、GPU 0、所有线程为 1、`num_workers=0`；
+  状态 JSON 改为同目录原子替换，并记录 boot ID。
+- 活动队列保存在
+  `new_configs/new_secure_feature/new_active_single_gpu_queue.txt`，supervisor
+  只恢复该队列中未完成且未 FAILED 的任务。

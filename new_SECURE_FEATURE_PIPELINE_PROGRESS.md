@@ -10,12 +10,13 @@
 
 ## Resource Contract
 
-- Two RTX 4090 devices may be used, one process per GPU.
+- 本轮恢复后仅使用 GPU 0；GPU 1 保持空闲，任何时刻最多一个训练进程。
 - Every process fixes CPU, BLAS and PyTorch threads to 1.
 - `DataLoader(num_workers=0, persistent_workers=False)`.
 - No multiprocessing pool or implicit parallel preprocessing.
 - Persistent runtime: tmux 3.7b from `/home/lixujie/tmpWork/new_tmux_runtime`.
-- Session: `new_secure_feature_formal`.
+- Session: `new_secure_feature_single_gpu_formal`.
+- `systemd --user` supervisor 依据磁盘活动队列恢复重启后丢失的 tmux。
 - Heartbeat interval: 60 seconds.
 - Checkpoint/resume and at most two automatic retries are mandatory.
 - Disk safety threshold: at least 25 GiB free on both project and home filesystems.
@@ -64,8 +65,18 @@
 - Phase 1 implementation and minimal trajectory-to-distillation correctness chain are complete.
 - Phase 1 secure-RNG blocker is resolved by the tested project-owned
   `chacha20_box_muller_4sample` backend; no ordinary RNG fallback is permitted.
-- Phase 2 shared 2048-D encoder implementation is in progress.
+- Phase 2 shared 2048-D encoder implementation and correctness are complete.
+- Phase 6 已完成 CIFAR-10 public MTT 三个正式 seed；CIFAR-100/Tiny
+  validation pilot 与其余正式矩阵仍在进行。
 - No smoke result will be promoted into a formal result.
+
+## Resume Safety Evidence
+
+- 主机在 2026-07-25 17:48 发生系统重启；未发现 OOM 或 GPU Xid 证据。
+- 重启前 CIFAR-10 public Round 3 的三份 checkpoint/status 均完整，恢复时跳过。
+- 状态、heartbeat 和活动队列均持久写盘；状态 JSON 使用原子替换并记录 boot ID。
+- 单 GPU supervisor 会在活动队列完成时保持 `QUEUE_COMPLETE`，遇到正式任务
+  `FAILED` 时转为 `NEEDS_ATTENTION`，不会无限重复失败任务。
 
 ## Phase 1 Evidence
 

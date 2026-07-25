@@ -8,6 +8,7 @@ mkdir -p "$(dirname "${OUT}")"
 while true; do
   {
     echo "timestamp=$(date --iso-8601=seconds)"
+    echo "boot_id=$(cat /proc/sys/kernel/random/boot_id)"
     nvidia-smi --query-gpu=index,utilization.gpu,memory.used,memory.total,temperature.gpu \
       --format=csv,noheader 2>&1 | sed 's/^/gpu=/'
     uptime | sed 's/^/cpu_load=/'

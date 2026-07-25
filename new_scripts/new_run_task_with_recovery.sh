@@ -12,7 +12,7 @@ fi
 
 TASK_ID="$1"; RESOURCE="$2"; CHECKPOINT_PATH="$3"; shift 3
 case "${RESOURCE}" in
-  gpu0) LOCK=/tmp/new_secure_feature_gpu0.lock; export CUDA_VISIBLE_DEVICES=0 ;;
+  gpu0) LOCK=/tmp/new_secure_feature_gpu0.lock; export CUDA_VISIBLE_DEVICES="${NEW_SINGLE_GPU}" ;;
   gpu1) LOCK=/tmp/new_secure_feature_gpu1.lock; export CUDA_VISIBLE_DEVICES=1 ;;
   tfe) LOCK=/tmp/new_secure_feature_tfe.lock; export CUDA_VISIBLE_DEVICES="" ;;
   report) LOCK=/tmp/new_secure_feature_report.lock; export CUDA_VISIBLE_DEVICES="" ;;
@@ -25,6 +25,15 @@ PID_FILE="${BASE}/pids/new_${TASK_ID}.pid"
 HEARTBEAT="${BASE}/heartbeat/new_${TASK_ID}.heartbeat"
 STATUS="${BASE}/status/new_${TASK_ID}.json"
 mkdir -p "$(dirname "${LOG}")" "$(dirname "${PID_FILE}")" "$(dirname "${HEARTBEAT}")" "$(dirname "${STATUS}")"
+BOOT_ID="$(cat /proc/sys/kernel/random/boot_id)"
+
+write_status() {
+  local payload="$1"
+  local tmp="${STATUS}.new_tmp_$$"
+  printf '%s\n' "${payload}" > "${tmp}"
+  sync "${tmp}" 2>/dev/null || true
+  mv -f "${tmp}" "${STATUS}"
+}
 
 exec 9>"${LOCK}"
 if ! flock -n 9; then
@@ -36,8 +45,8 @@ available_gib="$(free -g | awk '/^Mem:/ {print $7}')"
 project_free_gib="$(df -BG "${NEW_PROJECT_ROOT}" | awk 'NR==2 {gsub(/G/,"",$4); print $4}')"
 home_free_gib="$(df -BG "${NEW_DATA_ROOT}" | awk 'NR==2 {gsub(/G/,"",$4); print $4}')"
 if (( available_gib < 16 || project_free_gib < 25 || home_free_gib < 25 )); then
-  printf '{"task":"%s","status":"BLOCKED_RESOURCE","ram_gib":%s,"project_free_gib":%s,"home_free_gib":%s}\n' \
-    "${TASK_ID}" "${available_gib}" "${project_free_gib}" "${home_free_gib}" > "${STATUS}"
+  write_status "$(printf '{"task":"%s","status":"BLOCKED_RESOURCE","ram_gib":%s,"project_free_gib":%s,"home_free_gib":%s,"boot_id":"%s"}' \
+    "${TASK_ID}" "${available_gib}" "${project_free_gib}" "${home_free_gib}" "${BOOT_ID}")"
   exit 76
 fi
 
@@ -60,24 +69,26 @@ trap cleanup EXIT INT TERM
 attempt=0
 max_retries=2
 while (( attempt <= max_retries )); do
-  printf '{"task":"%s","resource":"%s","status":"RUNNING","attempt":%d,"checkpoint":"%s","started_at":"%s"}\n' \
-    "${TASK_ID}" "${RESOURCE}" "${attempt}" "${CHECKPOINT_PATH}" "$(date --iso-8601=seconds)" > "${STATUS}"
+  write_status "$(printf '{"task":"%s","resource":"%s","status":"RUNNING","attempt":%d,"checkpoint":"%s","started_at":"%s","boot_id":"%s","cpu_core":%s,"visible_gpu":"%s"}' \
+    "${TASK_ID}" "${RESOURCE}" "${attempt}" "${CHECKPOINT_PATH}" "$(date --iso-8601=seconds)" \
+    "${BOOT_ID}" "${NEW_CPU_CORE}" "${CUDA_VISIBLE_DEVICES}")"
   echo "[$(date --iso-8601=seconds)] task=${TASK_ID} resource=${RESOURCE} attempt=${attempt}" | tee -a "${LOG}"
   set +e
-  NEW_RESUME_FROM="${CHECKPOINT_PATH}" "$@" >> "${LOG}" 2>&1
+  NEW_RESUME_FROM="${CHECKPOINT_PATH}" taskset -c "${NEW_CPU_CORE}" "$@" >> "${LOG}" 2>&1
   code=$?
   set -e
   if (( code == 0 )); then
-    printf '{"task":"%s","resource":"%s","status":"COMPLETE","attempt":%d,"checkpoint":"%s","finished_at":"%s"}\n' \
-      "${TASK_ID}" "${RESOURCE}" "${attempt}" "${CHECKPOINT_PATH}" "$(date --iso-8601=seconds)" > "${STATUS}"
+    write_status "$(printf '{"task":"%s","resource":"%s","status":"COMPLETE","attempt":%d,"checkpoint":"%s","finished_at":"%s","boot_id":"%s"}' \
+      "${TASK_ID}" "${RESOURCE}" "${attempt}" "${CHECKPOINT_PATH}" "$(date --iso-8601=seconds)" "${BOOT_ID}")"
     exit 0
   fi
-  printf '{"task":"%s","resource":"%s","status":"RETRYING","attempt":%d,"exit_code":%d,"checkpoint":"%s"}\n' \
-    "${TASK_ID}" "${RESOURCE}" "${attempt}" "${code}" "${CHECKPOINT_PATH}" > "${STATUS}"
+  write_status "$(printf '{"task":"%s","resource":"%s","status":"RETRYING","attempt":%d,"exit_code":%d,"checkpoint":"%s","boot_id":"%s"}' \
+    "${TASK_ID}" "${RESOURCE}" "${attempt}" "${code}" "${CHECKPOINT_PATH}" "${BOOT_ID}")"
   attempt=$((attempt + 1))
   sleep 15
 done
 
-printf '{"task":"%s","resource":"%s","status":"FAILED","attempts":%d,"checkpoint":"%s","finished_at":"%s"}\n' \
-  "${TASK_ID}" "${RESOURCE}" "$((max_retries + 1))" "${CHECKPOINT_PATH}" "$(date --iso-8601=seconds)" > "${STATUS}"
+write_status "$(printf '{"task":"%s","resource":"%s","status":"FAILED","attempts":%d,"checkpoint":"%s","finished_at":"%s","boot_id":"%s"}' \
+  "${TASK_ID}" "${RESOURCE}" "$((max_retries + 1))" "${CHECKPOINT_PATH}" \
+  "$(date --iso-8601=seconds)" "${BOOT_ID}")"
 exit 1

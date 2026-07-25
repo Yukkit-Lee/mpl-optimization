@@ -5,6 +5,10 @@
   "tuning_seeds": [42, 43],
   "cpu_threads": 1,
   "num_workers": 0,
+  "gpu_policy": {
+    "visible_devices": [0],
+    "max_training_processes": 1
+  },
   "heartbeat_seconds": 60,
   "max_retries": 2,
   "minimum_free_disk_gib": 25,
