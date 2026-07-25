@@ -748,3 +748,4 @@
 - 2048-D 特征质量门完成（2026-07-26 01:27）：36 个 reference-only tuning runs 与 9 个 frozen formal runs 均一次完成。CIFAR-10=`0.6782±0.0071`、CIFAR-100=`0.4384±0.0046`、Tiny=`0.2619±0.0061`，均高于预先声明门槛；状态 `QUALITY_GATE_PASS`。冻结配置分别为 AdamW `lr=1e-3,wd=0` 与 AdamW `lr=3e-3,wd=1e-4`（CIFAR-100/Tiny），后续不得依据 test 修改。
 - Module A 效率实验实现（2026-07-26 01:30）：新增可断点 memmap 的 Full Images 特征提取，以及 Full/等规模 Random/Official MTT 三方法的统一线性头训练；固定 20 个 test 只读报告点，预声明 target accuracy 为 CIFAR-10 0.65、CIFAR-100 0.42、Tiny 0.24。计划包含 9 个提取任务、27 个方法运行和 1 个聚合报告，输出 Figure A1/A2 的 PNG/PDF 与 CSV/JSON。
 - Module A 启动前加固（2026-07-26 01:36）：断点 checkpoint 现累计恢复前耗时，避免重启后 Time@Target/总耗时归零；Figure A2 改为样本数、Step@Target、Time@Target 三联效率图；队列解析默认不激活，只有显式 `--activate` 才原子切换活动队列，防止静态检查误启动长任务。算法、seed 和冻结超参数均未改变。
+- Supervisor 恢复锁修复（2026-07-26 01:38）：定位到旧 supervisor 的文件锁描述符被 tmux server 继承，造成 service 重启后无法重新创建 `gpu0` 窗口或消费新队列。移除 supervisor 级 fd flock，单实例继续由 systemd service 保证；GPU/任务互斥锁、CPU core 0、线程 1 和单 GPU0 策略保持不变。

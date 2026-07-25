@@ -9,8 +9,10 @@ SUPERVISOR_STATUS="${NEW_OUTPUT_ROOT}/new_log/new_secure_feature/status/new_sing
 SESSION=new_secure_feature_single_gpu_formal
 mkdir -p "$(dirname "${SUPERVISOR_STATUS}")"
 
-exec 8>/tmp/new_secure_feature_single_gpu_supervisor.lock
-flock -n 8 || exit 0
+# systemd owns exactly one supervisor instance. Do not hold an fd-based flock
+# here: the tmux server inherits open descriptors and would keep that lock
+# forever after a supervisor restart. GPU/task mutual exclusion remains in
+# new_run_task_with_recovery.sh.
 
 atomic_status() {
   local payload="$1"
