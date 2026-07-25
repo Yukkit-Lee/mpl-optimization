@@ -41,9 +41,14 @@ if ! flock -n 9; then
   exit 75
 fi
 
-available_gib="$(free -g | awk '/^Mem:/ {print $7}')"
-project_free_gib="$(df -BG "${NEW_PROJECT_ROOT}" | awk 'NR==2 {gsub(/G/,"",$4); print $4}')"
-home_free_gib="$(df -BG "${NEW_DATA_ROOT}" | awk 'NR==2 {gsub(/G/,"",$4); print $4}')"
+available_gib="$(LC_ALL=C free -g | awk '/^Mem:/ {print $7}')"
+project_free_gib="$(LC_ALL=C df -BG "${NEW_PROJECT_ROOT}" | awk 'NR==2 {gsub(/G/,"",$4); print $4}')"
+home_free_gib="$(LC_ALL=C df -BG "${NEW_DATA_ROOT}" | awk 'NR==2 {gsub(/G/,"",$4); print $4}')"
+if [[ ! "${available_gib}" =~ ^[0-9]+$ || ! "${project_free_gib}" =~ ^[0-9]+$ || ! "${home_free_gib}" =~ ^[0-9]+$ ]]; then
+  write_status "$(printf '{"task":"%s","status":"BLOCKED_RESOURCE_PARSE","ram_gib":"%s","project_free_gib":"%s","home_free_gib":"%s","boot_id":"%s"}' \
+    "${TASK_ID}" "${available_gib}" "${project_free_gib}" "${home_free_gib}" "${BOOT_ID}")"
+  exit 77
+fi
 if (( available_gib < 16 || project_free_gib < 25 || home_free_gib < 25 )); then
   write_status "$(printf '{"task":"%s","status":"BLOCKED_RESOURCE","ram_gib":%s,"project_free_gib":%s,"home_free_gib":%s,"boot_id":"%s"}' \
     "${TASK_ID}" "${available_gib}" "${project_free_gib}" "${home_free_gib}" "${BOOT_ID}")"

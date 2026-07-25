@@ -711,3 +711,4 @@
 - 单卡加固（19:36）：后续仅使用 GPU 0，CPU 固定 core 0，全部 BLAS/PyTorch/TensorFlow 线程为 1，`num_workers=0`；状态 JSON 改为原子替换并写 boot ID。新增单 GPU tmux session、磁盘活动队列与 `systemd --user` supervisor，重启后可跳过 COMPLETE 并恢复未完成任务，FAILED 任务不会无限重启。
 - 当前恢复点（19:36）：CIFAR-10 DP-MTT validation test accuracy=0.3020，较 public mean 低约 37.6 个百分点，仍为 `NOT_READY_FOR_PAPER`；下一队列先运行 CIFAR-100/Tiny public MTT reference-only plateau pilot，不读取 test，并据此冻结正式 epoch。
 - 首批恢复队列（19:38）：活动队列固定为 `new_gpu0_phase6_public_pilots.tsv`，仅包含 CIFAR-100 seed42/500 epochs 与 Tiny seed42/700 epochs 两个 reference-only plateau pilot；CIFAR-10 Round 3 已完成因而跳过。预计 Tiny 可能持续数小时，两个任务严格串行且只用 GPU 0。
+- Supervisor 首次启动诊断（19:40）：`systemd --user` 的中文 locale 使旧资源检查无法匹配英文 `Mem:`，可用内存字段为空并误写 `BLOCKED_RESOURCE`，训练实际未启动且机器资源正常。资源解析现固定 `LC_ALL=C` 并增加数字格式硬检查；tmux 创建器改为幂等补建缺失窗口，防止任务窗口正常退出后无法恢复。

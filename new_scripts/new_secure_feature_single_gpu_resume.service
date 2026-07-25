@@ -7,9 +7,11 @@ Type=simple
 WorkingDirectory=/mnt/code/lixujie/tfe_experiments
 Environment=NEW_SINGLE_GPU=0
 Environment=NEW_CPU_CORE=0
+Environment=LC_ALL=C
 ExecStart=/bin/bash /mnt/code/lixujie/tfe_experiments/new_scripts/new_single_gpu_supervisor.sh
 Restart=always
 RestartSec=30
+KillMode=process
 
 [Install]
 WantedBy=default.target
