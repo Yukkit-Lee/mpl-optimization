@@ -6,7 +6,7 @@
 - [x] Phase 1: Remove 2048-D feature path from main A->B->C
 - [x] Phase 2: Clarify and implement plaintext/MPC boundary
 - [x] Phase 3: Add TFE secure-system Stage-C validation
-- [ ] Phase 4: Repair privacy accounting and test-set boundary
+- [x] Phase 4: Repair privacy accounting and test-set boundary
 - [ ] Phase 5: Final end-to-end regression and documentation
 
 ## Recovery Information
@@ -153,7 +153,38 @@
 
 ## Phase 4
 
-- Status: `PENDING`
+- Status: `COMPLETED`
+- Installed and pinned `opacus==1.5.4`.
+- Added:
+  - `stage_c_privacy_accounting.py`
+  - `tests/test_stage_c_privacy.py`
+- Gaussian Fixed-DP and Adaptive-DP now use Opacus `RDPAccountant`.
+- Every accounting record includes:
+  - sample rate;
+  - steps;
+  - noise multiplier;
+  - delta;
+  - `privacy_scope=stage_c_only`;
+  - `stage_c_epsilon`;
+  - `accountant_type=opacus_rdp`;
+  - `noise_mechanism=gaussian`.
+- Non-Gaussian binomial simulation returns `stage_c_epsilon=N/A`; Gaussian accounting is not reused.
+- Target construction is centralized in `build_reference_target`, whose API accepts no test argument.
+- Test data is used only for fixed-interval readonly history and final reporting.
+- Required limitation text is emitted automatically.
+- Unit tests passed:
+  - epsilon increases with steps;
+  - epsilon decreases with noise multiplier;
+  - Fixed/Adaptive use the same accounting;
+  - binomial simulation is not Gaussian-accounted;
+  - reference target API has no test input.
+- CIFAR-10 two-step validation:
+  - Fixed/Adaptive epsilon: `0.5194330147`;
+  - sample rate: `0.004`;
+  - noise multiplier: `1.2`;
+  - delta: `1e-5`.
+- Output:
+  - `log/json/crossStageConvNet_stageC_cifar10_20260725_110222.json`
 
 ## Phase 5
 

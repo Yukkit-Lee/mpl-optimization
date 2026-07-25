@@ -36,6 +36,7 @@ CFG = {
     "gamma": 0.5,
     "eta_c": 0.15,
     "eval_interval": 10,
+    "delta": 1e-5,
 }
 
 JSON_DIR = PATHS.output_root / "log" / "json"
@@ -60,11 +61,8 @@ def run_end2end(dataset: str, seed: int, quick: bool = False):
     if pipe.state_schema(chosen_model) != stage_b["model_schema"]:
         raise RuntimeError("Stage B -> Stage C full state-dict schema mismatch")
 
-    _, initial_ref_accuracy = pipe.evaluate_model(
-        chosen_model, bundle["x_ref"], bundle["y_ref"], device
-    )
-    # 收敛目标只由 heldout reference set 构造，禁止使用 test accuracy。
-    target_ref_accuracy = min(0.999, initial_ref_accuracy + 0.02)
+    # 收敛目标只由 heldout reference set 构造，helper 不接受 test 数据。
+    target_ref_accuracy = pipe.build_reference_target(chosen_model, bundle, device)
     steps = 2 if quick else int(CFG["stage_c_steps"])
     batch_size = 2 if quick else int(CFG["stage_c_batch_size"])
     eval_interval = 1 if quick else int(CFG["eval_interval"])
@@ -86,6 +84,8 @@ def run_end2end(dataset: str, seed: int, quick: bool = False):
             device=device,
             eval_interval=eval_interval,
             target_reference_accuracy=target_ref_accuracy,
+            delta=float(CFG["delta"]),
+            noise_mechanism="gaussian",
         )
         if result["initialization_signature"] != after_signature:
             raise RuntimeError("Stage C did not start from the loaded Stage B checkpoint")
@@ -141,11 +141,17 @@ def main() -> int:
     pipe.write_json(json_path, payload)
     with csv_path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
-        writer.writerow(["Dataset", "Mode", "FinalTestAcc", "FinalRefAcc", "StepAtRefTarget"])
+        writer.writerow([
+            "Dataset", "Mode", "PrivacyScope", "StageCEpsilon", "StageCDelta",
+            "FinalTestAcc", "FinalRefAcc", "StepAtRefTarget",
+        ])
         for mode, result in payload["stage_c"].items():
             writer.writerow([
                 args.dataset,
                 mode,
+                result["privacy"]["privacy_scope"],
+                result["privacy"]["stage_c_epsilon"],
+                result["privacy"]["stage_c_delta"],
                 result["final_test_accuracy"],
                 result["final_reference_accuracy"],
                 result["step_at_target_reference_accuracy"],

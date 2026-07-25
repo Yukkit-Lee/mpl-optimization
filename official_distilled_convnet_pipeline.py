@@ -31,6 +31,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from project_paths import PATHS
+from stage_c_privacy_accounting import PRIVACY_LIMITATION, StageCAccountant
 
 BASE_DIR = PATHS.output_root
 MTT_ROOT = PATHS.mtt_root
@@ -300,6 +301,20 @@ def evaluate_model(model: nn.Module, x: torch.Tensor, y: torch.Tensor, device: t
             total += int(len(yb))
     model.to(original_device)
     return total_loss / max(1, total), correct / max(1, total)
+
+
+def build_reference_target(
+    model: nn.Module,
+    bundle: Dict,
+    device: torch.device,
+    margin: float = 0.02,
+) -> float:
+    """只允许 heldout reference set 构造目标；函数接口不接收 test 数据。"""
+    assert_split_boundaries(bundle)
+    _, reference_accuracy = evaluate_model(
+        model, bundle["x_ref"], bundle["y_ref"], device
+    )
+    return min(0.999, float(reference_accuracy) + float(margin))
 
 
 def train_local_convnet(
@@ -610,6 +625,8 @@ def train_stage_c_convnet(
     device: torch.device,
     eval_interval: int,
     target_reference_accuracy: Optional[float] = None,
+    delta: float = 1e-5,
+    noise_mechanism: str = "gaussian",
 ) -> Dict:
     """在同一完整 ConvNet 上执行 Plain、Fixed-DP 或 Adaptive-DP。"""
     if mode not in ("plain", "fixed_dp", "adaptive_dp"):
@@ -623,6 +640,15 @@ def train_stage_c_convnet(
     history = []
     started = time.time()
     target_step = None
+    sample_rate = min(1.0, float(batch_size) / float(len(bundle["y_train"])))
+    accountant = None
+    if mode != "plain":
+        accountant = StageCAccountant(
+            noise_mechanism=noise_mechanism,
+            noise_multiplier=noise_multiplier,
+            sample_rate=sample_rate,
+            delta=delta,
+        )
     for step in range(1, int(steps) + 1):
         xb, yb = _sample(bundle["x_train"], bundle["y_train"], batch_size, rng, device)
         c_used = current_c
@@ -674,6 +700,7 @@ def train_stage_c_convnet(
                     1e-3,
                     100.0,
                 ))
+            accountant.step()
         if step % max(1, int(eval_interval)) == 0 or step == int(steps):
             ref_loss, ref_acc = evaluate_model(model, bundle["x_ref"], bundle["y_ref"], device)
             test_loss, test_acc = evaluate_model(model, bundle["x_test"], bundle["y_test"], device)
@@ -690,12 +717,19 @@ def train_stage_c_convnet(
                 "clipped_fraction": float(clipped_fraction),
                 "clipping_bound_t": float(c_used),
                 "clipping_bound_next": float(current_c),
+                "stage_c_epsilon": (
+                    float(accountant.epsilon()) if accountant is not None
+                    and accountant.epsilon() is not None else (
+                        "N/A" if accountant is not None else float("inf")
+                    )
+                ),
             })
     return {
         "pipeline": "algorithmic_pytorch_convnet",
         "backend": "local_plaintext_pytorch",
         "mode": mode,
         "privacy_scope": "none" if mode == "plain" else "stage_c_only",
+        "dp_protected": mode != "plain",
         "feature_extraction_used": False,
         "model": model.cpu(),
         "initialization_signature": initialization_signature,
@@ -707,6 +741,16 @@ def train_stage_c_convnet(
         "final_test_accuracy": float(history[-1]["test_accuracy_readonly"]),
         "final_reference_accuracy": float(history[-1]["reference_accuracy"]),
         "final_c": float(history[-1]["clipping_bound_next"]),
+        "privacy": accountant.metadata() if accountant is not None else {
+            "privacy_scope": "none",
+            "stage_c_epsilon": float("inf"),
+            "stage_c_delta": None,
+            "accountant_type": "none",
+            "noise_mechanism": "none",
+            "sample_rate": sample_rate,
+            "steps": int(steps),
+            "limitation": PRIVACY_LIMITATION,
+        },
     }
 
 

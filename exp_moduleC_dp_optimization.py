@@ -36,6 +36,7 @@ CFG = {
     "gamma": 0.5,
     "eta_c": 0.15,
     "eval_interval": 10,
+    "delta": 1e-5,
 }
 
 
@@ -46,9 +47,8 @@ def run_stage_c_experiment(dataset: str, seed: int, quick: bool = False):
     bundle = stage_b_out["bundle"]
     loaded_model, metadata = pipe.load_stage_b_checkpoint(stage_b_out["checkpoint"], device)
     assert pipe.state_signature(loaded_model) == stage_b_out["stage_b"]["chosen_signature"]
-    _, initial_ref_acc = pipe.evaluate_model(loaded_model, bundle["x_ref"], bundle["y_ref"], device)
-    # 目标只依赖 heldout reference set，不读取 test accuracy。
-    target_reference_accuracy = min(0.999, initial_ref_acc + 0.02)
+    # 目标只依赖 heldout reference set；helper 接口不接受 test 数据。
+    target_reference_accuracy = pipe.build_reference_target(loaded_model, bundle, device)
     steps = 2 if quick else int(CFG["steps"])
     batch_size = 2 if quick else int(CFG["batch_size"])
     eval_interval = 1 if quick else int(CFG["eval_interval"])
@@ -69,6 +69,8 @@ def run_stage_c_experiment(dataset: str, seed: int, quick: bool = False):
             device=device,
             eval_interval=eval_interval,
             target_reference_accuracy=target_reference_accuracy,
+            delta=float(CFG["delta"]),
+            noise_mechanism="gaussian",
         )
         if results[mode]["initialization_signature"] != metadata["state_signature"]:
             raise RuntimeError("Stage B checkpoint was not used as the real Stage C initialization")
@@ -99,7 +101,12 @@ def main() -> int:
         "privacy_scope": "stage_c_only",
         "stage_a_dp_protected": False,
         "stage_b_dp_protected": False,
-        "stage_c_epsilon_estimate": "PENDING_PHASE_4_ACCOUNTANT",
+        "privacy_limitation": (
+            "The reported privacy budget covers Stage C only. Stages A and B are "
+            "data-dependent and are not included in the current record-level DP "
+            "accounting; therefore, the reported epsilon does not constitute "
+            "end-to-end DP for the original local datasets."
+        ),
         "results": {
             mode: {key: value for key, value in result.items() if key != "model"}
             for mode, result in results.items()

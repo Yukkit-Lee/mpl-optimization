@@ -73,8 +73,7 @@ def main() -> int:
     stage_b = stage_b_out["stage_b"]
     steps = 2 if args.quick else 200
     eval_interval = 1 if args.quick else 20
-    _, chosen_ref_acc = pipe.evaluate_model(stage_b["chosen_model"], bundle["x_ref"], bundle["y_ref"], device)
-    target_ref = min(0.999, chosen_ref_acc + 0.02)
+    target_ref = pipe.build_reference_target(stage_b["chosen_model"], bundle, device)
     models = {"Random Init": pipe.build_convnet(args.dataset, args.seed + 900, device).cpu()}
     models.update({name: deepcopy(model) for name, model in stage_b["candidates"].items()})
     curves = {}
@@ -94,6 +93,8 @@ def main() -> int:
             device=device,
             eval_interval=eval_interval,
             target_reference_accuracy=target_ref,
+            delta=1e-5,
+            noise_mechanism="gaussian",
         )
     run_id = time.strftime("%Y%m%d_%H%M%S")
     figure = FIG_DIR / "crossStageConvNet_figure5_{}_{}.png".format(args.dataset, run_id)
