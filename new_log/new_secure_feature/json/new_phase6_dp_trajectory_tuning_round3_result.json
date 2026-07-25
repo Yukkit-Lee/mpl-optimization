@@ -1,0 +1,28 @@
+{
+  "schema": "new_phase6_dp_trajectory_tuning_round3_result_v1",
+  "status": "TUNING_IMPROVED",
+  "dataset": "cifar10",
+  "seed": 42,
+  "selection_metric": "external_public_mtt_reference_accuracy",
+  "baseline_public_reference_accuracy": 0.292,
+  "candidates": [
+    {
+      "candidate": "late10",
+      "public_reference_accuracy": 0.328,
+      "test_loaded": false,
+      "result_path": "/mnt/code/lixujie/tfe_experiments/new_log/new_secure_feature/json/new_phase6_dp_round3_late10_public_reference.json"
+    },
+    {
+      "candidate": "late3",
+      "public_reference_accuracy": 0.294,
+      "test_loaded": false,
+      "result_path": "/mnt/code/lixujie/tfe_experiments/new_log/new_secure_feature/json/new_phase6_dp_round3_late3_public_reference.json"
+    }
+  ],
+  "selected_candidate": "late10",
+  "selected_public_reference_accuracy": 0.328,
+  "absolute_reference_gain": 0.03600000000000003,
+  "material_gain_threshold": 0.02,
+  "test_loaded": false,
+  "next_step": "continue selected candidate to 5000 iterations"
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "new_phase6_dp_trajectory_tuning_round4_plan_v1",
+  "dataset": "cifar10",
+  "seed": 42,
+  "selected_from_round3": "late10",
+  "selection_metric": "external_public_mtt_reference_accuracy",
+  "baseline_public_reference_accuracy": 0.328,
+  "resume_iteration": 2500,
+  "target_iterations": 5000,
+  "configuration": {
+    "max_start_epoch": 40,
+    "expert_epochs": 10,
+    "syn_steps": 30
+  },
+  "test_loaded": false,
+  "stage_a_epsilon_unchanged": true,
+  "cpu_threads": 1,
+  "num_workers": 0,
+  "visible_gpu": 0,
+  "queue": "/mnt/code/lixujie/tfe_experiments/new_configs/new_secure_feature/new_gpu0_phase6_dp_trajectory_tuning_round4.tsv"
+}

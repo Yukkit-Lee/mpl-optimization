@@ -101,6 +101,10 @@
 - 2026-07-25 21:09 CST：round3 已由持久化 single-GPU supervisor 启动。
   运行约束为 CPU 单核、线程数 1、`num_workers=0`、仅 GPU0；每 100 steps
   保存 checkpoint、每 60 秒写 heartbeat，异常时最多自动重试 2 次。
+- 2026-07-25 21:31 CST：round3 完成。`late3` 与 `late10` 的 external
+  public-reference accuracy 分别为 `0.2940` 和 `0.3280`；二者均未加载
+  benchmark test/raw private data。`late10` 相对 round2 baseline 提升
+  3.6pp，进入 round4：从 checkpoint 续跑 2500→5000 MTT iterations。
 
 ## Resume Audit 2026-07-25 19:36 CST
 
