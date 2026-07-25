@@ -65,5 +65,22 @@
     "eval_points": 20,
     "sources": ["full_images", "random_subset", "official_mtt"]
   },
+  "module_b": {
+    "num_clients": 5,
+    "batch_size": 256,
+    "init_scale": 0.01,
+    "splits": ["iid", "mild", "severe"],
+    "epoch_budget": {
+      "cifar10": {"local_epochs": 20, "distill_epochs": 10},
+      "cifar100": {"local_epochs": 30, "distill_epochs": 15},
+      "tiny": {"local_epochs": 40, "distill_epochs": 20}
+    },
+    "tuning_grid": {
+      "local_lr": [0.05, 0.1],
+      "distill_lr": [0.01, 0.03],
+      "lambda_kd": [0.1, 0.5],
+      "weight_temperature": [0.1, 0.3]
+    }
+  },
   "test_tuning_forbidden": true
 }
