@@ -1,0 +1,37 @@
+{
+  "schema": "new_phase6_dp_trajectory_tuning_round3_plan_v1",
+  "dataset": "cifar10",
+  "seed": 42,
+  "selection_metric": "external_public_mtt_reference_accuracy",
+  "baseline_public_reference_accuracy": 0.292,
+  "test_loaded": false,
+  "raw_private_data_loaded_during_mtt": false,
+  "stage_a_epsilon_unchanged": true,
+  "coarse_iterations": 2500,
+  "candidates": {
+    "late3": {
+      "configuration": {
+        "max_start_epoch": 45,
+        "expert_epochs": 3,
+        "syn_steps": 20
+      },
+      "distilled_root": "/mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_dp_mtt_cifar10_round3/new_late3/new_distilled",
+      "encoder_root": "/mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_dp_mtt_cifar10_round3/new_late3/new_encoder",
+      "public_reference_json": "/mnt/code/lixujie/tfe_experiments/new_log/new_secure_feature/json/new_phase6_dp_round3_late3_public_reference.json"
+    },
+    "late10": {
+      "configuration": {
+        "max_start_epoch": 40,
+        "expert_epochs": 10,
+        "syn_steps": 30
+      },
+      "distilled_root": "/mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_dp_mtt_cifar10_round3/new_late10/new_distilled",
+      "encoder_root": "/mnt/code/lixujie/tfe_experiments/new_cache/new_secure_feature/new_tuning_phase6_dp_mtt_cifar10_round3/new_late10/new_encoder",
+      "public_reference_json": "/mnt/code/lixujie/tfe_experiments/new_log/new_secure_feature/json/new_phase6_dp_round3_late10_public_reference.json"
+    }
+  },
+  "cpu_threads": 1,
+  "num_workers": 0,
+  "visible_gpu": 0,
+  "queue": "/mnt/code/lixujie/tfe_experiments/new_configs/new_secure_feature/new_gpu0_phase6_dp_trajectory_tuning_round3.tsv"
+}

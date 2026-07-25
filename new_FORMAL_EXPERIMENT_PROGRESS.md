@@ -93,6 +93,14 @@
 - 下一轮 tuning 将复用相同 DP trajectories 和相同 Stage-A epsilon，优先搜索
   MTT 的轨迹起点/目标跨度；新增 external public-MTT reference evaluator，
   该入口不加载 raw private data 或 benchmark test，避免继续用 test 调参。
+- Round 3 coarse plan 固定 2500 MTT iterations，对比 `late3`
+  (`max_start=45, expert_epochs=3, syn_steps=20`) 与 `late10`
+  (`max_start=40, expert_epochs=10, syn_steps=30`)。两者复用相同的 10 条
+  DP trajectories，选择指标仅为 external public-MTT reference accuracy；
+  round2 reference baseline 为 `0.2920`。
+- 2026-07-25 21:09 CST：round3 已由持久化 single-GPU supervisor 启动。
+  运行约束为 CPU 单核、线程数 1、`num_workers=0`、仅 GPU0；每 100 steps
+  保存 checkpoint、每 60 秒写 heartbeat，异常时最多自动重试 2 次。
 
 ## Resume Audit 2026-07-25 19:36 CST
 

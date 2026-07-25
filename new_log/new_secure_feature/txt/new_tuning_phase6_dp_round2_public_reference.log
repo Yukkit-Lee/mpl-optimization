@@ -1,0 +1,6 @@
+[2026-07-25T21:07:40+08:00] task=tuning_phase6_dp_round2_public_reference resource=gpu0 attempt=0
+====================================================================================
+Stage-A external public reference evaluation
+dataset=cifar10 samples=500 accuracy=0.292000
+test_loaded=False raw_private_data_loaded=False
+output=new_log/new_secure_feature/json/new_phase6_dp_round2_public_reference.json
