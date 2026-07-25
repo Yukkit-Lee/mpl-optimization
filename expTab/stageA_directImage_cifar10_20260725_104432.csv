@@ -1,0 +1,10 @@
+Method,Step,TestAcc,Loss,NumSamples,TrainTimeSec
+Full Images,0,0.101900,,50000,1.145
+Full Images,1,0.120000,2.397049,50000,1.145
+Full Images,2,0.143400,2.284543,50000,1.145
+Randomly Sampled Images,0,0.114000,,500,0.882
+Randomly Sampled Images,1,0.149200,2.325764,500,0.882
+Randomly Sampled Images,2,0.161800,2.292257,500,0.882
+Distilled Images,0,0.098700,,500,0.869
+Distilled Images,1,0.101100,2.353086,500,0.869
+Distilled Images,2,0.114800,2.322958,500,0.869
