@@ -5,7 +5,7 @@
 - [x] Phase 0: Baseline snapshot and branch
 - [x] Phase 1: Remove 2048-D feature path from main A->B->C
 - [x] Phase 2: Clarify and implement plaintext/MPC boundary
-- [ ] Phase 3: Add TFE secure-system Stage-C validation
+- [x] Phase 3: Add TFE secure-system Stage-C validation
 - [ ] Phase 4: Repair privacy accounting and test-set boundary
 - [ ] Phase 5: Final end-to-end regression and documentation
 
@@ -125,7 +125,31 @@
 
 ## Phase 3
 
-- Status: `PENDING`
+- Status: `COMPLETED_WITH_DOCUMENTED_BLOCKERS`
+- Added `exp_stageC_tfe_secure_system.py`.
+- Track: `secure_system_tfe_lightweight`; it does not replace the full-ConvNet algorithmic pipeline.
+- PASS:
+  - CIFAR-10 official distilled images are flattened directly.
+  - 20 image/label records and Dense parameters are secret-shared under ABY3.
+  - Secure forward and two SGD updates execute in TFE.
+  - Revealed MSE is bounded and decreases: `0.3895 -> 0.3555 -> 0.3297`.
+  - Runtime: approximately `0.57s` for the measured TFE section.
+- Reveal boundary:
+  - loss;
+  - prediction logits;
+  - final lightweight model parameters.
+- System metrics:
+  - input bytes and model parameter bytes are recorded;
+  - communication bytes/rounds are `N/A` because local TFE ABY3 exposes no transport counters;
+  - LAN/WAN is not claimed from single-process simulation.
+- BLOCKED with evidence:
+  - exact secure per-example clipping;
+  - adaptive secure clipping update;
+  - exact MTT ConvNet because TFE lacks its GroupNorm;
+  - MPC secure noise because TF 1.15.5 secure-random custom op is missing.
+- Found randomness module targets TF 1.15.2 only; NumPy binomial simulation is explicitly not MPC.
+- Output:
+  - `log/json/stageC_tfe_secure_system_cifar10_20260725_105947.json`
 
 ## Phase 4
 
