@@ -41,7 +41,7 @@
 - [x] JSON / CSV / TXT / 9 PNG outputs verified
 - [x] Mean +/- std summaries generated
 - [x] Project progress updated
-- [ ] Git commit and push completed
+- [x] Git commit and push completed (`a70f9ad`, branch `cross-stage-refactor`)
 
 ## Main Formal Findings
 
