@@ -1,0 +1,14 @@
+[2026-07-26T02:17:18+08:00] task=public_mainline_stage_b_round2_tune_cifar100 resource=gpu0 attempt=0
+============================================================================================
+Stage B reference-only tuning
+dataset=cifar100 candidates=6 seeds=[42, 43] splits=['iid', 'mild', 'severe'] test_loaded=False
+cpu_threads=1 num_workers=0
+============================================================================================
+  candidate=1/6 id=new_b_01 score=0.91325
+  candidate=2/6 id=new_b_02 score=0.94642
+  candidate=3/6 id=new_b_03 score=0.91292
+  candidate=4/6 id=new_b_04 score=0.94708
+  candidate=5/6 id=new_b_05 score=0.91225
+  candidate=6/6 id=new_b_06 score=0.94525
+winner={'candidate_id': 'new_b_04', 'local_epochs': 30, 'distill_epochs': 15, 'local_lr': 0.1, 'distill_lr': 0.03, 'lambda_kd': 0.1, 'weight_temperature': 0.005, 'reference_supervised_weight': 2.0}
+output=/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_tuning/new_stage_b_tuning_round2_cifar100.json

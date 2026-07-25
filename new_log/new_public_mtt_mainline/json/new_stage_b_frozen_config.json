@@ -1,0 +1,283 @@
+{
+  "backend": "tfe_mpc",
+  "cpu_threads": 1,
+  "datasets": {
+    "cifar10": {
+      "hyperparameters": {
+        "candidate_id": "new_b_04",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "quality_gate": {
+        "passed": true,
+        "rule": "mean severe selection gain must be positive for both KD-Avg and KD-ReferenceWeighted"
+      },
+      "selection_score": 0.9275000000000001,
+      "selection_summary": {
+        "iid": {
+          "kd_avg_gain_mean": 0.020000000000000018,
+          "kd_rw_gain_mean": 0.020000000000000018,
+          "reference_weight_entropy_mean": 1.6078055684444728,
+          "selection_accuracy_mean": {
+            "KD-Avg": 0.98,
+            "KD-ReferenceWeighted": 0.98,
+            "NoKD": 0.96
+          },
+          "teacher_disagreement_mean": 0.0006707408756483346
+        },
+        "mild": {
+          "kd_avg_gain_mean": 0.14999999999999997,
+          "kd_rw_gain_mean": 0.17999999999999994,
+          "reference_weight_entropy_mean": 1.5994983336121755,
+          "selection_accuracy_mean": {
+            "KD-Avg": 0.9199999999999999,
+            "KD-ReferenceWeighted": 0.95,
+            "NoKD": 0.77
+          },
+          "teacher_disagreement_mean": 0.005601263605058193
+        },
+        "severe": {
+          "kd_avg_gain_mean": 0.06999999999999999,
+          "kd_rw_gain_mean": 0.39,
+          "reference_weight_entropy_mean": 1.471752737637873,
+          "selection_accuracy_mean": {
+            "KD-Avg": 0.24,
+            "KD-ReferenceWeighted": 0.56,
+            "NoKD": 0.16999999999999998
+          },
+          "teacher_disagreement_mean": 0.01553570618852973
+        }
+      },
+      "tuning_report": "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_tuning/new_stage_b_tuning_round2_cifar10.json",
+      "tuning_report_sha256": "2e46e0689073a06b8898a858f9cb3109ccb09669d39aa2f038edf55c2511e9ce"
+    },
+    "cifar100": {
+      "hyperparameters": {
+        "candidate_id": "new_b_04",
+        "distill_epochs": 15,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 30,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "quality_gate": {
+        "passed": true,
+        "rule": "mean severe selection gain must be positive for both KD-Avg and KD-ReferenceWeighted"
+      },
+      "selection_score": 0.9470833333333333,
+      "selection_summary": {
+        "iid": {
+          "kd_avg_gain_mean": 0.07600000000000007,
+          "kd_rw_gain_mean": 0.07500000000000007,
+          "reference_weight_entropy_mean": 1.6094361398700459,
+          "selection_accuracy_mean": {
+            "KD-Avg": 0.924,
+            "KD-ReferenceWeighted": 0.923,
+            "NoKD": 0.848
+          },
+          "teacher_disagreement_mean": 8.64602297951933e-05
+        },
+        "mild": {
+          "kd_avg_gain_mean": 0.09700000000000003,
+          "kd_rw_gain_mean": 0.10200000000000004,
+          "reference_weight_entropy_mean": 1.6093448283133815,
+          "selection_accuracy_mean": {
+            "KD-Avg": 0.907,
+            "KD-ReferenceWeighted": 0.912,
+            "NoKD": 0.81
+          },
+          "teacher_disagreement_mean": 0.00017248209769604728
+        },
+        "severe": {
+          "kd_avg_gain_mean": 0.15599999999999997,
+          "kd_rw_gain_mean": 0.16299999999999998,
+          "reference_weight_entropy_mean": 1.6089972950699978,
+          "selection_accuracy_mean": {
+            "KD-Avg": 0.877,
+            "KD-ReferenceWeighted": 0.884,
+            "NoKD": 0.7210000000000001
+          },
+          "teacher_disagreement_mean": 0.0004476753674680367
+        }
+      },
+      "tuning_report": "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_tuning/new_stage_b_tuning_round2_cifar100.json",
+      "tuning_report_sha256": "b4d368d7330e0d0b32a6f5b925a690601c48fa11e32f28ae7cce00e69fdff7ad"
+    },
+    "tiny": {
+      "hyperparameters": {
+        "candidate_id": "new_b_02",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "quality_gate": {
+        "passed": true,
+        "rule": "mean severe selection gain must be positive for both KD-Avg and KD-ReferenceWeighted"
+      },
+      "selection_score": 0.6134583333333333,
+      "selection_summary": {
+        "iid": {
+          "kd_avg_gain_mean": 0.18599999999999997,
+          "kd_rw_gain_mean": 0.18599999999999997,
+          "reference_weight_entropy_mean": 1.6094376562608437,
+          "selection_accuracy_mean": {
+            "KD-Avg": 0.5845,
+            "KD-ReferenceWeighted": 0.5845,
+            "NoKD": 0.39849999999999997
+          },
+          "teacher_disagreement_mean": 7.337731949519366e-05
+        },
+        "mild": {
+          "kd_avg_gain_mean": 0.177,
+          "kd_rw_gain_mean": 0.177,
+          "reference_weight_entropy_mean": 1.6094357979734655,
+          "selection_accuracy_mean": {
+            "KD-Avg": 0.5569999999999999,
+            "KD-ReferenceWeighted": 0.5569999999999999,
+            "NoKD": 0.38
+          },
+          "teacher_disagreement_mean": 9.514302291790955e-05
+        },
+        "severe": {
+          "kd_avg_gain_mean": 0.20050000000000004,
+          "kd_rw_gain_mean": 0.20000000000000004,
+          "reference_weight_entropy_mean": 1.6094319640584716,
+          "selection_accuracy_mean": {
+            "KD-Avg": 0.549,
+            "KD-ReferenceWeighted": 0.5485,
+            "NoKD": 0.34850000000000003
+          },
+          "teacher_disagreement_mean": 0.00016413984121754766
+        }
+      },
+      "tuning_report": "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_tuning/new_stage_b_tuning_round2_tiny.json",
+      "tuning_report_sha256": "f80aa6612efbe19c858b1973c23d92486e7884191083b066dd5e2de079fc9413"
+    }
+  },
+  "feature_caches": {
+    "cifar10": {
+      "42": {
+        "encoder_sha256": "2acb885cc4473bf76e45fe7176aced4615e372fa864fb61a3a3a0bebc100e6f3",
+        "feature_dim": 2048,
+        "num_reference": 50,
+        "num_selection": 50,
+        "num_train": 400,
+        "path": "/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/cifar10/new_stage_b_features_cifar10_seed42.npz",
+        "scaler_sha256": "9ffefcb8c37fdfe6b106e5511d4cad08aa2134f713ea3e09c2df2b4452d38dd0"
+      },
+      "43": {
+        "encoder_sha256": "94b103367198dc10553fe41d87fd9fe30b3d66c96ca4764a143479cb55dc7f28",
+        "feature_dim": 2048,
+        "num_reference": 50,
+        "num_selection": 50,
+        "num_train": 400,
+        "path": "/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/cifar10/new_stage_b_features_cifar10_seed43.npz",
+        "scaler_sha256": "94a4b999d61d711dc2663bd1c612b8ff91191c01d9718d43a3eb01ca09223016"
+      },
+      "44": {
+        "encoder_sha256": "211ba699a9871c38c1475ef30896ccfc9d25ce39dc28709c61b3c35ee3cc7c53",
+        "feature_dim": 2048,
+        "num_reference": 50,
+        "num_selection": 50,
+        "num_train": 400,
+        "path": "/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/cifar10/new_stage_b_features_cifar10_seed44.npz",
+        "scaler_sha256": "40754d3c82a1ebdc4b9cba426f8c2b47c42ce5fdaec0870d580392cf35bd9191"
+      }
+    },
+    "cifar100": {
+      "42": {
+        "encoder_sha256": "5e627858446fd1b325f49cde6726b0109203b051b9d6cfd1e2ed91a71bf4e250",
+        "feature_dim": 2048,
+        "num_reference": 500,
+        "num_selection": 500,
+        "num_train": 4000,
+        "path": "/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/cifar100/new_stage_b_features_cifar100_seed42.npz",
+        "scaler_sha256": "a0993f8625a8201862f46a64d75bf682354e3a6948c7befb6d40de147173a43e"
+      },
+      "43": {
+        "encoder_sha256": "c6f44c13838a86e1600a3ebc3be84b86b0d290d3ef4fb1b13826ece6bbfa56ca",
+        "feature_dim": 2048,
+        "num_reference": 500,
+        "num_selection": 500,
+        "num_train": 4000,
+        "path": "/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/cifar100/new_stage_b_features_cifar100_seed43.npz",
+        "scaler_sha256": "ffa2767b53ec5402fac8f37f4387b0047482ccc9d72debaf5e5bdd3dfc8cc7f1"
+      },
+      "44": {
+        "encoder_sha256": "c31181550d221d8668d8b7e14f6b3f779b44389156645109aa039b39305744d7",
+        "feature_dim": 2048,
+        "num_reference": 500,
+        "num_selection": 500,
+        "num_train": 4000,
+        "path": "/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/cifar100/new_stage_b_features_cifar100_seed44.npz",
+        "scaler_sha256": "0a682b77a4439e565d774f48d3a02d99acd779629879ff1229bff8c251c323c2"
+      }
+    },
+    "tiny": {
+      "42": {
+        "encoder_sha256": "fa4227b3230b169ca5ff3aa305f91c2eb9aab0636bce95bcb106ee79f978f7b3",
+        "feature_dim": 2048,
+        "num_reference": 1000,
+        "num_selection": 1000,
+        "num_train": 8000,
+        "path": "/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/tiny/new_stage_b_features_tiny_seed42.npz",
+        "scaler_sha256": "a3da38eeafc127b7c99f0568a440237624dde95b0157692ad043de9a44d93889"
+      },
+      "43": {
+        "encoder_sha256": "8ecdd50c96e7343374bbbbe0d8142e9a5d85ed06fc15a95fd5a95ec1a3b377fa",
+        "feature_dim": 2048,
+        "num_reference": 1000,
+        "num_selection": 1000,
+        "num_train": 8000,
+        "path": "/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/tiny/new_stage_b_features_tiny_seed43.npz",
+        "scaler_sha256": "42908eaf38c4dc7a210d9b4880997e305a8be00086c690a1fc8d4b9d71d1f27f"
+      },
+      "44": {
+        "encoder_sha256": "02311c9b48dafd252c390bfea5df0ec00aa7ba018866064e1f14ed4262321c97",
+        "feature_dim": 2048,
+        "num_reference": 1000,
+        "num_selection": 1000,
+        "num_train": 8000,
+        "path": "/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/tiny/new_stage_b_features_tiny_seed44.npz",
+        "scaler_sha256": "57cba59d933e5bc09585b39b88caf86638da39a4d6cdee5b887d72d69a421ca9"
+      }
+    }
+  },
+  "formal_seeds": [
+    42,
+    43,
+    44
+  ],
+  "frozen_at": "2026-07-26T02:28:28+08:00",
+  "num_workers": 0,
+  "protocol": "ABY3",
+  "reference_weight_rule": "softmax_negative_reference_mse",
+  "schema": "new_public_mtt_stage_b_frozen_config_v1",
+  "secure_softmax_stabilization": "private_mean_centering_shift_invariant",
+  "selection_only_tuning": true,
+  "source_manifest": "/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/new_stage_b_npz_manifest.json",
+  "source_manifest_sha256": "455aaab189a70c90a11b241735c92700ad87563aedf3f80724087c2e672e3a1e",
+  "source_reports": [
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_tuning/new_stage_b_tuning_round2_cifar10.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_tuning/new_stage_b_tuning_round2_cifar100.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_tuning/new_stage_b_tuning_round2_tiny.json"
+  ],
+  "splits": [
+    "iid",
+    "mild",
+    "severe"
+  ],
+  "status": "FROZEN",
+  "test_loaded_during_tuning": false
+}

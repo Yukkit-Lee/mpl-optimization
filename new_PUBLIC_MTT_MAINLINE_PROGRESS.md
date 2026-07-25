@@ -69,3 +69,20 @@ optimizer configuration is frozen. The required test thresholds are:
 
 The active phase now moves to secure Module B convergence and heterogeneity
 experiments using the same encoder/scaler signatures.
+
+## Stage-B Reference-Only Configuration Freeze
+
+- Round 2 completed for CIFAR-10, CIFAR-100, and Tiny ImageNet using only
+  physically test-free local/reference/selection NPZ files.
+- Reference and selection sets contain five samples per class each and are
+  disjoint from local training features.
+- Frozen winners use `reference_supervised_weight=2.0` and
+  `weight_temperature=0.005`; exact epoch budgets remain dataset-specific.
+- Severe-split mean selection gains for KD-Avg / KD-ReferenceWeighted are
+  positive on all three datasets, so the predeclared selection quality gate
+  passes.
+- The TFE softmax now subtracts the secret mean client loss before exponentiation.
+  This is a mathematically shift-invariant stabilization and prevents
+  low-temperature fixed-point underflow without revealing client losses.
+- A real ABY3 low-temperature correctness run is required before the frozen
+  configuration is admitted to the formal 27-run Stage-B queue.

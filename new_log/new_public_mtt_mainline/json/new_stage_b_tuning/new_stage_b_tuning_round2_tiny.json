@@ -1,0 +1,342 @@
+{
+  "schema": "new_stage_b_reference_tuning_v1",
+  "status": "COMPLETE",
+  "dataset": "tiny",
+  "test_loaded": false,
+  "selection_rule": "mean KD-ReferenceWeighted selection accuracy plus 0.25 times mean best KD gain on severe split",
+  "winner": {
+    "candidate": {
+      "candidate_id": "new_b_02",
+      "local_epochs": 20,
+      "distill_epochs": 10,
+      "local_lr": 0.1,
+      "distill_lr": 0.03,
+      "lambda_kd": 0.1,
+      "weight_temperature": 0.005,
+      "reference_supervised_weight": 2.0
+    },
+    "selection_score": 0.6134583333333333,
+    "rows": [
+      {
+        "dataset": "tiny",
+        "seed": 42,
+        "split": "iid",
+        "selection_accuracy": {
+          "NoKD": 0.409,
+          "KD-Avg": 0.586,
+          "KD-ReferenceWeighted": 0.586
+        },
+        "kd_avg_gain": 0.177,
+        "kd_rw_gain": 0.177,
+        "teacher_disagreement": 7.357025606324896e-05,
+        "reference_weight_entropy": 1.6094375431094703,
+        "selected_name": "KD-ReferenceWeighted",
+        "test_loaded": false
+      },
+      {
+        "dataset": "tiny",
+        "seed": 42,
+        "split": "mild",
+        "selection_accuracy": {
+          "NoKD": 0.393,
+          "KD-Avg": 0.563,
+          "KD-ReferenceWeighted": 0.563
+        },
+        "kd_avg_gain": 0.16999999999999993,
+        "kd_rw_gain": 0.16999999999999993,
+        "teacher_disagreement": 9.54779825406149e-05,
+        "reference_weight_entropy": 1.6094359899580422,
+        "selected_name": "KD-ReferenceWeighted",
+        "test_loaded": false
+      },
+      {
+        "dataset": "tiny",
+        "seed": 42,
+        "split": "severe",
+        "selection_accuracy": {
+          "NoKD": 0.355,
+          "KD-Avg": 0.549,
+          "KD-ReferenceWeighted": 0.548
+        },
+        "kd_avg_gain": 0.19400000000000006,
+        "kd_rw_gain": 0.19300000000000006,
+        "teacher_disagreement": 0.00016579110524617136,
+        "reference_weight_entropy": 1.6094309141429184,
+        "selected_name": "KD-ReferenceWeighted",
+        "test_loaded": false
+      },
+      {
+        "dataset": "tiny",
+        "seed": 43,
+        "split": "iid",
+        "selection_accuracy": {
+          "NoKD": 0.388,
+          "KD-Avg": 0.583,
+          "KD-ReferenceWeighted": 0.583
+        },
+        "kd_avg_gain": 0.19499999999999995,
+        "kd_rw_gain": 0.19499999999999995,
+        "teacher_disagreement": 7.318438292713836e-05,
+        "reference_weight_entropy": 1.609437769412217,
+        "selected_name": "KD-ReferenceWeighted",
+        "test_loaded": false
+      },
+      {
+        "dataset": "tiny",
+        "seed": 43,
+        "split": "mild",
+        "selection_accuracy": {
+          "NoKD": 0.367,
+          "KD-Avg": 0.551,
+          "KD-ReferenceWeighted": 0.551
+        },
+        "kd_avg_gain": 0.18400000000000005,
+        "kd_rw_gain": 0.18400000000000005,
+        "teacher_disagreement": 9.480806329520419e-05,
+        "reference_weight_entropy": 1.609435605988889,
+        "selected_name": "KD-ReferenceWeighted",
+        "test_loaded": false
+      },
+      {
+        "dataset": "tiny",
+        "seed": 43,
+        "split": "severe",
+        "selection_accuracy": {
+          "NoKD": 0.342,
+          "KD-Avg": 0.549,
+          "KD-ReferenceWeighted": 0.549
+        },
+        "kd_avg_gain": 0.20700000000000002,
+        "kd_rw_gain": 0.20700000000000002,
+        "teacher_disagreement": 0.00016248857718892395,
+        "reference_weight_entropy": 1.6094330139740245,
+        "selected_name": "KD-ReferenceWeighted",
+        "test_loaded": false
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "candidate": {
+        "candidate_id": "new_b_01",
+        "local_epochs": 20,
+        "distill_epochs": 10,
+        "local_lr": 0.1,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "weight_temperature": 0.005,
+        "reference_supervised_weight": 1.0
+      },
+      "selection_score": 0.545375,
+      "rows": [
+        {
+          "dataset": "tiny",
+          "seed": 42,
+          "split": "iid",
+          "selection_accuracy": {
+            "NoKD": 0.409,
+            "KD-Avg": 0.53,
+            "KD-ReferenceWeighted": 0.531
+          },
+          "kd_avg_gain": 0.12100000000000005,
+          "kd_rw_gain": 0.12200000000000005,
+          "teacher_disagreement": 7.357025606324896e-05,
+          "reference_weight_entropy": 1.6094375202010172,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 42,
+          "split": "mild",
+          "selection_accuracy": {
+            "NoKD": 0.393,
+            "KD-Avg": 0.525,
+            "KD-ReferenceWeighted": 0.525
+          },
+          "kd_avg_gain": 0.132,
+          "kd_rw_gain": 0.132,
+          "teacher_disagreement": 9.54779825406149e-05,
+          "reference_weight_entropy": 1.609436305206887,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 42,
+          "split": "severe",
+          "selection_accuracy": {
+            "NoKD": 0.355,
+            "KD-Avg": 0.484,
+            "KD-ReferenceWeighted": 0.485
+          },
+          "kd_avg_gain": 0.129,
+          "kd_rw_gain": 0.13,
+          "teacher_disagreement": 0.00016579110524617136,
+          "reference_weight_entropy": 1.6094318510609897,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 43,
+          "split": "iid",
+          "selection_accuracy": {
+            "NoKD": 0.388,
+            "KD-Avg": 0.521,
+            "KD-ReferenceWeighted": 0.521
+          },
+          "kd_avg_gain": 0.133,
+          "kd_rw_gain": 0.133,
+          "teacher_disagreement": 7.318438292713836e-05,
+          "reference_weight_entropy": 1.60943777108005,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 43,
+          "split": "mild",
+          "selection_accuracy": {
+            "NoKD": 0.367,
+            "KD-Avg": 0.503,
+            "KD-ReferenceWeighted": 0.503
+          },
+          "kd_avg_gain": 0.136,
+          "kd_rw_gain": 0.136,
+          "teacher_disagreement": 9.480806329520419e-05,
+          "reference_weight_entropy": 1.6094361190240696,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 43,
+          "split": "severe",
+          "selection_accuracy": {
+            "NoKD": 0.342,
+            "KD-Avg": 0.492,
+            "KD-ReferenceWeighted": 0.495
+          },
+          "kd_avg_gain": 0.14999999999999997,
+          "kd_rw_gain": 0.15299999999999997,
+          "teacher_disagreement": 0.00016248857718892395,
+          "reference_weight_entropy": 1.6094340941260288,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        }
+      ]
+    },
+    {
+      "candidate": {
+        "candidate_id": "new_b_02",
+        "local_epochs": 20,
+        "distill_epochs": 10,
+        "local_lr": 0.1,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "weight_temperature": 0.005,
+        "reference_supervised_weight": 2.0
+      },
+      "selection_score": 0.6134583333333333,
+      "rows": [
+        {
+          "dataset": "tiny",
+          "seed": 42,
+          "split": "iid",
+          "selection_accuracy": {
+            "NoKD": 0.409,
+            "KD-Avg": 0.586,
+            "KD-ReferenceWeighted": 0.586
+          },
+          "kd_avg_gain": 0.177,
+          "kd_rw_gain": 0.177,
+          "teacher_disagreement": 7.357025606324896e-05,
+          "reference_weight_entropy": 1.6094375431094703,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 42,
+          "split": "mild",
+          "selection_accuracy": {
+            "NoKD": 0.393,
+            "KD-Avg": 0.563,
+            "KD-ReferenceWeighted": 0.563
+          },
+          "kd_avg_gain": 0.16999999999999993,
+          "kd_rw_gain": 0.16999999999999993,
+          "teacher_disagreement": 9.54779825406149e-05,
+          "reference_weight_entropy": 1.6094359899580422,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 42,
+          "split": "severe",
+          "selection_accuracy": {
+            "NoKD": 0.355,
+            "KD-Avg": 0.549,
+            "KD-ReferenceWeighted": 0.548
+          },
+          "kd_avg_gain": 0.19400000000000006,
+          "kd_rw_gain": 0.19300000000000006,
+          "teacher_disagreement": 0.00016579110524617136,
+          "reference_weight_entropy": 1.6094309141429184,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 43,
+          "split": "iid",
+          "selection_accuracy": {
+            "NoKD": 0.388,
+            "KD-Avg": 0.583,
+            "KD-ReferenceWeighted": 0.583
+          },
+          "kd_avg_gain": 0.19499999999999995,
+          "kd_rw_gain": 0.19499999999999995,
+          "teacher_disagreement": 7.318438292713836e-05,
+          "reference_weight_entropy": 1.609437769412217,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 43,
+          "split": "mild",
+          "selection_accuracy": {
+            "NoKD": 0.367,
+            "KD-Avg": 0.551,
+            "KD-ReferenceWeighted": 0.551
+          },
+          "kd_avg_gain": 0.18400000000000005,
+          "kd_rw_gain": 0.18400000000000005,
+          "teacher_disagreement": 9.480806329520419e-05,
+          "reference_weight_entropy": 1.609435605988889,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 43,
+          "split": "severe",
+          "selection_accuracy": {
+            "NoKD": 0.342,
+            "KD-Avg": 0.549,
+            "KD-ReferenceWeighted": 0.549
+          },
+          "kd_avg_gain": 0.20700000000000002,
+          "kd_rw_gain": 0.20700000000000002,
+          "teacher_disagreement": 0.00016248857718892395,
+          "reference_weight_entropy": 1.6094330139740245,
+          "selected_name": "KD-ReferenceWeighted",
+          "test_loaded": false
+        }
+      ]
+    }
+  ]
+}

@@ -588,7 +588,10 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
         avg_w = avg_w * (1.0 / float(args.num_clients))
         avg_b = avg_b * (1.0 / float(args.num_clients))
 
-        reliability = []
+        # Softmax is invariant to a shared shift. Centering the private losses
+        # keeps low-temperature exponentials inside the fixed-point range
+        # without revealing any client loss or changing the aggregation rule.
+        reference_losses = []
         for weight, bias in zip(weights, biases):
             logits = secure_chunked_matmul(
                 tfe, reference_x, weight, args.matmul_chunk_size
@@ -599,7 +602,20 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
                 reference_y,
                 len(data["x_reference"]) * int(args.num_classes),
             )
-            reliability.append(tfe.exp(loss * (-1.0 / float(args.weight_temperature))))
+            reference_losses.append(loss)
+        reference_loss_mean = reference_losses[0]
+        for loss in reference_losses[1:]:
+            reference_loss_mean = reference_loss_mean + loss
+        reference_loss_mean = reference_loss_mean * (
+            1.0 / float(args.num_clients)
+        )
+        reliability = [
+            tfe.exp(
+                (loss - reference_loss_mean)
+                * (-1.0 / float(args.weight_temperature))
+            )
+            for loss in reference_losses
+        ]
         reliability_sum = reliability[0]
         for value in reliability[1:]:
             reliability_sum = reliability_sum + value
@@ -1154,6 +1170,9 @@ def main():
             ],
             "revealed_values": secure["revealed_values"],
             "formal_candidate_release": bool(args.formal_candidate_release),
+            "reference_weight_softmax_stabilization": (
+                "private_mean_centering_shift_invariant"
+            ),
             "selection_scope": (
                 "fully_secret_selection_final_model_only"
                 if not args.correctness_reveal

@@ -1,0 +1,16 @@
+[2026-07-26T02:05:22+08:00] task=public_mainline_stage_b_tune_tiny resource=gpu0 attempt=0
+============================================================================================
+Stage B reference-only tuning
+dataset=tiny candidates=16 seeds=[42, 43] splits=['iid', 'mild', 'severe'] test_loaded=False
+cpu_threads=1 num_workers=0
+============================================================================================
+Traceback (most recent call last):
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_b_reference_tuning.py", line 238, in <module>
+    raise SystemExit(main())
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_b_reference_tuning.py", line 205, in main
+    rows = run_candidate(args.dataset, candidate, config)
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_b_reference_tuning.py", line 108, in run_candidate
+    result = secure_b.plaintext_reference(
+  File "/mnt/code/lixujie/tfe_experiments/new_stage_b_secure_init.py", line 208, in plaintext_reference
+    logits = np.matmul(x_train[batch], weights[client_id]) + biases[
+KeyboardInterrupt
