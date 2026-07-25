@@ -1,0 +1,445 @@
+{
+  "schema": "new_module_a_efficiency_run_v1",
+  "status": "COMPLETE",
+  "dataset": "tiny",
+  "seed": 44,
+  "stage_a_track": "public_mtt_benchmark",
+  "stage_a_epsilon": "N/A",
+  "stage_a_dp_protected": false,
+  "encoder_sha256": "02311c9b48dafd252c390bfea5df0ec00aa7ba018866064e1f14ed4262321c97",
+  "scaler_sha256": "57cba59d933e5bc09585b39b88caf86638da39a4d6cdee5b887d72d69a421ca9",
+  "optimizer": {
+    "optimizer": "adamw",
+    "learning_rate": 0.003,
+    "weight_decay": 0.0001
+  },
+  "test_usage": "fixed_interval_readonly_formal_reporting",
+  "results": [
+    {
+      "source": "full_images",
+      "num_train_samples": 100000,
+      "steps": 3000,
+      "batch_size": 128,
+      "target_accuracy": 0.24,
+      "final_accuracy": 0.3114,
+      "step_at_target": 450,
+      "time_at_target_seconds": 0.37935352325439453,
+      "processed_examples_at_target": 57600,
+      "early_auc": 0.28124750000000004,
+      "runtime_seconds": 2.3452084064483643,
+      "history": [
+        {
+          "step": 0,
+          "test_accuracy": 0.0065,
+          "elapsed_seconds": 0.0,
+          "processed_examples": 0
+        },
+        {
+          "step": 150,
+          "test_accuracy": 0.198,
+          "elapsed_seconds": 0.14655232429504395,
+          "processed_examples": 19200
+        },
+        {
+          "step": 300,
+          "test_accuracy": 0.2346,
+          "elapsed_seconds": 0.2524697780609131,
+          "processed_examples": 38400
+        },
+        {
+          "step": 450,
+          "test_accuracy": 0.2568,
+          "elapsed_seconds": 0.37935352325439453,
+          "processed_examples": 57600
+        },
+        {
+          "step": 600,
+          "test_accuracy": 0.2676,
+          "elapsed_seconds": 0.48348498344421387,
+          "processed_examples": 76800
+        },
+        {
+          "step": 750,
+          "test_accuracy": 0.2803,
+          "elapsed_seconds": 0.610727071762085,
+          "processed_examples": 96000
+        },
+        {
+          "step": 900,
+          "test_accuracy": 0.2853,
+          "elapsed_seconds": 0.7148187160491943,
+          "processed_examples": 115200
+        },
+        {
+          "step": 1050,
+          "test_accuracy": 0.2911,
+          "elapsed_seconds": 0.8415677547454834,
+          "processed_examples": 134400
+        },
+        {
+          "step": 1200,
+          "test_accuracy": 0.2945,
+          "elapsed_seconds": 0.9451239109039307,
+          "processed_examples": 153600
+        },
+        {
+          "step": 1350,
+          "test_accuracy": 0.2964,
+          "elapsed_seconds": 1.0720503330230713,
+          "processed_examples": 172800
+        },
+        {
+          "step": 1500,
+          "test_accuracy": 0.2985,
+          "elapsed_seconds": 1.1755859851837158,
+          "processed_examples": 192000
+        },
+        {
+          "step": 1650,
+          "test_accuracy": 0.3005,
+          "elapsed_seconds": 1.301414966583252,
+          "processed_examples": 211200
+        },
+        {
+          "step": 1800,
+          "test_accuracy": 0.3021,
+          "elapsed_seconds": 1.4046664237976074,
+          "processed_examples": 230400
+        },
+        {
+          "step": 1950,
+          "test_accuracy": 0.3068,
+          "elapsed_seconds": 1.530637264251709,
+          "processed_examples": 249600
+        },
+        {
+          "step": 2100,
+          "test_accuracy": 0.3061,
+          "elapsed_seconds": 1.633967399597168,
+          "processed_examples": 268800
+        },
+        {
+          "step": 2250,
+          "test_accuracy": 0.3079,
+          "elapsed_seconds": 1.7602646350860596,
+          "processed_examples": 288000
+        },
+        {
+          "step": 2400,
+          "test_accuracy": 0.3069,
+          "elapsed_seconds": 1.8633968830108643,
+          "processed_examples": 307200
+        },
+        {
+          "step": 2550,
+          "test_accuracy": 0.3107,
+          "elapsed_seconds": 1.989978313446045,
+          "processed_examples": 326400
+        },
+        {
+          "step": 2700,
+          "test_accuracy": 0.3116,
+          "elapsed_seconds": 2.0943424701690674,
+          "processed_examples": 345600
+        },
+        {
+          "step": 2850,
+          "test_accuracy": 0.3103,
+          "elapsed_seconds": 2.2199113368988037,
+          "processed_examples": 364800
+        },
+        {
+          "step": 3000,
+          "test_accuracy": 0.3114,
+          "elapsed_seconds": 2.322965383529663,
+          "processed_examples": 384000
+        }
+      ],
+      "compression_ratio": 1.0
+    },
+    {
+      "source": "random_subset",
+      "num_train_samples": 9600,
+      "steps": 3000,
+      "batch_size": 128,
+      "target_accuracy": 0.24,
+      "final_accuracy": 0.2238,
+      "step_at_target": 750,
+      "time_at_target_seconds": 0.546583890914917,
+      "processed_examples_at_target": 96000,
+      "early_auc": 0.2250125,
+      "runtime_seconds": 2.2310359477996826,
+      "history": [
+        {
+          "step": 0,
+          "test_accuracy": 0.0065,
+          "elapsed_seconds": 0.0,
+          "processed_examples": 0
+        },
+        {
+          "step": 150,
+          "test_accuracy": 0.1864,
+          "elapsed_seconds": 0.10054516792297363,
+          "processed_examples": 19200
+        },
+        {
+          "step": 300,
+          "test_accuracy": 0.2135,
+          "elapsed_seconds": 0.20064806938171387,
+          "processed_examples": 38400
+        },
+        {
+          "step": 450,
+          "test_accuracy": 0.2279,
+          "elapsed_seconds": 0.3235502243041992,
+          "processed_examples": 57600
+        },
+        {
+          "step": 600,
+          "test_accuracy": 0.238,
+          "elapsed_seconds": 0.42372822761535645,
+          "processed_examples": 76800
+        },
+        {
+          "step": 750,
+          "test_accuracy": 0.2435,
+          "elapsed_seconds": 0.546583890914917,
+          "processed_examples": 96000
+        },
+        {
+          "step": 900,
+          "test_accuracy": 0.243,
+          "elapsed_seconds": 0.6465461254119873,
+          "processed_examples": 115200
+        },
+        {
+          "step": 1050,
+          "test_accuracy": 0.2396,
+          "elapsed_seconds": 0.7696664333343506,
+          "processed_examples": 134400
+        },
+        {
+          "step": 1200,
+          "test_accuracy": 0.2394,
+          "elapsed_seconds": 0.8699905872344971,
+          "processed_examples": 153600
+        },
+        {
+          "step": 1350,
+          "test_accuracy": 0.2396,
+          "elapsed_seconds": 0.9931516647338867,
+          "processed_examples": 172800
+        },
+        {
+          "step": 1500,
+          "test_accuracy": 0.2383,
+          "elapsed_seconds": 1.0932185649871826,
+          "processed_examples": 192000
+        },
+        {
+          "step": 1650,
+          "test_accuracy": 0.2372,
+          "elapsed_seconds": 1.2162842750549316,
+          "processed_examples": 211200
+        },
+        {
+          "step": 1800,
+          "test_accuracy": 0.2352,
+          "elapsed_seconds": 1.316338062286377,
+          "processed_examples": 230400
+        },
+        {
+          "step": 1950,
+          "test_accuracy": 0.2334,
+          "elapsed_seconds": 1.4388043880462646,
+          "processed_examples": 249600
+        },
+        {
+          "step": 2100,
+          "test_accuracy": 0.2317,
+          "elapsed_seconds": 1.5389041900634766,
+          "processed_examples": 268800
+        },
+        {
+          "step": 2250,
+          "test_accuracy": 0.2302,
+          "elapsed_seconds": 1.6614253520965576,
+          "processed_examples": 288000
+        },
+        {
+          "step": 2400,
+          "test_accuracy": 0.2283,
+          "elapsed_seconds": 1.7613306045532227,
+          "processed_examples": 307200
+        },
+        {
+          "step": 2550,
+          "test_accuracy": 0.2285,
+          "elapsed_seconds": 1.8838064670562744,
+          "processed_examples": 326400
+        },
+        {
+          "step": 2700,
+          "test_accuracy": 0.2258,
+          "elapsed_seconds": 1.9842751026153564,
+          "processed_examples": 345600
+        },
+        {
+          "step": 2850,
+          "test_accuracy": 0.2256,
+          "elapsed_seconds": 2.1068623065948486,
+          "processed_examples": 364800
+        },
+        {
+          "step": 3000,
+          "test_accuracy": 0.2238,
+          "elapsed_seconds": 2.207066297531128,
+          "processed_examples": 384000
+        }
+      ],
+      "compression_ratio": 0.096
+    },
+    {
+      "source": "official_mtt",
+      "num_train_samples": 9600,
+      "steps": 3000,
+      "batch_size": 128,
+      "target_accuracy": 0.24,
+      "final_accuracy": 0.2545,
+      "step_at_target": 300,
+      "time_at_target_seconds": 0.19558978080749512,
+      "processed_examples_at_target": 38400,
+      "early_auc": 0.24909,
+      "runtime_seconds": 2.179619073867798,
+      "history": [
+        {
+          "step": 0,
+          "test_accuracy": 0.0065,
+          "elapsed_seconds": 0.0,
+          "processed_examples": 0
+        },
+        {
+          "step": 150,
+          "test_accuracy": 0.2353,
+          "elapsed_seconds": 0.0980219841003418,
+          "processed_examples": 19200
+        },
+        {
+          "step": 300,
+          "test_accuracy": 0.2564,
+          "elapsed_seconds": 0.19558978080749512,
+          "processed_examples": 38400
+        },
+        {
+          "step": 450,
+          "test_accuracy": 0.2576,
+          "elapsed_seconds": 0.3148832321166992,
+          "processed_examples": 57600
+        },
+        {
+          "step": 600,
+          "test_accuracy": 0.2591,
+          "elapsed_seconds": 0.41162991523742676,
+          "processed_examples": 76800
+        },
+        {
+          "step": 750,
+          "test_accuracy": 0.26,
+          "elapsed_seconds": 0.5311324596405029,
+          "processed_examples": 96000
+        },
+        {
+          "step": 900,
+          "test_accuracy": 0.258,
+          "elapsed_seconds": 0.6277368068695068,
+          "processed_examples": 115200
+        },
+        {
+          "step": 1050,
+          "test_accuracy": 0.2571,
+          "elapsed_seconds": 0.7469758987426758,
+          "processed_examples": 134400
+        },
+        {
+          "step": 1200,
+          "test_accuracy": 0.2564,
+          "elapsed_seconds": 0.8454115390777588,
+          "processed_examples": 153600
+        },
+        {
+          "step": 1350,
+          "test_accuracy": 0.2564,
+          "elapsed_seconds": 0.9740252494812012,
+          "processed_examples": 172800
+        },
+        {
+          "step": 1500,
+          "test_accuracy": 0.2575,
+          "elapsed_seconds": 1.0725531578063965,
+          "processed_examples": 192000
+        },
+        {
+          "step": 1650,
+          "test_accuracy": 0.2557,
+          "elapsed_seconds": 1.1921088695526123,
+          "processed_examples": 211200
+        },
+        {
+          "step": 1800,
+          "test_accuracy": 0.2562,
+          "elapsed_seconds": 1.2903494834899902,
+          "processed_examples": 230400
+        },
+        {
+          "step": 1950,
+          "test_accuracy": 0.2557,
+          "elapsed_seconds": 1.411222219467163,
+          "processed_examples": 249600
+        },
+        {
+          "step": 2100,
+          "test_accuracy": 0.2555,
+          "elapsed_seconds": 1.5088951587677002,
+          "processed_examples": 268800
+        },
+        {
+          "step": 2250,
+          "test_accuracy": 0.2554,
+          "elapsed_seconds": 1.6280155181884766,
+          "processed_examples": 288000
+        },
+        {
+          "step": 2400,
+          "test_accuracy": 0.2538,
+          "elapsed_seconds": 1.7246630191802979,
+          "processed_examples": 307200
+        },
+        {
+          "step": 2550,
+          "test_accuracy": 0.255,
+          "elapsed_seconds": 1.843815565109253,
+          "processed_examples": 326400
+        },
+        {
+          "step": 2700,
+          "test_accuracy": 0.2559,
+          "elapsed_seconds": 1.9404921531677246,
+          "processed_examples": 345600
+        },
+        {
+          "step": 2850,
+          "test_accuracy": 0.2543,
+          "elapsed_seconds": 2.060410737991333,
+          "processed_examples": 364800
+        },
+        {
+          "step": 3000,
+          "test_accuracy": 0.2545,
+          "elapsed_seconds": 2.157230854034424,
+          "processed_examples": 384000
+        }
+      ],
+      "compression_ratio": 0.096
+    }
+  ]
+}

@@ -198,12 +198,18 @@ def main():
     for axis, (value_key, error_key, ylabel, use_log) in zip(
         axes, metric_specs
     ):
+        missing_positions = []
         for position, method in enumerate(methods):
             selected = [grouped[(dataset, method)] for dataset in datasets]
             values = [
                 np.nan if row[value_key] is None else row[value_key]
                 for row in selected
             ]
+            missing_positions.extend(
+                x[index] + (position - 1) * width
+                for index, value in enumerate(values)
+                if np.isnan(value)
+            )
             errors = (
                 None
                 if error_key is None
@@ -227,6 +233,16 @@ def main():
         if use_log:
             axis.set_yscale("log")
         axis.grid(axis="y", alpha=0.25)
+        for location in missing_positions:
+            axis.text(
+                location,
+                axis.get_ylim()[1] * 0.025,
+                "N/R",
+                ha="center",
+                va="bottom",
+                fontsize=8,
+                color="#8b2f2f",
+            )
     axes[-1].legend(frameon=False, fontsize=9)
     figure.tight_layout()
     figure.savefig(
@@ -244,7 +260,9 @@ def main():
         ("new_module_a_efficiency_summary.csv", summary),
     ):
         with (TAB_ROOT / name).open("w", newline="", encoding="utf-8") as handle:
-            writer = csv.DictWriter(handle, fieldnames=list(data[0]))
+            writer = csv.DictWriter(
+                handle, fieldnames=list(data[0]), lineterminator="\n"
+            )
             writer.writeheader()
             writer.writerows(data)
     report = {

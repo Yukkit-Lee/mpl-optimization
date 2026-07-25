@@ -1,0 +1,9 @@
+[2026-07-26T01:43:57+08:00] task=public_mainline_module_a_tiny_seed43 resource=gpu0 attempt=0
+========================================================================================
+Module A formal efficiency: Full vs Random vs Official MTT
+dataset=tiny seed=43 steps=3000 target=0.24 cpu_threads=1 num_workers=0
+========================================================================================
+  full_images samples=100000 final=0.3195 step@target=450
+  random_subset samples=9600 final=0.2283 step@target=600
+  official_mtt samples=9600 final=0.2643 step@target=300
+output=/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/tiny/new_module_a_efficiency_tiny_seed43.json

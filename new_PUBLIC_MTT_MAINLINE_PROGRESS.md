@@ -26,7 +26,7 @@ Official Public MTT Images
 
 - [x] Public MTT ConvNet formal reference: 3 datasets x 3 seeds.
 - [x] Frozen 2048-D linear-probe quality gate.
-- [ ] Module A Full/Random/Public efficiency.
+- [x] Module A Full/Random/Public efficiency.
 - [ ] Secure Module B convergence.
 - [ ] Secure Module B IID/Mild/Severe.
 - [ ] Secure Module C multi-privacy comparison.
@@ -53,6 +53,19 @@ optimizer configuration is frozen. The required test thresholds are:
 - Formal test evaluation used seeds 42/43/44 after optimizer freeze.
 - Status: `QUALITY_GATE_PASS`.
 
-The active phase is Module-A efficiency: Full Images, equal-size Random
-Subset, and Official MTT are compared with the same frozen encoder, scaler,
-linear model initialization, optimizer and dataset-specific step budget.
+## Module-A Formal Efficiency Result
+
+- CIFAR-10 final accuracy: Full `0.6942 +/- 0.0047`, Random
+  `0.6084 +/- 0.0052`, Official MTT `0.6767 +/- 0.0087`.
+- CIFAR-100 final accuracy: Full `0.4872 +/- 0.0046`, Random
+  `0.3897 +/- 0.0037`, Official MTT `0.4376 +/- 0.0055`.
+- Tiny ImageNet final accuracy: Full `0.3171 +/- 0.0050`, Random
+  `0.2257 +/- 0.0023`, Official MTT `0.2615 +/- 0.0061`.
+- Mean Step@Target for Full versus Official is `426.7 vs 133.3`,
+  `480 vs 280`, and `400 vs 300`, respectively.
+- The equal-size Random subset did not reach the declared target on
+  CIFAR-10 or CIFAR-100; this is reported as `N/R`, not omitted.
+- All 27 method runs are complete and use three formal seeds.
+
+The active phase now moves to secure Module B convergence and heterogeneity
+experiments using the same encoder/scaler signatures.

@@ -1,0 +1,8 @@
+[2026-07-26T01:40:45+08:00] task=public_mainline_extract_full_tiny_seed42 resource=gpu0 attempt=0
+========================================================================================
+Public MTT shared encoder -> Full Images 2048-D features
+dataset=tiny seed=42 samples=100000 start=0 batch=256 device=cuda
+cpu_threads=1 num_workers=0 test_loaded=False
+========================================================================================
+  extracted=100000/100000
+manifest=/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_full_features/tiny/new_seed42/new_full_feature_manifest.json

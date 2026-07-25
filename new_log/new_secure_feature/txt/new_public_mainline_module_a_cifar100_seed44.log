@@ -1,0 +1,9 @@
+[2026-07-26T01:40:37+08:00] task=public_mainline_module_a_cifar100_seed44 resource=gpu0 attempt=0
+========================================================================================
+Module A formal efficiency: Full vs Random vs Official MTT
+dataset=cifar100 seed=44 steps=2400 target=0.42 cpu_threads=1 num_workers=0
+========================================================================================
+  full_images samples=50000 final=0.4822 step@target=480
+  random_subset samples=4800 final=0.3857 step@target=None
+  official_mtt samples=4800 final=0.4314 step@target=360
+output=/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar100/new_module_a_efficiency_cifar100_seed44.json
