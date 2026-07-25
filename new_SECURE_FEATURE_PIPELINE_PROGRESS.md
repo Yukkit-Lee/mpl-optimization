@@ -26,7 +26,7 @@
 - [x] Phase 1: Implement real Stage-A privacy mechanism (secure RNG blocker recorded)
 - [x] Phase 2: Build shared 2048-D representation pipeline
 - [x] Phase 3: Implement secure Stage-B computation
-- [ ] Phase 4: Implement secure Stage-C Fixed DP-SGD
+- [x] Phase 4: Implement secure Stage-C Fixed DP-SGD
 - [ ] Phase 5: Implement secure Stage-C Adaptive DP-SGD
 - [ ] Phase 6: Complete Module-A formal experiments
 - [ ] Phase 7: Complete Module-B formal experiments
@@ -96,3 +96,14 @@
 - 完整链路相对 NumPy reference 最大误差低于 `9.6e-5`。
 - 默认只 reveal 最终 selected initializer；correctness 额外 reveal 均写入 JSON。
 - 当前执行是单机 ABY3 模拟；网络通信 bytes 尚未测量。
+
+## Phase 4 Evidence
+
+- 2048-D linear squared-loss per-example gradient 使用解析公式在 ABY3 中计算。
+- norm、clip factor、clipped gradient、noise 与 updated model 均保持 secret-shared。
+- 三个逻辑方各自用 checkpointed CSPRNG seed/counter 生成 `N(0,1/3)` Gaussian share。
+- 三方总噪声 correctness 样本均值 `-0.0089`、标准差 `1.0113`。
+- logits、norm、factor、clipped gradient 与最终参数均通过 NumPy correctness reference。
+- 最终参数最大绝对误差低于 `2.3e-5`；三个 provider counter 均从 0 推进到 1。
+- Stage-C epsilon 使用 Opacus RDP accountant，组合 gradient 与 clipping-count queries。
+- Stage-A original-record DP 与 Stage-C distilled-feature-record DP 分开报告，不相加。

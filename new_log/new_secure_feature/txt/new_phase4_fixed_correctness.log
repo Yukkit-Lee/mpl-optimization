@@ -1,0 +1,14 @@
+[2026-07-25T15:56:15+08:00] task=phase4_fixed_correctness resource=tfe attempt=0
+============================================================================================
+Stage C：TFE/ABY3 Secure fixed_dp DP-SGD
+dataset=cifar10 samples=24 batch=4 steps=1 feature_dim=2048
+noise_multiplier=1.2 count_noise=8.0 delta=1e-05 cpu_affinity=1
+============================================================================================
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageC] step=1/1 ref_acc=1.0000 C_t=1.00000 noisy_b=0.0189
+epsilon_C=1.909944 final_C=1.000000
+model=new_cache/new_secure_feature/new_phase4_correctness/new_fixed_output/new_secure_stage_c_model_cifar10_fixed_dp_seed42.npz
+report=new_cache/new_secure_feature/new_phase4_correctness/new_fixed_output/new_secure_stage_c_report_cifar10_fixed_dp_seed42.json

@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "errors": {
+    "logits": 6.515905261039734e-05,
+    "norm_squared": 0.0006613731384277344,
+    "clip_factor": 0.00209200382232666,
+    "clipped_grad_w": 0.0013846158981323242,
+    "clipped_grad_b": 0.0015519261360168457,
+    "updated_weight": 2.244702912867092e-05,
+    "updated_bias": 1.6838610172272006e-05
+  },
+  "noise_weight_mean": -0.008926783998807272,
+  "noise_weight_std": 1.0113199354918363,
+  "provider_counters": [
+    1,
+    1,
+    1
+  ]
+}
