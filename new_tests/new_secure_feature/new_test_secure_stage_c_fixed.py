@@ -66,6 +66,7 @@ def main():
         precision_fractional=16,
         matmul_chunk_size=64,
         clip_c=1.0,
+        clipping_scope="global",
         noise_multiplier=1.2,
         count_noise_multiplier=8.0,
         learning_rate=0.005,

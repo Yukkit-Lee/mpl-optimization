@@ -27,7 +27,7 @@
 - [x] Phase 2: Build shared 2048-D representation pipeline
 - [x] Phase 3: Implement secure Stage-B computation
 - [x] Phase 4: Implement secure Stage-C Fixed DP-SGD
-- [ ] Phase 5: Implement secure Stage-C Adaptive DP-SGD
+- [x] Phase 5: Implement secure Stage-C Adaptive DP-SGD
 - [ ] Phase 6: Complete Module-A formal experiments
 - [ ] Phase 7: Complete Module-B formal experiments
 - [ ] Phase 8: Complete Module-C formal experiments
@@ -107,3 +107,13 @@
 - 最终参数最大绝对误差低于 `2.3e-5`；三个 provider counter 均从 0 推进到 1。
 - Stage-C epsilon 使用 Opacus RDP accountant，组合 gradient 与 clipping-count queries。
 - Stage-A original-record DP 与 Stage-C distilled-feature-record DP 分开报告，不相加。
+
+## Phase 5 Evidence
+
+- 当前 `C_t` 裁剪当前梯度，`C_{t+1}` 只在同一步末尾原子提交。
+- 一步顺序测试中旧 C 的 clip-factor 最大误差为 `0.00153`。
+- 加噪比例 `0.3093` 时，C 从 `0.699997` 更新到 `0.706711`，误差低于 `7.4e-6`。
+- 支持 C_min/C_max、warm-up、update interval 和连续撞击 C_max 的 hard stop。
+- checkpoint 包含模型、C_t、history、撞界计数以及每方 CSPRNG seed/counter。
+- 支持 global 与 parameter-block clipping；正式 Adaptive utility 与消融仍在 Phase 8 验证。
+- 隐私范围、test leakage 与 no plaintext fallback 共 6 项自动检查通过。

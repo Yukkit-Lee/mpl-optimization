@@ -1,0 +1,23 @@
+[2026-07-25T16:01:57+08:00] task=phase5_adaptive_regression resource=tfe attempt=0
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+{
+  "status": "PASS",
+  "errors": {
+    "old_c": 3.051757812455591e-06,
+    "clip_factor_uses_old_c": 0.0015233159065246582,
+    "proposed_c": 7.320811998168253e-06,
+    "committed_next_c": 7.320811998168253e-06
+  },
+  "old_c": 0.6999969482421875,
+  "noisy_fraction_below": 0.309295654296875,
+  "expected_next_c": 0.7067034946176893,
+  "actual_next_c": 0.7067108154296875,
+  "provider_counters": [
+    1,
+    1,
+    1
+  ]
+}

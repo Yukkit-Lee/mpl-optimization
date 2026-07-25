@@ -208,16 +208,38 @@ def build_graph(data, init_weight, init_bias, args):
         error = logits - private_y
         error_sq = tfe.reduce_sum(error * error, axis=1)
         feature_sq = tfe.reduce_sum(private_x * private_x, axis=1)
-        norm_squared = error_sq * (feature_sq + 1.0)
-        factor = secure_clip_factor(tfe, norm_squared, clip_bound)
-        clipped_error = error * tfe.expand_dims(factor, axis=1)
+        weight_norm_squared = error_sq * feature_sq
+        bias_norm_squared = error_sq
+        norm_squared = weight_norm_squared + bias_norm_squared
+        if args.clipping_scope == "global":
+            factor_w = secure_clip_factor(tfe, norm_squared, clip_bound)
+            factor_b = factor_w
+            below = tfe.select(
+                tfe.less_equal(norm_squared, clip_bound * clip_bound), 0.0, 1.0
+            )
+        else:
+            factor_w = secure_clip_factor(tfe, weight_norm_squared, clip_bound)
+            factor_b = secure_clip_factor(tfe, bias_norm_squared, clip_bound)
+            below_w = tfe.select(
+                tfe.less_equal(weight_norm_squared, clip_bound * clip_bound),
+                0.0,
+                1.0,
+            )
+            below_b = tfe.select(
+                tfe.less_equal(bias_norm_squared, clip_bound * clip_bound),
+                0.0,
+                1.0,
+            )
+            below = (below_w + below_b) * 0.5
+        clipped_error_w = error * tfe.expand_dims(factor_w, axis=1)
+        clipped_error_b = error * tfe.expand_dims(factor_b, axis=1)
         clipped_grad_w = secure_chunked_matmul(
             tfe,
             tfe.transpose(private_x),
-            clipped_error,
+            clipped_error_w,
             args.matmul_chunk_size,
         ) * (1.0 / float(args.batch_size))
-        clipped_grad_b = tfe.reduce_sum(clipped_error, axis=0) * (
+        clipped_grad_b = tfe.reduce_sum(clipped_error_b, axis=0) * (
             1.0 / float(args.batch_size)
         )
 
@@ -229,9 +251,6 @@ def build_graph(data, init_weight, init_bias, args):
         new_weight = weight - float(args.learning_rate) * noisy_grad_w
         new_bias = bias - float(args.learning_rate) * noisy_grad_b
 
-        below = tfe.select(
-            tfe.less_equal(norm_squared, clip_bound * clip_bound), 0.0, 1.0
-        )
         fraction_below = tfe.reduce_sum(below) * (1.0 / float(args.batch_size))
         noisy_fraction = secure_clamp(
             tfe,
@@ -296,7 +315,9 @@ def build_graph(data, init_weight, init_bias, args):
                 "clip_bound": clip_bound,
                 "logits": logits,
                 "norm_squared": norm_squared,
-                "factor": factor,
+                "factor": factor_w,
+                "factor_w": factor_w,
+                "factor_b": factor_b,
                 "clipped_grad_w": clipped_grad_w,
                 "clipped_grad_b": clipped_grad_b,
                 "standard_noise_w": standard_noise_w,
@@ -485,6 +506,11 @@ def parse_args():
     parser.add_argument("--noise_multiplier", type=float, default=1.2)
     parser.add_argument("--count_noise_multiplier", type=float, default=8.0)
     parser.add_argument("--clip_c", type=float, default=1.0)
+    parser.add_argument(
+        "--clipping_scope",
+        choices=["global", "parameter_block"],
+        default="global",
+    )
     parser.add_argument("--gamma", type=float, default=0.5)
     parser.add_argument("--eta_c", type=float, default=0.05)
     parser.add_argument("--c_min", type=float, default=0.05)

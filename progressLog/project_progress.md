@@ -696,3 +696,4 @@
 - Phase 3 数值诊断：2048 维分块 private matmul、单头/重复更新均正确；多头更新的百万级随机误差被定位为旧 TFE 在 W/b 两个相互依赖变量并行 assign 时的跨变量读写竞态，并新增无 reveal 的 replicated-share 原子赋值屏障。
 - Phase 3 correctness：三次独立多头测试最大权重误差低于 `3.1e-5`；完整 local MSE → teacher logits → logit-MSE KD → KD-Avg/KD-ReferenceWeighted → private score comparison/mux 链路相对 NumPy 最大误差低于 `9.6e-5`。该结果仅为 correctness，不作为正式论文精度。
 - Phase 4 实现与 correctness：新增 TFE/ABY3 2048-D 解析 per-example gradient、fixed clipping、三方 checkpointed CSPRNG Gaussian noise shares 与 Opacus RDP 会计；噪声合计 std=`1.0113`，最终 W/b 相对明文公式最大误差低于 `2.3e-5`，三方 noise counter 同步推进。
+- Phase 5 实现与 correctness：Adaptive 严格先用 `C_t` 裁剪当前 batch，再用加噪比例更新下一步 `C_{t+1}`；支持 global/parameter-block、C 上下界、warm-up、更新间隔、撞界 hard stop 和完整 checkpoint。一步测试中 C 更新误差低于 `7.4e-6`，隐私范围/test leakage/no-fallback 共 6 项检查通过。
