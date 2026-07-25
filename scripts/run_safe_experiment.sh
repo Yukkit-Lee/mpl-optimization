@@ -11,7 +11,8 @@ export OPENBLAS_NUM_THREADS=1
 export NUMEXPR_NUM_THREADS=1
 export TOKENIZERS_PARALLELISM=false
 export PYTHONNOUSERSITE=1
-export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
+# 未设置时默认 GPU 0；调用方显式设置为空字符串时保留 CPU-only。
+export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES-0}"
 
 if [[ "$#" -eq 0 ]]; then
   echo "用法: $0 <command> [args...]" >&2
