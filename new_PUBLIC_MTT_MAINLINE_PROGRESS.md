@@ -86,3 +86,13 @@ experiments using the same encoder/scaler signatures.
   low-temperature fixed-point underflow without revealing client losses.
 - A real ABY3 low-temperature correctness run is required before the frozen
   configuration is admitted to the formal 27-run Stage-B queue.
+- The first launch stopped before graph construction because Python 3.6 used
+  ASCII stdout under the resource wrapper's C locale. The shared runtime now
+  sets `PYTHONIOENCODING=UTF-8`; the failed diagnostic log is retained.
+- The repeated low-temperature ABY3 run completed. Selected and
+  KD-ReferenceWeighted parameter errors versus the same-order NumPy reference
+  were about `7.3e-5` and `7.1e-5`; secure Avg and secure RW differed by
+  `9.4e-3`, confirming that weighting did not collapse to uniform averaging.
+- The formal Stage-B manifest contains 27 serial TFE tasks: three datasets,
+  three seeds, and IID/Mild/Severe splits. Every run checkpoints each epoch
+  and records a complete local/KD epoch timing history.

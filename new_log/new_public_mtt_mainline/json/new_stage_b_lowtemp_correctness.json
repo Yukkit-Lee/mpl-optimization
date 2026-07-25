@@ -1,0 +1,76 @@
+{
+  "configuration": {
+    "batch_size": 4,
+    "distill_epochs": 2,
+    "distill_lr": 0.002,
+    "lambda_kd": 0.1,
+    "local_epochs": 2,
+    "local_lr": 0.005,
+    "matmul_chunk_size": 64,
+    "precision_fractional": 16,
+    "reference_supervised_weight": 2.0,
+    "weight_temperature": 0.005
+  },
+  "correctness": {
+    "avg_rw_secure_max_abs_difference": 0.009429931640625,
+    "avg_weight_max_abs_error": 5.000550299882889e-05,
+    "local_weight_max_abs_errors": [
+      7.96327949501574e-05,
+      7.79968686401844e-05,
+      7.139254012145102e-05
+    ],
+    "nokd_avg_bias_max_abs_error": 2.132914960384369e-05,
+    "nokd_avg_weight_max_abs_error": 4.083907697349787e-05,
+    "rw_weight_max_abs_error": 7.103602248108081e-05,
+    "selected_bias_max_abs_error": 6.44746973731368e-05,
+    "selected_weight_max_abs_error": 7.281235856883696e-05,
+    "teacher_logits_max_abs_error": 5.174800753593445e-05
+  },
+  "failed_first_launch_log": "/mnt/code/lixujie/tfe_experiments/new_log/new_secure_feature/txt/new_public_mainline_stage_b_lowtemp_correctness.log",
+  "purpose": "correctness_only_not_formal_accuracy",
+  "runtime_seconds": 85.92222046852112,
+  "schema": "new_stage_b_lowtemp_correctness_evidence_v1",
+  "security": {
+    "backend": "tfe_mpc",
+    "execution": "single-machine process simulation",
+    "formal_candidate_release": true,
+    "protocol": "ABY3",
+    "reference_weight_softmax_stabilization": "private_mean_centering_shift_invariant",
+    "revealed_values": [
+      "final_selected_stage_b_weight",
+      "final_selected_stage_b_bias",
+      "formal_ablation_nokd_candidate",
+      "formal_ablation_kd_avg_candidate",
+      "formal_ablation_kd_reference_weighted_candidate",
+      "correctness_only_teacher_logits",
+      "correctness_only_avg_candidate",
+      "correctness_only_reference_weighted_candidate",
+      "correctness_only_candidate_losses",
+      "correctness_only_selection_bit",
+      "correctness_only_reference_weights",
+      "correctness_only_local_parameters"
+    ],
+    "secret_shared_inputs": [
+      "local_feature_batches",
+      "local_labels",
+      "local_linear_head_parameters",
+      "reference_features",
+      "reference_labels",
+      "selection_features",
+      "selection_labels"
+    ],
+    "secret_shared_intermediates": [
+      "teacher_logits",
+      "distilled_local_parameters",
+      "avg_candidate",
+      "reference_weighted_candidate",
+      "candidate_mse_scores",
+      "selection_bit"
+    ],
+    "secure_random_custom_op_required": true,
+    "selection_scope": "correctness_diagnostics_with_explicit_reveals",
+    "silent_plaintext_fallback": false
+  },
+  "source_report": "/mnt/code/lixujie/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_lowtemp_correctness_output_v2/new_secure_stage_b_report_cifar10_mild_seed42.json",
+  "status": "COMPLETE"
+}

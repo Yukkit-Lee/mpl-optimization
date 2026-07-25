@@ -760,3 +760,6 @@
 - Stage B Round2 队列启动（2026-07-26 02:24）：解析配置为 C10/C100/Tiny 候选数 `6/6/2`，合计 84 个 reference/selection-only 逻辑 runs；systemd+tmux 严格串行运行，CPU core 0、threads 1、`num_workers=0`，先校验/复用 Round2 test-free 缓存再依次调参。
 - Stage B Round2 完成与冻结准备（2026-07-26 02:28）：三个数据集的 84 个 test-free 逻辑 runs 全部完成。冻结候选在 Severe selection 上的 KD-Avg/KD-RW 均优于 NoKD；CIFAR-10 KD-RW 平均提升 39pp，CIFAR-100 KD-Avg/KD-RW 平均提升约 15.6/16.3pp，Tiny 两者平均提升约 20pp。整个选参阶段未加载 test。
 - 密态低温数值加固（2026-07-26 02:28）：`temperature=0.005` 在 16-bit fractional 定点中存在指数下溢风险；TFE Reference-Weighted softmax 改为先减去秘密共享的 client mean loss 再指数化。该变换严格保持 softmax 不变，不 reveal client loss，也不修改已冻结的算法、seed 或超参数；正式运行前增加真实 ABY3 低温 correctness 门。
+- TFE Python 3.6 控制台恢复修复（2026-07-26 02:30）：首次低温 correctness 尚未建图即因 `LC_ALL=C` 下 stdout 使用 ASCII、中文标题触发 `UnicodeEncodeError`；统一安全环境新增 `PYTHONIOENCODING=UTF-8`，继续保留 C locale 的稳定资源字段解析。失败日志保留，使用新 checkpoint 路径重跑。
+- Stage B 低温密态质量门（2026-07-26 02:32）：真实 TFE/ABY3、2048-D、16-bit fractional、`temperature=0.005` correctness 完成；selected/RW 参数相对 NumPy 最大误差约 `7.3e-5/7.1e-5`，secure Avg 与 RW 最大差约 `9.4e-3`，确认低温权重未退化。正式接口新增每个 local/KD epoch 的 batches、epoch time 和累计时间 history。
+- Stage B 正式队列准备（2026-07-26 02:32）：新增 3 datasets × 3 seeds × IID/Mild/Severe 共 27 个 ABY3 串行任务的 manifest 生成器；GPU 禁用、CPU core0/threads1、`num_workers=0`，每 epoch checkpoint，并仅在显式 formal ablation boundary 释放 NoKD/KD-Avg/KD-RW 候选。

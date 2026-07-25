@@ -724,6 +724,8 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
             "local_epochs_completed": 0,
             "teacher_initialized": False,
             "distill_epochs_completed": 0,
+            "history": [],
+            "elapsed_seconds_completed": 0.0,
         }
     else:
         print(
@@ -734,6 +736,10 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
             ),
             flush=True,
         )
+    state.setdefault("history", [])
+    state.setdefault("elapsed_seconds_completed", 0.0)
+    history = list(state["history"])
+    elapsed_seconds = float(state["elapsed_seconds_completed"])
 
     log_epochs = set(
         np.linspace(1, max(1, int(args.local_epochs)), min(10, args.local_epochs))
@@ -744,6 +750,8 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
     for epoch in range(
         int(state["local_epochs_completed"]), int(args.local_epochs)
     ):
+        epoch_started = time.time()
+        epoch_batches = 0
         for client_id, indices in enumerate(client_indices):
             for batch in deterministic_batches(
                 indices, args.batch_size, args.seed, 1, epoch, client_id
@@ -755,7 +763,21 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
                     ),
                 }
                 session.run(graph["local_ops"][client_id], feed_dict=feed)
+                epoch_batches += 1
+        epoch_seconds = time.time() - epoch_started
+        elapsed_seconds += epoch_seconds
         state["local_epochs_completed"] = epoch + 1
+        history.append(
+            {
+                "phase": "local_pretraining",
+                "epoch": epoch + 1,
+                "batches": int(epoch_batches),
+                "epoch_time_seconds": float(epoch_seconds),
+                "elapsed_time_seconds": float(elapsed_seconds),
+            }
+        )
+        state["history"] = history
+        state["elapsed_seconds_completed"] = float(elapsed_seconds)
         if (epoch + 1) in log_epochs:
             print(
                 "[StageB-local] epoch={}/{}".format(epoch + 1, args.local_epochs),
@@ -782,6 +804,8 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
     for epoch in range(
         int(state["distill_epochs_completed"]), int(args.distill_epochs)
     ):
+        epoch_started = time.time()
+        epoch_batches = 0
         for client_id, indices in enumerate(client_indices):
             for batch in deterministic_batches(
                 indices, args.batch_size, args.seed, 2, epoch, client_id
@@ -793,7 +817,21 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
                     ),
                 }
                 session.run(graph["distill_ops"][client_id], feed_dict=feed)
+                epoch_batches += 1
+        epoch_seconds = time.time() - epoch_started
+        elapsed_seconds += epoch_seconds
         state["distill_epochs_completed"] = epoch + 1
+        history.append(
+            {
+                "phase": "kd_distillation",
+                "epoch": epoch + 1,
+                "batches": int(epoch_batches),
+                "epoch_time_seconds": float(epoch_seconds),
+                "elapsed_time_seconds": float(elapsed_seconds),
+            }
+        )
+        state["history"] = history
+        state["elapsed_seconds_completed"] = float(elapsed_seconds)
         if (epoch + 1) in log_epochs:
             print(
                 "[StageB-KD] epoch={}/{}".format(epoch + 1, args.distill_epochs),
@@ -911,6 +949,8 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
         "released_candidates": released_candidates,
         "revealed_values": revealed_values,
         "runtime_seconds": float(runtime),
+        "training_elapsed_seconds": float(elapsed_seconds),
+        "history": history,
         "checkpoint_state": state,
     }
 
@@ -1185,6 +1225,8 @@ def main():
         "selected_model_sha256": sha256_file(model_path),
         "formal_candidate_models": candidate_paths,
         "runtime_seconds": float(time.time() - started),
+        "training_elapsed_seconds": secure["training_elapsed_seconds"],
+        "history": secure["history"],
         "correctness": correctness,
     }
     if secure["diagnostics"] is not None:

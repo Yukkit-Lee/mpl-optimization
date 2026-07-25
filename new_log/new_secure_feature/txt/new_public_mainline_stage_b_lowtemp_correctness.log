@@ -1,0 +1,8 @@
+[2026-07-26T02:29:22+08:00] task=public_mainline_stage_b_lowtemp_correctness resource=tfe attempt=0
+============================================================================================
+Traceback (most recent call last):
+  File "new_stage_b_secure_init.py", line 1212, in <module>
+    raise SystemExit(main())
+  File "new_stage_b_secure_init.py", line 988, in main
+    print("Stage B\uff1aTFE/ABY3 Secure Consensus Initialization", flush=True)
+UnicodeEncodeError: 'ascii' codec can't encode character '\uff1a' in position 7: ordinal not in range(128)
