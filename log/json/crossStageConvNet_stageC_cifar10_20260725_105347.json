@@ -1,0 +1,131 @@
+{
+  "run_id": "20260725_105347",
+  "dataset": "cifar10",
+  "pipeline": "algorithmic_pytorch_convnet",
+  "backend": "local_plaintext_pytorch",
+  "input_type": "nchw_images",
+  "feature_extraction_used": false,
+  "model_class": "ConvNet",
+  "initialization_source": "/mnt/code/lixujie/tfe_experiments/init_model/cross_stage_convnet/crossStageConvNet_stageB_chosen_cifar10_seed42.pt",
+  "initialization_signature_verified": true,
+  "heldout_reference_target": 0.12000000000000001,
+  "test_usage": "fixed_interval_readonly_reporting",
+  "privacy_scope": "stage_c_only",
+  "stage_a_dp_protected": false,
+  "stage_b_dp_protected": false,
+  "stage_c_epsilon_estimate": "PENDING_PHASE_4_ACCOUNTANT",
+  "results": {
+    "plain": {
+      "pipeline": "algorithmic_pytorch_convnet",
+      "backend": "local_plaintext_pytorch",
+      "mode": "plain",
+      "privacy_scope": "none",
+      "feature_extraction_used": false,
+      "initialization_signature": "aafae138d28ff995beee28d0206fc88df4e19a20a71fe1a310027a478f8657b3",
+      "final_signature": "e42c37cf388c9f32d0c9825976640a83b6a61fe90d7d3a717224b0ccf248d76b",
+      "history": [
+        {
+          "step": 1,
+          "reference_loss": 2.441551055908203,
+          "reference_accuracy": 0.08,
+          "test_loss_readonly": 2.438278279622396,
+          "test_accuracy_readonly": 0.083,
+          "mean_total_grad_norm": 21.536136160500718,
+          "clipped_fraction": 0.0,
+          "clipping_bound_t": 1.0
+        },
+        {
+          "step": 2,
+          "reference_loss": 2.4657359313964844,
+          "reference_accuracy": 0.06,
+          "test_loss_readonly": 2.465038146972656,
+          "test_accuracy_readonly": 0.086,
+          "mean_total_grad_norm": 17.580803760967942,
+          "clipped_fraction": 0.0,
+          "clipping_bound_t": 1.0
+        }
+      ],
+      "target_reference_accuracy": 0.12000000000000001,
+      "step_at_target_reference_accuracy": null,
+      "time_s": 0.07190775871276855,
+      "final_test_accuracy": 0.086,
+      "final_reference_accuracy": 0.06,
+      "final_c": 1.0
+    },
+    "fixed_dp": {
+      "pipeline": "algorithmic_pytorch_convnet",
+      "backend": "local_plaintext_pytorch",
+      "mode": "fixed_dp",
+      "privacy_scope": "stage_c_only",
+      "feature_extraction_used": false,
+      "initialization_signature": "aafae138d28ff995beee28d0206fc88df4e19a20a71fe1a310027a478f8657b3",
+      "final_signature": "7387409df4ea06a6b9c3b92bb6efba814ddd0944ceaac4feb16aad8129b5f63d",
+      "history": [
+        {
+          "step": 1,
+          "reference_loss": 2.304971923828125,
+          "reference_accuracy": 0.16,
+          "test_loss_readonly": 2.3096331787109374,
+          "test_accuracy_readonly": 0.118,
+          "mean_total_grad_norm": 30.768173525473504,
+          "clipped_fraction": 1.0,
+          "clipping_bound_t": 1.0
+        },
+        {
+          "step": 2,
+          "reference_loss": 2.2966845703125,
+          "reference_accuracy": 0.18,
+          "test_loss_readonly": 2.3015789184570314,
+          "test_accuracy_readonly": 0.125,
+          "mean_total_grad_norm": 32.34376877763497,
+          "clipped_fraction": 1.0,
+          "clipping_bound_t": 1.0
+        }
+      ],
+      "target_reference_accuracy": 0.12000000000000001,
+      "step_at_target_reference_accuracy": 1,
+      "time_s": 0.07765913009643555,
+      "final_test_accuracy": 0.125,
+      "final_reference_accuracy": 0.18,
+      "final_c": 1.0
+    },
+    "adaptive_dp": {
+      "pipeline": "algorithmic_pytorch_convnet",
+      "backend": "local_plaintext_pytorch",
+      "mode": "adaptive_dp",
+      "privacy_scope": "stage_c_only",
+      "feature_extraction_used": false,
+      "initialization_signature": "aafae138d28ff995beee28d0206fc88df4e19a20a71fe1a310027a478f8657b3",
+      "final_signature": "1bb75eb266360202591971096c0d8e093727a0d5349314c199701d94b6cfba6b",
+      "history": [
+        {
+          "step": 1,
+          "reference_loss": 2.30369384765625,
+          "reference_accuracy": 0.1,
+          "test_loss_readonly": 2.3145982055664063,
+          "test_accuracy_readonly": 0.116,
+          "mean_total_grad_norm": 30.768173529642922,
+          "clipped_fraction": 1.0,
+          "clipping_bound_t": 1.0778841508846315
+        },
+        {
+          "step": 2,
+          "reference_loss": 2.3278689575195313,
+          "reference_accuracy": 0.1,
+          "test_loss_readonly": 2.3178678385416664,
+          "test_accuracy_readonly": 0.11433333333333333,
+          "mean_total_grad_norm": 32.03118895191795,
+          "clipped_fraction": 1.0,
+          "clipping_bound_t": 1.161834242728283
+        }
+      ],
+      "target_reference_accuracy": 0.12000000000000001,
+      "step_at_target_reference_accuracy": null,
+      "time_s": 0.062181949615478516,
+      "final_test_accuracy": 0.11433333333333333,
+      "final_reference_accuracy": 0.1,
+      "final_c": 1.161834242728283
+    }
+  },
+  "time_s": 3.924060106277466
+}

@@ -1,0 +1,96 @@
+{
+  "run_id": "20260725_105336",
+  "dataset": "cifar10",
+  "seed": 42,
+  "pipeline": "algorithmic_pytorch_convnet",
+  "backend": "local_plaintext_pytorch",
+  "input_type": "nchw_images",
+  "feature_extraction_used": false,
+  "reference_set": "heldout_reference_set",
+  "reference_private_dependency": true,
+  "stage_b": {
+    "backend": "local_plaintext_pytorch",
+    "input_type": "nchw_images",
+    "input_shape": [
+      500,
+      3,
+      32,
+      32
+    ],
+    "feature_extraction_used": false,
+    "model_class": "ConvNet",
+    "model_name": "ConvNetD3",
+    "model_schema": {
+      "features.0.weight": [
+        128,
+        3,
+        3,
+        3
+      ],
+      "features.0.bias": [
+        128
+      ],
+      "features.1.weight": [
+        128
+      ],
+      "features.1.bias": [
+        128
+      ],
+      "features.4.weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "features.4.bias": [
+        128
+      ],
+      "features.5.weight": [
+        128
+      ],
+      "features.5.bias": [
+        128
+      ],
+      "features.8.weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "features.8.bias": [
+        128
+      ],
+      "features.9.weight": [
+        128
+      ],
+      "features.9.bias": [
+        128
+      ],
+      "classifier.weight": [
+        10,
+        2048
+      ],
+      "classifier.bias": [
+        10
+      ]
+    },
+    "chosen_name": "KD-Avg",
+    "chosen_signature": "aafae138d28ff995beee28d0206fc88df4e19a20a71fe1a310027a478f8657b3",
+    "candidate_ref_scores": {
+      "KD-Avg": 0.1,
+      "KD-ReferenceWeighted": 0.1,
+      "KD-Best": 0.1
+    },
+    "reference_weights": [
+      0.5,
+      0.5
+    ],
+    "kd_parameter_changed": [
+      true,
+      true
+    ]
+  },
+  "checkpoint": "/mnt/code/lixujie/tfe_experiments/init_model/cross_stage_convnet/crossStageConvNet_stageB_chosen_cifar10_seed42.pt",
+  "checkpoint_signature_verified": true,
+  "time_s": 3.767864942550659
+}

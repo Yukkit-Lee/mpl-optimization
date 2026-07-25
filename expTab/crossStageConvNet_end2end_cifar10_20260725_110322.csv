@@ -1,0 +1,4 @@
+Dataset,Mode,PrivacyScope,StageCEpsilon,StageCDelta,FinalTestAcc,FinalRefAcc,StepAtRefTarget
+cifar10,plain,none,inf,,0.13266666666666665,0.18,2
+cifar10,fixed_dp,stage_c_only,0.5194330147185303,1e-05,0.12833333333333333,0.18,1
+cifar10,adaptive_dp,stage_c_only,0.5194330147185303,1e-05,0.115,0.12,

@@ -644,3 +644,17 @@
 - cifar10：train_steps=900，distilled_samples=500，compression_ratio=0.0100；final_acc: Full Images=0.7050, Randomly Sampled Images=0.4826, Distilled Images=0.6813；Step@TargetAcc: Full Images=300, Randomly Sampled Images=NA, Distilled Images=200；输出图=/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_direct/figure4_stageA_direct_images_cifar10.png；JSON=/mnt/code/lixujie/tfe_experiments/log/json/stageA_directImage_cifar10_20260725_100011.json。
 - cifar100：train_steps=800，distilled_samples=5000，compression_ratio=0.1000；final_acc: Full Images=0.3209, Randomly Sampled Images=0.2881, Distilled Images=0.4079；Step@TargetAcc: Full Images=600, Randomly Sampled Images=NA, Distilled Images=300；输出图=/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_direct/figure4_stageA_direct_images_cifar100.png；JSON=/mnt/code/lixujie/tfe_experiments/log/json/stageA_directImage_cifar100_20260725_100048.json。
 - tiny：train_steps=1200，distilled_samples=10000，compression_ratio=0.1000；final_acc: Full Images=0.1591, Randomly Sampled Images=0.1333, Distilled Images=0.1792；Step@TargetAcc: Full Images=1000, Randomly Sampled Images=NA, Distilled Images=800；输出图=/mnt/code/lixujie/tfe_experiments/expFig/figure4_distill_direct/figure4_stageA_direct_images_tiny.png；JSON=/mnt/code/lixujie/tfe_experiments/log/json/stageA_directImage_tiny_20260725_100121.json。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-25 11:07 Asia/Shanghai
+- 本次对话任务目标：严格执行 `plan/codex_continuous_refactor_instruction.md`，连续修复主流程 2048-D 特征路径、明文/MPC 边界、TFE Stage C 系统验证、隐私会计与 test-set 边界，并完成最终回归。
+- 资源评估与安全设置：所有训练固定单 GPU、CPU/BLAS 各 1 线程、数据集串行；新增仓库级 `flock` 安全 runner。由于当前执行器会回收 detached `nohup` 子进程，正式运行改用可轮询 PTY session，避免孤儿进程和重复任务。
+- Phase 0：在 `cross-stage-refactor` 分支保存基线与恢复点，提交 `2203070`、`11af7bd`。
+- Phase 1：新增 `official_distilled_convnet_pipeline.py`，主流程改为 official distilled NCHW images → local full ConvNets → full-ConvNet KD → KD-Avg/KD-ReferenceWeighted/KD-Best → chosen full ConvNet → same full ConvNet Stage C；旧 2048-D 实现移入 `legacy_feature_pipeline/`。提交 `a2694ca`。
+- Phase 2：重构 `secure_aggregation.py`，明文与 TFE 后端必须显式选择，彻底删除静默 fallback；TFE 候选边界准确命名为 `secure_score_computation_with_revealed_selection`，并记录 backend/protocol/shared inputs/reveals/fallback/security scope。提交 `a10281d`。
+- Phase 3：新增 `exp_stageC_tfe_secure_system.py`；CIFAR-10 Flatten+Dense ABY3 两步训练真实跑通，MSE `0.3895→0.3555→0.3297`。精确 secure per-example clipping、adaptive clipping、MTT GroupNorm ConvNet 和 TF 1.15.5 secure-random custom op 均以证据标记 BLOCKED，未伪造 MPC。提交 `1152849`。
+- Phase 4：安装并固定 `opacus==1.5.4`，新增 Stage-C Opacus RDP accountant 与 5 个单元测试；Fixed/Adaptive 统一会计，binomial simulation ε 标记 N/A；target 只由 heldout reference 构造，test 仅固定间隔只读与最终报告。提交 `fab546e`。
+- Phase 5：CIFAR-10/CIFAR-100/Tiny 三数据集 2-step end-to-end smoke 全部通过；CIFAR-10 完整可行配置完成 5 clients、45 local steps/client、20 KD steps/client、60 Stage-C steps/mode，chosen=`KD-Best`，Fixed/Adaptive ε=`0.6958885645`。当前 Adaptive `C_t` 增至约 57.4 并导致性能下降，该限制被如实保留，后续只能用 heldout reference 调参。
+- 输出：统一 JSON=`log/json/crossStageConvNet_unified_20260725_110656.json`；统一 CSV=`expTab/crossStageConvNet_unified_20260725_110656.csv`；Figure5 quick PNG=`expFig/figure5_crossStageConvNet/crossStageConvNet_figure5_cifar10_20260725_110712.png`；边界文档=`CROSS_STAGE_PIPELINE.md`。

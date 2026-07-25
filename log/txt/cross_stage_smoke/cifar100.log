@@ -1,0 +1,362 @@
+{
+  "dataset": "cifar100",
+  "seed": 42,
+  "pipeline": "algorithmic_pytorch_convnet",
+  "backend": "local_plaintext_pytorch",
+  "stage_a": {
+    "input": "official_mtt_distilled_nchw_images",
+    "dp_protected": false,
+    "feature_extraction_used": false
+  },
+  "stage_b": {
+    "backend": "local_plaintext_pytorch",
+    "input_type": "nchw_images",
+    "input_shape": [
+      5000,
+      3,
+      32,
+      32
+    ],
+    "feature_extraction_used": false,
+    "model_class": "ConvNet",
+    "model_name": "ConvNetD3",
+    "model_schema": {
+      "features.0.weight": [
+        128,
+        3,
+        3,
+        3
+      ],
+      "features.0.bias": [
+        128
+      ],
+      "features.1.weight": [
+        128
+      ],
+      "features.1.bias": [
+        128
+      ],
+      "features.4.weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "features.4.bias": [
+        128
+      ],
+      "features.5.weight": [
+        128
+      ],
+      "features.5.bias": [
+        128
+      ],
+      "features.8.weight": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "features.8.bias": [
+        128
+      ],
+      "features.9.weight": [
+        128
+      ],
+      "features.9.bias": [
+        128
+      ],
+      "classifier.weight": [
+        100,
+        2048
+      ],
+      "classifier.bias": [
+        100
+      ]
+    },
+    "chosen_name": "KD-Best",
+    "chosen_signature": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+    "candidate_ref_scores": {
+      "KD-Avg": 0.016,
+      "KD-ReferenceWeighted": 0.016,
+      "KD-Best": 0.018
+    },
+    "reference_weights": [
+      0.5,
+      0.5
+    ],
+    "kd_parameter_changed": [
+      true,
+      true
+    ]
+  },
+  "stage_b_checkpoint": "/mnt/code/lixujie/tfe_experiments/init_model/cross_stage_convnet/crossStageConvNet_stageB_chosen_cifar100_seed42.pt",
+  "checkpoint_sha256": "939cf5188fe267f099394ad2f946b311df50bdc3ec996335c1936e0111d1acd6",
+  "checkpoint_state_signature_before": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+  "checkpoint_state_signature_after": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+  "checkpoint_signature_verified": true,
+  "target_source": "heldout_reference_set",
+  "target_reference_accuracy": 0.038,
+  "test_usage": "fixed_interval_readonly_reporting",
+  "privacy_scope": "stage_c_only",
+  "stage_c": {
+    "plain": {
+      "pipeline": "algorithmic_pytorch_convnet",
+      "backend": "local_plaintext_pytorch",
+      "mode": "plain",
+      "privacy_scope": "none",
+      "dp_protected": false,
+      "feature_extraction_used": false,
+      "initialization_signature": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+      "final_signature": "d84e1fd09dd093c5630fc0fd038850d20cd48b362edcbbdedf8840453b49ee91",
+      "history": [
+        {
+          "step": 1,
+          "reference_loss": 4.638999267578125,
+          "reference_accuracy": 0.016,
+          "test_loss_readonly": 4.649526448567708,
+          "test_accuracy_readonly": 0.017,
+          "mean_total_grad_norm": 23.368475962096575,
+          "mean_layer_grad_norms": {
+            "features.0.weight": 2.2332804203033447,
+            "features.0.bias": 8.491394254406259e-08,
+            "features.1.weight": 0.18946298956871033,
+            "features.1.bias": 0.14371949434280396,
+            "features.4.weight": 10.829547882080078,
+            "features.4.bias": 7.440205251896259e-08,
+            "features.5.weight": 0.1958072930574417,
+            "features.5.bias": 0.14893783628940582,
+            "features.8.weight": 10.926684379577637,
+            "features.8.bias": 1.0520879811792838e-07,
+            "features.9.weight": 0.21127600967884064,
+            "features.9.bias": 0.21005244553089142,
+            "classifier.weight": 17.42782974243164,
+            "classifier.bias": 0.70107501745224
+          },
+          "clipped_fraction": 0.0,
+          "clipping_bound_t": 1.0,
+          "clipping_bound_next": 1.0,
+          "stage_c_epsilon": Infinity
+        },
+        {
+          "step": 2,
+          "reference_loss": 4.651206787109375,
+          "reference_accuracy": 0.018,
+          "test_loss_readonly": 4.659494018554687,
+          "test_accuracy_readonly": 0.01633333333333333,
+          "mean_total_grad_norm": 23.962659498439077,
+          "mean_layer_grad_norms": {
+            "features.0.weight": 2.4586267471313477,
+            "features.0.bias": 5.091064281259605e-08,
+            "features.1.weight": 0.18285207450389862,
+            "features.1.bias": 0.15016281604766846,
+            "features.4.weight": 11.647517204284668,
+            "features.4.bias": 8.147484464871013e-08,
+            "features.5.weight": 0.17918460071086884,
+            "features.5.bias": 0.1474904865026474,
+            "features.8.weight": 11.05339527130127,
+            "features.8.bias": 1.0944848582994382e-07,
+            "features.9.weight": 0.2294205278158188,
+            "features.9.bias": 0.23743726313114166,
+            "classifier.weight": 17.59577751159668,
+            "classifier.bias": 0.7012340426445007
+          },
+          "clipped_fraction": 0.0,
+          "clipping_bound_t": 1.0,
+          "clipping_bound_next": 1.0,
+          "stage_c_epsilon": Infinity
+        }
+      ],
+      "target_reference_accuracy": 0.038,
+      "step_at_target_reference_accuracy": null,
+      "time_s": 0.08697867393493652,
+      "final_test_accuracy": 0.01633333333333333,
+      "final_reference_accuracy": 0.018,
+      "final_c": 1.0,
+      "privacy": {
+        "privacy_scope": "none",
+        "stage_c_epsilon": Infinity,
+        "stage_c_delta": null,
+        "accountant_type": "none",
+        "noise_mechanism": "none",
+        "sample_rate": 0.0004,
+        "steps": 2,
+        "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+      }
+    },
+    "fixed_dp": {
+      "pipeline": "algorithmic_pytorch_convnet",
+      "backend": "local_plaintext_pytorch",
+      "mode": "fixed_dp",
+      "privacy_scope": "stage_c_only",
+      "dp_protected": true,
+      "feature_extraction_used": false,
+      "initialization_signature": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+      "final_signature": "0c5ea3f650f4a133f1f37d9e3b8812da4d8fe7a251bd9cdd932a0d78b0e6ceed",
+      "history": [
+        {
+          "step": 1,
+          "reference_loss": 4.636380126953125,
+          "reference_accuracy": 0.022,
+          "test_loss_readonly": 4.642974731445313,
+          "test_accuracy_readonly": 0.014,
+          "mean_total_grad_norm": 33.1007059642746,
+          "mean_layer_grad_norms": {
+            "features.0.weight": 3.0163599252700806,
+            "features.0.bias": 1.0054933241576691e-07,
+            "features.1.weight": 0.2822292447090149,
+            "features.1.bias": 0.20788652449846268,
+            "features.4.weight": 15.48116159439087,
+            "features.4.bias": 1.0898947877535647e-07,
+            "features.5.weight": 0.26070043444633484,
+            "features.5.bias": 0.2168656811118126,
+            "features.8.weight": 15.332560539245605,
+            "features.8.bias": 1.469318604563341e-07,
+            "features.9.weight": 0.3033476769924164,
+            "features.9.bias": 0.3288875222206116,
+            "classifier.weight": 24.686800956726074,
+            "classifier.bias": 0.9949597120285034
+          },
+          "clipped_fraction": 1.0,
+          "clipping_bound_t": 1.0,
+          "clipping_bound_next": 1.0,
+          "stage_c_epsilon": 0.33698926714384353
+        },
+        {
+          "step": 2,
+          "reference_loss": 4.646646240234375,
+          "reference_accuracy": 0.016,
+          "test_loss_readonly": 4.645493204752604,
+          "test_accuracy_readonly": 0.011666666666666667,
+          "mean_total_grad_norm": 33.956558891648925,
+          "mean_layer_grad_norms": {
+            "features.0.weight": 3.55518901348114,
+            "features.0.bias": 7.190178408222891e-08,
+            "features.1.weight": 0.2617274522781372,
+            "features.1.bias": 0.21131811290979385,
+            "features.4.weight": 16.45808744430542,
+            "features.4.bias": 1.0652464865756883e-07,
+            "features.5.weight": 0.26662328839302063,
+            "features.5.bias": 0.2255794182419777,
+            "features.8.weight": 15.753350734710693,
+            "features.8.bias": 1.3141500687652297e-07,
+            "features.9.weight": 0.3093094527721405,
+            "features.9.bias": 0.3374275416135788,
+            "classifier.weight": 24.8899564743042,
+            "classifier.bias": 0.9948199689388275
+          },
+          "clipped_fraction": 1.0,
+          "clipping_bound_t": 1.0,
+          "clipping_bound_next": 1.0,
+          "stage_c_epsilon": 0.33763796735665363
+        }
+      ],
+      "target_reference_accuracy": 0.038,
+      "step_at_target_reference_accuracy": null,
+      "time_s": 0.0975654125213623,
+      "final_test_accuracy": 0.011666666666666667,
+      "final_reference_accuracy": 0.016,
+      "final_c": 1.0,
+      "privacy": {
+        "privacy_scope": "stage_c_only",
+        "stage_c_epsilon": 0.33763796735665363,
+        "stage_c_delta": 1e-05,
+        "accountant_type": "opacus_rdp",
+        "noise_mechanism": "gaussian",
+        "noise_multiplier": 1.2,
+        "sample_rate": 0.0004,
+        "steps": 2,
+        "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+      }
+    },
+    "adaptive_dp": {
+      "pipeline": "algorithmic_pytorch_convnet",
+      "backend": "local_plaintext_pytorch",
+      "mode": "adaptive_dp",
+      "privacy_scope": "stage_c_only",
+      "dp_protected": true,
+      "feature_extraction_used": false,
+      "initialization_signature": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+      "final_signature": "25be4d9b4d64ee0d613c8d47eca66e11b79bf8fa870f0d1f10557a597cf443df",
+      "history": [
+        {
+          "step": 1,
+          "reference_loss": 4.6320068359375,
+          "reference_accuracy": 0.018,
+          "test_loss_readonly": 4.645972269694011,
+          "test_accuracy_readonly": 0.015,
+          "mean_total_grad_norm": 33.100705949934564,
+          "mean_layer_grad_norms": {
+            "features.0.weight": 3.016359806060791,
+            "features.0.bias": 9.944334777856056e-08,
+            "features.1.weight": 0.2822292447090149,
+            "features.1.bias": 0.20788652449846268,
+            "features.4.weight": 15.48116159439087,
+            "features.4.bias": 1.0898947877535647e-07,
+            "features.5.weight": 0.26070043444633484,
+            "features.5.bias": 0.2168656811118126,
+            "features.8.weight": 15.332560539245605,
+            "features.8.bias": 1.469318604563341e-07,
+            "features.9.weight": 0.3033476769924164,
+            "features.9.bias": 0.3288875222206116,
+            "classifier.weight": 24.686800956726074,
+            "classifier.bias": 0.9949597120285034
+          },
+          "clipped_fraction": 1.0,
+          "clipping_bound_t": 1.0,
+          "clipping_bound_next": 1.0778841508846315,
+          "stage_c_epsilon": 0.33698926714384353
+        },
+        {
+          "step": 2,
+          "reference_loss": 4.63427880859375,
+          "reference_accuracy": 0.02,
+          "test_loss_readonly": 4.649761474609375,
+          "test_accuracy_readonly": 0.012333333333333333,
+          "mean_total_grad_norm": 33.93607345406584,
+          "mean_layer_grad_norms": {
+            "features.0.weight": 3.4831418991088867,
+            "features.0.bias": 7.944607460785846e-08,
+            "features.1.weight": 0.26885561645030975,
+            "features.1.bias": 0.21096648275852203,
+            "features.4.weight": 16.487509727478027,
+            "features.4.bias": 1.0673136330296984e-07,
+            "features.5.weight": 0.2707515060901642,
+            "features.5.bias": 0.22554118186235428,
+            "features.8.weight": 15.611082553863525,
+            "features.8.bias": 1.3643243335081934e-07,
+            "features.9.weight": 0.3248993754386902,
+            "features.9.bias": 0.3497268259525299,
+            "classifier.weight": 24.949597358703613,
+            "classifier.bias": 0.995286613702774
+          },
+          "clipped_fraction": 1.0,
+          "clipping_bound_t": 1.0778841508846315,
+          "clipping_bound_next": 1.161834242728283,
+          "stage_c_epsilon": 0.33763796735665363
+        }
+      ],
+      "target_reference_accuracy": 0.038,
+      "step_at_target_reference_accuracy": null,
+      "time_s": 0.08896589279174805,
+      "final_test_accuracy": 0.012333333333333333,
+      "final_reference_accuracy": 0.02,
+      "final_c": 1.161834242728283,
+      "privacy": {
+        "privacy_scope": "stage_c_only",
+        "stage_c_epsilon": 0.33763796735665363,
+        "stage_c_delta": 1e-05,
+        "accountant_type": "opacus_rdp",
+        "noise_mechanism": "gaussian",
+        "noise_multiplier": 1.2,
+        "sample_rate": 0.0004,
+        "steps": 2,
+        "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+      }
+    }
+  },
+  "run_id": "20260725_110327",
+  "total_time_s": 4.213018417358398
+}
+json: /mnt/code/lixujie/tfe_experiments/log/json/crossStageConvNet_end2end_cifar100_20260725_110327.json
+csv : /mnt/code/lixujie/tfe_experiments/expTab/crossStageConvNet_end2end_cifar100_20260725_110327.csv

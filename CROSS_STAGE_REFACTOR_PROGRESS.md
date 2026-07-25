@@ -7,7 +7,7 @@
 - [x] Phase 2: Clarify and implement plaintext/MPC boundary
 - [x] Phase 3: Add TFE secure-system Stage-C validation
 - [x] Phase 4: Repair privacy accounting and test-set boundary
-- [ ] Phase 5: Final end-to-end regression and documentation
+- [x] Phase 5: Final end-to-end regression and documentation
 
 ## Recovery Information
 
@@ -188,4 +188,40 @@
 
 ## Phase 5
 
-- Status: `PENDING`
+- Status: `COMPLETED`
+- Added:
+  - `CROSS_STAGE_PIPELINE.md`
+  - `exp_cross_stage_report.py`
+  - `scripts/run_safe_experiment.sh`
+- Safety:
+  - one repository-level `flock`;
+  - one visible GPU;
+  - CPU/BLAS threads fixed to `1`;
+  - datasets executed serially;
+  - PTY session used because this execution environment reaps detached `nohup` children.
+- Three-dataset end-to-end smoke passed:
+  - CIFAR-10: `log/json/crossStageConvNet_end2end_cifar10_20260725_110322.json`
+  - CIFAR-100: `log/json/crossStageConvNet_end2end_cifar100_20260725_110327.json`
+  - Tiny ImageNet: `log/json/crossStageConvNet_end2end_tiny_20260725_110344.json`
+- CIFAR-10 complete feasible run:
+  - 5 clients;
+  - 45 local steps/client;
+  - 20 KD steps/client;
+  - 60 Stage C steps/mode;
+  - Stage B chosen: `KD-Best`;
+  - checkpoint signature verified;
+  - Fixed/Adaptive RDP epsilon: `0.6958885645`;
+  - output: `log/json/crossStageConvNet_end2end_cifar10_20260725_110527.json`.
+- Observed limitation:
+  - With the current untuned Adaptive configuration, `C_t` grows to about `57.4`
+    and accuracy degrades. This result is retained rather than cosmetically tuned;
+    future tuning must use the heldout reference set only.
+- Figure5 full-ConvNet two-step smoke and PNG generation passed:
+  - `expFig/figure5_crossStageConvNet/crossStageConvNet_figure5_cifar10_20260725_110712.png`
+- Unified outputs:
+  - `log/json/crossStageConvNet_unified_20260725_110656.json`
+  - `expTab/crossStageConvNet_unified_20260725_110656.csv`
+- Final boundary documentation distinguishes:
+  - algorithmic full-ConvNet PyTorch pipeline;
+  - representative TFE lightweight system validation;
+  - Stage-C-only DP accounting.

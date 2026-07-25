@@ -69,6 +69,8 @@ Thumbs.db
 autodl_migration_bundle_*/
 autodl_migration_bundle_*.tar
 autodl_migration_bundle_*.tar.*
+.cross_stage_experiment.lock
+run/
 
 # Distilled datasets and official evaluation outputs
 distilledData/

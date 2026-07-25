@@ -1,0 +1,2183 @@
+{
+  "run_id": "20260725_110656",
+  "algorithmic_main_pipeline": "Distilled Images -> PyTorch full ConvNet Stage B -> Chosen full ConvNet -> PyTorch full ConvNet Stage C",
+  "secure_system_validation": "Distilled Images -> Flatten -> TFE lightweight secret-shared training",
+  "privacy_scope": "stage_c_only",
+  "datasets": {
+    "cifar10": {
+      "stage_a_source": "/mnt/code/lixujie/tfe_experiments/log/json/stageA_directImage_cifar10_20260725_100011.json",
+      "stage_a": {
+        "pipeline": "images -> same MTT ConvNet training",
+        "train_steps": 900,
+        "num_full_samples": 50000,
+        "num_distilled_samples": 500,
+        "compression_ratio": 0.01,
+        "results": [
+          {
+            "name": "Full Images",
+            "model": "ConvNetD3",
+            "num_samples": 50000,
+            "history": [
+              {
+                "step": 0,
+                "test_acc": 0.0933,
+                "loss": null
+              },
+              {
+                "step": 100,
+                "test_acc": 0.4868,
+                "loss": 1.818197250366211
+              },
+              {
+                "step": 200,
+                "test_acc": 0.5564,
+                "loss": 1.3917099237442017
+              },
+              {
+                "step": 300,
+                "test_acc": 0.6052,
+                "loss": 1.2717907428741455
+              },
+              {
+                "step": 400,
+                "test_acc": 0.6247,
+                "loss": 1.1393541097640991
+              },
+              {
+                "step": 500,
+                "test_acc": 0.6601,
+                "loss": 1.1460367441177368
+              },
+              {
+                "step": 600,
+                "test_acc": 0.674,
+                "loss": 1.0523158311843872
+              },
+              {
+                "step": 700,
+                "test_acc": 0.6898,
+                "loss": 0.9384164214134216
+              },
+              {
+                "step": 800,
+                "test_acc": 0.704,
+                "loss": 0.9198565483093262
+              },
+              {
+                "step": 900,
+                "test_acc": 0.705,
+                "loss": 0.9041719436645508
+              }
+            ],
+            "final_test_acc": 0.705,
+            "target_accuracy": 0.6,
+            "step_at_target_acc": 300,
+            "train_time_s": 13.94737958908081
+          },
+          {
+            "name": "Randomly Sampled Images",
+            "model": "ConvNetD3",
+            "num_samples": 500,
+            "history": [
+              {
+                "step": 0,
+                "test_acc": 0.104,
+                "loss": null
+              },
+              {
+                "step": 100,
+                "test_acc": 0.3979,
+                "loss": 0.805548369884491
+              },
+              {
+                "step": 200,
+                "test_acc": 0.4407,
+                "loss": 0.43799519538879395
+              },
+              {
+                "step": 300,
+                "test_acc": 0.4655,
+                "loss": 0.14907868206501007
+              },
+              {
+                "step": 400,
+                "test_acc": 0.4732,
+                "loss": 0.07450804114341736
+              },
+              {
+                "step": 500,
+                "test_acc": 0.4769,
+                "loss": 0.03622986376285553
+              },
+              {
+                "step": 600,
+                "test_acc": 0.4773,
+                "loss": 0.038224682211875916
+              },
+              {
+                "step": 700,
+                "test_acc": 0.4804,
+                "loss": 0.031097518280148506
+              },
+              {
+                "step": 800,
+                "test_acc": 0.4821,
+                "loss": 0.021967127919197083
+              },
+              {
+                "step": 900,
+                "test_acc": 0.4826,
+                "loss": 0.02255898527801037
+              }
+            ],
+            "final_test_acc": 0.4826,
+            "target_accuracy": 0.6,
+            "step_at_target_acc": null,
+            "train_time_s": 13.576760530471802
+          },
+          {
+            "name": "Distilled Images",
+            "model": "ConvNetD3",
+            "num_samples": 500,
+            "history": [
+              {
+                "step": 0,
+                "test_acc": 0.0984,
+                "loss": null
+              },
+              {
+                "step": 100,
+                "test_acc": 0.5736,
+                "loss": 0.6454711556434631
+              },
+              {
+                "step": 200,
+                "test_acc": 0.6558,
+                "loss": 0.1549639105796814
+              },
+              {
+                "step": 300,
+                "test_acc": 0.6728,
+                "loss": 0.03767774626612663
+              },
+              {
+                "step": 400,
+                "test_acc": 0.68,
+                "loss": 0.023557256907224655
+              },
+              {
+                "step": 500,
+                "test_acc": 0.6768,
+                "loss": 0.01777469553053379
+              },
+              {
+                "step": 600,
+                "test_acc": 0.6787,
+                "loss": 0.015876267105340958
+              },
+              {
+                "step": 700,
+                "test_acc": 0.682,
+                "loss": 0.014304221607744694
+              },
+              {
+                "step": 800,
+                "test_acc": 0.681,
+                "loss": 0.013546310365200043
+              },
+              {
+                "step": 900,
+                "test_acc": 0.6813,
+                "loss": 0.01014363206923008
+              }
+            ],
+            "final_test_acc": 0.6813,
+            "target_accuracy": 0.6,
+            "step_at_target_acc": 200,
+            "train_time_s": 8.640874147415161
+          }
+        ]
+      },
+      "algorithmic_main_source": "/mnt/code/lixujie/tfe_experiments/log/json/crossStageConvNet_end2end_cifar10_20260725_110527.json",
+      "algorithmic_main": {
+        "dataset": "cifar10",
+        "seed": 42,
+        "pipeline": "algorithmic_pytorch_convnet",
+        "backend": "local_plaintext_pytorch",
+        "stage_a": {
+          "input": "official_mtt_distilled_nchw_images",
+          "dp_protected": false,
+          "feature_extraction_used": false
+        },
+        "stage_b": {
+          "backend": "local_plaintext_pytorch",
+          "input_type": "nchw_images",
+          "input_shape": [
+            500,
+            3,
+            32,
+            32
+          ],
+          "feature_extraction_used": false,
+          "model_class": "ConvNet",
+          "model_name": "ConvNetD3",
+          "model_schema": {
+            "features.0.weight": [
+              128,
+              3,
+              3,
+              3
+            ],
+            "features.0.bias": [
+              128
+            ],
+            "features.1.weight": [
+              128
+            ],
+            "features.1.bias": [
+              128
+            ],
+            "features.4.weight": [
+              128,
+              128,
+              3,
+              3
+            ],
+            "features.4.bias": [
+              128
+            ],
+            "features.5.weight": [
+              128
+            ],
+            "features.5.bias": [
+              128
+            ],
+            "features.8.weight": [
+              128,
+              128,
+              3,
+              3
+            ],
+            "features.8.bias": [
+              128
+            ],
+            "features.9.weight": [
+              128
+            ],
+            "features.9.bias": [
+              128
+            ],
+            "classifier.weight": [
+              10,
+              2048
+            ],
+            "classifier.bias": [
+              10
+            ]
+          },
+          "chosen_name": "KD-Best",
+          "chosen_signature": "3eb8a597317626269876dbe4a2212ade7fdd926ec6107e1ec49c814ccf0ae9f7",
+          "candidate_ref_scores": {
+            "KD-Avg": 0.14,
+            "KD-ReferenceWeighted": 0.12,
+            "KD-Best": 0.46
+          },
+          "reference_weights": [
+            0.12102429299332573,
+            0.2562084302774078,
+            0.09425381415386522,
+            0.1995353261295406,
+            0.32897813644586066
+          ],
+          "kd_parameter_changed": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "stage_b_checkpoint": "/mnt/code/lixujie/tfe_experiments/init_model/cross_stage_convnet/crossStageConvNet_stageB_chosen_cifar10_seed42.pt",
+        "checkpoint_sha256": "ffff753d92fee572d70099ca4d5fb0f038d4ebf3e7659a1291abdb6a93c3a523",
+        "checkpoint_state_signature_before": "3eb8a597317626269876dbe4a2212ade7fdd926ec6107e1ec49c814ccf0ae9f7",
+        "checkpoint_state_signature_after": "3eb8a597317626269876dbe4a2212ade7fdd926ec6107e1ec49c814ccf0ae9f7",
+        "checkpoint_signature_verified": true,
+        "target_source": "heldout_reference_set",
+        "target_reference_accuracy": 0.48000000000000004,
+        "test_usage": "fixed_interval_readonly_reporting",
+        "privacy_scope": "stage_c_only",
+        "stage_c": {
+          "plain": {
+            "pipeline": "algorithmic_pytorch_convnet",
+            "backend": "local_plaintext_pytorch",
+            "mode": "plain",
+            "privacy_scope": "none",
+            "dp_protected": false,
+            "feature_extraction_used": false,
+            "initialization_signature": "3eb8a597317626269876dbe4a2212ade7fdd926ec6107e1ec49c814ccf0ae9f7",
+            "final_signature": "993170d279d889216e6ccdf83d3d7598aa505865ec5714e02aa76278801d94c5",
+            "history": [
+              {
+                "step": 10,
+                "reference_loss": 1.7659591674804687,
+                "reference_accuracy": 0.38,
+                "test_loss_readonly": 2.005993153889974,
+                "test_accuracy_readonly": 0.291,
+                "mean_total_grad_norm": 18.498716476929246,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 2.078712224960327,
+                  "features.0.bias": 4.9094701637386606e-08,
+                  "features.1.weight": 0.18565526604652405,
+                  "features.1.bias": 0.17472484707832336,
+                  "features.4.weight": 8.129195213317871,
+                  "features.4.bias": 7.067474427913112e-08,
+                  "features.5.weight": 0.22798244655132294,
+                  "features.5.bias": 0.19518479704856873,
+                  "features.8.weight": 10.284004211425781,
+                  "features.8.bias": 8.801614370668176e-08,
+                  "features.9.weight": 0.20527049899101257,
+                  "features.9.bias": 0.19991956651210785,
+                  "classifier.weight": 12.866362571716309,
+                  "classifier.bias": 0.5064265131950378
+                },
+                "clipped_fraction": 0.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": Infinity
+              },
+              {
+                "step": 20,
+                "reference_loss": 1.7897621154785157,
+                "reference_accuracy": 0.4,
+                "test_loss_readonly": 2.042073547363281,
+                "test_accuracy_readonly": 0.2623333333333333,
+                "mean_total_grad_norm": 12.948688445229298,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 1.825079083442688,
+                  "features.0.bias": 3.834926332046962e-08,
+                  "features.1.weight": 0.1392611712217331,
+                  "features.1.bias": 0.115199513733387,
+                  "features.4.weight": 6.205172538757324,
+                  "features.4.bias": 4.661703201236378e-08,
+                  "features.5.weight": 0.15614864230155945,
+                  "features.5.bias": 0.15130871534347534,
+                  "features.8.weight": 7.627126693725586,
+                  "features.8.bias": 5.8553549564521745e-08,
+                  "features.9.weight": 0.16622717678546906,
+                  "features.9.bias": 0.14330945909023285,
+                  "classifier.weight": 8.213973045349121,
+                  "classifier.bias": 0.2508484721183777
+                },
+                "clipped_fraction": 0.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": Infinity
+              },
+              {
+                "step": 30,
+                "reference_loss": 1.798504638671875,
+                "reference_accuracy": 0.46,
+                "test_loss_readonly": 2.054480204264323,
+                "test_accuracy_readonly": 0.2906666666666667,
+                "mean_total_grad_norm": 17.207534720863165,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 2.0635194778442383,
+                  "features.0.bias": 5.113124856848117e-08,
+                  "features.1.weight": 0.16653180122375488,
+                  "features.1.bias": 0.12760360538959503,
+                  "features.4.weight": 8.242484092712402,
+                  "features.4.bias": 6.53342056011752e-08,
+                  "features.5.weight": 0.21971945464611053,
+                  "features.5.bias": 0.19230282306671143,
+                  "features.8.weight": 10.12169075012207,
+                  "features.8.bias": 8.106394489004742e-08,
+                  "features.9.weight": 0.2247895747423172,
+                  "features.9.bias": 0.2069099247455597,
+                  "classifier.weight": 11.004669189453125,
+                  "classifier.bias": 0.3586219549179077
+                },
+                "clipped_fraction": 0.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": Infinity
+              },
+              {
+                "step": 40,
+                "reference_loss": 1.6740113830566405,
+                "reference_accuracy": 0.44,
+                "test_loss_readonly": 1.8884616902669271,
+                "test_accuracy_readonly": 0.347,
+                "mean_total_grad_norm": 16.224072854582865,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 1.817515254020691,
+                  "features.0.bias": 3.9020715547621876e-08,
+                  "features.1.weight": 0.15704046189785004,
+                  "features.1.bias": 0.14104624092578888,
+                  "features.4.weight": 7.279370307922363,
+                  "features.4.bias": 6.09596213507757e-08,
+                  "features.5.weight": 0.20300425589084625,
+                  "features.5.bias": 0.1774398684501648,
+                  "features.8.weight": 9.088924407958984,
+                  "features.8.bias": 6.97389026527162e-08,
+                  "features.9.weight": 0.2167174071073532,
+                  "features.9.bias": 0.20540131628513336,
+                  "classifier.weight": 11.13234806060791,
+                  "classifier.bias": 0.428737610578537
+                },
+                "clipped_fraction": 0.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": Infinity
+              },
+              {
+                "step": 50,
+                "reference_loss": 1.783828125,
+                "reference_accuracy": 0.42,
+                "test_loss_readonly": 1.9732308044433593,
+                "test_accuracy_readonly": 0.32566666666666666,
+                "mean_total_grad_norm": 16.380166663783722,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 2.0488195419311523,
+                  "features.0.bias": 3.226196199079823e-08,
+                  "features.1.weight": 0.18054482340812683,
+                  "features.1.bias": 0.1055942177772522,
+                  "features.4.weight": 7.156606197357178,
+                  "features.4.bias": 5.2994550969742704e-08,
+                  "features.5.weight": 0.21257203817367554,
+                  "features.5.bias": 0.1669461876153946,
+                  "features.8.weight": 9.066883087158203,
+                  "features.8.bias": 6.496100013464456e-08,
+                  "features.9.weight": 0.24046145379543304,
+                  "features.9.bias": 0.2117663323879242,
+                  "classifier.weight": 11.414555549621582,
+                  "classifier.bias": 0.418653279542923
+                },
+                "clipped_fraction": 0.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": Infinity
+              },
+              {
+                "step": 60,
+                "reference_loss": 1.755526580810547,
+                "reference_accuracy": 0.48,
+                "test_loss_readonly": 1.9285121154785156,
+                "test_accuracy_readonly": 0.33466666666666667,
+                "mean_total_grad_norm": 16.43775290673794,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 2.6451666355133057,
+                  "features.0.bias": 5.372538680603611e-08,
+                  "features.1.weight": 0.17553412914276123,
+                  "features.1.bias": 0.15257811546325684,
+                  "features.4.weight": 7.694574356079102,
+                  "features.4.bias": 6.064065161126564e-08,
+                  "features.5.weight": 0.19609703123569489,
+                  "features.5.bias": 0.17024485766887665,
+                  "features.8.weight": 9.307238578796387,
+                  "features.8.bias": 7.790960410147818e-08,
+                  "features.9.weight": 0.2251865714788437,
+                  "features.9.bias": 0.20890341699123383,
+                  "classifier.weight": 10.817021369934082,
+                  "classifier.bias": 0.3844778835773468
+                },
+                "clipped_fraction": 0.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": Infinity
+              }
+            ],
+            "target_reference_accuracy": 0.48000000000000004,
+            "step_at_target_reference_accuracy": null,
+            "time_s": 0.25989270210266113,
+            "final_test_accuracy": 0.33466666666666667,
+            "final_reference_accuracy": 0.48,
+            "final_c": 1.0,
+            "privacy": {
+              "privacy_scope": "none",
+              "stage_c_epsilon": Infinity,
+              "stage_c_delta": null,
+              "accountant_type": "none",
+              "noise_mechanism": "none",
+              "sample_rate": 0.008,
+              "steps": 60,
+              "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+            }
+          },
+          "fixed_dp": {
+            "pipeline": "algorithmic_pytorch_convnet",
+            "backend": "local_plaintext_pytorch",
+            "mode": "fixed_dp",
+            "privacy_scope": "stage_c_only",
+            "dp_protected": true,
+            "feature_extraction_used": false,
+            "initialization_signature": "3eb8a597317626269876dbe4a2212ade7fdd926ec6107e1ec49c814ccf0ae9f7",
+            "final_signature": "f369cb0891e20b44718911530e0ba37ada80f104bbf872437ba2873126b19099",
+            "history": [
+              {
+                "step": 10,
+                "reference_loss": 1.6651821899414063,
+                "reference_accuracy": 0.42,
+                "test_loss_readonly": 1.9913009745279948,
+                "test_accuracy_readonly": 0.32133333333333336,
+                "mean_total_grad_norm": 35.78048376805891,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 4.559991896152496,
+                  "features.0.bias": 8.485861080487211e-08,
+                  "features.1.weight": 0.35475119948387146,
+                  "features.1.bias": 0.3106250427663326,
+                  "features.4.weight": 16.467772483825684,
+                  "features.4.bias": 1.3312117275177116e-07,
+                  "features.5.weight": 0.4326230138540268,
+                  "features.5.bias": 0.3575047180056572,
+                  "features.8.weight": 20.110508918762207,
+                  "features.8.bias": 1.5363959704473018e-07,
+                  "features.9.weight": 0.4641725942492485,
+                  "features.9.bias": 0.443515807390213,
+                  "classifier.weight": 24.048052310943604,
+                  "classifier.bias": 0.9323659986257553
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": 0.6254891617409998
+              },
+              {
+                "step": 20,
+                "reference_loss": 1.7037176513671874,
+                "reference_accuracy": 0.44,
+                "test_loss_readonly": 1.9832807312011718,
+                "test_accuracy_readonly": 0.31933333333333336,
+                "mean_total_grad_norm": 25.314495446009197,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 3.0746008828282356,
+                  "features.0.bias": 5.9430338317234543e-08,
+                  "features.1.weight": 0.2395086162723601,
+                  "features.1.bias": 0.21722130617126822,
+                  "features.4.weight": 11.462061643600464,
+                  "features.4.bias": 1.0926975968494901e-07,
+                  "features.5.weight": 0.3144510481506586,
+                  "features.5.bias": 0.28630113136023283,
+                  "features.8.weight": 14.188335686922073,
+                  "features.8.bias": 1.1911979092005254e-07,
+                  "features.9.weight": 0.3512461371719837,
+                  "features.9.bias": 0.3372556073591113,
+                  "classifier.weight": 17.218638092279434,
+                  "classifier.bias": 0.671342296525836
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": 0.64248105445457
+              },
+              {
+                "step": 30,
+                "reference_loss": 1.7140605163574218,
+                "reference_accuracy": 0.42,
+                "test_loss_readonly": 1.9871602478027344,
+                "test_accuracy_readonly": 0.31533333333333335,
+                "mean_total_grad_norm": 37.52136135608752,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 4.264875829219818,
+                  "features.0.bias": 8.829672282217871e-08,
+                  "features.1.weight": 0.3636392280459404,
+                  "features.1.bias": 0.3044130951166153,
+                  "features.4.weight": 17.27670931816101,
+                  "features.4.bias": 1.3695163225690976e-07,
+                  "features.5.weight": 0.4867699071764946,
+                  "features.5.bias": 0.4215630888938904,
+                  "features.8.weight": 20.74705457687378,
+                  "features.8.bias": 1.7761997739285107e-07,
+                  "features.9.weight": 0.5268934816122055,
+                  "features.9.bias": 0.5380729511380196,
+                  "classifier.weight": 25.637906551361084,
+                  "classifier.bias": 1.0086237490177155
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": 0.6594729471681402
+              },
+              {
+                "step": 40,
+                "reference_loss": 1.6976382446289062,
+                "reference_accuracy": 0.44,
+                "test_loss_readonly": 1.975845662434896,
+                "test_accuracy_readonly": 0.32033333333333336,
+                "mean_total_grad_norm": 30.158261813886874,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 3.689670115709305,
+                  "features.0.bias": 7.015103209440099e-08,
+                  "features.1.weight": 0.31488294526934624,
+                  "features.1.bias": 0.2818837258964777,
+                  "features.4.weight": 14.37612760066986,
+                  "features.4.bias": 1.1353993478735447e-07,
+                  "features.5.weight": 0.3937714509665966,
+                  "features.5.bias": 0.34978971630334854,
+                  "features.8.weight": 16.980156421661377,
+                  "features.8.bias": 1.4538744697034645e-07,
+                  "features.9.weight": 0.4413730092346668,
+                  "features.9.bias": 0.41419221088290215,
+                  "classifier.weight": 19.909749388694763,
+                  "classifier.bias": 0.7891719974577427
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": 0.6764648398817105
+              },
+              {
+                "step": 50,
+                "reference_loss": 1.727733154296875,
+                "reference_accuracy": 0.48,
+                "test_loss_readonly": 1.9925537719726563,
+                "test_accuracy_readonly": 0.30933333333333335,
+                "mean_total_grad_norm": 33.933521400582556,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 4.424675643444061,
+                  "features.0.bias": 6.801092578001544e-08,
+                  "features.1.weight": 0.34581508487463,
+                  "features.1.bias": 0.2725750468671322,
+                  "features.4.weight": 15.861705541610718,
+                  "features.4.bias": 1.1619285267272517e-07,
+                  "features.5.weight": 0.4865129366517067,
+                  "features.5.bias": 0.395964901894331,
+                  "features.8.weight": 19.60470747947693,
+                  "features.8.bias": 1.5383227669474309e-07,
+                  "features.9.weight": 0.5122608840465546,
+                  "features.9.bias": 0.481779046356678,
+                  "classifier.weight": 22.19639015197754,
+                  "classifier.bias": 0.8518485575914383
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": 0.6908441317816808
+              },
+              {
+                "step": 60,
+                "reference_loss": 1.7341732788085937,
+                "reference_accuracy": 0.44,
+                "test_loss_readonly": 1.9923379923502604,
+                "test_accuracy_readonly": 0.307,
+                "mean_total_grad_norm": 38.741683601901485,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 5.032318413257599,
+                  "features.0.bias": 1.0341568135174839e-07,
+                  "features.1.weight": 0.4373417943716049,
+                  "features.1.bias": 0.37711121141910553,
+                  "features.4.weight": 18.187623023986816,
+                  "features.4.bias": 1.6085111198549384e-07,
+                  "features.5.weight": 0.5398576408624649,
+                  "features.5.bias": 0.47976937890052795,
+                  "features.8.weight": 21.90984344482422,
+                  "features.8.bias": 2.0120156207781292e-07,
+                  "features.9.weight": 0.6025976464152336,
+                  "features.9.bias": 0.6021053940057755,
+                  "classifier.weight": 25.715107917785645,
+                  "classifier.bias": 1.0116775333881378
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": 0.6958885645475794
+              }
+            ],
+            "target_reference_accuracy": 0.48000000000000004,
+            "step_at_target_reference_accuracy": null,
+            "time_s": 0.5351974964141846,
+            "final_test_accuracy": 0.307,
+            "final_reference_accuracy": 0.44,
+            "final_c": 1.0,
+            "privacy": {
+              "privacy_scope": "stage_c_only",
+              "stage_c_epsilon": 0.6958885645475794,
+              "stage_c_delta": 1e-05,
+              "accountant_type": "opacus_rdp",
+              "noise_mechanism": "gaussian",
+              "noise_multiplier": 1.2,
+              "sample_rate": 0.008,
+              "steps": 60,
+              "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+            }
+          },
+          "adaptive_dp": {
+            "pipeline": "algorithmic_pytorch_convnet",
+            "backend": "local_plaintext_pytorch",
+            "mode": "adaptive_dp",
+            "privacy_scope": "stage_c_only",
+            "dp_protected": true,
+            "feature_extraction_used": false,
+            "initialization_signature": "3eb8a597317626269876dbe4a2212ade7fdd926ec6107e1ec49c814ccf0ae9f7",
+            "final_signature": "b220b56d781704ccb4036fd57aadf0e4528c5fe954d57a38747199ac56ccafde",
+            "history": [
+              {
+                "step": 10,
+                "reference_loss": 1.7488081359863281,
+                "reference_accuracy": 0.32,
+                "test_loss_readonly": 1.995276397705078,
+                "test_accuracy_readonly": 0.31133333333333335,
+                "mean_total_grad_norm": 34.58727515084061,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 4.33754700422287,
+                  "features.0.bias": 8.251363681210933e-08,
+                  "features.1.weight": 0.3440525457262993,
+                  "features.1.bias": 0.30474498867988586,
+                  "features.4.weight": 15.881152391433716,
+                  "features.4.bias": 1.3307892743341654e-07,
+                  "features.5.weight": 0.4146779105067253,
+                  "features.5.bias": 0.3570045754313469,
+                  "features.8.weight": 19.360785484313965,
+                  "features.8.bias": 1.5192475899539204e-07,
+                  "features.9.weight": 0.45479536801576614,
+                  "features.9.bias": 0.4503599554300308,
+                  "classifier.weight": 23.370495796203613,
+                  "classifier.bias": 0.9100989997386932
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.9640329759698472,
+                "clipping_bound_next": 2.117000016612675,
+                "stage_c_epsilon": 0.6254891617409998
+              },
+              {
+                "step": 20,
+                "reference_loss": 1.9948614501953126,
+                "reference_accuracy": 0.38,
+                "test_loss_readonly": 2.117282897949219,
+                "test_accuracy_readonly": 0.24866666666666667,
+                "mean_total_grad_norm": 26.756247298990303,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 4.2671602219343185,
+                  "features.0.bias": 8.119047834043158e-08,
+                  "features.1.weight": 0.33332400023937225,
+                  "features.1.bias": 0.26324690505862236,
+                  "features.4.weight": 13.116673052310944,
+                  "features.4.bias": 1.0177934095523256e-07,
+                  "features.5.weight": 0.3850383087992668,
+                  "features.5.bias": 0.33861226961016655,
+                  "features.8.weight": 14.718319594860077,
+                  "features.8.bias": 1.294928089201619e-07,
+                  "features.9.weight": 0.4282401520758867,
+                  "features.9.bias": 0.41866815462708473,
+                  "classifier.weight": 17.457737803459167,
+                  "classifier.bias": 0.6895799674093723
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 4.157857842756006,
+                "clipping_bound_next": 4.481689070338064,
+                "stage_c_epsilon": 0.64248105445457
+              },
+              {
+                "step": 30,
+                "reference_loss": 2.4000895690917967,
+                "reference_accuracy": 0.24,
+                "test_loss_readonly": 2.44504296875,
+                "test_accuracy_readonly": 0.15933333333333333,
+                "mean_total_grad_norm": 41.97337806234451,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 8.96413540840149,
+                  "features.0.bias": 1.7108407845967122e-07,
+                  "features.1.weight": 0.7991147339344025,
+                  "features.1.bias": 0.6318227648735046,
+                  "features.4.weight": 21.116601943969727,
+                  "features.4.bias": 1.6891033283172874e-07,
+                  "features.5.weight": 0.8331110775470734,
+                  "features.5.bias": 0.7151347398757935,
+                  "features.8.weight": 22.33738613128662,
+                  "features.8.bias": 2.0873772754725906e-07,
+                  "features.9.weight": 0.9819010943174362,
+                  "features.9.bias": 1.0235413759946823,
+                  "classifier.weight": 27.016185760498047,
+                  "classifier.bias": 1.0831389725208282
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 8.802185122187604,
+                "clipping_bound_next": 9.487735836358521,
+                "stage_c_epsilon": 0.6594729471681402
+              },
+              {
+                "step": 40,
+                "reference_loss": 3.614403076171875,
+                "reference_accuracy": 0.08,
+                "test_loss_readonly": 3.410176981608073,
+                "test_accuracy_readonly": 0.122,
+                "mean_total_grad_norm": 39.31275458631651,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 14.891497373580933,
+                  "features.0.bias": 2.739581148603065e-07,
+                  "features.1.weight": 1.4348046481609344,
+                  "features.1.bias": 1.2903227508068085,
+                  "features.4.weight": 20.748851776123047,
+                  "features.4.bias": 1.6023235005491188e-07,
+                  "features.5.weight": 1.3198363482952118,
+                  "features.5.bias": 1.1403236389160156,
+                  "features.8.weight": 18.64381217956543,
+                  "features.8.bias": 1.7018668430068828e-07,
+                  "features.9.weight": 1.6272910237312317,
+                  "features.9.bias": 1.7163305580615997,
+                  "classifier.weight": 22.840487480163574,
+                  "classifier.bias": 0.9255177825689316
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 18.63422604989899,
+                "clipping_bound_next": 20.085536923187657,
+                "stage_c_epsilon": 0.6764648398817105
+              },
+              {
+                "step": 50,
+                "reference_loss": 5.179140625,
+                "reference_accuracy": 0.12,
+                "test_loss_readonly": 5.670203287760416,
+                "test_accuracy_readonly": 0.102,
+                "mean_total_grad_norm": 51.173357058431236,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 25.500761032104492,
+                  "features.0.bias": 3.7255265183944175e-07,
+                  "features.1.weight": 3.367631435394287,
+                  "features.1.bias": 2.694683998823166,
+                  "features.4.weight": 23.81821298599243,
+                  "features.4.bias": 1.6466461616460037e-07,
+                  "features.5.weight": 3.141349971294403,
+                  "features.5.bias": 2.6453778743743896,
+                  "features.8.weight": 23.111687660217285,
+                  "features.8.bias": 1.9726798683450397e-07,
+                  "features.9.weight": 4.136124014854431,
+                  "features.9.bias": 4.308680355548859,
+                  "classifier.weight": 28.07924795150757,
+                  "classifier.bias": 1.107513427734375
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 35.25121511458853,
+                "clipping_bound_next": 37.99672607143975,
+                "stage_c_epsilon": 0.6908441317816808
+              },
+              {
+                "step": 60,
+                "reference_loss": 10.579609375,
+                "reference_accuracy": 0.16,
+                "test_loss_readonly": 10.684936604817707,
+                "test_accuracy_readonly": 0.105,
+                "mean_total_grad_norm": 66.3303640610416,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 32.15481376647949,
+                  "features.0.bias": 6.837592962938288e-07,
+                  "features.1.weight": 7.596434950828552,
+                  "features.1.bias": 6.2773613929748535,
+                  "features.4.weight": 30.74538278579712,
+                  "features.4.bias": 2.2295004598049672e-07,
+                  "features.5.weight": 6.576959848403931,
+                  "features.5.bias": 5.74507737159729,
+                  "features.8.weight": 28.941216468811035,
+                  "features.8.bias": 2.7267082103321627e-07,
+                  "features.9.weight": 8.929187774658203,
+                  "features.9.bias": 9.667626142501831,
+                  "classifier.weight": 34.78477096557617,
+                  "classifier.bias": 1.3436273336410522
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 53.2501169057356,
+                "clipping_bound_next": 57.39745704544618,
+                "stage_c_epsilon": 0.6958885645475794
+              }
+            ],
+            "target_reference_accuracy": 0.48000000000000004,
+            "step_at_target_reference_accuracy": null,
+            "time_s": 0.526775598526001,
+            "final_test_accuracy": 0.105,
+            "final_reference_accuracy": 0.16,
+            "final_c": 57.39745704544618,
+            "privacy": {
+              "privacy_scope": "stage_c_only",
+              "stage_c_epsilon": 0.6958885645475794,
+              "stage_c_delta": 1e-05,
+              "accountant_type": "opacus_rdp",
+              "noise_mechanism": "gaussian",
+              "noise_multiplier": 1.2,
+              "sample_rate": 0.008,
+              "steps": 60,
+              "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+            }
+          }
+        },
+        "run_id": "20260725_110527",
+        "total_time_s": 5.535527467727661
+      },
+      "secure_system_validation": {
+        "source": "/mnt/code/lixujie/tfe_experiments/log/json/stageC_tfe_secure_system_cifar10_20260725_105947.json",
+        "result": {
+          "run_id": "20260725_105947",
+          "track": "secure_system_tfe_lightweight",
+          "dataset": "cifar10",
+          "cpu_threads": 1,
+          "fallback_used": false,
+          "nonprivate_secure_sanity": {
+            "status": "PASS",
+            "backend": "tfe_mpc",
+            "protocol": "ABY3",
+            "model": "Flatten+Dense",
+            "input_samples": 20,
+            "input_dimension": 3072,
+            "input_bytes": 245760,
+            "model_parameter_bytes": 245840,
+            "steps": 2,
+            "loss_history": [
+              0.3895172119140625,
+              0.355548095703125,
+              0.3297393798828125
+            ],
+            "initial_accuracy_revealed": 0.05,
+            "final_accuracy_revealed": 0.05,
+            "runtime_s": 0.5748729705810547,
+            "communication_bytes": "N/A: local TFE ABY3 runtime exposes no transport counter",
+            "communication_rounds": "N/A: local TFE ABY3 runtime exposes no round counter",
+            "network_configuration": "single-process local simulation; LAN/WAN not measured",
+            "secret_shared_inputs": [
+              "flattened_distilled_images",
+              "onehot_labels",
+              "model_parameters"
+            ],
+            "revealed_values": [
+              "loss",
+              "prediction_logits",
+              "final_model_parameters"
+            ],
+            "source_files": [
+              "/home/lixujie/tmpWork/mtt_data/georgecazenavette/cifar10_50/images_best.pt"
+            ]
+          },
+          "capability_audit": {
+            "nonprivate_secret_shared_training": {
+              "status": "SUPPORTED",
+              "available_primitives": [
+                "private variables",
+                "Dense",
+                "matmul/add",
+                "SGD update"
+              ]
+            },
+            "fixed_dp_exact_per_example_clipping": {
+              "status": "BLOCKED",
+              "reason": "TFE 0.8.0 lacks a validated graph for exact per-example gradient norms, secure comparison-based clipping, and adaptive quantile updates for this model.",
+              "missing_primitives": [
+                "validated per-example autograd graph",
+                "stable secure norm/comparison clipping pipeline"
+              ]
+            },
+            "adaptive_clipping": {
+              "status": "BLOCKED",
+              "reason": "TFE 0.8.0 lacks a validated graph for exact per-example gradient norms, secure comparison-based clipping, and adaptive quantile updates for this model.",
+              "required_order": "use C_t this step; update C_{t+1} for next step"
+            },
+            "tfe_mpc_noise_generation": {
+              "status": "BLOCKED",
+              "reason": "TF 1.15.5 secure-random custom op is missing; available module targets a different TensorFlow version.",
+              "expected_custom_op": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.5.so",
+              "found_custom_ops": [
+                "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.2.so"
+              ],
+              "numpy_binomial_simulation_is_mpc": false
+            },
+            "full_mtt_convnet": {
+              "status": "BLOCKED",
+              "reason": "TFE layers do not provide the GroupNorm used by the exact MTT ConvNet."
+            }
+          },
+          "limitations": [
+            "This is a representative lightweight TFE system validation, not the full-ConvNet algorithmic pipeline.",
+            "Revealed values are explicitly listed; no end-to-end secure selection is claimed.",
+            "Fixed/Adaptive secure DP-SGD is BLOCKED rather than replaced by plaintext or insecure random noise."
+          ],
+          "total_runtime_s": 1.0168771743774414
+        }
+      }
+    },
+    "cifar100": {
+      "stage_a_source": "/mnt/code/lixujie/tfe_experiments/log/json/stageA_directImage_cifar100_20260725_100048.json",
+      "stage_a": {
+        "pipeline": "images -> same MTT ConvNet training",
+        "train_steps": 800,
+        "num_full_samples": 50000,
+        "num_distilled_samples": 5000,
+        "compression_ratio": 0.1,
+        "results": [
+          {
+            "name": "Full Images",
+            "model": "ConvNetD3",
+            "num_samples": 50000,
+            "history": [
+              {
+                "step": 0,
+                "test_acc": 0.01,
+                "loss": null
+              },
+              {
+                "step": 100,
+                "test_acc": 0.1215,
+                "loss": 3.989741325378418
+              },
+              {
+                "step": 200,
+                "test_acc": 0.1778,
+                "loss": 3.683363914489746
+              },
+              {
+                "step": 300,
+                "test_acc": 0.2325,
+                "loss": 3.4178433418273926
+              },
+              {
+                "step": 400,
+                "test_acc": 0.2645,
+                "loss": 3.275352954864502
+              },
+              {
+                "step": 500,
+                "test_acc": 0.2954,
+                "loss": 3.120058059692383
+              },
+              {
+                "step": 600,
+                "test_acc": 0.3049,
+                "loss": 3.184682607650757
+              },
+              {
+                "step": 700,
+                "test_acc": 0.32,
+                "loss": 3.041818380355835
+              },
+              {
+                "step": 800,
+                "test_acc": 0.3209,
+                "loss": 2.9593114852905273
+              }
+            ],
+            "final_test_acc": 0.3209,
+            "target_accuracy": 0.3,
+            "step_at_target_acc": 600,
+            "train_time_s": 12.202274084091187
+          },
+          {
+            "name": "Randomly Sampled Images",
+            "model": "ConvNetD3",
+            "num_samples": 5000,
+            "history": [
+              {
+                "step": 0,
+                "test_acc": 0.0097,
+                "loss": null
+              },
+              {
+                "step": 100,
+                "test_acc": 0.1171,
+                "loss": 3.863771438598633
+              },
+              {
+                "step": 200,
+                "test_acc": 0.1689,
+                "loss": 3.4592158794403076
+              },
+              {
+                "step": 300,
+                "test_acc": 0.2166,
+                "loss": 3.1155779361724854
+              },
+              {
+                "step": 400,
+                "test_acc": 0.2433,
+                "loss": 2.9075675010681152
+              },
+              {
+                "step": 500,
+                "test_acc": 0.2644,
+                "loss": 2.6310977935791016
+              },
+              {
+                "step": 600,
+                "test_acc": 0.2848,
+                "loss": 2.4378437995910645
+              },
+              {
+                "step": 700,
+                "test_acc": 0.2872,
+                "loss": 2.4646735191345215
+              },
+              {
+                "step": 800,
+                "test_acc": 0.2881,
+                "loss": 2.581303119659424
+              }
+            ],
+            "final_test_acc": 0.2881,
+            "target_accuracy": 0.3,
+            "step_at_target_acc": null,
+            "train_time_s": 12.118562936782837
+          },
+          {
+            "name": "Distilled Images",
+            "model": "ConvNetD3",
+            "num_samples": 5000,
+            "history": [
+              {
+                "step": 0,
+                "test_acc": 0.0096,
+                "loss": null
+              },
+              {
+                "step": 100,
+                "test_acc": 0.168,
+                "loss": 3.6842942237854004
+              },
+              {
+                "step": 200,
+                "test_acc": 0.2694,
+                "loss": 2.197843551635742
+              },
+              {
+                "step": 300,
+                "test_acc": 0.3371,
+                "loss": 1.6232630014419556
+              },
+              {
+                "step": 400,
+                "test_acc": 0.3664,
+                "loss": 0.9643707275390625
+              },
+              {
+                "step": 500,
+                "test_acc": 0.3904,
+                "loss": 0.8683122992515564
+              },
+              {
+                "step": 600,
+                "test_acc": 0.3912,
+                "loss": 0.7155845165252686
+              },
+              {
+                "step": 700,
+                "test_acc": 0.4055,
+                "loss": 0.6599323153495789
+              },
+              {
+                "step": 800,
+                "test_acc": 0.4079,
+                "loss": 0.6249762773513794
+              }
+            ],
+            "final_test_acc": 0.4079,
+            "target_accuracy": 0.3,
+            "step_at_target_acc": 300,
+            "train_time_s": 7.722281217575073
+          }
+        ]
+      },
+      "algorithmic_main_source": "/mnt/code/lixujie/tfe_experiments/log/json/crossStageConvNet_end2end_cifar100_20260725_110327.json",
+      "algorithmic_main": {
+        "dataset": "cifar100",
+        "seed": 42,
+        "pipeline": "algorithmic_pytorch_convnet",
+        "backend": "local_plaintext_pytorch",
+        "stage_a": {
+          "input": "official_mtt_distilled_nchw_images",
+          "dp_protected": false,
+          "feature_extraction_used": false
+        },
+        "stage_b": {
+          "backend": "local_plaintext_pytorch",
+          "input_type": "nchw_images",
+          "input_shape": [
+            5000,
+            3,
+            32,
+            32
+          ],
+          "feature_extraction_used": false,
+          "model_class": "ConvNet",
+          "model_name": "ConvNetD3",
+          "model_schema": {
+            "features.0.weight": [
+              128,
+              3,
+              3,
+              3
+            ],
+            "features.0.bias": [
+              128
+            ],
+            "features.1.weight": [
+              128
+            ],
+            "features.1.bias": [
+              128
+            ],
+            "features.4.weight": [
+              128,
+              128,
+              3,
+              3
+            ],
+            "features.4.bias": [
+              128
+            ],
+            "features.5.weight": [
+              128
+            ],
+            "features.5.bias": [
+              128
+            ],
+            "features.8.weight": [
+              128,
+              128,
+              3,
+              3
+            ],
+            "features.8.bias": [
+              128
+            ],
+            "features.9.weight": [
+              128
+            ],
+            "features.9.bias": [
+              128
+            ],
+            "classifier.weight": [
+              100,
+              2048
+            ],
+            "classifier.bias": [
+              100
+            ]
+          },
+          "chosen_name": "KD-Best",
+          "chosen_signature": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+          "candidate_ref_scores": {
+            "KD-Avg": 0.016,
+            "KD-ReferenceWeighted": 0.016,
+            "KD-Best": 0.018
+          },
+          "reference_weights": [
+            0.5,
+            0.5
+          ],
+          "kd_parameter_changed": [
+            true,
+            true
+          ]
+        },
+        "stage_b_checkpoint": "/mnt/code/lixujie/tfe_experiments/init_model/cross_stage_convnet/crossStageConvNet_stageB_chosen_cifar100_seed42.pt",
+        "checkpoint_sha256": "939cf5188fe267f099394ad2f946b311df50bdc3ec996335c1936e0111d1acd6",
+        "checkpoint_state_signature_before": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+        "checkpoint_state_signature_after": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+        "checkpoint_signature_verified": true,
+        "target_source": "heldout_reference_set",
+        "target_reference_accuracy": 0.038,
+        "test_usage": "fixed_interval_readonly_reporting",
+        "privacy_scope": "stage_c_only",
+        "stage_c": {
+          "plain": {
+            "pipeline": "algorithmic_pytorch_convnet",
+            "backend": "local_plaintext_pytorch",
+            "mode": "plain",
+            "privacy_scope": "none",
+            "dp_protected": false,
+            "feature_extraction_used": false,
+            "initialization_signature": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+            "final_signature": "d84e1fd09dd093c5630fc0fd038850d20cd48b362edcbbdedf8840453b49ee91",
+            "history": [
+              {
+                "step": 1,
+                "reference_loss": 4.638999267578125,
+                "reference_accuracy": 0.016,
+                "test_loss_readonly": 4.649526448567708,
+                "test_accuracy_readonly": 0.017,
+                "mean_total_grad_norm": 23.368475962096575,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 2.2332804203033447,
+                  "features.0.bias": 8.491394254406259e-08,
+                  "features.1.weight": 0.18946298956871033,
+                  "features.1.bias": 0.14371949434280396,
+                  "features.4.weight": 10.829547882080078,
+                  "features.4.bias": 7.440205251896259e-08,
+                  "features.5.weight": 0.1958072930574417,
+                  "features.5.bias": 0.14893783628940582,
+                  "features.8.weight": 10.926684379577637,
+                  "features.8.bias": 1.0520879811792838e-07,
+                  "features.9.weight": 0.21127600967884064,
+                  "features.9.bias": 0.21005244553089142,
+                  "classifier.weight": 17.42782974243164,
+                  "classifier.bias": 0.70107501745224
+                },
+                "clipped_fraction": 0.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": Infinity
+              },
+              {
+                "step": 2,
+                "reference_loss": 4.651206787109375,
+                "reference_accuracy": 0.018,
+                "test_loss_readonly": 4.659494018554687,
+                "test_accuracy_readonly": 0.01633333333333333,
+                "mean_total_grad_norm": 23.962659498439077,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 2.4586267471313477,
+                  "features.0.bias": 5.091064281259605e-08,
+                  "features.1.weight": 0.18285207450389862,
+                  "features.1.bias": 0.15016281604766846,
+                  "features.4.weight": 11.647517204284668,
+                  "features.4.bias": 8.147484464871013e-08,
+                  "features.5.weight": 0.17918460071086884,
+                  "features.5.bias": 0.1474904865026474,
+                  "features.8.weight": 11.05339527130127,
+                  "features.8.bias": 1.0944848582994382e-07,
+                  "features.9.weight": 0.2294205278158188,
+                  "features.9.bias": 0.23743726313114166,
+                  "classifier.weight": 17.59577751159668,
+                  "classifier.bias": 0.7012340426445007
+                },
+                "clipped_fraction": 0.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": Infinity
+              }
+            ],
+            "target_reference_accuracy": 0.038,
+            "step_at_target_reference_accuracy": null,
+            "time_s": 0.08697867393493652,
+            "final_test_accuracy": 0.01633333333333333,
+            "final_reference_accuracy": 0.018,
+            "final_c": 1.0,
+            "privacy": {
+              "privacy_scope": "none",
+              "stage_c_epsilon": Infinity,
+              "stage_c_delta": null,
+              "accountant_type": "none",
+              "noise_mechanism": "none",
+              "sample_rate": 0.0004,
+              "steps": 2,
+              "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+            }
+          },
+          "fixed_dp": {
+            "pipeline": "algorithmic_pytorch_convnet",
+            "backend": "local_plaintext_pytorch",
+            "mode": "fixed_dp",
+            "privacy_scope": "stage_c_only",
+            "dp_protected": true,
+            "feature_extraction_used": false,
+            "initialization_signature": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+            "final_signature": "0c5ea3f650f4a133f1f37d9e3b8812da4d8fe7a251bd9cdd932a0d78b0e6ceed",
+            "history": [
+              {
+                "step": 1,
+                "reference_loss": 4.636380126953125,
+                "reference_accuracy": 0.022,
+                "test_loss_readonly": 4.642974731445313,
+                "test_accuracy_readonly": 0.014,
+                "mean_total_grad_norm": 33.1007059642746,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 3.0163599252700806,
+                  "features.0.bias": 1.0054933241576691e-07,
+                  "features.1.weight": 0.2822292447090149,
+                  "features.1.bias": 0.20788652449846268,
+                  "features.4.weight": 15.48116159439087,
+                  "features.4.bias": 1.0898947877535647e-07,
+                  "features.5.weight": 0.26070043444633484,
+                  "features.5.bias": 0.2168656811118126,
+                  "features.8.weight": 15.332560539245605,
+                  "features.8.bias": 1.469318604563341e-07,
+                  "features.9.weight": 0.3033476769924164,
+                  "features.9.bias": 0.3288875222206116,
+                  "classifier.weight": 24.686800956726074,
+                  "classifier.bias": 0.9949597120285034
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": 0.33698926714384353
+              },
+              {
+                "step": 2,
+                "reference_loss": 4.646646240234375,
+                "reference_accuracy": 0.016,
+                "test_loss_readonly": 4.645493204752604,
+                "test_accuracy_readonly": 0.011666666666666667,
+                "mean_total_grad_norm": 33.956558891648925,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 3.55518901348114,
+                  "features.0.bias": 7.190178408222891e-08,
+                  "features.1.weight": 0.2617274522781372,
+                  "features.1.bias": 0.21131811290979385,
+                  "features.4.weight": 16.45808744430542,
+                  "features.4.bias": 1.0652464865756883e-07,
+                  "features.5.weight": 0.26662328839302063,
+                  "features.5.bias": 0.2255794182419777,
+                  "features.8.weight": 15.753350734710693,
+                  "features.8.bias": 1.3141500687652297e-07,
+                  "features.9.weight": 0.3093094527721405,
+                  "features.9.bias": 0.3374275416135788,
+                  "classifier.weight": 24.8899564743042,
+                  "classifier.bias": 0.9948199689388275
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": 0.33763796735665363
+              }
+            ],
+            "target_reference_accuracy": 0.038,
+            "step_at_target_reference_accuracy": null,
+            "time_s": 0.0975654125213623,
+            "final_test_accuracy": 0.011666666666666667,
+            "final_reference_accuracy": 0.016,
+            "final_c": 1.0,
+            "privacy": {
+              "privacy_scope": "stage_c_only",
+              "stage_c_epsilon": 0.33763796735665363,
+              "stage_c_delta": 1e-05,
+              "accountant_type": "opacus_rdp",
+              "noise_mechanism": "gaussian",
+              "noise_multiplier": 1.2,
+              "sample_rate": 0.0004,
+              "steps": 2,
+              "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+            }
+          },
+          "adaptive_dp": {
+            "pipeline": "algorithmic_pytorch_convnet",
+            "backend": "local_plaintext_pytorch",
+            "mode": "adaptive_dp",
+            "privacy_scope": "stage_c_only",
+            "dp_protected": true,
+            "feature_extraction_used": false,
+            "initialization_signature": "3021d4ed375f2a868cf4bdc51fd46b0b317366b4a78b281e78a8f71d2fb71796",
+            "final_signature": "25be4d9b4d64ee0d613c8d47eca66e11b79bf8fa870f0d1f10557a597cf443df",
+            "history": [
+              {
+                "step": 1,
+                "reference_loss": 4.6320068359375,
+                "reference_accuracy": 0.018,
+                "test_loss_readonly": 4.645972269694011,
+                "test_accuracy_readonly": 0.015,
+                "mean_total_grad_norm": 33.100705949934564,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 3.016359806060791,
+                  "features.0.bias": 9.944334777856056e-08,
+                  "features.1.weight": 0.2822292447090149,
+                  "features.1.bias": 0.20788652449846268,
+                  "features.4.weight": 15.48116159439087,
+                  "features.4.bias": 1.0898947877535647e-07,
+                  "features.5.weight": 0.26070043444633484,
+                  "features.5.bias": 0.2168656811118126,
+                  "features.8.weight": 15.332560539245605,
+                  "features.8.bias": 1.469318604563341e-07,
+                  "features.9.weight": 0.3033476769924164,
+                  "features.9.bias": 0.3288875222206116,
+                  "classifier.weight": 24.686800956726074,
+                  "classifier.bias": 0.9949597120285034
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0778841508846315,
+                "stage_c_epsilon": 0.33698926714384353
+              },
+              {
+                "step": 2,
+                "reference_loss": 4.63427880859375,
+                "reference_accuracy": 0.02,
+                "test_loss_readonly": 4.649761474609375,
+                "test_accuracy_readonly": 0.012333333333333333,
+                "mean_total_grad_norm": 33.93607345406584,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 3.4831418991088867,
+                  "features.0.bias": 7.944607460785846e-08,
+                  "features.1.weight": 0.26885561645030975,
+                  "features.1.bias": 0.21096648275852203,
+                  "features.4.weight": 16.487509727478027,
+                  "features.4.bias": 1.0673136330296984e-07,
+                  "features.5.weight": 0.2707515060901642,
+                  "features.5.bias": 0.22554118186235428,
+                  "features.8.weight": 15.611082553863525,
+                  "features.8.bias": 1.3643243335081934e-07,
+                  "features.9.weight": 0.3248993754386902,
+                  "features.9.bias": 0.3497268259525299,
+                  "classifier.weight": 24.949597358703613,
+                  "classifier.bias": 0.995286613702774
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0778841508846315,
+                "clipping_bound_next": 1.161834242728283,
+                "stage_c_epsilon": 0.33763796735665363
+              }
+            ],
+            "target_reference_accuracy": 0.038,
+            "step_at_target_reference_accuracy": null,
+            "time_s": 0.08896589279174805,
+            "final_test_accuracy": 0.012333333333333333,
+            "final_reference_accuracy": 0.02,
+            "final_c": 1.161834242728283,
+            "privacy": {
+              "privacy_scope": "stage_c_only",
+              "stage_c_epsilon": 0.33763796735665363,
+              "stage_c_delta": 1e-05,
+              "accountant_type": "opacus_rdp",
+              "noise_mechanism": "gaussian",
+              "noise_multiplier": 1.2,
+              "sample_rate": 0.0004,
+              "steps": 2,
+              "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+            }
+          }
+        },
+        "run_id": "20260725_110327",
+        "total_time_s": 4.213018417358398
+      },
+      "secure_system_validation": {
+        "status": "NOT_RUN_PER_DATASET",
+        "reason": "CIFAR-10 representative lightweight TFE validation is used."
+      }
+    },
+    "tiny": {
+      "stage_a_source": "/mnt/code/lixujie/tfe_experiments/log/json/stageA_directImage_tiny_20260725_100121.json",
+      "stage_a": {
+        "pipeline": "images -> same MTT ConvNet training",
+        "train_steps": 1200,
+        "num_full_samples": 100000,
+        "num_distilled_samples": 10000,
+        "compression_ratio": 0.1,
+        "results": [
+          {
+            "name": "Full Images",
+            "model": "ConvNetD4",
+            "num_samples": 100000,
+            "history": [
+              {
+                "step": 0,
+                "test_acc": 0.0042,
+                "loss": null
+              },
+              {
+                "step": 100,
+                "test_acc": 0.0222,
+                "loss": 5.196141719818115
+              },
+              {
+                "step": 200,
+                "test_acc": 0.0438,
+                "loss": 5.034979820251465
+              },
+              {
+                "step": 300,
+                "test_acc": 0.0555,
+                "loss": 4.743338584899902
+              },
+              {
+                "step": 400,
+                "test_acc": 0.0766,
+                "loss": 4.805760383605957
+              },
+              {
+                "step": 500,
+                "test_acc": 0.0909,
+                "loss": 4.5916972160339355
+              },
+              {
+                "step": 600,
+                "test_acc": 0.1101,
+                "loss": 4.40315055847168
+              },
+              {
+                "step": 700,
+                "test_acc": 0.1218,
+                "loss": 4.509481430053711
+              },
+              {
+                "step": 800,
+                "test_acc": 0.1305,
+                "loss": 4.162872314453125
+              },
+              {
+                "step": 900,
+                "test_acc": 0.1464,
+                "loss": 4.4301066398620605
+              },
+              {
+                "step": 1000,
+                "test_acc": 0.1504,
+                "loss": 4.014394283294678
+              },
+              {
+                "step": 1100,
+                "test_acc": 0.1583,
+                "loss": 4.222775459289551
+              },
+              {
+                "step": 1200,
+                "test_acc": 0.1591,
+                "loss": 4.002312660217285
+              }
+            ],
+            "final_test_acc": 0.1591,
+            "target_accuracy": 0.15,
+            "step_at_target_acc": 1000,
+            "train_time_s": 54.78084397315979
+          },
+          {
+            "name": "Randomly Sampled Images",
+            "model": "ConvNetD4",
+            "num_samples": 10000,
+            "history": [
+              {
+                "step": 0,
+                "test_acc": 0.0037,
+                "loss": null
+              },
+              {
+                "step": 100,
+                "test_acc": 0.0241,
+                "loss": 5.1923112869262695
+              },
+              {
+                "step": 200,
+                "test_acc": 0.0373,
+                "loss": 4.820990562438965
+              },
+              {
+                "step": 300,
+                "test_acc": 0.0558,
+                "loss": 4.669033050537109
+              },
+              {
+                "step": 400,
+                "test_acc": 0.0667,
+                "loss": 4.475416660308838
+              },
+              {
+                "step": 500,
+                "test_acc": 0.0813,
+                "loss": 4.340892314910889
+              },
+              {
+                "step": 600,
+                "test_acc": 0.0967,
+                "loss": 4.381972312927246
+              },
+              {
+                "step": 700,
+                "test_acc": 0.1122,
+                "loss": 4.09621524810791
+              },
+              {
+                "step": 800,
+                "test_acc": 0.1188,
+                "loss": 3.770925521850586
+              },
+              {
+                "step": 900,
+                "test_acc": 0.1265,
+                "loss": 3.742799758911133
+              },
+              {
+                "step": 1000,
+                "test_acc": 0.1337,
+                "loss": 3.7907819747924805
+              },
+              {
+                "step": 1100,
+                "test_acc": 0.1345,
+                "loss": 3.701422929763794
+              },
+              {
+                "step": 1200,
+                "test_acc": 0.1333,
+                "loss": 3.865077257156372
+              }
+            ],
+            "final_test_acc": 0.1333,
+            "target_accuracy": 0.15,
+            "step_at_target_acc": null,
+            "train_time_s": 47.04003405570984
+          },
+          {
+            "name": "Distilled Images",
+            "model": "ConvNetD4",
+            "num_samples": 10000,
+            "history": [
+              {
+                "step": 0,
+                "test_acc": 0.0049,
+                "loss": null
+              },
+              {
+                "step": 100,
+                "test_acc": 0.0304,
+                "loss": 4.897289276123047
+              },
+              {
+                "step": 200,
+                "test_acc": 0.0508,
+                "loss": 4.576330184936523
+              },
+              {
+                "step": 300,
+                "test_acc": 0.068,
+                "loss": 4.208132266998291
+              },
+              {
+                "step": 400,
+                "test_acc": 0.0901,
+                "loss": 3.845860004425049
+              },
+              {
+                "step": 500,
+                "test_acc": 0.106,
+                "loss": 3.2070374488830566
+              },
+              {
+                "step": 600,
+                "test_acc": 0.1264,
+                "loss": 2.958338975906372
+              },
+              {
+                "step": 700,
+                "test_acc": 0.1372,
+                "loss": 2.6682233810424805
+              },
+              {
+                "step": 800,
+                "test_acc": 0.1577,
+                "loss": 2.21018648147583
+              },
+              {
+                "step": 900,
+                "test_acc": 0.1682,
+                "loss": 2.1789603233337402
+              },
+              {
+                "step": 1000,
+                "test_acc": 0.174,
+                "loss": 2.310722827911377
+              },
+              {
+                "step": 1100,
+                "test_acc": 0.1807,
+                "loss": 1.9305915832519531
+              },
+              {
+                "step": 1200,
+                "test_acc": 0.1792,
+                "loss": 2.1794447898864746
+              }
+            ],
+            "final_test_acc": 0.1792,
+            "target_accuracy": 0.15,
+            "step_at_target_acc": 800,
+            "train_time_s": 28.997341632843018
+          }
+        ]
+      },
+      "algorithmic_main_source": "/mnt/code/lixujie/tfe_experiments/log/json/crossStageConvNet_end2end_tiny_20260725_110344.json",
+      "algorithmic_main": {
+        "dataset": "tiny",
+        "seed": 42,
+        "pipeline": "algorithmic_pytorch_convnet",
+        "backend": "local_plaintext_pytorch",
+        "stage_a": {
+          "input": "official_mtt_distilled_nchw_images",
+          "dp_protected": false,
+          "feature_extraction_used": false
+        },
+        "stage_b": {
+          "backend": "local_plaintext_pytorch",
+          "input_type": "nchw_images",
+          "input_shape": [
+            10000,
+            3,
+            64,
+            64
+          ],
+          "feature_extraction_used": false,
+          "model_class": "ConvNet",
+          "model_name": "ConvNetD4",
+          "model_schema": {
+            "features.0.weight": [
+              128,
+              3,
+              3,
+              3
+            ],
+            "features.0.bias": [
+              128
+            ],
+            "features.1.weight": [
+              128
+            ],
+            "features.1.bias": [
+              128
+            ],
+            "features.4.weight": [
+              128,
+              128,
+              3,
+              3
+            ],
+            "features.4.bias": [
+              128
+            ],
+            "features.5.weight": [
+              128
+            ],
+            "features.5.bias": [
+              128
+            ],
+            "features.8.weight": [
+              128,
+              128,
+              3,
+              3
+            ],
+            "features.8.bias": [
+              128
+            ],
+            "features.9.weight": [
+              128
+            ],
+            "features.9.bias": [
+              128
+            ],
+            "features.12.weight": [
+              128,
+              128,
+              3,
+              3
+            ],
+            "features.12.bias": [
+              128
+            ],
+            "features.13.weight": [
+              128
+            ],
+            "features.13.bias": [
+              128
+            ],
+            "classifier.weight": [
+              200,
+              2048
+            ],
+            "classifier.bias": [
+              200
+            ]
+          },
+          "chosen_name": "KD-Avg",
+          "chosen_signature": "4695788d9619f79bdac9f13ab027cfa25ce8dc7d29350d78d4ac1e0258d9c7a4",
+          "candidate_ref_scores": {
+            "KD-Avg": 0.005,
+            "KD-ReferenceWeighted": 0.004,
+            "KD-Best": 0.004
+          },
+          "reference_weights": [
+            0.5031249593105316,
+            0.4968750406894684
+          ],
+          "kd_parameter_changed": [
+            true,
+            true
+          ]
+        },
+        "stage_b_checkpoint": "/mnt/code/lixujie/tfe_experiments/init_model/cross_stage_convnet/crossStageConvNet_stageB_chosen_tiny_seed42.pt",
+        "checkpoint_sha256": "efb46f542f79e8f20af8a6eeef8656cab7597e041292f00f9f20e161f5f8911e",
+        "checkpoint_state_signature_before": "4695788d9619f79bdac9f13ab027cfa25ce8dc7d29350d78d4ac1e0258d9c7a4",
+        "checkpoint_state_signature_after": "4695788d9619f79bdac9f13ab027cfa25ce8dc7d29350d78d4ac1e0258d9c7a4",
+        "checkpoint_signature_verified": true,
+        "target_source": "heldout_reference_set",
+        "target_reference_accuracy": 0.025,
+        "test_usage": "fixed_interval_readonly_reporting",
+        "privacy_scope": "stage_c_only",
+        "stage_c": {
+          "plain": {
+            "pipeline": "algorithmic_pytorch_convnet",
+            "backend": "local_plaintext_pytorch",
+            "mode": "plain",
+            "privacy_scope": "none",
+            "dp_protected": false,
+            "feature_extraction_used": false,
+            "initialization_signature": "4695788d9619f79bdac9f13ab027cfa25ce8dc7d29350d78d4ac1e0258d9c7a4",
+            "final_signature": "c3ae8a60c4007716e2de697285fd1b10ffe34c2569f0f02826a63a9618ea75aa",
+            "history": [
+              {
+                "step": 1,
+                "reference_loss": 5.332749755859375,
+                "reference_accuracy": 0.004,
+                "test_loss_readonly": 5.296738260904948,
+                "test_accuracy_readonly": 0.016666666666666666,
+                "mean_total_grad_norm": 26.794612581354738,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 2.9464690685272217,
+                  "features.0.bias": 6.783817241284851e-08,
+                  "features.1.weight": 0.14477461576461792,
+                  "features.1.bias": 0.1349971890449524,
+                  "features.4.weight": 12.780736923217773,
+                  "features.4.bias": 1.1473898098302016e-07,
+                  "features.5.weight": 0.14075253903865814,
+                  "features.5.bias": 0.11919920146465302,
+                  "features.8.weight": 11.466407775878906,
+                  "features.8.bias": 8.931385053756458e-08,
+                  "features.9.weight": 0.11152315884828568,
+                  "features.9.bias": 0.10606466233730316,
+                  "features.12.weight": 10.547412872314453,
+                  "features.12.bias": 1.197845165279432e-07,
+                  "features.13.weight": 0.1570870578289032,
+                  "features.13.bias": 0.17007523775100708,
+                  "classifier.weight": 17.39393424987793,
+                  "classifier.bias": 0.7046403884887695
+                },
+                "clipped_fraction": 0.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": Infinity
+              },
+              {
+                "step": 2,
+                "reference_loss": 5.3373348388671875,
+                "reference_accuracy": 0.006,
+                "test_loss_readonly": 5.308029113769531,
+                "test_accuracy_readonly": 0.011,
+                "mean_total_grad_norm": 25.052608015362278,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 1.7055814266204834,
+                  "features.0.bias": 8.534981787988727e-08,
+                  "features.1.weight": 0.11060348153114319,
+                  "features.1.bias": 0.105814129114151,
+                  "features.4.weight": 10.318804740905762,
+                  "features.4.bias": 9.331717620852942e-08,
+                  "features.5.weight": 0.13597480952739716,
+                  "features.5.bias": 0.1028355062007904,
+                  "features.8.weight": 10.221353530883789,
+                  "features.8.bias": 6.871591295976032e-08,
+                  "features.9.weight": 0.11809094995260239,
+                  "features.9.bias": 0.11212857812643051,
+                  "features.12.weight": 10.361092567443848,
+                  "features.12.bias": 9.286090829618843e-08,
+                  "features.13.weight": 0.16949301958084106,
+                  "features.13.bias": 0.18477003276348114,
+                  "classifier.weight": 17.48655128479004,
+                  "classifier.bias": 0.7048136591911316
+                },
+                "clipped_fraction": 0.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": Infinity
+              }
+            ],
+            "target_reference_accuracy": 0.025,
+            "step_at_target_reference_accuracy": null,
+            "time_s": 0.32161617279052734,
+            "final_test_accuracy": 0.011,
+            "final_reference_accuracy": 0.006,
+            "final_c": 1.0,
+            "privacy": {
+              "privacy_scope": "none",
+              "stage_c_epsilon": Infinity,
+              "stage_c_delta": null,
+              "accountant_type": "none",
+              "noise_mechanism": "none",
+              "sample_rate": 0.0002,
+              "steps": 2,
+              "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+            }
+          },
+          "fixed_dp": {
+            "pipeline": "algorithmic_pytorch_convnet",
+            "backend": "local_plaintext_pytorch",
+            "mode": "fixed_dp",
+            "privacy_scope": "stage_c_only",
+            "dp_protected": true,
+            "feature_extraction_used": false,
+            "initialization_signature": "4695788d9619f79bdac9f13ab027cfa25ce8dc7d29350d78d4ac1e0258d9c7a4",
+            "final_signature": "91d3a28d109169e0b596dc62a46964bee1763a2903e3e8cddcfe0d3c5de55832",
+            "history": [
+              {
+                "step": 1,
+                "reference_loss": 5.330466186523437,
+                "reference_accuracy": 0.002,
+                "test_loss_readonly": 5.322695861816406,
+                "test_accuracy_readonly": 0.0013333333333333333,
+                "mean_total_grad_norm": 37.84852022861482,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 3.8951454162597656,
+                  "features.0.bias": 1.0604510691791802e-07,
+                  "features.1.weight": 0.21904106438159943,
+                  "features.1.bias": 0.20196500420570374,
+                  "features.4.weight": 18.061375617980957,
+                  "features.4.bias": 1.4013770055498753e-07,
+                  "features.5.weight": 0.19377733767032623,
+                  "features.5.bias": 0.16703809052705765,
+                  "features.8.weight": 16.18106746673584,
+                  "features.8.bias": 1.2969815799124262e-07,
+                  "features.9.weight": 0.1754702925682068,
+                  "features.9.bias": 0.16381940990686417,
+                  "features.12.weight": 14.876719951629639,
+                  "features.12.bias": 1.3929933828649155e-07,
+                  "features.13.weight": 0.2176452949643135,
+                  "features.13.bias": 0.2294774055480957,
+                  "classifier.weight": 24.614662170410156,
+                  "classifier.bias": 0.9979336559772491
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": 0.30518512276940357
+              },
+              {
+                "step": 2,
+                "reference_loss": 5.334611328125,
+                "reference_accuracy": 0.003,
+                "test_loss_readonly": 5.317336466471354,
+                "test_accuracy_readonly": 0.0013333333333333333,
+                "mean_total_grad_norm": 37.77068854257226,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 3.373487710952759,
+                  "features.0.bias": 1.4810100879003585e-07,
+                  "features.1.weight": 0.21823393553495407,
+                  "features.1.bias": 0.18478503823280334,
+                  "features.4.weight": 18.179006576538086,
+                  "features.4.bias": 1.2739327814870194e-07,
+                  "features.5.weight": 0.20217235386371613,
+                  "features.5.bias": 0.17103061825037003,
+                  "features.8.weight": 16.014797687530518,
+                  "features.8.bias": 1.128034519126686e-07,
+                  "features.9.weight": 0.19275344908237457,
+                  "features.9.bias": 0.16750864684581757,
+                  "features.12.weight": 15.320056438446045,
+                  "features.12.bias": 1.429293519095154e-07,
+                  "features.13.weight": 0.2204398289322853,
+                  "features.13.bias": 0.24704937636852264,
+                  "classifier.weight": 24.305941581726074,
+                  "classifier.bias": 0.9989964067935944
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0,
+                "stage_c_epsilon": 0.30560683838814445
+              }
+            ],
+            "target_reference_accuracy": 0.025,
+            "step_at_target_reference_accuracy": null,
+            "time_s": 0.32999086380004883,
+            "final_test_accuracy": 0.0013333333333333333,
+            "final_reference_accuracy": 0.003,
+            "final_c": 1.0,
+            "privacy": {
+              "privacy_scope": "stage_c_only",
+              "stage_c_epsilon": 0.30560683838814445,
+              "stage_c_delta": 1e-05,
+              "accountant_type": "opacus_rdp",
+              "noise_mechanism": "gaussian",
+              "noise_multiplier": 1.2,
+              "sample_rate": 0.0002,
+              "steps": 2,
+              "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+            }
+          },
+          "adaptive_dp": {
+            "pipeline": "algorithmic_pytorch_convnet",
+            "backend": "local_plaintext_pytorch",
+            "mode": "adaptive_dp",
+            "privacy_scope": "stage_c_only",
+            "dp_protected": true,
+            "feature_extraction_used": false,
+            "initialization_signature": "4695788d9619f79bdac9f13ab027cfa25ce8dc7d29350d78d4ac1e0258d9c7a4",
+            "final_signature": "6220a3581f8b60064ef82b48b9ebdf711e6909445a4ed798f5e51115a8ea4e68",
+            "history": [
+              {
+                "step": 1,
+                "reference_loss": 5.32494287109375,
+                "reference_accuracy": 0.004,
+                "test_loss_readonly": 5.315955383300781,
+                "test_accuracy_readonly": 0.004666666666666667,
+                "mean_total_grad_norm": 37.848519872495764,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 3.895146131515503,
+                  "features.0.bias": 1.0895593760551492e-07,
+                  "features.1.weight": 0.21904105693101883,
+                  "features.1.bias": 0.20196500420570374,
+                  "features.4.weight": 18.06137466430664,
+                  "features.4.bias": 1.4887046262401782e-07,
+                  "features.5.weight": 0.19377733767032623,
+                  "features.5.bias": 0.16703808307647705,
+                  "features.8.weight": 16.18106746673584,
+                  "features.8.bias": 1.2969815799124262e-07,
+                  "features.9.weight": 0.1754702925682068,
+                  "features.9.bias": 0.16381940990686417,
+                  "features.12.weight": 14.876719951629639,
+                  "features.12.bias": 1.3929933828649155e-07,
+                  "features.13.weight": 0.2176452949643135,
+                  "features.13.bias": 0.2294774055480957,
+                  "classifier.weight": 24.614662170410156,
+                  "classifier.bias": 0.9979336559772491
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0,
+                "clipping_bound_next": 1.0778841508846315,
+                "stage_c_epsilon": 0.30518512276940357
+              },
+              {
+                "step": 2,
+                "reference_loss": 5.326294555664062,
+                "reference_accuracy": 0.006,
+                "test_loss_readonly": 5.309628112792969,
+                "test_accuracy_readonly": 0.0026666666666666666,
+                "mean_total_grad_norm": 36.838454489269,
+                "mean_layer_grad_norms": {
+                  "features.0.weight": 3.626338839530945,
+                  "features.0.bias": 1.3920772801157e-07,
+                  "features.1.weight": 0.2037198767066002,
+                  "features.1.bias": 0.17997291684150696,
+                  "features.4.weight": 16.547663688659668,
+                  "features.4.bias": 1.1695722079707593e-07,
+                  "features.5.weight": 0.18314924091100693,
+                  "features.5.bias": 0.14156737551093102,
+                  "features.8.weight": 15.51432180404663,
+                  "features.8.bias": 1.0949827711215221e-07,
+                  "features.9.weight": 0.18371859937906265,
+                  "features.9.bias": 0.1734357625246048,
+                  "features.12.weight": 14.921794891357422,
+                  "features.12.bias": 1.4312160345753e-07,
+                  "features.13.weight": 0.23888909071683884,
+                  "features.13.bias": 0.2591313421726227,
+                  "classifier.weight": 24.518790245056152,
+                  "classifier.bias": 0.9986284971237183
+                },
+                "clipped_fraction": 1.0,
+                "clipping_bound_t": 1.0778841508846315,
+                "clipping_bound_next": 1.161834242728283,
+                "stage_c_epsilon": 0.30560683838814445
+              }
+            ],
+            "target_reference_accuracy": 0.025,
+            "step_at_target_reference_accuracy": null,
+            "time_s": 0.322115421295166,
+            "final_test_accuracy": 0.0026666666666666666,
+            "final_reference_accuracy": 0.006,
+            "final_c": 1.161834242728283,
+            "privacy": {
+              "privacy_scope": "stage_c_only",
+              "stage_c_epsilon": 0.30560683838814445,
+              "stage_c_delta": 1e-05,
+              "accountant_type": "opacus_rdp",
+              "noise_mechanism": "gaussian",
+              "noise_multiplier": 1.2,
+              "sample_rate": 0.0002,
+              "steps": 2,
+              "limitation": "The reported privacy budget covers Stage C only. Stages A and B are data-dependent and are not included in the current record-level DP accounting; therefore, the reported epsilon does not constitute end-to-end DP for the original local datasets."
+            }
+          }
+        },
+        "run_id": "20260725_110344",
+        "total_time_s": 15.984896898269653
+      },
+      "secure_system_validation": {
+        "status": "NOT_RUN_PER_DATASET",
+        "reason": "CIFAR-10 representative lightweight TFE validation is used."
+      }
+    }
+  }
+}
