@@ -1,0 +1,35 @@
+{
+  "schema": "new_stage_b_tuning_plan_v1",
+  "status": "READY",
+  "datasets": [
+    "cifar10",
+    "cifar100",
+    "tiny"
+  ],
+  "tuning_seeds": [
+    42,
+    43
+  ],
+  "splits": [
+    "iid",
+    "mild",
+    "severe"
+  ],
+  "candidate_count_per_dataset": 16,
+  "logical_reference_only_runs": 288,
+  "queue_tasks": 3,
+  "test_loaded": false,
+  "resource_policy": {
+    "cpu_threads": 1,
+    "num_workers": 0,
+    "visible_gpu": 0,
+    "serial": true,
+    "checkpoint_resume": true
+  },
+  "expected_outputs": [
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_tuning/new_stage_b_tuning_cifar10.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_tuning/new_stage_b_tuning_cifar100.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_tuning/new_stage_b_tuning_tiny.json"
+  ],
+  "queue": "/mnt/code/lixujie/tfe_experiments/new_configs/new_public_mtt_mainline/new_gpu0_stage_b_tuning.tsv"
+}

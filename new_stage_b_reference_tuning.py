@@ -195,18 +195,25 @@ def main():
     )
     print("cpu_threads=1 num_workers=0", flush=True)
     print("=" * 92, flush=True)
+    log_points = set(
+        np.linspace(1, len(candidates), min(10, len(candidates)))
+        .round()
+        .astype(np.int64)
+        .tolist()
+    )
     for index, candidate in enumerate(candidates, start=1):
         rows = run_candidate(args.dataset, candidate, config)
         score = candidate_score(rows)
         results.append(
             {"candidate": candidate, "selection_score": score, "rows": rows}
         )
-        print(
-            "  candidate={}/{} id={} score={:.5f}".format(
-                index, len(candidates), candidate["candidate_id"], score
-            ),
-            flush=True,
-        )
+        if index in log_points:
+            print(
+                "  candidate={}/{} id={} score={:.5f}".format(
+                    index, len(candidates), candidate["candidate_id"], score
+                ),
+                flush=True,
+            )
     winner = max(results, key=lambda row: row["selection_score"])
     payload = {
         "schema": "new_stage_b_reference_tuning_v1",
