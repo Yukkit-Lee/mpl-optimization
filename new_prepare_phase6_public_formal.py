@@ -164,6 +164,14 @@ def main() -> int:
             ROOT / "new_report_phase6_public.py",
         )
     )
+    dp_plan = ROOT / "new_log/new_secure_feature/json/new_phase6_dp_validation_plan.json"
+    rows.append(
+        "prepare_phase6_dp_validation_queue\t{}\t{} {} --activate".format(
+            dp_plan,
+            PYTHON,
+            ROOT / "new_prepare_phase6_dp_validation.py",
+        )
+    )
     QUEUE.write_text("\n".join(rows) + "\n", encoding="utf-8")
     PLAN.write_text(
         json.dumps(
@@ -183,7 +191,7 @@ def main() -> int:
                     }
                 },
                 "decisions": decisions,
-                "formal_task_count": 7,
+                "formal_task_count": 8,
                 "queue": str(QUEUE),
             },
             ensure_ascii=False,
