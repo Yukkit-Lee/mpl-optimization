@@ -156,6 +156,14 @@ def main() -> int:
                 "--include_test",
             ]
             rows.append("{}\t{}\t{}".format(task_id, checkpoint, " ".join(command)))
+    report_path = ROOT / "new_log/new_secure_feature/json/new_phase6_public_mtt_results.json"
+    rows.append(
+        "report_phase6_public_mtt\t{}\t{} {}".format(
+            report_path,
+            PYTHON,
+            ROOT / "new_report_phase6_public.py",
+        )
+    )
     QUEUE.write_text("\n".join(rows) + "\n", encoding="utf-8")
     PLAN.write_text(
         json.dumps(
@@ -175,7 +183,7 @@ def main() -> int:
                     }
                 },
                 "decisions": decisions,
-                "formal_task_count": 6,
+                "formal_task_count": 7,
                 "queue": str(QUEUE),
             },
             ensure_ascii=False,
