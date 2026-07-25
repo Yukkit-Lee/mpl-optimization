@@ -52,3 +52,7 @@ optimizer configuration is frozen. The required test thresholds are:
 - Tuning used physically test-free caches and seeds 42/43 only.
 - Formal test evaluation used seeds 42/43/44 after optimizer freeze.
 - Status: `QUALITY_GATE_PASS`.
+
+The active phase is Module-A efficiency: Full Images, equal-size Random
+Subset, and Official MTT are compared with the same frozen encoder, scaler,
+linear model initialization, optimizer and dataset-specific step budget.

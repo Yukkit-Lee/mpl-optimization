@@ -46,5 +46,24 @@
     "tiny": 0.2641
   },
   "quality_max_absolute_gap": 0.02,
+  "module_a_efficiency": {
+    "steps": {
+      "cifar10": 1600,
+      "cifar100": 2400,
+      "tiny": 3000
+    },
+    "batch_size": {
+      "cifar10": 64,
+      "cifar100": 128,
+      "tiny": 128
+    },
+    "target_accuracy": {
+      "cifar10": 0.65,
+      "cifar100": 0.42,
+      "tiny": 0.24
+    },
+    "eval_points": 20,
+    "sources": ["full_images", "random_subset", "official_mtt"]
+  },
   "test_tuning_forbidden": true
 }

@@ -1,0 +1,40 @@
+{
+  "schema": "new_module_a_efficiency_plan_v1",
+  "status": "READY",
+  "datasets": [
+    "cifar10",
+    "cifar100",
+    "tiny"
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "methods": [
+    "full_images",
+    "random_subset",
+    "official_mtt"
+  ],
+  "resolved_tasks": 19,
+  "logical_method_runs": 27,
+  "resource_policy": {
+    "cpu_threads": 1,
+    "num_workers": 0,
+    "visible_gpu": 0,
+    "checkpoint_resume": true
+  },
+  "expected_outputs": [
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar10/new_module_a_efficiency_cifar10_seed42.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar10/new_module_a_efficiency_cifar10_seed43.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar10/new_module_a_efficiency_cifar10_seed44.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar100/new_module_a_efficiency_cifar100_seed42.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar100/new_module_a_efficiency_cifar100_seed43.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar100/new_module_a_efficiency_cifar100_seed44.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/tiny/new_module_a_efficiency_tiny_seed42.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/tiny/new_module_a_efficiency_tiny_seed43.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/tiny/new_module_a_efficiency_tiny_seed44.json",
+    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_efficiency_report.json"
+  ],
+  "queue": "/mnt/code/lixujie/tfe_experiments/new_configs/new_public_mtt_mainline/new_gpu0_module_a_efficiency.tsv"
+}
