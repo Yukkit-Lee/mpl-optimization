@@ -1,0 +1,10 @@
+[2026-07-25T14:50:29+08:00] task=phase2_shared_encoder_correctness resource=gpu0 attempt=0
+============================================================================================
+Stage A Phase 2：唯一共享 ConvNet -> 冻结 2048-D representation
+dataset=cifar10 track=public_mtt_benchmark samples=500 epochs=1 device=cuda
+split_sizes={'encoder_train': 400, 'reference': 50, 'selection': 50} cpu_threads=1 num_workers=0 include_test=False
+output: new_cache/new_secure_feature/new_phase2_correctness/public_mtt_benchmark/cifar10
+============================================================================================
+  epoch=   1/   1 train_loss=2.3533 train_acc=0.0675 ref_acc=0.1400
+encoder_sha256: da49c86e20e1cb8e3720d7816f1f1d642c33345c325c94c8c68faa1a06aa6ead
+feature_cache: new_cache/new_secure_feature/new_phase2_correctness/public_mtt_benchmark/cifar10/new_feature_cache_cifar10_public_mtt_benchmark_seed42.pt

@@ -689,3 +689,6 @@
 - Phase 1 正确性结果：CIFAR-10 单机构 1,000 records、1 expert、1 epoch、8 optimizer steps，epsilon=1.761323（delta=1e-5）；随后 2 次 trajectory matching 成功生成 ipc=1 诊断图像，蒸馏阶段 `raw_data_access=False`。该结果只用于 correctness，不是正式精度结果。
 - Phase 1 测试：隐私会计随 steps 单调增加、随 noise 增大而下降、多 trajectory 组合不小于单 trajectory；蒸馏 raw-data 隔离与 DP/public 输出路径隔离通过；三个数据集共享模型均严格输出 2048 维特征并通过 Opacus validator。
 - Phase 1 阻塞：`torchcsprng 0.2.1` wheel 依赖 CUDA 10.2，无法加载到 PyTorch 2.8/CUDA 12.8。正式 `--secure_rng` 配置会硬失败且禁止静默回退；当前 correctness run 不得声称生产级 CSPRNG。
+- Phase 2 实现：新增 `new_stage_a_shared_encoder.py`，public-MTT 与 DP-MTT 均按 synthetic class 分层拆为 encoder-train/reference/selection；只训练一个共享 MTT ConvNet，冻结后统一提取 classifier 前 2048 维表示。
+- Phase 2 数据边界：encoder checkpoint 只由 synthetic reference accuracy 选择；Stage-B selection split 独立保留；scaler 只拟合 synthetic encoder-train features；test 默认不加载，冻结正式配置后才允许显式只读编码。
+- Phase 2 correctness：CIFAR-10 official ipc=50 形成 400/50/50 互斥划分；唯一 encoder SHA256=`da49c86e20e1cb8e3720d7816f1f1d642c33345c325c94c8c68faa1a06aa6ead`；三组特征均为 2048 维且 L2 norm≤1。1 epoch reference accuracy=0.14 仅用于管线诊断，不是正式质量结果。

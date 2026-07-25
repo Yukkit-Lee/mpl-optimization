@@ -1,0 +1,27 @@
+{
+  "phase": "phase_2",
+  "status": "IMPLEMENTATION_COMPLETE",
+  "updated_at": "2026-07-25T14:51:00+08:00",
+  "test_data_used_for_tuning": false,
+  "trials": [
+    {
+      "trial_id": "new_phase2_shared_encoder_correctness",
+      "type": "correctness_only",
+      "dataset": "cifar10",
+      "stage_a_track": "public_mtt_benchmark",
+      "epochs": 1,
+      "split_sizes": {
+        "encoder_train": 400,
+        "reference": 50,
+        "selection": 50
+      },
+      "feature_dim": 2048,
+      "input_norm_bound": 1.0,
+      "best_reference_accuracy": 0.14,
+      "encoder_sha256": "da49c86e20e1cb8e3720d7816f1f1d642c33345c325c94c8c68faa1a06aa6ead",
+      "test_loaded": false,
+      "status": "COMPLETE",
+      "formal_result": false
+    }
+  ]
+}

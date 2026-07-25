@@ -24,7 +24,7 @@
 
 - [x] Phase 0: Preserve baseline and create branch
 - [x] Phase 1: Implement real Stage-A privacy mechanism (secure RNG blocker recorded)
-- [ ] Phase 2: Build shared 2048-D representation pipeline
+- [x] Phase 2: Build shared 2048-D representation pipeline
 - [ ] Phase 3: Implement secure Stage-B computation
 - [ ] Phase 4: Implement secure Stage-C Fixed DP-SGD
 - [ ] Phase 5: Implement secure Stage-C Adaptive DP-SGD
@@ -73,3 +73,13 @@
 - Unit tests: epsilon increases with steps, decreases with noise, sequential composition is monotonic, raw-data isolation passes, and DP/public output namespaces are separate.
 - All three dataset models produce exactly 2048 classifier-input features and pass the Opacus module validator.
 - These are correctness diagnostics only and are not formal accuracy results.
+
+## Phase 2 Evidence
+
+- Public CIFAR-10 correctness source contains 500 official ipc=50 samples.
+- Class-stratified split is 400 encoder-train / 50 reference / 50 selection with no overlap.
+- One shared encoder checkpoint produced SHA256 `da49c86e20e1cb8e3720d7816f1f1d642c33345c325c94c8c68faa1a06aa6ead`.
+- Train/reference/selection feature tensors have shapes 400x2048, 50x2048 and 50x2048.
+- Scaler scope is `synthetic_encoder_train_only`; every output feature has L2 norm at most 1.
+- Test data was not loaded during correctness or tuning.
+- The one-epoch reference accuracy of 0.14 is diagnostic only and is not a formal quality result.
