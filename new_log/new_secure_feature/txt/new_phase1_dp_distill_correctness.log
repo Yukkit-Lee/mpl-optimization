@@ -1,0 +1,11 @@
+[2026-07-25T14:44:32+08:00] task=phase1_dp_distill_correctness resource=gpu1 attempt=0
+========================================================================================
+Stage A Track B：DP trajectories -> MTT post-processing
+dataset=cifar10 trajectories=1 ipc=1 iterations=2 syn_steps=1
+raw_data_access=False pix_init=noise cpu_threads=1 num_workers=0
+stage_a_epsilon=1.7613233404748372 delta=1e-05
+output: new_cache/new_secure_feature/new_stage_a_dp_correctness_distill/cifar10
+========================================================================================
+  iteration=    1/    2 trajectory_loss=1.004356 synthetic_lr=0.009992
+  iteration=    2/    2 trajectory_loss=1.004189 synthetic_lr=0.009979
+result: new_cache/new_secure_feature/new_stage_a_dp_correctness_distill/cifar10/new_dp_mtt_images_cifar10_ipc1_seed42.pt

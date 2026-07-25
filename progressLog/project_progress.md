@@ -684,3 +684,8 @@
 - 持久运行：系统原本没有 tmux，已在 `/home/lixujie/tmpWork/new_tmux_runtime` 隔离安装 tmux 3.7b，未修改训练环境；会话 `new_secure_feature_formal` 包含 `gpu0/gpu1/tfe/monitor/report` 五个窗口。
 - 环境证据：现代环境 Python 3.9.7、PyTorch 2.8.0+cu128、torchvision 0.23.0+cu128、cuDNN 91002、Opacus 1.5.4；旧环境 Python 3.6.13、TensorFlow 1.15.5、TF Encrypted 0.8.0。旧 TFE 缺少对应 aux/secure_random custom ops，已标记为开放阻塞项，不能声称安全随机性。
 - Phase 0 输出：`new_SECURE_FEATURE_PIPELINE_PROGRESS.md`、`new_SECURE_FEATURE_EXPERIMENT_MANIFEST.json`、`new_log/new_secure_feature/json/new_phase0_environment.json`、`new_log/new_secure_feature/json/new_phase0_baseline_artifacts.json` 和 `new_scripts/new_*.sh`。
+- Phase 1 实现：新增 `new_secure_feature_models.py`、`new_stage_a_dp_experts.py` 与 `new_stage_a_dp_distill.py`。raw private data 只允许由 expert 入口访问；蒸馏入口仅加载 SHA256 校验后的 DP trajectories，并从随机噪声初始化 synthetic images。
+- Phase 1 隐私组合：机构内多个 expert 使用 Opacus RDP sequential composition，互斥机构之间使用 parallel composition 并取最大 epsilon；记录 noise multiplier、sample rate、steps、delta、trajectory 数量与原始记录隐私范围。
+- Phase 1 正确性结果：CIFAR-10 单机构 1,000 records、1 expert、1 epoch、8 optimizer steps，epsilon=1.761323（delta=1e-5）；随后 2 次 trajectory matching 成功生成 ipc=1 诊断图像，蒸馏阶段 `raw_data_access=False`。该结果只用于 correctness，不是正式精度结果。
+- Phase 1 测试：隐私会计随 steps 单调增加、随 noise 增大而下降、多 trajectory 组合不小于单 trajectory；蒸馏 raw-data 隔离与 DP/public 输出路径隔离通过；三个数据集共享模型均严格输出 2048 维特征并通过 Opacus validator。
+- Phase 1 阻塞：`torchcsprng 0.2.1` wheel 依赖 CUDA 10.2，无法加载到 PyTorch 2.8/CUDA 12.8。正式 `--secure_rng` 配置会硬失败且禁止静默回退；当前 correctness run 不得声称生产级 CSPRNG。

@@ -1,0 +1,51 @@
+{
+  "phase": "phase_1",
+  "status": "IMPLEMENTED_WITH_BLOCKER",
+  "updated_at": "2026-07-25T14:46:00+08:00",
+  "test_data_used_for_tuning": false,
+  "trials": [
+    {
+      "trial_id": "new_phase1_dp_expert_correctness",
+      "type": "correctness_only",
+      "dataset": "cifar10",
+      "records": 1000,
+      "experts": 1,
+      "epochs": 1,
+      "optimizer_steps": 8,
+      "noise_multiplier": 1.5,
+      "max_grad_norm": 1.0,
+      "delta": 1e-5,
+      "epsilon": 1.7613233404748372,
+      "secure_rng": false,
+      "status": "COMPLETE",
+      "formal_result": false
+    },
+    {
+      "trial_id": "new_phase1_dp_distill_correctness_attempt_0",
+      "type": "correctness_only",
+      "status": "REJECTED_RESOURCE_LOCK_RACE",
+      "resolution": "heartbeat 子进程关闭 lock FD，cleanup 显式 wait"
+    },
+    {
+      "trial_id": "new_phase1_dp_distill_correctness_attempt_1",
+      "type": "correctness_only",
+      "dataset": "cifar10",
+      "trajectory_count": 1,
+      "iterations": 2,
+      "synthetic_steps": 1,
+      "raw_data_access": false,
+      "image_initialization": "random_noise",
+      "inherited_epsilon": 1.7613233404748372,
+      "status": "COMPLETE",
+      "formal_result": false
+    },
+    {
+      "trial_id": "new_phase1_torchcsprng_compatibility",
+      "type": "dependency_validation",
+      "package": "torchcsprng==0.2.1",
+      "isolated_target": "/home/lixujie/tmpWork/new_torchcsprng_runtime",
+      "status": "BLOCKED",
+      "reason": "wheel requires libcudart.so.10.2; host runtime is CUDA 12.8"
+    }
+  ]
+}

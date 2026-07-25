@@ -23,7 +23,7 @@
 ## Checklist
 
 - [x] Phase 0: Preserve baseline and create branch
-- [ ] Phase 1: Implement real Stage-A privacy mechanism
+- [x] Phase 1: Implement real Stage-A privacy mechanism (secure RNG blocker recorded)
 - [ ] Phase 2: Build shared 2048-D representation pipeline
 - [ ] Phase 3: Implement secure Stage-B computation
 - [ ] Phase 4: Implement secure Stage-C Fixed DP-SGD
@@ -61,5 +61,15 @@
 ## Current Status
 
 - Phase 0 infrastructure is complete and is being committed independently.
-- Phase 1 implementation is in progress; no Stage-A privacy claim is active yet.
+- Phase 1 implementation and minimal trajectory-to-distillation correctness chain are complete.
+- Phase 1 formal secure-RNG execution is blocked by the CUDA 10.2-only `torchcsprng 0.2.1` wheel; no silent fallback is permitted.
+- Phase 2 shared 2048-D encoder implementation is in progress.
 - No smoke result will be promoted into a formal result.
+
+## Phase 1 Evidence
+
+- DP expert diagnostic: CIFAR-10, 1,000 disjoint records, 8 optimizer steps, one epoch, epsilon=1.761323 at delta=1e-5.
+- DP-MTT diagnostic: two trajectory-matching iterations, random-noise image initialization, no raw-data loader, inherited epsilon=1.761323.
+- Unit tests: epsilon increases with steps, decreases with noise, sequential composition is monotonic, raw-data isolation passes, and DP/public output namespaces are separate.
+- All three dataset models produce exactly 2048 classifier-input features and pass the Opacus module validator.
+- These are correctness diagnostics only and are not formal accuracy results.

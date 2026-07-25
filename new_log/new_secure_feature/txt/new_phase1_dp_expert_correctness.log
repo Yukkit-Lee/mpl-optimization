@@ -1,0 +1,14 @@
+[2026-07-25T14:43:02+08:00] task=phase1_dp_expert_correctness resource=gpu1 attempt=0
+========================================================================================
+Stage A Track B：DP-SGD experts -> DP trajectories
+dataset=cifar10 records=50000 parties=50 experts/party=1 epochs=1
+device=cuda cpu_threads=1 num_workers=0 noise=1.5 clip=1.0 delta=1e-05
+selected_party_ids=[0]
+预计总 expert runs: 1
+output: new_cache/new_secure_feature/new_stage_a_dp_correctness/cifar10
+========================================================================================
+/home/lixujie/.conda/envs/distillation/lib/python3.9/site-packages/opacus/privacy_engine.py:96: UserWarning: Secure RNG turned off. This is perfectly fine for experimentation as it allows for much faster training performance, but remember to turn it on and retrain one last time before production with ``secure_mode`` turned on.
+  warnings.warn(
+sys:1: UserWarning: Full backward hook is firing when gradients are computed with respect to module outputs since no inputs require gradients. See https://docs.pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_full_backward_hook for more details.
+  party=00 expert=00 epoch=   1/   1 loss=2.3380 train_acc=0.0953 epsilon=1.7613
+manifest: new_cache/new_secure_feature/new_stage_a_dp_correctness/cifar10/new_stage_a_dp_trajectory_manifest_cifar10.json

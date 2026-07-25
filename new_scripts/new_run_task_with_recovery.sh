@@ -48,10 +48,11 @@ heartbeat_loop() {
     sleep 60
   done
 }
-heartbeat_loop &
+heartbeat_loop 9>&- &
 HEARTBEAT_PID=$!
 cleanup() {
   kill "${HEARTBEAT_PID}" 2>/dev/null || true
+  wait "${HEARTBEAT_PID}" 2>/dev/null || true
   rm -f "${PID_FILE}"
 }
 trap cleanup EXIT INT TERM

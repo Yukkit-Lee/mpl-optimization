@@ -13,6 +13,27 @@
   "feature_l2_bound": 1.0,
   "stage_c_target_epsilons": [1.0, 3.0, 8.0],
   "stage_c_delta": 1e-5,
+  "stage_a_dp_mtt": {
+    "num_parties": 5,
+    "num_experts_per_party": 2,
+    "expert_epochs": 50,
+    "expert_batch_size": 256,
+    "expert_learning_rate": 0.05,
+    "expert_noise_multiplier": 1.5,
+    "expert_max_grad_norm": 1.0,
+    "secure_rng_required": true,
+    "secure_rng_status": "BLOCKED_TORCHCSPRNG_CUDA10_2_ABI",
+    "delta": 1e-5,
+    "ipc": 10,
+    "distill_iterations": {
+      "cifar10": 5000,
+      "cifar100": 10000,
+      "tiny": 15000
+    },
+    "synthetic_steps": 20,
+    "image_initialization": "random_noise",
+    "distillation_raw_data_access": false
+  },
   "quality_gates": {
     "stage_a_reference_ratio": 0.95,
     "stage_a_absolute_gap": 0.02,

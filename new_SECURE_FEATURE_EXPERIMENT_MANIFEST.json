@@ -3,7 +3,7 @@
   "pipeline": "new_secure_feature_pipeline",
   "branch": "new-secure-feature-pipeline",
   "baseline_commit": "0a7a254b6313b39dc8d367d28825028286a0750e",
-  "status": "PHASE_1_IN_PROGRESS",
+  "status": "PHASE_2_IN_PROGRESS",
   "created_at": "2026-07-25T14:04:00+08:00",
   "updated_at": "2026-07-25T14:34:00+08:00",
   "resource_policy": {
@@ -27,8 +27,8 @@
   },
   "phases": {
     "phase_0": "COMPLETE",
-    "phase_1": "IN_PROGRESS",
-    "phase_2": "PENDING",
+    "phase_1": "IMPLEMENTED_WITH_BLOCKER",
+    "phase_2": "IN_PROGRESS",
     "phase_3": "PENDING",
     "phase_4": "PENDING",
     "phase_5": "PENDING",
@@ -46,12 +46,26 @@
       "item": "legacy_tfe_custom_ops",
       "status": "OPEN",
       "reason": "TensorFlow 1.15.5 对应的 TF Encrypted aux 与 secure_random 自定义算子缺失；安全随机性声明暂不可用。"
+    },
+    {
+      "phase": "phase_1",
+      "item": "opacus_secure_rng",
+      "status": "BLOCKED",
+      "reason": "torchcsprng 0.2.1 wheel 依赖 CUDA 10.2，无法加载到 PyTorch 2.8/CUDA 12.8；正式 --secure_rng 会硬失败，禁止静默回退。"
     }
   ],
   "security_claims": [
     {
       "claim": "Phase 0 仅建立隔离运行与审计基础设施，尚未产生任何新算法或正式精度结果。",
       "supported": true
+    },
+    {
+      "claim": "DP-MTT 蒸馏实现只读取 Opacus RDP 会计的 DP trajectories，并从随机噪声初始化 synthetic images。",
+      "supported": true
+    },
+    {
+      "claim": "当前 correctness run 具备生产级 CSPRNG。",
+      "supported": false
     }
   ]
 }
