@@ -730,6 +730,14 @@ Ours Step@TargetAcc <= 0.8 × Baseline Step@TargetAcc
 
 未达到时，必须基于 validation/reference 诊断调参；不得修改或挑选 test 结果。
 
+## 10.3 最终测试集只读评估
+
+Module C 54/54 与 End-to-End 18/18 的配置、模型和 reference-only
+聚合报告全部冻结后，才允许执行一次最终测试集评估。评估器必须先验证全部
+正式报告、模型文件与 encoder/scaler signature，再对每个 dataset/seed
+只读取一次 test feature cache。测试结果只进入最终 JSON/CSV/PNG/PDF，
+不得反馈给超参、质量门、seed 选择或任务队列。
+
 ---
 
 # 11. TFE 正式系统实验

@@ -13,6 +13,7 @@ END_TO_END_QUEUE="${NEW_PROJECT_ROOT}/new_configs/new_public_mtt_mainline/new_tf
 SYSTEM_QUEUE="${NEW_PROJECT_ROOT}/new_configs/new_public_mtt_mainline/new_tfe_system_formal.tsv"
 MODULE_C_REPORT="${NEW_PROJECT_ROOT}/new_log/new_public_mtt_mainline/json/new_module_c_formal_report.json"
 END_TO_END_REPORT="${NEW_PROJECT_ROOT}/new_log/new_public_mtt_mainline/json/new_end_to_end_formal_report.json"
+FINAL_TEST_REPORT="${NEW_PROJECT_ROOT}/new_log/new_public_mtt_mainline/json/new_final_test_evaluation.json"
 SYSTEM_REPORT="${NEW_PROJECT_ROOT}/new_log/new_public_mtt_mainline/json/new_tfe_system_formal_report.json"
 mkdir -p "$(dirname "${STATUS}")"
 
@@ -122,6 +123,12 @@ if [[ ! -f "${END_TO_END_REPORT}" ]]; then
   "${NEW_MODERN_PYTHON}" "${NEW_PROJECT_ROOT}/new_report_end_to_end_formal.py"
 fi
 
+if [[ ! -f "${FINAL_TEST_REPORT}" ]]; then
+  atomic_status "final_test_evaluation" "REPORTING" \
+    "single_readonly_after_all_config_and_models_frozen"
+  "${NEW_MODERN_PYTHON}" "${NEW_PROJECT_ROOT}/new_final_test_evaluation.py"
+fi
+
 if [[ ! -f "${SYSTEM_REPORT}" ]]; then
   if [[ ! -f "${SYSTEM_QUEUE}" ]] || [[ "$(queue_state "${SYSTEM_QUEUE}")" != COMPLETE:* ]]; then
     activate_if_needed \
@@ -136,4 +143,5 @@ if [[ ! -f "${SYSTEM_REPORT}" ]]; then
   "${NEW_MODERN_PYTHON}" "${NEW_PROJECT_ROOT}/new_report_tfe_system_formal.py"
 fi
 
-atomic_status "mainline_remaining" "COMPLETE" "module_c,end_to_end,tfe_system"
+atomic_status "mainline_remaining" "COMPLETE" \
+  "module_c,end_to_end,final_test,tfe_system"
