@@ -8,7 +8,7 @@ SESSION=new_secure_feature_single_gpu_formal
 if ! "${NEW_TMUX}" has-session -t "${SESSION}" 2>/dev/null; then
   "${NEW_TMUX}" new-session -d -s "${SESSION}" -n gpu0 -c "${NEW_PROJECT_ROOT}"
 fi
-for window in gpu0 tfe monitor report; do
+for window in gpu0 tfe monitor report chain; do
   if ! "${NEW_TMUX}" list-windows -t "${SESSION}" -F '#W' | grep -Fxq "${window}"; then
     "${NEW_TMUX}" new-window -t "${SESSION}" -n "${window}" -c "${NEW_PROJECT_ROOT}"
   fi
@@ -16,6 +16,11 @@ done
 if ! pgrep -af 'new_scripts/new_monitor_resources.sh' >/dev/null; then
   "${NEW_TMUX}" send-keys -t "${SESSION}:monitor" \
     "exec bash ${SCRIPT_DIR}/new_monitor_resources.sh" C-m
+fi
+if [[ -x "${SCRIPT_DIR}/new_public_mtt_mainline_chain.sh" ]] \
+  && ! pgrep -af 'new_scripts/new_public_mtt_mainline_chain.sh' >/dev/null; then
+  "${NEW_TMUX}" send-keys -t "${SESSION}:chain" \
+    "exec bash ${SCRIPT_DIR}/new_public_mtt_mainline_chain.sh" C-m
 fi
 echo "ready tmux session: ${SESSION}"
 "${NEW_TMUX}" list-windows -t "${SESSION}"
