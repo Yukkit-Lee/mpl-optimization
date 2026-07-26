@@ -1,0 +1,21 @@
+[2026-07-26T19:48:21+08:00] task=public_mainline_stage_c_validation_round2_cifar100_adaptive_dp_seed42 resource=tfe attempt=0
+Traceback (most recent call last):
+  File "/root/autodl-tmp/tfe_experiments/new_stage_c_secure_dpsgd.py", line 695, in <module>
+    raise SystemExit(main())
+  File "/root/autodl-tmp/tfe_experiments/new_stage_c_secure_dpsgd.py", line 565, in main
+    data = load_feature_cache(args.feature_cache)
+  File "/root/autodl-tmp/tfe_experiments/new_stage_b_secure_init.py", line 84, in load_feature_cache
+    result = {name: np.asarray(cache[name]) for name in required}
+  File "/root/autodl-tmp/tfe_experiments/new_stage_b_secure_init.py", line 84, in <dictcomp>
+    result = {name: np.asarray(cache[name]) for name in required}
+  File "/root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/numpy/lib/npyio.py", line 262, in __getitem__
+    pickle_kwargs=self.pickle_kwargs)
+  File "/root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/numpy/lib/format.py", line 777, in read_array
+    data = _read_bytes(fp, read_size, "array data")
+  File "/root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/numpy/lib/format.py", line 906, in _read_bytes
+    r = fp.read(size - len(data))
+  File "/root/autodl-tmp/new_envs/tfe/lib/python3.6/zipfile.py", line 872, in read
+    data = self._read1(n)
+  File "/root/autodl-tmp/new_envs/tfe/lib/python3.6/zipfile.py", line 948, in _read1
+    data = self._decompressor.decompress(data, n)
+KeyboardInterrupt

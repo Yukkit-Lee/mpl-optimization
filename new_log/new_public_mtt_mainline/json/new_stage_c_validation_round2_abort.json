@@ -1,0 +1,36 @@
+{
+  "schema": "new_public_mtt_stage_c_validation_abort_v1",
+  "round_tag": "stage_c_validation_round2",
+  "status": "ABORTED_CODE_AUDIT",
+  "formal_result": false,
+  "test_loaded": false,
+  "dp_mtt_status": "EXCLUDED_BY_USER",
+  "reason": "The adaptive below-threshold indicator was inverted: norm <= C was encoded as 0 although the update and report interpreted it as fraction_below.",
+  "completed_before_audit": [
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "steps": 10,
+      "first_logged_reference_accuracy": 0.74,
+      "final_reference_accuracy": 0.74
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "steps": 10,
+      "first_logged_reference_accuracy": 0.74,
+      "final_reference_accuracy": 0.76,
+      "valid_for_formal_selection": false
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "steps": 20,
+      "first_logged_reference_accuracy": 0.958,
+      "final_reference_accuracy": 0.958
+    }
+  ],
+  "interrupted_task": "public_mainline_stage_c_validation_round2_cifar100_adaptive_dp_seed42",
+  "remaining_tasks_launched": false,
+  "replacement_round": "stage_c_validation_round3"
+}

@@ -122,6 +122,13 @@ def secure_clamp(tfe, value, lower, upper):
     return -tfe.maximum(-value, -float(upper))
 
 
+def adaptive_clip_direction_reference(current_c, fraction_below, gamma, eta_c):
+    """Plain reference for testing the direction of the secure C update."""
+    return float(current_c) * math.exp(
+        -float(eta_c) * (float(fraction_below) - float(gamma))
+    )
+
+
 def build_graph(data, init_weight, init_bias, args):
     tf, tfe, KE, FixedpointConfig = import_tfe_or_fail()
     from tf_encrypted.operations.secure_random import secure_random
@@ -210,21 +217,18 @@ def build_graph(data, init_weight, init_bias, args):
         if args.clipping_scope == "global":
             factor_w = secure_clip_factor(tfe, norm_squared, clip_bound)
             factor_b = factor_w
+            # 1 means the example is below C and therefore is not clipped.
             below = tfe.select(
-                tfe.less_equal(norm_squared, clip_bound * clip_bound), 0.0, 1.0
+                tfe.less_equal(norm_squared, clip_bound * clip_bound), 1.0, 0.0
             )
         else:
             factor_w = secure_clip_factor(tfe, weight_norm_squared, clip_bound)
             factor_b = secure_clip_factor(tfe, bias_norm_squared, clip_bound)
             below_w = tfe.select(
-                tfe.less_equal(weight_norm_squared, clip_bound * clip_bound),
-                0.0,
-                1.0,
+                tfe.less_equal(weight_norm_squared, clip_bound * clip_bound), 1.0, 0.0
             )
             below_b = tfe.select(
-                tfe.less_equal(bias_norm_squared, clip_bound * clip_bound),
-                0.0,
-                1.0,
+                tfe.less_equal(bias_norm_squared, clip_bound * clip_bound), 1.0, 0.0
             )
             below = (below_w + below_b) * 0.5
         clipped_error_w = error * tfe.expand_dims(factor_w, axis=1)
