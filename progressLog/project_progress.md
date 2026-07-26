@@ -788,3 +788,14 @@
 - 普通迁移包：`/home/lixujie/tmpWork/autodl_new_secure_resume_20260726_150457.tar.zst`，大小 `8,771,438,515` bytes，SHA256=`2313a96c1352c2cb66b6262bb59f61d559fb2cd6112f87131e7ab76a53b1bae9`；`zstd -t` 完整性校验通过。内容仅为 Public MTT 高成本 encoder/scaler/feature caches 与 TFE custom-op 备份。
 - DP-MTT 最终决策：按用户最新要求停止 DP-MTT 路线；其 trajectory/checkpoint/秘密 sidecar 均保留原位，但不上传、不打包，也未创建加密迁移包。Public MTT 主线不依赖这些资产。
 - 静态验证：现代/legacy Python 编译检查、shell `bash -n`、YAML/关键 JSON 解析、官方资产 SHA、Stage-B 队列重生成均通过。当前环境 `pip check` 的 `cryptgpu` 冲突和旧 TFE NumPy/decorator 冲突已如实记录；portable legacy spec 将 NumPy 固定为 TensorFlow 1.15.5 声明兼容的 1.18.5。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-26 15:22 Asia/Shanghai
+- 本次对话任务目标：明确 AutoDL 迁移中仍需人工传输的内容，并导出当前 Codex 长对话源文件，解决新机器上的 Codex 没有历史上下文的问题。
+- 资源评估与限制：本任务仅执行 Git 状态读取、约 53 MiB 会话 JSONL 复制和单线程 `zstd -T1` 压缩，不启动训练、不使用 GPU、不创建并行 worker。
+- 大文件迁移结论：需要人工上传普通迁移包 `/home/lixujie/tmpWork/autodl_new_secure_resume_20260726_150457.tar.zst`；大小 `8,771,438,515` bytes，SHA256=`2313a96c1352c2cb66b6262bb59f61d559fb2cd6112f87131e7ab76a53b1bae9`，此前已通过 `zstd -t`。Official MTT、CIFAR/Tiny 原始数据按文档在 AutoDL 重新下载，不手工迁移。
+- 会话源确认：定位到当前会话原始 JSONL，验证其中包含本次最新用户消息。考虑到历史对话出现过访问令牌和敏感工具输出，原始文件不加入 GitHub，也不混入普通实验资产包。
+- 私有会话包：生成 `/home/lixujie/tmpWork/codex_conversation_export_20260726_1522.tar.zst`，大小 `12,154,981` bytes，SHA256=`3b6420f7aa7c3a0c17c0b17b8e797ebe3224d6e73c49b519eaf5154ce679601a`，权限 `0600`，并通过 `zstd -t` 完整性校验。该包必须通过私有渠道单独传输，禁止提交 GitHub。
+- 上下文恢复：新增 `migration/CODEX_CONTEXT_HANDOFF.md`，安全记录 Public MTT 主线、Stage A/B/C 边界、已完成进度、资源约束、迁移资产和 AutoDL 首次 Codex 提示词。原始 JSONL 可用于审计，但 Codex 客户端不保证支持直接导入旧 UI 会话，因此新会话应优先读取 handoff、项目进度和迁移文档。
