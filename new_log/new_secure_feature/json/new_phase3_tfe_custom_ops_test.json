@@ -15,11 +15,11 @@
     0,
     1
   ],
-  "exp_max_abs_error": 6.67572021484375e-05,
-  "inv_sqrt_max_abs_error": 0.004193425178527832,
+  "exp_max_abs_error": 5.14984130859375e-05,
+  "inv_sqrt_max_abs_error": 0.004208683967590332,
   "secure_random_unique_count": 32,
-  "aux_so": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/aux/aux_module_tf_1.15.5.so",
-  "aux_sha256": "d0522709c817c63e770327fc69e5dc4e422a9f3a7cd3e0af19b0a4375a485c73",
-  "secure_random_so": "/home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.5.so",
-  "secure_random_sha256": "7f3ab2d053761f1f60eb511547d0839285ffc341788f7f5b179c8e52dc24d340"
+  "aux_so": "/root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/aux/aux_module_tf_1.15.5.so",
+  "aux_sha256": "1b92596bee9f73c9c4ccbc5d9a90d57bedd5089dae1a79e5c4fa4c8df39ee41c",
+  "secure_random_so": "/root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/operations/secure_random/secure_random_module_tf_1.15.5.so",
+  "secure_random_sha256": "b2861c06d32c028544144acd3b87105d0f11c388e0c0a79e3672dc083712dcd8"
 }
