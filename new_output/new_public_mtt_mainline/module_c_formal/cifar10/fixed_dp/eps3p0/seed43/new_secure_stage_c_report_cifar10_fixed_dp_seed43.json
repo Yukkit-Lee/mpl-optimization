@@ -1,0 +1,195 @@
+{
+  "schema": "new_secure_stage_c_report_v2",
+  "status": "COMPLETE",
+  "dataset": "cifar10",
+  "seed": 43,
+  "mode": "fixed_dp",
+  "feature_dim": 2048,
+  "num_classes": 10,
+  "configuration": {
+    "feature_cache": "/root/autodl-tmp/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/cifar10/new_stage_b_features_cifar10_seed43.npz",
+    "initializer": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/module_b_random/cifar10/seed43/new_random_initializer_cifar10_seed43.npz",
+    "dataset": "cifar10",
+    "mode": "fixed_dp",
+    "output_dir": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps3p0/seed43",
+    "checkpoint_prefix": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps3p0/seed43/new_stage_c",
+    "seed": 43,
+    "batch_size": 16,
+    "steps": 10,
+    "learning_rate": 0.002,
+    "noise_multiplier": 0.8209943641312291,
+    "count_noise_multiplier": 8.0,
+    "clip_c": 1.0,
+    "clipping_scope": "global",
+    "gamma": 0.5,
+    "eta_c": 0.05,
+    "c_min": 0.05,
+    "c_max": 4.0,
+    "warmup_steps": 5,
+    "update_interval": 5,
+    "exploding_c_patience": 5,
+    "delta": 1e-05,
+    "precision_fractional": 16,
+    "matmul_chunk_size": 64,
+    "checkpoint_interval": 2,
+    "initializer_privacy_status": "data_independent",
+    "feature_dim": 2048,
+    "num_classes": 10
+  },
+  "privacy": {
+    "accountant": "Opacus RDPAccountant",
+    "accounted_gradient_mechanism_epsilon": 2.999999999999991,
+    "stage_c_distilled_feature_record_epsilon": 2.999999999999991,
+    "stage_c_delta": 1e-05,
+    "sample_rate": 0.04,
+    "steps": 10,
+    "gradient_noise_multiplier": 0.8209943641312291,
+    "clipping_count_noise_multiplier": 8.0,
+    "clipping_count_mechanism_steps": 0,
+    "initializer_privacy_status": "data_independent",
+    "released_model_record_dp_valid": true,
+    "epsilon_interpretation": "released_model_record_dp",
+    "stage_a_original_record_privacy": "inherited_from_stage_a_metadata",
+    "epsilon_a_plus_epsilon_c_claimed": false
+  },
+  "security": {
+    "backend": "tfe_mpc",
+    "protocol": "ABY3",
+    "execution": "single-machine process simulation",
+    "noise_generation": "three_independent_checkpointed_csprng_gaussian_shares",
+    "secret_shared": [
+      "features",
+      "labels",
+      "parameters",
+      "per_example_norms",
+      "clip_factors",
+      "gradient_sums",
+      "noise_shares_after_input_sharing",
+      "updated_parameters",
+      "adaptive_clipping_bound"
+    ],
+    "revealed": [
+      "no_clipping_count_statistic",
+      "fixed_public_clipping_bound",
+      "aggregate_reference_logits_at_log_intervals",
+      "final_dp_model"
+    ],
+    "silent_plaintext_fallback": false,
+    "honest_party_assumption": "at_least_one_of_three_compute_parties"
+  },
+  "final_c": 1.0,
+  "provider_counters": [
+    10,
+    10,
+    10
+  ],
+  "history": [
+    {
+      "step": 1,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.1000213623046875,
+      "reference_accuracy": 0.08
+    },
+    {
+      "step": 2,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0999755859375,
+      "reference_accuracy": 0.08
+    },
+    {
+      "step": 3,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.099945068359375,
+      "reference_accuracy": 0.08
+    },
+    {
+      "step": 4,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0999298095703125,
+      "reference_accuracy": 0.08
+    },
+    {
+      "step": 5,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.099884033203125,
+      "reference_accuracy": 0.08
+    },
+    {
+      "step": 6,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0998687744140625,
+      "reference_accuracy": 0.06
+    },
+    {
+      "step": 7,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.099822998046875,
+      "reference_accuracy": 0.06
+    },
+    {
+      "step": 8,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0998077392578125,
+      "reference_accuracy": 0.06
+    },
+    {
+      "step": 9,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0997772216796875,
+      "reference_accuracy": 0.06
+    },
+    {
+      "step": 10,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0997467041015625,
+      "reference_accuracy": 0.06
+    }
+  ],
+  "runtime_seconds": 17.50350570678711,
+  "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps3p0/seed43/new_secure_stage_c_model_cifar10_fixed_dp_seed43.npz",
+  "model_sha256": "2a4086f6e3bbc8737af6925ce90d19ba88bc7ce472c550f1aaf563aa270ef959",
+  "limitations": [
+    "Reference logits are revealed only for correctness/tuning diagnostics and must be disabled or reduced in the frozen formal release.",
+    "TFE local mode is a single-machine process simulation; LAN/WAN communication is not measured."
+  ]
+}

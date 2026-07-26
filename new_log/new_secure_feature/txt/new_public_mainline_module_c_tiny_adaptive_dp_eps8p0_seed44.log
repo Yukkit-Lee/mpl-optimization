@@ -1,0 +1,23 @@
+[2026-07-26T21:18:36+08:00] task=public_mainline_module_c_tiny_adaptive_dp_eps8p0_seed44 resource=tfe attempt=0
+============================================================================================
+Stage C：TFE/ABY3 Secure adaptive_dp DP-SGD
+dataset=tiny samples=8000 batch=16 steps=30 feature_dim=2048
+noise_multiplier=0.37755449641895616 count_noise=8.0 delta=1e-05 cpu_policy=unrestricted
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageC] step=1/30 ref_acc=0.0030 C_t=1.00000 noisy_b=N/A
+[StageC] step=4/30 ref_acc=0.0030 C_t=1.00000 noisy_b=N/A
+[StageC] step=7/30 ref_acc=0.0030 C_t=1.00000 noisy_b=N/A
+[StageC] step=11/30 ref_acc=0.0030 C_t=0.97523 noisy_b=N/A
+[StageC] step=14/30 ref_acc=0.0040 C_t=0.97523 noisy_b=N/A
+[StageC] step=17/30 ref_acc=0.0040 C_t=0.95110 noisy_b=N/A
+[StageC] step=20/30 ref_acc=0.0040 C_t=0.95110 noisy_b=0.7611
+[StageC] step=24/30 ref_acc=0.0040 C_t=0.93869 noisy_b=N/A
+[StageC] step=27/30 ref_acc=0.0040 C_t=0.92761 noisy_b=N/A
+[StageC] step=30/30 ref_acc=0.0040 C_t=0.92761 noisy_b=0.2393
+epsilon_C=8.000000 final_C=0.939774
+model=/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps8p0/seed44/new_secure_stage_c_model_tiny_adaptive_dp_seed44.npz
+report=/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps8p0/seed44/new_secure_stage_c_report_tiny_adaptive_dp_seed44.json

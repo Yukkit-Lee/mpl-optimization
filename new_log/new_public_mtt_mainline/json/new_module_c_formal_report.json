@@ -1,0 +1,1647 @@
+{
+  "schema": "new_module_c_formal_report_v1",
+  "status": "COMPLETE",
+  "formal_result": true,
+  "runs_expected": 54,
+  "runs_completed": 54,
+  "test_loaded": false,
+  "dp_mtt_status": "EXCLUDED_BY_USER",
+  "privacy_scope": "stage_c_distilled_feature_records",
+  "initializer_privacy_status": "data_independent",
+  "released_model_record_dp_valid": true,
+  "groups": [
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 1.3118620614479413,
+      "achieved_epsilon": {
+        "mean": 0.9999999999999998,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.07333333333333333,
+        "std": 0.011547005383792518
+      },
+      "early_auc": {
+        "mean": 0.07481481481481482,
+        "std": 0.008981004187394172
+      },
+      "final_c": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "mean": 17.528703053792317,
+        "std": 0.6155510543241335
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.8209943641312291,
+      "achieved_epsilon": {
+        "mean": 2.999999999999991,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.07333333333333333,
+        "std": 0.011547005383792518
+      },
+      "early_auc": {
+        "mean": 0.07666666666666667,
+        "std": 0.0057735026918962545
+      },
+      "final_c": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "mean": 17.392935355504353,
+        "std": 0.5230336706431614
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5376248086655514,
+      "achieved_epsilon": {
+        "mean": 7.999999999999982,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.07333333333333333,
+        "std": 0.011547005383792518
+      },
+      "early_auc": {
+        "mean": 0.07481481481481482,
+        "std": 0.008981004187394172
+      },
+      "final_c": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "mean": 16.89513111114502,
+        "std": 0.45445984822960683
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 1.311934074932,
+      "achieved_epsilon": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.08,
+        "std": 0.0
+      },
+      "early_auc": {
+        "mean": 0.07814814814814815,
+        "std": 0.0032075014954979254
+      },
+      "final_c": {
+        "mean": 0.9783884684244791,
+        "std": 0.005461992903100097
+      },
+      "runtime_seconds": {
+        "mean": 25.608999888102215,
+        "std": 0.4025065189833765
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 0.821001421653252,
+      "achieved_epsilon": {
+        "mean": 2.999999999999999,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.07333333333333333,
+        "std": 0.011547005383792518
+      },
+      "early_auc": {
+        "mean": 0.07333333333333333,
+        "std": 0.011547005383792512
+      },
+      "final_c": {
+        "mean": 0.9922739664713541,
+        "std": 0.02573912284169121
+      },
+      "runtime_seconds": {
+        "mean": 25.990872859954834,
+        "std": 0.775126704585593
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 0.5376259081415022,
+      "achieved_epsilon": {
+        "mean": 7.999999999999977,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.07333333333333333,
+        "std": 0.011547005383792518
+      },
+      "early_auc": {
+        "mean": 0.07333333333333333,
+        "std": 0.011547005383792512
+      },
+      "final_c": {
+        "mean": 0.9768015543619791,
+        "std": 0.0027133771196045644
+      },
+      "runtime_seconds": {
+        "mean": 26.030172268549602,
+        "std": 0.27595526935462644
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.9219619710110308,
+      "achieved_epsilon": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.011333333333333334,
+        "std": 0.0030550504633038936
+      },
+      "early_auc": {
+        "mean": 0.011649122807017544,
+        "std": 0.0026132696394898843
+      },
+      "final_c": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "mean": 34.631592194239296,
+        "std": 0.24582777585041773
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5913494070185682,
+      "achieved_epsilon": {
+        "mean": 2.999999999999999,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.012,
+        "std": 0.0034641016151377548
+      },
+      "early_auc": {
+        "mean": 0.012105263157894737,
+        "std": 0.0023086012841538207
+      },
+      "final_c": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "mean": 35.22059981028239,
+        "std": 0.5401729415214616
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.39946793970243055,
+      "achieved_epsilon": {
+        "mean": 7.999999999999991,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.012666666666666666,
+        "std": 0.0030550504633038936
+      },
+      "early_auc": {
+        "mean": 0.011403508771929825,
+        "std": 0.0015836188205469116
+      },
+      "final_c": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "mean": 35.34570916493734,
+        "std": 0.540860426996303
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.9219631393428442,
+      "achieved_epsilon": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.012666666666666666,
+        "std": 0.002309401076758503
+      },
+      "early_auc": {
+        "mean": 0.012,
+        "std": 0.002212405216524601
+      },
+      "final_c": {
+        "mean": 0.9676767985026041,
+        "std": 0.04244660620967863
+      },
+      "runtime_seconds": {
+        "mean": 46.56342609723409,
+        "std": 3.8831910566780223
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.5913495279853638,
+      "achieved_epsilon": {
+        "mean": 2.9999999999999836,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.012,
+        "std": 0.0034641016151377548
+      },
+      "early_auc": {
+        "mean": 0.011614035087719299,
+        "std": 0.0027253469795272115
+      },
+      "final_c": {
+        "mean": 0.9551747639973959,
+        "std": 0.030877641711882883
+      },
+      "runtime_seconds": {
+        "mean": 44.35802594820658,
+        "std": 1.1558536775259303
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.3994679590873829,
+      "achieved_epsilon": {
+        "mean": 8.0,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.012,
+        "std": 0.0034641016151377548
+      },
+      "early_auc": {
+        "mean": 0.011824561403508772,
+        "std": 0.002090297685418452
+      },
+      "final_c": {
+        "mean": 0.9346720377604166,
+        "std": 0.006319355844320816
+      },
+      "runtime_seconds": {
+        "mean": 44.777076403299965,
+        "std": 0.4941959478600978
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.8662939578848174,
+      "achieved_epsilon": {
+        "mean": 0.9999999999999998,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.004666666666666667,
+        "std": 0.0020816659994661326
+      },
+      "early_auc": {
+        "mean": 0.004293103448275863,
+        "std": 0.0017352229859413921
+      },
+      "final_c": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "mean": 70.51094341278076,
+        "std": 0.28149973363028813
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5563774812797032,
+      "achieved_epsilon": {
+        "mean": 2.999999999999998,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.005,
+        "std": 0.001
+      },
+      "early_auc": {
+        "mean": 0.004856321839080461,
+        "std": 0.0010795269879154178
+      },
+      "final_c": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "mean": 71.36131985982259,
+        "std": 1.8166717627275992
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.37755448972174427,
+      "achieved_epsilon": {
+        "mean": 7.999999999999874,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.005333333333333333,
+        "std": 0.0015275252316519468
+      },
+      "early_auc": {
+        "mean": 0.004758620689655173,
+        "std": 0.0014313460400356742
+      },
+      "final_c": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "mean": 70.8125437895457,
+        "std": 1.5762817969380998
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.8662945726075554,
+      "achieved_epsilon": {
+        "mean": 0.9999999999999998,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.004666666666666667,
+        "std": 0.0020816659994661326
+      },
+      "early_auc": {
+        "mean": 0.004143678160919541,
+        "std": 0.0017024788995720077
+      },
+      "final_c": {
+        "mean": 0.9213663736979166,
+        "std": 0.04167814798172367
+      },
+      "runtime_seconds": {
+        "mean": 81.89906160036723,
+        "std": 3.0939223752812874
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.5563775214544356,
+      "achieved_epsilon": {
+        "mean": 3.0,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.004333333333333333,
+        "std": 0.0005773502691896258
+      },
+      "early_auc": {
+        "mean": 0.004109195402298851,
+        "std": 0.001194061471724151
+      },
+      "final_c": {
+        "mean": 0.9718068440755209,
+        "std": 0.012860700282532033
+      },
+      "runtime_seconds": {
+        "mean": 75.71876017252605,
+        "std": 0.6573797100327764
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.37755449641895616,
+      "achieved_epsilon": {
+        "mean": 7.9999999999999165,
+        "std": 0.0
+      },
+      "final_reference_accuracy": {
+        "mean": 0.004333333333333333,
+        "std": 0.0005773502691896258
+      },
+      "early_auc": {
+        "mean": 0.004454022988505748,
+        "std": 0.0013411015284280768
+      },
+      "final_c": {
+        "mean": 0.9173787434895834,
+        "std": 0.01995757642332233
+      },
+      "runtime_seconds": {
+        "mean": 75.47289554278056,
+        "std": 0.1857503240245288
+      },
+      "communication_bytes": "N/A",
+      "communication_rounds": "N/A"
+    }
+  ],
+  "adaptive_quality_gate_at_epsilon3": {
+    "cifar10": {
+      "adaptive_minus_fixed": 0.0,
+      "target": 0.01,
+      "passed": false
+    },
+    "cifar100": {
+      "adaptive_minus_fixed": 0.0,
+      "target": 0.01,
+      "passed": false
+    },
+    "tiny": {
+      "adaptive_minus_fixed": -0.000666666666666667,
+      "target": 0.01,
+      "passed": false
+    }
+  },
+  "runs": [
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 0.9999999999999998,
+      "seed": 42,
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 1.3118620614479413,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 1.0,
+      "runtime_seconds": 16.84486222267151,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps1p0/seed42/new_secure_stage_c_report_cifar10_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 0.9999999999999998,
+      "seed": 43,
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 1.3118620614479413,
+      "first_reference_accuracy": 0.06,
+      "final_reference_accuracy": 0.06,
+      "early_auc": 0.06444444444444446,
+      "final_c": 1.0,
+      "runtime_seconds": 18.03847575187683,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps1p0/seed43/new_secure_stage_c_report_cifar10_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 0.9999999999999998,
+      "seed": 44,
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 1.3118620614479413,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 1.0,
+      "runtime_seconds": 17.702771186828613,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps1p0/seed44/new_secure_stage_c_report_cifar10_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999991,
+      "seed": 42,
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.8209943641312291,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 1.0,
+      "runtime_seconds": 17.85184359550476,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps3p0/seed42/new_secure_stage_c_report_cifar10_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999991,
+      "seed": 43,
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.8209943641312291,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.06,
+      "early_auc": 0.07,
+      "final_c": 1.0,
+      "runtime_seconds": 17.50350570678711,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps3p0/seed43/new_secure_stage_c_report_cifar10_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999991,
+      "seed": 44,
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.8209943641312291,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 1.0,
+      "runtime_seconds": 16.82345676422119,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps3p0/seed44/new_secure_stage_c_report_cifar10_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999982,
+      "seed": 42,
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5376248086655514,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 1.0,
+      "runtime_seconds": 17.35067081451416,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps8p0/seed42/new_secure_stage_c_report_cifar10_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999982,
+      "seed": 43,
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5376248086655514,
+      "first_reference_accuracy": 0.06,
+      "final_reference_accuracy": 0.06,
+      "early_auc": 0.06444444444444446,
+      "final_c": 1.0,
+      "runtime_seconds": 16.44175887107849,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps8p0/seed43/new_secure_stage_c_report_cifar10_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999982,
+      "seed": 44,
+      "steps": 10,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5376248086655514,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 1.0,
+      "runtime_seconds": 16.892963647842407,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps8p0/seed44/new_secure_stage_c_report_cifar10_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 1.0,
+      "seed": 42,
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 1.311934074932,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 0.9752349853515625,
+      "runtime_seconds": 26.07175040245056,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps1p0/seed42/new_secure_stage_c_report_cifar10_adaptive_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 1.0,
+      "seed": 43,
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 1.311934074932,
+      "first_reference_accuracy": 0.06,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.07444444444444444,
+      "final_c": 0.9752349853515625,
+      "runtime_seconds": 25.340101718902588,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps1p0/seed43/new_secure_stage_c_report_cifar10_adaptive_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 1.0,
+      "seed": 44,
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 1.311934074932,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 0.9846954345703125,
+      "runtime_seconds": 25.41514754295349,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps1p0/seed44/new_secure_stage_c_report_cifar10_adaptive_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999999,
+      "seed": 42,
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 0.821001421653252,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 0.9752197265625,
+      "runtime_seconds": 25.359357595443726,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps3p0/seed42/new_secure_stage_c_report_cifar10_adaptive_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999999,
+      "seed": 43,
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 0.821001421653252,
+      "first_reference_accuracy": 0.06,
+      "final_reference_accuracy": 0.06,
+      "early_auc": 0.060000000000000005,
+      "final_c": 0.9797210693359375,
+      "runtime_seconds": 25.757346630096436,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps3p0/seed43/new_secure_stage_c_report_cifar10_adaptive_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999999,
+      "seed": 44,
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 0.821001421653252,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 1.021881103515625,
+      "runtime_seconds": 26.85591435432434,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps3p0/seed44/new_secure_stage_c_report_cifar10_adaptive_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999977,
+      "seed": 42,
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 0.5376259081415022,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 0.9752349853515625,
+      "runtime_seconds": 25.78468155860901,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps8p0/seed42/new_secure_stage_c_report_cifar10_adaptive_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999977,
+      "seed": 43,
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 0.5376259081415022,
+      "first_reference_accuracy": 0.06,
+      "final_reference_accuracy": 0.06,
+      "early_auc": 0.060000000000000005,
+      "final_c": 0.9799346923828125,
+      "runtime_seconds": 26.32884955406189,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps8p0/seed43/new_secure_stage_c_report_cifar10_adaptive_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar10",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999977,
+      "seed": 44,
+      "steps": 10,
+      "count_mechanism_steps": 1,
+      "gradient_noise_multiplier": 0.5376259081415022,
+      "first_reference_accuracy": 0.08,
+      "final_reference_accuracy": 0.08,
+      "early_auc": 0.08,
+      "final_c": 0.9752349853515625,
+      "runtime_seconds": 25.976985692977905,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps8p0/seed44/new_secure_stage_c_report_cifar10_adaptive_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 1.0,
+      "seed": 42,
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.9219619710110308,
+      "first_reference_accuracy": 0.014,
+      "final_reference_accuracy": 0.014,
+      "early_auc": 0.013789473684210527,
+      "final_c": 1.0,
+      "runtime_seconds": 34.562244176864624,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps1p0/seed42/new_secure_stage_c_report_cifar100_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 1.0,
+      "seed": 43,
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.9219619710110308,
+      "first_reference_accuracy": 0.01,
+      "final_reference_accuracy": 0.008,
+      "early_auc": 0.00873684210526316,
+      "final_c": 1.0,
+      "runtime_seconds": 34.90464496612549,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps1p0/seed43/new_secure_stage_c_report_cifar100_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 1.0,
+      "seed": 44,
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.9219619710110308,
+      "first_reference_accuracy": 0.012,
+      "final_reference_accuracy": 0.012,
+      "early_auc": 0.012421052631578947,
+      "final_c": 1.0,
+      "runtime_seconds": 34.42788743972778,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps1p0/seed44/new_secure_stage_c_report_cifar100_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999999,
+      "seed": 42,
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5913494070185682,
+      "first_reference_accuracy": 0.014,
+      "final_reference_accuracy": 0.014,
+      "early_auc": 0.013789473684210527,
+      "final_c": 1.0,
+      "runtime_seconds": 35.73832035064697,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps3p0/seed42/new_secure_stage_c_report_cifar100_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999999,
+      "seed": 43,
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5913494070185682,
+      "first_reference_accuracy": 0.01,
+      "final_reference_accuracy": 0.008,
+      "early_auc": 0.009473684210526318,
+      "final_c": 1.0,
+      "runtime_seconds": 34.66047406196594,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps3p0/seed43/new_secure_stage_c_report_cifar100_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999999,
+      "seed": 44,
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5913494070185682,
+      "first_reference_accuracy": 0.014,
+      "final_reference_accuracy": 0.014,
+      "early_auc": 0.013052631578947368,
+      "final_c": 1.0,
+      "runtime_seconds": 35.26300501823425,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps3p0/seed44/new_secure_stage_c_report_cifar100_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999991,
+      "seed": 42,
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.39946793970243055,
+      "first_reference_accuracy": 0.012,
+      "final_reference_accuracy": 0.012,
+      "early_auc": 0.012210526315789472,
+      "final_c": 1.0,
+      "runtime_seconds": 35.96541452407837,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps8p0/seed42/new_secure_stage_c_report_cifar100_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999991,
+      "seed": 43,
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.39946793970243055,
+      "first_reference_accuracy": 0.01,
+      "final_reference_accuracy": 0.01,
+      "early_auc": 0.009578947368421055,
+      "final_c": 1.0,
+      "runtime_seconds": 35.102967977523804,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps8p0/seed43/new_secure_stage_c_report_cifar100_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999991,
+      "seed": 44,
+      "steps": 20,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.39946793970243055,
+      "first_reference_accuracy": 0.012,
+      "final_reference_accuracy": 0.016,
+      "early_auc": 0.012421052631578947,
+      "final_c": 1.0,
+      "runtime_seconds": 34.96874499320984,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps8p0/seed44/new_secure_stage_c_report_cifar100_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 1.0,
+      "seed": 42,
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.9219631393428442,
+      "first_reference_accuracy": 0.014,
+      "final_reference_accuracy": 0.014,
+      "early_auc": 0.013789473684210527,
+      "final_c": 1.0164947509765625,
+      "runtime_seconds": 45.15889596939087,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps1p0/seed42/new_secure_stage_c_report_cifar100_adaptive_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 1.0,
+      "seed": 43,
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.9219631393428442,
+      "first_reference_accuracy": 0.01,
+      "final_reference_accuracy": 0.01,
+      "early_auc": 0.009526315789473683,
+      "final_c": 0.939483642578125,
+      "runtime_seconds": 50.953460693359375,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps1p0/seed43/new_secure_stage_c_report_cifar100_adaptive_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 1.0,
+      "seed": 44,
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.9219631393428442,
+      "first_reference_accuracy": 0.014,
+      "final_reference_accuracy": 0.014,
+      "early_auc": 0.01268421052631579,
+      "final_c": 0.947052001953125,
+      "runtime_seconds": 43.577921628952026,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps1p0/seed44/new_secure_stage_c_report_cifar100_adaptive_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.9999999999999836,
+      "seed": 42,
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.5913495279853638,
+      "first_reference_accuracy": 0.012,
+      "final_reference_accuracy": 0.014,
+      "early_auc": 0.01368421052631579,
+      "final_c": 0.9446258544921875,
+      "runtime_seconds": 43.67607808113098,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps3p0/seed42/new_secure_stage_c_report_cifar100_adaptive_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.9999999999999836,
+      "seed": 43,
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.5913495279853638,
+      "first_reference_accuracy": 0.01,
+      "final_reference_accuracy": 0.008,
+      "early_auc": 0.008526315789473686,
+      "final_c": 0.9309539794921875,
+      "runtime_seconds": 43.705416440963745,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps3p0/seed43/new_secure_stage_c_report_cifar100_adaptive_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.9999999999999836,
+      "seed": 44,
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.5913495279853638,
+      "first_reference_accuracy": 0.014,
+      "final_reference_accuracy": 0.014,
+      "early_auc": 0.01263157894736842,
+      "final_c": 0.9899444580078125,
+      "runtime_seconds": 45.692583322525024,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps3p0/seed44/new_secure_stage_c_report_cifar100_adaptive_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 8.0,
+      "seed": 42,
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.3994679590873829,
+      "first_reference_accuracy": 0.012,
+      "final_reference_accuracy": 0.014,
+      "early_auc": 0.013473684210526317,
+      "final_c": 0.9395599365234375,
+      "runtime_seconds": 44.246362924575806,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps8p0/seed42/new_secure_stage_c_report_cifar100_adaptive_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 8.0,
+      "seed": 43,
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.3994679590873829,
+      "first_reference_accuracy": 0.01,
+      "final_reference_accuracy": 0.008,
+      "early_auc": 0.009473684210526318,
+      "final_c": 0.9275360107421875,
+      "runtime_seconds": 44.86080980300903,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps8p0/seed43/new_secure_stage_c_report_cifar100_adaptive_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar100",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 8.0,
+      "seed": 44,
+      "steps": 20,
+      "count_mechanism_steps": 3,
+      "gradient_noise_multiplier": 0.3994679590873829,
+      "first_reference_accuracy": 0.012,
+      "final_reference_accuracy": 0.014,
+      "early_auc": 0.012526315789473684,
+      "final_c": 0.936920166015625,
+      "runtime_seconds": 45.22405648231506,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps8p0/seed44/new_secure_stage_c_report_cifar100_adaptive_dp_seed44.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 0.9999999999999998,
+      "seed": 42,
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.8662939578848174,
+      "first_reference_accuracy": 0.004,
+      "final_reference_accuracy": 0.004,
+      "early_auc": 0.0035517241379310342,
+      "final_c": 1.0,
+      "runtime_seconds": 70.1868999004364,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps1p0/seed42/new_secure_stage_c_report_tiny_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 0.9999999999999998,
+      "seed": 43,
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.8662939578848174,
+      "first_reference_accuracy": 0.006,
+      "final_reference_accuracy": 0.007,
+      "early_auc": 0.006275862068965519,
+      "final_c": 1.0,
+      "runtime_seconds": 70.65085291862488,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps1p0/seed43/new_secure_stage_c_report_tiny_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 0.9999999999999998,
+      "seed": 44,
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.8662939578848174,
+      "first_reference_accuracy": 0.004,
+      "final_reference_accuracy": 0.003,
+      "early_auc": 0.003051724137931035,
+      "final_c": 1.0,
+      "runtime_seconds": 70.695077419281,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps1p0/seed44/new_secure_stage_c_report_tiny_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999998,
+      "seed": 42,
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5563774812797032,
+      "first_reference_accuracy": 0.004,
+      "final_reference_accuracy": 0.004,
+      "early_auc": 0.004,
+      "final_c": 1.0,
+      "runtime_seconds": 72.45691800117493,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps3p0/seed42/new_secure_stage_c_report_tiny_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999998,
+      "seed": 43,
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5563774812797032,
+      "first_reference_accuracy": 0.007,
+      "final_reference_accuracy": 0.006,
+      "early_auc": 0.006068965517241381,
+      "final_c": 1.0,
+      "runtime_seconds": 72.36272859573364,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps3p0/seed43/new_secure_stage_c_report_tiny_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 2.999999999999998,
+      "seed": 44,
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.5563774812797032,
+      "first_reference_accuracy": 0.004,
+      "final_reference_accuracy": 0.005,
+      "early_auc": 0.0045000000000000005,
+      "final_c": 1.0,
+      "runtime_seconds": 69.2643129825592,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps3p0/seed44/new_secure_stage_c_report_tiny_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999874,
+      "seed": 42,
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.37755448972174427,
+      "first_reference_accuracy": 0.004,
+      "final_reference_accuracy": 0.004,
+      "early_auc": 0.0033103448275862064,
+      "final_c": 1.0,
+      "runtime_seconds": 69.30649447441101,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps8p0/seed42/new_secure_stage_c_report_tiny_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999874,
+      "seed": 43,
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.37755448972174427,
+      "first_reference_accuracy": 0.006,
+      "final_reference_accuracy": 0.007,
+      "early_auc": 0.00617241379310345,
+      "final_c": 1.0,
+      "runtime_seconds": 70.68039846420288,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps8p0/seed43/new_secure_stage_c_report_tiny_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "fixed_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.999999999999874,
+      "seed": 44,
+      "steps": 30,
+      "count_mechanism_steps": 0,
+      "gradient_noise_multiplier": 0.37755448972174427,
+      "first_reference_accuracy": 0.003,
+      "final_reference_accuracy": 0.005,
+      "early_auc": 0.0047931034482758626,
+      "final_c": 1.0,
+      "runtime_seconds": 72.4507384300232,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps8p0/seed44/new_secure_stage_c_report_tiny_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 0.9999999999999998,
+      "seed": 42,
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.8662945726075554,
+      "first_reference_accuracy": 0.004,
+      "final_reference_accuracy": 0.004,
+      "early_auc": 0.003775862068965517,
+      "final_c": 0.9681396484375,
+      "runtime_seconds": 83.84603762626648,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps1p0/seed42/new_secure_stage_c_report_tiny_adaptive_dp_seed42.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 0.9999999999999998,
+      "seed": 43,
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.8662945726075554,
+      "first_reference_accuracy": 0.005,
+      "final_reference_accuracy": 0.007,
+      "early_auc": 0.006000000000000002,
+      "final_c": 0.8881683349609375,
+      "runtime_seconds": 83.51966667175293,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps1p0/seed43/new_secure_stage_c_report_tiny_adaptive_dp_seed43.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "achieved_epsilon": 0.9999999999999998,
+      "seed": 44,
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.8662945726075554,
+      "first_reference_accuracy": 0.003,
+      "final_reference_accuracy": 0.003,
+      "early_auc": 0.002655172413793104,
+      "final_c": 0.9077911376953125,
+      "runtime_seconds": 78.33148050308228,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps1p0/seed44/new_secure_stage_c_report_tiny_adaptive_dp_seed44.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 3.0,
+      "seed": 42,
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.5563775214544356,
+      "first_reference_accuracy": 0.003,
+      "final_reference_accuracy": 0.004,
+      "early_auc": 0.003155172413793104,
+      "final_c": 0.9574432373046875,
+      "runtime_seconds": 75.02002000808716,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps3p0/seed42/new_secure_stage_c_report_tiny_adaptive_dp_seed42.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 3.0,
+      "seed": 43,
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.5563775214544356,
+      "first_reference_accuracy": 0.007,
+      "final_reference_accuracy": 0.005,
+      "early_auc": 0.005448275862068966,
+      "final_c": 0.9757232666015625,
+      "runtime_seconds": 75.81128454208374,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps3p0/seed43/new_secure_stage_c_report_tiny_adaptive_dp_seed43.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "achieved_epsilon": 3.0,
+      "seed": 44,
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.5563775214544356,
+      "first_reference_accuracy": 0.003,
+      "final_reference_accuracy": 0.004,
+      "early_auc": 0.0037241379310344823,
+      "final_c": 0.9822540283203125,
+      "runtime_seconds": 76.32497596740723,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps3p0/seed44/new_secure_stage_c_report_tiny_adaptive_dp_seed44.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.9999999999999165,
+      "seed": 42,
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.37755449641895616,
+      "first_reference_accuracy": 0.004,
+      "final_reference_accuracy": 0.004,
+      "early_auc": 0.003758620689655172,
+      "final_c": 0.9014739990234375,
+      "runtime_seconds": 75.25910830497742,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps8p0/seed42/new_secure_stage_c_report_tiny_adaptive_dp_seed42.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.9999999999999165,
+      "seed": 43,
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.37755449641895616,
+      "first_reference_accuracy": 0.007,
+      "final_reference_accuracy": 0.005,
+      "early_auc": 0.006000000000000002,
+      "final_c": 0.910888671875,
+      "runtime_seconds": 75.56480765342712,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps8p0/seed43/new_secure_stage_c_report_tiny_adaptive_dp_seed43.json"
+    },
+    {
+      "dataset": "tiny",
+      "mode": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "achieved_epsilon": 7.9999999999999165,
+      "seed": 44,
+      "steps": 30,
+      "count_mechanism_steps": 5,
+      "gradient_noise_multiplier": 0.37755449641895616,
+      "first_reference_accuracy": 0.003,
+      "final_reference_accuracy": 0.004,
+      "early_auc": 0.003603448275862069,
+      "final_c": 0.9397735595703125,
+      "runtime_seconds": 75.59477066993713,
+      "released_model_record_dp_valid": true,
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps8p0/seed44/new_secure_stage_c_report_tiny_adaptive_dp_seed44.json"
+    }
+  ],
+  "artifacts": {
+    "csv": "/root/autodl-tmp/tfe_experiments/new_expTab/new_public_mtt_mainline/new_module_c_formal_summary.csv",
+    "privacy_utility_png": "/root/autodl-tmp/tfe_experiments/new_expFig/new_public_mtt_mainline/new_figureC_stage_c_privacy_utility.png",
+    "privacy_utility_pdf": "/root/autodl-tmp/tfe_experiments/new_expFig/new_public_mtt_mainline/new_figureC_stage_c_privacy_utility.pdf",
+    "clipping_trajectory_png": "/root/autodl-tmp/tfe_experiments/new_expFig/new_public_mtt_mainline/new_figureC_stage_c_clipping_trajectory.png",
+    "clipping_trajectory_pdf": "/root/autodl-tmp/tfe_experiments/new_expFig/new_public_mtt_mainline/new_figureC_stage_c_clipping_trajectory.pdf"
+  },
+  "limitations": [
+    "Accuracy uses the frozen test-free reference split; final test remains unread.",
+    "Single-machine TFE does not expose communication byte/round counters, so both are N/A.",
+    "A failed +1pp adaptive gate is reported as a negative result and is not hidden."
+  ]
+}

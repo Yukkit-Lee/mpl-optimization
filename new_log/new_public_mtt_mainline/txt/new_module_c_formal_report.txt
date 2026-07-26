@@ -1,0 +1,23 @@
+Module C formal report
+runs=54/54 test_loaded=False released_model_record_dp_valid=True
+cifar10 fixed_dp eps=1.0 final=0.073333±0.011547
+cifar10 fixed_dp eps=3.0 final=0.073333±0.011547
+cifar10 fixed_dp eps=8.0 final=0.073333±0.011547
+cifar10 adaptive_dp eps=1.0 final=0.080000±0.000000
+cifar10 adaptive_dp eps=3.0 final=0.073333±0.011547
+cifar10 adaptive_dp eps=8.0 final=0.073333±0.011547
+cifar100 fixed_dp eps=1.0 final=0.011333±0.003055
+cifar100 fixed_dp eps=3.0 final=0.012000±0.003464
+cifar100 fixed_dp eps=8.0 final=0.012667±0.003055
+cifar100 adaptive_dp eps=1.0 final=0.012667±0.002309
+cifar100 adaptive_dp eps=3.0 final=0.012000±0.003464
+cifar100 adaptive_dp eps=8.0 final=0.012000±0.003464
+tiny fixed_dp eps=1.0 final=0.004667±0.002082
+tiny fixed_dp eps=3.0 final=0.005000±0.001000
+tiny fixed_dp eps=8.0 final=0.005333±0.001528
+tiny adaptive_dp eps=1.0 final=0.004667±0.002082
+tiny adaptive_dp eps=3.0 final=0.004333±0.000577
+tiny adaptive_dp eps=8.0 final=0.004333±0.000577
+cifar10 adaptive_minus_fixed_eps3=0.000000 passed=False
+cifar100 adaptive_minus_fixed_eps3=0.000000 passed=False
+tiny adaptive_minus_fixed_eps3=-0.000667 passed=False
