@@ -811,3 +811,5 @@
 - 存储基线：`/root/autodl-tmp` 总计 150 GiB、可用约 141 GiB；项目目录约 233 MiB。
 - 迁移包校验：`/root/autodl-tmp/autodl_new_secure_resume_20260726_150457.tar.zst` 大小为 8,771,438,515 bytes，SHA256=`2313a96c1352c2cb66b6262bb59f61d559fb2cd6112f87131e7ab76a53b1bae9`，与交接文档完全一致。
 - 第 1 节：确认仓库已在准确目标分支；已从 `config/new_paths.autodl.example.env` 创建 `/root/.config/new-secure-feature-pipeline.env`，解析路径为项目 `/root/autodl-tmp/tfe_experiments`、MTT `/root/autodl-tmp/mtt-distillation`、数据 `/root/autodl-tmp/new_data`、环境 `/root/autodl-tmp/new_envs`。
+- 第 2 节：已由 `migration/mtt/mtt-history.bundle` 恢复 `/root/autodl-tmp/mtt-distillation`，基线 commit=`50dccea47ba48b9cfb3b9c59375d7da92e4e603b`；binary patch 与 54 项本地未跟踪源码均已恢复。`migration/mtt/SHA256SUMS` 中 bundle、patch、source tar 三项全部通过，恢复后的 modified/untracked 状态与迁移快照预期一致。
+- GitHub 推送状态：基线日志已形成本地提交 `71fa451`；当前 AutoDL 未配置私有 HTTPS 仓库认证，`git push` 返回无法读取用户名，因此提交尚未推送。恢复过程继续保留分阶段本地提交，并在获得可用认证后统一推送。
