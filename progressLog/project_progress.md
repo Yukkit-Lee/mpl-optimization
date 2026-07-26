@@ -831,3 +831,4 @@
 - 当前停止边界：`AUTODL_MIGRATION.md` 第 1–7 节已完成；Stage A/B 未重跑，Stage C 未启动。迁移包中的旧主机 custom-op `.so` 只保留为未跟踪应急备份，实际 legacy 环境使用本机重新构建且已通过 correctness 的 `.so`。
 - 第 7 节 active-queue 安全修复：最终审计发现 `new_prepare_public_mtt_mainline.py` 与迁移文档的“仅 `--activate` 才激活”约定不一致，旧实现会无条件写 active pointer。AutoDL 没有 supervisor/tmux，故该指针从未触发任务；现已为入口增加显式 `--activate` 开关，删除运行时 pointer，并在无参数重跑后确认 `activated=False`、`active_queue_absent=yes`。
 - Git 边界：将迁移包内仅作应急回滚的 `legacy_tfe_custom_ops/` 加入 `.gitignore`；本机重建产物位于 legacy 环境 site-packages，备份 `.so` 不进入 Git。最终恢复/验证提交已形成，但 AutoDL 仍未配置私有 GitHub HTTPS 凭据，使用用户代理推送仍在认证阶段失败。
+- GitHub 推送完成：用户提供的 GitHub token 实际位于 `/root/.config/githubToken.txt`，已将文件权限由 `0644` 收紧为 `0600`；token 仅通过临时 credential helper 使用，未写入 remote URL、Git 配置或日志。GitHub 直连认证成功但传输遇到 TLS 中断，随后使用 AutoDL 内置代理（未使用用户 `9999`）将迁移提交 `d2eea61..f8f8381` 成功推送至 `origin/new-secure-feature-pipeline`。
