@@ -1,7 +1,7 @@
 {
   "schema": "new_public_mtt_mainline_resolved_plan_v1",
   "status": "FEATURE_QUALITY_GATE_READY",
-  "dp_mtt_status": "DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE",
+  "dp_mtt_status": "EXCLUDED_BY_USER",
   "datasets": [
     "cifar10",
     "cifar100",
@@ -22,8 +22,8 @@
     "first_queue_total": 46
   },
   "resource_policy": {
-    "cpu_threads_per_process": 1,
-    "num_workers": 0,
+    "cpu_thread_policy": "benchmark_max_throughput",
+    "num_workers_policy": "benchmark_max_throughput",
     "visible_gpu": 0,
     "max_processes_on_gpu": 1,
     "heartbeat_seconds": 60,

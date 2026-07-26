@@ -13,14 +13,6 @@ import sys
 import time
 import warnings
 
-os.environ.setdefault("OMP_NUM_THREADS", "1")
-os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
-os.environ.setdefault("MKL_NUM_THREADS", "1")
-os.environ.setdefault("NUMEXPR_NUM_THREADS", "1")
-os.environ.setdefault("VECLIB_MAXIMUM_THREADS", "1")
-os.environ.setdefault("BLIS_NUM_THREADS", "1")
-os.environ.setdefault("TF_NUM_INTRAOP_THREADS", "1")
-os.environ.setdefault("TF_NUM_INTEROP_THREADS", "1")
 os.environ.setdefault("CUDA_VISIBLE_DEVICES", "")
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "3")
 
@@ -593,7 +585,7 @@ def main():
         flush=True,
     )
     print(
-        "noise_multiplier={} count_noise={} delta={} cpu_affinity=1".format(
+        "noise_multiplier={} count_noise={} delta={} cpu_policy=unrestricted".format(
             args.noise_multiplier, args.count_noise_multiplier, args.delta
         ),
         flush=True,

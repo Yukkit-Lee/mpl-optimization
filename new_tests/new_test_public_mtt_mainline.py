@@ -14,10 +14,10 @@ def test_public_mainline_config():
     )
     assert config["stage_a_epsilon"] == "N/A"
     assert config["stage_a_dp_protected"] is False
-    assert config["dp_mtt_status"] == "DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE"
+    assert config["dp_mtt_status"] == "EXCLUDED_BY_USER"
     assert config["feature_dim"] == 2048
-    assert config["cpu_threads_per_process"] == 1
-    assert config["num_workers"] == 0
+    assert config["cpu_thread_policy"] == "benchmark_max_throughput"
+    assert config["num_workers_policy"] == "benchmark_max_throughput"
     assert config["test_tuning_forbidden"] is True
 
 

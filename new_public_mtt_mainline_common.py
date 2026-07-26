@@ -21,12 +21,12 @@ CONFIG_PATH = (
 
 def load_config() -> Dict:
     payload = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
-    if payload["dp_mtt_status"] != "DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE":
-        raise RuntimeError("DP-MTT must not block the Public MTT mainline")
-    if int(payload["cpu_threads_per_process"]) != 1:
-        raise RuntimeError("formal CPU thread count must be one")
-    if int(payload["num_workers"]) != 0:
-        raise RuntimeError("formal DataLoader workers must be zero")
+    if payload["dp_mtt_status"] != "EXCLUDED_BY_USER":
+        raise RuntimeError("DP-MTT must be excluded from the Public MTT mainline")
+    if payload["cpu_thread_policy"] != "benchmark_max_throughput":
+        raise RuntimeError("formal CPU policy must use throughput benchmarking")
+    if payload["num_workers_policy"] != "benchmark_max_throughput":
+        raise RuntimeError("formal DataLoader policy must use throughput benchmarking")
     return payload
 
 

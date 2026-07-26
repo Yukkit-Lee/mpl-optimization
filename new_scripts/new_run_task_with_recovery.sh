@@ -6,14 +6,13 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/new_common_env.sh"
 
 if [[ $# -lt 4 ]]; then
-  echo "用法: $0 <task_id> <resource:gpu0|gpu1|tfe|report> <checkpoint_path> <command...>" >&2
+  echo "用法: $0 <task_id> <resource:gpu0|tfe|report> <checkpoint_path> <command...>" >&2
   exit 2
 fi
 
 TASK_ID="$1"; RESOURCE="$2"; CHECKPOINT_PATH="$3"; shift 3
 case "${RESOURCE}" in
   gpu0) LOCK=/tmp/new_secure_feature_gpu0.lock; export CUDA_VISIBLE_DEVICES="${NEW_SINGLE_GPU}" ;;
-  gpu1) LOCK=/tmp/new_secure_feature_gpu1.lock; export CUDA_VISIBLE_DEVICES=1 ;;
   tfe) LOCK=/tmp/new_secure_feature_tfe.lock; export CUDA_VISIBLE_DEVICES="" ;;
   report) LOCK=/tmp/new_secure_feature_report.lock; export CUDA_VISIBLE_DEVICES="" ;;
   *) echo "未知资源: ${RESOURCE}" >&2; exit 2 ;;
@@ -74,12 +73,12 @@ trap cleanup EXIT INT TERM
 attempt=0
 max_retries=2
 while (( attempt <= max_retries )); do
-  write_status "$(printf '{"task":"%s","resource":"%s","status":"RUNNING","attempt":%d,"checkpoint":"%s","started_at":"%s","boot_id":"%s","cpu_core":%s,"visible_gpu":"%s"}' \
+  write_status "$(printf '{"task":"%s","resource":"%s","status":"RUNNING","attempt":%d,"checkpoint":"%s","started_at":"%s","boot_id":"%s","cpu_policy":"unrestricted","visible_gpu":"%s"}' \
     "${TASK_ID}" "${RESOURCE}" "${attempt}" "${CHECKPOINT_PATH}" "$(date --iso-8601=seconds)" \
-    "${BOOT_ID}" "${NEW_CPU_CORE}" "${CUDA_VISIBLE_DEVICES}")"
+    "${BOOT_ID}" "${CUDA_VISIBLE_DEVICES}")"
   echo "[$(date --iso-8601=seconds)] task=${TASK_ID} resource=${RESOURCE} attempt=${attempt}" | tee -a "${LOG}"
   set +e
-  NEW_RESUME_FROM="${CHECKPOINT_PATH}" taskset -c "${NEW_CPU_CORE}" "$@" >> "${LOG}" 2>&1
+  NEW_RESUME_FROM="${CHECKPOINT_PATH}" "$@" >> "${LOG}" 2>&1
   code=$?
   set -e
   if (( code == 0 )); then

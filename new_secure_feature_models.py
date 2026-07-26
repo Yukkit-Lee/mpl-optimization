@@ -87,32 +87,18 @@ class NewMTTConvNet(nn.Module):
 
 
 def configure_single_thread_runtime(seed: int) -> None:
-    """固定所有显式线程和随机源；重复调用时不重设 inter-op 线程池。"""
+    """设置随机源；线程数由 AutoDL runtime/benchmark 决定。"""
 
-    for key in (
-        "OMP_NUM_THREADS",
-        "MKL_NUM_THREADS",
-        "OPENBLAS_NUM_THREADS",
-        "NUMEXPR_NUM_THREADS",
-        "VECLIB_MAXIMUM_THREADS",
-        "BLIS_NUM_THREADS",
-    ):
-        os.environ[key] = "1"
     os.environ["TOKENIZERS_PARALLELISM"] = "false"
     os.environ["PYTHONNOUSERSITE"] = "1"
-    os.environ["MALLOC_ARENA_MAX"] = "1"
-    torch.set_num_threads(1)
-    try:
-        torch.set_num_interop_threads(1)
-    except RuntimeError:
-        pass
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
-    torch.backends.cudnn.benchmark = False
-    torch.backends.cudnn.deterministic = True
+    deterministic = os.environ.get("NEW_DETERMINISTIC", "0") == "1"
+    torch.backends.cudnn.benchmark = not deterministic
+    torch.backends.cudnn.deterministic = deterministic
 
 
 def build_mtt_convnet(dataset: str, seed: int, device: torch.device) -> NewMTTConvNet:

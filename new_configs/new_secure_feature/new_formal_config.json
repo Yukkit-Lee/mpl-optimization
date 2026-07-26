@@ -3,15 +3,15 @@
   "datasets": ["cifar10", "cifar100", "tiny"],
   "formal_seeds": [42, 43, 44],
   "tuning_seeds": [42, 43],
-  "cpu_threads": 1,
-  "num_workers": 0,
+  "cpu_thread_policy": "benchmark_max_throughput",
+  "num_workers_policy": "benchmark_max_throughput",
   "gpu_policy": {
     "visible_devices": [0],
     "max_training_processes": 1,
     "max_processes_per_gpu": 1
   },
   "paper_mainline": "public_mtt_benchmark",
-  "dp_mtt_status": "DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE",
+  "dp_mtt_status": "EXCLUDED_BY_USER",
   "heartbeat_seconds": 60,
   "max_retries": 2,
   "minimum_free_disk_gib": 25,
@@ -20,7 +20,8 @@
   "feature_l2_bound": 1.0,
   "stage_c_target_epsilons": [1.0, 3.0, 8.0],
   "stage_c_delta": 1e-5,
-  "stage_a_dp_mtt": {
+  "excluded_stage_a_dp_mtt_read_only": {
+    "launch_allowed": false,
     "num_parties": 5,
     "num_experts_per_party": 2,
     "expert_epochs": 50,

@@ -4,8 +4,8 @@
   "datasets": ["cifar10", "cifar100", "tiny"],
   "tuning_seeds": [42, 43],
   "formal_seeds": [42, 43, 44],
-  "cpu_threads_per_process": 1,
-  "num_workers": 0,
+  "cpu_thread_policy": "benchmark_max_throughput",
+  "num_workers_policy": "benchmark_max_throughput",
   "gpu_devices": [0],
   "max_processes_per_gpu": 1,
   "feature_dim": 2048,
@@ -13,7 +13,7 @@
   "stage_a_track": "public_mtt_benchmark",
   "stage_a_epsilon": "N/A",
   "stage_a_dp_protected": false,
-  "dp_mtt_status": "DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE",
+  "dp_mtt_status": "EXCLUDED_BY_USER",
   "linear_probe": {
     "tuning_steps": {
       "cifar10": 800,

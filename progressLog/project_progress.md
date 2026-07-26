@@ -841,3 +841,8 @@
 - 任务文档审计：完整重读 924 行后发现 Git 中版本仍保留“两张 RTX 4090”“CPU 线程严格为 1”和“最后补充 DP-MTT”等旧服务器条款，与用户最新指令及 AutoDL 硬件不一致，因此在启动任何正式任务前先同步修订。
 - 新执行边界：DP-MTT 固定为 `EXCLUDED_BY_USER`，既有产物只读保留，不进入活动 manifest、supervisor 或完成标准；已完成的 Module A 与 Module B Non-IID 不重跑。剩余顺序为 Module B convergence、Module C、End-to-End、TFE system。
 - 新资源策略：单张 RTX 5090 的 GPU 任务严格串行；取消全局 `threads=1/core0/num_workers=0` 强制，后续以短 benchmark 选择 PyTorch/TFE CPU threads、DataLoader workers、prefetch 和 microbatch，记录吞吐/利用率/峰值资源并防止过度订阅。
+- 代码资源边界第一批修订：公共 runtime 不再导出 BLAS/TF 单线程变量，恢复包装器移除 `taskset core0` 与 GPU1 分支，Stage C 不再默认 TF/BLAS 单线程；PyTorch 公共随机初始化保留 seed，但默认允许 cuDNN benchmark。主配置、loader、测试与 prepare 输出统一改为 `EXCLUDED_BY_USER` 和 `benchmark_max_throughput`。
+- AutoDL CPU 可用性校验：容器当前 cpuset 实际允许 `25` 个 CPU，而不是宿主机 `lscpu` 展示的全部 208 logical CPUs；后续 benchmark 只在实际可用 cpuset 内选择线程，避免错误超配。
+- 持久运行依赖：已通过华为云 APT 国内源直连安装 `tmux 3.2a`，未使用用户 `9999` 代理；后续正式长任务可以按任务文档进入持久 session。
+- 启动门测试：Public-MTT 配置/DP 排除、隐私会计范围、count mechanism、test leakage 与 no-plaintext-fallback 测试通过。现代环境未安装 pytest，因此直接调用纯 Python test functions；旧 Phase-3 correctness 小缓存未包含在迁移包中，未伪报旧测试通过，改用正式 test-free Stage-B cache 做真实 Stage C smoke。
+- 真实 Stage C smoke/benchmark：CIFAR-10 seed42 Severe selected initializer、batch16、fixed DP、1 step 在 TFE/ABY3 下完成，reference-only accuracy 为 `0.74–0.82`（CSPRNG noise 每次独立）、`epsilon_C=0.986428`，未加载 test。1/8/25 TF threads 的端到端耗时分别为 `25.927/26.935/27.435s`；固定单核 affinity 已移除，多线程在该图构建主导的短任务中未带来收益。

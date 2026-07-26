@@ -74,7 +74,7 @@ def main() -> int:
     payload = {
         "schema": "new_public_mtt_mainline_resolved_plan_v1",
         "status": "FEATURE_QUALITY_GATE_READY",
-        "dp_mtt_status": "DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE",
+        "dp_mtt_status": "EXCLUDED_BY_USER",
         "datasets": config["datasets"],
         "tuning_seeds": config["tuning_seeds"],
         "formal_seeds": config["formal_seeds"],
@@ -84,8 +84,8 @@ def main() -> int:
             "first_queue_total": 1 + tuning_runs + formal_runs,
         },
         "resource_policy": {
-            "cpu_threads_per_process": 1,
-            "num_workers": 0,
+            "cpu_thread_policy": "benchmark_max_throughput",
+            "num_workers_policy": "benchmark_max_throughput",
             "visible_gpu": 0,
             "max_processes_on_gpu": 1,
             "heartbeat_seconds": 60,
@@ -122,8 +122,8 @@ def main() -> int:
     print("cache_prep=1 tuning_runs={} formal_runs={} total={}".format(
         tuning_runs, formal_runs, 1 + tuning_runs + formal_runs
     ))
-    print("cpu_threads=1 num_workers=0 visible_gpu=0")
-    print("dp_mtt_status=DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE")
+    print("cpu_policy=benchmark_max_throughput visible_gpu=0")
+    print("dp_mtt_status=EXCLUDED_BY_USER")
     print("queue={}".format(QUEUE))
     for output in payload["expected_outputs"]:
         print("expected_output={}".format(output))

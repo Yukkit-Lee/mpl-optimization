@@ -1,21 +1,10 @@
 #!/usr/bin/env bash
-# 用途：所有 new_ 正式任务统一加载的单线程安全环境。
+# 用途：所有 new_ 正式任务统一加载的 AutoDL 高吞吐环境。
 set -euo pipefail
 
-export OMP_NUM_THREADS=1
-export MKL_NUM_THREADS=1
-export OPENBLAS_NUM_THREADS=1
-export NUMEXPR_NUM_THREADS=1
-export VECLIB_MAXIMUM_THREADS=1
-export BLIS_NUM_THREADS=1
 export TOKENIZERS_PARALLELISM=false
 export PYTHONNOUSERSITE=1
 export PYTHONIOENCODING=UTF-8
-export MALLOC_ARENA_MAX=1
-export TF_NUM_INTRAOP_THREADS=1
-export TF_NUM_INTEROP_THREADS=1
-export CUDA_DEVICE_MAX_CONNECTIONS=1
-export NEW_CPU_CORE="${NEW_CPU_CORE:-0}"
 export NEW_SINGLE_GPU="${NEW_SINGLE_GPU:-0}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
