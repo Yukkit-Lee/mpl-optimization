@@ -1,0 +1,229 @@
+{
+  "schema": "new_public_mtt_stage_c_validation_plan_v1",
+  "status": "READY_FOR_VALIDATION",
+  "formal_result": false,
+  "test_loaded": false,
+  "dp_mtt_status": "EXCLUDED_BY_USER",
+  "resource_policy": {
+    "resource": "tfe",
+    "cpu_thread_policy": "benchmark_max_throughput",
+    "cpu_affinity": "unrestricted",
+    "visible_gpu": null
+  },
+  "config_key": "module_c_validation_round2",
+  "round_tag": "stage_c_validation_round2",
+  "queue": "/root/autodl-tmp/tfe_experiments/new_configs/new_public_mtt_mainline/new_tfe_stage_c_validation_round2.tsv",
+  "tasks": [
+    {
+      "task_id": "public_mainline_stage_c_validation_round2_cifar10_fixed_dp_seed42",
+      "phase": "module_c_validation_round2",
+      "dataset": "cifar10",
+      "seed": 42,
+      "split": "severe",
+      "method": "fixed_dp",
+      "privacy_scope": "stage_c_distilled_feature_records",
+      "steps": 10,
+      "batch_size": 16,
+      "processed_examples": 160,
+      "epochs_equivalent": 0.4,
+      "resource": "tfe",
+      "feature_cache": "/root/autodl-tmp/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/cifar10/new_stage_b_features_cifar10_seed42.npz",
+      "feature_cache_sha256": "a3dd5510df7a22a9f2f7e3888f9270edc87fc0d083260e58bafbd0feca8a2cf8",
+      "initializer": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed42/severe/new_secure_stage_b_selected_cifar10_severe_seed42.npz",
+      "initializer_sha256": "bb5b65459bfaaf2ef4a3a72128ad4213d285d5b69f08f2d0b64718061d4e37df",
+      "cache": {
+        "train_samples": 400,
+        "reference_samples": 50,
+        "feature_dim": 2048,
+        "test_loaded": false
+      },
+      "initializer_shapes": {
+        "weight_shape": [
+          2048,
+          10
+        ],
+        "bias_shape": [
+          10
+        ]
+      },
+      "expected_output_dir": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/stage_c_validation_round2/cifar10/fixed_dp/seed42",
+      "checkpoint_prefix": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_c_validation_round2/cifar10/fixed_dp/seed42/new_stage_c"
+    },
+    {
+      "task_id": "public_mainline_stage_c_validation_round2_cifar10_adaptive_dp_seed42",
+      "phase": "module_c_validation_round2",
+      "dataset": "cifar10",
+      "seed": 42,
+      "split": "severe",
+      "method": "adaptive_dp",
+      "privacy_scope": "stage_c_distilled_feature_records",
+      "steps": 10,
+      "batch_size": 16,
+      "processed_examples": 160,
+      "epochs_equivalent": 0.4,
+      "resource": "tfe",
+      "feature_cache": "/root/autodl-tmp/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/cifar10/new_stage_b_features_cifar10_seed42.npz",
+      "feature_cache_sha256": "a3dd5510df7a22a9f2f7e3888f9270edc87fc0d083260e58bafbd0feca8a2cf8",
+      "initializer": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed42/severe/new_secure_stage_b_selected_cifar10_severe_seed42.npz",
+      "initializer_sha256": "bb5b65459bfaaf2ef4a3a72128ad4213d285d5b69f08f2d0b64718061d4e37df",
+      "cache": {
+        "train_samples": 400,
+        "reference_samples": 50,
+        "feature_dim": 2048,
+        "test_loaded": false
+      },
+      "initializer_shapes": {
+        "weight_shape": [
+          2048,
+          10
+        ],
+        "bias_shape": [
+          10
+        ]
+      },
+      "expected_output_dir": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/stage_c_validation_round2/cifar10/adaptive_dp/seed42",
+      "checkpoint_prefix": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_c_validation_round2/cifar10/adaptive_dp/seed42/new_stage_c"
+    },
+    {
+      "task_id": "public_mainline_stage_c_validation_round2_cifar100_fixed_dp_seed42",
+      "phase": "module_c_validation_round2",
+      "dataset": "cifar100",
+      "seed": 42,
+      "split": "severe",
+      "method": "fixed_dp",
+      "privacy_scope": "stage_c_distilled_feature_records",
+      "steps": 20,
+      "batch_size": 16,
+      "processed_examples": 320,
+      "epochs_equivalent": 0.08,
+      "resource": "tfe",
+      "feature_cache": "/root/autodl-tmp/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/cifar100/new_stage_b_features_cifar100_seed42.npz",
+      "feature_cache_sha256": "aa6d0382b50788831a9a1a64dd4eb3d9fe98e0d0c5e05cd0b73909b2244c0818",
+      "initializer": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed42/severe/new_secure_stage_b_selected_cifar100_severe_seed42.npz",
+      "initializer_sha256": "16c4c07bd50ad099ca1a0ddbe61c0125f56afc8cfde795948207bfa958b38cd6",
+      "cache": {
+        "train_samples": 4000,
+        "reference_samples": 500,
+        "feature_dim": 2048,
+        "test_loaded": false
+      },
+      "initializer_shapes": {
+        "weight_shape": [
+          2048,
+          100
+        ],
+        "bias_shape": [
+          100
+        ]
+      },
+      "expected_output_dir": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/stage_c_validation_round2/cifar100/fixed_dp/seed42",
+      "checkpoint_prefix": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_c_validation_round2/cifar100/fixed_dp/seed42/new_stage_c"
+    },
+    {
+      "task_id": "public_mainline_stage_c_validation_round2_cifar100_adaptive_dp_seed42",
+      "phase": "module_c_validation_round2",
+      "dataset": "cifar100",
+      "seed": 42,
+      "split": "severe",
+      "method": "adaptive_dp",
+      "privacy_scope": "stage_c_distilled_feature_records",
+      "steps": 20,
+      "batch_size": 16,
+      "processed_examples": 320,
+      "epochs_equivalent": 0.08,
+      "resource": "tfe",
+      "feature_cache": "/root/autodl-tmp/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/cifar100/new_stage_b_features_cifar100_seed42.npz",
+      "feature_cache_sha256": "aa6d0382b50788831a9a1a64dd4eb3d9fe98e0d0c5e05cd0b73909b2244c0818",
+      "initializer": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed42/severe/new_secure_stage_b_selected_cifar100_severe_seed42.npz",
+      "initializer_sha256": "16c4c07bd50ad099ca1a0ddbe61c0125f56afc8cfde795948207bfa958b38cd6",
+      "cache": {
+        "train_samples": 4000,
+        "reference_samples": 500,
+        "feature_dim": 2048,
+        "test_loaded": false
+      },
+      "initializer_shapes": {
+        "weight_shape": [
+          2048,
+          100
+        ],
+        "bias_shape": [
+          100
+        ]
+      },
+      "expected_output_dir": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/stage_c_validation_round2/cifar100/adaptive_dp/seed42",
+      "checkpoint_prefix": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_c_validation_round2/cifar100/adaptive_dp/seed42/new_stage_c"
+    },
+    {
+      "task_id": "public_mainline_stage_c_validation_round2_tiny_fixed_dp_seed42",
+      "phase": "module_c_validation_round2",
+      "dataset": "tiny",
+      "seed": 42,
+      "split": "severe",
+      "method": "fixed_dp",
+      "privacy_scope": "stage_c_distilled_feature_records",
+      "steps": 30,
+      "batch_size": 16,
+      "processed_examples": 480,
+      "epochs_equivalent": 0.06,
+      "resource": "tfe",
+      "feature_cache": "/root/autodl-tmp/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/tiny/new_stage_b_features_tiny_seed42.npz",
+      "feature_cache_sha256": "6b41ec3342cb4084d2f3fc5fe7b029e099ee04400c472aa9ed74402ff78ec842",
+      "initializer": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed42/severe/new_secure_stage_b_selected_tiny_severe_seed42.npz",
+      "initializer_sha256": "812e62658bc4d648d53e7e4c193b57f01e958162b4f8bd9c4eb5f5bcb24f7f56",
+      "cache": {
+        "train_samples": 8000,
+        "reference_samples": 1000,
+        "feature_dim": 2048,
+        "test_loaded": false
+      },
+      "initializer_shapes": {
+        "weight_shape": [
+          2048,
+          200
+        ],
+        "bias_shape": [
+          200
+        ]
+      },
+      "expected_output_dir": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/stage_c_validation_round2/tiny/fixed_dp/seed42",
+      "checkpoint_prefix": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_c_validation_round2/tiny/fixed_dp/seed42/new_stage_c"
+    },
+    {
+      "task_id": "public_mainline_stage_c_validation_round2_tiny_adaptive_dp_seed42",
+      "phase": "module_c_validation_round2",
+      "dataset": "tiny",
+      "seed": 42,
+      "split": "severe",
+      "method": "adaptive_dp",
+      "privacy_scope": "stage_c_distilled_feature_records",
+      "steps": 30,
+      "batch_size": 16,
+      "processed_examples": 480,
+      "epochs_equivalent": 0.06,
+      "resource": "tfe",
+      "feature_cache": "/root/autodl-tmp/tfe_experiments/new_cache/new_public_mtt_mainline/new_stage_b_npz_round2/tiny/new_stage_b_features_tiny_seed42.npz",
+      "feature_cache_sha256": "6b41ec3342cb4084d2f3fc5fe7b029e099ee04400c472aa9ed74402ff78ec842",
+      "initializer": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed42/severe/new_secure_stage_b_selected_tiny_severe_seed42.npz",
+      "initializer_sha256": "812e62658bc4d648d53e7e4c193b57f01e958162b4f8bd9c4eb5f5bcb24f7f56",
+      "cache": {
+        "train_samples": 8000,
+        "reference_samples": 1000,
+        "feature_dim": 2048,
+        "test_loaded": false
+      },
+      "initializer_shapes": {
+        "weight_shape": [
+          2048,
+          200
+        ],
+        "bias_shape": [
+          200
+        ]
+      },
+      "expected_output_dir": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/stage_c_validation_round2/tiny/adaptive_dp/seed42",
+      "checkpoint_prefix": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_c_validation_round2/tiny/adaptive_dp/seed42/new_stage_c"
+    }
+  ],
+  "next_gate": "review reference-only convergence and freeze dataset-specific formal budgets before formal Module C"
+}

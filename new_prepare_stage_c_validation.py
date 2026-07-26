@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 
 import numpy as np
@@ -16,15 +17,7 @@ from new_public_mtt_mainline_common import ROOT, load_config
 TFE_PYTHON = os.environ.get(
     "NEW_TFE_PYTHON", str(ROOT.parent / "new_envs" / "tfe" / "bin" / "python")
 )
-QUEUE = (
-    ROOT
-    / "new_configs/new_public_mtt_mainline/new_tfe_stage_c_validation.tsv"
-)
 ACTIVE = ROOT / "new_configs/new_secure_feature/new_active_single_gpu_queue.txt"
-PLAN = (
-    ROOT
-    / "new_log/new_public_mtt_mainline/json/new_stage_c_validation_plan.json"
-)
 
 
 def sha256_file(path):
@@ -79,11 +72,25 @@ def main():
         action="store_true",
         help="activate the validated TFE queue using the resource-aware pointer",
     )
+    parser.add_argument("--config-key", default="module_c_validation")
+    parser.add_argument("--round-tag", default="stage_c_validation")
     args = parser.parse_args()
+    if not re.match(r"^[a-z0-9_]+$", args.round_tag):
+        raise ValueError("round-tag must contain only lowercase letters, digits, underscore")
+    queue = (
+        ROOT
+        / "new_configs/new_public_mtt_mainline"
+        / "new_tfe_{}.tsv".format(args.round_tag)
+    )
+    plan = (
+        ROOT
+        / "new_log/new_public_mtt_mainline/json"
+        / "new_{}_plan.json".format(args.round_tag)
+    )
     config = load_config()
     if config["dp_mtt_status"] != "EXCLUDED_BY_USER":
         raise ValueError("DP-MTT must remain excluded")
-    pilot = config["module_c_validation"]
+    pilot = config[args.config_key]
     if pilot["status"] != "PILOT_ONLY_NOT_FORMAL" or pilot["test_loaded"]:
         raise ValueError("invalid Stage C validation boundary")
 
@@ -114,19 +121,21 @@ def main():
         cache_info = inspect_cache(cache)
         initializer_info = inspect_initializer(initializer, cache_info["feature_dim"])
         for mode in pilot["modes"]:
-            task_id = "public_mainline_stage_c_validation_{}_{}_seed42".format(
-                dataset, mode
+            task_id = "public_mainline_{}_{}_{}_seed42".format(
+                args.round_tag, dataset, mode
             )
             output_dir = (
                 ROOT
-                / "new_output/new_public_mtt_mainline/stage_c_validation"
+                / "new_output/new_public_mtt_mainline"
+                / args.round_tag
                 / dataset
                 / mode
                 / "seed42"
             )
             checkpoint = (
                 ROOT
-                / "new_checkpoint/new_public_mtt_mainline/stage_c_validation"
+                / "new_checkpoint/new_public_mtt_mainline"
+                / args.round_tag
                 / dataset
                 / mode
                 / "seed42/new_stage_c"
@@ -165,7 +174,7 @@ def main():
             resolved.append(
                 {
                     "task_id": task_id,
-                    "phase": "module_c_validation",
+                    "phase": args.config_key,
                     "dataset": dataset,
                     "seed": 42,
                     "split": pilot["split"],
@@ -188,10 +197,10 @@ def main():
                 }
             )
 
-    QUEUE.parent.mkdir(parents=True, exist_ok=True)
-    QUEUE.write_text("\n".join(rows) + "\n", encoding="utf-8")
-    PLAN.parent.mkdir(parents=True, exist_ok=True)
-    PLAN.write_text(
+    queue.parent.mkdir(parents=True, exist_ok=True)
+    queue.write_text("\n".join(rows) + "\n", encoding="utf-8")
+    plan.parent.mkdir(parents=True, exist_ok=True)
+    plan.write_text(
         json.dumps(
             {
                 "schema": "new_public_mtt_stage_c_validation_plan_v1",
@@ -205,7 +214,9 @@ def main():
                     "cpu_affinity": "unrestricted",
                     "visible_gpu": None,
                 },
-                "queue": str(QUEUE),
+                "config_key": args.config_key,
+                "round_tag": args.round_tag,
+                "queue": str(queue),
                 "tasks": resolved,
                 "next_gate": (
                     "review reference-only convergence and freeze dataset-specific "
@@ -218,15 +229,15 @@ def main():
         encoding="utf-8",
     )
     if args.activate:
-        ACTIVE.write_text("tfe\t{}\n".format(QUEUE), encoding="utf-8")
+        ACTIVE.write_text("tfe\t{}\n".format(queue), encoding="utf-8")
     for task in resolved:
         print(
             "phase={phase} dataset={dataset} seed={seed} split={split} "
             "method={method} privacy={privacy_scope} resource={resource} "
             "steps={steps} expected={expected_output_dir}".format(**task)
         )
-    print("queue={}".format(QUEUE))
-    print("plan={}".format(PLAN))
+    print("queue={}".format(queue))
+    print("plan={}".format(plan))
     print("dp_mtt_status=EXCLUDED_BY_USER test_loaded=False")
     print("activated={}".format(bool(args.activate)))
     return 0

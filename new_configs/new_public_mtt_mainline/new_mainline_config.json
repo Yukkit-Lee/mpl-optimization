@@ -119,5 +119,25 @@
     "checkpoint_interval": 1,
     "test_loaded": false
   },
+  "module_c_validation_round2": {
+    "status": "PILOT_ONLY_NOT_FORMAL",
+    "datasets": {
+      "cifar10": {"steps": 10, "batch_size": 16},
+      "cifar100": {"steps": 20, "batch_size": 16},
+      "tiny": {"steps": 30, "batch_size": 16}
+    },
+    "modes": ["fixed_dp", "adaptive_dp"],
+    "seed": 42,
+    "split": "severe",
+    "learning_rate": 0.002,
+    "noise_multiplier": 1.2,
+    "count_noise_multiplier": 8.0,
+    "clip_c": 1.0,
+    "warmup_steps": 5,
+    "update_interval": 5,
+    "checkpoint_interval": 2,
+    "test_loaded": false,
+    "diagnostic_reason": "round1 learning_rate 0.02 degraded reference accuracy"
+  },
   "test_tuning_forbidden": true
 }
