@@ -50,7 +50,24 @@ while true; do
     sleep 60
     continue
   fi
-  QUEUE="$(head -n 1 "${ACTIVE_FILE}")"
+  active_line="$(head -n 1 "${ACTIVE_FILE}")"
+  if [[ "${active_line}" == *$'\t'* ]]; then
+    RESOURCE="${active_line%%$'\t'*}"
+    QUEUE="${active_line#*$'\t'}"
+  else
+    # Backward compatibility for queues activated before the AutoDL migration.
+    RESOURCE=gpu0
+    QUEUE="${active_line}"
+  fi
+  case "${RESOURCE}" in
+    gpu0|tfe|report) ;;
+    *)
+      atomic_status "$(printf '{"status":"BLOCKED_INVALID_RESOURCE","resource":"%s","checked_at":"%s"}' \
+        "${RESOURCE}" "$(date --iso-8601=seconds)")"
+      sleep 60
+      continue
+      ;;
+  esac
   if [[ ! -f "${QUEUE}" ]]; then
     atomic_status "$(printf '{"status":"BLOCKED_MISSING_QUEUE","queue":"%s","checked_at":"%s"}' \
       "${QUEUE}" "$(date --iso-8601=seconds)")"
@@ -70,11 +87,11 @@ while true; do
     continue
   fi
   bash "${SCRIPT_DIR}/new_create_single_gpu_formal_session.sh" >/dev/null
-  if ! pgrep -af "new_run_task_queue.sh gpu0 ${QUEUE}" >/dev/null; then
-    CMD="cd ${NEW_PROJECT_ROOT} && exec bash ${SCRIPT_DIR}/new_run_task_queue.sh gpu0 ${QUEUE}"
-    "${NEW_TMUX}" send-keys -t "${SESSION}:gpu0" "${CMD}" C-m
+  if ! pgrep -af "new_run_task_queue.sh ${RESOURCE} ${QUEUE}" >/dev/null; then
+    CMD="cd ${NEW_PROJECT_ROOT} && exec bash ${SCRIPT_DIR}/new_run_task_queue.sh ${RESOURCE} ${QUEUE}"
+    "${NEW_TMUX}" send-keys -t "${SESSION}:${RESOURCE}" "${CMD}" C-m
   fi
-  atomic_status "$(printf '{"status":"RUNNING_OR_RESUMABLE","queue":"%s","checked_at":"%s","boot_id":"%s"}' \
-    "${QUEUE}" "$(date --iso-8601=seconds)" "$(cat /proc/sys/kernel/random/boot_id)")"
+  atomic_status "$(printf '{"status":"RUNNING_OR_RESUMABLE","resource":"%s","queue":"%s","checked_at":"%s","boot_id":"%s"}' \
+    "${RESOURCE}" "${QUEUE}" "$(date --iso-8601=seconds)" "$(cat /proc/sys/kernel/random/boot_id)")"
   sleep 60
 done

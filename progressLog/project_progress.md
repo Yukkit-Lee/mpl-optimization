@@ -846,3 +846,5 @@
 - 持久运行依赖：已通过华为云 APT 国内源直连安装 `tmux 3.2a`，未使用用户 `9999` 代理；后续正式长任务可以按任务文档进入持久 session。
 - 启动门测试：Public-MTT 配置/DP 排除、隐私会计范围、count mechanism、test leakage 与 no-plaintext-fallback 测试通过。现代环境未安装 pytest，因此直接调用纯 Python test functions；旧 Phase-3 correctness 小缓存未包含在迁移包中，未伪报旧测试通过，改用正式 test-free Stage-B cache 做真实 Stage C smoke。
 - 真实 Stage C smoke/benchmark：CIFAR-10 seed42 Severe selected initializer、batch16、fixed DP、1 step 在 TFE/ABY3 下完成，reference-only accuracy 为 `0.74–0.82`（CSPRNG noise 每次独立）、`epsilon_C=0.986428`，未加载 test。1/8/25 TF threads 的端到端耗时分别为 `25.927/26.935/27.435s`；固定单核 affinity 已移除，多线程在该图构建主导的短任务中未带来收益。
+- Stage C validation 编排：新增 `new_prepare_stage_c_validation.py`，只消费迁移恢复的 9 份 test-free Stage-B cache 中 seed42 三份和对应 Severe selected initializer；为 CIFAR-10/CIFAR-100/Tiny 设置 5/10/15 个不同 pilot steps，Fixed/Adaptive 各一条，共 6 个 TFE/ABY3 validation 任务。该队列明确为 `PILOT_ONLY_NOT_FORMAL`，用于 reference-only 收敛诊断与冻结正式预算，不作为正式均值。
+- 持久恢复器资源修复：active pointer 新格式为 `<resource>\t<queue>`，supervisor 可将 `gpu0/tfe/report` 队列送入同名 tmux 窗口，并兼容旧的仅路径格式；Public-MTT 旧入口同步写入 `gpu0` 资源。隐私会计脚本残留的 BLAS/OpenMP 单线程默认值已移除，所有新验证任务保持 cpuset 内无限定 affinity 的吞吐策略。

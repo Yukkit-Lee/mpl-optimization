@@ -114,7 +114,7 @@ def main() -> int:
         json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     if args.activate:
-        ACTIVE.write_text(str(QUEUE) + "\n", encoding="utf-8")
+        ACTIVE.write_text("gpu0\t{}\n".format(QUEUE), encoding="utf-8")
     print("=" * 88)
     print("Public MTT mainline resolved configuration")
     print("phase=feature_quality_gate")
