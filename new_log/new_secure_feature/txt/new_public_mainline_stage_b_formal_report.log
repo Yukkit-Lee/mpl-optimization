@@ -1,0 +1,55 @@
+[2026-07-26T11:57:23+08:00] task=public_mainline_stage_b_formal_report resource=tfe attempt=0
+Traceback (most recent call last):
+  File "/mnt/code/lixujie/tfe_experiments/new_report_stage_b_initialization.py", line 322, in <module>
+    raise SystemExit(main())
+  File "/mnt/code/lixujie/tfe_experiments/new_report_stage_b_initialization.py", line 287, in main
+    write_csv(SUMMARY_CSV, summary)
+  File "/mnt/code/lixujie/tfe_experiments/new_report_stage_b_initialization.py", line 182, in write_csv
+    writer.writerows(rows)
+  File "/home/lixujie/.conda/envs/distillation/lib/python3.9/csv.py", line 157, in writerows
+    return self.writer.writerows(map(self._dict_to_list, rowdicts))
+  File "/home/lixujie/.conda/envs/distillation/lib/python3.9/csv.py", line 149, in _dict_to_list
+    raise ValueError("dict contains fields not in fieldnames: "
+ValueError: dict contains fields not in fieldnames: 'accuracy_retention_from_iid'
+[2026-07-26T11:57:48+08:00] task=public_mainline_stage_b_formal_report resource=tfe attempt=1
+Traceback (most recent call last):
+  File "/mnt/code/lixujie/tfe_experiments/new_report_stage_b_initialization.py", line 322, in <module>
+    raise SystemExit(main())
+  File "/mnt/code/lixujie/tfe_experiments/new_report_stage_b_initialization.py", line 287, in main
+    write_csv(SUMMARY_CSV, summary)
+  File "/mnt/code/lixujie/tfe_experiments/new_report_stage_b_initialization.py", line 182, in write_csv
+    writer.writerows(rows)
+  File "/home/lixujie/.conda/envs/distillation/lib/python3.9/csv.py", line 157, in writerows
+    return self.writer.writerows(map(self._dict_to_list, rowdicts))
+  File "/home/lixujie/.conda/envs/distillation/lib/python3.9/csv.py", line 149, in _dict_to_list
+    raise ValueError("dict contains fields not in fieldnames: "
+ValueError: dict contains fields not in fieldnames: 'accuracy_retention_from_iid'
+[2026-07-26T11:58:13+08:00] task=public_mainline_stage_b_formal_report resource=tfe attempt=2
+Traceback (most recent call last):
+  File "/mnt/code/lixujie/tfe_experiments/new_report_stage_b_initialization.py", line 322, in <module>
+    raise SystemExit(main())
+  File "/mnt/code/lixujie/tfe_experiments/new_report_stage_b_initialization.py", line 287, in main
+    write_csv(SUMMARY_CSV, summary)
+  File "/mnt/code/lixujie/tfe_experiments/new_report_stage_b_initialization.py", line 182, in write_csv
+    writer.writerows(rows)
+  File "/home/lixujie/.conda/envs/distillation/lib/python3.9/csv.py", line 157, in writerows
+    return self.writer.writerows(map(self._dict_to_list, rowdicts))
+  File "/home/lixujie/.conda/envs/distillation/lib/python3.9/csv.py", line 149, in _dict_to_list
+    raise ValueError("dict contains fields not in fieldnames: "
+ValueError: dict contains fields not in fieldnames: 'accuracy_retention_from_iid'
+[2026-07-26T12:00:47+08:00] task=public_mainline_stage_b_formal_report resource=report attempt=0
+| Dataset | Split | NoKD | Secure KD-Avg | Secure KD-RW |
+|---|---:|---:|---:|---:|
+| cifar10 | iid | 0.5761 +/- 0.0116 | 0.6100 +/- 0.0063 | 0.6101 +/- 0.0047 |
+| cifar10 | mild | 0.4887 +/- 0.0729 | 0.5810 +/- 0.0262 | 0.5878 +/- 0.0246 |
+| cifar10 | severe | 0.1265 +/- 0.0458 | 0.1911 +/- 0.0899 | 0.4048 +/- 0.0390 |
+| cifar100 | iid | 0.2916 +/- 0.0076 | 0.3363 +/- 0.0051 | 0.3364 +/- 0.0054 |
+| cifar100 | mild | 0.2779 +/- 0.0079 | 0.3263 +/- 0.0068 | 0.3264 +/- 0.0072 |
+| cifar100 | severe | 0.2506 +/- 0.0132 | 0.3155 +/- 0.0014 | 0.3170 +/- 0.0024 |
+| tiny | iid | 0.0911 +/- 0.0074 | 0.1310 +/- 0.0072 | 0.1310 +/- 0.0070 |
+| tiny | mild | 0.0865 +/- 0.0068 | 0.1271 +/- 0.0070 | 0.1273 +/- 0.0069 |
+| tiny | severe | 0.0821 +/- 0.0061 | 0.1229 +/- 0.0077 | 0.1230 +/- 0.0074 |
+json=/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_initialization_report.json
+runs_csv=/mnt/code/lixujie/tfe_experiments/new_expTab/new_public_mtt_mainline/new_stage_b_initialization_runs.csv
+summary_csv=/mnt/code/lixujie/tfe_experiments/new_expTab/new_public_mtt_mainline/new_stage_b_initialization_summary.csv
+figures=['/mnt/code/lixujie/tfe_experiments/new_expFig/new_public_mtt_mainline/new_figureB2_stage_b_noniid_initialization.png', '/mnt/code/lixujie/tfe_experiments/new_expFig/new_public_mtt_mainline/new_figureB2_stage_b_noniid_initialization.pdf']

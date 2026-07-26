@@ -1,0 +1,33 @@
+[2026-07-26T05:14:37+08:00] task=public_mainline_stage_b_formal_cifar100_seed44_mild resource=tfe attempt=0
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar100 split=mild clients=5 feature_dim=2048 classes=100
+local_epochs=30 distill_epochs=15 batch_size=256 cpu_threads=1 num_workers=0
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed44/mild
+============================================================================================
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageB-local] epoch=1/30
+[StageB-local] epoch=4/30
+[StageB-local] epoch=7/30
+[StageB-local] epoch=11/30
+[StageB-local] epoch=14/30
+[StageB-local] epoch=17/30
+[StageB-local] epoch=20/30
+[StageB-local] epoch=24/30
+[StageB-local] epoch=27/30
+[StageB-local] epoch=30/30
+[StageB-KD] epoch=1/15
+[StageB-KD] epoch=3/15
+[StageB-KD] epoch=4/15
+[StageB-KD] epoch=6/15
+[StageB-KD] epoch=7/15
+[StageB-KD] epoch=9/15
+[StageB-KD] epoch=10/15
+[StageB-KD] epoch=12/15
+[StageB-KD] epoch=13/15
+[StageB-KD] epoch=15/15
+selected_model=/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed44/mild/new_secure_stage_b_selected_cifar100_mild_seed44.npz
+report=/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed44/mild/new_secure_stage_b_report_cifar100_mild_seed44.json

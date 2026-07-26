@@ -1,0 +1,33 @@
+[2026-07-26T09:13:03+08:00] task=public_mainline_stage_b_formal_tiny_seed43_severe resource=tfe attempt=0
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=tiny split=severe clients=5 feature_dim=2048 classes=200
+local_epochs=20 distill_epochs=10 batch_size=256 cpu_threads=1 num_workers=0
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed43/severe
+============================================================================================
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /home/lixujie/.conda/envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageB-local] epoch=1/20
+[StageB-local] epoch=3/20
+[StageB-local] epoch=5/20
+[StageB-local] epoch=7/20
+[StageB-local] epoch=9/20
+[StageB-local] epoch=12/20
+[StageB-local] epoch=14/20
+[StageB-local] epoch=16/20
+[StageB-local] epoch=18/20
+[StageB-local] epoch=20/20
+[StageB-KD] epoch=1/10
+[StageB-KD] epoch=2/10
+[StageB-KD] epoch=3/10
+[StageB-KD] epoch=4/10
+[StageB-KD] epoch=5/10
+[StageB-KD] epoch=6/10
+[StageB-KD] epoch=7/10
+[StageB-KD] epoch=8/10
+[StageB-KD] epoch=9/10
+[StageB-KD] epoch=10/10
+selected_model=/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed43/severe/new_secure_stage_b_selected_tiny_severe_seed43.npz
+report=/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed43/severe/new_secure_stage_b_report_tiny_severe_seed43.json

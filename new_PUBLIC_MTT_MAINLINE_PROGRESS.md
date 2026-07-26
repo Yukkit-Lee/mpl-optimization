@@ -28,7 +28,7 @@ Official Public MTT Images
 - [x] Frozen 2048-D linear-probe quality gate.
 - [x] Module A Full/Random/Public efficiency.
 - [ ] Secure Module B convergence.
-- [ ] Secure Module B IID/Mild/Severe.
+- [x] Secure Module B IID/Mild/Severe.
 - [ ] Secure Module C multi-privacy comparison.
 - [ ] End-to-End comparison.
 - [ ] TFE small/medium/largest-feasible report.
@@ -111,3 +111,16 @@ experiments using the same encoder/scaler signatures.
   OOM, swap use, or cgroup pressure occurred while the client disconnected.
 - A strict post-training report task is now the final queue row. It runs only
   after all 27 secure tasks and refuses to create partial tables or figures.
+- All 27/27 formal secure Stage-B runs completed at 2026-07-26 11:57. The
+  post-training reporter then exposed a CSV schema bug because only Severe
+  rows contain the IID-retention field; the writer now builds the header from
+  the union of all row fields. No training output or candidate model changed.
+- The strict frozen report contains 81 candidate rows and 27 mean/std rows.
+  Severe-split NoKD versus KD-ReferenceWeighted initial test accuracies are
+  `0.1265 vs 0.4048` (CIFAR-10), `0.2506 vs 0.3170` (CIFAR-100), and
+  `0.0821 vs 0.1230` (Tiny ImageNet). Test was opened only at this final
+  read-only reporting boundary and was not used to alter the frozen settings.
+- Stage-B Non-IID outputs are
+  `new_stage_b_initialization_{runs,summary}.csv`,
+  `new_stage_b_initialization_report.{json,txt}`, and
+  `new_figureB2_stage_b_noniid_initialization.{png,pdf}`.
