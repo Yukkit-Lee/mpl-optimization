@@ -1,0 +1,487 @@
+{
+  "schema": "new_module_b_convergence_formal_report_v1",
+  "status": "COMPLETE",
+  "formal_result": true,
+  "test_loaded": false,
+  "dp_mtt_status": "EXCLUDED_BY_USER",
+  "runs_expected": 18,
+  "runs_completed": 18,
+  "metric_split": "reference_only",
+  "groups": [
+    {
+      "dataset": "cifar10",
+      "method": "random_initialization",
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "target_accuracy": 0.65,
+      "target_reached_seeds": 0,
+      "step_at_target": "N/A",
+      "time_at_target_seconds": "N/A",
+      "early_auc": {
+        "mean": 0.07814814814814816,
+        "std": 0.0032075014954979094
+      },
+      "final_reference_accuracy": {
+        "mean": 0.08,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "mean": 16.945691744486492,
+        "std": 0.731451198504245
+      },
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp"
+    },
+    {
+      "dataset": "cifar10",
+      "method": "secure_consensus_initialization",
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "target_accuracy": 0.65,
+      "target_reached_seeds": 3,
+      "step_at_target": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "time_at_target_seconds": {
+        "mean": 1.7128088792165121,
+        "std": 0.03164064289404785
+      },
+      "early_auc": {
+        "mean": 0.8181481481481481,
+        "std": 0.1416670297744078
+      },
+      "final_reference_accuracy": {
+        "mean": 0.8266666666666667,
+        "std": 0.1361371857110809
+      },
+      "runtime_seconds": {
+        "mean": 17.12808879216512,
+        "std": 0.3164064289404794
+      },
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp"
+    },
+    {
+      "dataset": "cifar100",
+      "method": "random_initialization",
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "target_accuracy": 0.42,
+      "target_reached_seeds": 0,
+      "step_at_target": "N/A",
+      "time_at_target_seconds": "N/A",
+      "early_auc": {
+        "mean": 0.012210526315789474,
+        "std": 0.002097353562649608
+      },
+      "final_reference_accuracy": {
+        "mean": 0.012,
+        "std": 0.002
+      },
+      "runtime_seconds": {
+        "mean": 33.73887817064921,
+        "std": 0.5013828288225894
+      },
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp"
+    },
+    {
+      "dataset": "cifar100",
+      "method": "secure_consensus_initialization",
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "target_accuracy": 0.42,
+      "target_reached_seeds": 3,
+      "step_at_target": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "time_at_target_seconds": {
+        "mean": 1.7480872988700866,
+        "std": 0.02262119015895554
+      },
+      "early_auc": {
+        "mean": 0.9656491228070175,
+        "std": 0.009651164058411023
+      },
+      "final_reference_accuracy": {
+        "mean": 0.9646666666666667,
+        "std": 0.009865765724632504
+      },
+      "runtime_seconds": {
+        "mean": 34.96174597740173,
+        "std": 0.45242380317911146
+      },
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp"
+    },
+    {
+      "dataset": "tiny",
+      "method": "random_initialization",
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "target_accuracy": 0.24,
+      "target_reached_seeds": 0,
+      "step_at_target": "N/A",
+      "time_at_target_seconds": "N/A",
+      "early_auc": {
+        "mean": 0.0047931034482758626,
+        "std": 0.0010612905790698206
+      },
+      "final_reference_accuracy": {
+        "mean": 0.004333333333333333,
+        "std": 0.0011547005383792516
+      },
+      "runtime_seconds": {
+        "mean": 67.36579918861389,
+        "std": 0.3788671532169596
+      },
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp"
+    },
+    {
+      "dataset": "tiny",
+      "method": "secure_consensus_initialization",
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "target_accuracy": 0.24,
+      "target_reached_seeds": 3,
+      "step_at_target": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "time_at_target_seconds": {
+        "mean": 2.234961517651876,
+        "std": 0.005457022190074918
+      },
+      "early_auc": {
+        "mean": 0.7486149425287356,
+        "std": 0.009327798667561478
+      },
+      "final_reference_accuracy": {
+        "mean": 0.7473333333333333,
+        "std": 0.01171893055416464
+      },
+      "runtime_seconds": {
+        "mean": 67.04884552955627,
+        "std": 0.16371066570224865
+      },
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp"
+    }
+  ],
+  "runs": [
+    {
+      "dataset": "cifar10",
+      "method": "random_initialization",
+      "seed": 42,
+      "target_accuracy": 0.65,
+      "step_at_target": null,
+      "time_at_target_seconds": null,
+      "early_auc": 0.08,
+      "final_reference_accuracy": 0.08,
+      "runtime_seconds": 16.4325430393219,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999991,
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar10/random_initialization/seed42/new_secure_stage_c_report_cifar10_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar10",
+      "method": "random_initialization",
+      "seed": 43,
+      "target_accuracy": 0.65,
+      "step_at_target": null,
+      "time_at_target_seconds": null,
+      "early_auc": 0.07444444444444447,
+      "final_reference_accuracy": 0.08,
+      "runtime_seconds": 16.62129306793213,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999991,
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar10/random_initialization/seed43/new_secure_stage_c_report_cifar10_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar10",
+      "method": "random_initialization",
+      "seed": 44,
+      "target_accuracy": 0.65,
+      "step_at_target": null,
+      "time_at_target_seconds": null,
+      "early_auc": 0.08,
+      "final_reference_accuracy": 0.08,
+      "runtime_seconds": 17.783239126205444,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999991,
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar10/random_initialization/seed44/new_secure_stage_c_report_cifar10_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar10",
+      "method": "secure_consensus_initialization",
+      "seed": 42,
+      "target_accuracy": 0.65,
+      "step_at_target": 1,
+      "time_at_target_seconds": 1.6801143646240235,
+      "early_auc": 0.7577777777777777,
+      "final_reference_accuracy": 0.78,
+      "runtime_seconds": 16.801143646240234,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999991,
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar10/secure_consensus_initialization/seed42/new_secure_stage_c_report_cifar10_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar10",
+      "method": "secure_consensus_initialization",
+      "seed": 43,
+      "target_accuracy": 0.65,
+      "step_at_target": 1,
+      "time_at_target_seconds": 1.7150341033935548,
+      "early_auc": 0.7166666666666665,
+      "final_reference_accuracy": 0.72,
+      "runtime_seconds": 17.150341033935547,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999991,
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar10/secure_consensus_initialization/seed43/new_secure_stage_c_report_cifar10_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar10",
+      "method": "secure_consensus_initialization",
+      "seed": 44,
+      "target_accuracy": 0.65,
+      "step_at_target": 1,
+      "time_at_target_seconds": 1.743278169631958,
+      "early_auc": 0.9800000000000002,
+      "final_reference_accuracy": 0.98,
+      "runtime_seconds": 17.43278169631958,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999991,
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar10/secure_consensus_initialization/seed44/new_secure_stage_c_report_cifar10_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar100",
+      "method": "random_initialization",
+      "seed": 42,
+      "target_accuracy": 0.42,
+      "step_at_target": null,
+      "time_at_target_seconds": null,
+      "early_auc": 0.013473684210526317,
+      "final_reference_accuracy": 0.014,
+      "runtime_seconds": 33.86272168159485,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999999,
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar100/random_initialization/seed42/new_secure_stage_c_report_cifar100_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar100",
+      "method": "random_initialization",
+      "seed": 43,
+      "target_accuracy": 0.42,
+      "step_at_target": null,
+      "time_at_target_seconds": null,
+      "early_auc": 0.009789473684210527,
+      "final_reference_accuracy": 0.01,
+      "runtime_seconds": 34.166733741760254,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999999,
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar100/random_initialization/seed43/new_secure_stage_c_report_cifar100_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar100",
+      "method": "random_initialization",
+      "seed": 44,
+      "target_accuracy": 0.42,
+      "step_at_target": null,
+      "time_at_target_seconds": null,
+      "early_auc": 0.01336842105263158,
+      "final_reference_accuracy": 0.012,
+      "runtime_seconds": 33.18717908859253,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999999,
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar100/random_initialization/seed44/new_secure_stage_c_report_cifar100_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "cifar100",
+      "method": "secure_consensus_initialization",
+      "seed": 42,
+      "target_accuracy": 0.42,
+      "step_at_target": 1,
+      "time_at_target_seconds": 1.7236454248428346,
+      "early_auc": 0.9577894736842104,
+      "final_reference_accuracy": 0.958,
+      "runtime_seconds": 34.47290849685669,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999999,
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar100/secure_consensus_initialization/seed42/new_secure_stage_c_report_cifar100_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "cifar100",
+      "method": "secure_consensus_initialization",
+      "seed": 43,
+      "target_accuracy": 0.42,
+      "step_at_target": 1,
+      "time_at_target_seconds": 1.7523292422294616,
+      "early_auc": 0.976421052631579,
+      "final_reference_accuracy": 0.976,
+      "runtime_seconds": 35.04658484458923,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999999,
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar100/secure_consensus_initialization/seed43/new_secure_stage_c_report_cifar100_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "cifar100",
+      "method": "secure_consensus_initialization",
+      "seed": 44,
+      "target_accuracy": 0.42,
+      "step_at_target": 1,
+      "time_at_target_seconds": 1.768287229537964,
+      "early_auc": 0.9627368421052632,
+      "final_reference_accuracy": 0.96,
+      "runtime_seconds": 35.36574459075928,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999999,
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/cifar100/secure_consensus_initialization/seed44/new_secure_stage_c_report_cifar100_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "tiny",
+      "method": "random_initialization",
+      "seed": 42,
+      "target_accuracy": 0.24,
+      "step_at_target": null,
+      "time_at_target_seconds": null,
+      "early_auc": 0.003706896551724138,
+      "final_reference_accuracy": 0.003,
+      "runtime_seconds": 67.03901743888855,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999998,
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/tiny/random_initialization/seed42/new_secure_stage_c_report_tiny_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "tiny",
+      "method": "random_initialization",
+      "seed": 43,
+      "target_accuracy": 0.24,
+      "step_at_target": null,
+      "time_at_target_seconds": null,
+      "early_auc": 0.005827586206896553,
+      "final_reference_accuracy": 0.005,
+      "runtime_seconds": 67.78108406066895,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999998,
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/tiny/random_initialization/seed43/new_secure_stage_c_report_tiny_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "tiny",
+      "method": "random_initialization",
+      "seed": 44,
+      "target_accuracy": 0.24,
+      "step_at_target": null,
+      "time_at_target_seconds": null,
+      "early_auc": 0.004844827586206897,
+      "final_reference_accuracy": 0.005,
+      "runtime_seconds": 67.27729606628418,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999998,
+      "released_model_record_dp_valid": true,
+      "epsilon_interpretation": "released_model_record_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/tiny/random_initialization/seed44/new_secure_stage_c_report_tiny_fixed_dp_seed44.json"
+    },
+    {
+      "dataset": "tiny",
+      "method": "secure_consensus_initialization",
+      "seed": 42,
+      "target_accuracy": 0.24,
+      "step_at_target": 1,
+      "time_at_target_seconds": 2.237207881609599,
+      "early_auc": 0.7381379310344827,
+      "final_reference_accuracy": 0.734,
+      "runtime_seconds": 67.11623644828796,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999998,
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/tiny/secure_consensus_initialization/seed42/new_secure_stage_c_report_tiny_fixed_dp_seed42.json"
+    },
+    {
+      "dataset": "tiny",
+      "method": "secure_consensus_initialization",
+      "seed": 43,
+      "target_accuracy": 0.24,
+      "step_at_target": 1,
+      "time_at_target_seconds": 2.228739857673645,
+      "early_auc": 0.7560172413793104,
+      "final_reference_accuracy": 0.752,
+      "runtime_seconds": 66.86219573020935,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999998,
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/tiny/secure_consensus_initialization/seed43/new_secure_stage_c_report_tiny_fixed_dp_seed43.json"
+    },
+    {
+      "dataset": "tiny",
+      "method": "secure_consensus_initialization",
+      "seed": 44,
+      "target_accuracy": 0.24,
+      "step_at_target": 1,
+      "time_at_target_seconds": 2.2389368136723835,
+      "early_auc": 0.7516896551724138,
+      "final_reference_accuracy": 0.756,
+      "runtime_seconds": 67.16810441017151,
+      "accounted_gradient_mechanism_epsilon": 2.999999999999998,
+      "released_model_record_dp_valid": false,
+      "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+      "test_loaded": false,
+      "source_report": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_b_convergence_formal/tiny/secure_consensus_initialization/seed44/new_secure_stage_c_report_tiny_fixed_dp_seed44.json"
+    }
+  ],
+  "limitations": [
+    "Formal final test evaluation remains a separate one-time read-only step.",
+    "Secure Consensus initialization is data-dependent and non-DP; its epsilon is conditional mechanism accounting only.",
+    "Single-machine TFE communication bytes and rounds are N/A."
+  ]
+}
