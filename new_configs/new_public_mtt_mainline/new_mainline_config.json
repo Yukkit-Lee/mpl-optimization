@@ -264,5 +264,28 @@
     "matmul_chunk_size": 64,
     "test_loaded": false
   },
+  "tfe_system_formal": {
+    "status": "WAITING_FOR_END_TO_END_REPORT",
+    "datasets": {
+      "cifar10": {"iterations": 20},
+      "cifar100": {"iterations": 30},
+      "tiny": {"iterations": 40}
+    },
+    "scales": {
+      "small": {"batch_size": 8},
+      "medium": {"batch_size": 16},
+      "largest_feasible": {"batch_size": 64}
+    },
+    "seed": 42,
+    "mode": "fixed_dp",
+    "learning_rate": 0.002,
+    "noise_multiplier": 1.2,
+    "clip_c": 1.0,
+    "precision_fractional": 16,
+    "matmul_chunk_size": 64,
+    "checkpoint_interval": 5,
+    "initializer_privacy_status": "data_independent",
+    "test_loaded": false
+  },
   "test_tuning_forbidden": true
 }
