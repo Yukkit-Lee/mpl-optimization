@@ -245,5 +245,24 @@
     "test_loaded": false,
     "privacy_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp"
   },
+  "end_to_end_baseline_stage_b": {
+    "status": "READY_NOT_ACTIVE_UNTIL_MODULE_C_COMPLETE",
+    "num_clients": 5,
+    "split": "iid",
+    "batch_size": 256,
+    "local_epochs": {
+      "cifar10": 20,
+      "cifar100": 30,
+      "tiny": 20
+    },
+    "local_learning_rate": 0.1,
+    "distill_epochs": 0,
+    "lambda_kd": 0.0,
+    "reference_supervised_weight": 0.0,
+    "init_scale": 0.01,
+    "precision_fractional": 16,
+    "matmul_chunk_size": 64,
+    "test_loaded": false
+  },
   "test_tuning_forbidden": true
 }
