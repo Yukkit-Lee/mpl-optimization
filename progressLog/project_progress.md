@@ -853,3 +853,4 @@
 - Validation 自动门：新增 `new_report_stage_c_validation.py`，聚合每轮 3 数据集 × 2 方法的 ABY3 report；仅依据 reference trajectory 检查每条曲线相对首个记录点的下降是否不超过 2 percentage points，同时核验 `tfe_mpc/ABY3/no plaintext fallback`。Round 1 预期为 `NEEDS_TUNING`，Round 2 通过同一规则后才允许生成正式 Module C 队列。
 - Adaptive clipping 阻断审计：Round 2 的 CIFAR-10 低学习率 Fixed/Adaptive 已稳定在 `0.74–0.76`，但检查 `C_t` 更新时发现 `below` 指示器把 `norm <= C` 编码成 0，与后续的 `fraction_below` 语义及 `1 - fraction_below = clipped_fraction` 报告相反，会令自适应阈值更新方向颠倒。活动指针已移出项目并中断 Round 2，未把其结果作为正式证据。
 - Adaptive clipping 修复：global 与 parameter-block 两条路径均改为“低于阈值=1、被裁剪=0”；增加纯数学方向参考与三条回归测试，覆盖高于目标时降低 C、低于目标时升高 C、等于目标时保持 C。Round 2 标记为 `ABORTED_CODE_AUDIT`，相同低学习率配置将在隔离的 Round 3 路径完整重跑。
+- Stage C 隐私点准备：新增 `new_stage_c_privacy_calibration.py`，以实际 Opacus RDP accountant 对梯度机制噪声做单调二分校准；Adaptive 模式会同时组合其真实 count-mechanism steps 与固定 count noise，确保 Fixed/Adaptive 在同一 target epsilon_C 下公平比较，而不是复用同一噪声倍数后误报相同 epsilon。
