@@ -103,3 +103,4 @@ new_configs/**/new_active_single_gpu_queue.txt
 # Migration archives and private DP-MTT backups remain outside Git.
 autodl_new_secure_resume_*.tar.zst
 autodl_dp_mtt_private_*.tar.zst.enc
+legacy_tfe_custom_ops/
