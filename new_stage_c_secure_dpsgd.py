@@ -336,6 +336,15 @@ def build_graph(data, init_weight, init_bias, args):
     return graph
 
 
+def adaptive_update_count(steps, warmup_steps, update_interval):
+    return sum(
+        1
+        for step in range(int(steps))
+        if step >= int(warmup_steps)
+        and (step + 1) % int(update_interval) == 0
+    )
+
+
 def accountant_epsilon(steps, sample_rate, args):
     command = [
         MODERN_PYTHON,
@@ -348,9 +357,20 @@ def accountant_epsilon(steps, sample_rate, args):
         str(float(args.noise_multiplier)),
         "--delta",
         str(float(args.delta)),
-        "--count_noise",
-        str(float(args.count_noise_multiplier)),
     ]
+    if args.mode == "adaptive_dp":
+        command.extend(
+            [
+                "--count_noise",
+                str(float(args.count_noise_multiplier)),
+                "--count_steps",
+                str(
+                    adaptive_update_count(
+                        steps, args.warmup_steps, args.update_interval
+                    )
+                ),
+            ]
+        )
     output = subprocess.check_output(command, universal_newlines=True)
     return float(json.loads(output)["epsilon"])
 
@@ -411,23 +431,35 @@ def run_secure_stage_c(data, init_weight, init_bias, args):
         current_c = float(
             np.asarray(session.run(graph["clip_bound"].reveal())).reshape(-1)[0]
         )
-        fetched = session.run(
-            [
-                update,
-                graph["noisy_fraction"].reveal(),
-                graph["new_clip_bound"].reveal(),
-            ],
-            feed_dict=feed,
-        )
-        state["steps_completed"] = step + 1
-        proposed_c = float(np.asarray(fetched[2]).reshape(-1)[0])
-        if args.mode != "adaptive_dp" or not use_adaptive:
+        if use_adaptive:
+            fetched = session.run(
+                [
+                    update,
+                    graph["noisy_fraction"].reveal(),
+                    graph["new_clip_bound"].reveal(),
+                ],
+                feed_dict=feed,
+            )
+            noisy_fraction_below = float(
+                np.asarray(fetched[1]).reshape(-1)[0]
+            )
+            proposed_c = float(np.asarray(fetched[2]).reshape(-1)[0])
+        else:
+            session.run(update, feed_dict=feed)
+            noisy_fraction_below = None
             proposed_c = current_c
+        state["steps_completed"] = step + 1
         row = {
             "step": step + 1,
             "clipping_bound_t": current_c,
             "proposed_next_c": proposed_c,
-            "noisy_fraction_below": float(np.asarray(fetched[1]).reshape(-1)[0]),
+            "adaptive_clip_update": bool(use_adaptive),
+            "dp_noised_fraction_below": noisy_fraction_below,
+            "dp_noised_clipped_fraction": (
+                None
+                if noisy_fraction_below is None
+                else 1.0 - noisy_fraction_below
+            ),
         }
         history.append(row)
         state["history"] = history
@@ -457,12 +489,18 @@ def run_secure_stage_c(data, init_weight, init_bias, args):
             row["reference_loss"] = float(np.asarray(ref_loss).reshape(-1)[0])
             row["reference_accuracy"] = ref_acc
             print(
-                "[StageC] step={}/{} ref_acc={:.4f} C_t={:.5f} noisy_b={:.4f}".format(
+                "[StageC] step={}/{} ref_acc={:.4f} C_t={:.5f} noisy_b={}".format(
                     step + 1,
                     args.steps,
                     ref_acc,
                     current_c,
-                    row["noisy_fraction_below"],
+                    (
+                        "N/A"
+                        if row["dp_noised_fraction_below"] is None
+                        else "{:.4f}".format(
+                            row["dp_noised_fraction_below"]
+                        )
+                    ),
                 ),
                 flush=True,
             )
@@ -560,6 +598,13 @@ def main():
     result = run_secure_stage_c(data, init_weight, init_bias, args)
     sample_rate = min(1.0, float(args.batch_size) / len(data["x_encoder_train"]))
     epsilon = accountant_epsilon(result["steps_completed"], sample_rate, args)
+    count_steps = (
+        adaptive_update_count(
+            result["steps_completed"], args.warmup_steps, args.update_interval
+        )
+        if args.mode == "adaptive_dp"
+        else 0
+    )
     model_path = os.path.join(
         args.output_dir,
         "new_secure_stage_c_model_{}_{}_seed{}.npz".format(
@@ -589,6 +634,7 @@ def main():
             "steps": result["steps_completed"],
             "gradient_noise_multiplier": args.noise_multiplier,
             "clipping_count_noise_multiplier": args.count_noise_multiplier,
+            "clipping_count_mechanism_steps": count_steps,
             "stage_a_original_record_privacy": "inherited_from_stage_a_metadata",
             "epsilon_a_plus_epsilon_c_claimed": False,
         },
@@ -609,7 +655,16 @@ def main():
                 "adaptive_clipping_bound",
             ],
             "revealed": [
-                "dp_noised_fraction_below_for_audit",
+                (
+                    "dp_noised_fraction_below_at_adaptive_updates"
+                    if args.mode == "adaptive_dp"
+                    else "no_clipping_count_statistic"
+                ),
+                (
+                    "dp_adaptive_clipping_bound_trajectory"
+                    if args.mode == "adaptive_dp"
+                    else "fixed_public_clipping_bound"
+                ),
                 "aggregate_reference_logits_at_log_intervals",
                 "final_dp_model",
             ],

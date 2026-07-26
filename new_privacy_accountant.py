@@ -13,14 +13,24 @@ os.environ.setdefault("NUMEXPR_NUM_THREADS", "1")
 from opacus.accountants import RDPAccountant
 
 
-def compute_epsilon(steps, sample_rate, noise_multiplier, delta, count_noise=None):
+def compute_epsilon(
+    steps,
+    sample_rate,
+    noise_multiplier,
+    delta,
+    count_noise=None,
+    count_steps=None,
+):
     accountant = RDPAccountant()
     for _ in range(int(steps)):
         accountant.step(
             noise_multiplier=float(noise_multiplier),
             sample_rate=float(sample_rate),
         )
-        if count_noise is not None:
+    if count_noise is not None:
+        if count_steps is None:
+            count_steps = steps
+        for _ in range(int(count_steps)):
             accountant.step(
                 noise_multiplier=float(count_noise),
                 sample_rate=float(sample_rate),
@@ -35,6 +45,7 @@ def main():
     parser.add_argument("--noise_multiplier", type=float, required=True)
     parser.add_argument("--delta", type=float, required=True)
     parser.add_argument("--count_noise", type=float, default=None)
+    parser.add_argument("--count_steps", type=int, default=None)
     args = parser.parse_args()
     print(
         json.dumps(
@@ -45,6 +56,7 @@ def main():
                     args.noise_multiplier,
                     args.delta,
                     args.count_noise,
+                    args.count_steps,
                 )
             }
         )
