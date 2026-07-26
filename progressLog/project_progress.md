@@ -799,3 +799,15 @@
 - 会话源确认：定位到当前会话原始 JSONL，验证其中包含本次最新用户消息。考虑到历史对话出现过访问令牌和敏感工具输出，原始文件不加入 GitHub，也不混入普通实验资产包。
 - 私有会话包：生成 `/home/lixujie/tmpWork/codex_conversation_export_20260726_1522.tar.zst`，大小 `12,154,981` bytes，SHA256=`3b6420f7aa7c3a0c17c0b17b8e797ebe3224d6e73c49b519eaf5154ce679601a`，权限 `0600`，并通过 `zstd -t` 完整性校验。该包必须通过私有渠道单独传输，禁止提交 GitHub。
 - 上下文恢复：新增 `migration/CODEX_CONTEXT_HANDOFF.md`，安全记录 Public MTT 主线、Stage A/B/C 边界、已完成进度、资源约束、迁移资产和 AutoDL 首次 Codex 提示词。原始 JSONL 可用于审计，但 Codex 客户端不保证支持直接导入旧 UI 会话，因此新会话应优先读取 handoff、项目进度和迁移文档。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-26 10:01 UTC
+- 本次对话任务目标：仅恢复并验证 AutoDL 环境，严格执行 `AUTODL_MIGRATION.md` 第 1–7 节；不启动 Stage C、不重跑已完成的 Stage A/Stage B，也不启动任何正式长实验。
+- 文档恢复：已完整读取 `migration/CODEX_CONTEXT_HANDOFF.md`、本进度记录、`AUTODL_MIGRATION.md` 与 `plan/new_public_mtt_mainline_codex_prompt.md`。仓库及 `/root/autodl-tmp` 内均未找到用户列出的 `AGENTS.md`，因此未能读取；该缺失不需要检索私有 JSONL。
+- 硬件基线：AutoDL 当前为单张 NVIDIA GeForce RTX 5090（32607 MiB，空闲）、Intel Xeon Platinum 8470Q（208 logical CPUs）和约 754 GiB RAM；恢复过程仍固定 `NEW_SINGLE_GPU=0`、`NEW_CPU_CORE=0`、线程数 1。
+- Git 基线：分支 `new-secure-feature-pipeline`，HEAD=`d2eea61e6a0e4a7a5164405a278182d9be58cbe4`，初始工作树干净并跟踪 `origin/new-secure-feature-pipeline`。
+- 存储基线：`/root/autodl-tmp` 总计 150 GiB、可用约 141 GiB；项目目录约 233 MiB。
+- 迁移包校验：`/root/autodl-tmp/autodl_new_secure_resume_20260726_150457.tar.zst` 大小为 8,771,438,515 bytes，SHA256=`2313a96c1352c2cb66b6262bb59f61d559fb2cd6112f87131e7ab76a53b1bae9`，与交接文档完全一致。
+- 第 1 节：确认仓库已在准确目标分支；已从 `config/new_paths.autodl.example.env` 创建 `/root/.config/new-secure-feature-pipeline.env`，解析路径为项目 `/root/autodl-tmp/tfe_experiments`、MTT `/root/autodl-tmp/mtt-distillation`、数据 `/root/autodl-tmp/new_data`、环境 `/root/autodl-tmp/new_envs`。
