@@ -823,3 +823,10 @@
 - 第 5 节 Official MTT：采用用户已上传的 `/root/autodl-tmp/georgecazenavette.zip`（SHA256=`3d0a96bb193e9abc93d9a372b9e30d5ec4a0af738c937b3dbd3dfad8998b7943`）；ZIP 自检通过，目录包含清单要求的 20 个 non-ZCA tensor，解压后 20/20 SHA256 全部匹配。
 - 第 5 节原始档案：用户随后上传的 `/root/autodl-tmp/{cifar-10-python.tar.gz,cifar-100-python.tar.gz,tiny-imagenet-200.zip}` 大小与 SHA256 均匹配冻结清单。已停止网络下载并精确删除约 560 MiB 的重复下载/临时文件；规范数据目录改为指向用户原件的符号链接，避免重复占盘。`scripts/new_verify_official_mtt_assets.py` 最终报告 `Verified 20 official MTT files and 3 raw archives`。
 - 下载源审计：用户 `127.0.0.1:9999` 对 Toronto 官方源约 48 KiB/s；百度 BCE 国内镜像明显更快，Tiny 国内端点不支持断点续传，曾临时从华为云 APT 安装 `aria2` 尝试多连接。用户原件到达后下载立即终止，所有网络副本均未被用作最终资产。
+- 第 6 节高成本资产恢复：已将 SHA256 预先匹配的 `autodl_new_secure_resume_20260726_150457.tar.zst` 解压到项目根。迁移包内容严格为 `new_cache` 350 个 tar entries 与 `legacy_tfe_custom_ops` 5 个 tar entries；恢复后缓存实际文件 257 个、总计约 8.9 GiB（Public-MTT mainline 5.9 GiB、旧 secure-feature cache 3.1 GiB）。
+- 第 6 节 selected initializer：`scripts/new_restore_portable_artifacts.py` 成功恢复 27 项；运行时目录恰有 27 个 `.npz`，逐项 SHA256 与 Git 清单 27/27 匹配，无额外 candidate initializer。
+- 缓存深度校验：对全部 257 个恢复文件逐项读取；41 个 JSON 全部可解析、18 个 NPY header/mmap 可读、45 个 NPZ 与 141 个 PT 的 ZIP CRC 全部通过，另 12 个 TensorFlow checkpoint 分片/索引文件可完整读取，未发现损坏。
+- 第 7 节环境/静态检查：`scripts/check_autodl_env.py` 通过，现代环境识别 PyTorch `2.8.0+cu128`、CUDA `12.8` 与 RTX 5090；`bash -n new_scripts/*.sh scripts/new_*.sh` 和现代 Python `py_compile` 均通过，现代/legacy 的 `pip check` 均报告无 broken requirements。
+- 第 7 节队列重生成：Public-MTT quality gate、Module A、Stage-B reference tuning、Stage-B formal 四类解析计划已按 AutoDL 绝对路径重生成；Module A 与 tuning 明确输出 `activated=False`，其余入口未传 `--activate`。未启动 supervisor/tmux，GPU 无 compute process，也无 Stage A/B/C 或其他训练进程。
+- 当前停止边界：`AUTODL_MIGRATION.md` 第 1–7 节已完成；Stage A/B 未重跑，Stage C 未启动。迁移包中的旧主机 custom-op `.so` 只保留为未跟踪应急备份，实际 legacy 环境使用本机重新构建且已通过 correctness 的 `.so`。
+- 第 7 节 active-queue 安全修复：最终审计发现 `new_prepare_public_mtt_mainline.py` 与迁移文档的“仅 `--activate` 才激活”约定不一致，旧实现会无条件写 active pointer。AutoDL 没有 supervisor/tmux，故该指针从未触发任务；现已为入口增加显式 `--activate` 开关，删除运行时 pointer，并在无参数重跑后确认 `activated=False`、`active_queue_absent=yes`。

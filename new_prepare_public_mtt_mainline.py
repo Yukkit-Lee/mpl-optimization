@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Resolve and activate the first persistent Public MTT mainline queue."""
+"""Resolve and optionally activate the first persistent Public MTT mainline queue."""
 
+import argparse
 import json
 import os
 from pathlib import Path
@@ -26,6 +27,13 @@ PLAN = (
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--activate",
+        action="store_true",
+        help="atomically make this queue active after writing the plan",
+    )
+    args = parser.parse_args()
     config = load_config()
     tuning_runs = (
         len(config["datasets"])
@@ -105,7 +113,8 @@ def main() -> int:
     PLAN.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    ACTIVE.write_text(str(QUEUE) + "\n", encoding="utf-8")
+    if args.activate:
+        ACTIVE.write_text(str(QUEUE) + "\n", encoding="utf-8")
     print("=" * 88)
     print("Public MTT mainline resolved configuration")
     print("phase=feature_quality_gate")
@@ -118,6 +127,7 @@ def main() -> int:
     print("queue={}".format(QUEUE))
     for output in payload["expected_outputs"]:
         print("expected_output={}".format(output))
+    print("activated={}".format(args.activate))
     print("=" * 88)
     return 0
 

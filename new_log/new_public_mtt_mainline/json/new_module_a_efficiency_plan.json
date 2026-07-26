@@ -25,16 +25,16 @@
     "checkpoint_resume": true
   },
   "expected_outputs": [
-    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar10/new_module_a_efficiency_cifar10_seed42.json",
-    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar10/new_module_a_efficiency_cifar10_seed43.json",
-    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar10/new_module_a_efficiency_cifar10_seed44.json",
-    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar100/new_module_a_efficiency_cifar100_seed42.json",
-    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar100/new_module_a_efficiency_cifar100_seed43.json",
-    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar100/new_module_a_efficiency_cifar100_seed44.json",
-    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/tiny/new_module_a_efficiency_tiny_seed42.json",
-    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/tiny/new_module_a_efficiency_tiny_seed43.json",
-    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/tiny/new_module_a_efficiency_tiny_seed44.json",
-    "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_efficiency_report.json"
+    "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar10/new_module_a_efficiency_cifar10_seed42.json",
+    "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar10/new_module_a_efficiency_cifar10_seed43.json",
+    "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar10/new_module_a_efficiency_cifar10_seed44.json",
+    "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar100/new_module_a_efficiency_cifar100_seed42.json",
+    "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar100/new_module_a_efficiency_cifar100_seed43.json",
+    "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/cifar100/new_module_a_efficiency_cifar100_seed44.json",
+    "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/tiny/new_module_a_efficiency_tiny_seed42.json",
+    "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/tiny/new_module_a_efficiency_tiny_seed43.json",
+    "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_runs/tiny/new_module_a_efficiency_tiny_seed44.json",
+    "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_a_efficiency_report.json"
   ],
-  "queue": "/mnt/code/lixujie/tfe_experiments/new_configs/new_public_mtt_mainline/new_gpu0_module_a_efficiency.tsv"
+  "queue": "/root/autodl-tmp/tfe_experiments/new_configs/new_public_mtt_mainline/new_gpu0_module_a_efficiency.tsv"
 }

@@ -8,19 +8,19 @@
   "num_workers": 0,
   "post_training_report_task": {
     "assignment": "TFE_CPU_core0_serial_after_training",
-    "expected_output": "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_initialization_report.json",
+    "expected_output": "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_initialization_report.json",
     "phase": "secure_stage_b_frozen_test_report",
     "test_role": "readonly_final_reporting_after_selection_freeze"
   },
   "protocol": "ABY3",
-  "queue": "/mnt/code/lixujie/tfe_experiments/new_configs/new_public_mtt_mainline/new_tfe_stage_b_formal.tsv",
+  "queue": "/root/autodl-tmp/tfe_experiments/new_configs/new_public_mtt_mainline/new_tfe_stage_b_formal.tsv",
   "schema": "new_public_mtt_stage_b_formal_plan_v1",
   "serial": true,
   "status": "READY",
   "tasks": [
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed42/iid/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed42/iid/new_stage_b",
       "configuration": {
         "candidate_id": "new_b_04",
         "distill_epochs": 10,
@@ -32,7 +32,7 @@
         "weight_temperature": 0.005
       },
       "dataset": "cifar10",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed42/iid/new_secure_stage_b_report_cifar10_iid_seed42.json",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed42/iid/new_secure_stage_b_report_cifar10_iid_seed42.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
@@ -44,7 +44,7 @@
     },
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed42/mild/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed42/mild/new_stage_b",
       "configuration": {
         "candidate_id": "new_b_04",
         "distill_epochs": 10,
@@ -56,7 +56,7 @@
         "weight_temperature": 0.005
       },
       "dataset": "cifar10",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed42/mild/new_secure_stage_b_report_cifar10_mild_seed42.json",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed42/mild/new_secure_stage_b_report_cifar10_mild_seed42.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
@@ -68,7 +68,7 @@
     },
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed42/severe/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed42/severe/new_stage_b",
       "configuration": {
         "candidate_id": "new_b_04",
         "distill_epochs": 10,
@@ -80,223 +80,7 @@
         "weight_temperature": 0.005
       },
       "dataset": "cifar10",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed42/severe/new_secure_stage_b_report_cifar10_severe_seed42.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 42,
-      "split": "severe"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed43/iid/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 10,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 20,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar10",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed43/iid/new_secure_stage_b_report_cifar10_iid_seed43.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 43,
-      "split": "iid"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed43/mild/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 10,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 20,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar10",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed43/mild/new_secure_stage_b_report_cifar10_mild_seed43.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 43,
-      "split": "mild"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed43/severe/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 10,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 20,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar10",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed43/severe/new_secure_stage_b_report_cifar10_severe_seed43.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 43,
-      "split": "severe"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed44/iid/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 10,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 20,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar10",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed44/iid/new_secure_stage_b_report_cifar10_iid_seed44.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 44,
-      "split": "iid"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed44/mild/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 10,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 20,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar10",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed44/mild/new_secure_stage_b_report_cifar10_mild_seed44.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 44,
-      "split": "mild"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed44/severe/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 10,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 20,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar10",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed44/severe/new_secure_stage_b_report_cifar10_severe_seed44.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 44,
-      "split": "severe"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed42/iid/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 15,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 30,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar100",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed42/iid/new_secure_stage_b_report_cifar100_iid_seed42.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 42,
-      "split": "iid"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed42/mild/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 15,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 30,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar100",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed42/mild/new_secure_stage_b_report_cifar100_mild_seed42.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 42,
-      "split": "mild"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed42/severe/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 15,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 30,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar100",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed42/severe/new_secure_stage_b_report_cifar100_severe_seed42.json",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed42/severe/new_secure_stage_b_report_cifar10_severe_seed42.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
@@ -308,153 +92,9 @@
     },
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed43/iid/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed43/iid/new_stage_b",
       "configuration": {
         "candidate_id": "new_b_04",
-        "distill_epochs": 15,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 30,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar100",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed43/iid/new_secure_stage_b_report_cifar100_iid_seed43.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 43,
-      "split": "iid"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed43/mild/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 15,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 30,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar100",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed43/mild/new_secure_stage_b_report_cifar100_mild_seed43.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 43,
-      "split": "mild"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed43/severe/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 15,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 30,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar100",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed43/severe/new_secure_stage_b_report_cifar100_severe_seed43.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 43,
-      "split": "severe"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed44/iid/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 15,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 30,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar100",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed44/iid/new_secure_stage_b_report_cifar100_iid_seed44.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 44,
-      "split": "iid"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed44/mild/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 15,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 30,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar100",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed44/mild/new_secure_stage_b_report_cifar100_mild_seed44.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 44,
-      "split": "mild"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed44/severe/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_04",
-        "distill_epochs": 15,
-        "distill_lr": 0.03,
-        "lambda_kd": 0.1,
-        "local_epochs": 30,
-        "local_lr": 0.1,
-        "reference_supervised_weight": 2.0,
-        "weight_temperature": 0.005
-      },
-      "dataset": "cifar100",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed44/severe/new_secure_stage_b_report_cifar100_severe_seed44.json",
-      "methods_released_at_formal_boundary": [
-        "NoKD",
-        "KD-Avg",
-        "KD-ReferenceWeighted"
-      ],
-      "phase": "secure_stage_b_formal",
-      "seed": 44,
-      "split": "severe"
-    },
-    {
-      "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed42/iid/new_stage_b",
-      "configuration": {
-        "candidate_id": "new_b_02",
         "distill_epochs": 10,
         "distill_lr": 0.03,
         "lambda_kd": 0.1,
@@ -463,8 +103,152 @@
         "reference_supervised_weight": 2.0,
         "weight_temperature": 0.005
       },
-      "dataset": "tiny",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed42/iid/new_secure_stage_b_report_tiny_iid_seed42.json",
+      "dataset": "cifar10",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed43/iid/new_secure_stage_b_report_cifar10_iid_seed43.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 43,
+      "split": "iid"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed43/mild/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_04",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "cifar10",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed43/mild/new_secure_stage_b_report_cifar10_mild_seed43.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 43,
+      "split": "mild"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed43/severe/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_04",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "cifar10",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed43/severe/new_secure_stage_b_report_cifar10_severe_seed43.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 43,
+      "split": "severe"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed44/iid/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_04",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "cifar10",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed44/iid/new_secure_stage_b_report_cifar10_iid_seed44.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 44,
+      "split": "iid"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed44/mild/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_04",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "cifar10",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed44/mild/new_secure_stage_b_report_cifar10_mild_seed44.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 44,
+      "split": "mild"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar10/seed44/severe/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_04",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "cifar10",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar10/seed44/severe/new_secure_stage_b_report_cifar10_severe_seed44.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 44,
+      "split": "severe"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed42/iid/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_04",
+        "distill_epochs": 15,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 30,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "cifar100",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed42/iid/new_secure_stage_b_report_cifar100_iid_seed42.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
@@ -476,19 +260,19 @@
     },
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed42/mild/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed42/mild/new_stage_b",
       "configuration": {
-        "candidate_id": "new_b_02",
-        "distill_epochs": 10,
+        "candidate_id": "new_b_04",
+        "distill_epochs": 15,
         "distill_lr": 0.03,
         "lambda_kd": 0.1,
-        "local_epochs": 20,
+        "local_epochs": 30,
         "local_lr": 0.1,
         "reference_supervised_weight": 2.0,
         "weight_temperature": 0.005
       },
-      "dataset": "tiny",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed42/mild/new_secure_stage_b_report_tiny_mild_seed42.json",
+      "dataset": "cifar100",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed42/mild/new_secure_stage_b_report_cifar100_mild_seed42.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
@@ -500,19 +284,19 @@
     },
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed42/severe/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed42/severe/new_stage_b",
       "configuration": {
-        "candidate_id": "new_b_02",
-        "distill_epochs": 10,
+        "candidate_id": "new_b_04",
+        "distill_epochs": 15,
         "distill_lr": 0.03,
         "lambda_kd": 0.1,
-        "local_epochs": 20,
+        "local_epochs": 30,
         "local_lr": 0.1,
         "reference_supervised_weight": 2.0,
         "weight_temperature": 0.005
       },
-      "dataset": "tiny",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed42/severe/new_secure_stage_b_report_tiny_severe_seed42.json",
+      "dataset": "cifar100",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed42/severe/new_secure_stage_b_report_cifar100_severe_seed42.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
@@ -524,19 +308,19 @@
     },
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed43/iid/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed43/iid/new_stage_b",
       "configuration": {
-        "candidate_id": "new_b_02",
-        "distill_epochs": 10,
+        "candidate_id": "new_b_04",
+        "distill_epochs": 15,
         "distill_lr": 0.03,
         "lambda_kd": 0.1,
-        "local_epochs": 20,
+        "local_epochs": 30,
         "local_lr": 0.1,
         "reference_supervised_weight": 2.0,
         "weight_temperature": 0.005
       },
-      "dataset": "tiny",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed43/iid/new_secure_stage_b_report_tiny_iid_seed43.json",
+      "dataset": "cifar100",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed43/iid/new_secure_stage_b_report_cifar100_iid_seed43.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
@@ -548,19 +332,19 @@
     },
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed43/mild/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed43/mild/new_stage_b",
       "configuration": {
-        "candidate_id": "new_b_02",
-        "distill_epochs": 10,
+        "candidate_id": "new_b_04",
+        "distill_epochs": 15,
         "distill_lr": 0.03,
         "lambda_kd": 0.1,
-        "local_epochs": 20,
+        "local_epochs": 30,
         "local_lr": 0.1,
         "reference_supervised_weight": 2.0,
         "weight_temperature": 0.005
       },
-      "dataset": "tiny",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed43/mild/new_secure_stage_b_report_tiny_mild_seed43.json",
+      "dataset": "cifar100",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed43/mild/new_secure_stage_b_report_cifar100_mild_seed43.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
@@ -572,19 +356,19 @@
     },
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed43/severe/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed43/severe/new_stage_b",
       "configuration": {
-        "candidate_id": "new_b_02",
-        "distill_epochs": 10,
+        "candidate_id": "new_b_04",
+        "distill_epochs": 15,
         "distill_lr": 0.03,
         "lambda_kd": 0.1,
-        "local_epochs": 20,
+        "local_epochs": 30,
         "local_lr": 0.1,
         "reference_supervised_weight": 2.0,
         "weight_temperature": 0.005
       },
-      "dataset": "tiny",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed43/severe/new_secure_stage_b_report_tiny_severe_seed43.json",
+      "dataset": "cifar100",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed43/severe/new_secure_stage_b_report_cifar100_severe_seed43.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
@@ -596,19 +380,19 @@
     },
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed44/iid/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed44/iid/new_stage_b",
       "configuration": {
-        "candidate_id": "new_b_02",
-        "distill_epochs": 10,
+        "candidate_id": "new_b_04",
+        "distill_epochs": 15,
         "distill_lr": 0.03,
         "lambda_kd": 0.1,
-        "local_epochs": 20,
+        "local_epochs": 30,
         "local_lr": 0.1,
         "reference_supervised_weight": 2.0,
         "weight_temperature": 0.005
       },
-      "dataset": "tiny",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed44/iid/new_secure_stage_b_report_tiny_iid_seed44.json",
+      "dataset": "cifar100",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed44/iid/new_secure_stage_b_report_cifar100_iid_seed44.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
@@ -620,19 +404,19 @@
     },
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed44/mild/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed44/mild/new_stage_b",
       "configuration": {
-        "candidate_id": "new_b_02",
-        "distill_epochs": 10,
+        "candidate_id": "new_b_04",
+        "distill_epochs": 15,
         "distill_lr": 0.03,
         "lambda_kd": 0.1,
-        "local_epochs": 20,
+        "local_epochs": 30,
         "local_lr": 0.1,
         "reference_supervised_weight": 2.0,
         "weight_temperature": 0.005
       },
-      "dataset": "tiny",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed44/mild/new_secure_stage_b_report_tiny_mild_seed44.json",
+      "dataset": "cifar100",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed44/mild/new_secure_stage_b_report_cifar100_mild_seed44.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
@@ -644,7 +428,31 @@
     },
     {
       "assignment": "TFE_CPU_core0_serial",
-      "checkpoint": "/mnt/code/lixujie/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed44/severe/new_stage_b",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/cifar100/seed44/severe/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_04",
+        "distill_epochs": 15,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 30,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "cifar100",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/cifar100/seed44/severe/new_secure_stage_b_report_cifar100_severe_seed44.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 44,
+      "split": "severe"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed42/iid/new_stage_b",
       "configuration": {
         "candidate_id": "new_b_02",
         "distill_epochs": 10,
@@ -656,7 +464,199 @@
         "weight_temperature": 0.005
       },
       "dataset": "tiny",
-      "expected_output": "/mnt/code/lixujie/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed44/severe/new_secure_stage_b_report_tiny_severe_seed44.json",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed42/iid/new_secure_stage_b_report_tiny_iid_seed42.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 42,
+      "split": "iid"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed42/mild/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_02",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "tiny",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed42/mild/new_secure_stage_b_report_tiny_mild_seed42.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 42,
+      "split": "mild"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed42/severe/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_02",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "tiny",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed42/severe/new_secure_stage_b_report_tiny_severe_seed42.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 42,
+      "split": "severe"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed43/iid/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_02",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "tiny",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed43/iid/new_secure_stage_b_report_tiny_iid_seed43.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 43,
+      "split": "iid"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed43/mild/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_02",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "tiny",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed43/mild/new_secure_stage_b_report_tiny_mild_seed43.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 43,
+      "split": "mild"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed43/severe/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_02",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "tiny",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed43/severe/new_secure_stage_b_report_tiny_severe_seed43.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 43,
+      "split": "severe"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed44/iid/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_02",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "tiny",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed44/iid/new_secure_stage_b_report_tiny_iid_seed44.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 44,
+      "split": "iid"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed44/mild/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_02",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "tiny",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed44/mild/new_secure_stage_b_report_tiny_mild_seed44.json",
+      "methods_released_at_formal_boundary": [
+        "NoKD",
+        "KD-Avg",
+        "KD-ReferenceWeighted"
+      ],
+      "phase": "secure_stage_b_formal",
+      "seed": 44,
+      "split": "mild"
+    },
+    {
+      "assignment": "TFE_CPU_core0_serial",
+      "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_public_mtt_mainline/stage_b/tiny/seed44/severe/new_stage_b",
+      "configuration": {
+        "candidate_id": "new_b_02",
+        "distill_epochs": 10,
+        "distill_lr": 0.03,
+        "lambda_kd": 0.1,
+        "local_epochs": 20,
+        "local_lr": 0.1,
+        "reference_supervised_weight": 2.0,
+        "weight_temperature": 0.005
+      },
+      "dataset": "tiny",
+      "expected_output": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/stage_b/tiny/seed44/severe/new_secure_stage_b_report_tiny_severe_seed44.json",
       "methods_released_at_formal_boundary": [
         "NoKD",
         "KD-Avg",
