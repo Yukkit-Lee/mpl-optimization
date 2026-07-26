@@ -12,13 +12,6 @@ import sys
 import time
 import warnings
 
-os.environ.setdefault("OMP_NUM_THREADS", "1")
-os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
-os.environ.setdefault("MKL_NUM_THREADS", "1")
-os.environ.setdefault("NUMEXPR_NUM_THREADS", "1")
-os.environ.setdefault("VECLIB_MAXIMUM_THREADS", "1")
-os.environ.setdefault("TF_NUM_INTRAOP_THREADS", "1")
-os.environ.setdefault("TF_NUM_INTEROP_THREADS", "1")
 os.environ.setdefault("CUDA_VISIBLE_DEVICES", "")
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "3")
 
@@ -712,8 +705,8 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
         data, client_indices, initial_weights, initial_biases, args
     )
     tf, tfe, KE = graph["tf"], graph["tfe"], graph["KE"]
-    # TFE 0.8.0 的 Session(config=...) 接收的是 TFE Config，不是 TF ConfigProto；
-    # 线程限制由文件开头的 TF_NUM_INTRAOP/INTEROP_THREADS=1 强制执行。
+    # TFE 0.8.0 的 Session(config=...) 接收的是 TFE Config，不是 TF ConfigProto。
+    # 不注入 TF/BLAS 单线程环境变量，由 AutoDL runtime 使用可用 CPU。
     session = tfe.Session()
     started = time.time()
     session.run(tf.compat.v1.global_variables_initializer())
@@ -1037,7 +1030,8 @@ def main():
         flush=True,
     )
     print(
-        "local_epochs={} distill_epochs={} batch_size={} cpu_threads=1 num_workers=0".format(
+        "local_epochs={} distill_epochs={} batch_size={} "
+        "cpu_policy=runtime_unrestricted num_workers=N/A".format(
             args.local_epochs, args.distill_epochs, args.batch_size
         ),
         flush=True,
