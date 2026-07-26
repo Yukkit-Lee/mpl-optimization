@@ -1,0 +1,301 @@
+{
+  "schema": "new_secure_stage_b_report_v1",
+  "status": "COMPLETE",
+  "dataset": "cifar10",
+  "seed": 42,
+  "split": "iid",
+  "feature_cache": "/root/autodl-tmp/tfe_experiments/new_cache/new_public_mtt_mainline/new_end_to_end_features/random_subset/cifar10/new_end_to_end_random_cifar10_seed42.npz",
+  "feature_cache_sha256": "7591e6cf2a829fa85b1506d53e3ab20a42066cf5c0a46993c1acf78d706be0f2",
+  "feature_dim": 2048,
+  "num_classes": 10,
+  "num_clients": 5,
+  "client_splits": [
+    {
+      "client_id": 0,
+      "num_samples": 80,
+      "class_histogram": {
+        "0": 10,
+        "1": 12,
+        "2": 9,
+        "3": 8,
+        "4": 5,
+        "5": 7,
+        "6": 8,
+        "7": 3,
+        "8": 6,
+        "9": 12
+      }
+    },
+    {
+      "client_id": 1,
+      "num_samples": 80,
+      "class_histogram": {
+        "0": 10,
+        "1": 6,
+        "2": 9,
+        "3": 8,
+        "4": 8,
+        "5": 6,
+        "6": 8,
+        "7": 12,
+        "8": 7,
+        "9": 6
+      }
+    },
+    {
+      "client_id": 2,
+      "num_samples": 80,
+      "class_histogram": {
+        "0": 6,
+        "1": 3,
+        "2": 8,
+        "3": 11,
+        "4": 11,
+        "5": 11,
+        "6": 2,
+        "7": 7,
+        "8": 12,
+        "9": 9
+      }
+    },
+    {
+      "client_id": 3,
+      "num_samples": 80,
+      "class_histogram": {
+        "0": 9,
+        "1": 10,
+        "2": 6,
+        "3": 8,
+        "4": 6,
+        "5": 10,
+        "6": 10,
+        "7": 9,
+        "8": 7,
+        "9": 5
+      }
+    },
+    {
+      "client_id": 4,
+      "num_samples": 80,
+      "class_histogram": {
+        "0": 5,
+        "1": 9,
+        "2": 8,
+        "3": 5,
+        "4": 10,
+        "5": 6,
+        "6": 12,
+        "7": 9,
+        "8": 8,
+        "9": 8
+      }
+    }
+  ],
+  "configuration": {
+    "batch_size": 256,
+    "local_epochs": 20,
+    "local_lr": 0.1,
+    "distill_epochs": 0,
+    "distill_lr": 0.03,
+    "lambda_kd": 0.0,
+    "reference_supervised_weight": 0.0,
+    "weight_temperature": 0.005,
+    "precision_fractional": 16,
+    "matmul_chunk_size": 64
+  },
+  "security": {
+    "backend": "tfe_mpc",
+    "protocol": "ABY3",
+    "execution": "single-machine process simulation",
+    "secret_shared_inputs": [
+      "local_feature_batches",
+      "local_labels",
+      "local_linear_head_parameters",
+      "reference_features",
+      "reference_labels",
+      "selection_features",
+      "selection_labels"
+    ],
+    "secret_shared_intermediates": [
+      "teacher_logits",
+      "distilled_local_parameters",
+      "avg_candidate",
+      "reference_weighted_candidate",
+      "candidate_mse_scores",
+      "selection_bit"
+    ],
+    "revealed_values": [
+      "final_selected_stage_b_weight",
+      "final_selected_stage_b_bias",
+      "formal_ablation_nokd_candidate",
+      "formal_ablation_kd_avg_candidate",
+      "formal_ablation_kd_reference_weighted_candidate"
+    ],
+    "formal_candidate_release": true,
+    "reference_weight_softmax_stabilization": "private_mean_centering_shift_invariant",
+    "selection_scope": "fully_secret_selection_final_model_only",
+    "silent_plaintext_fallback": false,
+    "secure_random_custom_op_required": true
+  },
+  "selected_model_path": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/end_to_end_baseline/cifar10/seed42/new_secure_stage_b_selected_cifar10_iid_seed42.npz",
+  "selected_model_sha256": "f5c97f1a99c0a3125d90d6ab4231b8e52b4b396c3cbdb8334dffbfb4a18b68a4",
+  "formal_candidate_models": {
+    "NoKD": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/end_to_end_baseline/cifar10/seed42/new_secure_stage_b_candidate_nokd_cifar10_iid_seed42.npz",
+      "sha256": "35ff6151e55aeae35c9b091a6ea5440d79b44848256f34a08553a72d9344295f"
+    },
+    "KD-Avg": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/end_to_end_baseline/cifar10/seed42/new_secure_stage_b_candidate_kd_avg_cifar10_iid_seed42.npz",
+      "sha256": "f5c97f1a99c0a3125d90d6ab4231b8e52b4b396c3cbdb8334dffbfb4a18b68a4"
+    },
+    "KD-ReferenceWeighted": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_init_model/new_public_mtt_mainline/end_to_end_baseline/cifar10/seed42/new_secure_stage_b_candidate_kd_referenceweighted_cifar10_iid_seed42.npz",
+      "sha256": "7d8aa62941932047913ca4227e12cd72d494ca608445d15b428d691ff404c02c"
+    }
+  },
+  "runtime_seconds": 383.5704414844513,
+  "training_elapsed_seconds": 34.25917363166809,
+  "history": [
+    {
+      "phase": "local_pretraining",
+      "epoch": 1,
+      "batches": 5,
+      "epoch_time_seconds": 26.824760913848877,
+      "elapsed_time_seconds": 26.824760913848877
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 2,
+      "batches": 5,
+      "epoch_time_seconds": 0.5051357746124268,
+      "elapsed_time_seconds": 27.329896688461304
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 3,
+      "batches": 5,
+      "epoch_time_seconds": 0.4584660530090332,
+      "elapsed_time_seconds": 27.788362741470337
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 4,
+      "batches": 5,
+      "epoch_time_seconds": 0.450545072555542,
+      "elapsed_time_seconds": 28.23890781402588
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 5,
+      "batches": 5,
+      "epoch_time_seconds": 0.30568432807922363,
+      "elapsed_time_seconds": 28.544592142105103
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 6,
+      "batches": 5,
+      "epoch_time_seconds": 0.3071568012237549,
+      "elapsed_time_seconds": 28.851748943328857
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 7,
+      "batches": 5,
+      "epoch_time_seconds": 0.2735271453857422,
+      "elapsed_time_seconds": 29.1252760887146
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 8,
+      "batches": 5,
+      "epoch_time_seconds": 0.286346435546875,
+      "elapsed_time_seconds": 29.411622524261475
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 9,
+      "batches": 5,
+      "epoch_time_seconds": 0.2346961498260498,
+      "elapsed_time_seconds": 29.646318674087524
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 10,
+      "batches": 5,
+      "epoch_time_seconds": 0.24417519569396973,
+      "elapsed_time_seconds": 29.890493869781494
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 11,
+      "batches": 5,
+      "epoch_time_seconds": 0.24242830276489258,
+      "elapsed_time_seconds": 30.132922172546387
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 12,
+      "batches": 5,
+      "epoch_time_seconds": 0.20407700538635254,
+      "elapsed_time_seconds": 30.33699917793274
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 13,
+      "batches": 5,
+      "epoch_time_seconds": 0.2626962661743164,
+      "elapsed_time_seconds": 30.599695444107056
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 14,
+      "batches": 5,
+      "epoch_time_seconds": 0.28028059005737305,
+      "elapsed_time_seconds": 30.87997603416443
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 15,
+      "batches": 5,
+      "epoch_time_seconds": 0.5325753688812256,
+      "elapsed_time_seconds": 31.412551403045654
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 16,
+      "batches": 5,
+      "epoch_time_seconds": 0.49472904205322266,
+      "elapsed_time_seconds": 31.907280445098877
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 17,
+      "batches": 5,
+      "epoch_time_seconds": 0.6195862293243408,
+      "elapsed_time_seconds": 32.52686667442322
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 18,
+      "batches": 5,
+      "epoch_time_seconds": 0.6548621654510498,
+      "elapsed_time_seconds": 33.18172883987427
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 19,
+      "batches": 5,
+      "epoch_time_seconds": 0.5007228851318359,
+      "elapsed_time_seconds": 33.6824517250061
+    },
+    {
+      "phase": "local_pretraining",
+      "epoch": 20,
+      "batches": 5,
+      "epoch_time_seconds": 0.5767219066619873,
+      "elapsed_time_seconds": 34.25917363166809
+    }
+  ],
+  "correctness": null
+}
