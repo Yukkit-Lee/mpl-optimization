@@ -97,7 +97,8 @@ def main():
                 "--reference_supervised_weight 0.0 --weight_temperature 0.005 "
                 "--init_scale {init_scale} "
                 "--precision_fractional {precision} "
-                "--matmul_chunk_size {chunk} --checkpoint_interval 1 "
+                "--matmul_chunk_size {chunk} "
+                "--checkpoint_interval {checkpoint_interval} "
                 "--formal_candidate_release"
             ).format(
                 python=TFE_PYTHON,
@@ -114,6 +115,7 @@ def main():
                 init_scale=stage_b["init_scale"],
                 precision=stage_b["precision_fractional"],
                 chunk=stage_b["matmul_chunk_size"],
+                checkpoint_interval=stage_b["checkpoint_interval"],
             )
             rows.append("{}\t{}\t{}".format(task_id, checkpoint, command))
             tasks.append(
@@ -130,6 +132,7 @@ def main():
                     "feature_cache_sha256": asset["random_subset_sha256"],
                     "local_epochs": stage_b["local_epochs"][dataset],
                     "distill_epochs": 0,
+                    "checkpoint_interval": stage_b["checkpoint_interval"],
                     "test_loaded": False,
                     "resource": "tfe",
                     "expected_initializer": str(expected_initializer),

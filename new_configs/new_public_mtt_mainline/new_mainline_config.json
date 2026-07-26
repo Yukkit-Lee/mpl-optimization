@@ -262,6 +262,7 @@
     "init_scale": 0.01,
     "precision_fractional": 16,
     "matmul_chunk_size": 64,
+    "checkpoint_interval": 5,
     "test_loaded": false
   },
   "tfe_system_formal": {
