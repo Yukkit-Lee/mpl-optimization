@@ -1,0 +1,26 @@
+Final one-time read-only test evaluation
+models=72 cache_reads=9 feedback_to_tuning=False
+cifar10 end_to_end baseline_random_secure_average_fixed eps=3.0 test=0.489600±0.009885
+cifar10 end_to_end ours_official_secure_consensus_adaptive eps=3.0 test=0.610400±0.004613
+cifar10 module_c adaptive_dp eps=1.0 test=0.084033±0.011172
+cifar10 module_c adaptive_dp eps=3.0 test=0.084533±0.011504
+cifar10 module_c adaptive_dp eps=8.0 test=0.085033±0.012947
+cifar10 module_c fixed_dp eps=1.0 test=0.085133±0.011254
+cifar10 module_c fixed_dp eps=3.0 test=0.085667±0.011895
+cifar10 module_c fixed_dp eps=8.0 test=0.084767±0.011186
+cifar100 end_to_end baseline_random_secure_average_fixed eps=3.0 test=0.197233±0.005774
+cifar100 end_to_end ours_official_secure_consensus_adaptive eps=3.0 test=0.335900±0.006534
+cifar100 module_c adaptive_dp eps=1.0 test=0.010433±0.001155
+cifar100 module_c adaptive_dp eps=3.0 test=0.010800±0.001562
+cifar100 module_c adaptive_dp eps=8.0 test=0.010267±0.001710
+cifar100 module_c fixed_dp eps=1.0 test=0.010433±0.001457
+cifar100 module_c fixed_dp eps=3.0 test=0.010400±0.001825
+cifar100 module_c fixed_dp eps=8.0 test=0.010600±0.001212
+tiny end_to_end baseline_random_secure_average_fixed eps=3.0 test=0.054633±0.004225
+tiny end_to_end ours_official_secure_consensus_adaptive eps=3.0 test=0.130400±0.006154
+tiny module_c adaptive_dp eps=1.0 test=0.004533±0.000961
+tiny module_c adaptive_dp eps=3.0 test=0.004533±0.000929
+tiny module_c adaptive_dp eps=8.0 test=0.004467±0.000709
+tiny module_c fixed_dp eps=1.0 test=0.004733±0.000929
+tiny module_c fixed_dp eps=3.0 test=0.004667±0.000850
+tiny module_c fixed_dp eps=8.0 test=0.004533±0.000764

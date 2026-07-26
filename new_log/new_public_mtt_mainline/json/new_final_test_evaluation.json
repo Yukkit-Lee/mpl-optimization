@@ -1,0 +1,1281 @@
+{
+  "schema": "new_final_test_evaluation_v1",
+  "status": "COMPLETE",
+  "formal_models_evaluated": 72,
+  "test_cache_reads": 9,
+  "test_usage": "single_readonly_after_all_config_and_models_frozen",
+  "test_feedback_to_tuning_or_quality_gates": false,
+  "known_prefinal_metadata_only_reads": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "purpose": "manual shape and encoder/scaler signature audit",
+      "accuracy_or_prediction_computed": false,
+      "feedback_to_configuration_or_model_selection": false
+    }
+  ],
+  "dp_mtt_status": "EXCLUDED_BY_USER",
+  "module_c_report_gate": "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_module_c_formal_report.json",
+  "end_to_end_report_gate": "/root/autodl-tmp/tfe_experiments/new_log/new_public_mtt_mainline/json/new_end_to_end_formal_report.json",
+  "module_c_release_dp_valid": true,
+  "end_to_end_release_dp_valid": false,
+  "test_reads": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "test_examples": 10000,
+      "feature_cache_path": "/root/autodl-tmp/tfe_experiments/new_cache/new_secure_feature/new_formal_phase6/new_public_mtt_round3/new_seed42/public_mtt_benchmark/cifar10/new_feature_cache_cifar10_public_mtt_benchmark_seed42.pt",
+      "feature_cache_sha256": "a9baee45a0481bcdc57f337e5373df992032cb809b4ffba5b2f32d319580703a",
+      "read_count_in_this_evaluator": 1
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "test_examples": 10000,
+      "feature_cache_path": "/root/autodl-tmp/tfe_experiments/new_cache/new_secure_feature/new_formal_phase6/new_public_mtt_round3/new_seed43/public_mtt_benchmark/cifar10/new_feature_cache_cifar10_public_mtt_benchmark_seed43.pt",
+      "feature_cache_sha256": "feb1bc01d33df552cbc3722d199724afff898a3efe1e8fdd1f507e1f029b7940",
+      "read_count_in_this_evaluator": 1
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "test_examples": 10000,
+      "feature_cache_path": "/root/autodl-tmp/tfe_experiments/new_cache/new_secure_feature/new_formal_phase6/new_public_mtt_round3/new_seed44/public_mtt_benchmark/cifar10/new_feature_cache_cifar10_public_mtt_benchmark_seed44.pt",
+      "feature_cache_sha256": "c0a96ff0c88713324d2fa71a6c31d4f9636bb2a6dd70a99d24ff972ffad942d1",
+      "read_count_in_this_evaluator": 1
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "test_examples": 10000,
+      "feature_cache_path": "/root/autodl-tmp/tfe_experiments/new_cache/new_secure_feature/new_formal_phase6/new_public_mtt_final/new_cifar100_seed42/public_mtt_benchmark/cifar100/new_feature_cache_cifar100_public_mtt_benchmark_seed42.pt",
+      "feature_cache_sha256": "e59ef92aef478e05f8073fe96ae580a0a3a16571b7d63ef219a37a92be720d09",
+      "read_count_in_this_evaluator": 1
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "test_examples": 10000,
+      "feature_cache_path": "/root/autodl-tmp/tfe_experiments/new_cache/new_secure_feature/new_formal_phase6/new_public_mtt_final/new_cifar100_seed43/public_mtt_benchmark/cifar100/new_feature_cache_cifar100_public_mtt_benchmark_seed43.pt",
+      "feature_cache_sha256": "9fc830367ebb5760fbbc228eacfa885833f2d6645305ca8d5b1df62dbf15f3a0",
+      "read_count_in_this_evaluator": 1
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "test_examples": 10000,
+      "feature_cache_path": "/root/autodl-tmp/tfe_experiments/new_cache/new_secure_feature/new_formal_phase6/new_public_mtt_final/new_cifar100_seed44/public_mtt_benchmark/cifar100/new_feature_cache_cifar100_public_mtt_benchmark_seed44.pt",
+      "feature_cache_sha256": "c83f0e79402af00e306bc8bc9ce3d76291cb5dd1bee144aa22fd068152988082",
+      "read_count_in_this_evaluator": 1
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "test_examples": 10000,
+      "feature_cache_path": "/root/autodl-tmp/tfe_experiments/new_cache/new_secure_feature/new_formal_phase6/new_public_mtt_final/new_tiny_seed42/public_mtt_benchmark/tiny/new_feature_cache_tiny_public_mtt_benchmark_seed42.pt",
+      "feature_cache_sha256": "b9bd4d0ac7553d206b6ef933fe3e18bb83ecde007becbe58986fb519632cca20",
+      "read_count_in_this_evaluator": 1
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "test_examples": 10000,
+      "feature_cache_path": "/root/autodl-tmp/tfe_experiments/new_cache/new_secure_feature/new_formal_phase6/new_public_mtt_final/new_tiny_seed43/public_mtt_benchmark/tiny/new_feature_cache_tiny_public_mtt_benchmark_seed43.pt",
+      "feature_cache_sha256": "5a6c54eba41a1d45ef34911b5d63e989331abfe17e008b2d9cc54fb97b35dd9c",
+      "read_count_in_this_evaluator": 1
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "test_examples": 10000,
+      "feature_cache_path": "/root/autodl-tmp/tfe_experiments/new_cache/new_secure_feature/new_formal_phase6/new_public_mtt_final/new_tiny_seed44/public_mtt_benchmark/tiny/new_feature_cache_tiny_public_mtt_benchmark_seed44.pt",
+      "feature_cache_sha256": "701e9509b30fdc110537299ea6a7bcdd6097f0b2b0107e1ddcb57d6402ee7735",
+      "read_count_in_this_evaluator": 1
+    }
+  ],
+  "groups": [
+    {
+      "dataset": "cifar10",
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.48960000000000004,
+        "std": 0.00988534268500592
+      },
+      "released_model_record_dp_valid": false
+    },
+    {
+      "dataset": "cifar10",
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.6104,
+        "std": 0.004613025037868335
+      },
+      "released_model_record_dp_valid": false
+    },
+    {
+      "dataset": "cifar10",
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.08403333333333333,
+        "std": 0.011172436320397326
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "cifar10",
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.08453333333333334,
+        "std": 0.0115040572553049
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "cifar10",
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.08503333333333334,
+        "std": 0.01294655681381476
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "cifar10",
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.08513333333333334,
+        "std": 0.011254480589229045
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "cifar10",
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.08566666666666667,
+        "std": 0.011895097029168508
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "cifar10",
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.08476666666666667,
+        "std": 0.011185854161991087
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "cifar100",
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.19723333333333334,
+        "std": 0.005774368652357875
+      },
+      "released_model_record_dp_valid": false
+    },
+    {
+      "dataset": "cifar100",
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.3359,
+        "std": 0.006533758489567858
+      },
+      "released_model_record_dp_valid": false
+    },
+    {
+      "dataset": "cifar100",
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.010433333333333334,
+        "std": 0.0011547005383792516
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "cifar100",
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.010799999999999999,
+        "std": 0.001562049935181331
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "cifar100",
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.010266666666666667,
+        "std": 0.0017097758137642881
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "cifar100",
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.010433333333333333,
+        "std": 0.0014571661996262922
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "cifar100",
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.0104,
+        "std": 0.0018248287590894655
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "cifar100",
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.0106,
+        "std": 0.0012124355652982138
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "tiny",
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.05463333333333333,
+        "std": 0.004225320500664219
+      },
+      "released_model_record_dp_valid": false
+    },
+    {
+      "dataset": "tiny",
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.1304,
+        "std": 0.006153860576906175
+      },
+      "released_model_record_dp_valid": false
+    },
+    {
+      "dataset": "tiny",
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.004533333333333334,
+        "std": 0.000960902353693305
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "tiny",
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.004533333333333334,
+        "std": 0.0009291573243177568
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "tiny",
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.0044666666666666665,
+        "std": 0.0007094598884597588
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "tiny",
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.004733333333333333,
+        "std": 0.0009291573243177567
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "tiny",
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.004666666666666666,
+        "std": 0.0008504900548115381
+      },
+      "released_model_record_dp_valid": true
+    },
+    {
+      "dataset": "tiny",
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "test_accuracy": {
+        "mean": 0.004533333333333334,
+        "std": 0.0007637626158259732
+      },
+      "released_model_record_dp_valid": true
+    }
+  ],
+  "runs": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0869,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps1p0/seed42/new_secure_stage_c_model_cifar10_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0874,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps3p0/seed42/new_secure_stage_c_model_cifar10_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0858,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps8p0/seed42/new_secure_stage_c_model_cifar10_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0855,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps1p0/seed42/new_secure_stage_c_model_cifar10_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0867,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps3p0/seed42/new_secure_stage_c_model_cifar10_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0863,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps8p0/seed42/new_secure_stage_c_model_cifar10_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.4958,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar10/baseline_random_secure_average_fixed/seed42/new_secure_stage_c_model_cifar10_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.6156,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar10/ours_official_secure_consensus_adaptive/seed42/new_secure_stage_c_model_cifar10_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0954,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps1p0/seed43/new_secure_stage_c_model_cifar10_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0966,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps3p0/seed43/new_secure_stage_c_model_cifar10_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0954,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps8p0/seed43/new_secure_stage_c_model_cifar10_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0944,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps1p0/seed43/new_secure_stage_c_model_cifar10_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0948,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps3p0/seed43/new_secure_stage_c_model_cifar10_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0973,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps8p0/seed43/new_secure_stage_c_model_cifar10_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.4948,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar10/baseline_random_secure_average_fixed/seed43/new_secure_stage_c_model_cifar10_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.6088,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar10/ours_official_secure_consensus_adaptive/seed43/new_secure_stage_c_model_cifar10_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0731,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps1p0/seed44/new_secure_stage_c_model_cifar10_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.073,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps3p0/seed44/new_secure_stage_c_model_cifar10_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0731,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/fixed_dp/eps8p0/seed44/new_secure_stage_c_model_cifar10_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0722,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps1p0/seed44/new_secure_stage_c_model_cifar10_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0721,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps3p0/seed44/new_secure_stage_c_model_cifar10_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0715,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar10/adaptive_dp/eps8p0/seed44/new_secure_stage_c_model_cifar10_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.4782,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar10/baseline_random_secure_average_fixed/seed44/new_secure_stage_c_model_cifar10_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.6068,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar10/ours_official_secure_consensus_adaptive/seed44/new_secure_stage_c_model_cifar10_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0109,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps1p0/seed42/new_secure_stage_c_model_cifar100_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0113,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps3p0/seed42/new_secure_stage_c_model_cifar100_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0113,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps8p0/seed42/new_secure_stage_c_model_cifar100_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0111,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps1p0/seed42/new_secure_stage_c_model_cifar100_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0116,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps3p0/seed42/new_secure_stage_c_model_cifar100_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0111,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps8p0/seed42/new_secure_stage_c_model_cifar100_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.2024,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar100/baseline_random_secure_average_fixed/seed42/new_secure_stage_c_model_cifar100_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.3432,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar100/ours_official_secure_consensus_adaptive/seed42/new_secure_stage_c_model_cifar100_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0088,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps1p0/seed43/new_secure_stage_c_model_cifar100_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0083,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps3p0/seed43/new_secure_stage_c_model_cifar100_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0092,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps8p0/seed43/new_secure_stage_c_model_cifar100_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0091,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps1p0/seed43/new_secure_stage_c_model_cifar100_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.009,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps3p0/seed43/new_secure_stage_c_model_cifar100_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0083,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps8p0/seed43/new_secure_stage_c_model_cifar100_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.191,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar100/baseline_random_secure_average_fixed/seed43/new_secure_stage_c_model_cifar100_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.3306,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar100/ours_official_secure_consensus_adaptive/seed43/new_secure_stage_c_model_cifar100_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0116,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps1p0/seed44/new_secure_stage_c_model_cifar100_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0116,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps3p0/seed44/new_secure_stage_c_model_cifar100_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0113,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/fixed_dp/eps8p0/seed44/new_secure_stage_c_model_cifar100_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0111,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps1p0/seed44/new_secure_stage_c_model_cifar100_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0118,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps3p0/seed44/new_secure_stage_c_model_cifar100_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0114,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/cifar100/adaptive_dp/eps8p0/seed44/new_secure_stage_c_model_cifar100_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.1983,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar100/baseline_random_secure_average_fixed/seed44/new_secure_stage_c_model_cifar100_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.3339,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/cifar100/ours_official_secure_consensus_adaptive/seed44/new_secure_stage_c_model_cifar100_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.005,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps1p0/seed42/new_secure_stage_c_model_tiny_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0047,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps3p0/seed42/new_secure_stage_c_model_tiny_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0047,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps8p0/seed42/new_secure_stage_c_model_tiny_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0047,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps1p0/seed42/new_secure_stage_c_model_tiny_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0048,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps3p0/seed42/new_secure_stage_c_model_tiny_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0046,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps8p0/seed42/new_secure_stage_c_model_tiny_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0519,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/tiny/baseline_random_secure_average_fixed/seed42/new_secure_stage_c_model_tiny_fixed_dp_seed42.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.1291,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/tiny/ours_official_secure_consensus_adaptive/seed42/new_secure_stage_c_model_tiny_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0037,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps1p0/seed43/new_secure_stage_c_model_tiny_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0038,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps3p0/seed43/new_secure_stage_c_model_tiny_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0037,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps8p0/seed43/new_secure_stage_c_model_tiny_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0035,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps1p0/seed43/new_secure_stage_c_model_tiny_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0035,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps3p0/seed43/new_secure_stage_c_model_tiny_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0037,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps8p0/seed43/new_secure_stage_c_model_tiny_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0525,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/tiny/baseline_random_secure_average_fixed/seed43/new_secure_stage_c_model_tiny_fixed_dp_seed43.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.125,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/tiny/ours_official_secure_consensus_adaptive/seed43/new_secure_stage_c_model_tiny_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0055,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps1p0/seed44/new_secure_stage_c_model_tiny_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0055,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps3p0/seed44/new_secure_stage_c_model_tiny_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "family": "module_c",
+      "method": "fixed_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0052,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/fixed_dp/eps8p0/seed44/new_secure_stage_c_model_tiny_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 1.0,
+      "test_accuracy": 0.0054,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps1p0/seed44/new_secure_stage_c_model_tiny_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0053,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps3p0/seed44/new_secure_stage_c_model_tiny_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "family": "module_c",
+      "method": "adaptive_dp",
+      "target_epsilon": 8.0,
+      "test_accuracy": 0.0051,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": true,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/module_c_formal/tiny/adaptive_dp/eps8p0/seed44/new_secure_stage_c_model_tiny_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "family": "end_to_end",
+      "method": "baseline_random_secure_average_fixed",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.0595,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/tiny/baseline_random_secure_average_fixed/seed44/new_secure_stage_c_model_tiny_fixed_dp_seed44.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "family": "end_to_end",
+      "method": "ours_official_secure_consensus_adaptive",
+      "target_epsilon": 3.0,
+      "test_accuracy": 0.1371,
+      "test_examples": 10000,
+      "released_model_record_dp_valid": false,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/end_to_end_formal/tiny/ours_official_secure_consensus_adaptive/seed44/new_secure_stage_c_model_tiny_adaptive_dp_seed44.npz"
+    }
+  ],
+  "artifacts": {
+    "csv": "/root/autodl-tmp/tfe_experiments/new_expTab/new_public_mtt_mainline/new_final_test_evaluation.csv",
+    "figure_png": "/root/autodl-tmp/tfe_experiments/new_expFig/new_public_mtt_mainline/new_figureF_final_test_privacy_utility.png",
+    "figure_pdf": "/root/autodl-tmp/tfe_experiments/new_expFig/new_public_mtt_mainline/new_figureF_final_test_privacy_utility.pdf"
+  }
+}

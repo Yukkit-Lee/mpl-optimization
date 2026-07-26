@@ -1,0 +1,11 @@
+End-to-End formal two-curve report
+runs=18/18 test_loaded=False shared_reference=True
+cifar10 baseline_random_secure_average_fixed final=0.473333±0.102632
+cifar10 ours_official_secure_consensus_adaptive final=0.606667±0.110151
+cifar100 baseline_random_secure_average_fixed final=0.199333±0.012702
+cifar100 ours_official_secure_consensus_adaptive final=0.377333±0.018475
+tiny baseline_random_secure_average_fixed final=0.055000±0.007937
+tiny ours_official_secure_consensus_adaptive final=0.147000±0.006557
+cifar10 gain=0.133333 passed=True
+cifar100 gain=0.178000 passed=True
+tiny gain=0.092000 passed=True
