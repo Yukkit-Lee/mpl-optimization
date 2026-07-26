@@ -6,6 +6,12 @@
   "formal_task_count": 27,
   "gpu_assignment": "none",
   "num_workers": 0,
+  "post_training_report_task": {
+    "assignment": "TFE_CPU_core0_serial_after_training",
+    "expected_output": "/mnt/code/lixujie/tfe_experiments/new_log/new_public_mtt_mainline/json/new_stage_b_initialization_report.json",
+    "phase": "secure_stage_b_frozen_test_report",
+    "test_role": "readonly_final_reporting_after_selection_freeze"
+  },
   "protocol": "ABY3",
   "queue": "/mnt/code/lixujie/tfe_experiments/new_configs/new_public_mtt_mainline/new_tfe_stage_b_formal.tsv",
   "schema": "new_public_mtt_stage_b_formal_plan_v1",

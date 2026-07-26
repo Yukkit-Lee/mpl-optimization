@@ -149,6 +149,30 @@ def main():
                     }
                 )
 
+    report_output = (
+        ROOT
+        / "new_log/new_public_mtt_mainline/json"
+        / "new_stage_b_initialization_report.json"
+    )
+    report_task = {
+        "phase": "secure_stage_b_frozen_test_report",
+        "assignment": "TFE_CPU_core0_serial_after_training",
+        "expected_output": str(report_output),
+        "test_role": "readonly_final_reporting_after_selection_freeze",
+    }
+    rows.append(
+        (
+            "public_mainline_stage_b_formal_report\t{output}\t"
+            "{python} {script}"
+        ).format(
+            output=report_output,
+            python=os.environ.get(
+                "NEW_MODERN_PYTHON",
+                "/home/lixujie/.conda/envs/distillation/bin/python",
+            ),
+            script=ROOT / "new_report_stage_b_initialization.py",
+        )
+    )
     QUEUE.parent.mkdir(parents=True, exist_ok=True)
     QUEUE.write_text("\n".join(rows) + "\n", encoding="utf-8")
     payload = {
@@ -164,6 +188,7 @@ def main():
         "checkpoint_each_epoch": True,
         "test_used_for_tuning": False,
         "formal_task_count": len(tasks),
+        "post_training_report_task": report_task,
         "queue": str(QUEUE),
         "tasks": tasks,
     }
@@ -180,6 +205,7 @@ def main():
     print("seeds            : 42, 43, 44")
     print("splits           : iid, mild, severe")
     print("formal tasks     : {}".format(len(tasks)))
+    print("report tasks     : 1 (runs only after all 27 formal tasks)")
     print("CPU/GPU          : core0, threads=1 / GPU disabled")
     print("queue            : {}".format(QUEUE))
     print("plan             : {}".format(PLAN))

@@ -106,3 +106,8 @@ experiments using the same encoder/scaler signatures.
 - The first complete formal run (CIFAR-10 seed 42 IID) produced NoKD/KD-Avg/
   KD-ReferenceWeighted test accuracies of `0.5879/0.6172/0.6153` at the
   read-only reporting boundary. Its 30-row epoch history is complete.
+- Resume audit at 2026-07-26 09:27 found 23/27 formal Stage-B tasks COMPLETE:
+  all CIFAR-10 and CIFAR-100 tasks and five Tiny ImageNet tasks. No retry,
+  OOM, swap use, or cgroup pressure occurred while the client disconnected.
+- A strict post-training report task is now the final queue row. It runs only
+  after all 27 secure tasks and refuses to create partial tables or figures.
