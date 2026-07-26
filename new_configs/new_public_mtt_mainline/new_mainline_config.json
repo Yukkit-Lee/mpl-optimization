@@ -170,5 +170,25 @@
     "module_c_record_dp_formal_initializer": "data_independent",
     "silent_upgrade_of_conditional_epsilon_forbidden": true
   },
+  "module_b_convergence_formal": {
+    "status": "FORMAL_READY_AFTER_STAGE_C_VALIDATION_PASS",
+    "validation_gate": "stage_c_validation_round3",
+    "datasets": {
+      "cifar10": {"steps": 10, "batch_size": 16},
+      "cifar100": {"steps": 20, "batch_size": 16},
+      "tiny": {"steps": 30, "batch_size": 16}
+    },
+    "seeds": [42, 43, 44],
+    "methods": ["random_initialization", "secure_consensus_initialization"],
+    "mode": "fixed_dp",
+    "learning_rate": 0.002,
+    "optimizer_target_epsilon": 3.0,
+    "delta": 1e-5,
+    "random_init_scale": 0.01,
+    "selected_split": "severe",
+    "checkpoint_interval": 2,
+    "test_loaded": false,
+    "privacy_note": "selected initializer is data-dependent non-DP; epsilon is conditional mechanism accounting only"
+  },
   "test_tuning_forbidden": true
 }
