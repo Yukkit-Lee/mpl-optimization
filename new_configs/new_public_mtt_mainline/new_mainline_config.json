@@ -215,5 +215,35 @@
     "initializer_privacy_status": "data_independent",
     "test_loaded": false
   },
+  "end_to_end_formal": {
+    "status": "WAITING_FOR_MODULE_C_AND_BASELINE_INITIALIZERS",
+    "datasets": {
+      "cifar10": {"steps": 10, "batch_size": 16},
+      "cifar100": {"steps": 20, "batch_size": 16},
+      "tiny": {"steps": 30, "batch_size": 16}
+    },
+    "seeds": [42, 43, 44],
+    "target_epsilon": 3.0,
+    "delta": 1e-5,
+    "learning_rate": 0.002,
+    "clip_c": 1.0,
+    "count_noise_multiplier": 8.0,
+    "warmup_steps": 5,
+    "update_interval": 5,
+    "checkpoint_interval": 2,
+    "baseline": {
+      "feature_source": "random_subset",
+      "initializer": "secure_nokd_average",
+      "stage_c_mode": "fixed_dp"
+    },
+    "ours": {
+      "feature_source": "official_mtt",
+      "initializer": "secure_consensus_selected_iid",
+      "stage_c_mode": "adaptive_dp"
+    },
+    "shared_reference": "full_train_stratified_holdout",
+    "test_loaded": false,
+    "privacy_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp"
+  },
   "test_tuning_forbidden": true
 }
