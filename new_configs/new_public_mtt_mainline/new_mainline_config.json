@@ -238,7 +238,7 @@
     },
     "ours": {
       "feature_source": "official_mtt",
-      "initializer": "secure_consensus_selected_iid",
+      "initializer": "frozen_secure_consensus_selected_iid",
       "stage_c_mode": "adaptive_dp"
     },
     "shared_reference": "full_train_stratified_holdout",

@@ -679,9 +679,14 @@ Random Subset
 ```text
 Official MTT Distilled Images
 → Shared Encoder
-→ Secure KD-ReferenceWeighted Initialization
+→ Frozen Secure Consensus Selected Initialization
 → Secure Adaptive DP-SGD
 ```
+
+AutoDL portable artifact 只保留 Stage B 冻结后安全选择的 selected initializer，
+其候选为 KD-Avg 与 KD-ReferenceWeighted 的密态选择结果；单独 KD-RW candidate
+未迁移。为遵守“不重跑已完成 Stage B”，End-to-End 主曲线必须准确标为
+`Secure Consensus Selected`，不得将 selected 文件冒充为单独 KD-RW。
 
 公平性：
 
