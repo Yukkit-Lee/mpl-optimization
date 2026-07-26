@@ -150,7 +150,8 @@ def main():
                 "--count_noise_multiplier {count_noise_multiplier} "
                 "--clip_c {clip_c} --warmup_steps {warmup_steps} "
                 "--update_interval {update_interval} "
-                "--checkpoint_interval {checkpoint_interval}"
+                "--checkpoint_interval {checkpoint_interval} "
+                "--initializer_privacy_status data_dependent_non_dp"
             ).format(
                 python=TFE_PYTHON,
                 script=ROOT / "new_stage_c_secure_dpsgd.py",
@@ -179,7 +180,9 @@ def main():
                     "seed": 42,
                     "split": pilot["split"],
                     "method": mode,
-                    "privacy_scope": "stage_c_distilled_feature_records",
+                    "privacy_scope": (
+                        "conditional_gradient_mechanism_only_not_released_model_dp"
+                    ),
                     "steps": steps,
                     "batch_size": batch_size,
                     "processed_examples": steps * batch_size,

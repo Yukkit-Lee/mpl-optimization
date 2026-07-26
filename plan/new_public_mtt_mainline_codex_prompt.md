@@ -63,7 +63,7 @@ Secret-Shared 2048-D Distilled Features
 + Secret-Shared Global Initializer
 → Secure Fixed DP-SGD
 → Secure Adaptive DP-SGD
-→ Released Differentially Private Linear Model
+→ Released Noisy Linear Model
 ```
 
 隐私字段：
@@ -74,11 +74,17 @@ stage_c_epsilon
 stage_c_delta
 accountant_type
 noise_mechanism
+initializer_privacy_status
+released_model_record_dp_valid
 ```
 
 必须明确：
 
-> Stage-C epsilon 只保护 Stage C 所处理的蒸馏特征记录或其发布模型，不能解释为官方 MTT 图像所对应原始训练数据的端到端记录级 DP。
+> Stage-C accountant 只会计 Stage C 所处理的蒸馏特征记录，不能解释为官方 MTT 图像所对应原始训练数据的端到端记录级 DP；能否进一步解释为发布模型 DP 取决于下述 initializer 前置条件。
+
+并且：
+
+> 只有 initializer 数据独立、来自与 Stage C 隐私记录不相交的公开数据，或本身已有可组合 DP 保证时，Stage-C accountant 才能解释为发布模型对 Stage-C 记录的 DP。当前 Secure Stage B selected initializer 与 Stage C 复用同一 feature cache 且 Stage B 非 DP，因此其数值只能标为 `conditional_gradient_mechanism_epsilon`，`released_model_record_dp_valid=false`，不得称为发布模型 epsilon-DP。
 
 ## DP-MTT：排除执行
 
@@ -439,7 +445,7 @@ Secure Consensus Initialization
 - 相同官方 MTT 2048-D features；
 - 相同后续 Stage C 设置；
 - 相同模型；
-- 相同 epsilon；
+- 相同 optimizer noise/accountant target；若 initializer 为同记录上的非 DP 数据依赖结果，只能作条件机制对照，不得声称发布模型 epsilon-DP；
 - 只改变初始化方式。
 
 指标：
@@ -589,6 +595,8 @@ Secure Fixed DP-SGD
 Secure Adaptive DP-SGD
 ```
 
+发布模型 record-DP 的正式隐私—效用主图必须使用数据独立 initializer；Secure Stage B selected initializer 的对应曲线可作为安全初始化/条件机制效用实验，但 epsilon 标签必须注明不构成最终发布模型 DP。
+
 Plain 结果放表格或虚线参考。
 
 ## 9.1 不同数据集不同训练预算
@@ -696,6 +704,8 @@ Official MTT + Fixed DP
 Official MTT + Secure Stage B + Fixed DP
 Official MTT + Secure Stage B + Adaptive DP
 ```
+
+其中包含 Secure Stage B selected initializer 的 End-to-End 曲线只报告 MPC 机密性与条件梯度机制会计，不得升级为最终模型的记录级 DP；记录级 DP 主张必须另用满足 initializer 前置条件的正式实验支撑。
 
 不要把所有消融曲线都塞到主图。
 

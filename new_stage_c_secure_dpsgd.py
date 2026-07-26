@@ -129,6 +129,14 @@ def adaptive_clip_direction_reference(current_c, fraction_below, gamma, eta_c):
     )
 
 
+def released_model_dp_valid(initializer_privacy_status):
+    return initializer_privacy_status in (
+        "data_independent",
+        "disjoint_public",
+        "dp_sanitized",
+    )
+
+
 def build_graph(data, init_weight, init_bias, args):
     tf, tfe, KE, FixedpointConfig = import_tfe_or_fail()
     from tf_encrypted.operations.secure_random import secure_random
@@ -560,6 +568,16 @@ def parse_args():
     parser.add_argument("--precision_fractional", type=int, default=16)
     parser.add_argument("--matmul_chunk_size", type=int, default=64)
     parser.add_argument("--checkpoint_interval", type=int, default=10)
+    parser.add_argument(
+        "--initializer_privacy_status",
+        choices=[
+            "data_independent",
+            "disjoint_public",
+            "dp_sanitized",
+            "data_dependent_non_dp",
+        ],
+        default="data_dependent_non_dp",
+    )
     return parser.parse_args()
 
 
@@ -617,8 +635,11 @@ def main():
         bias=result["bias"],
         clipping_bound=np.asarray([result["final_c"]], dtype=np.float32),
     )
+    final_model_dp_valid = released_model_dp_valid(
+        args.initializer_privacy_status
+    )
     report = {
-        "schema": "new_secure_stage_c_report_v1",
+        "schema": "new_secure_stage_c_report_v2",
         "status": "COMPLETE",
         "dataset": args.dataset,
         "seed": args.seed,
@@ -628,6 +649,7 @@ def main():
         "configuration": vars(args),
         "privacy": {
             "accountant": "Opacus RDPAccountant",
+            "accounted_gradient_mechanism_epsilon": epsilon,
             "stage_c_distilled_feature_record_epsilon": epsilon,
             "stage_c_delta": args.delta,
             "sample_rate": sample_rate,
@@ -635,6 +657,13 @@ def main():
             "gradient_noise_multiplier": args.noise_multiplier,
             "clipping_count_noise_multiplier": args.count_noise_multiplier,
             "clipping_count_mechanism_steps": count_steps,
+            "initializer_privacy_status": args.initializer_privacy_status,
+            "released_model_record_dp_valid": final_model_dp_valid,
+            "epsilon_interpretation": (
+                "released_model_record_dp"
+                if final_model_dp_valid
+                else "conditional_gradient_mechanism_only_not_released_model_dp"
+            ),
             "stage_a_original_record_privacy": "inherited_from_stage_a_metadata",
             "epsilon_a_plus_epsilon_c_claimed": False,
         },
@@ -666,7 +695,11 @@ def main():
                     else "fixed_public_clipping_bound"
                 ),
                 "aggregate_reference_logits_at_log_intervals",
-                "final_dp_model",
+                (
+                    "final_dp_model"
+                    if final_model_dp_valid
+                    else "final_noisy_model_without_end_to_end_dp_claim"
+                ),
             ],
             "silent_plaintext_fallback": False,
             "honest_party_assumption": "at_least_one_of_three_compute_parties",

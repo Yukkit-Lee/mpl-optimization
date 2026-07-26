@@ -159,5 +159,16 @@
     "test_loaded": false,
     "diagnostic_reason": "corrected below-threshold indicator; rerun in isolated paths"
   },
+  "stage_c_privacy_release_policy": {
+    "selected_stage_b_initializer": "data_dependent_non_dp",
+    "selected_stage_b_epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+    "released_model_dp_valid_initializer_statuses": [
+      "data_independent",
+      "disjoint_public",
+      "dp_sanitized"
+    ],
+    "module_c_record_dp_formal_initializer": "data_independent",
+    "silent_upgrade_of_conditional_epsilon_forbidden": true
+  },
   "test_tuning_forbidden": true
 }

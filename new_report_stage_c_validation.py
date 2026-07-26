@@ -45,6 +45,9 @@ def main():
             first_accuracy = float(history[0]["reference_accuracy"])
             final_accuracy = float(history[-1]["reference_accuracy"])
             drop = first_accuracy - final_accuracy
+            initializer_privacy_status = report["configuration"].get(
+                "initializer_privacy_status", "data_dependent_non_dp"
+            )
             rows.append(
                 {
                     "dataset": dataset,
@@ -56,6 +59,10 @@ def main():
                         report["privacy"][
                             "stage_c_distilled_feature_record_epsilon"
                         ]
+                    ),
+                    "initializer_privacy_status": initializer_privacy_status,
+                    "released_model_record_dp_valid": report["privacy"].get(
+                        "released_model_record_dp_valid", False
                     ),
                     "count_mechanism_steps": int(
                         report["privacy"]["clipping_count_mechanism_steps"]
@@ -89,6 +96,9 @@ def main():
         "formal_result": False,
         "test_loaded": False,
         "dp_mtt_status": "EXCLUDED_BY_USER",
+        "privacy_interpretation": (
+            "conditional_gradient_mechanism_only_not_released_model_dp"
+        ),
         "gate": {
             "rule": "every Fixed/Adaptive run keeps reference drop <= threshold",
             "max_reference_drop": args.max_reference_drop,
