@@ -1,8 +1,8 @@
 # Codex 主路线切换与全部正式实验指令
-## Public MTT 主线 + TFE 安全 Stage B + TFE 安全 Stage C + 最后补充 DP-MTT
+## Public MTT 主线 + TFE 安全 Stage B + TFE 安全 Stage C
 
 > 本文档覆盖此前 `new_codex_secure_feature_full_formal_prompt.md` 中“DP-MTT 未达到质量门就阻塞后续阶段”的安排。
-> 从现在开始，**Public MTT 是论文主路线，DP-MTT 是最后执行的补充实验，不得再阻塞 Module B、Module C、End-to-End 和 TFE 系统实验。**
+> 从现在开始，**Public MTT 是论文唯一执行路线；DP-MTT 已由用户明确排除，不再调参、扩展或进入任何正式/补充实验。已有 DP-MTT 结果只读保留，不得阻塞 Module B、Module C、End-to-End 和 TFE 系统实验。**
 
 ---
 
@@ -80,15 +80,15 @@ noise_mechanism
 
 > Stage-C epsilon 只保护 Stage C 所处理的蒸馏特征记录或其发布模型，不能解释为官方 MTT 图像所对应原始训练数据的端到端记录级 DP。
 
-## DP-MTT：最后补充
+## DP-MTT：排除执行
 
 ```text
-Raw Training Data
-→ DP Expert Trajectories
-→ DP-MTT Distilled Images
+status = EXCLUDED_BY_USER
+schedule = none
+existing_artifacts = retained_read_only
 ```
 
-DP-MTT 不再是进入 Stage B/C 的前置质量门。必须在所有 Public MTT 主线正式实验完成后再继续调参和扩展。
+不得启动、恢复或扩展 DP-MTT；不得生成 DP expert trajectory、DP-MTT checkpoint 或补充实验。论文主线完成标准不再包含 DP-MTT。
 
 ---
 
@@ -97,61 +97,46 @@ DP-MTT 不再是进入 Stage B/C 的前置质量门。必须在所有 Public MTT
 当前状态中：
 
 - Public MTT 三数据集、3 seeds 已完成；
-- DP-MTT 仅完成 CIFAR-10 seed 42 的若干调参轮次；
-- Module B、Module C、End-to-End 和 TFE 正式实验尚未开始。
+- Module A 正式效率实验已完成；
+- Module B IID/Mild/Severe 27 个 TFE/ABY3 正式任务及冻结后报告已完成；
+- Module B convergence、Module C、End-to-End 和 TFE system 尚未完成；
+- DP-MTT 已排除执行，既有结果只读保留。
 
 现在立即执行：
 
-1. 将 DP-MTT 状态改为：
+1. 将 DP-MTT 状态固定为：
    ```text
-   DEFERRED_UNTIL_MAIN_PIPELINE_COMPLETE
+   EXCLUDED_BY_USER
    ```
-2. 删除“DP-MTT 未达 Public MTT 10 个百分点内就阻塞后续阶段”的调度规则；
+2. 删除所有 DP-MTT 调度、恢复和完成标准；
 3. 不删除已有 DP-MTT 结果；
-4. 立即从 Public MTT 特征缓存开始执行正式 Module A 效率实验、Module B、Module C、End-to-End 和 TFE 系统实验；
-5. 全部主线完成后，再恢复 DP-MTT 调参。
+4. 复用已完成的 Module A 与 Module B Non-IID 结果，不得重跑；
+5. 从 Module B convergence、Module C、End-to-End 和 TFE system 继续。
 
 ---
 
 # 2. 资源、线程和持久运行要求
 
-机器有两张 RTX 4090。
+AutoDL 机器为单张 NVIDIA GeForce RTX 5090（32 GiB）和多核 Xeon CPU。
 
-## 2.1 CPU 线程严格为 1
+## 2.1 CPU 线程与 DataLoader：吞吐优先
 
-所有 Python、PyTorch、TensorFlow、TFE、绘图和报告进程必须设置：
+取消旧服务器“所有进程严格 1 线程、固定单核”的限制。不得再把 OMP、MKL、OpenBLAS 等线程数全局固定为常数 1。
 
-```bash
-export OMP_NUM_THREADS=1
-export MKL_NUM_THREADS=1
-export OPENBLAS_NUM_THREADS=1
-export NUMEXPR_NUM_THREADS=1
-export VECLIB_MAXIMUM_THREADS=1
-export BLIS_NUM_THREADS=1
-export TOKENIZERS_PARALLELISM=false
-```
+资源策略改为：
 
-Python 中：
+- PyTorch/GPU 任务以实测 samples/s 和 GPU utilization 选择 CPU threads、`num_workers`、prefetch 与 pinned memory；
+- 默认优先让 RTX 5090 饱和，允许多核预处理和并行数据加载；
+- TFE/TF 任务允许使用多核，但须通过短 benchmark 选择线程数，避免 208 logical CPUs 过度订阅导致反而变慢；
+- 绘图、报告和哈希校验允许合理并行；
+- 每类正式任务记录 CPU threads、DataLoader workers、吞吐、峰值内存和 GPU utilization；
+- 仍禁止在同一 GPU 上并发多个显存密集型正式任务。
 
-```python
-torch.set_num_threads(1)
-torch.set_num_interop_threads(1)
-```
+## 2.2 单张 GPU
 
-DataLoader：
-
-```text
-num_workers = 0
-persistent_workers = false
-```
-
-禁止 multiprocessing pool 和隐式 CPU 并行。
-
-## 2.2 两张 GPU
-
-- GPU 0 和 GPU 1 各自最多运行一个正式 PyTorch 任务；
-- 使用独立锁；
-- 不允许同一张卡重复启动任务；
+- 仅使用 GPU 0；
+- GPU 0 同时最多运行一个正式 GPU 任务；
+- 使用单 GPU 锁，禁止重复启动；
 - 允许根据显存调整 microbatch，但必须保持 effective batch size；
 - 记录峰值显存、microbatch、accumulation steps 和运行时间。
 
@@ -167,7 +152,6 @@ new_public_mtt_secure_pipeline
 
 ```text
 gpu0
-gpu1
 tfe
 monitor
 report
@@ -269,7 +253,7 @@ Tiny ImageNet: 0.2641 ± 0.0054
 
 # 5. Module A：强调训练效率，不报告 epsilon
 
-Stage A 不再以“DP-MTT 达到 Public MTT 精度”为主线目标，而是证明：
+Stage A 不再以任何 DP-MTT 对比为主线目标，而是证明：
 
 > 少量官方蒸馏图像可以保留完整数据集的主要训练效用，并显著减少训练样本数、优化步数或达到目标准确率所需时间。
 
@@ -802,26 +786,17 @@ Expected Output
 
 ---
 
-# 13. DP-MTT 最后补充
+# 13. DP-MTT 排除边界
 
-只有在以下全部完成后，才恢复 DP-MTT：
+本任务不执行 DP-MTT：
 
 ```text
-Module A Public MTT formal complete
-Module B convergence complete
-Module B Non-IID complete
-Module C complete
-End-to-End complete
-TFE system evaluation complete
+status = EXCLUDED_BY_USER
+launch_allowed = false
+completion_required = false
 ```
 
-DP-MTT 输出作为：
-
-- 补充隐私—效用实验；
-- 附录；
-- 后续扩展。
-
-不得让 DP-MTT 再阻塞 Public MTT 主线。
+已有 DP-MTT 日志、trajectory 和 checkpoint 不删除、不修改，只读保留。任何队列生成器、supervisor 或恢复逻辑都不得把 DP-MTT 加入活动任务。
 
 ---
 
@@ -854,7 +829,7 @@ new_tests/new_test_formal_not_smoke.py
 - 三数据集 steps 不得全部相同；
 - test set 不进入调参；
 - 无 silent plaintext fallback；
-- DP-MTT 状态不能阻塞主线。
+- DP-MTT 状态必须为 `EXCLUDED_BY_USER` 且不得出现在活动 manifest。
 
 ---
 
@@ -875,7 +850,7 @@ new_tests/new_test_formal_not_smoke.py
 9. 完整 JSON、CSV、PNG、PDF；
 10. tmux、checkpoint、heartbeat 和断点恢复；
 11. 全部新产物 `new_` 前缀；
-12. 最后再补 DP-MTT。
+12. DP-MTT 保持排除且不计入完成标准。
 
 ---
 
@@ -900,7 +875,7 @@ new_tests/new_test_formal_not_smoke.py
 14. Figures and Tables Generated
 15. Exact Reproduction Commands
 16. Remaining BLOCKED Items
-17. DP-MTT Supplement Status
+17. DP-MTT Exclusion Status
 18. Supported Paper Claims
 19. Claims That Must Still Be Avoided
 ```
@@ -912,13 +887,13 @@ new_tests/new_test_formal_not_smoke.py
 现在立即：
 
 1. 读取现有 `new_` 进度文件和 manifest；
-2. 将 DP-MTT 改为 deferred，不删除已有结果；
-3. 解除它对 Phase 7–10 的阻塞；
+2. 将 DP-MTT 固定为 `EXCLUDED_BY_USER`，不删除已有结果；
+3. 从所有活动 manifest、supervisor 与完成标准中排除 DP-MTT；
 4. 核验 Public MTT shared encoder 和 2048-D feature cache；
-5. 开始 Module A 完整效率实验；
-6. 随后依次执行 Module B convergence、Module B Non-IID、Module C、End-to-End、TFE system；
+5. 复用已完成的 Module A 与 Module B Non-IID 正式结果；
+6. 随后依次执行 Module B convergence、Module C、End-to-End、TFE system；
 7. 所有长任务进入 tmux；
-8. CPU 线程始终为 1；
-9. 使用两张 RTX 4090；
+8. 取消固定单核/单线程限制，以短 benchmark 选择最大吞吐资源配置；
+9. 使用单张 RTX 5090 GPU 0，GPU 正式任务严格串行；
 10. 不要在 smoke test 后停止；
-11. 全部主线完成后再继续 DP-MTT。
+11. 全部主线完成后仍不执行 DP-MTT。

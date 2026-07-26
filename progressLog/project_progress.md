@@ -832,3 +832,12 @@
 - 第 7 节 active-queue 安全修复：最终审计发现 `new_prepare_public_mtt_mainline.py` 与迁移文档的“仅 `--activate` 才激活”约定不一致，旧实现会无条件写 active pointer。AutoDL 没有 supervisor/tmux，故该指针从未触发任务；现已为入口增加显式 `--activate` 开关，删除运行时 pointer，并在无参数重跑后确认 `activated=False`、`active_queue_absent=yes`。
 - Git 边界：将迁移包内仅作应急回滚的 `legacy_tfe_custom_ops/` 加入 `.gitignore`；本机重建产物位于 legacy 环境 site-packages，备份 `.so` 不进入 Git。最终恢复/验证提交已形成，但 AutoDL 仍未配置私有 GitHub HTTPS 凭据，使用用户代理推送仍在认证阶段失败。
 - GitHub 推送完成：用户提供的 GitHub token 实际位于 `/root/.config/githubToken.txt`，已将文件权限由 `0644` 收紧为 `0600`；token 仅通过临时 credential helper 使用，未写入 remote URL、Git 配置或日志。GitHub 直连认证成功但传输遇到 TLS 中断，随后使用 AutoDL 内置代理（未使用用户 `9999`）将迁移提交 `d2eea61..f8f8381` 成功推送至 `origin/new-secure-feature-pipeline`。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-26 19:26 Asia/Shanghai
+- 本次对话任务目标：以同步修订后的 `plan/new_public_mtt_mainline_codex_prompt.md` 为持续正式任务；完全排除 DP-MTT，不再固定 CPU 单核/单线程，利用 AutoDL 单张 RTX 5090 与多核 CPU 的最大合理吞吐，复用已完成的 Module A/Stage B 结果后启动剩余正式实验。
+- 任务文档审计：完整重读 924 行后发现 Git 中版本仍保留“两张 RTX 4090”“CPU 线程严格为 1”和“最后补充 DP-MTT”等旧服务器条款，与用户最新指令及 AutoDL 硬件不一致，因此在启动任何正式任务前先同步修订。
+- 新执行边界：DP-MTT 固定为 `EXCLUDED_BY_USER`，既有产物只读保留，不进入活动 manifest、supervisor 或完成标准；已完成的 Module A 与 Module B Non-IID 不重跑。剩余顺序为 Module B convergence、Module C、End-to-End、TFE system。
+- 新资源策略：单张 RTX 5090 的 GPU 任务严格串行；取消全局 `threads=1/core0/num_workers=0` 强制，后续以短 benchmark 选择 PyTorch/TFE CPU threads、DataLoader workers、prefetch 和 microbatch，记录吞吐/利用率/峰值资源并防止过度订阅。
