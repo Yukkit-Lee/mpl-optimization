@@ -195,5 +195,25 @@
     "test_loaded": false,
     "privacy_note": "selected initializer is data-dependent non-DP; epsilon is conditional mechanism accounting only"
   },
+  "module_c_formal": {
+    "status": "WAITING_FOR_MODULE_B_CONVERGENCE_REPORT",
+    "datasets": {
+      "cifar10": {"steps": 10, "batch_size": 16},
+      "cifar100": {"steps": 20, "batch_size": 16},
+      "tiny": {"steps": 30, "batch_size": 16}
+    },
+    "seeds": [42, 43, 44],
+    "modes": ["fixed_dp", "adaptive_dp"],
+    "target_epsilons": [1.0, 3.0, 8.0],
+    "delta": 1e-5,
+    "learning_rate": 0.002,
+    "clip_c": 1.0,
+    "count_noise_multiplier": 8.0,
+    "warmup_steps": 5,
+    "update_interval": 5,
+    "checkpoint_interval": 2,
+    "initializer_privacy_status": "data_independent",
+    "test_loaded": false
+  },
   "test_tuning_forbidden": true
 }
