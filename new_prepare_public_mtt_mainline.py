@@ -10,7 +10,7 @@ from new_public_mtt_mainline_common import ROOT, load_config
 
 
 PYTHON = os.environ.get(
-    "NEW_MODERN_PYTHON", "/home/lixujie/.conda/envs/distillation/bin/python"
+    "NEW_MODERN_PYTHON", str(ROOT.parent / "new_envs" / "distillation" / "bin" / "python")
 )
 QUEUE = (
     ROOT

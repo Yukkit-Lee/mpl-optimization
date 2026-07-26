@@ -4,11 +4,12 @@ channels:
 dependencies:
   - python=3.6.13
   - pip=21.3.1
-  - numpy=1.19.2
+  # TensorFlow 1.15.5 declares numpy<1.19; keep the portable environment valid
+  # even though the original host happened to run with numpy 1.19.2.
+  - numpy=1.18.5
   - scipy=1.5.4
   - scikit-learn=0.24.2
   - matplotlib=3.3.4
   - pillow=8.4.0
   - pip:
       - -r requirements-tfe-legacy.txt
-

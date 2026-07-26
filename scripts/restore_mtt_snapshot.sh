@@ -2,8 +2,8 @@
 # 用途：从 migration/ 中保存的真实 MTT 快照恢复仓库、补丁和新增源码。
 set -euo pipefail
 
-project_root="${PROJECT_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
-mtt_root="${MTT_ROOT:-$(dirname "${project_root}")/mtt-distillation}"
+project_root="${NEW_PROJECT_ROOT:-${PROJECT_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}}"
+mtt_root="${NEW_MTT_ROOT:-${MTT_ROOT:-$(dirname "${project_root}")/mtt-distillation}}"
 snapshot_root="${project_root}/migration/mtt"
 
 if [[ ! -f "${snapshot_root}/mtt-history.bundle" ]]; then
@@ -24,4 +24,3 @@ tar -xzf "${snapshot_root}/mtt-untracked-source.tar.gz" -C "${mtt_root}"
 echo "MTT 已恢复到: ${mtt_root}"
 echo "基线 commit: $(cat "${snapshot_root}/commit.txt")"
 git -C "${mtt_root}" status --short --branch
-

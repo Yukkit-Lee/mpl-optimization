@@ -6,8 +6,8 @@
   "cpu_threads": 1,
   "num_workers": 0,
   "gpu_policy": {
-    "visible_devices": [0, 1],
-    "max_training_processes": 2,
+    "visible_devices": [0],
+    "max_training_processes": 1,
     "max_processes_per_gpu": 1
   },
   "paper_mainline": "public_mtt_benchmark",

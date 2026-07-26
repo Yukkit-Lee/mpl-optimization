@@ -16,3 +16,4 @@ omegaconf==2.3.0
 visdom==0.2.4
 psutil==5.8.0
 opacus==1.5.4
+cryptography==36.0.0

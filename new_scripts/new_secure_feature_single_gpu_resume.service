@@ -4,11 +4,12 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/mnt/code/lixujie/tfe_experiments
+WorkingDirectory=%h
+EnvironmentFile=-%h/.config/new-secure-feature-pipeline.env
 Environment=NEW_SINGLE_GPU=0
 Environment=NEW_CPU_CORE=0
 Environment=LC_ALL=C
-ExecStart=/bin/bash /mnt/code/lixujie/tfe_experiments/new_scripts/new_single_gpu_supervisor.sh
+ExecStart=/bin/bash -lc 'exec "${NEW_PROJECT_ROOT}/new_scripts/new_single_gpu_supervisor.sh"'
 Restart=always
 RestartSec=30
 KillMode=process

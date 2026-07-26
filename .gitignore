@@ -16,6 +16,7 @@ venv/
 *.local
 config/paths.autodl.env
 config/paths.local.env
+config/new_paths.autodl.env
 *secret*
 *token*
 
@@ -93,3 +94,12 @@ official_data/__pycache__/
 real_tabular_training_report.json
 training_validation_report.json
 validation_report.json
+
+# Runtime queues are regenerated from frozen JSON configuration on each target
+# machine; never commit workstation-specific absolute paths.
+new_configs/**/*.tsv
+new_configs/**/new_active_single_gpu_queue.txt
+
+# Migration archives and private DP-MTT backups remain outside Git.
+autodl_new_secure_resume_*.tar.zst
+autodl_dp_mtt_private_*.tar.zst.enc

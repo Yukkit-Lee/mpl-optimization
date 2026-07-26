@@ -6,7 +6,7 @@
   "formal_seeds": [42, 43, 44],
   "cpu_threads_per_process": 1,
   "num_workers": 0,
-  "gpu_devices": [0, 1],
+  "gpu_devices": [0],
   "max_processes_per_gpu": 1,
   "feature_dim": 2048,
   "feature_l2_bound": 1.0,

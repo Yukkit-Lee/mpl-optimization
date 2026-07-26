@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 """用途：在 AutoDL 上检查路径、核心依赖、CUDA 和关键资产是否就绪。"""
 
-import hashlib
 import json
+import os
 import platform
 import sys
 from pathlib import Path
@@ -11,7 +11,7 @@ from pathlib import Path
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_DIR))
 
-from project_paths import PATHS
+from new_runtime_paths import DATA_ROOT, MTT_ROOT, OFFICIAL_MTT_ROOT, OUTPUT_ROOT, PROJECT_ROOT
 
 
 def _version(module_name):
@@ -26,7 +26,13 @@ def main() -> int:
     report = {
         "python": sys.version,
         "platform": platform.platform(),
-        "paths": PATHS.as_dict(),
+        "paths": {
+            "project_root": str(PROJECT_ROOT),
+            "mtt_root": str(MTT_ROOT),
+            "data_root": str(DATA_ROOT),
+            "official_mtt_root": str(OFFICIAL_MTT_ROOT),
+            "output_root": str(OUTPUT_ROOT),
+        },
         "versions": {
             "numpy": _version("numpy"),
             "torch": _version("torch"),
@@ -46,13 +52,14 @@ def main() -> int:
         report["cuda"] = {"available": False, "error": str(exc)}
 
     required = {
-        "MTT repo": PATHS.mtt_root / "utils.py",
-        "official CIFAR-10 ipc50": PATHS.official_mtt_root / "cifar10_50" / "images_best.pt",
-        "official CIFAR-100 ipc50": PATHS.official_mtt_root / "cifar100_50" / "images_best.pt",
-        "official Tiny ipc50": PATHS.official_mtt_root / "tiny_50" / "images_best_0.pt",
-        "CIFAR-10 data": PATHS.cifar10_data_root,
-        "CIFAR-100 data": PATHS.cifar100_data_root,
-        "Tiny ImageNet data": PATHS.tiny_imagenet_root,
+        "MTT repo": MTT_ROOT / "utils.py",
+        "official CIFAR-10 ipc50": OFFICIAL_MTT_ROOT / "cifar10_50" / "images_best.pt",
+        "official CIFAR-100 ipc50": OFFICIAL_MTT_ROOT / "cifar100_50" / "images_best.pt",
+        "official Tiny ipc50": OFFICIAL_MTT_ROOT / "tiny_50" / "images_best_0.pt",
+        "CIFAR-10 archive": DATA_ROOT / "mtt_cifar10_work/data/cifar-10-python.tar.gz",
+        "CIFAR-100 archive": DATA_ROOT / "mtt_cifar100_work/data/cifar-100-python.tar.gz",
+        "Tiny ImageNet archive": DATA_ROOT / "mtt_tiny_work/data/tiny-imagenet-200.zip",
+        "portable Stage-B initializer manifest": PROJECT_ROOT / "portable_artifacts/stage_b_selected/manifest.json",
     }
     report["assets"] = {
         name: {"path": str(path), "exists": path.exists()} for name, path in required.items()
@@ -70,4 +77,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -771,3 +771,20 @@
 - Stage B Non-IID 正式报告完成（2026-07-26 12:01）：报告器修复后生成 81 条候选结果、27 条 mean±std 汇总及 JSON/CSV/TXT/PNG/PDF。Severe 下 NoKD→KD-ReferenceWeighted 分别为 CIFAR-10 `0.1265±0.0458→0.4048±0.0390`、CIFAR-100 `0.2506±0.0132→0.3170±0.0024`、Tiny `0.0821±0.0061→0.1230±0.0074`；三个数据集均显示 KD 在强异构下提高初始全局模型精度。test 仅在全部候选冻结后用于只读最终报告，未反馈到调参。输出位于 `new_expTab/new_public_mtt_mainline/new_stage_b_initialization_*.csv`、`new_expFig/new_public_mtt_mainline/new_figureB2_stage_b_noniid_initialization.*` 与 `new_log/new_public_mtt_mainline/{json,txt}/`。
 - Stage B 报告可移植性加固（2026-07-26 12:02）：正式 CSV writer 显式固定 `lineterminator="\n"`，消除 Python `csv` 默认 CRLF 在 Git 差异检查中被识别为行尾空白的问题；仅重新生成报告文件，不重跑训练。
 - Stage C 正式前隐私会计审计（2026-07-26 12:06）：修正 Fixed/Adaptive 公平性问题。梯度高斯机制仍按每个 optimizer step 计费；裁剪计数机制只在 Adaptive 实际更新 `C_t` 的步骤计费，Fixed 不再无意义地计算/reveal 裁剪计数或承担对应 ε。Stage-C history 新增 `adaptive_clip_update`、`dp_noised_fraction_below` 与 `dp_noised_clipped_fraction`；报告显式记录计数机制调用次数和按模式区分的 reveal 边界。该修复在正式多隐私点运行前完成，未修改 Stage B 结果。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-26 15:10 Asia/Shanghai
+- 本次对话任务目标：停止全部训练任务，将 `new-secure-feature-pipeline` 整理为可在 AutoDL 下载公开数据后恢复 Stage C/end-to-end 的版本；固化现代/legacy TFE 双环境、消除 `new_` 可执行代码中的本机绝对路径、保存真实 MTT 修改、整理 Stage-B selected initializer、盘点并打包高成本缓存，最后提交并推送 GitHub。
+- 任务停止状态：`new_secure_feature_single_gpu_resume.service` 已停止并禁用，tmux/训练 Python 均不存在；本轮没有重新执行正式实验。Stage B 27/27 已完成，Stage C 尚无正式可恢复训练 checkpoint。
+- AutoDL 路径层：新增 `new_runtime_paths.py` 和 `config/new_paths.autodl.example.env`；所有执行入口改用 `NEW_PROJECT_ROOT/NEW_MTT_ROOT/NEW_DATA_ROOT/NEW_OFFICIAL_MTT_ROOT/NEW_OUTPUT_ROOT/NEW_MODERN_PYTHON/NEW_TFE_PYTHON/NEW_TMUX`。GPU 默认收敛为单卡 GPU0，CPU 线程 1、`num_workers=0` 保持不变。
+- 队列可移植性：所有带内网绝对路径的 TSV/active queue 从 Git 跟踪中移除但未删除本机文件；AutoDL 通过 prepare 脚本按当前路径重新生成。Stage-B formal 生成器不再读取 frozen report 中的旧绝对 cache path，而是重建路径并校验可用性。
+- 环境固化：现代环境记录 Python 3.9.7、torch 2.8.0+cu128、torchvision 0.23.0+cu128、Opacus 1.5.4、cryptography 36.0.0；legacy 环境记录 Python 3.6.13、TensorFlow 1.15.5、TF-Encrypted 0.8.0。新增当前 pip/Conda/系统/GPU 快照；在线 clean Conda dry-run 因 `conda-forge` HTTP 000 未完成，未虚报为安装成功。
+- TFE 可恢复性：固定 TFE `0.8.0@51de98f9c2208d5d4bd716bf7316d3cd4e0bf434`，确认 installed common source 无本地改动；新增单线程 custom-op 构建脚本。原主机 aux SHA256=`d0522709...a485c73`，secure_random SHA256=`7f3ab2d0...c24d340`，`.so` 只进入普通迁移包备份，不进入 Git。
+- MTT 保存：更新 `migration/mtt/` 的 remote/branch/commit/status、完整 Git bundle、tracked binary patch 与未跟踪源码 tar；数据、权重、buffers 和日志未混入源码快照。
+- 官方数据策略：Official MTT（non-ZCA）与 CIFAR/Tiny 原始数据均不上传、不打包；新增官方作者 tensor 下载页、原始数据下载脚本、20 个 MTT 文件与 3 个 raw archive 的 SHA256 清单和校验脚本，本机校验全部通过。
+- Stage-B portable 资产：只收集 3 datasets × 3 seeds × 3 splits 共 27 个最终 selected initializer，总计约 11 MiB，存入 `portable_artifacts/stage_b_selected/`；候选模型和 6.9 GiB 已完成训练 checkpoint 不上传、不打包。
+- 普通迁移包：`/home/lixujie/tmpWork/autodl_new_secure_resume_20260726_150457.tar.zst`，大小 `8,771,438,515` bytes，SHA256=`2313a96c1352c2cb66b6262bb59f61d559fb2cd6112f87131e7ab76a53b1bae9`；`zstd -t` 完整性校验通过。内容仅为 Public MTT 高成本 encoder/scaler/feature caches 与 TFE custom-op 备份。
+- DP-MTT 最终决策：按用户最新要求停止 DP-MTT 路线；其 trajectory/checkpoint/秘密 sidecar 均保留原位，但不上传、不打包，也未创建加密迁移包。Public MTT 主线不依赖这些资产。
+- 静态验证：现代/legacy Python 编译检查、shell `bash -n`、YAML/关键 JSON 解析、官方资产 SHA、Stage-B 队列重生成均通过。当前环境 `pip check` 的 `cryptgpu` 冲突和旧 TFE NumPy/decorator 冲突已如实记录；portable legacy spec 将 NumPy 固定为 TensorFlow 1.15.5 声明兼容的 1.18.5。

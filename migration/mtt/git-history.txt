@@ -1,19 +1,17 @@
-* 50dccea (HEAD -> main, origin/main, origin/HEAD) Update distill.py
-* 28b5163 Update buffer.py
-*   c365f42 Merge pull request #19 from zhaoguangxiang/patch-1
-|\  
-| * 1a6f630 Update distill.py
-|/  
-* aed322d corrected hyper-parameters
-* 8e4f8fe added hparams to readme
-* 022c979 add bibtex for workshop paper
-* c04d529 Update readme.md
-* e13a659 Update readme.md
-* 89875dc fixed some args in buffer
-* 2a70e98 args.texture bug in buffer.py
-* 76aae6d changed default pix_init to real
-* 8ccfbe7 related work
-* 9b63df7 Update requirements_11_3.yaml
-* 9c2ef34 Update requirements_10_2.yaml
-* 631674e texture patch
-* 0c42493 initial commit
+50dccea (HEAD -> main, origin/main, origin/HEAD) Update distill.py
+28b5163 Update buffer.py
+c365f42 Merge pull request #19 from zhaoguangxiang/patch-1
+1a6f630 Update distill.py
+aed322d corrected hyper-parameters
+8e4f8fe added hparams to readme
+022c979 add bibtex for workshop paper
+c04d529 Update readme.md
+e13a659 Update readme.md
+89875dc fixed some args in buffer
+2a70e98 args.texture bug in buffer.py
+76aae6d changed default pix_init to real
+8ccfbe7 related work
+9b63df7 Update requirements_11_3.yaml
+9c2ef34 Update requirements_10_2.yaml
+631674e texture patch
+0c42493 initial commit

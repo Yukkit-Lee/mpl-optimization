@@ -33,7 +33,7 @@ from new_secure_feature_models import (
 
 
 PROJECT_ROOT = Path(os.environ.get("NEW_PROJECT_ROOT", Path(__file__).resolve().parent))
-MTT_ROOT = Path(os.environ.get("NEW_MTT_ROOT", "/mnt/code/lixujie/mtt-distillation"))
+MTT_ROOT = Path(os.environ.get("NEW_MTT_ROOT", PROJECT_ROOT.parent / "mtt-distillation"))
 OUTPUT_ROOT = Path(os.environ.get("NEW_OUTPUT_ROOT", str(PROJECT_ROOT)))
 DEFAULT_TRAJECTORY_ROOT = OUTPUT_ROOT / "new_cache" / "new_secure_feature" / "new_stage_a_dp_trajectories"
 DEFAULT_OUTPUT = OUTPUT_ROOT / "new_cache" / "new_secure_feature" / "new_stage_a_dp_distilled"

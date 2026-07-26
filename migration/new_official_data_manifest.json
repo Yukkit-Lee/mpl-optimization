@@ -1,0 +1,152 @@
+{
+  "notes": [
+    "Official MTT tensors are non-ZCA.",
+    "Data and official tensors are intentionally excluded from Git and migration archives."
+  ],
+  "official_mtt_download_page": "https://georgecazenavette.github.io/mtt-distillation/tensors/index.html",
+  "official_mtt_files": [
+    {
+      "relative_path": "cifar100_10/images_best.pt",
+      "sha256": "eac8d1d5d20709b98bf16b8eb813ceb01af64177f7ed6063173bf822140c76d2",
+      "size_bytes": 12288747,
+      "zca": false
+    },
+    {
+      "relative_path": "cifar100_10/labels_best.pt",
+      "sha256": "f76c6abb3f46c92c5892f2d6a7c545fba95b816608611d756bf0680c7e3adeff",
+      "size_bytes": 8747,
+      "zca": false
+    },
+    {
+      "relative_path": "cifar100_50/images_best.pt",
+      "sha256": "cbb8076f471afe40aa791d0cf45a049b587336a92539f3b2f639d4ae33c1b34c",
+      "size_bytes": 61440747,
+      "zca": false
+    },
+    {
+      "relative_path": "cifar100_50/labels_best.pt",
+      "sha256": "c9d5672e4daa8e36a41016644955fedcb5fe84f464b867dc832510b0bec00150",
+      "size_bytes": 40747,
+      "zca": false
+    },
+    {
+      "relative_path": "cifar10_10/images_best.pt",
+      "sha256": "0521795ecb314e9101b85a2ff8c32699cabd698aa8e9d2dcbb14a240fd730134",
+      "size_bytes": 1229547,
+      "zca": false
+    },
+    {
+      "relative_path": "cifar10_10/labels_best.pt",
+      "sha256": "f5f08f93ec1d004669e80b8ed50f62e6de20d6a59853916447646b7631fe4f69",
+      "size_bytes": 1515,
+      "zca": false
+    },
+    {
+      "relative_path": "cifar10_50/images_best.pt",
+      "sha256": "2401d07dd53ed196e9794903abf0e79f94047982bf203ec211693b583da935d3",
+      "size_bytes": 6144747,
+      "zca": false
+    },
+    {
+      "relative_path": "cifar10_50/labels_best.pt",
+      "sha256": "2f6c1030e24a9cf80c179a6a702decd7afecef8e2b02fd57b8e0a4e4424cccbf",
+      "size_bytes": 4715,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_10/images_best.pt",
+      "sha256": "4606a421f0891729fe08bc1571d5d1dee499adf80625623894efbed48f23fd03",
+      "size_bytes": 98304747,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_10/labels_best.pt",
+      "sha256": "0f22e2e239639bedbbc40c20ed874bf1c96e3de9d187f96dfd700bf6edffac4f",
+      "size_bytes": 16747,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_50/images_best_0.pt",
+      "sha256": "6d3fbd212fe5b635990b543eb0d93b3d3bcd31a78975ef9933312bc6939d88fc",
+      "size_bytes": 98304747,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_50/images_best_1.pt",
+      "sha256": "74b56962c72f78c931ba5813173e600cfcb81e40f2613b53b620e5f7e9dd96f8",
+      "size_bytes": 98304747,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_50/images_best_2.pt",
+      "sha256": "850b0eaa37da406f26f05f9741f61da2379de500f4505b4da286fb83d07ab934",
+      "size_bytes": 98304747,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_50/images_best_3.pt",
+      "sha256": "705349b30c45f9a2b1d15c00e9b95053a9fcec40caa3ee52695a2202599d19b3",
+      "size_bytes": 98304747,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_50/images_best_4.pt",
+      "sha256": "85007c8e92b5115688f62791c17e77f4cc70ccb155ea184e4ab8121badd0743f",
+      "size_bytes": 98304747,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_50/labels_best_0.pt",
+      "sha256": "f2f8ceb8b6e4cb592669286e570ffe0d511795cca7f694980a14e6a5b6b52f9e",
+      "size_bytes": 8747,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_50/labels_best_1.pt",
+      "sha256": "9e854e1b81db01183b69410905a7007e670c6b9246028bbf146c14da970ec98e",
+      "size_bytes": 8747,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_50/labels_best_2.pt",
+      "sha256": "8a588d2ec082936b3b416c0e67fd9f034467b3f2ba3f8f64802745beff8fc6c7",
+      "size_bytes": 8747,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_50/labels_best_3.pt",
+      "sha256": "9cc5a2033366a8cfb4057004ba8ba4c28fbdf7da8bd072b979e02f6f20c59beb",
+      "size_bytes": 8747,
+      "zca": false
+    },
+    {
+      "relative_path": "tiny_50/labels_best_4.pt",
+      "sha256": "2ce75bc9f11e718f57549d5b37f27b2b8a3694bae4b56818f2f34128b3e02a5b",
+      "size_bytes": 8747,
+      "zca": false
+    }
+  ],
+  "official_mtt_layout": "NEW_OFFICIAL_MTT_ROOT/{cifar10_50,cifar100_50,tiny_50}/",
+  "official_mtt_project_page": "https://georgecazenavette.github.io/mtt-distillation/",
+  "raw_archives": [
+    {
+      "autodl_relative_path": "mtt_cifar10_work/data/cifar-10-python.tar.gz",
+      "download_url": "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz",
+      "sha256": "6d958be074577803d12ecdefd02955f39262c83c16fe9348329d7fe0b5c001ce",
+      "size_bytes": 170498071
+    },
+    {
+      "autodl_relative_path": "mtt_cifar100_work/data/cifar-100-python.tar.gz",
+      "download_url": "https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz",
+      "sha256": "85cd44d02ba6437773c5bbd22e183051d648de2e7d6b014e1ef29b855ba677a7",
+      "size_bytes": 169001437
+    },
+    {
+      "autodl_relative_path": "mtt_tiny_work/data/tiny-imagenet-200.zip",
+      "download_url": "http://cs231n.stanford.edu/tiny-imagenet-200.zip",
+      "sha256": "6198c8ae015e2b3e007c7841da39ec069199b9aa3bfa943a462022fe5e43c821",
+      "size_bytes": 248100043
+    }
+  ],
+  "schema": "new_official_public_data_manifest_v1"
+}

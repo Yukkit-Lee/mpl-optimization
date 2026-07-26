@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(os.environ.get("NEW_PROJECT_ROOT", Path(__file__).resolve().parent))
 FROZEN = (
     ROOT
     / "new_log/new_public_mtt_mainline/json"
@@ -24,7 +24,7 @@ PLAN = (
     / "new_stage_b_formal_plan.json"
 )
 TFE_PYTHON = os.environ.get(
-    "NEW_TFE_PYTHON", "/home/lixujie/.conda/envs/tfe/bin/python"
+    "NEW_TFE_PYTHON", str(ROOT.parent / "new_envs" / "tfe" / "bin" / "python")
 )
 
 
@@ -94,7 +94,28 @@ def main():
     for dataset in ("cifar10", "cifar100", "tiny"):
         params = frozen["datasets"][dataset]["hyperparameters"]
         for seed in frozen["formal_seeds"]:
-            cache = frozen["feature_caches"][dataset][str(seed)]["path"]
+            # Frozen reports retain source-machine absolute paths as provenance.
+            # Runtime queues must instead resolve the portable cache location.
+            cache = (
+                ROOT
+                / "new_cache/new_public_mtt_mainline/new_stage_b_npz_round2"
+                / dataset
+                / "new_stage_b_features_{}_seed{}.npz".format(dataset, seed)
+            )
+            expected_sha = frozen["feature_caches"][dataset][str(seed)].get("sha256")
+            if not cache.exists():
+                raise FileNotFoundError(
+                    "Portable Stage-B feature cache missing: {}".format(cache)
+                )
+            if expected_sha:
+                import hashlib
+
+                digest = hashlib.sha256()
+                with cache.open("rb") as handle:
+                    for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                        digest.update(chunk)
+                if digest.hexdigest() != expected_sha:
+                    raise RuntimeError("Stage-B feature cache SHA256 mismatch: {}".format(cache))
             for split in frozen["splits"]:
                 task_id = "public_mainline_stage_b_formal_{}_seed{}_{}".format(
                     dataset, seed, split
@@ -168,7 +189,7 @@ def main():
             output=report_output,
             python=os.environ.get(
                 "NEW_MODERN_PYTHON",
-                "/home/lixujie/.conda/envs/distillation/bin/python",
+                str(ROOT.parent / "new_envs" / "distillation" / "bin" / "python"),
             ),
             script=ROOT / "new_report_stage_b_initialization.py",
         )
@@ -220,7 +241,7 @@ def main():
 
     if args.activate:
         tmux = os.environ.get(
-            "NEW_TMUX", "/home/lixujie/tmpWork/new_tmux_runtime/bin/tmux"
+            "NEW_TMUX", "tmux"
         )
         session = "new_secure_feature_single_gpu_formal"
         command = (

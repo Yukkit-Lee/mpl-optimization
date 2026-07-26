@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(os.environ.get("NEW_PROJECT_ROOT", Path(__file__).resolve().parent))
 PYTHON = os.environ.get(
-    "NEW_MODERN_PYTHON", "/home/lixujie/.conda/envs/distillation/bin/python"
+    "NEW_MODERN_PYTHON", str(ROOT.parent / "new_envs" / "distillation" / "bin" / "python")
 )
 TRAJECTORY_ROOT = (
     ROOT

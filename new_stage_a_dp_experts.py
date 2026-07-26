@@ -47,7 +47,7 @@ from new_secure_feature_models import (
 
 
 PROJECT_ROOT = Path(os.environ.get("NEW_PROJECT_ROOT", Path(__file__).resolve().parent))
-DATA_ROOT = Path(os.environ.get("NEW_DATA_ROOT", "/home/lixujie/tmpWork"))
+DATA_ROOT = Path(os.environ.get("NEW_DATA_ROOT", PROJECT_ROOT.parent / "new_data"))
 OUTPUT_ROOT = Path(os.environ.get("NEW_OUTPUT_ROOT", str(PROJECT_ROOT)))
 DEFAULT_OUTPUT = OUTPUT_ROOT / "new_cache" / "new_secure_feature" / "new_stage_a_dp_trajectories"
 SECRET_ROOT = Path(

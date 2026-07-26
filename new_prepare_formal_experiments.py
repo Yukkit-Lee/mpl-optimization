@@ -53,7 +53,7 @@ def expected_paths() -> Dict[str, str]:
         "cache": str(OUTPUT_ROOT / "new_cache" / "new_secure_feature"),
         "secret_sidecars": os.environ.get(
             "NEW_SECRET_ROOT",
-            str(Path(os.environ.get("NEW_DATA_ROOT", "/home/lixujie/tmpWork"))
+            str(Path(os.environ.get("NEW_DATA_ROOT", PROJECT_ROOT.parent / "new_data"))
                 / "new_secure_feature_secrets"),
         ),
     }

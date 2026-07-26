@@ -13,7 +13,7 @@ import torch
 
 ROOT = Path(os.environ.get("NEW_PROJECT_ROOT", Path(__file__).resolve().parent))
 PYTHON = os.environ.get(
-    "NEW_MODERN_PYTHON", "/home/lixujie/.conda/envs/distillation/bin/python"
+    "NEW_MODERN_PYTHON", str(ROOT.parent / "new_envs" / "distillation" / "bin" / "python")
 )
 BASE = ROOT / "new_cache/new_secure_feature/new_tuning_phase6_dp_mtt_cifar10_round2"
 PILOT = (

@@ -15,7 +15,7 @@ from pathlib import Path
 
 ROOT = Path(os.environ.get("NEW_PROJECT_ROOT", Path(__file__).resolve().parent))
 PYTHON = os.environ.get(
-    "NEW_MODERN_PYTHON", "/home/lixujie/.conda/envs/distillation/bin/python"
+    "NEW_MODERN_PYTHON", str(ROOT.parent / "new_envs" / "distillation" / "bin" / "python")
 )
 QUEUE = ROOT / "new_configs/new_secure_feature/new_gpu0_phase6_public_pilots.tsv"
 PLAN = ROOT / "new_log/new_secure_feature/json/new_phase6_public_pilot_plan.json"

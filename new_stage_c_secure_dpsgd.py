@@ -37,7 +37,11 @@ from new_stage_b_secure_init import secure_simultaneous_assign
 from new_stage_b_secure_init import sha256_file
 
 
-MODERN_PYTHON = "/home/lixujie/.conda/envs/distillation/bin/python"
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+MODERN_PYTHON = os.environ.get(
+    "NEW_MODERN_PYTHON",
+    os.path.join(os.path.dirname(PROJECT_ROOT), "new_envs", "distillation", "bin", "python"),
+)
 ACCOUNTANT_SCRIPT = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "new_privacy_accountant.py"
 )

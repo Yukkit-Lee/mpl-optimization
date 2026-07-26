@@ -35,11 +35,11 @@ from new_secure_feature_models import (
 
 
 PROJECT_ROOT = Path(os.environ.get("NEW_PROJECT_ROOT", Path(__file__).resolve().parent))
-DATA_ROOT = Path(os.environ.get("NEW_DATA_ROOT", "/home/lixujie/tmpWork"))
+WORKSPACE_ROOT = PROJECT_ROOT.parent
+DATA_ROOT = Path(os.environ.get("NEW_DATA_ROOT", WORKSPACE_ROOT / "new_data"))
 OFFICIAL_ROOT = Path(
     os.environ.get(
-        "NEW_OFFICIAL_MTT_ROOT",
-        "/home/lixujie/tmpWork/mtt_data/georgecazenavette",
+        "NEW_OFFICIAL_MTT_ROOT", DATA_ROOT / "mtt_data" / "georgecazenavette"
     )
 )
 OUTPUT_ROOT = Path(os.environ.get("NEW_OUTPUT_ROOT", str(PROJECT_ROOT)))

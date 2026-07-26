@@ -23,9 +23,10 @@
     "minimum_available_ram_gib": 16
   },
   "environments": {
-    "modern_python": "/home/lixujie/.conda/envs/distillation/bin/python",
-    "legacy_tfe_python": "/home/lixujie/.conda/envs/tfe/bin/python",
-    "tmux": "/home/lixujie/tmpWork/new_tmux_runtime/bin/tmux"
+    "modern_python": "${NEW_MODERN_PYTHON}",
+    "legacy_tfe_python": "${NEW_TFE_PYTHON}",
+    "tmux": "${NEW_TMUX}",
+    "path_config": "config/new_paths.autodl.example.env"
   },
   "phases": {
     "phase_0": "COMPLETE",
