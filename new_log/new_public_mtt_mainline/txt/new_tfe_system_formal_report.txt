@@ -1,0 +1,11 @@
+TFE system formal report
+runs=9/9 test_loaded=False
+cifar10 small batch=8 iterations=20 wall=35.715s peak_rss=1704988672
+cifar10 medium batch=16 iterations=20 wall=34.742s peak_rss=1765711872
+cifar10 largest_feasible batch=64 iterations=20 wall=36.607s peak_rss=2070122496
+cifar100 small batch=8 iterations=30 wall=44.012s peak_rss=4068548608
+cifar100 medium batch=16 iterations=30 wall=43.089s peak_rss=3907211264
+cifar100 largest_feasible batch=64 iterations=30 wall=45.534s peak_rss=3967811584
+tiny small batch=8 iterations=40 wall=60.160s peak_rss=7349981184
+tiny medium batch=16 iterations=40 wall=58.381s peak_rss=7012679680
+tiny largest_feasible batch=64 iterations=40 wall=60.350s peak_rss=7215439872

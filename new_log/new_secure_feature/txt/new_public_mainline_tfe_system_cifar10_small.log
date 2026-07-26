@@ -1,0 +1,24 @@
+[2026-07-26T22:53:58+08:00] task=public_mainline_tfe_system_cifar10_small resource=tfe attempt=0
+============================================================================================
+Stage C：TFE/ABY3 Secure fixed_dp DP-SGD
+dataset=cifar10 samples=400 batch=8 steps=20 feature_dim=2048
+noise_multiplier=1.2 count_noise=8.0 delta=1e-05 cpu_policy=unrestricted
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageC] step=1/20 ref_acc=0.0800 C_t=1.00000 noisy_b=N/A
+[StageC] step=3/20 ref_acc=0.0800 C_t=1.00000 noisy_b=N/A
+[StageC] step=5/20 ref_acc=0.0800 C_t=1.00000 noisy_b=N/A
+[StageC] step=7/20 ref_acc=0.0600 C_t=1.00000 noisy_b=N/A
+[StageC] step=9/20 ref_acc=0.0600 C_t=1.00000 noisy_b=N/A
+[StageC] step=12/20 ref_acc=0.0800 C_t=1.00000 noisy_b=N/A
+[StageC] step=14/20 ref_acc=0.0600 C_t=1.00000 noisy_b=N/A
+[StageC] step=16/20 ref_acc=0.0600 C_t=1.00000 noisy_b=N/A
+[StageC] step=18/20 ref_acc=0.0600 C_t=1.00000 noisy_b=N/A
+[StageC] step=20/20 ref_acc=0.0800 C_t=1.00000 noisy_b=N/A
+epsilon_C=0.909808 final_C=1.000000
+model=/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/tfe_system_formal/cifar10/small/new_secure_stage_c_model_cifar10_fixed_dp_seed42.npz
+report=/root/autodl-tmp/tfe_experiments/new_output/new_public_mtt_mainline/tfe_system_formal/cifar10/small/new_secure_stage_c_report_cifar10_fixed_dp_seed42.json
+tfe_system dataset=cifar10 scale=small status=COMPLETE wall=35.715s peak_rss=1704988672
