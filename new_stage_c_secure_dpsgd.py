@@ -540,6 +540,12 @@ def run_secure_stage_c(data, init_weight, init_bias, args):
 def parse_args():
     parser = argparse.ArgumentParser(description="TFE/ABY3 Secure Stage C DP-SGD")
     parser.add_argument("--feature_cache", required=True)
+    parser.add_argument(
+        "--feature_cache_mode",
+        choices=["npz", "memmap"],
+        default="npz",
+        help="npz=traditional full NPZ, memmap=indexed access from .npy via metadata NPZ",
+    )
     parser.add_argument("--initializer", required=True)
     parser.add_argument("--dataset", choices=["cifar10", "cifar100", "tiny"], required=True)
     parser.add_argument("--mode", choices=["fixed_dp", "adaptive_dp"], required=True)
@@ -584,7 +590,7 @@ def parse_args():
 def main():
     args = parse_args()
     set_seed(args.seed)
-    data = load_feature_cache(args.feature_cache)
+    data = load_feature_cache(args.feature_cache, mode=args.feature_cache_mode)
     init_weight, init_bias = load_initializer(args.initializer)
     args.feature_dim = int(data["feature_dim"])
     args.num_classes = int(init_bias.shape[0])
