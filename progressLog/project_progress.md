@@ -950,3 +950,17 @@
 - 隐私边界：现有`migration/CODEX_CONTEXT_HANDOFF.md`与`progressLog/project_progress.md`足以恢复历史，因此未读取私有`conversation_raw_PRIVATE.jsonl`；新增文档不包含令牌、密钥、认证信息或私有原文。
 - 覆盖关系固化：旧单线程策略被AutoDL最大合理性能要求覆盖；DP-MTT已废弃；Stage C从迁移时“未开始”更新为54/54完成；Fixed主图设想已被双方Adaptive取代；Ours Adaptive优先复用。
 - 执行状态：本轮仅新增/更新文档，未启动实验、pilot、队列或test读取。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-27 22:00 Asia/Shanghai
+- 本次对话任务目标：执行 Phase 0 只读审计，按照 `for-claudecode/new_CLAUDECODE_HANDOFF.md` 第 2 节和第 8 节（Phase 0）要求，输出完整审计 JSON。
+- 硬件状态确认：AutoDL 实例已恢复，RTX 5090 可见（32607 MiB）、CPU cgroup quota `2500000 100000` 即 25 有效 CPU、754 GiB RAM、数据盘 150 GiB（可用 108 GiB）。Git 分支 `new-secure-feature-pipeline`，HEAD=`2c3017a`，本地与远端已同步，工作树涉及新增审计脚本。
+- 环境确认：现代环境 Python 3.9.23、PyTorch 2.8.0+cu128、torchvision 0.23.0+cu128、Opacus 1.5.4、CUDA 12.8；legacy TFE 环境 Python 3.6.13、TF 1.15.5、TFE 0.8.0；custom ops 已构建且 correctness 验证通过。
+- Full feature 资产审计：新增 `new_scripts/new_phase0_audit.py`，对 9 份 `new_full_features/` 资产逐项验证：文件存在、SHA256 与 manifest 一致（9/9 feature + 9/9 label SHA256 匹配）、shape 正确（CIFAR-10/100 各 50000×2048、Tiny 100000×2048）、dtype 正确、L2 norm 行为良好（mean≈1.0）、无 NaN/Inf、`test_loaded=false`。
+- Encoder/scaler 交叉验证：9 份 full feature manifest 的 encoder_sha256/scaler_sha256 与 Official-MTT Stage-B NPZ manifest 逐项比较，**9/9 完全匹配**，确认 full feature 与 Official-MTT 使用同一 encoder checkpoint 和 scaler。
+- 权威报告状态：7/7 旧权威报告全部存在（Module A/B convergence/Stage B/Module C/End-to-End/Final test/TFE system），已确认不覆盖。
+- 活动状态：无残留训练进程、无 tmux 会话、无 active queue。
+- 输出：`new_log/new_incremental_comparison/json/new_phase0_audit.json`
+- 执行状态：本轮仅做只读审计和文档更新，未启动 pilot、formal 队列或 test 读取。
