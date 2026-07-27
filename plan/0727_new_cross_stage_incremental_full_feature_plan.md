@@ -156,7 +156,7 @@ Full Training Dataset
 → Same Shared ConvNet Encoder
 → Full 2048-D Feature Set
 → Secure Average Initialization
-→ TFE/ABY3 Secure Fixed DP-SGD
+→ TFE/ABY3 Secure Adaptive DP-SGD
 → Final Model
 ```
 
@@ -171,13 +171,21 @@ Official MTT Distilled Images
 → Same Shared ConvNet Encoder
 → Compact 2048-D Distilled Feature Set
 → TFE/ABY3 Secure Consensus Initialization
-→ TFE/ABY3 Secure Fixed DP-SGD
+→ TFE/ABY3 Secure Adaptive DP-SGD
 → Final Model
 ```
 
-Use Secure Fixed DP-SGD in both methods for the main comparison.
+Use Secure Adaptive DP-SGD in both methods for the main comparison.
 
-Do not use Adaptive DP as the main distinguishing factor because the existing Stage-C ablation did not show a stable Adaptive advantage.
+Reuse the existing strong Ours Adaptive End-to-End runs, histories, models, and
+read-only final-test evaluations whenever their encoder, feature cache,
+initializer, privacy configuration, training budget, evaluation schedule, and
+timing boundary match the new Full Data comparison.
+
+Adaptive DP is not the distinguishing factor between the two main methods:
+both methods must use the same Adaptive algorithm and configuration. The
+intended difference remains the full feature set plus Secure Average versus
+the compact MTT feature set plus Secure Consensus.
 
 ---
 
@@ -194,6 +202,9 @@ Both methods must use:
 - the same loss function;
 - the same fixed-point precision;
 - the same optimizer;
+- the same Adaptive clipping rule;
+- the same initial clipping bound, warmup, and update interval;
+- the same clipped-count mechanism and count-noise policy;
 - the same target epsilon and delta;
 - the same evaluation protocol;
 - the same hardware;
@@ -328,10 +339,17 @@ Reuse all existing Fixed/Adaptive results.
 
 In the paper:
 
-- Fixed DP-SGD is the primary Stage-C method;
-- Adaptive is retained as an ablation/negative result;
-- do not hide the negative result;
-- do not rerun the 54-run grid unless a concrete implementation error is found.
+- Adaptive DP-SGD is the primary method in the new End-to-End comparison;
+- the existing standalone 54-run Fixed/Adaptive ablation and its negative result
+  must remain visible and must not be overwritten;
+- the strong existing selected-initializer Adaptive End-to-End result may be
+  reused because it answers a different question from the data-independent
+  standalone Stage-C ablation;
+- Adaptive may be adjusted later only through a separate test-free validation
+  and newly frozen formal configuration;
+- any adjusted Adaptive ablation must use new files and reports, and must not
+  replace or relabel the existing 54-run result;
+- do not rerun the existing 54-run grid merely to improve its appearance.
 
 ## TFE System Evaluation
 
@@ -493,8 +511,8 @@ Because the Stage-B initializer is data-dependent and not DP:
 ```text
 [ ] Audit and reuse all existing completed artifacts
 [ ] Implement Full Data Feature Model baseline
-[ ] Run Full Data Feature Model for 3 datasets × 3 seeds
-[ ] Reuse or rerun Ours only when timing/configuration must be aligned
+[ ] Run Full Data Feature Model with Adaptive DP for 3 datasets × 3 seeds
+[ ] Reuse existing Ours Adaptive runs unless a documented compatibility or timing mismatch requires a minimal aligned rerun
 [ ] Generate new two-curve End-to-End figures
 [ ] Compute time-to-target and workload reduction
 [ ] Complete 3–4 method external comparison table

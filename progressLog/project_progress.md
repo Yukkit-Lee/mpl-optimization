@@ -929,3 +929,14 @@
 - 关键实验防错边界：Full Data 训练必须排除 shared reference/selection；旧 End-to-End prepare 硬编码 compact 样本数，不能用于 Full Data accountant；旧 Ours 为 Adaptive 而新主图要求双方 Fixed；旧 final-test evaluator 会覆盖既有结果，必须新建 incremental evaluator；双方按真实 `N/steps/sample_rate` 校准到相同 epsilon/delta。
 - 公平计时建议：分别报告 Stage-C secure time 与包含 Stage-B initialization 的 end-to-end secure time。若 Full Data 在 AutoDL 新跑而 Ours Stage-B 只使用旧服务器 runtime，则后者不能作为严格同硬件 speedup；需要最小化同机计时重跑或明确降级为跨机器参考。
 - 执行状态：本轮仅做代码/资产只读审计并新增交接与进度文档；未启动任何实验、pilot、队列或 test 读取。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-27 18:47 Asia/Shanghai
+- 用户口径更正：0727 增量主图不使用双方 Fixed DP-SGD，改为双方统一使用 Adaptive DP-SGD。前两条 2026-07-27 记录中关于“补跑 Ours Fixed”和“Fixed 为主比较”的内容已被本条明确废止；历史记录保留用于审计，后续执行以更新后的计划和 Claude Code 交接为准。
+- 新主比较：`Full Data + Secure Average + Adaptive` 对比 `Official MTT + Secure Consensus + Adaptive`。Adaptive 不是两方法之间的变量；两边必须使用相同 clipping 初值、warmup、update interval、count-noise policy、optimizer、目标 epsilon/delta、batch、steps 与 evaluation schedule，并各自按真实样本数校准 composed accountant。
+- 复用与新增任务：已有 Ours Adaptive End-to-End 3 datasets × 3 seeds 的曲线、模型、history 和 read-only final-test 优先复用；审计兼容时不补跑 Ours Stage C。预计新增仅为 9 个 Full-Data Secure-Average Stage-B initializer 和 9 个 Full-Data Adaptive Stage-C run，而不是先前评估的 18 个双方 Fixed Stage-C run。
+- Stage C 消融边界：已有 54-run data-independent Fixed/Adaptive 负结果继续保留，不删除、不覆盖。用户允许后续单独调整 Adaptive；任何调整必须在新 test-free tuning/pilot 路径完成、冻结新配置后另建正式消融，不能使用 End-to-End final test 反向调参，也不作为本轮 Full Data vs Ours 主图的前置阻塞。
+- 时间评估修正：正常 RTX 5090 + 25 vCPU 下现实总工期由 `2–4 天`下调为约 `1.5–3 天`；主要耗时仍是 9 个 Full-Data TFE/ABY3 Secure-Average initializer（约 `12–24 小时`墙钟）。9 个新增 Adaptive Stage-C 预计约 `0.25–1 小时`；若 Full-Data TFE 需要 streaming provider，风险区间仍约 `5–7 天`。
+- 文档同步：已更新 `plan/0727_new_cross_stage_incremental_full_feature_plan.md` 与 `for-claudecode/new_CLAUDECODE_HANDOFF.md` 的算法、任务数、复用、accountant、final-test、完成门和禁止事项。本轮未启动实验或读取 test。

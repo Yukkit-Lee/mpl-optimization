@@ -16,12 +16,13 @@
 
 1. 保留已有 Stage A、Stage B、Stage C、旧 End-to-End、final-test 和 TFE system 全部结果；
 2. 新增 `Full Data Feature Model`；
-3. 把 `Ours` 对齐为相同的 Fixed DP-SGD；
-4. 生成新的 `Full Data Feature Model vs Ours` 两曲线主图；
-5. 整理 3–4 个外部方法的可靠文献对比；
-6. 不做 DP-MTT；
-7. 不复现 CryptGPU；
-8. 不重跑已经完整且兼容的实验。
+3. Full Data 与 Ours 都使用相同的 Adaptive DP-SGD；
+4. 优先复用已有且效果较好的 Ours Adaptive End-to-End 结果；
+5. 生成新的 `Full Data Feature Model vs Ours` 两曲线主图；
+6. 整理 3–4 个外部方法的可靠文献对比；
+7. 不做 DP-MTT；
+8. 不复现 CryptGPU；
+9. 不重跑已经完整且兼容的实验。
 
 任何长任务都必须在 tmux 或现有持久队列机制中运行。任何代码、配置、报告或文档修改都必须同步更新 `progressLog/project_progress.md`，分阶段 commit 并 push GitHub。
 
@@ -109,7 +110,7 @@ pgrep -af 'new_run_task_queue|new_stage_b_secure_init|new_stage_c_secure_dpsgd' 
 -> 已有的同一个共享 ConvNet encoder
 -> 完整 2048-D 特征
 -> 多方本地安全训练后做 Secure Average 初始化
--> TFE/ABY3 Secure Fixed DP-SGD
+-> TFE/ABY3 Secure Adaptive DP-SGD
 -> 线性分类模型
 ```
 
@@ -122,7 +123,7 @@ Official MTT 蒸馏图像
 -> 同一个共享 ConvNet encoder
 -> 很小的 2048-D 蒸馏特征集
 -> 已完成的 Secure Consensus 初始化
--> TFE/ABY3 Secure Fixed DP-SGD
+-> TFE/ABY3 Secure Adaptive DP-SGD
 -> 线性分类模型
 ```
 
@@ -252,7 +253,7 @@ sample_rate = batch_size / actual_train_size
 
 绝不能用 400/4000/8000 代替 Full Data 的样本数，否则 epsilon 会计错误。
 
-### 6.3 旧 Ours 是 Adaptive，新计划要求双方 Fixed
+### 6.3 旧 Ours 正是 Adaptive，应优先复用
 
 旧 End-to-End 方法名是：
 
@@ -263,13 +264,18 @@ ours_official_secure_consensus_adaptive
 新版主图要求：
 
 ```text
-Full Data -> Fixed DP
-Ours -> Fixed DP
+Full Data -> Adaptive DP
+Ours -> Adaptive DP
 ```
 
-因此旧 Ours 曲线不能直接放进新主图。应复用已有 Official-MTT feature cache 和 frozen secure-consensus initializer，只补跑 Ours 的 Fixed Stage C。
+因此已有 Ours 的 3 datasets × 3 seeds Adaptive 曲线、模型、history 和
+read-only final-test 是首选复用资产。先审计它们是否与新 Full Data 使用相同
+的 encoder policy、Adaptive 配置、epsilon/delta、batch、steps、evaluation
+schedule 和计时边界。全部匹配时，不补跑 Ours Stage C。
 
-不要重跑 Official MTT Stage A。是否重跑 Ours Stage B 只由“完整流水线计时是否必须同硬件对齐”决定，见第 8 节。
+只有出现明确的不兼容或需要严格同机 total-pipeline timing 时，才做最小化
+对齐重跑。不要重跑 Official MTT Stage A。是否重跑 Ours Stage B 只由
+“完整流水线计时是否必须同硬件对齐”决定，见第 8 节。
 
 ### 6.4 旧 final-test 脚本不能直接运行
 
@@ -280,7 +286,10 @@ Ours -> Fixed DP
 3. 会写入旧 `new_final_test_evaluation.*`；
 4. 会覆盖旧 final-test 图表/表格。
 
-必须新建 incremental final-test evaluator，使用新路径、新方法名和新的 18-model gate。禁止修改旧 evaluator 来覆盖旧成果。
+必须新建 incremental final-test evaluator，使用新路径和新方法名。新流程
+只需要对 9 个 Full Data 新模型开启 final-test 门；Ours 的 test accuracy
+优先从已冻结的旧 final-test 报告复用，并记录来源。禁止修改旧 evaluator
+来覆盖旧成果。
 
 ### 6.5 “相同 epsilon”不等于“相同 noise multiplier”
 
@@ -296,22 +305,27 @@ Full Data 与 Ours 的训练样本数不同，所以 sample rate 不同。
 
 noise multiplier 可以不同，因为它是为了实现相同隐私预算而校准出来的。每个 run 必须保存 target epsilon、achieved epsilon、delta、N、batch、steps、sample rate 和 noise multiplier。
 
-### 6.6 不能用相同步数让 Full Data “名义上使用完整数据”
+### 6.6 主比较应复用已有 Ours 的训练预算，并诚实拆分工作量
 
-如果双方都只跑旧的 10/20/30 steps，Full Data 实际只会抽到很小一部分训练样本，无法支撑“完整数据安全训练工作量很大”的论点。
+用户明确要求复用已有且效果较好的 Ours Adaptive End-to-End，以节省时间。
+因此主比较优先冻结到已有 Ours 的 `10/20/30 steps`、batch、evaluation
+schedule 和 Adaptive 配置，再让 Full Data 使用完全相同的 Stage-C 配置。
 
-建议正式协议使用：
+必须明确：
 
 ```text
-相同的最大 epoch 数
-相同 batch size
-相同 optimizer / learning rate
-各自按真实 N 得到 steps_per_epoch
-固定总 steps 后完整执行，不按 test 提前停止
-事后从冻结 history 计算共同 target 的 Time/Steps-to-Target
+Full Data 的完整数据主要进入 Stage-B Secure-Average 初始化
+Stage C 从完整训练池中按真实 N 采样，但 10/20/30 steps 不等于遍历完整数据
+Ours 与 Full Data 的 Stage-C steps/batch/optimizer/Adaptive规则必须相同
+Stage-B、Stage-C 和 total processed examples 必须分开报告
 ```
 
-最大 epoch 数、evaluation cadence 和 target 规则必须先在 test-free reference 上冻结并写入 JSON。若最终决定不用相同 epoch，必须在报告中解释训练预算为何仍公平，不能悄悄沿用旧 10/20/30 steps。
+不能声称 Full Data 的 Stage C 在短预算内“看过全部训练样本”。论文中的安全
+工作量差异应主要由 Full Data Stage-B 初始化和 Ours compact Stage-B 初始化
+支撑，同时单独报告 Stage-C 相同预算下的曲线。
+
+如果未来需要“双方相同 epoch、完整遍历数据”的扩展实验，它将迫使 Ours
+重新运行，必须作为独立扩展计划，不能悄悄混入当前节省时间的增量任务。
 
 ### 6.7 安全训练时间必须报告两个边界
 
@@ -324,7 +338,7 @@ noise multiplier 可以不同，因为它是为了实现相同隐私预算而校
 
 处理方式：
 
-- 新主图可以使用同机新跑的 Stage C Fixed 时间；
+- 新主图优先使用 Full Data 新跑 Adaptive 与已有 Ours Adaptive 的同口径 Stage-C 时间；
 - 完整流水线时间若要做严格数值比较，应在硬件恢复后对 Ours Stage B 做最小化同配置计时重跑；
 - 如果不重跑 Ours Stage B，只能把 total pipeline time 标为跨机器参考，不能声称严格 speedup；
 - 不需要重新做 Stage A 或重新选择 initializer。
@@ -347,8 +361,7 @@ noise multiplier 可以不同，因为它是为了实现相同隐私预算而校
 ```text
 new_configs/new_incremental_comparison/new_incremental_full_feature_config.json
 new_configs/new_incremental_comparison/new_tfe_full_feature_stage_b.tsv
-new_configs/new_incremental_comparison/new_tfe_full_feature_stage_c.tsv
-new_configs/new_incremental_comparison/new_tfe_ours_fixed_stage_c.tsv
+new_configs/new_incremental_comparison/new_tfe_full_feature_adaptive_stage_c.tsv
 
 new_prepare_incremental_full_feature_assets.py
 new_prepare_incremental_full_feature_stage_b.py
@@ -370,8 +383,8 @@ new_output/new_incremental_comparison/
 建议方法名固定为：
 
 ```text
-full_data_secure_average_fixed
-ours_official_secure_consensus_fixed
+full_data_secure_average_adaptive
+ours_official_secure_consensus_adaptive
 ```
 
 不要在方法名中写 `end_to_end_dp`，因为两条路线的 initializer 都是 data-dependent non-DP。
@@ -406,14 +419,18 @@ datasets = cifar10/cifar100/tiny
 seeds = 42/43/44
 num_clients = 5
 feature_dim = 2048
-mode = fixed_dp
+mode = adaptive_dp
 target_epsilon = 3.0
 delta = 1e-5
 batch_size
-max_epochs
+steps（优先与已有Ours的10/20/30完全一致）
 evaluation cadence
 optimizer
 learning_rate
+initial clip C
+count noise multiplier
+warmup steps
+update interval
 fixed-point precision = 16
 matmul chunk size
 checkpoint interval
@@ -512,31 +529,34 @@ test_loaded=false
 
 正式队列应串行或按 pilot 证明安全的有限并发运行。不能因为有 25 vCPU 就启动多个各自创建大量 TFE worker 的任务。
 
-### Phase 5：双方 Fixed Stage C
+### Phase 5：Full Data Adaptive Stage C，并复用 Ours Adaptive
 
 需要：
 
 ```text
-Full Data Fixed Stage C: 3 datasets x 3 seeds
-Ours Fixed Stage C: 3 datasets x 3 seeds
+Full Data Adaptive Stage C: 3 datasets x 3 seeds（9个新run）
+Ours Adaptive Stage C: 优先复用已有3 datasets x 3 seeds
 ```
 
-Ours 复用：
+Ours 复用已有 selected initializer、曲线、模型和报告。initializer 位于：
 
 ```text
 new_init_model/new_public_mtt_mainline/stage_b/<dataset>/seed<seed>/iid/
 new_secure_stage_b_selected_<dataset>_iid_seed<seed>.npz
 ```
 
-Full Data 使用 Phase 4 新候选。
+Full Data 使用 Phase 4 新候选。两种方法的 Adaptive clipping 配置必须一致。
 
-每种方法根据自己的真实 N 和固定 steps 校准 noise multiplier，双方 target epsilon/delta 相同。
+每种方法根据自己的真实 N 和相同的固定 steps 校准 gradient noise
+multiplier；双方 target epsilon/delta、count-noise policy、warmup 和 update
+interval 相同。Adaptive count mechanism 必须计入 composed accountant。
 
-所有 run 必须断言：
+新 Full Data run 和被复用 Ours run 必须断言：
 
 ```text
-mode == fixed_dp
-adaptive_count_steps == 0
+mode == adaptive_dp
+adaptive_count_steps 与配置一致且大于0（若配置产生更新）
+count mechanism已计入epsilon
 test_loaded == false
 accounted_epsilon 与 target 的误差 < 1e-4
 initializer_privacy_status == data_dependent_non_dp
@@ -544,18 +564,38 @@ released_model_record_dp_valid == false
 privacy_interpretation == conditional_gradient_mechanism_only_not_released_model_dp
 ```
 
+如果审计确认旧 Ours 全部匹配，本阶段总共只新增 9 个 Stage-C run，不新增
+Ours run。
+
+### Phase 5B：Standalone Stage C Adaptive 消融的后续调整
+
+旧 54-run standalone Fixed/Adaptive 负结果必须保留。它使用
+data-independent initializer，和 selected-initializer End-to-End 回答的不是
+同一个问题。
+
+用户允许后续继续调整 Adaptive，但必须：
+
+1. 使用 test-free reference/selection；
+2. 在独立 tuning/pilot 路径比较 clip 初值、warmup、update interval、
+   count-noise 和训练预算；
+3. 不使用 End-to-End final test 反向调参；
+4. 不覆盖或重新命名旧 54-run 报告；
+5. 只有冻结的新配置确实值得正式验证时，才创建新的 3-seed formal ablation；
+6. 该调整不是本轮 Full Data vs Ours 主图的前置阻塞。
+
 ### Phase 6：reference-only 聚合与共同 target
 
 在任何新 final test 读取前：
 
-1. 18/18 Stage C 状态必须 COMPLETE；
-2. 所有 checkpoint/model/history 必须存在；
-3. encoder/scaler signatures 必须匹配；
-4. epsilon gate 必须通过；
-5. 只能读取 shared reference；
-6. 从两条 reference 曲线选择双方可达到的同一个 target；
-7. target 规则、数值和选择时间写入冻结 JSON；
-8. 如果没有可靠共同 target，Time-to-Target 必须报告 N/A，并改报固定预算下精度与accuracy retention，不能降低 target 去美化结果。
+1. 9/9 新 Full Data Adaptive 状态必须 COMPLETE；
+2. 9/9 旧 Ours Adaptive 兼容性审计必须通过；
+3. 所有 checkpoint/model/history 必须存在；
+4. encoder/scaler signatures 必须匹配；
+5. epsilon gate 必须通过；
+6. 只能读取 shared reference；
+7. 从两条 reference 曲线选择双方可达到的同一个 target；
+8. target 规则、数值和选择时间写入冻结 JSON；
+9. 如果没有可靠共同 target，Time-to-Target 必须报告 N/A，并改报固定预算下精度与accuracy retention，不能降低 target 去美化结果。
 
 Target 不能按 seed 分别选择，也不能给两种方法不同 target。
 
@@ -566,7 +606,8 @@ Target 不能按 seed 分别选择，也不能给两种方法不同 target。
 硬门：
 
 ```text
-18/18新模型 COMPLETE
+9/9新Full Data模型 COMPLETE
+9/9既有Ours模型及旧test结果来源验证通过
 reference report COMPLETE
 target JSON frozen
 全部模型哈希固定
@@ -574,7 +615,10 @@ target JSON frozen
 test 尚未被新流程读取
 ```
 
-对每个 dataset/seed 的 test feature cache 只加载一次，同时评估两种新方法。test accuracy 不能反馈给 target、epoch、seed、超参数或图形选择。
+对每个 dataset/seed 的 test feature cache 只加载一次，评估新的 Full Data
+模型。Ours 优先复用旧 `new_final_test_evaluation.json` 中已经冻结的
+read-only test 结果；不要为了组合新图而重复运行整个旧 evaluator。test
+accuracy 不能反馈给 target、steps、seed、超参数或图形选择。
 
 保存：
 
@@ -826,7 +870,7 @@ Pilot 通过不代表 formal 完成。正式报告必须严格检查 18/18，而
 Add incremental full-feature audit and protocol
 Add full-data secure-average initializer pipeline
 Record full-data Stage B formal results
-Add aligned fixed-DP end-to-end pipeline
+Add aligned adaptive-DP end-to-end pipeline
 Record aligned full-feature vs ours results
 Add frozen incremental final-test evaluation
 Add external comparison table and final figures
@@ -857,14 +901,15 @@ checkpoint
 | 新脚本、隔离路径、测试 | 0.5–1 天 |
 | Full Data TFE pilot | 0.25–0.5 天 |
 | 9 个 Full Data Stage B | 12–24 小时墙钟 |
-| 18 个双方 Fixed Stage C | 0.5–2 小时 |
+| 9 个 Full Data Adaptive Stage C | 0.25–1 小时 |
+| Ours Adaptive | 优先复用，0个新run |
 | reference聚合、target冻结、final-test、图表 | 0.5–1 天 |
 | 外部方法核验与表格 | 0.5–1 天，可与队列重叠 |
 
 现实总工期：
 
 ```text
-2–4 天
+1.5–3 天
 ```
 
 如果 Full Data 被嵌入 TFE graph/checkpoint，触发严重内存或序列化瓶颈，需要改成 streaming provider：
@@ -893,10 +938,10 @@ checkpoint
 [ ] 9份Full Data feature资产验证通过
 [ ] holdout与Full Data训练严格隔离
 [ ] Full Data Stage B 9/9 COMPLETE
-[ ] Full Data Fixed Stage C 9/9 COMPLETE
-[ ] Ours Fixed Stage C 9/9 COMPLETE
-[ ] 18/18 achieved epsilon通过
-[ ] 两方法均为同一Fixed DP口径
+[ ] Full Data Adaptive Stage C 9/9 COMPLETE
+[ ] 既有 Ours Adaptive 9/9 兼容性审计通过
+[ ] 18条组合曲线的accountant字段全部验证
+[ ] 两方法均为同一Adaptive DP口径
 [ ] shared reference协议一致
 [ ] target在final test前冻结
 [ ] 新final test只读门通过
@@ -923,7 +968,8 @@ checkpoint
 禁止使用test调target/epoch/超参数
 禁止把shared reference混入Full Data训练
 禁止把Full Data的N写成400/4000/8000
-禁止把旧Adaptive Ours放进新Fixed主图
+禁止无理由重跑已经兼容的Ours Adaptive
+禁止用Ours测试结果反向调整Adaptive消融
 禁止覆盖旧End-to-End/final-test文件
 禁止单seed结论
 禁止smoke结果进入论文
