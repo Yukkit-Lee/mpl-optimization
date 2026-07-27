@@ -1,0 +1,186 @@
+{
+  "schema": "incremental_full_feature_comparison_config_v1",
+  "status": "FROZEN",
+  "frozen_at": "2026-07-27T22:15:00+08:00",
+  "project_root": "/root/autodl-tmp/tfe_experiments",
+  "git_branch": "new-secure-feature-pipeline",
+
+  "_comment": "This config freezes the fair-comparison protocol between Full Data Feature Model and Ours. Both methods must use identical Adaptive DP-SGD settings, with noise calibrated per-method to the same target epsilon/delta using their respective true N.",
+
+  "datasets": {
+    "cifar10": {
+      "num_classes": 10,
+      "full_train_size": 50000,
+      "reference_per_class": 5,
+      "selection_per_class": 5,
+      "train_size_after_holdout": 49900,
+      "feature_dim": 2048
+    },
+    "cifar100": {
+      "num_classes": 100,
+      "full_train_size": 50000,
+      "reference_per_class": 5,
+      "selection_per_class": 5,
+      "train_size_after_holdout": 49000,
+      "feature_dim": 2048
+    },
+    "tiny": {
+      "num_classes": 200,
+      "full_train_size": 100000,
+      "reference_per_class": 5,
+      "selection_per_class": 5,
+      "train_size_after_holdout": 98000,
+      "feature_dim": 2048
+    }
+  },
+
+  "seeds": [42, 43, 44],
+  "num_clients": 5,
+  "client_split": "iid",
+
+  "methods": {
+    "full_data_secure_average_adaptive": {
+      "label": "Full Data Feature Model",
+      "feature_source": "new_full_feature_cache_v1",
+      "initializer": "secure_average_nokd",
+      "initializer_mode": "no_kd",
+      "distill_epochs": 0,
+      "lambda_kd": 0,
+      "reference_supervised_weight": 0,
+      "dp_mode": "adaptive_dp",
+      "feature_cache": "full_train_minus_holdout",
+      "initializer_privacy_status": "data_dependent_non_dp",
+      "released_model_record_dp_valid": false,
+      "privacy_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp"
+    },
+    "ours_official_secure_consensus_adaptive": {
+      "label": "Ours",
+      "feature_source": "official_mtt_end_to_end_cache",
+      "initializer": "secure_consensus_selected_iid",
+      "initializer_privacy_status": "data_dependent_non_dp",
+      "dp_mode": "adaptive_dp",
+      "released_model_record_dp_valid": false,
+      "privacy_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+      "reuse_policy": "reuse_existing_runs_unless_incompatible",
+      "existing_runs_location": "new_log/new_public_mtt_mainline/json/new_end_to_end_formal_report.json"
+    }
+  },
+
+  "stage_c_shared_parameters": {
+    "mode": "adaptive_dp",
+    "batch_size": 16,
+    "learning_rate": 0.002,
+    "optimizer": "secure_dpsgd",
+    "loss_function": "softmax_cross_entropy",
+    "fixed_point_precision": 16,
+    "matmul_chunk_size": null,
+
+    "adaptive_clipping": {
+      "initial_clip_c": 1.0,
+      "warmup_steps": 5,
+      "update_interval": 5,
+      "count_noise_multiplier": 8.0,
+      "adaptive_count_steps_expected": ">0 when updates triggered",
+      "count_mechanism_in_epsilon": true
+    },
+
+    "steps_per_dataset": {
+      "cifar10": 10,
+      "cifar100": 20,
+      "tiny": 30
+    },
+
+    "evaluation_schedule": {
+      "eval_every_n_steps": 1,
+      "evaluate_on": "reference",
+      "test_not_loaded": true
+    },
+
+    "checkpoint": {
+      "interval": 2,
+      "resume_enabled": true
+    },
+
+    "heartbeat_seconds": 60
+  },
+
+  "privacy_accounting": {
+    "target_epsilon": 3.0,
+    "delta": 1e-5,
+    "accountant": "opacus_rdp",
+    "composed_accountant": true,
+    "noise_calibration_rule": "Each method calibrates gradient noise multiplier independently to achieve the same target epsilon/delta using its true N (train_size_after_holdout), batch_size, and steps. Count-mechanism noise is shared (count_noise_multiplier=8.0) and included in composed accounting.",
+
+    "ours_compact_reference": {
+      "cifar10": {"N": 400, "sample_rate": 0.04, "noise_multiplier": 0.821001421653252},
+      "cifar100": {"N": 4000, "sample_rate": 0.004, "noise_multiplier": 0.5913495279853638},
+      "tiny": {"N": 8000, "sample_rate": 0.002, "noise_multiplier": 0.5563775214544356}
+    },
+
+    "full_data_target": {
+      "cifar10": {"N": 49900, "sample_rate": 0.0003206},
+      "cifar100": {"N": 49000, "sample_rate": 0.0003265},
+      "tiny": {"N": 98000, "sample_rate": 0.0001633}
+    }
+  },
+
+  "reference_and_selection": {
+    "split_rule": "deterministic_stratified_per_class",
+    "per_class_reference": 5,
+    "per_class_selection": 5,
+    "shared_between_methods": true,
+    "must_match_old_end_to_end": true,
+    "old_reference_cache": "new_cache/new_public_mtt_mainline/new_end_to_end_features",
+    "holdout_excluded_from_full_data_train": true
+  },
+
+  "timing_boundaries": {
+    "stage_c_secure_time": "from frozen initializer load to Stage-C completion, TFE/ABY3 wall clock",
+    "end_to_end_secure_time": "Stage-B secure initialization + Stage-C, only comparable on same hardware",
+    "encoder_time_excluded": true,
+    "stage_a_excluded": true,
+    "tfe_single_machine_note": "TFE 0.8 single-machine simulation does not expose communication bytes/rounds; report N/A"
+  },
+
+  "final_test_gate": {
+    "read_only_after_all_models_frozen": true,
+    "feedback_to_tuning_or_quality_gates": false,
+    "ours_test_accuracy_source": "reuse_from_new_final_test_evaluation.json",
+    "full_data_new_evaluator": true,
+    "old_evaluator_not_modified": true
+  },
+
+  "output_targets": {
+    "figure2_time_vs_accuracy": {
+      "png": "new_expFig/new_incremental_comparison/new_figure2_full_feature_vs_ours.png",
+      "pdf": "new_expFig/new_incremental_comparison/new_figure2_full_feature_vs_ours.pdf"
+    },
+    "figure2_examples_vs_accuracy": {
+      "png": "new_expFig/new_incremental_comparison/new_figure2_processed_examples_vs_accuracy.png",
+      "pdf": "new_expFig/new_incremental_comparison/new_figure2_processed_examples_vs_accuracy.pdf"
+    },
+    "json_report": "new_log/new_incremental_comparison/json/new_incremental_comparison_report.json",
+    "csv_report": "new_expTab/new_incremental_comparison/new_incremental_comparison_table.csv"
+  },
+
+  "forbidden": [
+    "rerun_stage_a",
+    "rerun_existing_module_c_54_grid",
+    "delete_adaptive_negative_result",
+    "reproduce_dp_mtt",
+    "reproduce_cryptgpu",
+    "use_test_for_tuning_target_epoch_or_hyperparams",
+    "mix_shared_reference_into_full_data_train",
+    "hardcode_N_as_400_4000_8000_for_full_data",
+    "rerun_compatible_ours_adaptive_without_reason",
+    "use_ours_test_to_backadjust_adaptive_ablation",
+    "overwrite_old_end_to_end_or_final_test_files",
+    "single_seed_conclusions",
+    "smoke_results_in_paper",
+    "fake_gpu_memory_or_communication",
+    "upgrade_conditional_epsilon_to_end_to_end_dp",
+    "artificial_single_thread_limit",
+    "unbounded_concurrent_tfe_tasks",
+    "long_tasks_without_tmux_or_recovery_queue"
+  ]
+}

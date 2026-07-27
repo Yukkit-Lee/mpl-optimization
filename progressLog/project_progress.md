@@ -964,3 +964,13 @@
 - 活动状态：无残留训练进程、无 tmux 会话、无 active queue。
 - 输出：`new_log/new_incremental_comparison/json/new_phase0_audit.json`
 - 执行状态：本轮仅做只读审计和文档更新，未启动 pilot、formal 队列或 test 读取。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-27 22:15 Asia/Shanghai
+- 本次对话任务目标：完成 Phase 1 公平协议冻结，按 `for-claudecode/new_CLAUDECODE_HANDOFF.md` 第 8 节 Phase 1 要求创建独立 incremental config。
+- 配置冻结：新增 `new_configs/new_incremental_comparison/new_incremental_full_feature_config.json`，冻结 datasets（CIFAR-10/100/Tiny）、seeds（42/43/44）、num_clients=5、feature_dim=2048、mode=adaptive_dp、target_epsilon=3.0、delta=1e-5、batch_size=16、steps（10/20/30）、lr=0.002、optimizer、initial clip C=1.0、warmup_steps=5、update_interval=5、count_noise_multiplier=8.0、fixed-point precision=16、checkpoint_interval=2、reference/selection 规则（每类 5/5）、target 选择规则、计时边界、processed-example 计数边界和隐私解释。
+- Ours Adaptive 兼容性审计：读取 `new_end_to_end_formal_report.json`，9/9 Ours Adaptive 全部通过：accounted_epsilon 与 target=3.0 误差 <1e-4、released_model_record_dp_valid=false、test_loaded=false、initializer_privacy_status=data_dependent_non_dp。全部与 Full Data 新协议兼容，确认 **不需要补跑任何 Ours Stage-C**。
+- 目录结构：新增 8 个 `new_incremental_comparison` 子目录（log/expFig/expTab/cache/checkpoint/init_model/output/configs）。
+- 执行状态：本轮仅做配置冻结、审计和文档更新，未启动 pilot、formal 队列或 test 读取。
