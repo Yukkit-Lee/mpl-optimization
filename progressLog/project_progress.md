@@ -890,3 +890,18 @@
 - TFE communication 边界：单机 TFE 0.8.0 process simulation 不暴露通信 bytes/round counters，9 条均诚实记录 `communication_bytes/rounds=N/A`，不以推算值冒充测量。chain 最终状态=`COMPLETE`，detail=`module_c,end_to_end,final_test,tfe_system`。
 - 主线最终完成审计：Module A、Module B convergence、Module B Non-IID、Module C、End-to-End、final test、TFE system 七份权威报告均为 `COMPLETE`；Public-MTT 正式质量三数据集均过 gate。PNG/PDF 各 8+、CSV 8+，mean±sample std 与逐 run JSON 齐全。现代 Python `py_compile`、全部 new shell `bash -n`、Public-MTT config 2 tests、privacy-scope 3 tests、no-test/no-plaintext 4 tests 均通过；正式 TSV 无 `--quick`，Module C/End-to-End/TFE steps 或 iterations 均按数据集不同，活动 completed queue 与内容均无 DP-MTT。
 - 最终运行/Git 边界：无 `new_run_task_queue`、Stage A/B/C 或 system measurement 进程；tmux 仅保留 idle gpu0/monitor/report，supervisor 识别 active TFE system queue 为 `QUEUE_COMPLETE`。数据盘余量约 `108 GiB`。分支 `new-secure-feature-pipeline` 已按阶段提交，DP-MTT 全程 `EXCLUDED_BY_USER`，Stage A 与既有 Official-MTT Stage B/Non-IID 未重跑。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-27 18:05 Asia/Shanghai
+- 本次对话任务目标：完整审读用户新增的 `plan/0727_new_cross_stage_experiment_plan.md`，在不启动实验的前提下盘点既有 Public-MTT 主线成果、识别新增正式实验缺口，并给出时间与资源评估后提交推送 GitHub。
+- 计划审读结论：新计划包含 7 组正式实验，要求 3 个数据集、至少 3 个 seed、端到端三路线、Stage A 蒸馏对比、Stage B 初始化与 Non-IID 对比、Stage C `epsilon={1,3,5,8}`、外部安全训练框架表，以及 CryptGPU-style 直接安全 CNN 与紧凑特征训练对比；同时要求曲线、mean±std、时间、显存/内存、processed samples、Step/Time@Target、privacy accountant 与完整可复现实验资产。
+- 可直接复用：已有 Module A 正式报告可覆盖实验 2 的主要精度/效率数据；Module B convergence 已有 Random 与 Secure Consensus；Module B Non-IID 已完成 IID/Mild/Severe × 3 datasets × 3 seeds；Module C 已完成 Fixed/Adaptive 的 `epsilon={1,3,8}` 共 54 项；End-to-End 已完成 Baseline 与 Ours 共 18 项，并已有冻结后 final-test；TFE system 已完成 9 项时间/RSS 测量。所有已完成结果均不重跑。
+- 必须补齐的常规缺口：实验 3 缺 Average Initialization 的同口径收敛曲线；实验 4 缺 Moderate Non-IID；实验 5 缺 `epsilon=5`（若同时保留 Fixed/Adaptive，则为 18 项）；实验 1 缺 Full Feature-DP 路线和三路线统一的显存/内存、processed samples、Time@Target 口径；实验 6 需要逐项查证论文/实现并整理引用；实验 7 需要与实验 1 共享直接安全 CNN 基准后统一出表。
+- 初始化资产边界：当前 Random-Subset End-to-End baseline 下存在 3 datasets × 3 seeds 的 NoKD/KD-Avg/KD-ReferenceWeighted 候选；Official-MTT 正式 Stage B 的 portable 主资产只有 selected initializer。因此实验 3 的 “Average” 必须在执行前冻结为哪一条数据路线/候选语义，必要时只补跑缺失候选，不能把 Random-Subset KD-Avg 错标为 Official-MTT Average。
+- 关键实现边界：旧的全 ConvNet 结果明确标记为 `algorithmic_pytorch_convnet`，可作算法精度参考，但不是 TFE/ABY3 或 CryptGPU 意义下的直接安全 CNN，不能直接充当实验 1/7 的 MPC baseline。若计划接受 PyTorch/Opacus 的 plaintext DP-ConvNet 作为 `Full Data ConvNet-DP`，实现与运行成本可控；若要求真正的 secret-sharing/MPC ConvNet，则需要先做安全卷积可行性 pilot，工期与资源量级会显著增加，且当前 TFE 0.8 单机模拟并不提供真实网络通信 bytes/rounds。
+- 正常硬件下的预计工期（RTX 5090 + 约 25 vCPU 恢复后）：复用结果审计、常规缺口代码/队列、`epsilon=5`、Moderate Non-IID、Average 曲线及统一报表约 `1.5–3 天`，其中正式新增任务预计约 `4–12 小时`墙钟；若 Full Data 路线采用 PyTorch/Opacus DP-ConvNet，完整项目预计 `3–5 天`、约 `8–24 GPU-hours`；若实验 1/7 必须实现真正 TFE/ABY3/CryptGPU-style 直接安全 CNN，则先需 `0.5–1 天` pilot，总工期保守为 `7–21 天`，并存在性能或内存不可行后需调整实验定义的风险。
+- 资源预算：除直接安全 CNN 外，新增 TFE/特征实验预计约 `100–300 vCPU-hours`、新增资产约 `5–15 GiB`；PyTorch/Opacus 全数据 ConvNet 预计再用 `8–24 GPU-hours`、约 `10–40 GiB` checkpoint/history 空间。真正 MPC ConvNet 无法在 pilot 前可靠承诺，可能达到数百至数千 vCPU-hours。当前数据盘余量约 `108 GiB`，常规缺口足够；若保留所有 ConvNet checkpoint，需设置保留策略以避免超过空间。
+- 当前硬件阻塞：审读时 `nvidia-smi -L` 返回 `No devices found`，cgroup `cpu.max=50000 100000`，即实际 CPU 配额约 `0.5 core`（`nproc=1`）；这与计划要求的 RTX 5090/25 vCPU 不一致。内存约 754 GiB、数据盘余量约 108 GiB 正常。按当前配额不能开始正式实验，否则 CPU/TFE 工期可能膨胀数十倍且 GPU 路线无法运行；需先恢复 AutoDL GPU 和 CPU 实例配额。
+- 执行状态：本轮仅做只读盘点、计划审读和进度文档更新；未启动 Stage A/B/C、未启动任何 smoke/formal/长实验，也未修改已有实验结果。
