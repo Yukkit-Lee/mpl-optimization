@@ -905,3 +905,17 @@
 - 资源预算：除直接安全 CNN 外，新增 TFE/特征实验预计约 `100–300 vCPU-hours`、新增资产约 `5–15 GiB`；PyTorch/Opacus 全数据 ConvNet 预计再用 `8–24 GPU-hours`、约 `10–40 GiB` checkpoint/history 空间。真正 MPC ConvNet 无法在 pilot 前可靠承诺，可能达到数百至数千 vCPU-hours。当前数据盘余量约 `108 GiB`，常规缺口足够；若保留所有 ConvNet checkpoint，需设置保留策略以避免超过空间。
 - 当前硬件阻塞：审读时 `nvidia-smi -L` 返回 `No devices found`，cgroup `cpu.max=50000 100000`，即实际 CPU 配额约 `0.5 core`（`nproc=1`）；这与计划要求的 RTX 5090/25 vCPU 不一致。内存约 754 GiB、数据盘余量约 108 GiB 正常。按当前配额不能开始正式实验，否则 CPU/TFE 工期可能膨胀数十倍且 GPU 路线无法运行；需先恢复 AutoDL GPU 和 CPU 实例配额。
 - 执行状态：本轮仅做只读盘点、计划审读和进度文档更新；未启动 Stage A/B/C、未启动任何 smoke/formal/长实验，也未修改已有实验结果。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-27 18:29 Asia/Shanghai
+- 本次对话任务目标：完整审读替换上传的 `plan/0727_new_cross_stage_incremental_full_feature_plan.md`，提交其对上一份 0727 计划的替换，并在不启动实验的前提下重新评估增量任务的时间与资源。
+- 新计划范围：保留并复用全部 Stage A、Stage B、Stage C、旧 End-to-End 和 TFE system 成果；新的主图只比较 `Full Data Feature Model` 与 `Ours`，两者统一采用 TFE/ABY3 Secure Fixed DP-SGD。旧 Random-Subset baseline 降为消融，不删除。外部比较缩为 PEA/CaPC/DDGauss/Ours 等 3–4 项可靠来源，CryptGPU 只作有边界的文字背景，本轮不要求复现。
+- 已有资产利好：9 份完整训练特征缓存均存在，CIFAR-10/CIFAR-100 为 3 seeds × `50000×2048`，Tiny 为 3 seeds × `100000×2048`，manifest 均标记 `COMPLETE`、`test_loaded=false`，并保存 encoder/scaler 与 feature/label SHA256。因完整特征已生成，本轮原则上不需要重新运行共享 encoder 或特征抽取。
+- 预计新增正式任务：Full Data Feature Model 需要 3 datasets × 3 seeds 的 Secure Average initializer 与 Fixed DP-SGD；现有 Ours End-to-End 使用 Adaptive DP，与新计划的双方 Fixed 公平口径不一致，因此预计只补跑 Ours 的 3 datasets × 3 seeds Fixed Stage-C。合计约 9 个高成本 Full-Data Stage-B 初始化任务和 18 个相对短的 Fixed Stage-C 任务；最终 test 仅在 reference 目标与模型全部冻结后读取。
+- 计算时间依据：已有 Random-Subset NoKD Secure-Average 的 secure-training elapsed 为 CIFAR-10/CIFAR-100/Tiny 约 `34/189/341 秒`，样本量分别约 `400/4000/8000`。按 full-data batch 数近似线性外推，单 seed 三数据集 Full-Data Stage-B 的纯安全计算约 `3 小时`，3 seeds 合计约 `9–12 小时`；考虑 TFE 建图、secret sharing、checkpoint、报告和可能的内存/序列化开销，正式队列保守按 `12–24 小时`墙钟预算。18 个 Stage-C 对齐任务依据既有每项约 `20–60 秒`，连同启动/检查点开销预计 `0.5–2 小时`。
+- 正常硬件总工期（RTX 5090 + 25 vCPU）：资产/SHA/公平性审计与实现 `0.5–1 天`，pilot 与 Full-Data 正式队列 `0.75–1.5 天`，Fixed 对齐、冻结后 test、图表/CSV/JSON `0.5–1 天`，外部论文/官方仓库来源核验与表格 `0.5–1 天`；可并行部分重叠后，最佳约 `2 天`，现实估计 `2–4 天`。若 full-data TFE graph/checkpoint 暴露数据嵌入、内存或序列化瓶颈并需改为流式 provider，风险区间为 `5–7 天`。
+- 资源预算：完整特征缓存已占约 `4.9 GiB` 且无需复制；新增任务预计约 `150–350 vCPU-hours`、额外 checkpoint/history/report 约 `5–15 GiB`。TFE/ABY3 secure training 是 CPU 路线，若缓存验证通过则新增 GPU 计算接近 0；只有缓存不兼容而被迫重新抽取时才预计增加约 `2–6 GPU-hours`。当前约 `108 GiB` 可用磁盘足够，但正式运行前仍需设置 checkpoint 保留和中断恢复策略。
+- 当前启动阻塞：再次检查仍为 `nvidia-smi: No devices found`、cgroup `cpu.max=50000 100000`、`nproc=1`，即约 `0.5 CPU core` 配额，与计划声明的 RTX 5090/25 vCPU 不符。当前配额下 Full-Data TFE 队列可能延长至数天且无法满足同硬件计时要求，因此本轮不启动实验；恢复正确实例配额后才开始 tmux pilot/formal queue。
+- 执行状态：本轮仅完整阅读新计划、检查现有缓存/报告/硬件并更新评估；未重跑任何已完成实验，未启动新 smoke、pilot 或 formal job。
