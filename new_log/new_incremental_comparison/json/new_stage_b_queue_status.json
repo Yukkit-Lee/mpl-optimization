@@ -1,7 +1,7 @@
 {
   "total": 9,
-  "completed": 3,
+  "completed": 9,
   "failed": 0,
-  "current_task": "incremental_full_feature_stage_b_cifar10_seed44",
-  "last_update": 1785167616.6222491
+  "current_task": "incremental_full_feature_stage_b_tiny_seed44",
+  "last_update": 1785181695.691401
 }

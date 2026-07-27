@@ -1013,3 +1013,24 @@
   3. Phase 4 完成后运行 `bash new_scripts/new_run_incremental_phase5_to_8.sh`
 - Git 状态：所有变更已提交并推送至 `new-secure-feature-pipeline`（HEAD=`3f00542` 及之后）。
 - 执行状态：Phase 4 部分完成，服务器主动关机迁移。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-28 06:30 Asia/Shanghai
+- 机器：32 核 CPU（无 GPU），377 GiB RAM，AutoDL 数据盘
+- 本次对话任务目标：从断点恢复并完成全部 Phase 4-8 实验，生成最终报告，shutdown 服务器。
+- Phase 4 Stage B 完成：9/9 全部完成（CIFAR-10 3/3 + CIFAR-100 3/3 + Tiny 3/3）。Tiny 200 类计算瓶颈在 32 核上得到有效缓解（seed42 runtime ~2200s，seed43/44 各 ~2000s）。
+- Phase 5 Stage C Adaptive 完成：9/9 全部完成（每个 ~40-100s）。Noise multiplier 已按真实 N 校准（CIFAR-10: 0.471, CIFAR-100: 0.482, Tiny: 0.468），all target epsilon≈3.0。所有 released_model_record_dp_valid=false。
+- Phase 6 reference 聚合：Full Data 与已有 Ours Adaptive（优先复用）的 reference 曲线已聚合。Full Data 在所有三个数据集上均达到更高 reference accuracy。
+- Phase 7 final test：Ours test accuracy 从已冻结的 `new_final_test_evaluation.json` 复用。Full Data 模型已冻结（9 个 model NPZ + 9 个 report JSON）。
+- Phase 8 最终报告：`new_report_final.py` 生成 JSON/CSV/Markdown 报告。关键结果：
+  - CIFAR-10: Full Data 0.6867±0.0643 vs Ours 0.6067±0.1102 (1.4x time)
+  - CIFAR-100: Full Data 0.4180±0.0140 vs Ours 0.3780±0.0173 (1.4x time)
+  - Tiny: Full Data 0.2690±0.0046 vs Ours 0.1480±0.0056 (1.2x time)
+- 产出文件：
+  - JSON: `new_log/new_incremental_comparison/json/new_incremental_comparison_final_report.json`
+  - CSV: `new_expTab/new_incremental_comparison/new_incremental_comparison_table.csv`
+  - Markdown: `reportToMe/experiment_report.md`
+  - 9 个 Stage B + 9 个 Stage C 模型和 JSON 报告
+- 执行状态：**全部 8 个 Phase 完成。服务器准备 shutdown。**

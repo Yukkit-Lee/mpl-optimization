@@ -1,0 +1,24 @@
+=== Phase 5: Stage C ===
+Phase 5: Full Data Adaptive Stage C formal queue
+Total tasks: 9
+Started at: 2026-07-28 05:50:53
+Log dir: /root/autodl-tmp/tfe_experiments/new_log/new_incremental_comparison/txt
+
+[BLOCKED] incremental_full_feature_stage_c_cifar10_seed42: initializer not found: /root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_b/cifar10/seed42/new_secure_stage_b_candidate_nokd_cifar10_iid_seed42.npz
+Phase 4 Stage B must complete first.
+=== Phase 6-8 ===
+============================================
+Phase 5-8 Auto-Chain
+Started: 2026-07-28 05:50:53
+============================================
+
+=== PHASE 5: Full Data Adaptive Stage C ===
+Running Stage C queue...
+Phase 5: Full Data Adaptive Stage C formal queue
+Total tasks: 9
+Started at: 2026-07-28 05:50:53
+Log dir: /root/autodl-tmp/tfe_experiments/new_log/new_incremental_comparison/txt
+
+[BLOCKED] incremental_full_feature_stage_c_cifar10_seed42: initializer not found: /root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_b/cifar10/seed42/new_secure_stage_b_candidate_nokd_cifar10_iid_seed42.npz
+Phase 4 Stage B must complete first.
+=== ALL DONE ===

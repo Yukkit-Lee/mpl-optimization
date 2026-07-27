@@ -1,0 +1,356 @@
+{
+  "schema": "new_secure_stage_c_report_v2",
+  "status": "COMPLETE",
+  "dataset": "tiny",
+  "seed": 43,
+  "mode": "adaptive_dp",
+  "feature_dim": 2048,
+  "num_classes": 200,
+  "configuration": {
+    "feature_cache": "/root/autodl-tmp/tfe_experiments/new_cache/new_incremental_comparison/new_full_feature_memmap/tiny/new_seed43/new_full_feature_memmap_adapter_tiny_seed43.npz",
+    "feature_cache_mode": "memmap",
+    "initializer": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_b/tiny/seed43/new_secure_stage_b_selected_tiny_iid_seed43.npz",
+    "dataset": "tiny",
+    "mode": "adaptive_dp",
+    "output_dir": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/tiny/seed43",
+    "checkpoint_prefix": "/root/autodl-tmp/tfe_experiments/new_checkpoint/new_incremental_comparison/stage_c/tiny/seed43",
+    "seed": 43,
+    "batch_size": 16,
+    "steps": 30,
+    "learning_rate": 0.002,
+    "noise_multiplier": 0.4677076681,
+    "count_noise_multiplier": 8.0,
+    "clip_c": 1.0,
+    "clipping_scope": "global",
+    "gamma": 0.5,
+    "eta_c": 0.05,
+    "c_min": 0.05,
+    "c_max": 4.0,
+    "warmup_steps": 5,
+    "update_interval": 5,
+    "exploding_c_patience": 5,
+    "delta": 1e-05,
+    "precision_fractional": 16,
+    "matmul_chunk_size": 64,
+    "checkpoint_interval": 2,
+    "initializer_privacy_status": "data_dependent_non_dp",
+    "feature_dim": 2048,
+    "num_classes": 200
+  },
+  "privacy": {
+    "accountant": "Opacus RDPAccountant",
+    "accounted_gradient_mechanism_epsilon": 2.8281250041027026,
+    "stage_c_distilled_feature_record_epsilon": 2.8281250041027026,
+    "stage_c_delta": 1e-05,
+    "sample_rate": 0.00016326530612244898,
+    "steps": 30,
+    "gradient_noise_multiplier": 0.4677076681,
+    "clipping_count_noise_multiplier": 8.0,
+    "clipping_count_mechanism_steps": 5,
+    "initializer_privacy_status": "data_dependent_non_dp",
+    "released_model_record_dp_valid": false,
+    "epsilon_interpretation": "conditional_gradient_mechanism_only_not_released_model_dp",
+    "stage_a_original_record_privacy": "inherited_from_stage_a_metadata",
+    "epsilon_a_plus_epsilon_c_claimed": false
+  },
+  "security": {
+    "backend": "tfe_mpc",
+    "protocol": "ABY3",
+    "execution": "single-machine process simulation",
+    "noise_generation": "three_independent_checkpointed_csprng_gaussian_shares",
+    "secret_shared": [
+      "features",
+      "labels",
+      "parameters",
+      "per_example_norms",
+      "clip_factors",
+      "gradient_sums",
+      "noise_shares_after_input_sharing",
+      "updated_parameters",
+      "adaptive_clipping_bound"
+    ],
+    "revealed": [
+      "dp_noised_fraction_below_at_adaptive_updates",
+      "dp_adaptive_clipping_bound_trajectory",
+      "aggregate_reference_logits_at_log_intervals",
+      "final_noisy_model_without_end_to_end_dp_claim"
+    ],
+    "silent_plaintext_fallback": false,
+    "honest_party_assumption": "at_least_one_of_three_compute_parties"
+  },
+  "final_c": 0.9640960693359375,
+  "provider_counters": [
+    30,
+    30,
+    30
+  ],
+  "history": [
+    {
+      "step": 1,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0,
+      "reference_accuracy": 0.26
+    },
+    {
+      "step": 2,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 3,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 4,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0,
+      "reference_accuracy": 0.262
+    },
+    {
+      "step": 5,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 6,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 7,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0,
+      "reference_accuracy": 0.261
+    },
+    {
+      "step": 8,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 9,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.0,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 10,
+      "clipping_bound_t": 1.0,
+      "proposed_next_c": 1.012451171875,
+      "adaptive_clip_update": true,
+      "dp_noised_fraction_below": 0.2525177001953125,
+      "dp_noised_clipped_fraction": 0.7474822998046875
+    },
+    {
+      "step": 11,
+      "clipping_bound_t": 1.012451171875,
+      "proposed_next_c": 1.012451171875,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0,
+      "reference_accuracy": 0.263
+    },
+    {
+      "step": 12,
+      "clipping_bound_t": 1.012451171875,
+      "proposed_next_c": 1.012451171875,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 13,
+      "clipping_bound_t": 1.012451171875,
+      "proposed_next_c": 1.012451171875,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 14,
+      "clipping_bound_t": 1.012451171875,
+      "proposed_next_c": 1.012451171875,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0,
+      "reference_accuracy": 0.265
+    },
+    {
+      "step": 15,
+      "clipping_bound_t": 1.012451171875,
+      "proposed_next_c": 1.006439208984375,
+      "adaptive_clip_update": true,
+      "dp_noised_fraction_below": 0.6172332763671875,
+      "dp_noised_clipped_fraction": 0.3827667236328125
+    },
+    {
+      "step": 16,
+      "clipping_bound_t": 1.006439208984375,
+      "proposed_next_c": 1.006439208984375,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 17,
+      "clipping_bound_t": 1.006439208984375,
+      "proposed_next_c": 1.006439208984375,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0,
+      "reference_accuracy": 0.261
+    },
+    {
+      "step": 18,
+      "clipping_bound_t": 1.006439208984375,
+      "proposed_next_c": 1.006439208984375,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 19,
+      "clipping_bound_t": 1.006439208984375,
+      "proposed_next_c": 1.006439208984375,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 20,
+      "clipping_bound_t": 1.006439208984375,
+      "proposed_next_c": 0.98150634765625,
+      "adaptive_clip_update": true,
+      "dp_noised_fraction_below": 1.0,
+      "dp_noised_clipped_fraction": 0.0,
+      "reference_loss": 0.0,
+      "reference_accuracy": 0.261
+    },
+    {
+      "step": 21,
+      "clipping_bound_t": 0.98150634765625,
+      "proposed_next_c": 0.98150634765625,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 22,
+      "clipping_bound_t": 0.98150634765625,
+      "proposed_next_c": 0.98150634765625,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 23,
+      "clipping_bound_t": 0.98150634765625,
+      "proposed_next_c": 0.98150634765625,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 24,
+      "clipping_bound_t": 0.98150634765625,
+      "proposed_next_c": 0.98150634765625,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0,
+      "reference_accuracy": 0.26
+    },
+    {
+      "step": 25,
+      "clipping_bound_t": 0.98150634765625,
+      "proposed_next_c": 0.98858642578125,
+      "adaptive_clip_update": true,
+      "dp_noised_fraction_below": 0.3555908203125,
+      "dp_noised_clipped_fraction": 0.6444091796875
+    },
+    {
+      "step": 26,
+      "clipping_bound_t": 0.98858642578125,
+      "proposed_next_c": 0.98858642578125,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 27,
+      "clipping_bound_t": 0.98858642578125,
+      "proposed_next_c": 0.98858642578125,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null,
+      "reference_loss": 0.0,
+      "reference_accuracy": 0.26
+    },
+    {
+      "step": 28,
+      "clipping_bound_t": 0.98858642578125,
+      "proposed_next_c": 0.98858642578125,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 29,
+      "clipping_bound_t": 0.98858642578125,
+      "proposed_next_c": 0.98858642578125,
+      "adaptive_clip_update": false,
+      "dp_noised_fraction_below": null,
+      "dp_noised_clipped_fraction": null
+    },
+    {
+      "step": 30,
+      "clipping_bound_t": 0.98858642578125,
+      "proposed_next_c": 0.9640960693359375,
+      "adaptive_clip_update": true,
+      "dp_noised_fraction_below": 1.0,
+      "dp_noised_clipped_fraction": 0.0,
+      "reference_loss": 0.0,
+      "reference_accuracy": 0.259
+    }
+  ],
+  "runtime_seconds": 73.46789860725403,
+  "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/tiny/seed43/new_secure_stage_c_model_tiny_adaptive_dp_seed43.npz",
+  "model_sha256": "c42d6f44e51216be0c2218706ac0d4d27f3d6574e77160b76a9030f1ca69b976",
+  "limitations": [
+    "Reference logits are revealed only for correctness/tuning diagnostics and must be disabled or reduced in the frozen formal release.",
+    "TFE local mode is a single-machine process simulation; LAN/WAN communication is not measured."
+  ]
+}

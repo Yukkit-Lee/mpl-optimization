@@ -69,7 +69,7 @@ for task_id in "${TASK_IDS[@]}"; do
     # Verify initializer exists
     DATASET=$(echo "$task_id" | sed 's/incremental_full_feature_stage_c_\([a-z0-9]*\)_seed.*/\1/')
     SEED=$(echo "$task_id" | sed 's/.*_seed\([0-9]*\)$/\1/')
-    INIT_PATH="$NEW_PROJECT_ROOT/new_output/new_incremental_comparison/stage_b/${DATASET}/seed${SEED}/new_secure_stage_b_candidate_nokd_${DATASET}_iid_seed${SEED}.npz"
+    INIT_PATH="$NEW_PROJECT_ROOT/new_output/new_incremental_comparison/stage_b/${DATASET}/seed${SEED}/new_secure_stage_b_selected_${DATASET}_iid_seed${SEED}.npz"
     if [ ! -f "$INIT_PATH" ]; then
         echo "[BLOCKED] $task_id: initializer not found: $INIT_PATH"
         echo "Phase 4 Stage B must complete first."
