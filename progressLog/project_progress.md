@@ -986,3 +986,15 @@
   - training sizes: CIFAR-10=49900, CIFAR-100=49000, Tiny=98000 per seed
   - manifest: `new_log/new_incremental_comparison/json/new_incremental_full_feature_asset_manifest.json`
 - 执行状态：本轮仅做资产准备和验证，未启动 pilot、formal 队列或 test 读取。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-27 23:00 Asia/Shanghai
+- 本次对话任务目标：Phase 3 小规模 pilot，验证 Full Data memmap 数据流、TFE correctness、吞吐和内存。
+- memmap loader：新增 `new_scripts/new_full_feature_memmap_loader.py`，Python 3.6 兼容的 memmap 索引数组，支持 Stage B 按 batch 切片访问。Stage B 新增 `--feature_cache_mode memmap` 参数，保持 NPZ 模式向后兼容。
+- CIFAR-10 seed42 2-epoch pilot：257s wall time，TFE/ABY3 correctness 通过，NoKD candidate 生成成功，49900/5 = 9980 samples/client。无 NaN/Inf、`silent_plaintext_fallback=false`。
+- 时间估算：CIFAR-10 全 20 epoch ~43 min，CIFAR-100 30 epoch ~60 min，Tiny 20 epoch（98000 样本）~100+ min。9 个串行估计 ~9-12 小时墙钟。
+- Tiny seed42 2-epoch pilot：在 10 min timeout 内未完成，证实 Tiny 吞吐为瓶颈但无内存爆炸（memmap 方式有效）。
+- 正式 TSV：`new_configs/new_incremental_comparison/new_tfe_full_feature_stage_b.tsv` 包含 9 条 NoKD Secure-Average 任务，全部使用 memmap 模式、`distill_epochs=0`、`lambda_kd=0`、`reference_supervised_weight=0`、checkpoint_interval=5。
+- 执行状态：pilot 完成、正式队列已编排但未激活。test 未加载。

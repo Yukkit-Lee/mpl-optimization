@@ -60,7 +60,27 @@ def one_hot(labels, num_classes):
     return values
 
 
-def load_feature_cache(path):
+def load_feature_cache(path, mode="npz"):
+    if mode == "memmap":
+        # Memmap mode: features stay in .npy files, accessed via indices
+        try:
+            from new_full_feature_memmap_loader import load_feature_cache_memmap
+        except ImportError:
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            scripts_dir = os.path.join(script_dir, "new_scripts")
+            if scripts_dir not in sys.path:
+                sys.path.insert(0, scripts_dir)
+            from new_full_feature_memmap_loader import load_feature_cache_memmap
+        result = load_feature_cache_memmap(path)
+        # Ensure compatible types
+        result["x_reference"] = result["x_reference"].astype(np.float32)
+        result["x_selection"] = result["x_selection"].astype(np.float32)
+        result["y_encoder_train"] = result["y_encoder_train"].astype(np.int64)
+        result["y_reference"] = result["y_reference"].astype(np.int64)
+        result["y_selection"] = result["y_selection"].astype(np.int64)
+        return result
+
+    # Default NPZ mode (backward compatible)
     with np.load(path, allow_pickle=False) as cache:
         required = [
             "x_encoder_train",
@@ -953,6 +973,12 @@ def parse_args():
         description="Stage B：TFE/ABY3 密态 logit-MSE KD 与候选初始化选择"
     )
     parser.add_argument("--feature_cache", required=True)
+    parser.add_argument(
+        "--feature_cache_mode",
+        choices=["npz", "memmap"],
+        default="npz",
+        help="npz=traditional full NPZ, memmap=indexed access from .npy via metadata NPZ",
+    )
     parser.add_argument("--dataset", choices=["cifar10", "cifar100", "tiny"], required=True)
     parser.add_argument("--output_dir", required=True)
     parser.add_argument("--checkpoint_prefix", required=True)
@@ -992,7 +1018,7 @@ def parse_args():
 def main():
     args = parse_args()
     set_seed(args.seed)
-    data = load_feature_cache(args.feature_cache)
+    data = load_feature_cache(args.feature_cache, mode=args.feature_cache_mode)
     args.feature_dim = int(data["feature_dim"])
     args.num_classes = int(
         max(
