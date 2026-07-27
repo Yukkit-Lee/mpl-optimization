@@ -940,3 +940,13 @@
 - Stage C 消融边界：已有 54-run data-independent Fixed/Adaptive 负结果继续保留，不删除、不覆盖。用户允许后续单独调整 Adaptive；任何调整必须在新 test-free tuning/pilot 路径完成、冻结新配置后另建正式消融，不能使用 End-to-End final test 反向调参，也不作为本轮 Full Data vs Ours 主图的前置阻塞。
 - 时间评估修正：正常 RTX 5090 + 25 vCPU 下现实总工期由 `2–4 天`下调为约 `1.5–3 天`；主要耗时仍是 9 个 Full-Data TFE/ABY3 Secure-Average initializer（约 `12–24 小时`墙钟）。9 个新增 Adaptive Stage-C 预计约 `0.25–1 小时`；若 Full-Data TFE 需要 streaming provider，风险区间仍约 `5–7 天`。
 - 文档同步：已更新 `plan/0727_new_cross_stage_incremental_full_feature_plan.md` 与 `for-claudecode/new_CLAUDECODE_HANDOFF.md` 的算法、任务数、复用、accountant、final-test、完成门和禁止事项。本轮未启动实验或读取 test。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-27 Asia/Shanghai
+- 本次对话任务目标：把当前AutoDL窗口的对话内容和旧内网服务器迁移过来的历史对话主线安全总结到`for-claudecode/`，让Claude Code既了解当前最新任务，也理解研究路线、迁移过程和历史指令覆盖关系。
+- 新增上下文文档：`new_CONVERSATION_CONTEXT_INDEX.md`记录阅读顺序、指令优先级和私有JSONL边界；`new_CURRENT_AUTODL_WINDOW_SUMMARY.md`总结环境恢复、代理/本地资产、正式Public-MTT完成情况、0727计划变化和最新Adaptive主线；`new_LEGACY_INTERNAL_SERVER_CONVERSATION_SUMMARY.md`总结旧服务器从MTT探索、Official MTT、Stage B/C、End-to-End、安全重构到AutoDL迁移的演变。
+- 隐私边界：现有`migration/CODEX_CONTEXT_HANDOFF.md`与`progressLog/project_progress.md`足以恢复历史，因此未读取私有`conversation_raw_PRIVATE.jsonl`；新增文档不包含令牌、密钥、认证信息或私有原文。
+- 覆盖关系固化：旧单线程策略被AutoDL最大合理性能要求覆盖；DP-MTT已废弃；Stage C从迁移时“未开始”更新为54/54完成；Fixed主图设想已被双方Adaptive取代；Ours Adaptive优先复用。
+- 执行状态：本轮仅新增/更新文档，未启动实验、pilot、队列或test读取。

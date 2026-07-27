@@ -34,19 +34,22 @@
 
 1. `plan/0727_new_cross_stage_incremental_full_feature_plan.md`
 2. 本文件
-3. `progressLog/project_progress.md`，重点看 2026-07-26 和 2026-07-27 的最后几段
-4. `migration/CODEX_CONTEXT_HANDOFF.md`
-5. `AUTODL_MIGRATION.md`
-6. `new_configs/new_public_mtt_mainline/new_mainline_config.json`
-7. `new_prepare_end_to_end_assets.py`
-8. `new_prepare_end_to_end_baseline_stage_b.py`
-9. `new_prepare_end_to_end_formal.py`
-10. `new_stage_b_secure_init.py`
-11. `new_stage_c_secure_dpsgd.py`
-12. `new_report_end_to_end_formal.py`
-13. `new_final_test_evaluation.py`
-14. `new_scripts/new_run_task_queue.sh`
-15. `new_scripts/new_single_gpu_supervisor.sh`
+3. `for-claudecode/new_CONVERSATION_CONTEXT_INDEX.md`
+4. `for-claudecode/new_CURRENT_AUTODL_WINDOW_SUMMARY.md`
+5. `for-claudecode/new_LEGACY_INTERNAL_SERVER_CONVERSATION_SUMMARY.md`
+6. `progressLog/project_progress.md`，重点看 2026-07-26 和 2026-07-27 的最后几段
+7. `migration/CODEX_CONTEXT_HANDOFF.md`
+8. `AUTODL_MIGRATION.md`
+9. `new_configs/new_public_mtt_mainline/new_mainline_config.json`
+10. `new_prepare_end_to_end_assets.py`
+11. `new_prepare_end_to_end_baseline_stage_b.py`
+12. `new_prepare_end_to_end_formal.py`
+13. `new_stage_b_secure_init.py`
+14. `new_stage_c_secure_dpsgd.py`
+15. `new_report_end_to_end_formal.py`
+16. `new_final_test_evaluation.py`
+17. `new_scripts/new_run_task_queue.sh`
+18. `new_scripts/new_single_gpu_supervisor.sh`
 
 不要一次性读取私有历史 JSONL。交接文档和项目日志足以回答当前任务。任何令牌、密钥、代理认证字段都不得写入日志、文档、命令输出或 Git。
 
