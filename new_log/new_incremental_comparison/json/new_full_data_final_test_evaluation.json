@@ -1,0 +1,112 @@
+{
+  "schema": "new_full_data_final_test_evaluation_v1",
+  "status": "COMPLETE",
+  "method": "full_data_secure_average_adaptive",
+  "test_usage": "read-only evaluation of frozen Stage C models",
+  "test_feedback_to_tuning_or_quality_gates": false,
+  "test_cache_reads": 9,
+  "models_evaluated": 9,
+  "results": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "method": "full_data_secure_average_adaptive",
+      "test_accuracy": 0.6862,
+      "test_examples": 10000,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar10/seed42/new_secure_stage_c_model_cifar10_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "method": "full_data_secure_average_adaptive",
+      "test_accuracy": 0.6872,
+      "test_examples": 10000,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar10/seed43/new_secure_stage_c_model_cifar10_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "method": "full_data_secure_average_adaptive",
+      "test_accuracy": 0.6808,
+      "test_examples": 10000,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar10/seed44/new_secure_stage_c_model_cifar10_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "method": "full_data_secure_average_adaptive",
+      "test_accuracy": 0.3995,
+      "test_examples": 10000,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar100/seed42/new_secure_stage_c_model_cifar100_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "method": "full_data_secure_average_adaptive",
+      "test_accuracy": 0.3992,
+      "test_examples": 10000,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar100/seed43/new_secure_stage_c_model_cifar100_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "method": "full_data_secure_average_adaptive",
+      "test_accuracy": 0.3944,
+      "test_examples": 10000,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar100/seed44/new_secure_stage_c_model_cifar100_adaptive_dp_seed44.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "method": "full_data_secure_average_adaptive",
+      "test_accuracy": 0.2571,
+      "test_examples": 10000,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/tiny/seed42/new_secure_stage_c_model_tiny_adaptive_dp_seed42.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "method": "full_data_secure_average_adaptive",
+      "test_accuracy": 0.2516,
+      "test_examples": 10000,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/tiny/seed43/new_secure_stage_c_model_tiny_adaptive_dp_seed43.npz"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "method": "full_data_secure_average_adaptive",
+      "test_accuracy": 0.2481,
+      "test_examples": 10000,
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/tiny/seed44/new_secure_stage_c_model_tiny_adaptive_dp_seed44.npz"
+    }
+  ],
+  "summary": {
+    "cifar10": {
+      "mean": 0.6847333333333334,
+      "std": 0.0034428670223134693,
+      "per_seed": {
+        "42": 0.6862,
+        "43": 0.6872,
+        "44": 0.6808
+      }
+    },
+    "cifar100": {
+      "mean": 0.39769999999999994,
+      "std": 0.002861817604250859,
+      "per_seed": {
+        "42": 0.3995,
+        "43": 0.3992,
+        "44": 0.3944
+      }
+    },
+    "tiny": {
+      "mean": 0.25226666666666664,
+      "std": 0.004536885862938737,
+      "per_seed": {
+        "42": 0.2571,
+        "43": 0.2516,
+        "44": 0.2481
+      }
+    }
+  }
+}

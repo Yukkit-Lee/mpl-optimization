@@ -1,0 +1,10 @@
+dataset,seed,method,test_accuracy,test_examples
+cifar10,42,full_data_secure_average_adaptive,0.686200,10000
+cifar10,43,full_data_secure_average_adaptive,0.687200,10000
+cifar10,44,full_data_secure_average_adaptive,0.680800,10000
+cifar100,42,full_data_secure_average_adaptive,0.399500,10000
+cifar100,43,full_data_secure_average_adaptive,0.399200,10000
+cifar100,44,full_data_secure_average_adaptive,0.394400,10000
+tiny,42,full_data_secure_average_adaptive,0.257100,10000
+tiny,43,full_data_secure_average_adaptive,0.251600,10000
+tiny,44,full_data_secure_average_adaptive,0.248100,10000

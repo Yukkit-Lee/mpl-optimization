@@ -1,0 +1,109 @@
+{
+  "schema": "incremental_comparison_final_v1",
+  "status": "COMPLETE",
+  "methods": {
+    "full_data_secure_average_adaptive": "Full Data Feature Model",
+    "ours_official_secure_consensus_adaptive": "Ours"
+  },
+  "rows": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "full_data_max_ref_acc": 0.64,
+      "ours_max_ref_acc": 0.48,
+      "full_data_runtime_s": 40.801947355270386,
+      "ours_runtime_s": 28.47086524963379,
+      "full_data_epsilon": 2.967187502685934,
+      "ours_epsilon": 2.999999999999999,
+      "ours_test_accuracy": 0.6156
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "full_data_max_ref_acc": 0.76,
+      "ours_max_ref_acc": 0.66,
+      "full_data_runtime_s": 40.66206169128418,
+      "ours_runtime_s": 28.32482886314392,
+      "full_data_epsilon": 2.967187502685934,
+      "ours_epsilon": 2.999999999999999,
+      "ours_test_accuracy": 0.6088
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "full_data_max_ref_acc": 0.66,
+      "ours_max_ref_acc": 0.68,
+      "full_data_runtime_s": 40.668692111968994,
+      "ours_runtime_s": 27.88106656074524,
+      "full_data_epsilon": 2.967187502685934,
+      "ours_epsilon": 2.999999999999999,
+      "ours_test_accuracy": 0.6068
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "full_data_max_ref_acc": 0.432,
+      "ours_max_ref_acc": 0.388,
+      "full_data_runtime_s": 56.13724088668823,
+      "ours_runtime_s": 39.92703914642334,
+      "full_data_epsilon": 2.899218760184191,
+      "ours_epsilon": 2.9999999999999836,
+      "ours_test_accuracy": 0.3432
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "full_data_max_ref_acc": 0.404,
+      "ours_max_ref_acc": 0.358,
+      "full_data_runtime_s": 56.344295024871826,
+      "ours_runtime_s": 41.37523937225342,
+      "full_data_epsilon": 2.899218760184191,
+      "ours_epsilon": 2.9999999999999836,
+      "ours_test_accuracy": 0.3306
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "full_data_max_ref_acc": 0.418,
+      "ours_max_ref_acc": 0.388,
+      "full_data_runtime_s": 56.129753828048706,
+      "ours_runtime_s": 40.46507954597473,
+      "full_data_epsilon": 2.899218760184191,
+      "ours_epsilon": 2.9999999999999836,
+      "ours_test_accuracy": 0.3339
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "full_data_max_ref_acc": 0.268,
+      "ours_max_ref_acc": 0.143,
+      "full_data_runtime_s": 71.59672594070435,
+      "ours_runtime_s": 62.098000288009644,
+      "full_data_epsilon": 2.8281250041027026,
+      "ours_epsilon": 3.0,
+      "ours_test_accuracy": 0.1291
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "full_data_max_ref_acc": 0.265,
+      "ours_max_ref_acc": 0.147,
+      "full_data_runtime_s": 73.46789860725403,
+      "ours_runtime_s": 60.68398833274841,
+      "full_data_epsilon": 2.8281250041027026,
+      "ours_epsilon": 3.0,
+      "ours_test_accuracy": 0.125
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "full_data_max_ref_acc": 0.274,
+      "ours_max_ref_acc": 0.154,
+      "full_data_runtime_s": 73.61616492271423,
+      "ours_runtime_s": 61.849186182022095,
+      "full_data_epsilon": 2.8281250041027026,
+      "ours_epsilon": 3.0,
+      "ours_test_accuracy": 0.1371
+    }
+  ]
+}

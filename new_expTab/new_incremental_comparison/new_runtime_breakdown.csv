@@ -1,0 +1,16 @@
+dataset,method,stage,total_mean_s,total_std_s
+cifar10,full_data,sb,660.1,5.2
+cifar10,full_data,sc,40.7,0.1
+cifar10,full_data,total,700.8,5.2
+cifar10,ours,sc,28.2,0.3
+cifar10,ours,total,28.2,0.3
+cifar100,full_data,sb,1242.3,9.6
+cifar100,full_data,sc,56.2,0.1
+cifar100,full_data,total,1298.5,9.7
+cifar100,ours,sc,40.6,0.7
+cifar100,ours,total,40.6,0.7
+tiny,full_data,sb,2640.6,71.6
+tiny,full_data,sc,72.9,1.1
+tiny,full_data,total,2713.5,72.7
+tiny,ours,sc,61.5,0.8
+tiny,ours,total,61.5,0.8
