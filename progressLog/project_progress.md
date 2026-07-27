@@ -919,3 +919,13 @@
 - 资源预算：完整特征缓存已占约 `4.9 GiB` 且无需复制；新增任务预计约 `150–350 vCPU-hours`、额外 checkpoint/history/report 约 `5–15 GiB`。TFE/ABY3 secure training 是 CPU 路线，若缓存验证通过则新增 GPU 计算接近 0；只有缓存不兼容而被迫重新抽取时才预计增加约 `2–6 GPU-hours`。当前约 `108 GiB` 可用磁盘足够，但正式运行前仍需设置 checkpoint 保留和中断恢复策略。
 - 当前启动阻塞：再次检查仍为 `nvidia-smi: No devices found`、cgroup `cpu.max=50000 100000`、`nproc=1`，即约 `0.5 CPU core` 配额，与计划声明的 RTX 5090/25 vCPU 不符。当前配额下 Full-Data TFE 队列可能延长至数天且无法满足同硬件计时要求，因此本轮不启动实验；恢复正确实例配额后才开始 tmux pilot/formal queue。
 - 执行状态：本轮仅完整阅读新计划、检查现有缓存/报告/硬件并更新评估；未重跑任何已完成实验，未启动新 smoke、pilot 或 formal job。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-27 Asia/Shanghai
+- 本次对话任务目标：用通俗语言解释 0727 增量计划中的后续实验、耗时和必要性，并为即将接手的 Claude Code 在项目内创建高细节交接文档，防止额度切换后出现重跑、数据泄漏、公平性、隐私会计或输出覆盖问题。
+- Claude Code 交接：新增 `for-claudecode/new_CLAUDECODE_HANDOFF.md`，记录必读顺序、当前无 GPU/约 0.5 CPU core 硬阻塞、已有成果与 9 份 full-feature 资产、推荐隔离路径、分阶段执行路线、tmux/恢复队列、测试门、Git规则、时间/资源预算和完成清单。
+- 关键实验防错边界：Full Data 训练必须排除 shared reference/selection；旧 End-to-End prepare 硬编码 compact 样本数，不能用于 Full Data accountant；旧 Ours 为 Adaptive 而新主图要求双方 Fixed；旧 final-test evaluator 会覆盖既有结果，必须新建 incremental evaluator；双方按真实 `N/steps/sample_rate` 校准到相同 epsilon/delta。
+- 公平计时建议：分别报告 Stage-C secure time 与包含 Stage-B initialization 的 end-to-end secure time。若 Full Data 在 AutoDL 新跑而 Ours Stage-B 只使用旧服务器 runtime，则后者不能作为严格同硬件 speedup；需要最小化同机计时重跑或明确降级为跨机器参考。
+- 执行状态：本轮仅做代码/资产只读审计并新增交接与进度文档；未启动任何实验、pilot、队列或 test 读取。
