@@ -974,3 +974,15 @@
 - Ours Adaptive 兼容性审计：读取 `new_end_to_end_formal_report.json`，9/9 Ours Adaptive 全部通过：accounted_epsilon 与 target=3.0 误差 <1e-4、released_model_record_dp_valid=false、test_loaded=false、initializer_privacy_status=data_dependent_non_dp。全部与 Full Data 新协议兼容，确认 **不需要补跑任何 Ours Stage-C**。
 - 目录结构：新增 8 个 `new_incremental_comparison` 子目录（log/expFig/expTab/cache/checkpoint/init_model/output/configs）。
 - 执行状态：本轮仅做配置冻结、审计和文档更新，未启动 pilot、formal 队列或 test 读取。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-27 22:45 Asia/Shanghai
+- 本次对话任务目标：Phase 2 Full Data test-free 资产准备，按交接文档要求重建 shared reference/selection 并验证一致性。
+- 资产准备脚本：新增 `new_prepare_incremental_full_feature_assets.py`，读取 9 份 full feature .npy 文件，从 `new_stage_b_npz_round2` 获取 per-class 计数模板（每类 40 train + 5 ref + 5 sel），使用与 `new_prepare_end_to_end_assets.py` 相同的 `RandomState(seed + class_id*1009 + 88001)` 确定性置换重建 shared reference/selection，再将所有非 holdout 样本归入 train。
+- 验证结果：9/9（3 datasets × 3 seeds）reference/selection 特征和标签均与旧 `new_end_to_end_features/random_subset/` 缓存 `np.allclose`/`np.array_equal` 完全一致。生产资产：
+  - metadata NPZ（仅索引+标签+小型 holdout 数组）：9 个文件共 68 MiB，不复制完整 4.6 GiB 特征
+  - training sizes: CIFAR-10=49900, CIFAR-100=49000, Tiny=98000 per seed
+  - manifest: `new_log/new_incremental_comparison/json/new_incremental_full_feature_asset_manifest.json`
+- 执行状态：本轮仅做资产准备和验证，未启动 pilot、formal 队列或 test 读取。
