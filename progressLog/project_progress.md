@@ -998,3 +998,18 @@
 - Tiny seed42 2-epoch pilot：在 10 min timeout 内未完成，证实 Tiny 吞吐为瓶颈但无内存爆炸（memmap 方式有效）。
 - 正式 TSV：`new_configs/new_incremental_comparison/new_tfe_full_feature_stage_b.tsv` 包含 9 条 NoKD Secure-Average 任务，全部使用 memmap 模式、`distill_epochs=0`、`lambda_kd=0`、`reference_supervised_weight=0`、checkpoint_interval=5。
 - 执行状态：pilot 完成、正式队列已编排但未激活。test 未加载。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-28 00:15 Asia/Shanghai
+- 本次对话任务目标：从 AutoDL 关机恢复后继续 Phase 4 Stage B 正式队列，并做好断点恢复措施。
+- Phase 4 Stage B 进度：CIFAR-10 **3/3 全部完成**（seeds 42/43/44，runtime 各约 663-670s）。CIFAR-100 seed42 运行至 epoch 4/30 时因服务器迁移中断（当前无 checkpoint，需重跑）。CIFAR-100 seed43/44 和 Tiny × 3 尚未开始。**共完成 3/9**。
+- 断点恢复机制：队列脚本 `new_run_incremental_stage_b_queue.sh` 支持双重 COMPLETE 检查（status.json + output report），重启自动跳过已完成任务。Phase 5-8 自动串联脚本 `new_run_incremental_phase5_to_8.sh` 每个 Phase 独立检查完成。
+- 已完成资产：3 个 Stage B NoKD candidate initializer NPZ（`new_output/new_incremental_comparison/stage_b/cifar10/seed{42,43,44}/`），3 份正式 report JSON。
+- 迁移准备：队列已停止、tmux 已清理、所有代码和日志已提交推送。新服务器上只需：
+  1. 验证硬件/环境/custom ops/full feature 资产（复用 Phase 0 审计脚本）
+  2. 运行 `bash new_scripts/new_run_incremental_stage_b_queue.sh` 从断点继续
+  3. Phase 4 完成后运行 `bash new_scripts/new_run_incremental_phase5_to_8.sh`
+- Git 状态：所有变更已提交并推送至 `new-secure-feature-pipeline`（HEAD=`3f00542` 及之后）。
+- 执行状态：Phase 4 部分完成，服务器主动关机迁移。

@@ -1,0 +1,12 @@
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar100 split=iid clients=5 feature_dim=2048 classes=100
+local_epochs=30 distill_epochs=0 batch_size=32 cpu_policy=runtime_unrestricted num_workers=N/A
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_b/cifar100/seed42
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageB-local] epoch=1/30
+[StageB-local] epoch=4/30

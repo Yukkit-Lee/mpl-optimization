@@ -1,0 +1,22 @@
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar10 split=iid clients=5 feature_dim=2048 classes=10
+local_epochs=20 distill_epochs=0 batch_size=32 cpu_policy=runtime_unrestricted num_workers=N/A
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_b/cifar10/seed43
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageB-local] epoch=1/20
+[StageB-local] epoch=3/20
+[StageB-local] epoch=5/20
+[StageB-local] epoch=7/20
+[StageB-local] epoch=9/20
+[StageB-local] epoch=12/20
+[StageB-local] epoch=14/20
+[StageB-local] epoch=16/20
+[StageB-local] epoch=18/20
+[StageB-local] epoch=20/20
+selected_model=/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_b/cifar10/seed43/new_secure_stage_b_selected_cifar10_iid_seed43.npz
+report=/root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_b/cifar10/seed43/new_secure_stage_b_report_cifar10_iid_seed43.json
