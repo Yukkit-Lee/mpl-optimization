@@ -1083,3 +1083,4 @@
 - Full Tiny 宽网格在完成 batch16（development 0.2711，优于 batch32 的 0.2641）后主动终止，避免继续执行已显示病态慢且更差的 batch64 及重复大网格。新增 `new_tune_full_tiny_narrow.py`，只在胜出 batch16/40 epochs 上复核 LR 0.05/0.1/0.2；CIFAR-10/100 已完成的 0.7266/0.4308 由完整日志恢复到统一 JSON，不重跑。
 - True Ours Tiny rescue 已从暂停点原地恢复；首个 40-epoch 结果 0.3086（日志 wall time 含暂停，不用于正式计时），后续继续 60/80 epoch 等 development-only 单因素诊断。
 - Tiny epoch rescue 完成：40/60/80 epochs 的 development accuracy 为 0.3086/0.3092/0.3114，保留 80 epochs。80-epoch 之后脚本将重复 batch8 及已在 40 epochs 充分筛选过的 LR/weight-decay/sync 网格，因此主动停止并由 `new_recover_tiny_rescue_manifest.py` 从三条完整日志恢复 incumbent；没有重跑已完成候选。
+- secure finalist runner 已改为优先读取 Phase-4 rescue incumbent（若不存在才回退 FedAvg screen），防止 TFE 误跑较旧的 40-epoch 配置。当前尚未启动 TFE finalist；先让 Full Tiny LR 窄搜独占 CPU 完成。

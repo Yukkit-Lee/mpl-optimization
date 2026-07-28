@@ -185,6 +185,16 @@ def main():
         (row["dataset"], int(row["seed"])): row["best_config"]
         for row in payload["results"]
     }
+    rescue_path = (
+        ROOT
+        / "new_log/new_true_ours/new_true_ours_stage_b_rescue_screen.json"
+    )
+    if rescue_path.is_file():
+        rescue = json.loads(rescue_path.read_text(encoding="utf-8"))
+        for row in rescue.get("results", []):
+            configs[(row["dataset"], int(row["seed"]))] = row[
+                "best_config"
+            ]
     for dataset in args.datasets:
         run_one(dataset, args.seed, configs[(dataset, args.seed)])
 
