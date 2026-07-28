@@ -496,6 +496,10 @@ def run_secure_stage_c(data, init_weight, init_bias, args):
             )
             row["reference_loss"] = float(np.asarray(ref_loss).reshape(-1)[0])
             row["reference_accuracy"] = ref_acc
+            row["evaluation_split"] = args.evaluation_split
+            if args.evaluation_split == "development_validation":
+                row["development_validation_loss"] = row["reference_loss"]
+                row["development_validation_accuracy"] = ref_acc
             print(
                 "[StageC] step={}/{} ref_acc={:.4f} C_t={:.5f} noisy_b={}".format(
                     step + 1,
@@ -589,6 +593,12 @@ def parse_args():
         choices=["legacy_unspecified", "official_mtt_only", "full_data_disjoint"],
         default="legacy_unspecified",
     )
+    parser.add_argument(
+        "--evaluation_split",
+        choices=["reference_internal", "development_validation"],
+        default="reference_internal",
+        help="Semantic identity of x_reference/y_reference in the feature cache.",
+    )
     return parser.parse_args()
 
 
@@ -611,6 +621,10 @@ def validate_input_lineage(args):
     }
     if args.input_lineage == "legacy_unspecified":
         return lineage
+    if args.evaluation_split != "development_validation":
+        raise ValueError(
+            "Formal rebuild Stage C must evaluate development_validation"
+        )
     if forbidden in initializer_path:
         raise ValueError("Forbidden legacy Full-Data initializer dependency")
     for value in (output_path, checkpoint_path):
@@ -728,6 +742,14 @@ def main():
         "num_classes": args.num_classes,
         "configuration": vars(args),
         "initializer_lineage": input_lineage,
+        "evaluation": {
+            "split": args.evaluation_split,
+            "used_for_tuning": (
+                args.evaluation_split == "development_validation"
+            ),
+            "locked_holdout_read": False,
+            "official_test_read": False,
+        },
         "privacy": {
             "accountant": "Opacus RDPAccountant",
             "accounted_gradient_mechanism_epsilon": epsilon,
@@ -775,7 +797,9 @@ def main():
                     if args.mode == "adaptive_dp"
                     else "fixed_public_clipping_bound"
                 ),
-                "aggregate_reference_logits_at_log_intervals",
+                "aggregate_{}_logits_at_log_intervals".format(
+                    args.evaluation_split
+                ),
                 (
                     "final_dp_model"
                     if final_model_dp_valid
@@ -792,7 +816,7 @@ def main():
         "model_path": model_path,
         "model_sha256": sha256_file(model_path),
         "limitations": [
-            "Reference logits are revealed only for correctness/tuning diagnostics and must be disabled or reduced in the frozen formal release.",
+            "Evaluation logits are revealed only on the declared disjoint evaluation split for checkpoint diagnostics.",
             "TFE local mode is a single-machine process simulation; LAN/WAN communication is not measured.",
         ],
     }
