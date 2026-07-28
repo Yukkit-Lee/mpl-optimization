@@ -1148,3 +1148,16 @@
 - Adaptive真实TFE/ABY3 finalists 6/6完成：CIFAR-10 Full/True final dev=`0.7274/0.6876`、epsilon均约3、final C=`0.9825/0.9387`、secure runtime=`87.85/86.60s`；CIFAR-100为`0.4300/0.4806`、C=`1.8017/1.7985`、runtime=`51.19/51.92s`；Tiny为`0.2733/0.3135`、C=`1.3983/1.1784`、runtime=`222.61/215.03s`。六条均TFE/ABY3、Poisson os-CSPRNG、capacity64/expected16、epsilon≤3.000001、finite且不撞C边界、无plaintext fallback、conditional-DP声明正确、locked/test未读；runner全部硬门通过。下一步生成并先推送formal config/target/manifest freeze，之后才启动三seeds正式队列。
 - Figure-2在线时间轴正式性修复：Stage-B average-only新增显式`--development_checkpoint_evaluation`，仅在每5 epochs用安全聚合头计算并揭示development logits，绝不参与梯度；history记录accuracy、同口径cumulative online secure seconds及locked/test=false，security report披露该reveal。Stage-B/C checkpoint state现累计跨重启的在线安全时间，覆盖图/Session初始化、恢复、训练、checkpoint评估与最终物化；真实TFE/ABY3 2-client小测试及Stage-C masked-Poisson测试均通过，默认开关关闭故不改写历史结果。
 - formal freeze完成待提交：生成`new_true_ours_config_freeze.json`、`new_true_ours_target_freeze.json`和manifest，固定Full/True双方Stage-B/Adaptive Stage-C精确配置、seeds42/43/44、代码SHA、split SHA、epsilon/delta、checkpoint日程、conditional-DP口径和完全一致的Stage-B-start→Stage-C-model timing boundary。T@80/90/95按调优Full development plateau冻结：C10 `0.58128/0.65394/0.69027`，C100 `0.34464/0.38772/0.40926`，Tiny `0.22120/0.24885/0.262675`。正式runner 18任务preflight全部通过，locked/test仍未读；必须先完成本freeze commit/push才能启动tmux长队列。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-28 19:20 Asia/Shanghai
+- 用户因 Codex 额度即将耗尽，明确要求停止当前任务并完成交接；`tmux true_ours_formal_three_seed` 已用 `Ctrl-C` 停止，tmux server 已退出，`ps` 确认没有 formal runner、Stage B 或 Stage C 残留进程。
+- 冻结协议已在提交 `6973d2528af611c98b60176538e9f6139f7477ab`（`Freeze True Ours formal protocol`）推送，停止前本地 HEAD 与远端 `new-true-ours-pea-figure2` 一致。冻结后的正式队列共 18 个 end-to-end 任务。
+- 正式完成进度为 **1/18**：CIFAR-10 / True Ours / seed42 的 Stage B、Adaptive Stage C、验证器和 timeline 全部 COMPLETE。Stage-C final development accuracy=`0.6886`，conditional epsilon=`2.999999999999981`，final C=`0.915557861328125`；Stage-B/Stage-C online secure time=`104.5024/101.3670s`，总计=`205.8694s`。Official-MTT-only、TFE/ABY3、Poisson+os-CSPRNG、无 plaintext fallback、conditional-DP scope 和 development-only 门全部通过。
+- 中断点为 CIFAR-10 / True Ours / seed43 / Stage B。日志已打印到 epoch10，但中断发生在 epoch10 checkpoint 写入过程中；最后一个完整 state 明确为 `local_epochs_completed=5/40`、teacher=false、distill=0，因此恢复必须从 5/40 继续，不得手改为10。state/index/data SHA256 已记录在 `for-claudecode/new_0728_TRUE_OURS_LIVE_HANDOFF.md`。
+- `new_true_ours_formal_queue_status.json` 停止时仍为 `RUNNING, completed=1`，这是人工中断前的持久快照，不代表当前有活跃任务。恢复时 runner 会先复核并跳过 seed42 COMPLETE 产物，再从 seed43 的 checkpoint 恢复；严禁启动第二个并行 runner或清理 `new_checkpoints/`。
+- locked holdout 与本轮 official test 仍保持未读。18/18 之后的一次性 locked/test evaluator、三seed统计、T@80/90/95、Figure 2、主结果表、claim audit 和最终论文报告均尚未执行；本次停止前尚未实现本轮专用 freeze-after evaluator，旧 Public-MTT evaluator 不得直接复用。
+- 剩余时间根据同一 TFE Full-Data 历史实测估计约 14--17 小时，保守上限20小时；主要瓶颈为 Full-Data Stage B。停止时磁盘约95 GiB可用、RAM约291 GiB可用。
+- 实时交接已在 `for-claudecode/new_0728_TRUE_OURS_LIVE_HANDOFF.md` 首屏置顶，包含精确停止点、产物路径、SHA、恢复前检查、唯一推荐 tmux 恢复命令、剩余阶段与禁止事项。

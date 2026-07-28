@@ -1,5 +1,217 @@
 # 0728 True Ours / PEA Figure 2 实时接力文档
 
+## 置顶：2026-07-28 19:20 Asia/Shanghai 人工停止快照
+
+> 用户因 Codex 额度即将耗尽，明确要求停止当前任务并完成交接。
+>
+> **当前没有 tmux 会话，也没有 Stage B/Stage C/正式 runner 进程。**
+>
+> 本节优先级高于本文后面 18:08 的旧实时快照。
+
+### A. 当前 Git 与冻结状态
+
+```text
+branch: new-true-ours-pea-figure2
+freeze-containing HEAD before this handoff commit:
+  6973d2528af611c98b60176538e9f6139f7477ab
+remote before this handoff commit:
+  6973d2528af611c98b60176538e9f6139f7477ab
+freeze commit subject:
+  Freeze True Ours formal protocol
+```
+
+正式配置、target、代码 SHA、split SHA、seeds 42/43/44 和公平计时边界已经冻结并
+先于正式实验推送。不得修改冻结配置后继续把结果称为同一批 formal；如确需修改，
+必须另开协议版本并重新 freeze。
+
+### B. 正式 18-task 队列的精确停止点
+
+正式任务顺序为：
+
+```text
+dataset: cifar10 -> cifar100 -> tiny
+method within dataset: true_ours -> full_data
+seed within method: 42 -> 43 -> 44
+total: 18 end-to-end tasks, each task = Stage B + Adaptive Stage C
+```
+
+当前状态：
+
+```text
+completed and fully validated: 1/18
+completed task: cifar10 / true_ours / seed42
+interrupted task: cifar10 / true_ours / seed43 / Stage B
+safe checkpoint: local_epochs_completed = 5/40
+teacher_initialized = false
+distill_epochs_completed = 0
+locked holdout read = false
+official test read = false
+```
+
+注意：seed43 日志已经打印到 epoch 10，但 `Ctrl-C` 正发生在 epoch 10 的
+TensorFlow checkpoint 保存过程中。状态 JSON 仍为 `local_epochs_completed=5`，
+因此 **5/40 才是最后一个完整可恢复点**。恢复后重算 epoch 6--10 是正确行为，
+不得手工把 state 改成 10。
+
+断点路径：
+
+```text
+new_checkpoints/new_true_ours/stage_b/true_ours_formal/cifar10/seed43/
+  checkpoint
+  new_stage_b.data-00000-of-00001
+  new_stage_b.index
+  new_stage_b.meta
+  new_stage_b_new_state.json
+```
+
+停止时 state SHA256：
+
+```text
+new_stage_b_new_state.json
+  3e1729575c982e95159fe48ad6c94d0750be7d63d5895993fa4600ddc57161fb
+new_stage_b.index
+  08b2d1697d9428de5c1f927de1e66b82abfbacfe88a8a564ca775ebd3e081b81
+new_stage_b.data-00000-of-00001
+  1f63da19bae6e03363cc15b2b02dec33537b463f6d345052b7d93b3af03571a7
+```
+
+队列状态文件：
+
+```text
+new_log/new_true_ours/new_true_ours_formal_queue_status.json
+```
+
+它仍显示 `status=RUNNING, completed=1`，因为用户要求在第 2 项中途停止，runner
+来不及写一个 STOPPED 状态。它是**停止时快照，不代表当前存在运行进程**。恢复
+前必须同时检查 `tmux ls` 和 `ps`；当前两者均确认没有残留实验。
+
+### C. 已完成的第 1/18 正式结果
+
+```text
+dataset/method/seed: cifar10 / true_ours / 42
+Stage B development accuracy at final checkpoint: 0.6880
+Stage C final development accuracy: 0.6886
+conditional Stage-C epsilon: 2.999999999999981
+final adaptive C: 0.915557861328125
+Stage B online secure seconds: 104.50239992141724
+Stage C online secure seconds: 101.36699604988098
+total online secure seconds: 205.86939597129822
+```
+
+硬门全部通过：
+
+```text
+Official-MTT-only lineage
+Full-Data initializer dependency = false
+TFE/ABY3 and no plaintext fallback
+Poisson sampling + os-CSPRNG
+epsilon <= 3.000001
+conditional-DP claim only; no end-to-end record-DP claim
+finite non-boundary adaptive C
+development-only evaluation
+locked holdout/test unread
+```
+
+权威产物：
+
+```text
+new_output/new_true_ours/stage_b/true_ours_formal/cifar10/seed42/
+new_output/new_true_ours/stage_c/true_ours_formal/cifar10/seed42/
+new_log/new_true_ours/formal_timelines/cifar10/true_ours/
+```
+
+不要删除、覆盖或重跑该任务。正式 runner 会检测 COMPLETE report，复核后跳过
+训练并把该行重新写回队列状态。
+
+### D. 唯一推荐恢复命令
+
+先检查分支、freeze SHA、硬件、磁盘和无残留进程，再运行 preflight：
+
+```bash
+cd /root/autodl-tmp/tfe_experiments
+git status --short --branch
+git rev-parse HEAD
+tmux ls
+ps -eo pid,ppid,etime,pcpu,pmem,args \
+  | rg 'new_run_true_ours_formal_three_seed|new_stage_[bc]_secure'
+/root/miniconda3/bin/python \
+  new_scripts/new_true_ours/new_run_true_ours_formal_three_seed.py \
+  --preflight_only
+```
+
+确认无异常后，用追加日志方式恢复：
+
+```bash
+tmux new-session -d -s true_ours_formal_three_seed \
+  "env OMP_NUM_THREADS=32 OPENBLAS_NUM_THREADS=32 MKL_NUM_THREADS=32 \
+  NUMEXPR_NUM_THREADS=32 /root/miniconda3/bin/python \
+  new_scripts/new_true_ours/new_run_true_ours_formal_three_seed.py \
+  >> new_log/new_true_ours/txt/new_true_ours_formal_three_seed_runner.log \
+  2>&1"
+```
+
+恢复逻辑会：
+
+1. 复核并跳过已完成的 CIFAR-10 True Ours seed42；
+2. 从 seed43 Stage-B 完整 checkpoint 5/40 恢复；
+3. 后续逐项运行，失败即停；
+4. 每个完整 B+C 任务后更新 queue status 与 timeline。
+
+不要并行启动第二个 formal runner，也不要单独启动 seed43 命令；否则可能争用同一
+checkpoint/output。
+
+### E. 剩余耗时和额度/断联预案
+
+基于同一 TFE 实现的历史 Full-Data 实测，当前冻结配置的剩余墙钟估计为
+**14--17 小时**，机器抖动时保守按 20 小时。Full-Data Stage B 是瓶颈，单 seed
+粗估：
+
+```text
+CIFAR-10:  ~44 min
+CIFAR-100: ~55 min
+Tiny:      ~176 min
+```
+
+tmux、每 5 epochs/steps checkpoint、COMPLETE gate 和独立输出命名空间已经构成
+断联预案。`new_checkpoints/` 是本地恢复资产，未纳入 Git，**绝对不能执行
+git clean、删除工作树或清理该目录**。
+
+停止时资源：
+
+```text
+disk available: ~95 GiB
+RAM available: ~291 GiB
+container intended CPU parallelism: 32
+```
+
+### F. 18/18 之后仍未完成的工作
+
+当前仅完成 Phase 8 的 1/18，以下均尚未执行：
+
+1. 18/18 正式队列完成与统一验证；
+2. freeze 后 locked holdout 一次性只读评估；
+3. official test 一次性补充评估；
+4. 三 seeds mean ± sample std 与 retention；
+5. T@80/90/95（未达到必须写 `Not Reached`）；
+6. PEA 风格 Figure 2 的 PNG/PDF/SVG；
+7. 主结果 CSV/JSON、论文表格、claim audit 与最终 readiness report；
+8. 最终 Git 审计和推送。
+
+本次停止前**尚未实现新的 freeze 后自动收尾器**。旧
+`new_final_test_evaluation.py` 属于旧 Public-MTT 主线，不能直接拿来评价本轮
+True Ours formal。接手者必须先实现并审查本轮专用 evaluator，且设置硬门：
+
+```text
+queue status == COMPLETE
+completed == total == 18
+all 18 Stage-B/Stage-C reports and model SHA pass
+freeze/code/split SHA pass
+```
+
+只有全部门通过后才允许读取 locked holdout/test。禁止在当前 1/18 状态下打开
+holdout 特征、计算 holdout accuracy 或加载 official-test tensor；也禁止根据
+freeze 后结果返回调参。
+
 > 快照时间：2026-07-28 18:08 Asia/Shanghai
 > 项目：`/root/autodl-tmp/tfe_experiments`  
 > 分支：`new-true-ours-pea-figure2`  
