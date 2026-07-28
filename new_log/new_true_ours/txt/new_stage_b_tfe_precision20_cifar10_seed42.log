@@ -1,0 +1,22 @@
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar10 split=balanced clients=5 feature_dim=2048 classes=10
+local_epochs=40 distill_epochs=0 batch_size=8 cpu_policy=runtime_unrestricted num_workers=N/A
+backend=tfe_mpc protocol=ABY3 precision_fractional=20 output=new_output/new_true_ours/stage_b/true_ours_precision20/cifar10/seed42
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageB-local] epoch=1/40
+[StageB-local] epoch=5/40
+[StageB-local] epoch=10/40
+[StageB-local] epoch=14/40
+[StageB-local] epoch=18/40
+[StageB-local] epoch=23/40
+[StageB-local] epoch=27/40
+[StageB-local] epoch=31/40
+[StageB-local] epoch=36/40
+[StageB-local] epoch=40/40
+selected_model=new_output/new_true_ours/stage_b/true_ours_precision20/cifar10/seed42/new_secure_stage_b_selected_cifar10_balanced_seed42.npz
+report=new_output/new_true_ours/stage_b/true_ours_precision20/cifar10/seed42/new_secure_stage_b_report_cifar10_balanced_seed42.json

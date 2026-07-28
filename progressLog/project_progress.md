@@ -1088,3 +1088,13 @@
 - True Ours rescue 相对调优 Full：CIFAR-10 0.6952（落后 3.14pp，未过 gate）；CIFAR-100 0.4804（高 4.96pp，通过）；Tiny 0.3114（高 3.49pp，通过）。因此不能宣称三个数据集全部达到 Stage-B `Full - 1pp`，CIFAR-10 将作为明确残余缺口；下一步用 TFE secure finalist 检查明文筛选结果能否在真实安全后端复现。
 - CIFAR-10 seed42 TFE/ABY3 secure finalist 完成：report runtime 458.55s、其中安全训练 77.44s；NoKD candidate lineage=`official_mtt_only`、Full dependency=0、development accuracy=0.6876。相对同配置明文 0.6952 低 0.76pp，因此暂不扩到其他数据集；先复用已完成 checkpoint 做显式 TFE-vs-plaintext correctness，定位固定点累计误差。
 - CIFAR-10 40-epoch correctness checkpoint 复核通过：TFE-vs-NumPy max abs error 为 NoKD avg weight 3.21e-4、bias 4.48e-5，五个本地头均约 2.97e-4；未发现聚合权重、sync 或序列化的结构性错误。0.76pp accuracy 差距判定为固定点累计误差/边界敏感，下一步仅改变 precision fractional 16→20 做单因素 TFE 复核。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-28（UTC）
+- 断联恢复审计：VS Code/服务器连接中断后，原 `tmux true_ours_tfe_c10_p20` 会话已不存在，但日志确认 precision fractional=20 的 CIFAR-10 TFE/ABY3 单因素复核已完整运行到 40/40，并成功生成 checkpoint、正式候选和 COMPLETE report；没有重跑已完成任务。
+- precision=20 结果：TFE report runtime 464.97s、secure training 77.50s；NoKD candidate 在严格 development validation 上为 0.6876，与 precision=16 的 0.6876 完全相同，且仍低于同配置 plaintext 0.6952 共 0.76pp。候选 SHA256 不同，说明 precision 参数确实生效，但提高小数精度没有带来分类准确率收益。
+- 配置决策：后续 secure finalist 保留 precision fractional=16，以避免在无收益时增加数值表示成本；不再扩展 precision=20。CIFAR-10 Stage-B 的 `Full - 1pp` gate 残余缺口继续如实保留，不通过调参隐藏。
+- 安全边界：本次恢复和评估只读取 development validation；locked holdout 与 official test 均未读取。True Ours candidate lineage 仍为 `official_mtt_only`，Full-Data initializer dependency=0。
+- 后续恢复点：继续运行尚未完成的 CIFAR-100、Tiny seed42 TFE/ABY3 secure finalist；每个任务通过独立 tmux、日志、checkpoint 和 COMPLETE report 防断联，顺序执行以避免内存带宽争用。
