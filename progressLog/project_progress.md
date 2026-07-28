@@ -1098,3 +1098,13 @@
 - 配置决策：后续 secure finalist 保留 precision fractional=16，以避免在无收益时增加数值表示成本；不再扩展 precision=20。CIFAR-10 Stage-B 的 `Full - 1pp` gate 残余缺口继续如实保留，不通过调参隐藏。
 - 安全边界：本次恢复和评估只读取 development validation；locked holdout 与 official test 均未读取。True Ours candidate lineage 仍为 `official_mtt_only`，Full-Data initializer dependency=0。
 - 后续恢复点：继续运行尚未完成的 CIFAR-100、Tiny seed42 TFE/ABY3 secure finalist；每个任务通过独立 tmux、日志、checkpoint 和 COMPLETE report 防断联，顺序执行以避免内存带宽争用。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-28（UTC）
+- 持续任务：用户要求把 `plan/0728_new_agent_plan_true_ours_pea_figure2_rebuild.md` 设为 Goal，在完整交付前持续推进；执行顺序固定为先审计、复用有效 COMPLETE 结果、只补缺项、development-only 单因素诊断、冻结、正式三 seeds、冻结后一次性评估与报告。
+- 进度审计：新增 `new_true_ours_plan_progress_audit.json/.md`。Phase 0 lineage、Phase 1 disjoint splits、Phase 2 MTT assets 和 Stage-B seed42 plaintext screen/rescue 已完成，不重跑；CIFAR-10 secure finalist/correctness/precision sensitivity 已完成；CIFAR-100 secure finalist 正在从 checkpoint 推进，Tiny 已设置 COMPLETE 条件接力。Consensus、Adaptive development tuning、formal freeze、三 seeds、Figure 2、系统表和 master report 尚未完成。
+- 协议纠正：0728 计划中残留的新增 Fixed DP-SGD 任务与用户此前明确指令冲突，现已改为双方统一 Adaptive DP。后续不新增 Fixed run；旧 54-run Fixed/Adaptive 负结果只保留为历史消融。Adaptive 的正式判据改为双方 matched protocol、`epsilon<=3`、三 seeds 稳定、效用损失可解释，不再声称相对 Fixed 的新优势。
+- 防重复边界：旧 Stage A/Stage B、旧 54-run Module-C 和已完成的 incremental Full-Data 资产均不重复执行；但旧结果若不满足新 disjoint split、True-Ours lineage 或统一计时边界，只能作为诊断/历史对照，不能冒充本轮 formal。
+- 隐私状态：本轮重建仍未读取 locked holdout 或 official test；冻结前继续保持未读。

@@ -390,11 +390,10 @@ MTT secure average
 
 ```text
 MTT-Only Average + NoDP
-MTT-Only Average + Fixed DP
 MTT-Only Average + Adaptive DP
 ```
 
-若 DP 后下降明显，进入 Adaptive/Fixed 诊断。
+若 DP 后下降明显，只进入 Adaptive clipping、accountant 与训练预算诊断；本轮不新增 Fixed DP-SGD 实验。
 
 ## 7.4 数值正确性
 
@@ -404,7 +403,6 @@ MTT-Only Average + Adaptive DP
 PyTorch float
 Plaintext fixed-point emulation
 TFE secure no-DP
-TFE secure Fixed DP
 TFE secure Adaptive DP
 ```
 
@@ -486,7 +484,7 @@ Regularized Consensus 只有满足以下条件才可进入主方法：
 
 ---
 
-# 9. Phase 6：Adaptive DP 真实效用验证
+# 9. Phase 6：Adaptive DP 对齐、调参与真实效用验证
 
 当前已有 follow-up 仅为探索性，不可作为正式 Adaptive 贡献。
 
@@ -495,13 +493,12 @@ Regularized Consensus 只有满足以下条件才可进入主方法：
 比较：
 
 ```text
-Best Tuned Fixed DP-SGD
-Best Tuned Adaptive DP-SGD
+Full Data Feature Model + Tuned Adaptive DP-SGD
+True Ours MTT-Only + Tuned Adaptive DP-SGD
 ```
 
 两者保持一致：
 
-- True Ours initializer；
 - data split；
 - batch；
 - steps；
@@ -514,13 +511,9 @@ Best Tuned Adaptive DP-SGD
 - seeds；
 - checkpoint schedule。
 
-## 9.2 Fixed clipping 调参
+两者只允许 Stage-B 输入规模与 initializer lineage 按方法定义不同；Adaptive clipping 规则、隐私目标和评估日程必须一致。
 
-```text
-C = 0.25 / 0.50 / 1.00 / 2.00 / 4.00
-```
-
-## 9.3 Adaptive clipping 调参
+## 9.2 Adaptive clipping 调参
 
 ```text
 initial C = 0.50 / 1.00 / 2.00
@@ -528,7 +521,9 @@ target clipped fraction = 0.10 / 0.30 / 0.50
 EMA/update rate = slow / current / fast
 ```
 
-## 9.4 训练预算
+所有筛选只读取 development validation；每次只改变一个因素。旧 54-run Fixed/Adaptive 负结果保留为历史消融，不删除、不覆盖，也不触发新的 Fixed DP-SGD 运行。
+
+## 9.3 训练预算
 
 ```text
 CIFAR-10: 10 / 20 / 40 / 80
@@ -543,7 +538,7 @@ Tiny: 30 / 60 / 120 / 180
 δ = 1e-5
 ```
 
-## 9.5 重点场景
+## 9.4 重点场景
 
 先在以下场景筛选：
 
@@ -553,23 +548,23 @@ CIFAR-100 IID
 CIFAR-100 Severe Non-IID
 ```
 
-如果 Adaptive 的优势来自梯度范数随训练或异构程度变化，则 Severe Non-IID 更可能体现差异。
+Severe Non-IID 仅用于诊断 Adaptive clipping 轨迹和稳定性；不得为了得到正结果增加 Fixed 对照或读取 locked holdout/test。
 
-## 9.6 成功标准
+## 9.5 成功标准
 
-只有同时满足以下条件，才可声称 Adaptive 改善效用：
+只有同时满足以下条件，才可把 Adaptive 路线用于正式主图：
 
-1. 对比的是最优 validation-selected Fixed baseline；
-2. 平均 locked-holdout/test accuracy 至少提高 1pp；
-3. 三 seeds 至少两个提升；
-4. matched ε、steps、batch、initializer；
-5. paired bootstrap 置信区间不明显跨越0；
-6. 不依赖单个异常 seed。
+1. Full Data 与 True Ours 使用相同 Adaptive clipping 规则；
+2. composed accountant 对两种方法分别按真实样本数校准，且 `ε ≤ 3, δ = 1e-5`；
+3. 相对各自 NoDP initializer/trajectory 的效用损失可解释，且无数值错误；
+4. 三 seeds 结果稳定，不依赖单个异常 seed；
+5. locked holdout/test 在冻结前未读取；
+6. 主结论只比较 Full Data 与 True Ours 的准确率—安全时间权衡，不声称 Adaptive 优于 Fixed。
 
-否则正式结论必须是：
+若 Adaptive 仍造成明显精度损失，正式结论必须如实降级为：
 
 ```text
-Adaptive clipping works correctly but does not significantly outperform tuned Fixed clipping.
+Adaptive clipping satisfies the matched privacy protocol, but its utility loss remains a limitation.
 ```
 
 不得为了得到正结果反复读取 locked holdout 或 official test。
@@ -866,8 +861,8 @@ assert source_rows == 9
 输出：
 
 ```text
-new_tfe_system_formal_fixed.csv
-new_tfe_system_formal_fixed.json
+new_tfe_system_formal_repaired.csv
+new_tfe_system_formal_repaired.json
 ```
 
 ---
@@ -1001,12 +996,12 @@ T@90% speedup ≥ 3×
 Adaptive DP 理想目标：
 
 ```text
-≥1pp gain over best tuned Fixed
-matched privacy and budget
-consistent in at least 2/3 seeds
+双方 matched Adaptive protocol
+ε ≤ 3，accountant 完整
+三 seeds 稳定且效用损失可接受
 ```
 
-否则降级为消融。
+本轮不新增 Fixed DP-SGD；旧 Fixed/Adaptive 结果仅保留为历史消融。
 
 ---
 
@@ -1024,7 +1019,7 @@ consistent in at least 2/3 seeds
 - 根据结果挑seed；
 - 将Average命名为Consensus；
 - 将探索性plaintext结果当正式TFE DP结果；
-- 未调优Fixed就声称Adaptive更优；
+- 使用旧 Fixed 结果或新增 Fixed run 声称 Adaptive 更优；
 - 为了曲线好看截断关键区间或隐藏失败结果；
 - 未提交Git就宣称正式冻结完成。
 
@@ -1041,13 +1036,13 @@ new_mtt_asset_audit.json
 new_true_ours_stage_b_screen.csv
 new_true_ours_stage_b_formal.csv
 new_consensus_rescue_formal.csv
-new_adaptive_vs_fixed_formal.csv
+new_adaptive_aligned_formal.csv
 new_true_ours_config_freeze.json
 new_true_ours_target_freeze.json
 new_true_ours_master_results.json
 new_figure2_pea_style_secure_time.png/pdf/svg
 new_figure2_time_to_target_table.csv
-new_tfe_system_formal_fixed.csv
+new_tfe_system_formal_repaired.csv
 new_true_ours_paper_report.md
 new_true_ours_claim_audit.md
 ```
@@ -1062,7 +1057,7 @@ new_true_ours_claim_audit.md
 6. T@80%/90%/95%；
 7. Figure 2是否来自同口径正式三seed；
 8. Consensus是否真正改善Non-IID；
-9. Adaptive是否显著优于最佳Fixed；
+9. Adaptive是否在双方对齐、ε≤3的协议下稳定且效用损失可接受；
 10. 哪些结论可进入论文主文；
 11. 哪些只能作为补充或负结果；
 12. Git commit、branch与复现命令。

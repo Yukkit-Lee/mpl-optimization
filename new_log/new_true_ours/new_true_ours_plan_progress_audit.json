@@ -1,0 +1,99 @@
+{
+  "schema": "new_true_ours_plan_progress_audit_v1",
+  "audit_time": "2026-07-28T08:28:00Z",
+  "branch": "new-true-ours-pea-figure2",
+  "audited_head": "14b90e1",
+  "user_protocol_overrides": {
+    "new_fixed_dp_runs": false,
+    "stage_c_mode": "adaptive_dp",
+    "cpu_policy": "maximum_available_performance",
+    "locked_holdout_before_freeze": false,
+    "official_test_before_freeze": false
+  },
+  "phases": [
+    {
+      "phase": "0",
+      "name": "lineage_audit",
+      "status": "COMPLETE",
+      "evidence": "new_log/new_true_ours/new_true_ours_lineage_audit.json"
+    },
+    {
+      "phase": "1",
+      "name": "disjoint_splits",
+      "status": "COMPLETE_FROZEN",
+      "evidence": "new_log/new_true_ours/new_true_ours_split_manifest.json"
+    },
+    {
+      "phase": "2",
+      "name": "official_mtt_asset_audit",
+      "status": "COMPLETE",
+      "evidence": "new_log/new_true_ours/new_mtt_asset_audit.json"
+    },
+    {
+      "phase": "3-4",
+      "name": "stage_b_development_screen_and_rescue",
+      "status": "COMPLETE_SEED42_PLAINTEXT",
+      "evidence": "new_log/new_true_ours/new_true_ours_stage_b_rescue_screen.json"
+    },
+    {
+      "phase": "3-4",
+      "name": "stage_b_secure_seed42_validation",
+      "status": "IN_PROGRESS",
+      "completed_datasets": [
+        "cifar10"
+      ],
+      "active_dataset": "cifar100",
+      "queued_datasets": [
+        "tiny"
+      ],
+      "precision_decision": 16
+    },
+    {
+      "phase": "5",
+      "name": "regularized_consensus_non_iid",
+      "status": "NOT_STARTED"
+    },
+    {
+      "phase": "6",
+      "name": "aligned_adaptive_dp_development_tuning",
+      "status": "NOT_STARTED",
+      "fixed_dp_new_runs": false
+    },
+    {
+      "phase": "7",
+      "name": "formal_protocol_and_target_freeze",
+      "status": "NOT_STARTED"
+    },
+    {
+      "phase": "8-10",
+      "name": "formal_three_seed_runs_holdout_and_figure2",
+      "status": "NOT_STARTED"
+    },
+    {
+      "phase": "11",
+      "name": "tfe_system_table_repair",
+      "status": "SOURCE_RESULTS_AVAILABLE_OUTPUT_PENDING"
+    },
+    {
+      "phase": "12",
+      "name": "master_results_and_paper_reports",
+      "status": "NOT_STARTED"
+    },
+    {
+      "phase": "13",
+      "name": "external_method_comparison",
+      "status": "NOT_STARTED"
+    }
+  ],
+  "reuse_decisions": {
+    "stage_a_rerun": false,
+    "old_stage_b_rerun": false,
+    "old_module_c_54_run_rerun": false,
+    "old_incremental_full_data_results_as_new_formal": false,
+    "reason": "Only results compatible with the new disjoint split, initializer lineage, timing boundary, and aligned Adaptive protocol may enter the rebuilt formal result."
+  },
+  "privacy_state": {
+    "locked_holdout_read_by_rebuild": false,
+    "official_test_read_by_rebuild": false
+  }
+}
