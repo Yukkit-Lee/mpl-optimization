@@ -132,7 +132,7 @@ def expected_calibration_error(weight, bias, x_value, y_value, bins=10):
 
 def train_once(x_train, y_train, x_dev, y_dev, dataset, seed, config):
     started = time.time()
-    num_clients = 5
+    num_clients = int(config.get("num_clients", 5))
     num_classes = NUM_CLASSES[dataset]
     client_indices = make_splits(y_train, num_clients, seed)
     rng = np.random.RandomState(seed)
