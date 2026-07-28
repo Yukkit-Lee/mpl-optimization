@@ -106,6 +106,8 @@
       "publication": "ICML 2021",
       "year": 2021,
       "paper_url": "https://arxiv.org/abs/2102.06387",
+      "source_artifact": "arXiv source 2102.06387v4",
+      "source_artifact_sha256": "b35a8df655bd30c8599fd5f39c6ed0443500cf6a4390c708213b06d1e83564c2",
       "official_repo_url": "https://github.com/google-research/federated",
       "reported_or_reproduced": "original_method_identity_audited; CIFAR-10 number below was locally reproduced by PEA authors, not reported by the DDGauss paper",
       "dataset": "CIFAR-10 on PEA extracted features",
@@ -119,7 +121,36 @@
       "runtime": null,
       "hardware": null,
       "source_location": "PEA arXiv source tex/6.Experiments.tex, Table tab:acc_FL_MPL and accompanying text",
-      "comparability": "PEA states DDGauss did not converge at epsilon=2 and therefore used epsilon=5. Do not compare this accuracy directly against epsilon=2 methods or call it an original DDGauss-paper result."
+      "original_paper_experiments": {
+        "datasets": [
+          "Federated EMNIST",
+          "Stack Overflow Tag Prediction",
+          "Stack Overflow Next Word Prediction"
+        ],
+        "privacy_unit": "user-level DP",
+        "client_population": {
+          "Federated EMNIST": 3400,
+          "Stack Overflow": 342477
+        },
+        "clients_per_round": {
+          "Federated EMNIST": 100,
+          "Stack Overflow Tag Prediction": 60,
+          "Stack Overflow Next Word Prediction": 100
+        },
+        "rounds": {
+          "Federated EMNIST": 1500,
+          "Stack Overflow Tag Prediction": 1500,
+          "Stack Overflow Next Word Prediction": 1600
+        },
+        "metrics": {
+          "Federated EMNIST": "test accuracy",
+          "Stack Overflow Tag Prediction": "recall@5",
+          "Stack Overflow Next Word Prediction": "accuracy"
+        },
+        "CIFAR10_absolute_accuracy": null,
+        "source_location": "DDGauss experiments.tex, Federated Learning datasets/models/setup/results"
+      },
+      "comparability": "The original DDGauss paper has no CIFAR-10 accuracy and studies user-level federated DP. PEA states its separate CIFAR adaptation did not converge at epsilon=2 and therefore used epsilon=5. Do not compare 53.31% directly against epsilon=2 methods or call it an original DDGauss-paper result."
     },
     {
       "method": "CryptGPU",
