@@ -1,0 +1,25 @@
+cifar10 fedavg-followup factor=fedavg_sync_interval value=0 dev=0.68820 time=0.29s
+cifar10 fedavg-followup factor=fedavg_sync_interval value=1 dev=0.69260 time=0.59s
+cifar10 fedavg-followup factor=fedavg_sync_interval value=5 dev=0.69260 time=0.58s
+cifar10 fedavg-followup factor=fedavg_sync_interval value=10 dev=0.69200 time=0.58s
+cifar10 PARETO KEEP fedavg_sync_interval=10 dev=0.69200 time=0.58s
+cifar10 fedavg-followup factor=shared_initialization value=False dev=0.69200 time=0.58s
+cifar10 fedavg-followup factor=shared_initialization value=True dev=0.69260 time=0.58s
+cifar10 PARETO KEEP shared_initialization=True dev=0.69260 time=0.58s
+cifar10 fedavg-followup factor=batch_size value=8 dev=0.69260 time=0.57s
+cifar10 fedavg-followup factor=batch_size value=16 dev=0.68620 time=0.53s
+cifar10 fedavg-followup factor=batch_size value=32 dev=0.67400 time=0.58s
+cifar10 PARETO KEEP batch_size=8 dev=0.69260 time=0.57s
+cifar100 fedavg-followup factor=fedavg_sync_interval value=0 dev=0.47300 time=22.46s
+cifar100 fedavg-followup factor=fedavg_sync_interval value=1 dev=0.47360 time=35.97s
+cifar100 fedavg-followup factor=fedavg_sync_interval value=5 dev=0.47280 time=34.42s
+cifar100 fedavg-followup factor=fedavg_sync_interval value=10 dev=0.47220 time=36.69s
+cifar100 PARETO KEEP fedavg_sync_interval=0 dev=0.47300 time=22.46s
+cifar100 fedavg-followup factor=shared_initialization value=False dev=0.47300 time=24.61s
+cifar100 fedavg-followup factor=shared_initialization value=True dev=0.46740 time=23.09s
+cifar100 PARETO KEEP shared_initialization=False dev=0.47300 time=24.61s
+cifar100 fedavg-followup factor=batch_size value=8 dev=0.47300 time=23.46s
+cifar100 fedavg-followup factor=batch_size value=16 dev=0.46320 time=11.85s
+cifar100 fedavg-followup factor=batch_size value=32 dev=0.45420 time=7.06s
+cifar100 PARETO KEEP batch_size=8 dev=0.47300 time=23.46s
+fedavg_screen=/root/autodl-tmp/tfe_experiments/new_expTab/new_true_ours/new_true_ours_stage_b_fedavg_screen.csv datasets=3 locked_holdout_read=False

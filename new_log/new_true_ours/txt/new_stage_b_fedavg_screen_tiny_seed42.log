@@ -1,0 +1,13 @@
+tiny fedavg-followup factor=fedavg_sync_interval value=0 dev=0.30480 time=85.45s
+tiny fedavg-followup factor=fedavg_sync_interval value=1 dev=0.30860 time=137.32s
+tiny fedavg-followup factor=fedavg_sync_interval value=5 dev=0.30650 time=126.57s
+tiny fedavg-followup factor=fedavg_sync_interval value=10 dev=0.30600 time=129.36s
+tiny PARETO KEEP fedavg_sync_interval=1 dev=0.30860 time=137.32s
+tiny fedavg-followup factor=shared_initialization value=False dev=0.30860 time=147.76s
+tiny fedavg-followup factor=shared_initialization value=True dev=0.30660 time=148.02s
+tiny PARETO KEEP shared_initialization=False dev=0.30860 time=147.76s
+tiny fedavg-followup factor=batch_size value=8 dev=0.30860 time=147.57s
+tiny fedavg-followup factor=batch_size value=16 dev=0.30370 time=79.39s
+tiny fedavg-followup factor=batch_size value=32 dev=0.30020 time=44.15s
+tiny PARETO KEEP batch_size=8 dev=0.30860 time=147.57s
+fedavg_screen=/root/autodl-tmp/tfe_experiments/new_expTab/new_true_ours/new_true_ours_stage_b_fedavg_screen.csv datasets=3 locked_holdout_read=False
