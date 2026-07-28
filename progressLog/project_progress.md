@@ -1072,3 +1072,4 @@
 - Tiny seed42 基础单因素筛选完成：初始 0.2800，经 40 epochs、batch 8、LR 0.2、weight decay 1e-4、uniform client weighting、非共享初始化提升到 0.3048 development accuracy；batch 8 相对 batch 16/32 的精度分别高 0.65pp/1.20pp，但单候选运行约 78--86 秒。当前继续筛选周期 FedAvg 交互项，结果仍为 plaintext diagnostic。
 - Stage-B FedAvg follow-up 完成：CIFAR-10 选择 sync interval 10 + shared init，development accuracy 0.6926；CIFAR-100 的同步增益不足 0.1pp，保留无周期同步配置，accuracy 0.4730；Tiny 选择每 epoch 同步、非共享初始化，accuracy 从 0.3048 提升至 0.3086。三者仍统一使用 batch 8/40 epochs/LR 0.2，且所有选择只基于 development split。
 - 已启动相同严格 split 下的 Full-Data plaintext reference，以判断 True Ours 是否达到 “Full - 1.0pp” 门槛；运行位于 `tmux true_ours_full_reference`。在该门槛结果出来前不冻结 formal 配置。
+- Full-Data 旧固定配置 reference 已完成：CIFAR-10/CIFAR-100/Tiny development accuracy 为 0.6838/0.3874/0.2533，当前 True Ours 分别高 0.88pp/8.56pp/5.53pp。为避免使用欠调基线夸大 True Ours，新增 Full-Data development-only 单因素调参，覆盖 epochs、batch、LR、weight decay，并在 0.1pp 精度容差内优先较低训练成本；只有调优 Full 基线完成后才判断 retention gate。

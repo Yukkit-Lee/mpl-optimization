@@ -1,0 +1,92 @@
+{
+  "schema": "new_full_data_stage_b_reference_screen_v1",
+  "status": "COMPLETE",
+  "purpose": "development-only retention target reference",
+  "backend": "numpy_plaintext_diagnostic",
+  "formal_secure_result": false,
+  "locked_holdout_read": false,
+  "official_test_read": false,
+  "results": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "configuration": {
+        "shared_initialization": false,
+        "local_epochs": 20,
+        "batch_size": 32,
+        "local_lr": 0.05,
+        "weight_decay": 0.0,
+        "client_weighting": "uniform",
+        "fedavg_sync_interval": 0
+      },
+      "development_validation_accuracy": 0.6838,
+      "runtime_seconds": 3.6566052436828613,
+      "client_counts": [
+        6980,
+        6980,
+        6980,
+        6980,
+        6980
+      ],
+      "candidate": "/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b_screen/full_data_reference/cifar10/new_full_data_reference_cifar10_seed42.npz",
+      "backend": "numpy_plaintext_diagnostic",
+      "formal_secure_result": false,
+      "locked_holdout_read": false,
+      "official_test_read": false
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "configuration": {
+        "shared_initialization": false,
+        "local_epochs": 30,
+        "batch_size": 32,
+        "local_lr": 0.05,
+        "weight_decay": 0.0,
+        "client_weighting": "uniform",
+        "fedavg_sync_interval": 0
+      },
+      "development_validation_accuracy": 0.3874,
+      "runtime_seconds": 36.75589919090271,
+      "client_counts": [
+        6800,
+        6800,
+        6800,
+        6800,
+        6800
+      ],
+      "candidate": "/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b_screen/full_data_reference/cifar100/new_full_data_reference_cifar100_seed42.npz",
+      "backend": "numpy_plaintext_diagnostic",
+      "formal_secure_result": false,
+      "locked_holdout_read": false,
+      "official_test_read": false
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "configuration": {
+        "shared_initialization": false,
+        "local_epochs": 20,
+        "batch_size": 32,
+        "local_lr": 0.05,
+        "weight_decay": 0.0,
+        "client_weighting": "uniform",
+        "fedavg_sync_interval": 0
+      },
+      "development_validation_accuracy": 0.2533,
+      "runtime_seconds": 90.57460856437683,
+      "client_counts": [
+        13600,
+        13600,
+        13600,
+        13600,
+        13600
+      ],
+      "candidate": "/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b_screen/full_data_reference/tiny/new_full_data_reference_tiny_seed42.npz",
+      "backend": "numpy_plaintext_diagnostic",
+      "formal_secure_result": false,
+      "locked_holdout_read": false,
+      "official_test_read": false
+    }
+  ]
+}

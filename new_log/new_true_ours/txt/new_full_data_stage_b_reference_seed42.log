@@ -1,0 +1,3 @@
+cifar10 seed=42 full-reference dev=0.68380 time=3.66s
+cifar100 seed=42 full-reference dev=0.38740 time=36.76s
+tiny seed=42 full-reference dev=0.25330 time=90.57s
