@@ -1,8 +1,8 @@
 {
   "schema": "new_true_ours_plan_progress_audit_v1",
-  "audit_time": "2026-07-28T10:32:00Z",
+  "audit_time": "2026-07-28T11:01:00Z",
   "branch": "new-true-ours-pea-figure2",
-  "audited_head": "8961167",
+  "audited_head": "c8043dd",
   "user_protocol_overrides": {
     "new_fixed_dp_runs": false,
     "stage_c_mode": "adaptive_dp",
@@ -78,7 +78,7 @@
     {
       "phase": "6",
       "name": "aligned_adaptive_dp_development_tuning",
-      "status": "FLOAT_PAIRED_COMPLETE_TFE_FINALISTS_PENDING",
+      "status": "COMPLETE_FLOAT_AND_TFE_FINALISTS",
       "fixed_dp_new_runs": false,
       "sampling_mode": "poisson",
       "formal_sampling_rng": "os_csprng",
@@ -87,7 +87,8 @@
       "selection_metric": "worst_initializer_retention",
       "evidence": [
         "new_tests/new_true_ours/new_test_stage_c_poisson_masked_batch.py",
-        "new_log/new_true_ours/new_adaptive_stage_c_development_screen.json"
+        "new_log/new_true_ours/new_adaptive_stage_c_development_screen.json",
+        "new_log/new_true_ours/new_adaptive_stage_c_secure_finalists.json"
       ]
     },
     {

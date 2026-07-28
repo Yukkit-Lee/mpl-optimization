@@ -1,0 +1,7 @@
+[COMPLETE] full_data cifar10 wall=111.81s
+[COMPLETE] true_ours cifar10 wall=110.25s
+[COMPLETE] full_data cifar100 wall=75.69s
+[COMPLETE] true_ours cifar100 wall=76.73s
+[COMPLETE] full_data tiny wall=251.32s
+[COMPLETE] true_ours tiny wall=243.99s
+audit=/root/autodl-tmp/tfe_experiments/new_log/new_true_ours/new_adaptive_stage_c_secure_finalists.json

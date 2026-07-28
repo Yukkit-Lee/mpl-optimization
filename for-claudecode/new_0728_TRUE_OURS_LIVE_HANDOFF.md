@@ -52,6 +52,12 @@ C10 config: steps80, LR0.002, C0=1, gamma0.5, eta0.02
 C100 config: steps20, LR0.01, C0=2, gamma0.1, eta0.05
 Tiny config: steps180, LR0.002, C0=1, gamma0.5, eta0.1
 all six Full/True trajectories: epsilon<=3, finite, no C boundary hit
+
+Adaptive TFE/ABY3 seed42 finalists: COMPLETE 6/6
+C10 Full/True dev: 0.7274 / 0.6876
+C100 Full/True dev: 0.4300 / 0.4806
+Tiny Full/True dev: 0.2733 / 0.3135
+all secure-finalist checks: PASS; locked/test unread
 ```
 
 关键路径：
@@ -301,8 +307,14 @@ new_log/new_true_ours/new_adaptive_stage_c_development_screen.json
 
 ### 5.4 TFE/ABY3 Adaptive finalist
 
-float screen 只能缩小范围。选出的双方共同 clipping rule 必须再用真实 TFE/ABY3、
-seed42、`--evaluation_split development_validation` 验证：
+已完成，不要重跑。权威聚合审计：
+
+```text
+new_log/new_true_ours/new_adaptive_stage_c_secure_finalists.json
+```
+
+选出的双方共同 clipping rule 已用真实 TFE/ABY3、seed42、
+`--evaluation_split development_validation` 验证：
 
 - epsilon <= 3；
 - composed count mechanism 已计入；
@@ -313,7 +325,7 @@ seed42、`--evaluation_split development_validation` 验证：
 
 任何数值错误先修正确性，不用 LR 掩盖。
 
-顺序runner：
+可恢复顺序runner（只在聚合审计非COMPLETE时使用）：
 
 ```bash
 /root/miniconda3/bin/python \
@@ -428,8 +440,9 @@ git rev-parse origin/new-true-ours-pea-figure2
 [ ] 查 locked/test read flags 仍为 false
 [ ] 查磁盘剩余空间
 [ ] 确认paired Adaptive float JSON COMPLETE，不重跑
-[ ] 当前第一个未满足门是6条TFE/ABY3 Adaptive seed42 finalists
-[ ] 运行前检查runner/进度/交接commit已push，再放入独立tmux
+[ ] 确认6条TFE/ABY3 finalist与聚合审计COMPLETE，不重跑
+[ ] 当前第一个未满足门是formal config/target/manifest freeze
+[ ] freeze文件必须先commit/push，之后才允许启动正式三seeds
 ```
 
 长任务断线后先查tmux与COMPLETE JSON；正式TFE任务每5 epochs保存checkpoint。
