@@ -45,9 +45,12 @@ def atomic_json(path, payload):
     os.replace(str(temporary), str(path))
 
 
-def deterministic_ids(size, batch, seed, step):
+def poisson_ids(size, expected_batch, seed, step):
     rng = np.random.RandomState(int(seed) + int(step) * 104729)
-    return rng.choice(size, size=batch, replace=size < batch)
+    return np.flatnonzero(
+        rng.random_sample(int(size))
+        < float(expected_batch) / float(size)
+    ).astype(np.int64)
 
 
 def evaluate(weight, bias, x_dev, y_dev):
@@ -91,7 +94,7 @@ def run_once(data, initializer, seed, config):
     )
     started = time.time()
     for step in range(int(config["steps"])):
-        ids = deterministic_ids(
+        ids = poisson_ids(
             len(y_train), config["batch_size"], seed, step
         )
         x_batch = x_train[ids]
@@ -104,8 +107,10 @@ def run_once(data, initializer, seed, config):
             1.0, current_c / np.sqrt(norm_squared + 1e-5)
         )
         clipped = error * factors[:, None]
-        grad_w = np.matmul(x_batch.T, clipped) / float(len(ids))
-        grad_b = np.sum(clipped, axis=0) / float(len(ids))
+        grad_w = np.matmul(x_batch.T, clipped) / float(
+            config["batch_size"]
+        )
+        grad_b = np.sum(clipped, axis=0) / float(config["batch_size"])
         noise_scale = (
             noise_multiplier * current_c / float(config["batch_size"])
         )
@@ -119,7 +124,10 @@ def run_once(data, initializer, seed, config):
         )
         noisy_fraction = None
         if adaptive:
-            fraction_below = float(np.mean(norm_squared <= current_c**2))
+            fraction_below = float(
+                np.sum(norm_squared <= current_c**2)
+                / float(config["batch_size"])
+            )
             noisy_fraction = float(
                 np.clip(
                     fraction_below
@@ -146,6 +154,7 @@ def run_once(data, initializer, seed, config):
             "development_validation_accuracy": None,
             "clipping_bound": current_c,
             "dp_noised_fraction_below": noisy_fraction,
+            "sampled_batch_size": int(len(ids)),
         }
         if step + 1 in evaluation_steps:
             row["development_validation_accuracy"] = evaluate(
@@ -291,6 +300,8 @@ def main():
         "target_epsilon": 3.0,
         "delta": 1e-5,
         "common_random_numbers": True,
+        "sampling_mode": "poisson_development_emulation",
+        "formal_sampling_rng_required": "os_csprng",
         "results": results,
         "locked_holdout_read": False,
         "official_test_read": False,

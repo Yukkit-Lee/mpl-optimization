@@ -58,6 +58,26 @@ def deterministic_batch_indices(num_samples, batch_size, seed, step):
     return rng.choice(num_samples, size=batch_size, replace=True).astype(np.int64)
 
 
+def poisson_batch_indices(num_samples, expected_batch_size, random_bytes=None):
+    """CSPRNG Poisson sample used by formal Stage-C privacy accounting."""
+    num_samples = int(num_samples)
+    expected_batch_size = int(expected_batch_size)
+    if num_samples <= 0:
+        raise ValueError("num_samples must be positive")
+    if expected_batch_size <= 0 or expected_batch_size > num_samples:
+        raise ValueError("expected_batch_size must be in [1, num_samples]")
+    if random_bytes is None:
+        random_bytes = os.urandom
+    sample_rate = float(expected_batch_size) / float(num_samples)
+    if sample_rate >= 1.0:
+        return np.arange(num_samples, dtype=np.int64)
+    threshold = int(sample_rate * float(1 << 64))
+    draws = np.frombuffer(
+        random_bytes(num_samples * 8), dtype="<u8", count=num_samples
+    )
+    return np.flatnonzero(draws < threshold).astype(np.int64)
+
+
 def _secure_uniform_float(tf, secure_random, seed, shape, nonce):
     """由 checkpointed CSPRNG seed 生成开区间 (0,1) 均匀数。"""
     maximum = 2147483647
@@ -144,6 +164,9 @@ def build_graph(data, init_weight, init_bias, args):
     tf.compat.v1.reset_default_graph()
     protocol = make_protocol(tfe, FixedpointConfig, args.precision_fractional)
     graph = {"tf": tf, "tfe": tfe, "KE": KE, "protocol": protocol}
+    normalization_batch_size = int(
+        getattr(args, "expected_batch_size", None) or args.batch_size
+    )
 
     with protocol:
         with tf.device(protocol.servers[0].device_name):
@@ -153,8 +176,16 @@ def build_graph(data, init_weight, init_bias, args):
             raw_y = tf.compat.v1.placeholder(
                 tf.float32, [args.batch_size, args.num_classes], name="new_stage_c_y"
             )
+            raw_sample_mask = tf.compat.v1.placeholder_with_default(
+                np.ones(args.batch_size, dtype=np.float32),
+                [args.batch_size],
+                name="new_stage_c_sample_mask",
+            )
         private_x = tfe.define_private_input("server0", lambda: raw_x)
         private_y = tfe.define_private_input("server0", lambda: raw_y)
+        private_sample_mask = tfe.define_private_input(
+            "server0", lambda: raw_sample_mask
+        )
         weight = tfe.define_private_variable(init_weight, name="new_stage_c_weight")
         bias = tfe.define_private_variable(init_bias, name="new_stage_c_bias")
         clip_bound = tfe.define_private_variable(
@@ -216,7 +247,9 @@ def build_graph(data, init_weight, init_bias, args):
         logits = secure_chunked_matmul(
             tfe, private_x, weight, args.matmul_chunk_size
         ) + bias
-        error = logits - private_y
+        error = (logits - private_y) * tfe.expand_dims(
+            private_sample_mask, axis=1
+        )
         error_sq = tfe.reduce_sum(error * error, axis=1)
         feature_sq = tfe.reduce_sum(private_x * private_x, axis=1)
         weight_norm_squared = error_sq * feature_sq
@@ -227,18 +260,18 @@ def build_graph(data, init_weight, init_bias, args):
             factor_b = factor_w
             # 1 means the example is below C and therefore is not clipped.
             below = tfe.select(
-                tfe.less_equal(norm_squared, clip_bound * clip_bound), 1.0, 0.0
-            )
+                tfe.less_equal(norm_squared, clip_bound * clip_bound), 0.0, 1.0
+            ) * private_sample_mask
         else:
             factor_w = secure_clip_factor(tfe, weight_norm_squared, clip_bound)
             factor_b = secure_clip_factor(tfe, bias_norm_squared, clip_bound)
             below_w = tfe.select(
-                tfe.less_equal(weight_norm_squared, clip_bound * clip_bound), 1.0, 0.0
+                tfe.less_equal(weight_norm_squared, clip_bound * clip_bound), 0.0, 1.0
             )
             below_b = tfe.select(
-                tfe.less_equal(bias_norm_squared, clip_bound * clip_bound), 1.0, 0.0
+                tfe.less_equal(bias_norm_squared, clip_bound * clip_bound), 0.0, 1.0
             )
-            below = (below_w + below_b) * 0.5
+            below = (below_w + below_b) * 0.5 * private_sample_mask
         clipped_error_w = error * tfe.expand_dims(factor_w, axis=1)
         clipped_error_b = error * tfe.expand_dims(factor_b, axis=1)
         clipped_grad_w = secure_chunked_matmul(
@@ -246,25 +279,30 @@ def build_graph(data, init_weight, init_bias, args):
             tfe.transpose(private_x),
             clipped_error_w,
             args.matmul_chunk_size,
-        ) * (1.0 / float(args.batch_size))
+        ) * (1.0 / float(normalization_batch_size))
         clipped_grad_b = tfe.reduce_sum(clipped_error_b, axis=0) * (
-            1.0 / float(args.batch_size)
+            1.0 / float(normalization_batch_size)
         )
 
         noise_scale = float(args.noise_multiplier) * clip_bound / float(
-            args.batch_size
+            normalization_batch_size
         )
         noisy_grad_w = clipped_grad_w + standard_noise_w * noise_scale
         noisy_grad_b = clipped_grad_b + standard_noise_b * noise_scale
         new_weight = weight - float(args.learning_rate) * noisy_grad_w
         new_bias = bias - float(args.learning_rate) * noisy_grad_b
 
-        fraction_below = tfe.reduce_sum(below) * (1.0 / float(args.batch_size))
+        fraction_below = tfe.reduce_sum(below) * (
+            1.0 / float(normalization_batch_size)
+        )
         noisy_fraction = secure_clamp(
             tfe,
             fraction_below
             + standard_noise_count
-            * (float(args.count_noise_multiplier) / float(args.batch_size)),
+            * (
+                float(args.count_noise_multiplier)
+                / float(normalization_batch_size)
+            ),
             0.0,
             1.0,
         )
@@ -318,6 +356,7 @@ def build_graph(data, init_weight, init_bias, args):
             {
                 "raw_x": raw_x,
                 "raw_y": raw_y,
+                "raw_sample_mask": raw_sample_mask,
                 "weight": weight,
                 "bias": bias,
                 "clip_bound": clip_bound,
@@ -423,12 +462,46 @@ def run_secure_stage_c(data, init_weight, init_bias, args):
     )
     started = time.time()
     for step in range(int(state["steps_completed"]), int(args.steps)):
-        ids = deterministic_batch_indices(
-            len(data["x_encoder_train"]), args.batch_size, args.seed, step
-        )
+        if getattr(args, "sampling_mode", "deterministic_fixed_size") == "poisson":
+            ids = poisson_batch_indices(
+                len(data["x_encoder_train"]), args.expected_batch_size
+            )
+            if len(ids) > int(args.batch_size):
+                raise RuntimeError(
+                    "Poisson batch size {} exceeded graph capacity {}; "
+                    "increase --batch_size and restart this run".format(
+                        len(ids), args.batch_size
+                    )
+                )
+            x_batch = np.zeros(
+                (args.batch_size, args.feature_dim), dtype=np.float32
+            )
+            y_batch = np.zeros(
+                (args.batch_size, args.num_classes), dtype=np.float32
+            )
+            sample_mask = np.zeros(args.batch_size, dtype=np.float32)
+            if len(ids):
+                x_batch[: len(ids)] = data["x_encoder_train"][ids]
+                y_batch[: len(ids)] = one_hot(
+                    data["y_encoder_train"][ids], args.num_classes
+                )
+                sample_mask[: len(ids)] = 1.0
+        else:
+            ids = deterministic_batch_indices(
+                len(data["x_encoder_train"]),
+                args.batch_size,
+                args.seed,
+                step,
+            )
+            x_batch = data["x_encoder_train"][ids]
+            y_batch = one_hot(
+                data["y_encoder_train"][ids], args.num_classes
+            )
+            sample_mask = np.ones(args.batch_size, dtype=np.float32)
         feed = {
-            graph["raw_x"]: data["x_encoder_train"][ids],
-            graph["raw_y"]: one_hot(data["y_encoder_train"][ids], args.num_classes),
+            graph["raw_x"]: x_batch,
+            graph["raw_y"]: y_batch,
+            graph["raw_sample_mask"]: sample_mask,
         }
         use_adaptive = (
             args.mode == "adaptive_dp"
@@ -462,6 +535,7 @@ def run_secure_stage_c(data, init_weight, init_bias, args):
             "clipping_bound_t": current_c,
             "proposed_next_c": proposed_c,
             "adaptive_clip_update": bool(use_adaptive),
+            "sampled_batch_size": int(len(ids)),
             "dp_noised_fraction_below": noisy_fraction_below,
             "dp_noised_clipped_fraction": (
                 None
@@ -556,7 +630,26 @@ def parse_args():
     parser.add_argument("--output_dir", required=True)
     parser.add_argument("--checkpoint_prefix", required=True)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--batch_size", type=int, default=16)
+    parser.add_argument(
+        "--batch_size",
+        type=int,
+        default=16,
+        help=(
+            "TFE graph capacity. For poisson sampling this is a hard maximum, "
+            "not the accountant's expected batch size."
+        ),
+    )
+    parser.add_argument(
+        "--expected_batch_size",
+        type=int,
+        default=None,
+        help="Expected Poisson batch size used for normalization/accounting.",
+    )
+    parser.add_argument(
+        "--sampling_mode",
+        choices=["deterministic_fixed_size", "poisson"],
+        default="deterministic_fixed_size",
+    )
     parser.add_argument("--steps", type=int, default=100)
     parser.add_argument("--learning_rate", type=float, default=0.02)
     parser.add_argument("--noise_multiplier", type=float, default=1.2)
@@ -621,6 +714,25 @@ def validate_input_lineage(args):
     }
     if args.input_lineage == "legacy_unspecified":
         return lineage
+    if args.sampling_mode != "poisson":
+        raise ValueError(
+            "Formal rebuild Stage C requires Poisson sampling for the "
+            "sampled-Gaussian accountant"
+        )
+    if (
+        args.expected_batch_size is None
+        or int(args.expected_batch_size) <= 0
+        or int(args.batch_size) < int(args.expected_batch_size)
+    ):
+        raise ValueError(
+            "Formal Poisson Stage C requires graph batch capacity >= "
+            "positive expected_batch_size"
+        )
+    if args.initializer_privacy_status != "data_dependent_non_dp":
+        raise ValueError(
+            "Formal rebuild Stage-B initializers are non-DP; Stage-C epsilon "
+            "must remain a conditional mechanism claim"
+        )
     if args.evaluation_split != "development_validation":
         raise ValueError(
             "Formal rebuild Stage C must evaluate development_validation"
@@ -701,6 +813,8 @@ def validate_input_lineage(args):
 
 def main():
     args = parse_args()
+    if args.expected_batch_size is None:
+        args.expected_batch_size = int(args.batch_size)
     set_seed(args.seed)
     input_lineage = validate_input_lineage(args)
     data = load_feature_cache(args.feature_cache, mode=args.feature_cache_mode)
@@ -716,10 +830,13 @@ def main():
     print("=" * 92, flush=True)
     print("Stage C：TFE/ABY3 Secure {} DP-SGD".format(args.mode), flush=True)
     print(
-        "dataset={} samples={} batch={} steps={} feature_dim={}".format(
+        "dataset={} samples={} graph_capacity={} expected_batch={} "
+        "sampling={} steps={} feature_dim={}".format(
             args.dataset,
             len(data["x_encoder_train"]),
             args.batch_size,
+            args.expected_batch_size,
+            args.sampling_mode,
             args.steps,
             args.feature_dim,
         ),
@@ -733,7 +850,15 @@ def main():
     )
     print("=" * 92, flush=True)
     result = run_secure_stage_c(data, init_weight, init_bias, args)
-    sample_rate = min(1.0, float(args.batch_size) / len(data["x_encoder_train"]))
+    accounting_batch_size = (
+        args.expected_batch_size
+        if args.sampling_mode == "poisson"
+        else args.batch_size
+    )
+    sample_rate = min(
+        1.0,
+        float(accounting_batch_size) / len(data["x_encoder_train"]),
+    )
     epsilon = accountant_epsilon(result["steps_completed"], sample_rate, args)
     count_steps = (
         adaptive_update_count(
@@ -785,8 +910,17 @@ def main():
             "accountant": "Opacus RDPAccountant",
             "accounted_gradient_mechanism_epsilon": epsilon,
             "stage_c_distilled_feature_record_epsilon": epsilon,
+            "stage_c_training_feature_record_epsilon": epsilon,
             "stage_c_delta": args.delta,
             "sample_rate": sample_rate,
+            "sampling_mode": args.sampling_mode,
+            "sampling_rng": (
+                "os_csprng"
+                if args.sampling_mode == "poisson"
+                else "deterministic_legacy"
+            ),
+            "expected_batch_size": int(accounting_batch_size),
+            "graph_batch_capacity": int(args.batch_size),
             "steps": result["steps_completed"],
             "gradient_noise_multiplier": args.noise_multiplier,
             "clipping_count_noise_multiplier": args.count_noise_multiplier,
@@ -800,6 +934,7 @@ def main():
             ),
             "stage_a_original_record_privacy": "inherited_from_stage_a_metadata",
             "epsilon_a_plus_epsilon_c_claimed": False,
+            "end_to_end_record_dp_claimed": False,
         },
         "security": {
             "backend": "tfe_mpc",

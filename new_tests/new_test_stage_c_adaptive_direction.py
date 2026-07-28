@@ -2,6 +2,7 @@
 """Regression tests for the direction of the adaptive clipping update."""
 
 from new_stage_c_secure_dpsgd import adaptive_clip_direction_reference
+from new_stage_c_secure_dpsgd import poisson_batch_indices
 from new_stage_c_secure_dpsgd import released_model_dp_valid
 
 
@@ -31,3 +32,11 @@ def test_data_dependent_non_dp_initializer_blocks_release_claim():
     assert released_model_dp_valid("data_independent")
     assert released_model_dp_valid("disjoint_public")
     assert released_model_dp_valid("dp_sanitized")
+
+
+def test_poisson_batch_sampler_uses_independent_threshold_draws():
+    zeros = lambda size: b"\x00" * size
+    maximum = lambda size: b"\xff" * size
+    assert poisson_batch_indices(10, 2, zeros).tolist() == list(range(10))
+    assert poisson_batch_indices(10, 2, maximum).tolist() == []
+    assert poisson_batch_indices(10, 10, maximum).tolist() == list(range(10))
