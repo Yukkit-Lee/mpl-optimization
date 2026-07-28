@@ -1086,3 +1086,4 @@
 - secure finalist runner 已改为优先读取 Phase-4 rescue incumbent（若不存在才回退 FedAvg screen），防止 TFE 误跑较旧的 40-epoch 配置。当前尚未启动 TFE finalist；先让 Full Tiny LR 窄搜独占 CPU 完成。
 - Full Tiny 窄搜完成：batch16/40 epochs 下 LR 0.05/0.1/0.2 的 development accuracy 为 0.2711/0.2765/0.2755，选择 LR 0.1。最终公平 Full reference 为 CIFAR-10 0.7266、CIFAR-100 0.4308、Tiny 0.2765。
 - True Ours rescue 相对调优 Full：CIFAR-10 0.6952（落后 3.14pp，未过 gate）；CIFAR-100 0.4804（高 4.96pp，通过）；Tiny 0.3114（高 3.49pp，通过）。因此不能宣称三个数据集全部达到 Stage-B `Full - 1pp`，CIFAR-10 将作为明确残余缺口；下一步用 TFE secure finalist 检查明文筛选结果能否在真实安全后端复现。
+- CIFAR-10 seed42 TFE/ABY3 secure finalist 完成：report runtime 458.55s、其中安全训练 77.44s；NoKD candidate lineage=`official_mtt_only`、Full dependency=0、development accuracy=0.6876。相对同配置明文 0.6952 低 0.76pp，因此暂不扩到其他数据集；先复用已完成 checkpoint 做显式 TFE-vs-plaintext correctness，定位固定点累计误差。
