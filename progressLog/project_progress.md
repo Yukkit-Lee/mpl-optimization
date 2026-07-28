@@ -1067,3 +1067,4 @@
 - 诊断修复：新增周期性 FedAvg 同步因素；修正筛选器和 TFE/ABY3 正式实现，使同步及最终聚合都采用一致的公开 `uniform`/`sample_count`/`class_balanced` 系数。共享初始化只按精度选择；同步次数和 batch 仅在 factor-local 最优精度 0.1pp 内按低成本择优，避免为了极小时间收益丢掉可观精度。
 - 安全边界：TFE 聚合权重只由公开 split 样本数/类别直方图计算，不揭示任何模型参数；True Ours 仍有 `official_mtt_only` lineage 硬门，且 formal candidate 尚未发布。
 - 当前队列：先用修正规则重跑 CIFAR-10/100，再执行 Tiny seed42 基础筛选与 FedAvg follow-up。所有任务通过可恢复的 tmux 独立日志运行；locked holdout 和 test 均保持未读。
+- 新增安全 finalist 复核入口：`new_run_stage_b_secure_finalists.py` 会从 development screen 的冻结候选配置顺序调用 legacy TFE/ABY3，并以 checkpoint/COMPLETE 报告支持断点恢复；`new_evaluate_stage_b_development.py` 只在严格 development split 上评价生成的 NoKD candidate，同时再次硬校验 `official_mtt_only` lineage。该入口将在三数据集 seed42 筛选收敛后才启动，目前尚未生成或评价 secure finalist。
