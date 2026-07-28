@@ -1,0 +1,4 @@
+tiny rescue factor=local_epochs value=40 dev=0.30860 time=907.80s
+tiny rescue factor=local_epochs value=60 dev=0.30920 time=203.19s
+tiny rescue factor=local_epochs value=80 dev=0.31140 time=273.33s
+tiny RESCUE KEEP local_epochs=80 dev=0.31140

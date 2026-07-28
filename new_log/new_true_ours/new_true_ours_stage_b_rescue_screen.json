@@ -717,6 +717,53 @@
       "formal_secure_result": false,
       "locked_holdout_read": false,
       "official_test_read": false
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "base_config": {
+        "shared_initialization": false,
+        "local_epochs": 40,
+        "batch_size": 8,
+        "local_lr": 0.2,
+        "weight_decay": 0.0001,
+        "client_weighting": "uniform",
+        "fedavg_sync_interval": 1
+      },
+      "best_config": {
+        "shared_initialization": false,
+        "local_epochs": 80,
+        "batch_size": 8,
+        "local_lr": 0.2,
+        "weight_decay": 0.0001,
+        "client_weighting": "uniform",
+        "fedavg_sync_interval": 1
+      },
+      "best_development_validation_accuracy": 0.3114,
+      "epoch_extension_rows": [
+        {
+          "local_epochs": 40,
+          "development_validation_accuracy": 0.3086,
+          "runtime_seconds": 907.8
+        },
+        {
+          "local_epochs": 60,
+          "development_validation_accuracy": 0.3092,
+          "runtime_seconds": 203.19
+        },
+        {
+          "local_epochs": 80,
+          "development_validation_accuracy": 0.3114,
+          "runtime_seconds": 273.33
+        }
+      ],
+      "recovered_from_completed_log": "/root/autodl-tmp/tfe_experiments/new_log/new_true_ours/txt/new_stage_b_rescue_tiny_seed42.log",
+      "stopped_before_repeated_batch_candidate": true,
+      "backend": "numpy_plaintext_diagnostic",
+      "formal_secure_result": false,
+      "locked_holdout_read": false,
+      "official_test_read": false
     }
-  ]
+  ],
+  "recovery_note": "Tiny retained completed epoch-80 incumbent; redundant remaining one-factor rows were intentionally not rerun."
 }
