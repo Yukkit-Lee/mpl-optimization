@@ -1,10 +1,10 @@
 # True Ours 0728 计划进度审计
 
-审计时间：2026-07-28 10:08 UTC
+审计时间：2026-07-28 10:32 UTC
 
 分支：`new-true-ours-pea-figure2`
 
-审计提交：`a88eaea`
+审计基线提交：`8961167`
 
 ## 不重复执行的已完成工作
 
@@ -24,9 +24,16 @@
   weight/bias max error=`4.12e-4/4.58e-5`，runtime
   `458.55s→93.89s`，加速 `4.88×`，正式 Stage B 可启用。
 
+## Consensus 决策
+
+- synced screen 因最终 FedAvg 使 client heads 完全相同，属于结构退化；
+- no-sync 单因素 follow-up 恢复了 client diversity，但三数据集均无候选通过
+  `IID delta >= -0.5pp` 且 `Severe delta >= +1pp`；
+- 不扩 seeds 43/44，主路线使用 MTT-only Secure Average；
+- Consensus 保留为负结果，不继续对 development 过拟合。
+
 ## 尚未完成
 
-- Regularized Consensus 的 IID/Severe Non-IID development-only 诊断；
 - 双方对齐的 Adaptive DP development-only 调参；
 - 正式配置与 time-to-target 冻结；
 - Full Data 与 True Ours 三 seeds 从 Stage B 开始的正式同口径重跑；
@@ -44,6 +51,9 @@
   真实 TFE/ABY3 masked-batch/空批次/expected-batch normalization 测试通过。
 - 纠正 TFE `select(bit,x,y)` 的参数语义，修复旧 Adaptive clipping
   `fraction_below` 反向 bug；旧 Adaptive 结果不得进入本轮 formal。
+- Adaptive float screen 已改为每个候选同时评价 Full Data 与 True Ours，两边
+  分别按真实 N 校准epsilon，并按最差 initializer retention 选择共享配置；
+  1-step paired smoke test通过，正式development screen尚待运行。
 - PEA/CaPC/DDGauss/CryptGPU 外部来源 provenance 已完成，Ours 数值等待 formal。
 
 ## 最新协议覆盖

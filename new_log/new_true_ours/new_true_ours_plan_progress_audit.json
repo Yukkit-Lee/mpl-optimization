@@ -1,8 +1,8 @@
 {
   "schema": "new_true_ours_plan_progress_audit_v1",
-  "audit_time": "2026-07-28T10:08:00Z",
+  "audit_time": "2026-07-28T10:32:00Z",
   "branch": "new-true-ours-pea-figure2",
-  "audited_head": "a88eaea",
+  "audited_head": "8961167",
   "user_protocol_overrides": {
     "new_fixed_dp_runs": false,
     "stage_c_mode": "adaptive_dp",
@@ -67,7 +67,13 @@
     {
       "phase": "5",
       "name": "regularized_consensus_non_iid",
-      "status": "NOT_STARTED"
+      "status": "COMPLETE_NEGATIVE_NO_EXPANSION",
+      "selected_candidates": 0,
+      "expand_to_three_seeds": false,
+      "evidence": [
+        "new_log/new_true_ours/new_regularized_consensus_development_screen.json",
+        "new_log/new_true_ours/new_regularized_consensus_no_sync_followup.json"
+      ]
     },
     {
       "phase": "6",
@@ -77,6 +83,8 @@
       "sampling_mode": "poisson",
       "formal_sampling_rng": "os_csprng",
       "adaptive_indicator_corrected": true,
+      "paired_full_and_true_selection": true,
+      "selection_metric": "worst_initializer_retention",
       "evidence": "new_tests/new_true_ours/new_test_stage_c_poisson_masked_batch.py"
     },
     {

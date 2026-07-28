@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Development-only float diagnostic for aligned Adaptive Stage C.
+"""Development-only paired float diagnostic for aligned Adaptive Stage C.
 
 Run with the distillation environment (Opacus available).  This screen uses
 common random numbers for one-factor comparisons, recalibrates the composed
-accountant for every step budget, and never reads locked holdout or test.
+accountant for every method/step budget, and never reads locked holdout or
+test.  Every candidate is evaluated jointly on Full Data and True Ours; the
+shared configuration is selected by worst-method initializer retention.
 TFE/ABY3 finalists remain mandatory before protocol freeze.
 """
 
@@ -27,6 +29,7 @@ from new_stage_c_secure_dpsgd import adaptive_update_count
 
 
 DATASETS = ("cifar10", "cifar100", "tiny")
+METHODS = ("full_data", "true_ours")
 STEP_GRIDS = {
     "cifar10": (10, 20, 40, 80),
     "cifar100": (20, 40, 80, 120),
@@ -178,40 +181,118 @@ def run_once(data, initializer, seed, config):
     }
 
 
-def load_inputs(dataset, seed):
-    cache_path = (
-        ROOT
-        / "new_cache/new_true_ours/official_mtt/stage_c"
-        / dataset
-        / "new_true_ours_stage_c_{}_seed{}.npz".format(dataset, seed)
-    )
-    initializer_path = (
-        ROOT
-        / "new_output/new_true_ours/stage_b/true_ours_finalist"
-        / dataset
-        / "seed{}".format(seed)
-        / "new_secure_stage_b_candidate_nokd_{}_balanced_seed{}.npz".format(
-            dataset, seed
+def load_inputs(dataset, seed, method):
+    if method == "true_ours":
+        cache_path = (
+            ROOT
+            / "new_cache/new_true_ours/official_mtt/stage_c"
+            / dataset
+            / "new_true_ours_stage_c_{}_seed{}.npz".format(dataset, seed)
         )
-    )
-    data = load_feature_cache(str(cache_path))
+        initializer_path = (
+            ROOT
+            / "new_output/new_true_ours/stage_b/true_ours_finalist"
+            / dataset
+            / "seed{}".format(seed)
+            / "new_secure_stage_b_candidate_nokd_{}_balanced_seed{}.npz".format(
+                dataset, seed
+            )
+        )
+        cache_mode = "npz"
+        expected_source = "official_mtt_only"
+        expected_dependency = 0
+    elif method == "full_data":
+        cache_path = (
+            ROOT
+            / "new_cache/new_true_ours/full_data_stage_c"
+            / dataset
+            / "new_full_stage_c_{}_seed{}.npz".format(dataset, seed)
+        )
+        initializer_path = (
+            ROOT
+            / "new_output/new_true_ours/stage_b_screen/full_data_tuned"
+            / dataset
+            / "new_full_data_tuned_{}_seed{}.npz".format(dataset, seed)
+        )
+        cache_mode = "memmap"
+        expected_source = "full_data_disjoint"
+        expected_dependency = 1
+    else:
+        raise ValueError("Unsupported method: {}".format(method))
+    data = load_feature_cache(str(cache_path), mode=cache_mode)
     with np.load(str(initializer_path), allow_pickle=False) as model:
         if (
             str(model["initializer_source"].reshape(-1)[0])
-            != "official_mtt_only"
+            != expected_source
             or int(model["full_data_initializer_dependency"].reshape(-1)[0])
-            != 0
+            != expected_dependency
         ):
-            raise ValueError("True Ours initializer lineage rejected")
+            raise ValueError("{} initializer lineage rejected".format(method))
         initializer = {
             "weight": np.asarray(model["weight"], dtype=np.float32),
             "bias": np.asarray(model["bias"], dtype=np.float32),
         }
-    return cache_path, initializer_path, data, initializer
+    initial_development_accuracy = evaluate(
+        initializer["weight"],
+        initializer["bias"],
+        data["x_reference"],
+        data["y_reference"],
+    )
+    return {
+        "method": method,
+        "cache_path": cache_path,
+        "cache_mode": cache_mode,
+        "initializer_path": initializer_path,
+        "data": data,
+        "initializer": initializer,
+        "initial_development_validation_accuracy": initial_development_accuracy,
+    }
+
+
+def run_paired(inputs, seed, config):
+    method_results = {}
+    for method in METHODS:
+        item = inputs[method]
+        result = run_once(item["data"], item["initializer"], seed, config)
+        initial = item["initial_development_validation_accuracy"]
+        result["initial_development_validation_accuracy"] = initial
+        result["initializer_retention"] = (
+            result["development_validation_accuracy"] / initial
+        )
+        result["development_validation_delta"] = (
+            result["development_validation_accuracy"] - initial
+        )
+        result["training_sample_count"] = int(
+            len(item["data"]["y_encoder_train"])
+        )
+        method_results[method] = result
+    retention_values = [
+        method_results[method]["initializer_retention"] for method in METHODS
+    ]
+    final_values = [
+        method_results[method]["development_validation_accuracy"]
+        for method in METHODS
+    ]
+    return {
+        "methods": method_results,
+        "joint_worst_initializer_retention": min(retention_values),
+        "joint_mean_initializer_retention": float(np.mean(retention_values)),
+        "joint_mean_development_validation_accuracy": float(
+            np.mean(final_values)
+        ),
+        "joint_runtime_seconds": float(
+            sum(
+                method_results[method]["runtime_seconds"]
+                for method in METHODS
+            )
+        ),
+    }
 
 
 def screen_dataset(dataset, seed):
-    cache_path, initializer_path, data, initializer = load_inputs(dataset, seed)
+    inputs = {
+        method: load_inputs(dataset, seed, method) for method in METHODS
+    }
     current = {
         "steps": STEP_GRIDS[dataset][0],
         "batch_size": 16,
@@ -238,7 +319,7 @@ def screen_dataset(dataset, seed):
         for value in values:
             config = dict(current)
             config[factor] = value
-            result = run_once(data, initializer, seed, config)
+            result = run_paired(inputs, seed, config)
             row = {
                 "dataset": dataset,
                 "seed": int(seed),
@@ -252,32 +333,54 @@ def screen_dataset(dataset, seed):
             rows.append(row)
             candidates.append(row)
             print(
-                "{} {}={} dev={:.5f} eps={:.6f}".format(
+                (
+                    "{} {}={} full_dev={:.5f} true_dev={:.5f} "
+                    "worst_retention={:.5f}"
+                ).format(
                     dataset,
                     factor,
                     value,
-                    row["development_validation_accuracy"],
-                    row["accounted_epsilon"],
+                    row["methods"]["full_data"][
+                        "development_validation_accuracy"
+                    ],
+                    row["methods"]["true_ours"][
+                        "development_validation_accuracy"
+                    ],
+                    row["joint_worst_initializer_retention"],
                 ),
                 flush=True,
             )
         chosen = max(
             candidates,
             key=lambda row: (
-                row["development_validation_accuracy"],
-                row["best_development_validation_accuracy"],
-                -row["runtime_seconds"],
+                row["joint_worst_initializer_retention"],
+                row["joint_mean_initializer_retention"],
+                row["joint_mean_development_validation_accuracy"],
+                -row["joint_runtime_seconds"],
             ),
         )
         current = dict(chosen["config"])
-    final = run_once(data, initializer, seed, current)
+    final = run_paired(inputs, seed, current)
     return {
         "dataset": dataset,
         "seed": int(seed),
-        "feature_cache": str(cache_path),
-        "feature_cache_sha256": sha256_file(str(cache_path)),
-        "initializer": str(initializer_path),
-        "initializer_sha256": sha256_file(str(initializer_path)),
+        "inputs": {
+            method: {
+                "feature_cache": str(inputs[method]["cache_path"]),
+                "feature_cache_mode": inputs[method]["cache_mode"],
+                "feature_cache_sha256": sha256_file(
+                    str(inputs[method]["cache_path"])
+                ),
+                "initializer": str(inputs[method]["initializer_path"]),
+                "initializer_sha256": sha256_file(
+                    str(inputs[method]["initializer_path"])
+                ),
+                "initial_development_validation_accuracy": inputs[method][
+                    "initial_development_validation_accuracy"
+                ],
+            }
+            for method in METHODS
+        },
         "best_config": current,
         "best_result": final,
         "rows": rows,
@@ -293,10 +396,17 @@ def main():
     args = parser.parse_args()
     results = [screen_dataset(dataset, args.seed) for dataset in args.datasets]
     payload = {
-        "schema": "new_adaptive_stage_c_development_screen_v1",
+        "schema": "new_adaptive_stage_c_development_screen_v2_paired",
         "status": "COMPLETE",
         "backend": "numpy_float_dp_diagnostic",
         "formal_backend_required": "TFE_ABY3",
+        "methods": list(METHODS),
+        "shared_configuration_across_methods": True,
+        "selection_rule": (
+            "maximize worst Full/True initializer retention; then mean "
+            "retention, mean development accuracy, and lower runtime"
+        ),
+        "per_method_accountant_calibration_with_true_sample_count": True,
         "target_epsilon": 3.0,
         "delta": 1e-5,
         "common_random_numbers": True,

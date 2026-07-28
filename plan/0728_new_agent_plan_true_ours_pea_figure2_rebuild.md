@@ -523,6 +523,12 @@ EMA/update rate = slow / current / fast
 
 所有筛选只读取 development validation；每次只改变一个因素。旧 54-run Fixed/Adaptive 负结果保留为历史消融，不删除、不覆盖，也不触发新的 Fixed DP-SGD 运行。
 
+为避免单边调参，每个候选配置必须同时在 Full Data 与 True Ours 上运行；
+两边分别按真实样本数校准 accountant。共享配置按“两边中较差的
+NoDP-initializer accuracy retention”优先选择，再依次比较平均 retention、
+平均 development accuracy 与较低 runtime。不得先只为 True Ours 选参后再套用
+到 Full Data。
+
 ## 9.3 训练预算
 
 ```text

@@ -30,7 +30,7 @@
 
 ## 1. 当前实时状态
 
-当前没有 TFE 训练进程或 tmux 会话。刚完成：
+当前没有训练进程或 tmux 会话。刚完成：
 
 ```text
 Tiny seed42 True Ours Stage B: COMPLETE
@@ -42,6 +42,10 @@ development accuracy: 0.6876 (old full graph also 0.6876)
 runtime: 93.89 s vs old 458.55 s
 speedup: 4.884x
 formal enable flag: true
+
+Regularized Consensus synced + no-sync gates: COMPLETE
+passing candidates: 0/3 datasets
+decision: no seed expansion; formal mainline uses Secure Average
 ```
 
 关键路径：
@@ -237,21 +241,26 @@ new_log/new_true_ours/new_full_data_lineage_metadata_upgrade.json
 
 ### 5.2 Regularized Consensus development gate
 
-运行：
+该门已完成，不要重跑。首轮 synced screen 因 final FedAvg 使5个client heads
+完全相同；严格单因素 no-sync follow-up 已恢复非零client-loss spread，但三个
+数据集均没有候选通过预设双门：
 
 ```text
-new_scripts/new_true_ours/new_screen_regularized_consensus.py
+CIFAR-10 best severe delta: -4.62pp
+CIFAR-100 best severe delta: -4.08pp
+Tiny best severe delta: -3.37pp
 ```
 
-仅 seed42、balanced/severe、development validation。候选只有同时：
+权威输出：
 
 ```text
-IID delta >= -0.005
-Severe delta >= +0.01
+new_log/new_true_ours/new_regularized_consensus_development_screen.json
+new_log/new_true_ours/new_regularized_consensus_no_sync_followup.json
 ```
 
-才允许扩 43/44。否则主路线固定 MTT-only Secure Average，Consensus 作为负结果，
-不要反复调到过拟合 development。
+所有 `selected_candidate=null`、`expand_to_three_seeds=false`。不要扩43/44，
+不要继续针对development搜Consensus；主路线固定MTT-only Secure Average，
+Consensus作为负结果。
 
 ### 5.3 Adaptive float development screen
 
@@ -262,8 +271,10 @@ Severe delta >= +0.01
   new_scripts/new_true_ours/new_screen_adaptive_stage_c.py
 ```
 
-它按单因素顺序筛 steps、LR、initial C、gamma、eta，按真实 N 和 composed
-accountant 逐候选校准到 epsilon=3。只读 development，不是正式安全结果。
+它按单因素顺序筛 steps、LR、initial C、gamma、eta。每个候选同时运行Full Data
+与True Ours，两边分别按真实N和composed accountant校准到epsilon=3；共享配置
+按最差initializer retention优先、再按平均retention/accuracy和runtime选择，禁止
+单边为True Ours调参。只读development，不是正式安全结果。
 
 本轮已修复两个正式性问题：
 
@@ -391,12 +402,13 @@ git rev-parse origin/new-true-ours-pea-figure2
 [ ] git status / branch / HEAD / remote HEAD
 [ ] tmux ls
 [ ] 查 Stage B/C 真实进程树，防止重复
-[ ] 查 Tiny report；无 report 则查 checkpoint epoch
-[ ] 查 average-only report/audit，判断 watcher 是否已接力
+[ ] 确认三个seed42 Stage-B report、average-only audit均COMPLETE，不重跑
+[ ] 确认两个Consensus JSON均COMPLETE且no-sync三数据集selected=null，不扩seed
 [ ] 查 locked/test read flags 仍为 false
 [ ] 查磁盘剩余空间
-[ ] 从第一个未满足 COMPLETE gate 继续
+[ ] 当前第一个未满足门是paired Adaptive float development screen
+[ ] 运行前检查代码/进度/交接commit已push，再放入独立tmux
 ```
 
-即使 Codex/VS Code 完全断开，当前 Tiny 和等待 watcher 都在 tmux；checkpoint
-每 5 epochs 保存。最坏只损失最后不足 5 epochs 的工作，不应从 epoch 0 重跑。
+长任务断线后先查tmux与COMPLETE JSON；正式TFE任务每5 epochs保存checkpoint。
+不要因为会话消失就从epoch 0重跑。
