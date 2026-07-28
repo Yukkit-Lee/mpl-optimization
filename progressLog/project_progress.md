@@ -1079,3 +1079,6 @@
 - CIFAR-10 incumbent 复核完成：batch 4、60/80 epochs、LR 0.3/0.4 均未超过 0.6952，说明该 MTT payload 在当前线性头路线已出现稳定平台；其 480 个特征样本均已是单位 L2 范数，未发现遗漏归一化。
 - CIFAR-100 rescue 完成：80 epochs、batch 8、LR 0.25、weight decay 1e-4；sync 5/10 峰值 0.4812/0.4810，按 0.1pp 容差选择更低成本的 sync 20，最终 0.4804，centralized diagnostic 0.4794。调优 Full-Data 当前为 0.4308，因此 CIFAR-100 明显通过 retention gate。
 - Tiny Full-Data tune 与 MTT rescue 已分别在 `tmux true_ours_full_tune` / `tmux true_ours_rescue_tiny` 并行运行，合计使用当前容器大部分可用 CPU；两者均只读 development split。
+- Tiny 并发性能诊断：Full 20-epoch 候选由独占时约 90 秒恶化到 622.98 秒，确认两条 BLAS/memmap 重任务并发会因内存带宽争用使墙钟增加 5 倍以上。True Ours rescue 曾用可逆 `SIGSTOP` 保留现场，Full 独占后 40-epoch 恢复到 169.97 秒。
+- Full Tiny 宽网格在完成 batch16（development 0.2711，优于 batch32 的 0.2641）后主动终止，避免继续执行已显示病态慢且更差的 batch64 及重复大网格。新增 `new_tune_full_tiny_narrow.py`，只在胜出 batch16/40 epochs 上复核 LR 0.05/0.1/0.2；CIFAR-10/100 已完成的 0.7266/0.4308 由完整日志恢复到统一 JSON，不重跑。
+- True Ours Tiny rescue 已从暂停点原地恢复；首个 40-epoch 结果 0.3086（日志 wall time 含暂停，不用于正式计时），后续继续 60/80 epoch 等 development-only 单因素诊断。

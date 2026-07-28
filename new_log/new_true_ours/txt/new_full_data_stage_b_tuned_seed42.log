@@ -1,0 +1,36 @@
+cifar10 full-tune factor=local_epochs value=20 dev=0.68380 time=3.55s
+cifar10 full-tune factor=local_epochs value=40 dev=0.70160 time=6.54s
+cifar10 FULL KEEP local_epochs=40 dev=0.70160
+cifar10 full-tune factor=batch_size value=16 dev=0.71560 time=8.81s
+cifar10 full-tune factor=batch_size value=32 dev=0.70160 time=6.86s
+cifar10 full-tune factor=batch_size value=64 dev=0.68440 time=9.81s
+cifar10 FULL KEEP batch_size=16 dev=0.71560
+cifar10 full-tune factor=local_lr value=0.025 dev=0.70180 time=8.76s
+cifar10 full-tune factor=local_lr value=0.05 dev=0.71560 time=8.83s
+cifar10 full-tune factor=local_lr value=0.1 dev=0.72240 time=8.60s
+cifar10 full-tune factor=local_lr value=0.2 dev=0.72660 time=8.88s
+cifar10 FULL KEEP local_lr=0.2 dev=0.72660
+cifar10 full-tune factor=weight_decay value=0.0 dev=0.72660 time=8.65s
+cifar10 full-tune factor=weight_decay value=0.0001 dev=0.72640 time=8.90s
+cifar10 full-tune factor=weight_decay value=0.001 dev=0.71320 time=8.92s
+cifar10 FULL KEEP weight_decay=0.0 dev=0.72660
+cifar100 full-tune factor=local_epochs value=30 dev=0.38740 time=36.37s
+cifar100 full-tune factor=local_epochs value=40 dev=0.39300 time=45.33s
+cifar100 FULL KEEP local_epochs=40 dev=0.39300
+cifar100 full-tune factor=batch_size value=16 dev=0.41140 time=104.15s
+cifar100 full-tune factor=batch_size value=32 dev=0.39300 time=54.62s
+cifar100 full-tune factor=batch_size value=64 dev=0.37740 time=242.14s
+cifar100 FULL KEEP batch_size=16 dev=0.41140
+cifar100 full-tune factor=local_lr value=0.025 dev=0.39260 time=85.58s
+cifar100 full-tune factor=local_lr value=0.05 dev=0.41140 time=84.07s
+cifar100 full-tune factor=local_lr value=0.1 dev=0.42340 time=85.56s
+cifar100 full-tune factor=local_lr value=0.2 dev=0.43080 time=81.81s
+cifar100 FULL KEEP local_lr=0.2 dev=0.43080
+cifar100 full-tune factor=weight_decay value=0.0 dev=0.43080 time=82.43s
+cifar100 full-tune factor=weight_decay value=0.0001 dev=0.43060 time=93.13s
+cifar100 full-tune factor=weight_decay value=0.001 dev=0.41600 time=82.42s
+cifar100 FULL KEEP weight_decay=0.0 dev=0.43080
+tiny full-tune factor=local_epochs value=20 dev=0.25330 time=622.98s
+tiny full-tune factor=local_epochs value=40 dev=0.26410 time=169.97s
+tiny FULL KEEP local_epochs=40 dev=0.26410
+tiny full-tune factor=batch_size value=16 dev=0.27110 time=308.24s
