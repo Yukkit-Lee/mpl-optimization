@@ -81,6 +81,14 @@ def run_once(data, initializer, seed, config):
     rng = np.random.RandomState(int(seed) + 7282026)
     current_c = float(config["initial_c"])
     history = []
+    evaluation_steps = set(
+        np.linspace(
+            1, int(config["steps"]), min(10, int(config["steps"]))
+        )
+        .round()
+        .astype(np.int64)
+        .tolist()
+    )
     started = time.time()
     for step in range(int(config["steps"])):
         ids = deterministic_ids(
@@ -133,23 +141,25 @@ def run_once(data, initializer, seed, config):
                     config["c_max"],
                 )
             )
-        history.append(
-            {
-                "step": step + 1,
-                "development_validation_accuracy": evaluate(
-                    weight, bias, x_dev, y_dev
-                ),
-                "clipping_bound": current_c,
-                "dp_noised_fraction_below": noisy_fraction,
-            }
-        )
+        row = {
+            "step": step + 1,
+            "development_validation_accuracy": None,
+            "clipping_bound": current_c,
+            "dp_noised_fraction_below": noisy_fraction,
+        }
+        if step + 1 in evaluation_steps:
+            row["development_validation_accuracy"] = evaluate(
+                weight, bias, x_dev, y_dev
+            )
+        history.append(row)
+    evaluated = [
+        row["development_validation_accuracy"]
+        for row in history
+        if row["development_validation_accuracy"] is not None
+    ]
     return {
-        "development_validation_accuracy": history[-1][
-            "development_validation_accuracy"
-        ],
-        "best_development_validation_accuracy": max(
-            row["development_validation_accuracy"] for row in history
-        ),
+        "development_validation_accuracy": evaluated[-1],
+        "best_development_validation_accuracy": max(evaluated),
         "noise_multiplier": noise_multiplier,
         "accounted_epsilon": epsilon,
         "count_steps": count_steps,
