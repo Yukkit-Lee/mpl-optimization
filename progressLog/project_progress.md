@@ -1115,3 +1115,4 @@
 - Adaptive screen 性能修复：development evaluation schedule 从错误的“每一步完整评估”改为与 TFE 正式实现一致的最多10个均匀时间点，最终点必含；避免 Tiny 180-step 网格反复执行 10k×2048×200 矩阵评估，同时保留 final/best development 选参信息。
 - Consensus gate 固化：筛选器现按 method+parameters 精确配对 balanced/severe 结果，只有 `IID delta >= -0.5pp` 且 `Severe delta >= +1pp` 才标记 `expand_to_three_seeds=true`；若无候选通过则明确输出 selected=null 并将 Consensus 降为负结果，禁止人工从不同参数/partition 拼接有利结果。
 - Stage-B 性能优化准备：新增显式 `--secure_average_only` 图路径，在 distill/KD 全关闭时只构建本地安全训练、周期 FedAvg、NoKD snapshot 与最终 release，不再构建未使用的 teacher、KD、reference-weighted 与 private selection 子图；report 会明确记录该模式及更窄的 secret input/intermediate 集。当前 Tiny 诊断仍运行已加载的旧完整图，不受修改影响；新路径在 CIFAR-10 TFE 数值等价复核通过前不得用于正式三 seeds。
+- `secure_average_only` TFE 单元正确性：2 clients、4-D、3 classes 的真实 ABY3 单步更新与 NumPy 解析解对照通过，weight/bias max abs error 分别 `2.44e-5/3.05e-6`；图键确认不含 teacher/reference/selection/KD 子图。该测试证明局部更新+snapshot 基元正确，但正式启用仍需完整 CIFAR-10 40-epoch候选与旧 NoKD 结果等价复核。
