@@ -1068,3 +1068,4 @@
 - 安全边界：TFE 聚合权重只由公开 split 样本数/类别直方图计算，不揭示任何模型参数；True Ours 仍有 `official_mtt_only` lineage 硬门，且 formal candidate 尚未发布。
 - 当前队列：先用修正规则重跑 CIFAR-10/100，再执行 Tiny seed42 基础筛选与 FedAvg follow-up。所有任务通过可恢复的 tmux 独立日志运行；locked holdout 和 test 均保持未读。
 - 新增安全 finalist 复核入口：`new_run_stage_b_secure_finalists.py` 会从 development screen 的冻结候选配置顺序调用 legacy TFE/ABY3，并以 checkpoint/COMPLETE 报告支持断点恢复；`new_evaluate_stage_b_development.py` 只在严格 development split 上评价生成的 NoKD candidate，同时再次硬校验 `official_mtt_only` lineage。该入口将在三数据集 seed42 筛选收敛后才启动，目前尚未生成或评价 secure finalist。
+- 新增 `new_screen_full_data_stage_b_reference.py`：在同一组严格 development split 上复现旧 Full-Data Stage-B 固定配置（20/30/20 epochs、batch 32、LR 0.05），用于估算 True Ours 的 accuracy retention 门槛。该输出明确标记为 plaintext diagnostic；它不替代后续 disjoint Full-Data TFE 正式重跑，也不读取 locked holdout/test。
