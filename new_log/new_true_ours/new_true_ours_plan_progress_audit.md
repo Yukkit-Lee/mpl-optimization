@@ -28,8 +28,15 @@
 - 正式配置与 time-to-target 冻结；
 - Full Data 与 True Ours 三 seeds 从 Stage B 开始的正式同口径重跑；
 - 冻结后一次性 locked holdout/official-test 评估；
-- 累计安全时间曲线、PEA 风格 Figure 2、系统表修复；
+- 累计安全时间曲线与 PEA 风格 Figure 2；
 - 单一 master results、论文报告、claim audit 和外部方法来源表。
+
+## 已完成的独立后续项
+
+- Phase 11 TFE system 表字段修复完成：9/9 权威 source rows 均通过
+  `secure_runtime_seconds>0`、`peak_rss_bytes>0` 硬断言；
+- repaired JSON/CSV 只用于历史 kernel scaling 补充表，Adaptive 主图仍等待本轮
+  实际 Stage-B + Stage-C 累计时间。
 
 ## 最新协议覆盖
 

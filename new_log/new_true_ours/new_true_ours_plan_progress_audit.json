@@ -71,7 +71,12 @@
     {
       "phase": "11",
       "name": "tfe_system_table_repair",
-      "status": "SOURCE_RESULTS_AVAILABLE_OUTPUT_PENDING"
+      "status": "COMPLETE",
+      "evidence": [
+        "new_log/new_true_ours/new_tfe_system_formal_repaired.json",
+        "new_expTab/new_true_ours/new_tfe_system_formal_repaired.csv"
+      ],
+      "source_rows": 9
     },
     {
       "phase": "12",
