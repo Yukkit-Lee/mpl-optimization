@@ -27,7 +27,33 @@ def metadata_path(dataset, seed, stage):
     )
 
 
+def preserved_paths():
+    paths = []
+    for dataset in DATASETS:
+        for seed in SEEDS:
+            paths.append(
+                ROOT
+                / "new_cache/new_true_ours/splits"
+                / dataset
+                / "new_true_ours_split_{}_seed{}.npz".format(dataset, seed)
+            )
+            for stage in STAGES:
+                paths.append(
+                    ROOT
+                    / "new_cache/new_true_ours/official_mtt"
+                    / stage
+                    / dataset
+                    / "new_true_ours_{}_{}_seed{}.npz".format(
+                        stage, dataset, seed
+                    )
+                )
+    return paths
+
+
 def main():
+    frozen_before = {
+        str(path): sha256_file(path) for path in preserved_paths()
+    }
     rows = []
     for dataset in DATASETS:
         for seed in SEEDS:
@@ -91,6 +117,18 @@ def main():
                         "test_loaded": False,
                     }
                 )
+    frozen_after = {
+        str(path): sha256_file(path) for path in preserved_paths()
+    }
+    if frozen_after != frozen_before:
+        changed = [
+            path
+            for path in frozen_before
+            if frozen_before[path] != frozen_after.get(path)
+        ]
+        raise AssertionError(
+            "frozen split/Official-MTT files changed: {}".format(changed)
+        )
     payload = {
         "schema": "new_full_data_lineage_metadata_upgrade_v1",
         "status": "COMPLETE",
@@ -98,6 +136,8 @@ def main():
         "rows_completed": len(rows),
         "frozen_split_files_rewritten": False,
         "official_mtt_cache_files_rewritten": False,
+        "preserved_files_verified": len(frozen_before),
+        "preserved_files_sha256": frozen_after,
         "rows": rows,
     }
     if len(rows) != 18:
