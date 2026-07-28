@@ -1,0 +1,7 @@
+code,description,init_val_acc,final_val_acc
+D1,Full + Average + NoDP,0.697194,0.697595
+D2,MTT + Average + NoDP,0.697194,0.697395
+D3,MTT + Consensus + NoDP,0.620241,0.625651
+D4,Full + Average + DP,0.697194,0.697595
+D5,MTT + Consensus + DP,0.620241,0.624449
+D6,MTT + Average + DP,0.697194,0.696794

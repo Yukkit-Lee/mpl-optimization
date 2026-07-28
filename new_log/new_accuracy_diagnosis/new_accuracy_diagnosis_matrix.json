@@ -1,0 +1,50 @@
+{
+  "schema": "accuracy_diagnosis_matrix_v1",
+  "dataset": "cifar10",
+  "seed": 42,
+  "results": [
+    {
+      "code": "D1",
+      "desc": "Full + Average + NoDP",
+      "init_val_acc": 0.6971943974494934,
+      "final_val_acc": 0.6975951790809631
+    },
+    {
+      "code": "D2",
+      "desc": "MTT + Average + NoDP",
+      "init_val_acc": 0.6971943974494934,
+      "final_val_acc": 0.6973947882652283
+    },
+    {
+      "code": "D3",
+      "desc": "MTT + Consensus + NoDP",
+      "init_val_acc": 0.6202405095100403,
+      "final_val_acc": 0.6256512999534607
+    },
+    {
+      "code": "D4",
+      "desc": "Full + Average + DP",
+      "init_val_acc": 0.6971943974494934,
+      "final_val_acc": 0.6975951790809631
+    },
+    {
+      "code": "D5",
+      "desc": "MTT + Consensus + DP",
+      "init_val_acc": 0.6202405095100403,
+      "final_val_acc": 0.6244488954544067
+    },
+    {
+      "code": "D6",
+      "desc": "MTT + Average + DP",
+      "init_val_acc": 0.6971943974494934,
+      "final_val_acc": 0.6967936158180237
+    }
+  ],
+  "gap_decomposition": {
+    "mtt_feature_loss": 0.00020039081573486328,
+    "consensus_gain_on_mtt": -0.07174348831176758,
+    "dp_loss_full_avg": 0.0,
+    "dp_loss_mtt_cons": 0.001202404499053955,
+    "total_gap_full_vs_ours": 0.0731462836265564
+  }
+}
