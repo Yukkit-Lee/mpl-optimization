@@ -59,9 +59,16 @@ def select_candidate(candidates, factor, tolerance=0.001):
 def run_dataset(dataset, seed, base_config):
     _, _, x_train, y_train, x_dev, y_dev = load_assets(dataset, seed)
     current = dict(base_config)
+    batch_values = [4, 8, 16] if dataset == "cifar10" else [8]
+    lr_values = (
+        [0.2, 0.25, 0.3, 0.4]
+        if dataset == "cifar10"
+        else [0.15, 0.2, 0.25]
+    )
     factors = [
         ("local_epochs", [40, 60, 80]),
-        ("local_lr", [0.15, 0.2, 0.25]),
+        ("batch_size", batch_values),
+        ("local_lr", lr_values),
         ("weight_decay", [0.0, 1e-4, 1e-3]),
         ("fedavg_sync_interval", [0, 1, 5, 10, 20]),
     ]
