@@ -1,0 +1,118 @@
+{
+  "schema": "new_full_data_stage_b_tuned_screen_recovered_v1",
+  "status": "COMPLETE",
+  "broad_grid_terminated_after_tiny_batch16": true,
+  "termination_reason": "Tiny batch grid exposed >5x BLAS/memory contention and uninformative repeated long candidates",
+  "backend": "numpy_plaintext_diagnostic",
+  "formal_secure_result": false,
+  "locked_holdout_read": false,
+  "official_test_read": false,
+  "results": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "best_config": {
+        "shared_initialization": false,
+        "local_epochs": 40,
+        "batch_size": 16,
+        "local_lr": 0.2,
+        "weight_decay": 0.0,
+        "client_weighting": "uniform",
+        "fedavg_sync_interval": 0
+      },
+      "best_development_validation_accuracy": 0.7266,
+      "source": "completed_broad_grid_log"
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "best_config": {
+        "shared_initialization": false,
+        "local_epochs": 40,
+        "batch_size": 16,
+        "local_lr": 0.2,
+        "weight_decay": 0.0,
+        "client_weighting": "uniform",
+        "fedavg_sync_interval": 0
+      },
+      "best_development_validation_accuracy": 0.4308,
+      "source": "completed_broad_grid_log"
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "best_config": {
+        "shared_initialization": false,
+        "local_epochs": 40,
+        "batch_size": 16,
+        "local_lr": 0.1,
+        "weight_decay": 0.0,
+        "client_weighting": "uniform",
+        "fedavg_sync_interval": 0
+      },
+      "best_development_validation_accuracy": 0.2765,
+      "best_runtime_seconds": 297.31758069992065,
+      "candidate": "/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b_screen/full_data_tuned/tiny/new_full_data_tuned_tiny_seed42.npz",
+      "rows": [
+        {
+          "dataset": "tiny",
+          "seed": 42,
+          "factor": "local_lr",
+          "factor_value": 0.05,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 40,
+            "batch_size": 16,
+            "local_lr": 0.05,
+            "weight_decay": 0.0,
+            "client_weighting": "uniform",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.2711,
+          "runtime_seconds": 312.2683651447296,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 42,
+          "factor": "local_lr",
+          "factor_value": 0.1,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 40,
+            "batch_size": 16,
+            "local_lr": 0.1,
+            "weight_decay": 0.0,
+            "client_weighting": "uniform",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.2765,
+          "runtime_seconds": 297.31758069992065,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "tiny",
+          "seed": 42,
+          "factor": "local_lr",
+          "factor_value": 0.2,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 40,
+            "batch_size": 16,
+            "local_lr": 0.2,
+            "weight_decay": 0.0,
+            "client_weighting": "uniform",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.2755,
+          "runtime_seconds": 307.55064511299133,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        }
+      ],
+      "source": "narrow_recovery_grid"
+    }
+  ]
+}

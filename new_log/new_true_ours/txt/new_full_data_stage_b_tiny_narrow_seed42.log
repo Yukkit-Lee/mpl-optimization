@@ -1,0 +1,4 @@
+tiny full-narrow lr=0.05 dev=0.27110 time=312.27s
+tiny full-narrow lr=0.1 dev=0.27650 time=297.32s
+tiny full-narrow lr=0.2 dev=0.27550 time=307.55s
+full_tuned_screen=/root/autodl-tmp/tfe_experiments/new_log/new_true_ours/new_full_data_stage_b_tuned_screen.json

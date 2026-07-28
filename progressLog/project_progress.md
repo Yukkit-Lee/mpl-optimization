@@ -1084,3 +1084,5 @@
 - True Ours Tiny rescue 已从暂停点原地恢复；首个 40-epoch 结果 0.3086（日志 wall time 含暂停，不用于正式计时），后续继续 60/80 epoch 等 development-only 单因素诊断。
 - Tiny epoch rescue 完成：40/60/80 epochs 的 development accuracy 为 0.3086/0.3092/0.3114，保留 80 epochs。80-epoch 之后脚本将重复 batch8 及已在 40 epochs 充分筛选过的 LR/weight-decay/sync 网格，因此主动停止并由 `new_recover_tiny_rescue_manifest.py` 从三条完整日志恢复 incumbent；没有重跑已完成候选。
 - secure finalist runner 已改为优先读取 Phase-4 rescue incumbent（若不存在才回退 FedAvg screen），防止 TFE 误跑较旧的 40-epoch 配置。当前尚未启动 TFE finalist；先让 Full Tiny LR 窄搜独占 CPU 完成。
+- Full Tiny 窄搜完成：batch16/40 epochs 下 LR 0.05/0.1/0.2 的 development accuracy 为 0.2711/0.2765/0.2755，选择 LR 0.1。最终公平 Full reference 为 CIFAR-10 0.7266、CIFAR-100 0.4308、Tiny 0.2765。
+- True Ours rescue 相对调优 Full：CIFAR-10 0.6952（落后 3.14pp，未过 gate）；CIFAR-100 0.4804（高 4.96pp，通过）；Tiny 0.3114（高 3.49pp，通过）。因此不能宣称三个数据集全部达到 Stage-B `Full - 1pp`，CIFAR-10 将作为明确残余缺口；下一步用 TFE secure finalist 检查明文筛选结果能否在真实安全后端复现。
