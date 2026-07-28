@@ -223,11 +223,95 @@ def main():
                     configs[(dataset, args.seed)],
                 )
             )
+    decisions = []
+    for dataset in args.datasets:
+        dataset_rows = [
+            row
+            for row in rows
+            if row["dataset"] == dataset and row["seed"] == int(args.seed)
+        ]
+        average = {
+            row["partition"]: row["development_validation_accuracy"]
+            for row in dataset_rows
+            if row["method"] == "average"
+        }
+        candidates = []
+        identities = sorted(
+            {
+                (
+                    row["method"],
+                    json.dumps(row["parameters"], sort_keys=True),
+                )
+                for row in dataset_rows
+                if row["method"] != "average"
+            }
+        )
+        for method, encoded_parameters in identities:
+            parameters = json.loads(encoded_parameters)
+            matched = {
+                row["partition"]: row["development_validation_accuracy"]
+                for row in dataset_rows
+                if row["method"] == method
+                and row["parameters"] == parameters
+            }
+            if set(matched) != {"balanced", "severe"}:
+                raise ValueError(
+                    "candidate partition pairing incomplete: {} {}".format(
+                        method, parameters
+                    )
+                )
+            iid_delta = matched["balanced"] - average["balanced"]
+            severe_delta = matched["severe"] - average["severe"]
+            candidates.append(
+                {
+                    "method": method,
+                    "parameters": parameters,
+                    "balanced_accuracy": matched["balanced"],
+                    "severe_accuracy": matched["severe"],
+                    "iid_delta_vs_average": iid_delta,
+                    "severe_delta_vs_average": severe_delta,
+                    "passes_seed42_gate": (
+                        iid_delta >= -0.005 and severe_delta >= 0.01
+                    ),
+                }
+            )
+        passing = [
+            candidate
+            for candidate in candidates
+            if candidate["passes_seed42_gate"]
+        ]
+        selected = (
+            max(
+                passing,
+                key=lambda candidate: (
+                    candidate["severe_delta_vs_average"],
+                    candidate["iid_delta_vs_average"],
+                ),
+            )
+            if passing
+            else None
+        )
+        decisions.append(
+            {
+                "dataset": dataset,
+                "seed": int(args.seed),
+                "average_balanced_accuracy": average["balanced"],
+                "average_severe_accuracy": average["severe"],
+                "gate": {
+                    "minimum_iid_delta": -0.005,
+                    "minimum_severe_delta": 0.01,
+                },
+                "candidates": candidates,
+                "selected_candidate": selected,
+                "expand_to_three_seeds": selected is not None,
+            }
+        )
     payload = {
         "schema": "new_regularized_consensus_development_screen_v1",
         "status": "COMPLETE",
         "backend": "numpy_plaintext_diagnostic",
         "rows": rows,
+        "decisions": decisions,
         "locked_holdout_read": False,
         "official_test_read": False,
     }
