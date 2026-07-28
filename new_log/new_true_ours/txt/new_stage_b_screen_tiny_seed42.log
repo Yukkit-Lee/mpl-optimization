@@ -1,0 +1,27 @@
+tiny factor=shared_initialization value=False dev=0.28000 time=15.10s
+tiny factor=shared_initialization value=True dev=0.24810 time=12.67s
+tiny KEEP shared_initialization=False dev=0.28000
+tiny factor=local_epochs value=5 dev=0.19110 time=2.95s
+tiny factor=local_epochs value=10 dev=0.25380 time=6.50s
+tiny factor=local_epochs value=20 dev=0.28000 time=13.53s
+tiny factor=local_epochs value=40 dev=0.29280 time=25.25s
+tiny KEEP local_epochs=40 dev=0.29280
+tiny factor=batch_size value=8 dev=0.30070 time=83.36s
+tiny factor=batch_size value=16 dev=0.29830 time=41.93s
+tiny factor=batch_size value=32 dev=0.29280 time=26.81s
+tiny KEEP batch_size=8 dev=0.30070
+tiny factor=local_lr value=0.025 dev=0.29330 time=86.23s
+tiny factor=local_lr value=0.05 dev=0.29820 time=84.97s
+tiny factor=local_lr value=0.1 dev=0.30070 time=84.27s
+tiny factor=local_lr value=0.2 dev=0.30350 time=80.04s
+tiny KEEP local_lr=0.2 dev=0.30350
+tiny factor=weight_decay value=0.0 dev=0.30350 time=84.25s
+tiny factor=weight_decay value=1e-05 dev=0.30380 time=84.57s
+tiny factor=weight_decay value=0.0001 dev=0.30480 time=78.09s
+tiny factor=weight_decay value=0.001 dev=0.30400 time=82.91s
+tiny KEEP weight_decay=0.0001 dev=0.30480
+tiny factor=client_weighting value=uniform dev=0.30480 time=78.42s
+tiny factor=client_weighting value=sample_count dev=0.30380 time=76.11s
+tiny factor=client_weighting value=class_balanced dev=0.30380 time=80.97s
+tiny KEEP client_weighting=uniform dev=0.30480
+screen=/root/autodl-tmp/tfe_experiments/new_expTab/new_true_ours/new_true_ours_stage_b_screen.csv rows=60 locked_holdout_read=False

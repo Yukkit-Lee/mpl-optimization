@@ -1,0 +1,27 @@
+cifar100 factor=shared_initialization value=False dev=0.42960 time=3.89s
+cifar100 factor=shared_initialization value=True dev=0.39620 time=4.10s
+cifar100 KEEP shared_initialization=False dev=0.42960
+cifar100 factor=local_epochs value=5 dev=0.33820 time=1.08s
+cifar100 factor=local_epochs value=10 dev=0.40280 time=2.07s
+cifar100 factor=local_epochs value=20 dev=0.42960 time=4.12s
+cifar100 factor=local_epochs value=40 dev=0.44200 time=7.17s
+cifar100 KEEP local_epochs=40 dev=0.44200
+cifar100 factor=batch_size value=8 dev=0.46040 time=19.63s
+cifar100 factor=batch_size value=16 dev=0.45320 time=13.24s
+cifar100 factor=batch_size value=32 dev=0.44200 time=6.94s
+cifar100 KEEP batch_size=8 dev=0.46040
+cifar100 factor=local_lr value=0.025 dev=0.44200 time=21.12s
+cifar100 factor=local_lr value=0.05 dev=0.45440 time=20.33s
+cifar100 factor=local_lr value=0.1 dev=0.46040 time=21.21s
+cifar100 factor=local_lr value=0.2 dev=0.47200 time=21.42s
+cifar100 KEEP local_lr=0.2 dev=0.47200
+cifar100 factor=weight_decay value=0.0 dev=0.47200 time=18.47s
+cifar100 factor=weight_decay value=1e-05 dev=0.47200 time=19.06s
+cifar100 factor=weight_decay value=0.0001 dev=0.47120 time=19.20s
+cifar100 factor=weight_decay value=0.001 dev=0.46680 time=18.90s
+cifar100 KEEP weight_decay=0.0 dev=0.47200
+cifar100 factor=client_weighting value=uniform dev=0.47200 time=19.37s
+cifar100 factor=client_weighting value=sample_count dev=0.47300 time=18.68s
+cifar100 factor=client_weighting value=class_balanced dev=0.47300 time=21.21s
+cifar100 KEEP client_weighting=sample_count dev=0.47300
+screen=/root/autodl-tmp/tfe_experiments/new_expTab/new_true_ours/new_true_ours_stage_b_screen.csv rows=40 locked_holdout_read=False
