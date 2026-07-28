@@ -40,7 +40,7 @@
         "num_clients": 1
       },
       "centralized_development_validation_accuracy": 0.6808,
-      "best_runtime_seconds": 0.8551676273345947,
+      "best_runtime_seconds": 1.179978847503662,
       "candidate": "/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b_screen/rescue/cifar10/new_true_ours_stage_b_rescue_cifar10_seed42.npz",
       "rows": [
         {
@@ -52,13 +52,13 @@
             "shared_initialization": true,
             "local_epochs": 40,
             "batch_size": 8,
-            "local_lr": 0.2,
-            "weight_decay": 0.001,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
             "client_weighting": "sample_count",
             "fedavg_sync_interval": 10
           },
-          "development_validation_accuracy": 0.6926,
-          "runtime_seconds": 0.9041125774383545,
+          "development_validation_accuracy": 0.6952,
+          "runtime_seconds": 0.9016199111938477,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -71,13 +71,13 @@
             "shared_initialization": true,
             "local_epochs": 60,
             "batch_size": 8,
-            "local_lr": 0.2,
-            "weight_decay": 0.001,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
             "client_weighting": "sample_count",
             "fedavg_sync_interval": 10
           },
-          "development_validation_accuracy": 0.688,
-          "runtime_seconds": 0.9916095733642578,
+          "development_validation_accuracy": 0.6898,
+          "runtime_seconds": 1.2323024272918701,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -90,32 +90,70 @@
             "shared_initialization": true,
             "local_epochs": 80,
             "batch_size": 8,
-            "local_lr": 0.2,
-            "weight_decay": 0.001,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
             "client_weighting": "sample_count",
             "fedavg_sync_interval": 10
           },
-          "development_validation_accuracy": 0.69,
-          "runtime_seconds": 1.1074309349060059,
+          "development_validation_accuracy": 0.6902,
+          "runtime_seconds": 1.2112526893615723,
           "locked_holdout_read": false,
           "official_test_read": false
         },
         {
           "dataset": "cifar10",
           "seed": 42,
-          "factor": "local_lr",
-          "factor_value": 0.15,
+          "factor": "batch_size",
+          "factor_value": 4,
           "config": {
             "shared_initialization": true,
             "local_epochs": 40,
-            "batch_size": 8,
-            "local_lr": 0.15,
-            "weight_decay": 0.001,
+            "batch_size": 4,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
             "client_weighting": "sample_count",
             "fedavg_sync_interval": 10
           },
           "development_validation_accuracy": 0.6906,
-          "runtime_seconds": 0.9795069694519043,
+          "runtime_seconds": 1.2308223247528076,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar10",
+          "seed": 42,
+          "factor": "batch_size",
+          "factor_value": 8,
+          "config": {
+            "shared_initialization": true,
+            "local_epochs": 40,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 10
+          },
+          "development_validation_accuracy": 0.6952,
+          "runtime_seconds": 1.3837850093841553,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar10",
+          "seed": 42,
+          "factor": "batch_size",
+          "factor_value": 16,
+          "config": {
+            "shared_initialization": true,
+            "local_epochs": 40,
+            "batch_size": 16,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 10
+          },
+          "development_validation_accuracy": 0.6892,
+          "runtime_seconds": 1.2762513160705566,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -129,12 +167,12 @@
             "local_epochs": 40,
             "batch_size": 8,
             "local_lr": 0.2,
-            "weight_decay": 0.001,
+            "weight_decay": 0.0001,
             "client_weighting": "sample_count",
             "fedavg_sync_interval": 10
           },
-          "development_validation_accuracy": 0.6926,
-          "runtime_seconds": 1.003847599029541,
+          "development_validation_accuracy": 0.693,
+          "runtime_seconds": 1.1834208965301514,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -148,12 +186,50 @@
             "local_epochs": 40,
             "batch_size": 8,
             "local_lr": 0.25,
-            "weight_decay": 0.001,
+            "weight_decay": 0.0001,
             "client_weighting": "sample_count",
             "fedavg_sync_interval": 10
           },
-          "development_validation_accuracy": 0.695,
-          "runtime_seconds": 0.8482019901275635,
+          "development_validation_accuracy": 0.6952,
+          "runtime_seconds": 1.328293800354004,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar10",
+          "seed": 42,
+          "factor": "local_lr",
+          "factor_value": 0.3,
+          "config": {
+            "shared_initialization": true,
+            "local_epochs": 40,
+            "batch_size": 8,
+            "local_lr": 0.3,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 10
+          },
+          "development_validation_accuracy": 0.6924,
+          "runtime_seconds": 1.3437809944152832,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar10",
+          "seed": 42,
+          "factor": "local_lr",
+          "factor_value": 0.4,
+          "config": {
+            "shared_initialization": true,
+            "local_epochs": 40,
+            "batch_size": 8,
+            "local_lr": 0.4,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 10
+          },
+          "development_validation_accuracy": 0.692,
+          "runtime_seconds": 1.2873804569244385,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -172,7 +248,7 @@
             "fedavg_sync_interval": 10
           },
           "development_validation_accuracy": 0.695,
-          "runtime_seconds": 0.7196743488311768,
+          "runtime_seconds": 1.0518531799316406,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -191,7 +267,7 @@
             "fedavg_sync_interval": 10
           },
           "development_validation_accuracy": 0.6952,
-          "runtime_seconds": 0.8753368854522705,
+          "runtime_seconds": 1.108227252960205,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -210,7 +286,7 @@
             "fedavg_sync_interval": 10
           },
           "development_validation_accuracy": 0.695,
-          "runtime_seconds": 0.9118616580963135,
+          "runtime_seconds": 1.4634318351745605,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -229,7 +305,7 @@
             "fedavg_sync_interval": 0
           },
           "development_validation_accuracy": 0.6898,
-          "runtime_seconds": 0.5916626453399658,
+          "runtime_seconds": 0.5998036861419678,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -248,7 +324,7 @@
             "fedavg_sync_interval": 1
           },
           "development_validation_accuracy": 0.6908,
-          "runtime_seconds": 0.9157464504241943,
+          "runtime_seconds": 1.2439179420471191,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -267,7 +343,7 @@
             "fedavg_sync_interval": 5
           },
           "development_validation_accuracy": 0.693,
-          "runtime_seconds": 0.771812915802002,
+          "runtime_seconds": 1.4957423210144043,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -286,7 +362,7 @@
             "fedavg_sync_interval": 10
           },
           "development_validation_accuracy": 0.6952,
-          "runtime_seconds": 0.7521653175354004,
+          "runtime_seconds": 1.0762791633605957,
           "locked_holdout_read": false,
           "official_test_read": false
         },
@@ -305,7 +381,334 @@
             "fedavg_sync_interval": 20
           },
           "development_validation_accuracy": 0.693,
-          "runtime_seconds": 0.8717472553253174,
+          "runtime_seconds": 1.543907880783081,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        }
+      ],
+      "backend": "numpy_plaintext_diagnostic",
+      "formal_secure_result": false,
+      "locked_holdout_read": false,
+      "official_test_read": false
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "base_config": {
+        "shared_initialization": false,
+        "local_epochs": 40,
+        "batch_size": 8,
+        "local_lr": 0.2,
+        "weight_decay": 0.0,
+        "client_weighting": "sample_count",
+        "fedavg_sync_interval": 0
+      },
+      "best_config": {
+        "shared_initialization": false,
+        "local_epochs": 80,
+        "batch_size": 8,
+        "local_lr": 0.25,
+        "weight_decay": 0.0001,
+        "client_weighting": "sample_count",
+        "fedavg_sync_interval": 20
+      },
+      "best_development_validation_accuracy": 0.4804,
+      "centralized_diagnostic_config": {
+        "shared_initialization": false,
+        "local_epochs": 80,
+        "batch_size": 8,
+        "local_lr": 0.25,
+        "weight_decay": 0.0001,
+        "client_weighting": "sample_count",
+        "fedavg_sync_interval": 0,
+        "num_clients": 1
+      },
+      "centralized_development_validation_accuracy": 0.4794,
+      "best_runtime_seconds": 173.57983016967773,
+      "candidate": "/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b_screen/rescue/cifar100/new_true_ours_stage_b_rescue_cifar100_seed42.npz",
+      "rows": [
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "local_epochs",
+          "factor_value": 40,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 40,
+            "batch_size": 8,
+            "local_lr": 0.2,
+            "weight_decay": 0.0,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.473,
+          "runtime_seconds": 78.19906973838806,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "local_epochs",
+          "factor_value": 60,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 60,
+            "batch_size": 8,
+            "local_lr": 0.2,
+            "weight_decay": 0.0,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.4736,
+          "runtime_seconds": 95.03546047210693,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "local_epochs",
+          "factor_value": 80,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.2,
+            "weight_decay": 0.0,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.4754,
+          "runtime_seconds": 63.993011236190796,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "batch_size",
+          "factor_value": 8,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.2,
+            "weight_decay": 0.0,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.4754,
+          "runtime_seconds": 46.06781983375549,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "local_lr",
+          "factor_value": 0.15,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.15,
+            "weight_decay": 0.0,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.4728,
+          "runtime_seconds": 44.61585974693298,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "local_lr",
+          "factor_value": 0.2,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.2,
+            "weight_decay": 0.0,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.4754,
+          "runtime_seconds": 46.46694087982178,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "local_lr",
+          "factor_value": 0.25,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.0,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.4756,
+          "runtime_seconds": 47.55579376220703,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "weight_decay",
+          "factor_value": 0.0,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.0,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.4756,
+          "runtime_seconds": 44.8329918384552,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "weight_decay",
+          "factor_value": 0.0001,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.477,
+          "runtime_seconds": 49.1758029460907,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "weight_decay",
+          "factor_value": 0.001,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.472,
+          "runtime_seconds": 48.02402687072754,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "fedavg_sync_interval",
+          "factor_value": 0,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 0
+          },
+          "development_validation_accuracy": 0.477,
+          "runtime_seconds": 47.958781242370605,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "fedavg_sync_interval",
+          "factor_value": 1,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 1
+          },
+          "development_validation_accuracy": 0.4806,
+          "runtime_seconds": 82.08420515060425,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "fedavg_sync_interval",
+          "factor_value": 5,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 5
+          },
+          "development_validation_accuracy": 0.4812,
+          "runtime_seconds": 75.34932160377502,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "fedavg_sync_interval",
+          "factor_value": 10,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 10
+          },
+          "development_validation_accuracy": 0.481,
+          "runtime_seconds": 82.01441621780396,
+          "locked_holdout_read": false,
+          "official_test_read": false
+        },
+        {
+          "dataset": "cifar100",
+          "seed": 42,
+          "factor": "fedavg_sync_interval",
+          "factor_value": 20,
+          "config": {
+            "shared_initialization": false,
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 20
+          },
+          "development_validation_accuracy": 0.4804,
+          "runtime_seconds": 116.56570863723755,
           "locked_holdout_read": false,
           "official_test_read": false
         }

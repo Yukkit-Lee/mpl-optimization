@@ -1076,3 +1076,6 @@
 - Full-Data CIFAR-10 调参已显示旧基线确实欠调：40 epochs + batch 16 + LR 0.2 已把 development accuracy 提升到至少 0.7266，使当前 True Ours 落后约 3.4pp、未过 1pp 门槛。按 Phase 4 新增 True Ours rescue screen：扩展 60/80 epochs、LR 0.15--0.25、weight decay 与 sync interval，并额外训练单客户端 centralized MTT 诊断以区分“数据载荷上限”和“多客户端聚合损失”；仍不读取 locked holdout/test。
 - CIFAR-10 首轮 rescue 达到 0.6952（batch 8、LR 0.25、weight decay 1e-4、sync 10），centralized MTT 同口径仅 0.6808，说明当前差距主要不是多客户端平均错误。因仍落后调优 Full 约 3.14pp，CIFAR-10 继续窄搜 batch 4 与 LR 0.3/0.4；CIFAR-100/Tiny 不盲目加入 batch 4，以免在尚无门槛证据时大幅增加 TFE 成本。
 - 窄搜首遍错误地从 pre-rescue 配置重新开始，得到 0.6926，低于已测 incumbent 0.6952；该结果只保留为诊断日志，不允许覆盖更优候选。rescue 脚本现显式记录并从 measured incumbent 继续单因素搜索，确保后续调参单调保留已验证的最佳配置。
+- CIFAR-10 incumbent 复核完成：batch 4、60/80 epochs、LR 0.3/0.4 均未超过 0.6952，说明该 MTT payload 在当前线性头路线已出现稳定平台；其 480 个特征样本均已是单位 L2 范数，未发现遗漏归一化。
+- CIFAR-100 rescue 完成：80 epochs、batch 8、LR 0.25、weight decay 1e-4；sync 5/10 峰值 0.4812/0.4810，按 0.1pp 容差选择更低成本的 sync 20，最终 0.4804，centralized diagnostic 0.4794。调优 Full-Data 当前为 0.4308，因此 CIFAR-100 明显通过 retention gate。
+- Tiny Full-Data tune 与 MTT rescue 已分别在 `tmux true_ours_full_tune` / `tmux true_ours_rescue_tiny` 并行运行，合计使用当前容器大部分可用 CPU；两者均只读 development split。

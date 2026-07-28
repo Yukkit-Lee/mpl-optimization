@@ -1,0 +1,21 @@
+cifar100 rescue factor=local_epochs value=40 dev=0.47300 time=78.20s
+cifar100 rescue factor=local_epochs value=60 dev=0.47360 time=95.04s
+cifar100 rescue factor=local_epochs value=80 dev=0.47540 time=63.99s
+cifar100 RESCUE KEEP local_epochs=80 dev=0.47540
+cifar100 rescue factor=batch_size value=8 dev=0.47540 time=46.07s
+cifar100 RESCUE KEEP batch_size=8 dev=0.47540
+cifar100 rescue factor=local_lr value=0.15 dev=0.47280 time=44.62s
+cifar100 rescue factor=local_lr value=0.2 dev=0.47540 time=46.47s
+cifar100 rescue factor=local_lr value=0.25 dev=0.47560 time=47.56s
+cifar100 RESCUE KEEP local_lr=0.25 dev=0.47560
+cifar100 rescue factor=weight_decay value=0.0 dev=0.47560 time=44.83s
+cifar100 rescue factor=weight_decay value=0.0001 dev=0.47700 time=49.18s
+cifar100 rescue factor=weight_decay value=0.001 dev=0.47200 time=48.02s
+cifar100 RESCUE KEEP weight_decay=0.0001 dev=0.47700
+cifar100 rescue factor=fedavg_sync_interval value=0 dev=0.47700 time=47.96s
+cifar100 rescue factor=fedavg_sync_interval value=1 dev=0.48060 time=82.08s
+cifar100 rescue factor=fedavg_sync_interval value=5 dev=0.48120 time=75.35s
+cifar100 rescue factor=fedavg_sync_interval value=10 dev=0.48100 time=82.01s
+cifar100 rescue factor=fedavg_sync_interval value=20 dev=0.48040 time=116.57s
+cifar100 RESCUE KEEP fedavg_sync_interval=20 dev=0.48040
+rescue_screen=/root/autodl-tmp/tfe_experiments/new_log/new_true_ours/new_true_ours_stage_b_rescue_screen.json datasets=2
