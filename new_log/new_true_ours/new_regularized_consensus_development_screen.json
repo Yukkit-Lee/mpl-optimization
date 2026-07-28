@@ -1,0 +1,2285 @@
+{
+  "schema": "new_regularized_consensus_development_screen_v1",
+  "status": "COMPLETE",
+  "backend": "numpy_plaintext_diagnostic",
+  "rows": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "average",
+      "parameters": {},
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "class_balanced",
+      "parameters": {},
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "original_consensus",
+      "parameters": {
+        "temperature": 1.0
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 2.0
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 4.0
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 8.0
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.3
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.4
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.5
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 2
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 3
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.05
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.1
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.25
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.5
+      },
+      "development_validation_accuracy": 0.6876,
+      "reference_losses": [
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527,
+        0.0606240987812527
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "average",
+      "parameters": {},
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "class_balanced",
+      "parameters": {},
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "original_consensus",
+      "parameters": {
+        "temperature": 1.0
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 2.0
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 4.0
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 8.0
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.3
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.4
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.5
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 2
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 3
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.05
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.1
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.25
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.5
+      },
+      "development_validation_accuracy": 0.6254,
+      "reference_losses": [
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064,
+        0.062453966988225064
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "average",
+      "parameters": {},
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "class_balanced",
+      "parameters": {},
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "original_consensus",
+      "parameters": {
+        "temperature": 1.0
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 2.0
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 4.0
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 8.0
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.3
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.4
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.5
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 2
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 3
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.05
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.1
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.25
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.5
+      },
+      "development_validation_accuracy": 0.4798,
+      "reference_losses": [
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055,
+        0.009177039255296055
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "average",
+      "parameters": {},
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "class_balanced",
+      "parameters": {},
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "original_consensus",
+      "parameters": {
+        "temperature": 1.0
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 2.0
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 4.0
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 8.0
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.3
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.4
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.5
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 2
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 3
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.05
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.1
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.25
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.5
+      },
+      "development_validation_accuracy": 0.4376,
+      "reference_losses": [
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818,
+        0.008988326018900818
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "average",
+      "parameters": {},
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "class_balanced",
+      "parameters": {},
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "original_consensus",
+      "parameters": {
+        "temperature": 1.0
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 2.0
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 4.0
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 8.0
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.3
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.4
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.5
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 2
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 3
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.05
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.1
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.25
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "balanced",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.5
+      },
+      "development_validation_accuracy": 0.3143,
+      "reference_losses": [
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303,
+        0.005087738411215303
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "average",
+      "parameters": {},
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "class_balanced",
+      "parameters": {},
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "original_consensus",
+      "parameters": {
+        "temperature": 1.0
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 2.0
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 4.0
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "temperature_consensus",
+      "parameters": {
+        "temperature": 8.0
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.3
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.4
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "capped_consensus",
+      "parameters": {
+        "cap": 0.5
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 2
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "topk_consensus",
+      "parameters": {
+        "top_k": 3
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.05
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.1
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.25
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "partition": "severe",
+      "method": "shrinkage_consensus",
+      "parameters": {
+        "beta": 0.5
+      },
+      "development_validation_accuracy": 0.313,
+      "reference_losses": [
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659,
+        0.005052142287126659
+      ],
+      "locked_holdout_read": false,
+      "official_test_read": false,
+      "full_data_initializer_dependency": 0
+    }
+  ],
+  "decisions": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "average_balanced_accuracy": 0.6876,
+      "average_severe_accuracy": 0.6254,
+      "gate": {
+        "minimum_iid_delta": -0.005,
+        "minimum_severe_delta": 0.01
+      },
+      "candidates": [
+        {
+          "method": "capped_consensus",
+          "parameters": {
+            "cap": 0.3
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "capped_consensus",
+          "parameters": {
+            "cap": 0.4
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "capped_consensus",
+          "parameters": {
+            "cap": 0.5
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "class_balanced",
+          "parameters": {},
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "original_consensus",
+          "parameters": {
+            "temperature": 1.0
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.05
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.1
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.25
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.5
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "temperature_consensus",
+          "parameters": {
+            "temperature": 2.0
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "temperature_consensus",
+          "parameters": {
+            "temperature": 4.0
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "temperature_consensus",
+          "parameters": {
+            "temperature": 8.0
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "topk_consensus",
+          "parameters": {
+            "top_k": 2
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "topk_consensus",
+          "parameters": {
+            "top_k": 3
+          },
+          "balanced_accuracy": 0.6876,
+          "severe_accuracy": 0.6254,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        }
+      ],
+      "selected_candidate": null,
+      "expand_to_three_seeds": false
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "average_balanced_accuracy": 0.4798,
+      "average_severe_accuracy": 0.4376,
+      "gate": {
+        "minimum_iid_delta": -0.005,
+        "minimum_severe_delta": 0.01
+      },
+      "candidates": [
+        {
+          "method": "capped_consensus",
+          "parameters": {
+            "cap": 0.3
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "capped_consensus",
+          "parameters": {
+            "cap": 0.4
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "capped_consensus",
+          "parameters": {
+            "cap": 0.5
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "class_balanced",
+          "parameters": {},
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "original_consensus",
+          "parameters": {
+            "temperature": 1.0
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.05
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.1
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.25
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.5
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "temperature_consensus",
+          "parameters": {
+            "temperature": 2.0
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "temperature_consensus",
+          "parameters": {
+            "temperature": 4.0
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "temperature_consensus",
+          "parameters": {
+            "temperature": 8.0
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "topk_consensus",
+          "parameters": {
+            "top_k": 2
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "topk_consensus",
+          "parameters": {
+            "top_k": 3
+          },
+          "balanced_accuracy": 0.4798,
+          "severe_accuracy": 0.4376,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        }
+      ],
+      "selected_candidate": null,
+      "expand_to_three_seeds": false
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "average_balanced_accuracy": 0.3143,
+      "average_severe_accuracy": 0.313,
+      "gate": {
+        "minimum_iid_delta": -0.005,
+        "minimum_severe_delta": 0.01
+      },
+      "candidates": [
+        {
+          "method": "capped_consensus",
+          "parameters": {
+            "cap": 0.3
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "capped_consensus",
+          "parameters": {
+            "cap": 0.4
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "capped_consensus",
+          "parameters": {
+            "cap": 0.5
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "class_balanced",
+          "parameters": {},
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "original_consensus",
+          "parameters": {
+            "temperature": 1.0
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.05
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.1
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.25
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "shrinkage_consensus",
+          "parameters": {
+            "beta": 0.5
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "temperature_consensus",
+          "parameters": {
+            "temperature": 2.0
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "temperature_consensus",
+          "parameters": {
+            "temperature": 4.0
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "temperature_consensus",
+          "parameters": {
+            "temperature": 8.0
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "topk_consensus",
+          "parameters": {
+            "top_k": 2
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        },
+        {
+          "method": "topk_consensus",
+          "parameters": {
+            "top_k": 3
+          },
+          "balanced_accuracy": 0.3143,
+          "severe_accuracy": 0.313,
+          "iid_delta_vs_average": 0.0,
+          "severe_delta_vs_average": 0.0,
+          "passes_seed42_gate": false
+        }
+      ],
+      "selected_candidate": null,
+      "expand_to_three_seeds": false
+    }
+  ],
+  "locked_holdout_read": false,
+  "official_test_read": false
+}

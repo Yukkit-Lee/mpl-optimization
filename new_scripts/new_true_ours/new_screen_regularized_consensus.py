@@ -113,7 +113,7 @@ def train_clients(dataset, seed, split_name, config):
     return data, y_train, x_dev, y_dev, client_indices, result
 
 
-def candidate_rows(dataset, seed, split_name, config):
+def candidate_rows(dataset, seed, split_name, config, training_variant):
     data, y_train, x_dev, y_dev, client_indices, result = train_clients(
         dataset, seed, split_name, config
     )
@@ -190,6 +190,10 @@ def candidate_rows(dataset, seed, split_name, config):
                 "partition": split_name,
                 "method": method,
                 "parameters": params,
+                "training_variant": training_variant,
+                "fedavg_sync_interval": int(
+                    config.get("fedavg_sync_interval", 0)
+                ),
                 "development_validation_accuracy": dev_accuracy,
                 "reference_losses": losses.tolist(),
                 "locked_holdout_read": False,
@@ -204,6 +208,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--datasets", nargs="+", choices=DATASETS, default=list(DATASETS))
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--variant",
+        choices=["synced_baseline", "no_sync_followup"],
+        default="synced_baseline",
+    )
     args = parser.parse_args()
     rescue = json.loads(
         (LOG_ROOT / "new_true_ours_stage_b_rescue_screen.json").read_text()
@@ -212,6 +221,21 @@ def main():
         (row["dataset"], int(row["seed"])): row["best_config"]
         for row in rescue["results"]
     }
+    if args.variant == "no_sync_followup":
+        configs = {
+            key: dict(value, fedavg_sync_interval=0)
+            for key, value in configs.items()
+        }
+        baseline_payload = json.loads(
+            (
+                LOG_ROOT
+                / "new_regularized_consensus_development_screen.json"
+            ).read_text()
+        )
+        if baseline_payload.get("status") != "COMPLETE":
+            raise ValueError("synced consensus baseline is not COMPLETE")
+    else:
+        baseline_payload = None
     rows = []
     for dataset in args.datasets:
         for partition in ("balanced", "severe"):
@@ -221,6 +245,7 @@ def main():
                     args.seed,
                     partition,
                     configs[(dataset, args.seed)],
+                    args.variant,
                 )
             )
     decisions = []
@@ -230,9 +255,19 @@ def main():
             for row in rows
             if row["dataset"] == dataset and row["seed"] == int(args.seed)
         ]
+        gate_rows = (
+            dataset_rows
+            if baseline_payload is None
+            else [
+                row
+                for row in baseline_payload["rows"]
+                if row["dataset"] == dataset
+                and row["seed"] == int(args.seed)
+            ]
+        )
         average = {
             row["partition"]: row["development_validation_accuracy"]
-            for row in dataset_rows
+            for row in gate_rows
             if row["method"] == "average"
         }
         candidates = []
@@ -243,7 +278,10 @@ def main():
                     json.dumps(row["parameters"], sort_keys=True),
                 )
                 for row in dataset_rows
-                if row["method"] != "average"
+                if (
+                    row["method"] != "average"
+                    or args.variant == "no_sync_followup"
+                )
             }
         )
         for method, encoded_parameters in identities:
@@ -297,6 +335,8 @@ def main():
                 "seed": int(args.seed),
                 "average_balanced_accuracy": average["balanced"],
                 "average_severe_accuracy": average["severe"],
+                "gate_baseline_variant": "synced_baseline",
+                "candidate_training_variant": args.variant,
                 "gate": {
                     "minimum_iid_delta": -0.005,
                     "minimum_severe_delta": 0.01,
@@ -310,12 +350,22 @@ def main():
         "schema": "new_regularized_consensus_development_screen_v1",
         "status": "COMPLETE",
         "backend": "numpy_plaintext_diagnostic",
+        "training_variant": args.variant,
+        "one_factor_change": (
+            None
+            if args.variant == "synced_baseline"
+            else {"fedavg_sync_interval": 0}
+        ),
         "rows": rows,
         "decisions": decisions,
         "locked_holdout_read": False,
         "official_test_read": False,
     }
-    output = LOG_ROOT / "new_regularized_consensus_development_screen.json"
+    output = LOG_ROOT / (
+        "new_regularized_consensus_development_screen.json"
+        if args.variant == "synced_baseline"
+        else "new_regularized_consensus_no_sync_followup.json"
+    )
     atomic_json(output, payload)
     print("output={} rows={}".format(output, len(rows)))
 
