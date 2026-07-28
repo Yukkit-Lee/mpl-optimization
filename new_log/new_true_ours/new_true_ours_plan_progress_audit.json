@@ -30,6 +30,14 @@
       "evidence": "new_log/new_true_ours/new_mtt_asset_audit.json"
     },
     {
+      "phase": "2",
+      "name": "full_data_lineage_metadata_upgrade",
+      "status": "COMPLETE",
+      "rows": 18,
+      "preserved_files": 27,
+      "evidence": "new_log/new_true_ours/new_full_data_lineage_metadata_upgrade.json"
+    },
+    {
       "phase": "3-4",
       "name": "stage_b_development_screen_and_rescue",
       "status": "COMPLETE_SEED42_PLAINTEXT",

@@ -1,0 +1,2 @@
+status=COMPLETE rows=18 output=/root/autodl-tmp/tfe_experiments/new_log/new_true_ours/new_full_data_lineage_metadata_upgrade.json
+UPGRADE_EXIT_CODE=0

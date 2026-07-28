@@ -212,10 +212,10 @@ new_output/new_true_ours/stage_b/true_ours_formal/
 
 ### 5.1 Full-Data metadata 定向升级
 
-运行：
+已完成，不要重跑。权威结果：
 
 ```text
-new_scripts/new_true_ours/new_upgrade_full_data_lineage_metadata.py
+new_log/new_true_ours/new_full_data_lineage_metadata_upgrade.json
 ```
 
 必须放入独立 tmux，输出日志。它只应修改 18 个 Full-Data metadata：
@@ -233,7 +233,7 @@ new_scripts/new_true_ours/new_upgrade_full_data_lineage_metadata.py
 - split manifest path/SHA 有效；
 - `test_loaded=false`。
 
-若 preservation gate 失败，立即停止 formal，不要重建或覆盖 frozen assets。
+结果为 18/18 metadata semantic gate 通过、27/27 preserved SHA 不变。
 
 ### 5.2 Regularized Consensus development gate
 
