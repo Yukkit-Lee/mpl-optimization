@@ -1045,3 +1045,15 @@
 - 重建前工作树分类：`new_report_incremental_full_feature.py` 是旧 Figure 2 聚合器的 Stage-C 正式报告文件名修复；`new_output/new_incremental_comparison/stage_b/{cifar100,tiny}` 是此前已完成的 6 个 Full-Data Stage-B initializer/report（约 3.7 MiB）；其余为对应队列日志和 0728 计划文档。未发现需删除的临时大缓存，本轮将这些既有产出原样冻结，不覆盖旧实验。
 - 协议约束：新实验必须先提交互斥 split manifest；development validation、locked holdout、reference、selection 两两互斥；调参不得读取 locked holdout/official test；True Ours Stage B 只能读取 Official MTT compact features，并对 Full-Data initializer 路径设置硬断言。
 - 执行状态：本条仅记录启动审计，尚未启动任何 True Ours 调参或正式实验。下一步先提交并推送 `Freeze pre-rebuild audit state`，再创建 `new-true-ours-pea-figure2` 分支。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-28（UTC）
+- 分支与快照：旧工作树已在 `new-secure-feature-pipeline` 提交为 `4bb98e7`（`Freeze pre-rebuild audit state`）并成功推送；当前新分支为 `new-true-ours-pea-figure2`。
+- Phase 0 lineage gate：新增 `new_audit_true_ours_lineage.py`，逐 dataset/seed 检查 feature cache、预期 initializer、真实路径、软链接、split manifest hash 和 Full-Data dependency。当前 9/9 pre-run assets 通过，状态为 `PRE_STAGE_B_ASSET_GATE_PASS`；initializer 尚未生成，因此没有虚报为 post-Stage-B COMPLETE。
+- Phase 1 互斥划分：为 3 datasets × 3 seeds 生成分层固定 split。每类 10% development validation、10% locked holdout、10% Stage-C train、5 reference、5 selection，其余 Stage-B train；独立复核确认所有原训练集 split 两两无交集且全集覆盖。规模为 CIFAR-10 34,900/5,000/50/50/5,000/5,000，CIFAR-100 34,000/5,000/500/500/5,000/5,000，Tiny 68,000/10,000/1,000/1,000/10,000/10,000（依次 Stage-B/Stage-C/ref/sel/dev/locked）。
+- Phase 2 MTT 资产：追溯确认 Module-A 权威 test-free cache 的 `x_encoder_train` 才是 480/4,800/9,600；旧 Stage-B round2 NPZ 的 400/4,000/8,000 是另一训练子集口径，不能通过拼接得到计划样本数。新 True Ours cache 使用权威 test-free 480/4,800/9,600，均为每类 48、2048-D、finite、class-balanced。
+- 代码硬保护：Stage B/Stage C 新增 `official_mtt_only` / `full_data_disjoint` lineage 校验，True Ours 明确禁止解析到 `new_output/new_incremental_comparison/stage_b`；模型 NPZ 和报告记录 source、dependency 与 cache hash。Stage B 新增 class-balanced client split、shared client initialization 和 weight decay，供计划内单因素筛选。
+- 调参工具：新增 `new_screen_true_ours_stage_b.py`，只读 development validation，以 shared initialization、epochs、batch、LR、weight decay、client weighting 的顺序做单因素贪心筛选；输出明确标记为 plaintext diagnostic，不能冒充 TFE 正式结果。
+- 隐私/测试状态：locked holdout 未读取指标；official test 未由本轮重建读取；正式训练尚未启动。下一步提交并推送 `Freeze disjoint evaluation splits`，随后才允许启动 seed42 Stage-B development screen。

@@ -1,0 +1,10 @@
+dataset,seed,samples,samples_per_class,compression_ratio,class_balanced,feature_dim,finite
+cifar10,42,480,48,0.009600,True,2048,True
+cifar10,43,480,48,0.009600,True,2048,True
+cifar10,44,480,48,0.009600,True,2048,True
+cifar100,42,4800,48,0.096000,True,2048,True
+cifar100,43,4800,48,0.096000,True,2048,True
+cifar100,44,4800,48,0.096000,True,2048,True
+tiny,42,9600,48,0.096000,True,2048,True
+tiny,43,9600,48,0.096000,True,2048,True
+tiny,44,9600,48,0.096000,True,2048,True

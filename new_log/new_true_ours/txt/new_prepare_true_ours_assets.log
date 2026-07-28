@@ -1,0 +1,3 @@
+split_manifest=/root/autodl-tmp/tfe_experiments/new_log/new_true_ours/new_true_ours_split_manifest.json
+split_assets=9
+mtt_assets=9 status=COMPLETE locked_holdout_read=False

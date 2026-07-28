@@ -113,6 +113,24 @@ def make_client_splits(labels, num_clients, split, seed):
     if split == "iid":
         indices = rng.permutation(len(labels))
         return [part.astype(np.int64) for part in np.array_split(indices, num_clients)]
+    if split == "balanced":
+        buckets = [[] for _ in range(num_clients)]
+        for class_id in np.unique(labels):
+            class_indices = np.where(labels == class_id)[0]
+            class_rng = np.random.RandomState(
+                int(seed) + int(class_id) * 1009 + 728
+            )
+            class_indices = class_rng.permutation(class_indices)
+            for client_id, part in enumerate(
+                np.array_split(class_indices, num_clients)
+            ):
+                buckets[client_id].extend(part.tolist())
+        return [
+            np.random.RandomState(int(seed) + client_id * 7919).permutation(
+                np.asarray(bucket, dtype=np.int64)
+            )
+            for client_id, bucket in enumerate(buckets)
+        ]
 
     alpha = 1.0 if split == "mild" else 0.1
     classes = np.unique(labels)
@@ -224,6 +242,7 @@ def plaintext_reference(
                 error = logits - y_train_hot[batch]
                 grad_w = np.matmul(x_train[batch].T, error) / float(len(batch))
                 grad_b = np.sum(error, axis=0) / float(len(batch))
+                grad_w += float(args.weight_decay) * weights[client_id]
                 weights[client_id] -= float(args.local_lr) * grad_w
                 biases[client_id] -= float(args.local_lr) * grad_b
 
@@ -274,6 +293,7 @@ def plaintext_reference(
                     grad_b += reference_weight * np.sum(
                         reference_error, axis=0
                     ) / float(len(x_reference))
+                grad_w += float(args.weight_decay) * weights[client_id]
                 weights[client_id] -= float(args.distill_lr) * grad_w
                 biases[client_id] -= float(args.distill_lr) * grad_b
 
@@ -470,6 +490,8 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
             grad_b = tfe.reduce_sum(error, axis=0) * (
                 1.0 / float(args.batch_size)
             )
+            if float(args.weight_decay) > 0.0:
+                grad_w = grad_w + float(args.weight_decay) * weights[client_id]
             new_weight = weights[client_id] - float(args.local_lr) * grad_w
             new_bias = biases[client_id] - float(args.local_lr) * grad_b
             local_ops.append(
@@ -580,6 +602,8 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
                 grad_b = grad_b + reference_weight * tfe.reduce_sum(
                     reference_error, axis=0
                 ) * (1.0 / float(len(data["x_reference"])))
+            if float(args.weight_decay) > 0.0:
+                grad_w = grad_w + float(args.weight_decay) * weights[client_id]
             new_weight = weights[client_id] - float(args.distill_lr) * grad_w
             new_bias = biases[client_id] - float(args.distill_lr) * grad_b
             distill_ops.append(
@@ -984,10 +1008,13 @@ def parse_args():
     parser.add_argument("--checkpoint_prefix", required=True)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--num_clients", type=int, default=5)
-    parser.add_argument("--split", choices=["iid", "mild", "severe"], default="iid")
+    parser.add_argument(
+        "--split", choices=["iid", "balanced", "mild", "severe"], default="iid"
+    )
     parser.add_argument("--batch_size", type=int, default=32)
     parser.add_argument("--local_epochs", type=int, default=20)
     parser.add_argument("--local_lr", type=float, default=0.05)
+    parser.add_argument("--weight_decay", type=float, default=0.0)
     parser.add_argument("--distill_epochs", type=int, default=10)
     parser.add_argument("--distill_lr", type=float, default=0.02)
     parser.add_argument("--lambda_kd", type=float, default=0.5)
@@ -999,6 +1026,11 @@ def parse_args():
     )
     parser.add_argument("--weight_temperature", type=float, default=0.2)
     parser.add_argument("--init_scale", type=float, default=0.01)
+    parser.add_argument(
+        "--shared_initialization",
+        action="store_true",
+        help="Start every client from the same random linear head before local training",
+    )
     parser.add_argument("--precision_fractional", type=int, default=16)
     parser.add_argument("--matmul_chunk_size", type=int, default=64)
     parser.add_argument("--checkpoint_interval", type=int, default=5)
@@ -1012,12 +1044,76 @@ def parse_args():
             "explicit formal ablation boundary"
         ),
     )
+    parser.add_argument(
+        "--input_lineage",
+        choices=["legacy_unspecified", "official_mtt_only", "full_data_disjoint"],
+        default="legacy_unspecified",
+    )
     return parser.parse_args()
+
+
+def validate_input_lineage(args):
+    resolved_cache = os.path.realpath(args.feature_cache)
+    resolved_output = os.path.realpath(args.output_dir)
+    resolved_checkpoint = os.path.realpath(args.checkpoint_prefix)
+    forbidden = os.path.join(
+        "new_output", "new_incremental_comparison", "stage_b"
+    )
+    lineage = {
+        "initializer_source": args.input_lineage,
+        "feature_cache_resolved": resolved_cache,
+        "full_data_initializer_dependency": (
+            args.input_lineage == "full_data_disjoint"
+        ),
+        "validated": False,
+    }
+    if args.input_lineage == "legacy_unspecified":
+        return lineage
+    if forbidden in resolved_cache:
+        raise ValueError("Stage B feature cache resolves into forbidden Full-Data output")
+    for value in (resolved_output, resolved_checkpoint):
+        if "new_true_ours" not in value:
+            raise ValueError("True Ours output/checkpoint must stay under new_true_ours")
+    if args.input_lineage == "official_mtt_only":
+        required_fragment = os.path.join(
+            "new_cache", "new_true_ours", "official_mtt", "stage_b"
+        )
+        if required_fragment not in resolved_cache or args.feature_cache_mode != "npz":
+            raise ValueError("official_mtt_only requires the audited True Ours NPZ")
+        with np.load(args.feature_cache, allow_pickle=False) as metadata:
+            source = str(metadata["initializer_source"].reshape(-1)[0])
+            dependency = int(
+                metadata["full_data_initializer_dependency"].reshape(-1)[0]
+            )
+            split_path = str(metadata["split_manifest_path"].reshape(-1)[0])
+            expected_split_sha = str(
+                metadata["split_manifest_sha256"].reshape(-1)[0]
+            )
+        if source != "official_mtt_only" or dependency != 0:
+            raise ValueError("Official-MTT lineage metadata failed")
+        if not os.path.isfile(split_path) or sha256_file(split_path) != expected_split_sha:
+            raise ValueError("Split manifest hash mismatch")
+        lineage.update(
+            {
+                "split_manifest_path": split_path,
+                "split_manifest_sha256": expected_split_sha,
+                "validated": True,
+            }
+        )
+    else:
+        required_fragment = os.path.join(
+            "new_cache", "new_true_ours", "full_data_stage_b"
+        )
+        if required_fragment not in resolved_cache or args.feature_cache_mode != "memmap":
+            raise ValueError("full_data_disjoint requires audited memmap metadata")
+        lineage["validated"] = True
+    return lineage
 
 
 def main():
     args = parse_args()
     set_seed(args.seed)
+    input_lineage = validate_input_lineage(args)
     data = load_feature_cache(args.feature_cache, mode=args.feature_cache_mode)
     args.feature_dim = int(data["feature_dim"])
     args.num_classes = int(
@@ -1042,6 +1138,9 @@ def main():
         args.seed,
         args.init_scale,
     )
+    if args.shared_initialization:
+        initial_weights = [initial_weights[0].copy() for _ in initial_weights]
+        initial_biases = [initial_biases[0].copy() for _ in initial_biases]
     os.makedirs(args.output_dir, exist_ok=True)
     print("=" * 92, flush=True)
     print("Stage B：TFE/ABY3 Secure Consensus Initialization", flush=True)
@@ -1159,6 +1258,12 @@ def main():
         bias=secure["selected_b"],
         feature_dim=np.asarray([args.feature_dim], dtype=np.int64),
         num_classes=np.asarray([args.num_classes], dtype=np.int64),
+        initializer_source=np.asarray([args.input_lineage]),
+        full_data_initializer_dependency=np.asarray(
+            [1 if args.input_lineage == "full_data_disjoint" else 0],
+            dtype=np.int64,
+        ),
+        feature_cache_sha256=np.asarray([sha256_file(args.feature_cache)]),
     )
     candidate_paths = {}
     if secure["released_candidates"] is not None:
@@ -1176,6 +1281,12 @@ def main():
                 bias=candidate["bias"],
                 feature_dim=np.asarray([args.feature_dim], dtype=np.int64),
                 num_classes=np.asarray([args.num_classes], dtype=np.int64),
+                initializer_source=np.asarray([args.input_lineage]),
+                full_data_initializer_dependency=np.asarray(
+                    [1 if args.input_lineage == "full_data_disjoint" else 0],
+                    dtype=np.int64,
+                ),
+                feature_cache_sha256=np.asarray([sha256_file(args.feature_cache)]),
             )
             candidate_paths[method] = {
                 "path": candidate_path,
@@ -1189,6 +1300,7 @@ def main():
         "split": args.split,
         "feature_cache": os.path.abspath(args.feature_cache),
         "feature_cache_sha256": sha256_file(args.feature_cache),
+        "initializer_lineage": input_lineage,
         "feature_dim": int(args.feature_dim),
         "num_classes": int(args.num_classes),
         "num_clients": int(args.num_clients),
@@ -1197,6 +1309,8 @@ def main():
             "batch_size": int(args.batch_size),
             "local_epochs": int(args.local_epochs),
             "local_lr": float(args.local_lr),
+            "weight_decay": float(args.weight_decay),
+            "shared_initialization": bool(args.shared_initialization),
             "distill_epochs": int(args.distill_epochs),
             "distill_lr": float(args.distill_lr),
             "lambda_kd": float(args.lambda_kd),

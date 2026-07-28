@@ -584,12 +584,80 @@ def parse_args():
         ],
         default="data_dependent_non_dp",
     )
+    parser.add_argument(
+        "--input_lineage",
+        choices=["legacy_unspecified", "official_mtt_only", "full_data_disjoint"],
+        default="legacy_unspecified",
+    )
     return parser.parse_args()
+
+
+def validate_input_lineage(args):
+    feature_path = os.path.realpath(args.feature_cache)
+    initializer_path = os.path.realpath(args.initializer)
+    output_path = os.path.realpath(args.output_dir)
+    checkpoint_path = os.path.realpath(args.checkpoint_prefix)
+    forbidden = os.path.join(
+        "new_output", "new_incremental_comparison", "stage_b"
+    )
+    lineage = {
+        "initializer_source": args.input_lineage,
+        "feature_cache_resolved": feature_path,
+        "initializer_resolved": initializer_path,
+        "full_data_initializer_dependency": (
+            args.input_lineage == "full_data_disjoint"
+        ),
+        "validated": False,
+    }
+    if args.input_lineage == "legacy_unspecified":
+        return lineage
+    if forbidden in initializer_path:
+        raise ValueError("Forbidden legacy Full-Data initializer dependency")
+    for value in (output_path, checkpoint_path):
+        if "new_true_ours" not in value:
+            raise ValueError("Formal rebuild outputs must stay under new_true_ours")
+    with np.load(args.initializer, allow_pickle=False) as initializer:
+        source = str(initializer["initializer_source"].reshape(-1)[0])
+        dependency = int(
+            initializer["full_data_initializer_dependency"].reshape(-1)[0]
+        )
+        initializer_feature_sha = str(
+            initializer["feature_cache_sha256"].reshape(-1)[0]
+        )
+    if source != args.input_lineage:
+        raise ValueError("Initializer source metadata mismatch")
+    if args.input_lineage == "official_mtt_only":
+        if dependency != 0:
+            raise ValueError("True Ours initializer has a Full-Data dependency")
+        if os.path.join("new_output", "new_true_ours", "stage_b", "true_ours") not in initializer_path:
+            raise ValueError("True Ours initializer is outside its isolated output tree")
+        if os.path.join(
+            "new_cache", "new_true_ours", "official_mtt", "stage_c"
+        ) not in feature_path:
+            raise ValueError("True Ours Stage C must use audited Official-MTT cache")
+    else:
+        if dependency != 1:
+            raise ValueError("Full-Data initializer lineage metadata mismatch")
+        if os.path.join("new_output", "new_true_ours", "stage_b", "full_data") not in initializer_path:
+            raise ValueError("Full-Data initializer is outside its isolated output tree")
+        if os.path.join(
+            "new_cache", "new_true_ours", "full_data_stage_c"
+        ) not in feature_path:
+            raise ValueError("Full-Data Stage C must use audited disjoint cache")
+    lineage.update(
+        {
+            "initializer_feature_cache_sha256": initializer_feature_sha,
+            "initializer_sha256": sha256_file(args.initializer),
+            "validated": True,
+        }
+    )
+    return lineage
 
 
 def main():
     args = parse_args()
     set_seed(args.seed)
+    input_lineage = validate_input_lineage(args)
     data = load_feature_cache(args.feature_cache, mode=args.feature_cache_mode)
     init_weight, init_bias = load_initializer(args.initializer)
     args.feature_dim = int(data["feature_dim"])
@@ -640,6 +708,12 @@ def main():
         weight=result["weight"],
         bias=result["bias"],
         clipping_bound=np.asarray([result["final_c"]], dtype=np.float32),
+        initializer_source=np.asarray([args.input_lineage]),
+        full_data_initializer_dependency=np.asarray(
+            [1 if args.input_lineage == "full_data_disjoint" else 0],
+            dtype=np.int64,
+        ),
+        initializer_sha256=np.asarray([sha256_file(args.initializer)]),
     )
     final_model_dp_valid = released_model_dp_valid(
         args.initializer_privacy_status
@@ -653,6 +727,7 @@ def main():
         "feature_dim": args.feature_dim,
         "num_classes": args.num_classes,
         "configuration": vars(args),
+        "initializer_lineage": input_lineage,
         "privacy": {
             "accountant": "Opacus RDPAccountant",
             "accounted_gradient_mechanism_epsilon": epsilon,
