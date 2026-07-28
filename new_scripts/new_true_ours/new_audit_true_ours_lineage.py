@@ -32,6 +32,38 @@ def atomic_json(path, payload):
     os.replace(str(temporary), str(path))
 
 
+def resolve_initializer(dataset, seed):
+    """Resolve only this rebuild's isolated Stage-B output namespaces."""
+    filename = (
+        "new_secure_stage_b_candidate_nokd_{}_balanced_seed{}.npz".format(
+            dataset, seed
+        )
+    )
+    candidates = [
+        ROOT
+        / "new_output/new_true_ours/stage_b/formal"
+        / dataset
+        / "seed{}".format(seed)
+        / filename,
+        ROOT
+        / "new_output/new_true_ours/stage_b/true_ours_finalist"
+        / dataset
+        / "seed{}".format(seed)
+        / filename,
+        ROOT
+        / "new_output/new_true_ours/stage_b/true_ours"
+        / dataset
+        / "seed{}".format(seed)
+        / filename,
+    ]
+    existing = [path for path in candidates if path.is_file()]
+    return (
+        existing[0] if existing else candidates[0],
+        candidates,
+        {str(path): sha256_file(path) for path in existing},
+    )
+
+
 def main():
     LOG_ROOT.mkdir(parents=True, exist_ok=True)
     forbidden_fragment = os.path.join(
@@ -55,13 +87,11 @@ def main():
                 ROOT / "new_cache/new_true_ours/official_mtt/stage_b" / dataset
                 / "new_true_ours_stage_b_{}_seed{}.npz".format(dataset, seed)
             )
-            initializer = (
-                ROOT / "new_output/new_true_ours/stage_b/true_ours" / dataset
-                / "seed{}".format(seed)
-                / "new_secure_stage_b_candidate_nokd_{}_balanced_seed{}.npz".format(
-                    dataset, seed
-                )
-            )
+            (
+                initializer,
+                initializer_candidates,
+                existing_initializer_hashes,
+            ) = resolve_initializer(dataset, seed)
             with np.load(str(cache), allow_pickle=False) as payload:
                 source = str(payload["initializer_source"].reshape(-1)[0])
                 dependency = bool(
@@ -113,6 +143,10 @@ def main():
                     "stage_b_input": str(cache),
                     "stage_b_input_sha256": sha256_file(cache),
                     "initializer_path": str(initializer),
+                    "initializer_candidates": [
+                        str(path) for path in initializer_candidates
+                    ],
+                    "existing_initializer_hashes": existing_initializer_hashes,
                     "initializer_sha256": initializer_sha,
                     "initializer_exists": initializer_exists,
                     "initializer_source": source,
