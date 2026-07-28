@@ -1,0 +1,17 @@
+dataset,method,beta,val_acc,ref_acc
+cifar10,B2_shrinkage,0.0,0.697194,0.640000
+cifar10,B2_shrinkage,0.1,0.696994,0.640000
+cifar10,B2_shrinkage,0.25,0.696994,0.640000
+cifar10,B2_shrinkage,0.5,0.695391,0.660000
+cifar10,B2_shrinkage,0.75,0.695190,0.660000
+cifar10,B2_shrinkage,1.0,0.620241,0.480000
+cifar10,B0_average,N/A,0.697194,0.640000
+cifar10,B1_consensus,N/A,0.620241,0.480000
+cifar100,B2_shrinkage,0.0,0.449592,0.426000
+cifar100,B2_shrinkage,0.1,0.452449,0.430000
+cifar100,B2_shrinkage,0.25,0.453878,0.440000
+cifar100,B2_shrinkage,0.5,0.453061,0.458000
+cifar100,B2_shrinkage,0.75,0.440408,0.444000
+cifar100,B2_shrinkage,1.0,0.369388,0.390000
+cifar100,B0_average,N/A,0.449592,0.426000
+cifar100,B1_consensus,N/A,0.369388,0.390000

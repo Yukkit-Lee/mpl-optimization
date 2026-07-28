@@ -1,0 +1,10 @@
+dataset,seed,test_accuracy
+cifar10,42,0.686300
+cifar10,43,0.687500
+cifar10,44,0.680700
+cifar100,42,0.399800
+cifar100,43,0.399800
+cifar100,44,0.394800
+tiny,42,0.256500
+tiny,43,0.252800
+tiny,44,0.248100

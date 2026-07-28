@@ -1,0 +1,9 @@
+method,param,final_val_acc
+fixed_dp,C=0.25,0.697194
+fixed_dp,C=0.5,0.697194
+fixed_dp,C=1.0,0.696994
+fixed_dp,C=2.0,0.698196
+fixed_dp,C=4.0,0.698196
+adaptive_dp,C_init=0.5,0.697194
+adaptive_dp,C_init=1.0,0.696994
+adaptive_dp,C_init=2.0,0.698597

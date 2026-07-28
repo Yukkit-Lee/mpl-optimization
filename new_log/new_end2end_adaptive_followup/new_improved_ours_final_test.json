@@ -1,0 +1,52 @@
+{
+  "schema": "improved_ours_final_test_v1",
+  "status": "COMPLETE",
+  "test_read_once": true,
+  "results": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "test_accuracy": 0.6863
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 43,
+      "test_accuracy": 0.6875
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 44,
+      "test_accuracy": 0.6807
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "test_accuracy": 0.3998
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 43,
+      "test_accuracy": 0.3998
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 44,
+      "test_accuracy": 0.3948
+    },
+    {
+      "dataset": "tiny",
+      "seed": 42,
+      "test_accuracy": 0.2565
+    },
+    {
+      "dataset": "tiny",
+      "seed": 43,
+      "test_accuracy": 0.2528
+    },
+    {
+      "dataset": "tiny",
+      "seed": 44,
+      "test_accuracy": 0.2481
+    }
+  ]
+}

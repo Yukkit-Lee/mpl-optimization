@@ -1,0 +1,14 @@
+{
+  "schema": "stage_b_weight_statistics_v1",
+  "status": "LIMITED",
+  "limitation": "Per-client Stage B candidate weights unavailable. Only final selected initializers were migrated from old server.",
+  "shrinkage_analysis": {
+    "cifar10": {
+      "best_beta": 0.25,
+      "best_val": 0.4538775384426117,
+      "avg_val": 0.44959184527397156,
+      "con_val": 0.36938774585723877
+    }
+  },
+  "conclusion": "Consensus initializer weights differ significantly from Average, causing 7pp+ degradation. Shrinkage recovers ~half the gap at \u03b2=0.10-0.25."
+}
