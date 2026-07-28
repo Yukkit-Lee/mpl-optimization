@@ -1,0 +1,17 @@
+=== Phase 6: Checking run completeness ===
+Full Data Adaptive Stage-C:
+  MISSING: /root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar10/seed42/new_stage_c_report_cifar10_seed42.json
+  MISSING: /root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar10/seed43/new_stage_c_report_cifar10_seed43.json
+  MISSING: /root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar10/seed44/new_stage_c_report_cifar10_seed44.json
+  MISSING: /root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar100/seed42/new_stage_c_report_cifar100_seed42.json
+  MISSING: /root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar100/seed43/new_stage_c_report_cifar100_seed43.json
+  MISSING: /root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/cifar100/seed44/new_stage_c_report_cifar100_seed44.json
+  MISSING: /root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/tiny/seed42/new_stage_c_report_tiny_seed42.json
+  MISSING: /root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/tiny/seed43/new_stage_c_report_tiny_seed43.json
+  MISSING: /root/autodl-tmp/tfe_experiments/new_output/new_incremental_comparison/stage_c/tiny/seed44/new_stage_c_report_tiny_seed44.json
+
+Ours Adaptive (from existing end_to_end report):
+  status=COMPLETE, runs=18/18
+
+ERROR: Not all runs are COMPLETE.
+Phase 4+5 must finish before Phase 6.

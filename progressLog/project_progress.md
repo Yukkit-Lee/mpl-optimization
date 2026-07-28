@@ -1034,3 +1034,14 @@
   - Markdown: `reportToMe/experiment_report.md`
   - 9 个 Stage B + 9 个 Stage C 模型和 JSON 报告
 - 执行状态：**全部 8 个 Phase 完成。服务器准备 shutdown。**
+
+---
+
+## 项目进展记录
+- 时间：2026-07-28（UTC）
+- 本次对话任务目标：开始执行 `plan/0728_new_agent_plan_true_ours_pea_figure2_rebuild.md`，重建不依赖 Full-Data initializer 的 True Ours、严格互斥评估协议和 PEA 风格 Figure 2。
+- 启动前硬件审计：宿主机为 AMD EPYC 9654（96 物理核/192 线程）、377 GiB RAM；当前容器 CPU affinity/配额仅允许 `nproc=32`，因此后续 CPU 并行度上限设为 32，避免按宿主机 192 线程过量超卖。数据盘 `/root/autodl-tmp` 剩余约 104 GiB。
+- 防死机措施：正式实验必须通过 tmux 和独立日志启动，队列入口需支持 COMPLETE 检查、失败即停和重启恢复；当前没有活动训练进程或 tmux 实验会话。
+- 重建前工作树分类：`new_report_incremental_full_feature.py` 是旧 Figure 2 聚合器的 Stage-C 正式报告文件名修复；`new_output/new_incremental_comparison/stage_b/{cifar100,tiny}` 是此前已完成的 6 个 Full-Data Stage-B initializer/report（约 3.7 MiB）；其余为对应队列日志和 0728 计划文档。未发现需删除的临时大缓存，本轮将这些既有产出原样冻结，不覆盖旧实验。
+- 协议约束：新实验必须先提交互斥 split manifest；development validation、locked holdout、reference、selection 两两互斥；调参不得读取 locked holdout/official test；True Ours Stage B 只能读取 Official MTT compact features，并对 Full-Data initializer 路径设置硬断言。
+- 执行状态：本条仅记录启动审计，尚未启动任何 True Ours 调参或正式实验。下一步先提交并推送 `Freeze pre-rebuild audit state`，再创建 `new-true-ours-pea-figure2` 分支。

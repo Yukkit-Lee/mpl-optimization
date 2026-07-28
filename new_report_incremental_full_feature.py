@@ -95,7 +95,7 @@ def check_all_runs_complete(paths):
         for seed in SEEDS:
             report_path = os.path.join(
                 paths["full_data_output"], ds, f"seed{seed}",
-                f"new_stage_c_report_{ds}_seed{seed}.json"
+                f"new_secure_stage_c_report_{ds}_adaptive_dp_seed{seed}.json"
             )
             if not os.path.isfile(report_path):
                 print(f"  MISSING: {report_path}")
@@ -128,7 +128,7 @@ def load_full_data_reference_curves(paths):
         for seed in SEEDS:
             report_path = os.path.join(
                 paths["full_data_output"], ds, f"seed{seed}",
-                f"new_stage_c_report_{ds}_seed{seed}.json"
+                f"new_secure_stage_c_report_{ds}_adaptive_dp_seed{seed}.json"
             )
             if not os.path.isfile(report_path):
                 curves[ds][seed] = None
