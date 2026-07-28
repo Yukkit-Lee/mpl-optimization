@@ -34,7 +34,7 @@
 
 ## 尚未完成
 
-- 双方对齐的 Adaptive DP development-only 调参；
+- 双方对齐的 Adaptive DP float调参已完成；真实TFE/ABY3 seed42 finalists待完成；
 - 正式配置与 time-to-target 冻结；
 - Full Data 与 True Ours 三 seeds 从 Stage B 开始的正式同口径重跑；
 - 冻结后一次性 locked holdout/official-test 评估；
@@ -53,7 +53,7 @@
   `fraction_below` 反向 bug；旧 Adaptive 结果不得进入本轮 formal。
 - Adaptive float screen 已改为每个候选同时评价 Full Data 与 True Ours，两边
   分别按真实 N 校准epsilon，并按最差 initializer retention 选择共享配置；
-  1-step paired smoke test通过，正式development screen尚待运行。
+  完整三数据集screen已通过，六条最终轨迹epsilon≤3、finite且未撞C边界。
 - PEA/CaPC/DDGauss/CryptGPU 外部来源 provenance 已完成，Ours 数值等待 formal。
 
 ## 最新协议覆盖

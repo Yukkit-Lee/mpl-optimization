@@ -78,14 +78,17 @@
     {
       "phase": "6",
       "name": "aligned_adaptive_dp_development_tuning",
-      "status": "CORRECTNESS_AND_ACCOUNTANT_GATE_PASS_TUNING_PENDING",
+      "status": "FLOAT_PAIRED_COMPLETE_TFE_FINALISTS_PENDING",
       "fixed_dp_new_runs": false,
       "sampling_mode": "poisson",
       "formal_sampling_rng": "os_csprng",
       "adaptive_indicator_corrected": true,
       "paired_full_and_true_selection": true,
       "selection_metric": "worst_initializer_retention",
-      "evidence": "new_tests/new_true_ours/new_test_stage_c_poisson_masked_batch.py"
+      "evidence": [
+        "new_tests/new_true_ours/new_test_stage_c_poisson_masked_batch.py",
+        "new_log/new_true_ours/new_adaptive_stage_c_development_screen.json"
+      ]
     },
     {
       "phase": "7",

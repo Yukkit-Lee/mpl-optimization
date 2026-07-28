@@ -529,6 +529,11 @@ NoDP-initializer accuracy retention”优先选择，再依次比较平均 reten
 平均 development accuracy 与较低 runtime。不得先只为 True Ours 选参后再套用
 到 Full Data。
 
+冻结前的真实 TFE/ABY3 Stage-C correctness finalist 可为 Full Data 使用已完成
+plaintext tuned Stage-B 权重的 metadata-complete development wrapper，但必须明确
+标记 `formal_secure_result=0`，不得计入论文结果或安全 Stage-B 时间。冻结后的
+formal Stage C 必须改为读取双方真实 TFE Stage-B initializer；不得复用该 wrapper。
+
 ## 9.3 训练预算
 
 ```text

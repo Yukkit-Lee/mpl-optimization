@@ -46,6 +46,12 @@ formal enable flag: true
 Regularized Consensus synced + no-sync gates: COMPLETE
 passing candidates: 0/3 datasets
 decision: no seed expansion; formal mainline uses Secure Average
+
+Paired Adaptive float development screen: COMPLETE
+C10 config: steps80, LR0.002, C0=1, gamma0.5, eta0.02
+C100 config: steps20, LR0.01, C0=2, gamma0.1, eta0.05
+Tiny config: steps180, LR0.002, C0=1, gamma0.5, eta0.1
+all six Full/True trajectories: epsilon<=3, finite, no C boundary hit
 ```
 
 关键路径：
@@ -264,11 +270,10 @@ Consensus作为负结果。
 
 ### 5.3 Adaptive float development screen
 
-用 distillation 环境：
+已完成，不要重跑。权威输出：
 
-```bash
-/root/autodl-tmp/new_envs/distillation/bin/python \
-  new_scripts/new_true_ours/new_screen_adaptive_stage_c.py
+```text
+new_log/new_true_ours/new_adaptive_stage_c_development_screen.json
 ```
 
 它按单因素顺序筛 steps、LR、initial C、gamma、eta。每个候选同时运行Full Data
@@ -307,6 +312,22 @@ seed42、`--evaluation_split development_validation` 验证：
 - 双方仅真实 N 和 Stage-B lineage 不同。
 
 任何数值错误先修正确性，不用 LR 掩盖。
+
+顺序runner：
+
+```bash
+/root/miniconda3/bin/python \
+  new_scripts/new_true_ours/new_run_adaptive_stage_c_secure_finalists.py
+```
+
+必须放入 `tmux true_ours_adaptive_tfe_finalists`，日志位于
+`new_log/new_true_ours/txt/new_adaptive_stage_c_finalist_*`。共6条：
+3 datasets×Full/True，已有COMPLETE report会跳过并重新硬校验。
+
+Full development finalist为避免freeze前后重复Full Stage-B，使用已完成plaintext
+tuned权重的metadata wrapper，强制`formal_secure_result=0`；它只验证Stage-C
+安全图/会计/C轨迹，不能进入论文或正式计时。freeze后formal Stage C必须读取
+双方真实TFE Stage-B initializer。
 
 ## 6. Freeze 和正式三 seeds
 
@@ -406,8 +427,9 @@ git rev-parse origin/new-true-ours-pea-figure2
 [ ] 确认两个Consensus JSON均COMPLETE且no-sync三数据集selected=null，不扩seed
 [ ] 查 locked/test read flags 仍为 false
 [ ] 查磁盘剩余空间
-[ ] 当前第一个未满足门是paired Adaptive float development screen
-[ ] 运行前检查代码/进度/交接commit已push，再放入独立tmux
+[ ] 确认paired Adaptive float JSON COMPLETE，不重跑
+[ ] 当前第一个未满足门是6条TFE/ABY3 Adaptive seed42 finalists
+[ ] 运行前检查runner/进度/交接commit已push，再放入独立tmux
 ```
 
 长任务断线后先查tmux与COMPLETE JSON；正式TFE任务每5 epochs保存checkpoint。
