@@ -68,6 +68,9 @@
       "publication": "ICLR 2021",
       "year": 2021,
       "paper_url": "https://openreview.net/forum?id=h2EbJ4_wMVq",
+      "arxiv_url": "https://arxiv.org/abs/2102.05188",
+      "source_artifact": "arXiv source 2102.05188",
+      "source_artifact_sha256": "3b00645d654ff88920a89edeed75db350ac9856f011ce9e12793b8ed07c9c15a",
       "official_repo_url": "https://github.com/cleverhans-lab/capc-iclr",
       "official_repo_audited_commit": "3024d6ae3b2e397692cf1784d86c30846a02221c",
       "reported_or_reproduced": "original_method_identity_audited; CIFAR-10 number below was locally reproduced by PEA authors, not reported by the CaPC paper",
@@ -82,7 +85,20 @@
       "runtime": null,
       "hardware": null,
       "source_location": "PEA arXiv source tex/6.Experiments.tex, Table tab:acc_FL_MPL and accompanying text",
-      "comparability": "Do not present as an original CaPC-paper number or as a strict head-to-head result. It is a PEA-author reproduction on PEA features with a different privacy scope."
+      "original_paper_CIFAR10_result": {
+        "result_type": "mean accuracy gain after collaboration, not absolute accuracy",
+        "accuracy_gain_percentage_points": 4.09,
+        "epsilon": 20.0,
+        "noise_sigma": 7.0,
+        "effective_parties": 50,
+        "querying_parties": 3,
+        "queries_per_querying_party": "approximately 550",
+        "model": "VGG-5 local models",
+        "evaluation_examples": 1000,
+        "runs": 5,
+        "source_location": "CaPC Contents/6_experiments.tex, Evaluation Setup and Figure fig:uniform-all"
+      },
+      "comparability": "Do not present 86.70% as an original CaPC-paper number or as a strict head-to-head result. The original CaPC CIFAR-10 experiment uses epsilon=20 and reports a +4.09 percentage-point local-model gain; the 86.70% value is a PEA-author reproduction on PEA features at epsilon=2."
     },
     {
       "method": "DDGauss",
