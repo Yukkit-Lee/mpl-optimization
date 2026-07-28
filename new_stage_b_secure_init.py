@@ -503,18 +503,22 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
         batch_y = tfe.define_private_input(
             "server0", lambda: raw_batch_y, name="local_batch_y"
         )
-        reference_x = tfe.define_private_variable(
-            data["x_reference"], name="reference_x"
-        )
-        reference_y = tfe.define_private_variable(
-            one_hot(data["y_reference"], args.num_classes), name="reference_y"
-        )
-        selection_x = tfe.define_private_variable(
-            data["x_selection"], name="selection_x"
-        )
-        selection_y = tfe.define_private_variable(
-            one_hot(data["y_selection"], args.num_classes), name="selection_y"
-        )
+        reference_x = reference_y = selection_x = selection_y = None
+        if not getattr(args, "secure_average_only", False):
+            reference_x = tfe.define_private_variable(
+                data["x_reference"], name="reference_x"
+            )
+            reference_y = tfe.define_private_variable(
+                one_hot(data["y_reference"], args.num_classes),
+                name="reference_y",
+            )
+            selection_x = tfe.define_private_variable(
+                data["x_selection"], name="selection_x"
+            )
+            selection_y = tfe.define_private_variable(
+                one_hot(data["y_selection"], args.num_classes),
+                name="selection_y",
+            )
         weights = [
             tfe.define_private_variable(value, name="local_weight_{:02d}".format(i))
             for i, value in enumerate(initial_weights)
@@ -556,17 +560,6 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
         coefficients = [
             float(value) for value in args.client_aggregation_weights
         ]
-        teacher_expression = None
-        for coefficient, weight, bias in zip(coefficients, weights, biases):
-            logits = secure_chunked_matmul(
-                tfe, reference_x, weight, args.matmul_chunk_size
-            ) + bias
-            logits = logits * coefficient
-            teacher_expression = (
-                logits
-                if teacher_expression is None
-                else teacher_expression + logits
-            )
         nokd_avg_w_expression = weights[0] * coefficients[0]
         nokd_avg_b_expression = biases[0] * coefficients[0]
         for client_id in range(1, int(args.num_clients)):
@@ -590,12 +583,6 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
             ],
             "new_atomic_fedavg_sync",
         )
-        teacher_logits = tfe.define_private_variable(
-            np.zeros(
-                (len(data["x_reference"]), int(args.num_classes)), dtype=np.float32
-            ),
-            name="teacher_logits",
-        )
         nokd_avg_w = tfe.define_private_variable(
             np.zeros(
                 (int(args.feature_dim), int(args.num_classes)),
@@ -606,6 +593,53 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
         nokd_avg_b = tfe.define_private_variable(
             np.zeros((int(args.num_classes),), dtype=np.float32),
             name="nokd_avg_bias",
+        )
+        if getattr(args, "secure_average_only", False):
+            teacher_assign = secure_simultaneous_assign(
+                tf,
+                [
+                    (nokd_avg_w, nokd_avg_w_expression),
+                    (nokd_avg_b, nokd_avg_b_expression),
+                ],
+                "new_atomic_nokd_snapshot",
+            )
+            graph.update(
+                {
+                    "batch_x": batch_x,
+                    "batch_y": batch_y,
+                    "raw_batch_x": raw_batch_x,
+                    "raw_batch_y": raw_batch_y,
+                    "weights": weights,
+                    "biases": biases,
+                    "local_ops": local_ops,
+                    "fedavg_sync": fedavg_sync,
+                    "teacher_assign": teacher_assign,
+                    "nokd_avg_w": nokd_avg_w,
+                    "nokd_avg_b": nokd_avg_b,
+                    "distill_ops": [],
+                    "selected_w": nokd_avg_w,
+                    "selected_b": nokd_avg_b,
+                    "saver": tf.compat.v1.train.Saver(max_to_keep=2),
+                }
+            )
+            return graph
+
+        teacher_expression = None
+        for coefficient, weight, bias in zip(coefficients, weights, biases):
+            logits = secure_chunked_matmul(
+                tfe, reference_x, weight, args.matmul_chunk_size
+            ) + bias
+            logits = logits * coefficient
+            teacher_expression = (
+                logits
+                if teacher_expression is None
+                else teacher_expression + logits
+            )
+        teacher_logits = tfe.define_private_variable(
+            np.zeros(
+                (len(data["x_reference"]), int(args.num_classes)), dtype=np.float32
+            ),
+            name="teacher_logits",
         )
         teacher_assign = secure_simultaneous_assign(
             tf,
@@ -950,7 +984,7 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
         graph["selected_w"].reveal(),
         graph["selected_b"].reveal(),
     ]
-    if args.formal_candidate_release:
+    if args.formal_candidate_release and not args.secure_average_only:
         candidate_fetches.extend(
             [
                 graph["nokd_avg_w"].reveal(),
@@ -966,7 +1000,15 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
     released_candidates = None
     diagnostics = None
     revealed_values = ["final_selected_stage_b_weight", "final_selected_stage_b_bias"]
-    if args.formal_candidate_release:
+    if args.formal_candidate_release and args.secure_average_only:
+        released_candidates = {
+            "NoKD": {
+                "weight": np.asarray(candidate_values[0], dtype=np.float32),
+                "bias": np.asarray(candidate_values[1], dtype=np.float32),
+            },
+        }
+        revealed_values.append("formal_ablation_nokd_candidate")
+    elif args.formal_candidate_release:
         released_candidates = {
             "NoKD": {
                 "weight": np.asarray(candidate_values[2], dtype=np.float32),
@@ -1126,6 +1168,11 @@ def parse_args():
         ),
     )
     parser.add_argument(
+        "--secure_average_only",
+        action="store_true",
+        help="Build only local training, FedAvg, and the NoKD final release.",
+    )
+    parser.add_argument(
         "--input_lineage",
         choices=["legacy_unspecified", "official_mtt_only", "full_data_disjoint"],
         default="legacy_unspecified",
@@ -1193,6 +1240,19 @@ def validate_input_lineage(args):
 
 def main():
     args = parse_args()
+    if args.secure_average_only:
+        if (
+            int(args.distill_epochs) != 0
+            or float(args.lambda_kd) != 0.0
+            or float(args.reference_supervised_weight) != 0.0
+        ):
+            raise ValueError(
+                "secure_average_only requires all KD/distillation terms disabled"
+            )
+        if args.correctness_reveal:
+            raise ValueError(
+                "secure_average_only does not expose KD correctness diagnostics"
+            )
     set_seed(args.seed)
     input_lineage = validate_input_lineage(args)
     data = load_feature_cache(args.feature_cache, mode=args.feature_cache_mode)
@@ -1409,6 +1469,7 @@ def main():
             "weight_temperature": float(args.weight_temperature),
             "precision_fractional": int(args.precision_fractional),
             "matmul_chunk_size": int(args.matmul_chunk_size),
+            "secure_average_only": bool(args.secure_average_only),
         },
         "security": {
             "backend": "tfe_mpc",
@@ -1418,26 +1479,40 @@ def main():
                 "local_feature_batches",
                 "local_labels",
                 "local_linear_head_parameters",
-                "reference_features",
-                "reference_labels",
-                "selection_features",
-                "selection_labels",
-            ],
-            "secret_shared_intermediates": [
-                "teacher_logits",
-                "distilled_local_parameters",
-                "avg_candidate",
-                "reference_weighted_candidate",
-                "candidate_mse_scores",
-                "selection_bit",
-            ],
+            ]
+            + (
+                []
+                if args.secure_average_only
+                else [
+                    "reference_features",
+                    "reference_labels",
+                    "selection_features",
+                    "selection_labels",
+                ]
+            ),
+            "secret_shared_intermediates": (
+                ["avg_candidate"]
+                if args.secure_average_only
+                else [
+                    "teacher_logits",
+                    "distilled_local_parameters",
+                    "avg_candidate",
+                    "reference_weighted_candidate",
+                    "candidate_mse_scores",
+                    "selection_bit",
+                ]
+            ),
             "revealed_values": secure["revealed_values"],
             "formal_candidate_release": bool(args.formal_candidate_release),
             "reference_weight_softmax_stabilization": (
-                "private_mean_centering_shift_invariant"
+                "not_applicable_secure_average_only"
+                if args.secure_average_only
+                else "private_mean_centering_shift_invariant"
             ),
             "selection_scope": (
-                "fully_secret_selection_final_model_only"
+                "no_candidate_selection_secure_average_only"
+                if args.secure_average_only
+                else "fully_secret_selection_final_model_only"
                 if not args.correctness_reveal
                 else "correctness_diagnostics_with_explicit_reveals"
             ),
