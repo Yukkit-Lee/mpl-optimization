@@ -148,7 +148,15 @@ def load_official_mtt(dataset, seed):
     return path, payload, x_all, y_all
 
 
-def write_memmap_metadata(path, feature_path, labels, indices, reference, selection):
+def write_memmap_metadata(
+    path,
+    feature_path,
+    labels,
+    indices,
+    reference,
+    selection,
+    split_path,
+):
     atomic_npz(
         path,
         feature_npy_path=np.asarray([str(feature_path).encode("utf-8")]),
@@ -160,6 +168,10 @@ def write_memmap_metadata(path, feature_path, labels, indices, reference, select
         y_selection=np.asarray(selection[1], dtype=np.int64),
         feature_dim=np.asarray([2048], dtype=np.int64),
         test_loaded=np.asarray([0], dtype=np.int64),
+        initializer_source=np.asarray(["full_data_disjoint"]),
+        full_data_initializer_dependency=np.asarray([1], dtype=np.int64),
+        split_manifest_path=np.asarray([str(split_path)]),
+        split_manifest_sha256=np.asarray([sha256_file(split_path)]),
     )
 
 
@@ -214,6 +226,7 @@ def main():
                 splits["stage_b_train"],
                 ref,
                 sel,
+                split_path,
             )
             full_c_path = (
                 CACHE_ROOT / "full_data_stage_c" / dataset
@@ -226,6 +239,7 @@ def main():
                 splits["stage_c_train"],
                 dev,
                 sel,
+                split_path,
             )
 
             official_path, official, mtt_x, mtt_y = load_official_mtt(dataset, seed)

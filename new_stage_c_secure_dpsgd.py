@@ -649,6 +649,8 @@ def validate_input_lineage(args):
             "new_cache", "new_true_ours", "official_mtt", "stage_c"
         ) not in feature_path:
             raise ValueError("True Ours Stage C must use audited Official-MTT cache")
+        expected_cache_source = "official_mtt_only"
+        expected_cache_dependency = 0
     else:
         if dependency != 1:
             raise ValueError("Full-Data initializer lineage metadata mismatch")
@@ -658,10 +660,39 @@ def validate_input_lineage(args):
             "new_cache", "new_true_ours", "full_data_stage_c"
         ) not in feature_path:
             raise ValueError("Full-Data Stage C must use audited disjoint cache")
+        expected_cache_source = "full_data_disjoint"
+        expected_cache_dependency = 1
+    with np.load(args.feature_cache, allow_pickle=False) as feature_metadata:
+        cache_source = str(
+            feature_metadata["initializer_source"].reshape(-1)[0]
+        )
+        cache_dependency = int(
+            feature_metadata[
+                "full_data_initializer_dependency"
+            ].reshape(-1)[0]
+        )
+        split_path = str(
+            feature_metadata["split_manifest_path"].reshape(-1)[0]
+        )
+        expected_split_sha = str(
+            feature_metadata["split_manifest_sha256"].reshape(-1)[0]
+        )
+    if (
+        cache_source != expected_cache_source
+        or cache_dependency != expected_cache_dependency
+    ):
+        raise ValueError("Stage C feature-cache lineage metadata mismatch")
+    if (
+        not os.path.isfile(split_path)
+        or sha256_file(split_path) != expected_split_sha
+    ):
+        raise ValueError("Stage C split manifest hash mismatch")
     lineage.update(
         {
             "initializer_feature_cache_sha256": initializer_feature_sha,
             "initializer_sha256": sha256_file(args.initializer),
+            "split_manifest_path": split_path,
+            "split_manifest_sha256": expected_split_sha,
             "validated": True,
         }
     )

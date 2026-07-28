@@ -1234,7 +1234,29 @@ def validate_input_lineage(args):
         )
         if required_fragment not in resolved_cache or args.feature_cache_mode != "memmap":
             raise ValueError("full_data_disjoint requires audited memmap metadata")
-        lineage["validated"] = True
+        with np.load(args.feature_cache, allow_pickle=False) as metadata:
+            source = str(metadata["initializer_source"].reshape(-1)[0])
+            dependency = int(
+                metadata["full_data_initializer_dependency"].reshape(-1)[0]
+            )
+            split_path = str(metadata["split_manifest_path"].reshape(-1)[0])
+            expected_split_sha = str(
+                metadata["split_manifest_sha256"].reshape(-1)[0]
+            )
+        if source != "full_data_disjoint" or dependency != 1:
+            raise ValueError("Full-Data lineage metadata failed")
+        if (
+            not os.path.isfile(split_path)
+            or sha256_file(split_path) != expected_split_sha
+        ):
+            raise ValueError("Full-Data split manifest hash mismatch")
+        lineage.update(
+            {
+                "split_manifest_path": split_path,
+                "split_manifest_sha256": expected_split_sha,
+                "validated": True,
+            }
+        )
     return lineage
 
 
