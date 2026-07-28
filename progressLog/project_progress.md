@@ -1108,3 +1108,4 @@
 - 协议纠正：0728 计划中残留的新增 Fixed DP-SGD 任务与用户此前明确指令冲突，现已改为双方统一 Adaptive DP。后续不新增 Fixed run；旧 54-run Fixed/Adaptive 负结果只保留为历史消融。Adaptive 的正式判据改为双方 matched protocol、`epsilon<=3`、三 seeds 稳定、效用损失可解释，不再声称相对 Fixed 的新优势。
 - 防重复边界：旧 Stage A/Stage B、旧 54-run Module-C 和已完成的 incremental Full-Data 资产均不重复执行；但旧结果若不满足新 disjoint split、True-Ours lineage 或统一计时边界，只能作为诊断/历史对照，不能冒充本轮 formal。
 - 隐私状态：本轮重建仍未读取 locked holdout 或 official test；冻结前继续保持未读。
+- Phase 5 准备：旧 consensus blending 脚本依赖旧 Full-Data initializer、旧 validation 且缺少 per-client 权重，判定不可复用。新增 `new_screen_regularized_consensus.py`，从 Official-MTT cache 重建 balanced/severe 客户端头，在相同 development split 上比较 Average、Original、Shrinkage、Temperature、weight-cap、top-k 与 class-balanced；该入口仅为 plaintext diagnostic，只有同时满足 IID 损失不超过 0.5pp、Severe 提升至少 1pp 才允许扩三 seeds/TFE。
