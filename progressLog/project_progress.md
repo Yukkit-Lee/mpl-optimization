@@ -1057,3 +1057,13 @@
 - 代码硬保护：Stage B/Stage C 新增 `official_mtt_only` / `full_data_disjoint` lineage 校验，True Ours 明确禁止解析到 `new_output/new_incremental_comparison/stage_b`；模型 NPZ 和报告记录 source、dependency 与 cache hash。Stage B 新增 class-balanced client split、shared client initialization 和 weight decay，供计划内单因素筛选。
 - 调参工具：新增 `new_screen_true_ours_stage_b.py`，只读 development validation，以 shared initialization、epochs、batch、LR、weight decay、client weighting 的顺序做单因素贪心筛选；输出明确标记为 plaintext diagnostic，不能冒充 TFE 正式结果。
 - 隐私/测试状态：locked holdout 未读取指标；official test 未由本轮重建读取；正式训练尚未启动。下一步提交并推送 `Freeze disjoint evaluation splits`，随后才允许启动 seed42 Stage-B development screen。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-28（UTC）
+- Phase 3 development-only Stage-B 筛选已启动并置于 `tmux true_ours_dev_screen`，所有 BLAS/OpenMP 线程上限设为容器可用的 32 核；实测筛选过程可使用约 8--21 核，不读取 locked holdout 或 official test。
+- CIFAR-10/CIFAR-100 seed42 首轮单因素结果：MTT-only Secure-Average 明文诊断分别达到 0.6882/0.4730 development accuracy。该结果仅用于选参，不计为 TFE 正式结果。
+- 诊断修复：新增周期性 FedAvg 同步因素；修正筛选器和 TFE/ABY3 正式实现，使同步及最终聚合都采用一致的公开 `uniform`/`sample_count`/`class_balanced` 系数。共享初始化只按精度选择；同步次数和 batch 仅在 factor-local 最优精度 0.1pp 内按低成本择优，避免为了极小时间收益丢掉可观精度。
+- 安全边界：TFE 聚合权重只由公开 split 样本数/类别直方图计算，不揭示任何模型参数；True Ours 仍有 `official_mtt_only` lineage 硬门，且 formal candidate 尚未发布。
+- 当前队列：先用修正规则重跑 CIFAR-10/100，再执行 Tiny seed42 基础筛选与 FedAvg follow-up。所有任务通过可恢复的 tmux 独立日志运行；locked holdout 和 test 均保持未读。

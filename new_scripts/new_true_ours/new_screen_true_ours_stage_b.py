@@ -162,6 +162,23 @@ def train_once(x_train, y_train, x_dev, y_dev, dataset, seed, config):
                 biases[client_id] -= config["local_lr"] * grad_b
                 epoch_loss += float(np.sum(error * error))
                 epoch_examples += len(batch) * num_classes
+        if (
+            config["fedavg_sync_interval"] > 0
+            and (epoch + 1) % config["fedavg_sync_interval"] == 0
+        ):
+            coefficients = aggregation_weights(
+                y_train, client_indices, config["client_weighting"]
+            )
+            avg_weight = sum(
+                coefficient * weight
+                for coefficient, weight in zip(coefficients, weights)
+            )
+            avg_bias = sum(
+                coefficient * bias
+                for coefficient, bias in zip(coefficients, biases)
+            )
+            weights = [avg_weight.copy() for _ in weights]
+            biases = [avg_bias.copy() for _ in biases]
         if epoch + 1 in (1, config["local_epochs"]):
             coefficients = aggregation_weights(
                 y_train, client_indices, config["client_weighting"]
@@ -266,6 +283,7 @@ def screen_dataset(dataset, seed):
         "local_lr": 0.1,
         "weight_decay": 0.0,
         "client_weighting": "uniform",
+        "fedavg_sync_interval": 0,
     }
     factors = [
         ("shared_initialization", [False, True]),
@@ -387,7 +405,22 @@ def main():
     )
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
-    results = [screen_dataset(dataset, args.seed) for dataset in args.datasets]
+    json_path = LOG_ROOT / "new_true_ours_stage_b_screen.json"
+    existing_results = []
+    if json_path.is_file():
+        existing_payload = json.loads(json_path.read_text(encoding="utf-8"))
+        existing_results = [
+            result
+            for result in existing_payload.get("results", [])
+            if not (
+                result["dataset"] in args.datasets
+                and int(result["seed"]) == int(args.seed)
+            )
+        ]
+    new_results = [
+        screen_dataset(dataset, args.seed) for dataset in args.datasets
+    ]
+    results = existing_results + new_results
     payload = {
         "schema": "new_true_ours_stage_b_screen_v1",
         "status": "COMPLETE",
@@ -398,7 +431,7 @@ def main():
         "official_test_read": False,
         "results": results,
     }
-    atomic_json(LOG_ROOT / "new_true_ours_stage_b_screen.json", payload)
+    atomic_json(json_path, payload)
     TABLE_ROOT.mkdir(parents=True, exist_ok=True)
     csv_path = TABLE_ROOT / "new_true_ours_stage_b_screen.csv"
     with csv_path.open("w", encoding="utf-8", newline="") as handle:

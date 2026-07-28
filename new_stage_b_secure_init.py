@@ -174,6 +174,28 @@ def split_summary(labels, client_indices):
     return summary
 
 
+def aggregation_weights(labels, client_indices, mode):
+    """Return public aggregation coefficients derived only from split metadata."""
+    if mode == "uniform":
+        values = np.ones(len(client_indices), dtype=np.float64)
+    elif mode == "sample_count":
+        values = np.asarray(
+            [len(indices) for indices in client_indices], dtype=np.float64
+        )
+    elif mode == "class_balanced":
+        global_counts = np.bincount(np.asarray(labels, dtype=np.int64))
+        values = np.asarray(
+            [
+                float(np.sum(1.0 / global_counts[labels[indices]]))
+                for indices in client_indices
+            ],
+            dtype=np.float64,
+        )
+    else:
+        raise ValueError("未知客户端聚合权重: {}".format(mode))
+    return values / np.sum(values)
+
+
 def deterministic_batches(indices, batch_size, seed, phase, epoch, client_id):
     """固定顺序生成满 batch；尾部通过本客户端样本循环补齐，避免改变静态图形状。"""
     indices = np.asarray(indices, dtype=np.int64)
@@ -231,6 +253,7 @@ def plaintext_reference(
     y_train_hot = one_hot(y_train, args.num_classes)
     y_reference_hot = one_hot(y_reference, args.num_classes)
     y_selection_hot = one_hot(y_selection, args.num_classes)
+    coefficients = np.asarray(args.client_aggregation_weights, dtype=np.float64)
     for epoch in range(int(args.local_epochs)):
         for client_id, indices in enumerate(client_indices):
             for batch in deterministic_batches(
@@ -245,18 +268,39 @@ def plaintext_reference(
                 grad_w += float(args.weight_decay) * weights[client_id]
                 weights[client_id] -= float(args.local_lr) * grad_w
                 biases[client_id] -= float(args.local_lr) * grad_b
+        if (
+            int(args.fedavg_sync_interval) > 0
+            and (epoch + 1) % int(args.fedavg_sync_interval) == 0
+        ):
+            avg_weight = np.sum(
+                np.stack(weights, axis=0) * coefficients[:, None, None],
+                axis=0,
+            )
+            avg_bias = np.sum(
+                np.stack(biases, axis=0) * coefficients[:, None], axis=0
+            )
+            weights = [avg_weight.copy() for _ in weights]
+            biases = [avg_bias.copy() for _ in biases]
 
-    teacher = np.mean(
-        [
-            np.matmul(x_reference, weight) + bias
-            for weight, bias in zip(weights, biases)
-        ],
+    teacher = np.sum(
+        np.stack(
+            [
+                np.matmul(x_reference, weight) + bias
+                for weight, bias in zip(weights, biases)
+            ],
+            axis=0,
+        )
+        * coefficients[:, None, None],
         axis=0,
     )
     nokd_weights = [value.copy() for value in weights]
     nokd_biases = [value.copy() for value in biases]
-    nokd_avg_w = np.mean(nokd_weights, axis=0)
-    nokd_avg_b = np.mean(nokd_biases, axis=0)
+    nokd_avg_w = np.sum(
+        np.stack(nokd_weights, axis=0) * coefficients[:, None, None], axis=0
+    )
+    nokd_avg_b = np.sum(
+        np.stack(nokd_biases, axis=0) * coefficients[:, None], axis=0
+    )
     for epoch in range(int(args.distill_epochs)):
         for client_id, indices in enumerate(client_indices):
             for batch in deterministic_batches(
@@ -297,8 +341,12 @@ def plaintext_reference(
                 weights[client_id] -= float(args.distill_lr) * grad_w
                 biases[client_id] -= float(args.distill_lr) * grad_b
 
-    avg_w = np.mean(weights, axis=0)
-    avg_b = np.mean(biases, axis=0)
+    avg_w = np.sum(
+        np.stack(weights, axis=0) * coefficients[:, None, None], axis=0
+    )
+    avg_b = np.sum(
+        np.stack(biases, axis=0) * coefficients[:, None], axis=0
+    )
     local_losses = np.asarray(
         [
             mse_loss(np.matmul(x_reference, weight) + bias, y_reference_hot)
@@ -505,27 +553,42 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
                 )
             )
 
+        coefficients = [
+            float(value) for value in args.client_aggregation_weights
+        ]
         teacher_expression = None
-        for weight, bias in zip(weights, biases):
+        for coefficient, weight, bias in zip(coefficients, weights, biases):
             logits = secure_chunked_matmul(
                 tfe, reference_x, weight, args.matmul_chunk_size
             ) + bias
+            logits = logits * coefficient
             teacher_expression = (
                 logits
                 if teacher_expression is None
                 else teacher_expression + logits
             )
-        teacher_expression = teacher_expression * (1.0 / float(args.num_clients))
-        nokd_avg_w_expression = weights[0]
-        nokd_avg_b_expression = biases[0]
+        nokd_avg_w_expression = weights[0] * coefficients[0]
+        nokd_avg_b_expression = biases[0] * coefficients[0]
         for client_id in range(1, int(args.num_clients)):
-            nokd_avg_w_expression = nokd_avg_w_expression + weights[client_id]
-            nokd_avg_b_expression = nokd_avg_b_expression + biases[client_id]
-        nokd_avg_w_expression = nokd_avg_w_expression * (
-            1.0 / float(args.num_clients)
-        )
-        nokd_avg_b_expression = nokd_avg_b_expression * (
-            1.0 / float(args.num_clients)
+            nokd_avg_w_expression = (
+                nokd_avg_w_expression
+                + weights[client_id] * coefficients[client_id]
+            )
+            nokd_avg_b_expression = (
+                nokd_avg_b_expression
+                + biases[client_id] * coefficients[client_id]
+            )
+        fedavg_sync = secure_simultaneous_assign(
+            tf,
+            [
+                (weights[client_id], nokd_avg_w_expression)
+                for client_id in range(int(args.num_clients))
+            ]
+            + [
+                (biases[client_id], nokd_avg_b_expression)
+                for client_id in range(int(args.num_clients))
+            ],
+            "new_atomic_fedavg_sync",
         )
         teacher_logits = tfe.define_private_variable(
             np.zeros(
@@ -617,13 +680,11 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
                 )
             )
 
-        avg_w = weights[0]
-        avg_b = biases[0]
+        avg_w = weights[0] * coefficients[0]
+        avg_b = biases[0] * coefficients[0]
         for client_id in range(1, int(args.num_clients)):
-            avg_w = avg_w + weights[client_id]
-            avg_b = avg_b + biases[client_id]
-        avg_w = avg_w * (1.0 / float(args.num_clients))
-        avg_b = avg_b * (1.0 / float(args.num_clients))
+            avg_w = avg_w + weights[client_id] * coefficients[client_id]
+            avg_b = avg_b + biases[client_id] * coefficients[client_id]
 
         # Softmax is invariant to a shared shift. Centering the private losses
         # keeps low-temperature exponentials inside the fixed-point range
@@ -700,6 +761,7 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
                 "weights": weights,
                 "biases": biases,
                 "local_ops": local_ops,
+                "fedavg_sync": fedavg_sync,
                 "teacher_logits": teacher_logits,
                 "teacher_assign": teacher_assign,
                 "nokd_avg_w": nokd_avg_w,
@@ -801,6 +863,12 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
                 }
                 session.run(graph["local_ops"][client_id], feed_dict=feed)
                 epoch_batches += 1
+        synchronized = (
+            int(args.fedavg_sync_interval) > 0
+            and (epoch + 1) % int(args.fedavg_sync_interval) == 0
+        )
+        if synchronized:
+            session.run(graph["fedavg_sync"])
         epoch_seconds = time.time() - epoch_started
         elapsed_seconds += epoch_seconds
         state["local_epochs_completed"] = epoch + 1
@@ -811,6 +879,7 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
                 "batches": int(epoch_batches),
                 "epoch_time_seconds": float(epoch_seconds),
                 "elapsed_time_seconds": float(elapsed_seconds),
+                "fedavg_synchronized": bool(synchronized),
             }
         )
         state["history"] = history
@@ -1015,6 +1084,18 @@ def parse_args():
     parser.add_argument("--local_epochs", type=int, default=20)
     parser.add_argument("--local_lr", type=float, default=0.05)
     parser.add_argument("--weight_decay", type=float, default=0.0)
+    parser.add_argument(
+        "--client_weighting",
+        choices=["uniform", "sample_count", "class_balanced"],
+        default="uniform",
+        help="Public coefficient rule for secure client-head aggregation",
+    )
+    parser.add_argument(
+        "--fedavg_sync_interval",
+        type=int,
+        default=0,
+        help="Synchronize all private client heads every N local epochs; 0 disables",
+    )
     parser.add_argument("--distill_epochs", type=int, default=10)
     parser.add_argument("--distill_lr", type=float, default=0.02)
     parser.add_argument("--lambda_kd", type=float, default=0.5)
@@ -1130,6 +1211,9 @@ def main():
         raise ValueError("明文参考实现只能用于 correctness，不得进入正式运行")
     client_indices = make_client_splits(
         data["y_encoder_train"], args.num_clients, args.split, args.seed
+    )
+    args.client_aggregation_weights = aggregation_weights(
+        data["y_encoder_train"], client_indices, args.client_weighting
     )
     initial_weights, initial_biases = initialize_heads(
         args.num_clients,
@@ -1310,6 +1394,11 @@ def main():
             "local_epochs": int(args.local_epochs),
             "local_lr": float(args.local_lr),
             "weight_decay": float(args.weight_decay),
+            "client_weighting": args.client_weighting,
+            "client_aggregation_weights": [
+                float(value) for value in args.client_aggregation_weights
+            ],
+            "fedavg_sync_interval": int(args.fedavg_sync_interval),
             "shared_initialization": bool(args.shared_initialization),
             "distill_epochs": int(args.distill_epochs),
             "distill_lr": float(args.distill_lr),
