@@ -2,9 +2,14 @@
 """Upgrade only Full-Data memmap metadata; preserve frozen split/MTT bytes."""
 
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
 
 from new_prepare_true_ours_assets import atomic_npz, sha256_file
 
