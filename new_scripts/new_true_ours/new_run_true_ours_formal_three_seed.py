@@ -50,29 +50,45 @@ def file_sha256(path):
     return digest.hexdigest()
 
 
-def run_logged(command, log_path):
+def run_logged(command, log_path, timeout_seconds=None, max_attempts=1):
     log_path = Path(log_path)
     log_path.parent.mkdir(parents=True, exist_ok=True)
-    with log_path.open("a", encoding="utf-8") as handle:
-        handle.write(
-            "\nRUN_START {}\nCOMMAND {}\n".format(
-                time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-                " ".join(command),
+    last_exc = None
+    for attempt in range(1, max_attempts + 1):
+        if attempt > 1:
+            time.sleep(30)  # cool-down between attempts
+        with log_path.open("a", encoding="utf-8") as handle:
+            handle.write(
+                "\nRUN_START {} ATTEMPT {}/{}\nCOMMAND {}\n".format(
+                    time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                    attempt, max_attempts,
+                    " ".join(command),
+                )
             )
-        )
-        handle.flush()
-        completed = subprocess.run(
-            command,
-            cwd=str(ROOT),
-            stdout=handle,
-            stderr=subprocess.STDOUT,
-        )
-    if completed.returncode != 0:
-        raise RuntimeError(
-            "command failed with exit {}: {}".format(
-                completed.returncode, log_path
+            handle.flush()
+            try:
+                completed = subprocess.run(
+                    command,
+                    cwd=str(ROOT),
+                    stdout=handle,
+                    stderr=subprocess.STDOUT,
+                    timeout=timeout_seconds,
+                )
+            except subprocess.TimeoutExpired as e:
+                handle.write(f"\nTIMEOUT after {timeout_seconds}s\n")
+                handle.flush()
+                last_exc = e
+                continue
+        if completed.returncode != 0:
+            raise RuntimeError(
+                "command failed with exit {}: {}".format(
+                    completed.returncode, log_path
+                )
             )
-        )
+        return  # success
+    raise RuntimeError(
+        f"command timed out after {max_attempts} attempts: {log_path}"
+    )
 
 
 def conditional_epsilon_at_step(stage_c_report, step):
@@ -556,7 +572,11 @@ def main():
             ]
             if stage_b_config["shared_initialization"]:
                 command.append("--shared_initialization")
-            run_logged(command, paths["stage_b_log"])
+            # Full Data Stage B is heavy; add timeout + retry to survive TF 1.15 hangs
+            sb_timeout = 7200 if method == "full_data" else None  # 2h for Full Data
+            sb_attempts = 2 if method == "full_data" else 1
+            run_logged(command, paths["stage_b_log"],
+                       timeout_seconds=sb_timeout, max_attempts=sb_attempts)
         stage_b, stage_b_checks = validate_stage_b(
             paths["stage_b_report"], dataset, method, seed, frozen
         )

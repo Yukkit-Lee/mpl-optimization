@@ -1,11 +1,11 @@
 {
   "schema": "new_true_ours_config_freeze_v1",
   "status": "FROZEN_BEFORE_FORMAL",
-  "freeze_source_git_commit": "2138fa923fe67241c52221ebdd254503efc18cbf",
+  "freeze_source_git_commit": "a2814c558e76bd0c7e5838844c5736ca1e77d4d6",
   "exact_code_sha256": {
     "new_stage_b_secure_init.py": "fcd6924c3ce63a5620b6397e3f6b0fb46f2304a31af11b4cbd00429944d6cbc6",
     "new_stage_c_secure_dpsgd.py": "87258a3dfea7cf7940e070c7e6a18e4084d162bf59cdc6b8e5f147d1440f8772",
-    "new_scripts/new_true_ours/new_run_true_ours_formal_three_seed.py": "b3c1d3d492410152d7e03e41acf8b3c5decd64dece7fdc07c04a34a78cdea76e",
+    "new_scripts/new_true_ours/new_run_true_ours_formal_three_seed.py": "2863ee7120fe2869d1e9680ea327f442cdebe3fe275296588d5a347cc1e43bad",
     "new_tests/new_true_ours/new_test_stage_b_checkpoint_evaluation.py": "9b95e52c34cbd120865c4889b64eea911d1e54d7b21ce137b265cb031e43a48e",
     "new_tests/new_true_ours/new_test_stage_c_poisson_masked_batch.py": "5e36a41fdbe576784b224d34b92978b6ce3d7eeee94b977a0c8d315eef126437"
   },
