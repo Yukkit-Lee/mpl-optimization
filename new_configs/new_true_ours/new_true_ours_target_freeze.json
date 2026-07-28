@@ -1,7 +1,7 @@
 {
   "schema": "new_true_ours_target_freeze_v1",
   "status": "FROZEN_BEFORE_FORMAL",
-  "freeze_source_git_commit": "a2814c558e76bd0c7e5838844c5736ca1e77d4d6",
+  "freeze_source_git_commit": "fda36bdcc959981f5ff3637c9301730d37a99608",
   "definition": "80/90/95 percent of tuned Full-Data development plateau",
   "datasets": {
     "cifar10": {

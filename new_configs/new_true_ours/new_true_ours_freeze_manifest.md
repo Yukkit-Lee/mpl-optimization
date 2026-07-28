@@ -2,7 +2,7 @@
 
 Status: `FROZEN_BEFORE_FORMAL`
 
-Source Git commit: `a2814c558e76bd0c7e5838844c5736ca1e77d4d6`
+Source Git commit: `fda36bdcc959981f5ff3637c9301730d37a99608`
 
 Frozen methods:
 

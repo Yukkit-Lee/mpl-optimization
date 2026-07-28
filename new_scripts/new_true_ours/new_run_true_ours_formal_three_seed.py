@@ -572,11 +572,12 @@ def main():
             ]
             if stage_b_config["shared_initialization"]:
                 command.append("--shared_initialization")
-            # Full Data Stage B is heavy; add timeout + retry to survive TF 1.15 hangs
-            sb_timeout = 7200 if method == "full_data" else None  # 2h for Full Data
+            # Full Data Stage B is heavy; wrap with timeout to survive TF 1.15 hangs
+            if method == "full_data":
+                # Use shell timeout (kills entire process group, handles TF threads)
+                command = ["timeout", "--foreground", "-k", "60", "7200"] + command
             sb_attempts = 2 if method == "full_data" else 1
-            run_logged(command, paths["stage_b_log"],
-                       timeout_seconds=sb_timeout, max_attempts=sb_attempts)
+            run_logged(command, paths["stage_b_log"], max_attempts=sb_attempts)
         stage_b, stage_b_checks = validate_stage_b(
             paths["stage_b_report"], dataset, method, seed, frozen
         )
