@@ -41,7 +41,7 @@ def resolve_initializer(dataset, seed):
     )
     candidates = [
         ROOT
-        / "new_output/new_true_ours/stage_b/formal"
+        / "new_output/new_true_ours/stage_b/true_ours_formal"
         / dataset
         / "seed{}".format(seed)
         / filename,
