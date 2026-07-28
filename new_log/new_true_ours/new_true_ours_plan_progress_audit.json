@@ -40,12 +40,11 @@
       "name": "stage_b_secure_seed42_validation",
       "status": "IN_PROGRESS",
       "completed_datasets": [
-        "cifar10"
+        "cifar10",
+        "cifar100"
       ],
-      "active_dataset": "cifar100",
-      "queued_datasets": [
-        "tiny"
-      ],
+      "active_dataset": "tiny",
+      "queued_datasets": [],
       "precision_decision": 16
     },
     {
