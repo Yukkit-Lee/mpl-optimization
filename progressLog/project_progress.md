@@ -1075,3 +1075,4 @@
 - Full-Data 旧固定配置 reference 已完成：CIFAR-10/CIFAR-100/Tiny development accuracy 为 0.6838/0.3874/0.2533，当前 True Ours 分别高 0.88pp/8.56pp/5.53pp。为避免使用欠调基线夸大 True Ours，新增 Full-Data development-only 单因素调参，覆盖 epochs、batch、LR、weight decay，并在 0.1pp 精度容差内优先较低训练成本；只有调优 Full 基线完成后才判断 retention gate。
 - Full-Data CIFAR-10 调参已显示旧基线确实欠调：40 epochs + batch 16 + LR 0.2 已把 development accuracy 提升到至少 0.7266，使当前 True Ours 落后约 3.4pp、未过 1pp 门槛。按 Phase 4 新增 True Ours rescue screen：扩展 60/80 epochs、LR 0.15--0.25、weight decay 与 sync interval，并额外训练单客户端 centralized MTT 诊断以区分“数据载荷上限”和“多客户端聚合损失”；仍不读取 locked holdout/test。
 - CIFAR-10 首轮 rescue 达到 0.6952（batch 8、LR 0.25、weight decay 1e-4、sync 10），centralized MTT 同口径仅 0.6808，说明当前差距主要不是多客户端平均错误。因仍落后调优 Full 约 3.14pp，CIFAR-10 继续窄搜 batch 4 与 LR 0.3/0.4；CIFAR-100/Tiny 不盲目加入 batch 4，以免在尚无门槛证据时大幅增加 TFE 成本。
+- 窄搜首遍错误地从 pre-rescue 配置重新开始，得到 0.6926，低于已测 incumbent 0.6952；该结果只保留为诊断日志，不允许覆盖更优候选。rescue 脚本现显式记录并从 measured incumbent 继续单因素搜索，确保后续调参单调保留已验证的最佳配置。

@@ -18,6 +18,17 @@ from new_screen_true_ours_stage_b import (
 
 
 OUTPUT_ROOT = ROOT / "new_output/new_true_ours/stage_b_screen/rescue"
+MEASURED_INCUMBENTS = {
+    "cifar10": {
+        "shared_initialization": True,
+        "local_epochs": 40,
+        "batch_size": 8,
+        "local_lr": 0.25,
+        "weight_decay": 1e-4,
+        "client_weighting": "sample_count",
+        "fedavg_sync_interval": 10,
+    }
+}
 
 
 def select_candidate(candidates, factor, tolerance=0.001):
@@ -59,6 +70,7 @@ def select_candidate(candidates, factor, tolerance=0.001):
 def run_dataset(dataset, seed, base_config):
     _, _, x_train, y_train, x_dev, y_dev = load_assets(dataset, seed)
     current = dict(base_config)
+    current.update(MEASURED_INCUMBENTS.get(dataset, {}))
     batch_values = [4, 8, 16] if dataset == "cifar10" else [8]
     lr_values = (
         [0.2, 0.25, 0.3, 0.4]
