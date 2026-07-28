@@ -444,6 +444,8 @@ def load_checkpoint(graph, session, prefix):
 
 
 def run_secure_stage_c(data, init_weight, init_bias, args):
+    if not hasattr(args, "online_invocation_started"):
+        args.online_invocation_started = time.time()
     graph = build_graph(data, init_weight, init_bias, args)
     tf, tfe, KE = graph["tf"], graph["tfe"], graph["KE"]
     session = tfe.Session()
@@ -455,7 +457,10 @@ def run_secure_stage_c(data, init_weight, init_bias, args):
             "steps_completed": 0,
             "consecutive_cmax_hits": 0,
             "history": [],
+            "online_secure_seconds_completed": 0.0,
         }
+    state.setdefault("online_secure_seconds_completed", 0.0)
+    prior_online_seconds = float(state["online_secure_seconds_completed"])
     history = list(state.get("history", []))
     log_steps = set(
         np.linspace(1, args.steps, min(10, args.steps)).round().astype(np.int64).tolist()
@@ -542,9 +547,16 @@ def run_secure_stage_c(data, init_weight, init_bias, args):
                 if noisy_fraction_below is None
                 else 1.0 - noisy_fraction_below
             ),
+            "cumulative_stage_c_online_secure_seconds": float(
+                prior_online_seconds
+                + (time.time() - float(args.online_invocation_started))
+            ),
         }
         history.append(row)
         state["history"] = history
+        state["online_secure_seconds_completed"] = row[
+            "cumulative_stage_c_online_secure_seconds"
+        ]
         if use_adaptive and proposed_c >= float(args.c_max) * 0.999:
             state["consecutive_cmax_hits"] = (
                 int(state.get("consecutive_cmax_hits", 0)) + 1
@@ -601,8 +613,13 @@ def run_secure_stage_c(data, init_weight, init_bias, args):
             graph["provider_counters"],
         ]
     )
-    save_checkpoint(graph, session, args.checkpoint_prefix, state)
     runtime = time.time() - started
+    cumulative_online_secure_seconds = float(
+        prior_online_seconds
+        + (time.time() - float(args.online_invocation_started))
+    )
+    state["online_secure_seconds_completed"] = cumulative_online_secure_seconds
+    save_checkpoint(graph, session, args.checkpoint_prefix, state)
     KE.clear_session()
     return {
         "weight": np.asarray(final_weight, dtype=np.float32),
@@ -611,6 +628,7 @@ def run_secure_stage_c(data, init_weight, init_bias, args):
         "provider_counters": [int(value) for value in counters],
         "history": history,
         "runtime_seconds": float(runtime),
+        "cumulative_online_secure_seconds": cumulative_online_secure_seconds,
         "steps_completed": int(state["steps_completed"]),
     }
 
@@ -849,6 +867,7 @@ def main():
         flush=True,
     )
     print("=" * 92, flush=True)
+    args.online_invocation_started = time.time()
     result = run_secure_stage_c(data, init_weight, init_bias, args)
     accounting_batch_size = (
         args.expected_batch_size
@@ -979,6 +998,9 @@ def main():
         "provider_counters": result["provider_counters"],
         "history": result["history"],
         "runtime_seconds": result["runtime_seconds"],
+        "online_secure_runtime_seconds": result[
+            "cumulative_online_secure_seconds"
+        ],
         "model_path": model_path,
         "model_sha256": sha256_file(model_path),
         "limitations": [

@@ -504,10 +504,17 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
             "server0", lambda: raw_batch_y, name="local_batch_y"
         )
         reference_x = reference_y = selection_x = selection_y = None
-        if not getattr(args, "secure_average_only", False):
+        checkpoint_evaluation = bool(
+            getattr(args, "development_checkpoint_evaluation", False)
+        )
+        if (
+            not getattr(args, "secure_average_only", False)
+            or checkpoint_evaluation
+        ):
             reference_x = tfe.define_private_variable(
                 data["x_reference"], name="reference_x"
             )
+        if not getattr(args, "secure_average_only", False):
             reference_y = tfe.define_private_variable(
                 one_hot(data["y_reference"], args.num_classes),
                 name="reference_y",
@@ -595,6 +602,17 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
             name="nokd_avg_bias",
         )
         if getattr(args, "secure_average_only", False):
+            development_logits = (
+                secure_chunked_matmul(
+                    tfe,
+                    reference_x,
+                    nokd_avg_w_expression,
+                    args.matmul_chunk_size,
+                )
+                + nokd_avg_b_expression
+                if checkpoint_evaluation
+                else None
+            )
             teacher_assign = secure_simultaneous_assign(
                 tf,
                 [
@@ -619,6 +637,7 @@ def build_secure_graph(data, client_indices, initial_weights, initial_biases, ar
                     "distill_ops": [],
                     "selected_w": nokd_avg_w,
                     "selected_b": nokd_avg_b,
+                    "development_logits": development_logits,
                     "saver": tf.compat.v1.train.Saver(max_to_keep=2),
                 }
             )
@@ -841,6 +860,8 @@ def load_checkpoint_if_available(graph, session, prefix):
 
 
 def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, args):
+    if not hasattr(args, "online_invocation_started"):
+        args.online_invocation_started = time.time()
     graph = build_secure_graph(
         data, client_indices, initial_weights, initial_biases, args
     )
@@ -859,6 +880,7 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
             "distill_epochs_completed": 0,
             "history": [],
             "elapsed_seconds_completed": 0.0,
+            "online_secure_seconds_completed": 0.0,
         }
     else:
         print(
@@ -871,8 +893,10 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
         )
     state.setdefault("history", [])
     state.setdefault("elapsed_seconds_completed", 0.0)
+    state.setdefault("online_secure_seconds_completed", 0.0)
     history = list(state["history"])
     elapsed_seconds = float(state["elapsed_seconds_completed"])
+    prior_online_seconds = float(state["online_secure_seconds_completed"])
 
     log_epochs = set(
         np.linspace(1, max(1, int(args.local_epochs)), min(10, args.local_epochs))
@@ -903,21 +927,53 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
         )
         if synchronized:
             session.run(graph["fedavg_sync"])
+        checkpoint_evaluation = (
+            bool(getattr(args, "development_checkpoint_evaluation", False))
+            and (
+                (epoch + 1) % int(args.checkpoint_interval) == 0
+                or epoch + 1 == int(args.local_epochs)
+            )
+        )
+        development_accuracy = None
+        if checkpoint_evaluation:
+            development_logits = session.run(
+                graph["development_logits"].reveal()
+            )
+            development_accuracy = float(
+                np.mean(
+                    np.argmax(development_logits, axis=1)
+                    == np.asarray(data["y_reference"], dtype=np.int64)
+                )
+            )
         epoch_seconds = time.time() - epoch_started
         elapsed_seconds += epoch_seconds
         state["local_epochs_completed"] = epoch + 1
-        history.append(
-            {
-                "phase": "local_pretraining",
-                "epoch": epoch + 1,
-                "batches": int(epoch_batches),
-                "epoch_time_seconds": float(epoch_seconds),
-                "elapsed_time_seconds": float(elapsed_seconds),
-                "fedavg_synchronized": bool(synchronized),
-            }
-        )
+        row = {
+            "phase": "local_pretraining",
+            "epoch": epoch + 1,
+            "batches": int(epoch_batches),
+            "epoch_time_seconds": float(epoch_seconds),
+            "elapsed_time_seconds": float(elapsed_seconds),
+            "fedavg_synchronized": bool(synchronized),
+            "development_validation_accuracy": development_accuracy,
+            "evaluation_split": (
+                "development_validation"
+                if checkpoint_evaluation
+                else None
+            ),
+            "locked_holdout_read": False,
+            "official_test_read": False,
+            "cumulative_online_secure_seconds": float(
+                prior_online_seconds
+                + (time.time() - float(args.online_invocation_started))
+            ),
+        }
+        history.append(row)
         state["history"] = history
         state["elapsed_seconds_completed"] = float(elapsed_seconds)
+        state["online_secure_seconds_completed"] = row[
+            "cumulative_online_secure_seconds"
+        ]
         if (epoch + 1) in log_epochs:
             print(
                 "[StageB-local] epoch={}/{}".format(epoch + 1, args.local_epochs),
@@ -1000,6 +1056,10 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
     released_candidates = None
     diagnostics = None
     revealed_values = ["final_selected_stage_b_weight", "final_selected_stage_b_bias"]
+    if getattr(args, "development_checkpoint_evaluation", False):
+        revealed_values.append(
+            "aggregate_development_validation_logits_at_checkpoint_epochs"
+        )
     if args.formal_candidate_release and args.secure_average_only:
         released_candidates = {
             "NoKD": {
@@ -1087,8 +1147,13 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
                 "correctness_only_local_parameters",
             ]
         )
-    save_checkpoint(graph, session, args.checkpoint_prefix, state)
     runtime = time.time() - started
+    cumulative_online_secure_seconds = float(
+        prior_online_seconds
+        + (time.time() - float(args.online_invocation_started))
+    )
+    state["online_secure_seconds_completed"] = cumulative_online_secure_seconds
+    save_checkpoint(graph, session, args.checkpoint_prefix, state)
     KE.clear_session()
     return {
         "selected_w": np.asarray(selected_w, dtype=np.float32),
@@ -1097,6 +1162,7 @@ def run_secure_stage_b(data, client_indices, initial_weights, initial_biases, ar
         "released_candidates": released_candidates,
         "revealed_values": revealed_values,
         "runtime_seconds": float(runtime),
+        "cumulative_online_secure_seconds": cumulative_online_secure_seconds,
         "training_elapsed_seconds": float(elapsed_seconds),
         "history": history,
         "checkpoint_state": state,
@@ -1171,6 +1237,14 @@ def parse_args():
         "--secure_average_only",
         action="store_true",
         help="Build only local training, FedAvg, and the NoKD final release.",
+    )
+    parser.add_argument(
+        "--development_checkpoint_evaluation",
+        action="store_true",
+        help=(
+            "Reveal aggregate development logits only at checkpoint epochs "
+            "for the frozen accuracy-vs-secure-time trajectory."
+        ),
     )
     parser.add_argument(
         "--input_lineage",
@@ -1275,6 +1349,11 @@ def main():
             raise ValueError(
                 "secure_average_only does not expose KD correctness diagnostics"
             )
+    if args.development_checkpoint_evaluation and not args.secure_average_only:
+        raise ValueError(
+            "development checkpoint evaluation is currently restricted to "
+            "the audited secure_average_only path"
+        )
     set_seed(args.seed)
     input_lineage = validate_input_lineage(args)
     data = load_feature_cache(args.feature_cache, mode=args.feature_cache_mode)
@@ -1335,6 +1414,7 @@ def main():
     )
     print("=" * 92, flush=True)
     started = time.time()
+    args.online_invocation_started = started
     secure = run_secure_stage_b(
         data, client_indices, initial_weights, initial_biases, args
     )
@@ -1492,6 +1572,9 @@ def main():
             "precision_fractional": int(args.precision_fractional),
             "matmul_chunk_size": int(args.matmul_chunk_size),
             "secure_average_only": bool(args.secure_average_only),
+            "development_checkpoint_evaluation": bool(
+                args.development_checkpoint_evaluation
+            ),
         },
         "security": {
             "backend": "tfe_mpc",
@@ -1503,7 +1586,10 @@ def main():
                 "local_linear_head_parameters",
             ]
             + (
-                []
+                ["development_validation_features"]
+                if args.secure_average_only
+                and args.development_checkpoint_evaluation
+                else []
                 if args.secure_average_only
                 else [
                     "reference_features",
@@ -1525,6 +1611,12 @@ def main():
                 ]
             ),
             "revealed_values": secure["revealed_values"],
+            "checkpoint_evaluation_reveal": (
+                "aggregate_development_validation_logits_at_checkpoint_epochs"
+                if args.development_checkpoint_evaluation
+                else "disabled"
+            ),
+            "checkpoint_evaluation_used_for_gradients": False,
             "formal_candidate_release": bool(args.formal_candidate_release),
             "reference_weight_softmax_stabilization": (
                 "not_applicable_secure_average_only"
@@ -1545,6 +1637,9 @@ def main():
         "selected_model_sha256": sha256_file(model_path),
         "formal_candidate_models": candidate_paths,
         "runtime_seconds": float(time.time() - started),
+        "online_secure_runtime_seconds": secure[
+            "cumulative_online_secure_seconds"
+        ],
         "training_elapsed_seconds": secure["training_elapsed_seconds"],
         "history": secure["history"],
         "correctness": correctness,

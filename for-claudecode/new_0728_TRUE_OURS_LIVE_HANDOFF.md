@@ -58,6 +58,10 @@ C10 Full/True dev: 0.7274 / 0.6876
 C100 Full/True dev: 0.4300 / 0.4806
 Tiny Full/True dev: 0.2733 / 0.3135
 all secure-finalist checks: PASS; locked/test unread
+
+Formal config/target/manifest freeze: GENERATED, PREFLIGHT PASS
+formal tasks: 18 end-to-end rows (3 datasets x 2 methods x 3 seeds)
+next hard gate: push the containing freeze commit before starting tmux
 ```
 
 关键路径：
@@ -343,27 +347,31 @@ tuned权重的metadata wrapper，强制`formal_secure_result=0`；它只验证St
 
 ## 6. Freeze 和正式三 seeds
 
-development 调参完成后生成并先提交：
+freeze文件已生成并通过preflight：
 
 ```text
-new_true_ours_config_freeze.json
-new_true_ours_target_freeze.json
-new_true_ours_freeze_manifest.md
+new_configs/new_true_ours/new_true_ours_config_freeze.json
+new_configs/new_true_ours/new_true_ours_target_freeze.json
+new_configs/new_true_ours/new_true_ours_freeze_manifest.md
 ```
 
-Freeze 文件要包含 Git commit、split hash、双方每数据集 config、真实 N、accountant、
-epsilon/delta、timing boundary、seeds、checkpoint schedule、80/90/95% targets。
+它们已包含source Git commit、精确代码SHA、split hash、双方每数据集config、
+真实N、accountant、epsilon/delta、timing boundary、seeds、checkpoint schedule
+和80/90/95% targets。不要手工修改freeze；如SHA不匹配必须停止。
 
-只有 freeze commit 已 push 才能启动正式 18 条 Stage B：
+只有包含freeze的commit已push才可启动正式18条end-to-end任务。启动命令：
 
-```text
-Full Data Stage B: 3 datasets × 3 seeds
-True Ours Stage B: 3 datasets × 3 seeds
+```bash
+tmux new-session -d -s true_ours_formal_three_seed \
+  "env OMP_NUM_THREADS=32 OPENBLAS_NUM_THREADS=32 MKL_NUM_THREADS=32 \
+  NUMEXPR_NUM_THREADS=32 /root/miniconda3/bin/python \
+  new_scripts/new_true_ours/new_run_true_ours_formal_three_seed.py \
+  > new_log/new_true_ours/txt/new_true_ours_formal_three_seed_runner.log 2>&1"
 ```
 
-然后运行双方统一 Adaptive Stage C 共 18 条。每条都要 checkpoint、独立日志、
-幂等 COMPLETE gate。为避免内存带宽争用，TFE 大任务默认顺序运行；不要同时启动
-两个 Full-Data/Tiny TFE graph。
+runner对每个dataset/method/seed顺序执行Stage B→Stage C，共18条；每条有独立
+checkpoint/log、COMPLETE skip和严格report validator。为避免内存带宽争用，
+不要同时启动第二个Full-Data/Tiny TFE graph。
 
 Full Data output 使用：
 
@@ -441,8 +449,10 @@ git rev-parse origin/new-true-ours-pea-figure2
 [ ] 查磁盘剩余空间
 [ ] 确认paired Adaptive float JSON COMPLETE，不重跑
 [ ] 确认6条TFE/ABY3 finalist与聚合审计COMPLETE，不重跑
-[ ] 当前第一个未满足门是formal config/target/manifest freeze
-[ ] freeze文件必须先commit/push，之后才允许启动正式三seeds
+[ ] 确认formal freeze三文件存在且runner --preflight_only通过
+[ ] 确认包含freeze的commit已push，远端HEAD=本地HEAD
+[ ] 当前第一个未满足门是18条formal end-to-end queue
+[ ] 查`true_ours_formal_three_seed` tmux和formal queue status，防止重复
 ```
 
 长任务断线后先查tmux与COMPLETE JSON；正式TFE任务每5 epochs保存checkpoint。

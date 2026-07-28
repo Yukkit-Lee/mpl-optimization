@@ -1,8 +1,8 @@
 {
   "schema": "new_true_ours_plan_progress_audit_v1",
-  "audit_time": "2026-07-28T11:01:00Z",
+  "audit_time": "2026-07-28T11:20:00Z",
   "branch": "new-true-ours-pea-figure2",
-  "audited_head": "c8043dd",
+  "audited_head": "2138fa9",
   "user_protocol_overrides": {
     "new_fixed_dp_runs": false,
     "stage_c_mode": "adaptive_dp",
@@ -94,12 +94,18 @@
     {
       "phase": "7",
       "name": "formal_protocol_and_target_freeze",
-      "status": "NOT_STARTED"
+      "status": "FROZEN_PREFLIGHT_PASS_PENDING_CONTAINING_COMMIT",
+      "formal_tasks": 18,
+      "evidence": [
+        "new_configs/new_true_ours/new_true_ours_config_freeze.json",
+        "new_configs/new_true_ours/new_true_ours_target_freeze.json",
+        "new_configs/new_true_ours/new_true_ours_freeze_manifest.md"
+      ]
     },
     {
       "phase": "8-10",
       "name": "formal_three_seed_runs_holdout_and_figure2",
-      "status": "NOT_STARTED"
+      "status": "READY_AFTER_FREEZE_PUSH"
     },
     {
       "phase": "11",

@@ -1,10 +1,10 @@
 # True Ours 0728 计划进度审计
 
-审计时间：2026-07-28 11:01 UTC
+审计时间：2026-07-28 11:20 UTC
 
 分支：`new-true-ours-pea-figure2`
 
-审计基线提交：`c8043dd`
+审计基线提交：`2138fa9`
 
 ## 不重复执行的已完成工作
 
@@ -35,7 +35,7 @@
 ## 尚未完成
 
 - 双方对齐的 Adaptive DP float调参与6条真实TFE/ABY3 seed42 finalists已完成；
-- 正式配置与 time-to-target 冻结；
+- formal freeze文件已生成并通过18任务preflight；必须先提交推送；
 - Full Data 与 True Ours 三 seeds 从 Stage B 开始的正式同口径重跑；
 - 冻结后一次性 locked holdout/official-test 评估；
 - 累计安全时间曲线与 PEA 风格 Figure 2；
@@ -56,6 +56,8 @@
   完整三数据集screen已通过，六条最终轨迹epsilon≤3、finite且未撞C边界。
 - 6/6 Stage-C finalists均为TFE/ABY3、Poisson os-CSPRNG、无fallback、conditional
   DP声明正确，locked holdout/test未读；下一门是提交formal freeze文件。
+- Stage-B checkpoint development曲线与跨重启online-secure计时已实现并通过真实
+  ABY3小测试；formal config/target/manifest已冻结精确代码与split SHA。
 - PEA/CaPC/DDGauss/CryptGPU 外部来源 provenance 已完成，Ours 数值等待 formal。
 
 ## 最新协议覆盖

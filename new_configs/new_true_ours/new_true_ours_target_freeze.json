@@ -1,0 +1,39 @@
+{
+  "schema": "new_true_ours_target_freeze_v1",
+  "status": "FROZEN_BEFORE_FORMAL",
+  "freeze_source_git_commit": "2138fa923fe67241c52221ebdd254503efc18cbf",
+  "definition": "80/90/95 percent of tuned Full-Data development plateau",
+  "datasets": {
+    "cifar10": {
+      "full_data_development_plateau": 0.7266,
+      "plateau_source": "new_log/new_true_ours/new_full_data_stage_b_tuned_screen.json",
+      "targets": {
+        "80_percent": 0.58128,
+        "90_percent": 0.6539400000000001,
+        "95_percent": 0.6902699999999999
+      }
+    },
+    "cifar100": {
+      "full_data_development_plateau": 0.4308,
+      "plateau_source": "new_log/new_true_ours/new_full_data_stage_b_tuned_screen.json",
+      "targets": {
+        "80_percent": 0.34464000000000006,
+        "90_percent": 0.38772,
+        "95_percent": 0.40926
+      }
+    },
+    "tiny": {
+      "full_data_development_plateau": 0.2765,
+      "plateau_source": "new_log/new_true_ours/new_full_data_stage_b_tuned_screen.json",
+      "targets": {
+        "80_percent": 0.22120000000000004,
+        "90_percent": 0.24885000000000002,
+        "95_percent": 0.262675
+      }
+    }
+  },
+  "missing_target_policy": "Not Reached",
+  "selection_after_locked_holdout": false,
+  "locked_holdout_read": false,
+  "official_test_read_in_this_rebuild": false
+}
