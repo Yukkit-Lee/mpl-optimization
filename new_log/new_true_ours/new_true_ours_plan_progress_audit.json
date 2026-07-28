@@ -1,8 +1,8 @@
 {
   "schema": "new_true_ours_plan_progress_audit_v1",
-  "audit_time": "2026-07-28T08:28:00Z",
+  "audit_time": "2026-07-28T10:08:00Z",
   "branch": "new-true-ours-pea-figure2",
-  "audited_head": "14b90e1",
+  "audited_head": "a88eaea",
   "user_protocol_overrides": {
     "new_fixed_dp_runs": false,
     "stage_c_mode": "adaptive_dp",
@@ -38,14 +38,23 @@
     {
       "phase": "3-4",
       "name": "stage_b_secure_seed42_validation",
-      "status": "IN_PROGRESS",
+      "status": "COMPLETE",
       "completed_datasets": [
         "cifar10",
-        "cifar100"
+        "cifar100",
+        "tiny"
       ],
-      "active_dataset": "tiny",
+      "active_dataset": null,
       "queued_datasets": [],
-      "precision_decision": 16
+      "precision_decision": 16,
+      "secure_average_only_enabled_for_formal": true,
+      "secure_average_only_speedup": 4.884122902042502,
+      "evidence": [
+        "new_log/new_true_ours/new_true_ours_stage_b_development_cifar10_seed42.json",
+        "new_log/new_true_ours/new_true_ours_stage_b_development_cifar100_seed42.json",
+        "new_log/new_true_ours/new_true_ours_stage_b_development_tiny_seed42.json",
+        "new_log/new_true_ours/new_stage_b_average_only_equivalence_audit.json"
+      ]
     },
     {
       "phase": "5",
@@ -55,8 +64,12 @@
     {
       "phase": "6",
       "name": "aligned_adaptive_dp_development_tuning",
-      "status": "NOT_STARTED",
-      "fixed_dp_new_runs": false
+      "status": "CORRECTNESS_AND_ACCOUNTANT_GATE_PASS_TUNING_PENDING",
+      "fixed_dp_new_runs": false,
+      "sampling_mode": "poisson",
+      "formal_sampling_rng": "os_csprng",
+      "adaptive_indicator_corrected": true,
+      "evidence": "new_tests/new_true_ours/new_test_stage_c_poisson_masked_batch.py"
     },
     {
       "phase": "7",
@@ -86,7 +99,8 @@
     {
       "phase": "13",
       "name": "external_method_comparison",
-      "status": "NOT_STARTED"
+      "status": "SOURCE_PROVENANCE_COMPLETE_OURS_PENDING",
+      "evidence": "new_log/new_true_ours/new_external_method_source_registry.json"
     }
   ],
   "reuse_decisions": {

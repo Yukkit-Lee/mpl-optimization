@@ -1,10 +1,10 @@
 # True Ours 0728 计划进度审计
 
-审计时间：2026-07-28 08:28 UTC
+审计时间：2026-07-28 10:08 UTC
 
 分支：`new-true-ours-pea-figure2`
 
-审计起点：`14b90e1`
+审计提交：`a88eaea`
 
 ## 不重复执行的已完成工作
 
@@ -15,11 +15,14 @@
 - CIFAR-10 TFE/ABY3 finalist、correctness 和 precision 16→20 单因素诊断已完成；
 - 旧 Stage A、旧 Stage B、旧 54-run Module-C Fixed/Adaptive 结果均不重跑。
 
-## 当前正在运行
+## Stage B seed42 已完成
 
-- CIFAR-100 seed42 TFE/ABY3 secure finalist：从 checkpoint 持续推进；
-- Tiny seed42：由独立 tmux 条件接力，只在 CIFAR-100 COMPLETE 后启动；
-- 后续保留 precision fractional=16；precision=20 没有提高 CIFAR-10 development accuracy。
+- CIFAR-10/CIFAR-100/Tiny 的 TFE/ABY3 secure finalist 均 COMPLETE；
+- development accuracy 分别为 `0.6876 / 0.4800 / 0.3148`；
+- 后续保留 precision fractional=16；precision=20 没有提高 CIFAR-10；
+- `secure_average_only` 的 CIFAR-10 等价门通过：accuracy delta=0，
+  weight/bias max error=`4.12e-4/4.58e-5`，runtime
+  `458.55s→93.89s`，加速 `4.88×`，正式 Stage B 可启用。
 
 ## 尚未完成
 
@@ -37,6 +40,11 @@
   `secure_runtime_seconds>0`、`peak_rss_bytes>0` 硬断言；
 - repaired JSON/CSV 只用于历史 kernel scaling 补充表，Adaptive 主图仍等待本轮
   实际 Stage-B + Stage-C 累计时间。
+- Adaptive Stage-C sampled-Gaussian accountant 已与 CSPRNG Poisson sampling 对齐；
+  真实 TFE/ABY3 masked-batch/空批次/expected-batch normalization 测试通过。
+- 纠正 TFE `select(bit,x,y)` 的参数语义，修复旧 Adaptive clipping
+  `fraction_below` 反向 bug；旧 Adaptive 结果不得进入本轮 formal。
+- PEA/CaPC/DDGauss/CryptGPU 外部来源 provenance 已完成，Ours 数值等待 formal。
 
 ## 最新协议覆盖
 

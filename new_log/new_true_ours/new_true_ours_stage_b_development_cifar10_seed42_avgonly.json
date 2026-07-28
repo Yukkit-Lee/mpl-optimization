@@ -1,0 +1,28 @@
+{
+  "schema": "new_true_ours_stage_b_development_evaluation_v1",
+  "status": "COMPLETE",
+  "dataset": "cifar10",
+  "seed": 42,
+  "candidate": "/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_avgonly_equivalence/cifar10/seed42/new_secure_stage_b_candidate_nokd_cifar10_balanced_seed42.npz",
+  "candidate_sha256": "f9d544e5943125a604b323313b6d253e5f81a11d19adef3f365f3ba162dbde43",
+  "feature_cache": "/root/autodl-tmp/tfe_experiments/new_cache/new_true_ours/official_mtt/stage_b/cifar10/new_true_ours_stage_b_cifar10_seed42.npz",
+  "split_manifest": "/root/autodl-tmp/tfe_experiments/new_cache/new_true_ours/splits/cifar10/new_true_ours_split_cifar10_seed42.npz",
+  "initializer_source": "official_mtt_only",
+  "full_data_initializer_dependency": 0,
+  "development_validation_accuracy": 0.6876,
+  "class_accuracy": {
+    "0": 0.748,
+    "1": 0.79,
+    "2": 0.582,
+    "3": 0.438,
+    "4": 0.52,
+    "5": 0.648,
+    "6": 0.744,
+    "7": 0.736,
+    "8": 0.874,
+    "9": 0.796
+  },
+  "development_examples": 5000,
+  "locked_holdout_read": false,
+  "official_test_read": false
+}

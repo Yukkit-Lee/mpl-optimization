@@ -1,0 +1,24 @@
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar10 split=balanced clients=5 feature_dim=2048 classes=10
+local_epochs=40 distill_epochs=0 batch_size=8 cpu_policy=runtime_unrestricted num_workers=N/A
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=new_output/new_true_ours/stage_b/true_ours_avgonly_equivalence/cifar10/seed42
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageB-local] epoch=1/40
+[StageB-local] epoch=5/40
+[StageB-local] epoch=10/40
+[StageB-local] epoch=14/40
+[StageB-local] epoch=18/40
+[StageB-local] epoch=23/40
+[StageB-local] epoch=27/40
+[StageB-local] epoch=31/40
+[StageB-local] epoch=36/40
+[StageB-local] epoch=40/40
+selected_model=new_output/new_true_ours/stage_b/true_ours_avgonly_equivalence/cifar10/seed42/new_secure_stage_b_selected_cifar10_balanced_seed42.npz
+report=new_output/new_true_ours/stage_b/true_ours_avgonly_equivalence/cifar10/seed42/new_secure_stage_b_report_cifar10_balanced_seed42.json
+{"candidate": "/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_avgonly_equivalence/cifar10/seed42/new_secure_stage_b_candidate_nokd_cifar10_balanced_seed42.npz", "candidate_sha256": "f9d544e5943125a604b323313b6d253e5f81a11d19adef3f365f3ba162dbde43", "class_accuracy": {"0": 0.748, "1": 0.79, "2": 0.582, "3": 0.438, "4": 0.52, "5": 0.648, "6": 0.744, "7": 0.736, "8": 0.874, "9": 0.796}, "dataset": "cifar10", "development_examples": 5000, "development_validation_accuracy": 0.6876, "feature_cache": "/root/autodl-tmp/tfe_experiments/new_cache/new_true_ours/official_mtt/stage_b/cifar10/new_true_ours_stage_b_cifar10_seed42.npz", "full_data_initializer_dependency": 0, "initializer_source": "official_mtt_only", "locked_holdout_read": false, "official_test_read": false, "schema": "new_true_ours_stage_b_development_evaluation_v1", "seed": 42, "split_manifest": "/root/autodl-tmp/tfe_experiments/new_cache/new_true_ours/splits/cifar10/new_true_ours_split_cifar10_seed42.npz", "status": "COMPLETE"}
+RUNNER_EXIT_CODE=0

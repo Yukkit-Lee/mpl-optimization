@@ -1,9 +1,9 @@
 # 0728 True Ours / PEA Figure 2 实时接力文档
 
-> 快照时间：2026-07-28 17:38 Asia/Shanghai  
+> 快照时间：2026-07-28 18:08 Asia/Shanghai
 > 项目：`/root/autodl-tmp/tfe_experiments`  
 > 分支：`new-true-ours-pea-figure2`  
-> 快照基线提交：`5f10e4d`  
+> 快照基线提交：`a88eaea`
 > 当前唯一有效计划：`plan/0728_new_agent_plan_true_ours_pea_figure2_rebuild.md`
 
 ## 0. 接手原则
@@ -30,16 +30,18 @@
 
 ## 1. 当前实时状态
 
-当前正在运行：
+当前没有 TFE 训练进程或 tmux 会话。刚完成：
 
 ```text
-tmux: true_ours_tfe_tiny_wait
-process snapshot: PID 107706
-task: Tiny ImageNet seed42 True Ours Stage B, TFE/ABY3
-checkpoint: 55/80 local epochs
-checkpoint elapsed secure training: 2668.44 s
-CPU: about 15.4 cores
-RSS: about 6.7 GB
+Tiny seed42 True Ours Stage B: COMPLETE
+development accuracy: 0.3148
+runtime/training elapsed: 4449.56 / 3862.08 s
+
+CIFAR-10 secure_average_only equivalence: COMPLETE/PASS
+development accuracy: 0.6876 (old full graph also 0.6876)
+runtime: 93.89 s vs old 458.55 s
+speedup: 4.884x
+formal enable flag: true
 ```
 
 关键路径：
@@ -68,7 +70,7 @@ new_log/new_true_ours/
   new_true_ours_stage_b_development_tiny_seed42.json
 ```
 
-不要手动启动第二个 Tiny 实例。检查：
+如果状态与本快照不一致，先检查：
 
 ```bash
 tmux ls
@@ -83,18 +85,8 @@ print(d["local_epochs_completed"], d["elapsed_seconds_completed"])
 PY
 ```
 
-当前另有一个正确等待中的接力：
-
-```text
-tmux: true_ours_avgonly_equiv_wait
-```
-
-它只有在 Tiny report 和 development evaluation 都为 `COMPLETE` 后才运行：
-
-```text
-CIFAR-10 seed42, 40 epochs, precision16
---secure_average_only
-```
+原 `true_ours_tfe_tiny_wait` 和 `true_ours_avgonly_equiv_wait` 已正常退出，不要
+重复启动。
 
 输出：
 
@@ -187,7 +179,7 @@ checkpoint 加入 Git。
 
 ## 4. average-only 等价门
 
-等待 `true_ours_avgonly_equiv_wait` 自动完成，不要并行再启一份。之后运行：
+该门已完成，不要重跑。审计输出：
 
 ```bash
 /root/miniconda3/bin/python \
@@ -205,8 +197,7 @@ checkpoint 加入 Git。
 - runtime speedup >= 1.2x；
 - locked/test 未读。
 
-只有输出中 `enable_secure_average_only_for_formal=true` 才可让正式 Stage B 使用
-该路径。失败时保留负结果，正式任务回退完整图，不得放宽容差来追求通过。
+输出已为 `enable_secure_average_only_for_formal=true`，正式 Stage B 应使用该路径。
 
 正式 True Ours 输出命名空间必须用：
 
@@ -273,6 +264,24 @@ Severe delta >= +0.01
 
 它按单因素顺序筛 steps、LR、initial C、gamma、eta，按真实 N 和 composed
 accountant 逐候选校准到 epsilon=3。只读 development，不是正式安全结果。
+
+本轮已修复两个正式性问题：
+
+1. formal lineage 强制 CSPRNG Poisson sampling；TFE 图使用固定 capacity、私有
+   mask 和 expected-batch normalization，真实 ABY3 非空/空批次测试已通过；
+2. TFE `select(bit,x,y)` 在 bit=1 时选第三项，旧代码误把
+   `fraction_below` 方向写反。现已恢复 `select(norm<=C,0,1)` 并由真实安全测试
+   锁定。旧 Adaptive 消融不得作为本轮正式结果。
+
+正式 Stage C 命令必须显式包含：
+
+```text
+--sampling_mode poisson
+--batch_size 64
+--expected_batch_size 16
+--initializer_privacy_status data_dependent_non_dp
+--evaluation_split development_validation
+```
 
 ### 5.4 TFE/ABY3 Adaptive finalist
 
