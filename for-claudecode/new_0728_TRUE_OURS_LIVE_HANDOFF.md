@@ -274,9 +274,6 @@ Severe delta >= +0.01
 它按单因素顺序筛 steps、LR、initial C、gamma、eta，按真实 N 和 composed
 accountant 逐候选校准到 epsilon=3。只读 development，不是正式安全结果。
 
-注意：先检查 Stage C 源码。`build_graph` 中 `error_sq` 当前可见一次重复赋值，
-虽然数值相同且无行为变化，但正式冻结前应做静态修复/测试，并维护 progress/Git。
-
 ### 5.4 TFE/ABY3 Adaptive finalist
 
 float screen 只能缩小范围。选出的双方共同 clipping rule 必须再用真实 TFE/ABY3、
@@ -394,4 +391,3 @@ git rev-parse origin/new-true-ours-pea-figure2
 
 即使 Codex/VS Code 完全断开，当前 Tiny 和等待 watcher 都在 tmux；checkpoint
 每 5 epochs 保存。最坏只损失最后不足 5 epochs 的工作，不应从 epoch 0 重跑。
-
