@@ -1,7 +1,7 @@
 {
   "schema": "new_stage_b_kd_completion_audit_v1",
   "status": "COMPLETE",
-  "source_commit": "6823ee92666867e640dcf0cb2d1631cd696de5f4",
+  "source_commit": "a92657038d51ff821a4a02dbd6d8f19efa7a4524",
   "passed": 13,
   "total": 13,
   "seed_policy": [

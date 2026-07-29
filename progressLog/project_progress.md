@@ -1279,3 +1279,4 @@
 - 最终交付生成完成：18行main ablation、146行runtime/resource（89 search+18 confirmation+36 causal+3 TFE）、110行class-wise表、Figure B1/B2/B3和Supplementary S1--S5、diagnostic report、claim audit、12问final report，以及`plan/0729_new_stage_b_kd_remaining_seeds_plan.md`。剩余seed文档仅规划43/44，未运行也未授权运行。
 - 人工看图发现第一版Figure B3图例重复、Supplementary S1因factor字段不匹配为空；未接受该版本。绘图逻辑修正后重新生成，第二次人工检查通过，其余图无截断/错位。逐类别TFE结果为C10 9/10、C100 93/100类别改善。
 - completion audit最终`COMPLETE 13/13`：分支、单seed、split、S1--S6、因果分解、完整TFE、lineage、全runtime/resource、必需产物、checkpoint不入Git、禁止实验隔离及remaining-plan-only全部通过。结论保持因果诚实：anchor标签监督有效；class-aware Consensus/KD无独立正贡献，应作为negative result而非正模块。
+- 完整代码/结果/图/日志/最终模型提交`a926570`已推送至远端同名分支；约1.1MiB最终TFE模型纳入Git，大型checkpoint仍仅本地保存。推送后HEAD与`origin/new-stage-b-mtt-anchor-kd`一致，三组TFE model/report SHA256逐项复核全部OK，无活动tmux或残留实验进程，磁盘约62GiB可用。
