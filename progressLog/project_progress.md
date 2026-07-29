@@ -1375,3 +1375,4 @@
 - 新TFE runner按C10→即时validator→C100→全量validator顺序运行并支持私有变量checkpoint恢复；validator要求finite、真实TFE/ABY3、无fallback、参数误差<=1e-2、accuracy gap<=0.5pp、TFE(C5−C1)保留plaintext至少80%且TFE C5>C4。大型运行checkpoint继续本地保存，正式输出报告/模型进入独立output命名空间。
 - TFE实现提交`3a650c5`已推送；modern/legacy compile、shell语法、TFE API/custom-op import及6/6单测均通过。冻结输入准备完成：C10 P1 C1/C4/C5=`55.48/18.84/57.64%`、C5−C1=`+2.16pp`，precision16 P2=`+2.18pp`；C100为`10.18/8.08/17.62%`、P1=`+7.44pp`、P2=`+7.42pp`，endpoint量化未破坏方向。
 - 两个TFE输入合计约43MiB，均登记输入/partition/freeze SHA并保持Official-MTT-only、Full dependency=false、test/holdout unread。下一唯一操作是提交推送冻结输入和manifest，随后才在tmux正式启动C10→验证→C100梯级。
+- manifest/进度提交`aeca5e1`已推送，但审计发现仓库通用`*.npz`规则默认忽略了两份冻结输入，因此该提交尚未包含NPZ。输入不是checkpoint且是跨agent复现正式TFE所必需，将按旧KD TFE输入先例显式`git add -f`后单独提交推送；运行checkpoint仍不上传。
