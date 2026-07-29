@@ -18,3 +18,8 @@ WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-package
 [StageB-local] epoch=18/40
 [StageB-local] epoch=23/40
 [StageB-local] epoch=27/40
+[StageB-local] epoch=31/40
+[StageB-local] epoch=36/40
+[StageB-local] epoch=40/40
+selected_model=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/full_data_formal_corrected_v2/tiny/seed42/new_secure_stage_b_selected_tiny_balanced_seed42.npz
+report=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/full_data_formal_corrected_v2/tiny/seed42/new_secure_stage_b_report_tiny_balanced_seed42.json

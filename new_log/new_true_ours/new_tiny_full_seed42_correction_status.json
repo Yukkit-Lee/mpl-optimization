@@ -1,6 +1,6 @@
 {
   "schema": "new_tiny_full_seed42_correction_status_v1",
-  "status": "STAGE_B_RUNNING",
+  "status": "STAGE_C_RUNNING",
   "dataset": "tiny",
   "method": "full_data",
   "seed": 42,
@@ -29,5 +29,16 @@
     "passed": true
   },
   "locked_holdout_read": false,
-  "official_test_read": false
+  "official_test_read": false,
+  "stage_b_checks": {
+    "complete_identity": true,
+    "lineage": true,
+    "secure_average_only": true,
+    "matched_stage_b_config": true,
+    "checkpoint_development_curve": true,
+    "timing": true,
+    "candidate": true
+  },
+  "stage_b_report": "new_output/new_true_ours/stage_b/full_data_formal_corrected_v2/tiny/seed42/new_secure_stage_b_report_tiny_balanced_seed42.json",
+  "stage_b_report_sha256": "cf1da05fffa883baf5c603db09a9dc1568222367f10da9473c95c139909ca880"
 }
