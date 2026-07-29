@@ -1,0 +1,91 @@
+Stage-B KD plaintext start source_commit=0865ee95df62dbde57ad884f09ce22950a051de8 seed=42 nproc=192 locked_holdout_read=False official_test_read=False
+cifar10 S1 local_epochs=5 avg=0.1884 uniform=0.1872 gain=-0.0012 worst=0.0000 disagreement=1.0000
+cifar10 S1 local_epochs=10 avg=0.2204 uniform=0.1740 gain=-0.0464 worst=0.0000 disagreement=1.0000
+cifar10 S1 local_epochs=20 avg=0.2430 uniform=0.1588 gain=-0.0842 worst=0.0000 disagreement=1.0000
+cifar10 S1 local_epochs=40 avg=0.2728 uniform=0.1676 gain=-0.1052 worst=0.0000 disagreement=1.0000
+cifar10 S1 local_lr_multiplier=0.5 avg=0.1646 uniform=0.1676 gain=+0.0030 worst=0.0120 disagreement=0.9999
+cifar10 S1 local_lr_multiplier=1.0 avg=0.1884 uniform=0.1872 gain=-0.0012 worst=0.0000 disagreement=1.0000
+cifar10 S1 local_lr_multiplier=2.0 avg=0.2204 uniform=0.1734 gain=-0.0470 worst=0.0000 disagreement=1.0000
+cifar10 S2 anchor_samples_per_class=4 avg=0.1924 uniform=0.1910 gain=-0.0014 worst=0.0000 disagreement=1.0000
+cifar10 S2 anchor_samples_per_class=8 avg=0.1884 uniform=0.1872 gain=-0.0012 worst=0.0000 disagreement=1.0000
+cifar10 S2 anchor_samples_per_class=12 avg=0.1936 uniform=0.1888 gain=-0.0048 worst=0.0000 disagreement=1.0000
+cifar10 S3 reliability_rule=uniform avg=0.1924 teacher=0.1926 gain=+0.0002 worst=0.0000
+cifar10 S3 reliability_rule=per_class_accuracy avg=0.1924 teacher=0.1338 gain=-0.0586 worst=0.0000
+cifar10 S3 reliability_rule=confidence avg=0.1924 teacher=0.1908 gain=-0.0016 worst=0.0000
+cifar10 S3 reliability_rule=negative_entropy avg=0.1924 teacher=0.1922 gain=-0.0002 worst=0.0000
+cifar10 S3 reliability_rule=calibrated_confidence avg=0.1924 teacher=0.1600 gain=-0.0324 worst=0.0000
+cifar10 S3 reliability_rule=class_coverage_aware avg=0.1924 teacher=0.1754 gain=-0.0170 worst=0.0000
+cifar10 S3 teacher_temperature=1.0 avg=0.1924 teacher=0.1910 gain=-0.0014 worst=0.0000
+cifar10 S3 teacher_temperature=2.0 avg=0.1924 teacher=0.1926 gain=+0.0002 worst=0.0000
+cifar10 S3 teacher_temperature=4.0 avg=0.1924 teacher=0.1932 gain=+0.0008 worst=0.0000
+cifar10 S3 teacher_temperature=8.0 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S3 weight_temperature=0.5 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S3 weight_temperature=1.0 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S3 weight_temperature=2.0 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S3 weight_temperature=4.0 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S4 maximum_client_weight=0.3 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S4 maximum_client_weight=0.4 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S4 maximum_client_weight=0.5 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S4 maximum_client_weight=1.0 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S4 shrinkage_to_uniform=0.0 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S4 shrinkage_to_uniform=0.25 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S4 shrinkage_to_uniform=0.5 avg=0.1924 teacher=0.1940 gain=+0.0016 worst=0.0000
+cifar10 S5 kd_lambda=0.25 avg=0.1924 teacher=0.1940 student=0.5366 gain=+0.3442 retention=215.125
+cifar10 S5 kd_lambda=0.5 avg=0.1924 teacher=0.1940 student=0.4930 gain=+0.3006 retention=187.875
+cifar10 S5 kd_lambda=0.75 avg=0.1924 teacher=0.1940 student=0.3754 gain=+0.1830 retention=114.375
+cifar10 S5 average_regularization=0.0 avg=0.1924 teacher=0.1940 student=0.5366 gain=+0.3442 retention=215.125
+cifar10 S5 average_regularization=0.0001 avg=0.1924 teacher=0.1940 student=0.5366 gain=+0.3442 retention=215.125
+cifar10 S5 average_regularization=0.001 avg=0.1924 teacher=0.1940 student=0.5368 gain=+0.3444 retention=215.250
+cifar10 S5 student_steps=20 avg=0.1924 teacher=0.1940 student=0.4122 gain=+0.2198 retention=137.375
+cifar10 S5 student_steps=50 avg=0.1924 teacher=0.1940 student=0.5368 gain=+0.3444 retention=215.250
+cifar10 S5 student_steps=100 avg=0.1924 teacher=0.1940 student=0.5514 gain=+0.3590 retention=224.375
+cifar10 S5 student_lr=0.05 avg=0.1924 teacher=0.1940 student=0.5368 gain=+0.3444 retention=215.250
+cifar10 S5 student_lr=0.1 avg=0.1924 teacher=0.1940 student=0.5514 gain=+0.3590 retention=224.375
+cifar10 S5 student_lr=0.2 avg=0.1924 teacher=0.1940 student=0.5468 gain=+0.3544 retention=221.500
+cifar100 S1 local_epochs=5 avg=0.0106 uniform=0.0106 gain=+0.0000 worst=0.0000 disagreement=0.9812
+cifar100 S1 local_epochs=10 avg=0.0126 uniform=0.0130 gain=+0.0004 worst=0.0000 disagreement=0.9999
+cifar100 S1 local_epochs=20 avg=0.0198 uniform=0.0216 gain=+0.0018 worst=0.0000 disagreement=1.0000
+cifar100 S1 local_epochs=40 avg=0.0390 uniform=0.0450 gain=+0.0060 worst=0.0000 disagreement=1.0000
+cifar100 S1 local_lr_multiplier=0.5 avg=0.0198 uniform=0.0216 gain=+0.0018 worst=0.0000 disagreement=1.0000
+cifar100 S1 local_lr_multiplier=1.0 avg=0.0390 uniform=0.0450 gain=+0.0060 worst=0.0000 disagreement=1.0000
+cifar100 S1 local_lr_multiplier=2.0 avg=0.0808 uniform=0.0934 gain=+0.0126 worst=0.0000 disagreement=1.0000
+cifar100 S2 anchor_samples_per_class=4 avg=0.0798 uniform=0.0914 gain=+0.0116 worst=0.0000 disagreement=1.0000
+cifar100 S2 anchor_samples_per_class=8 avg=0.0808 uniform=0.0934 gain=+0.0126 worst=0.0000 disagreement=1.0000
+cifar100 S2 anchor_samples_per_class=12 avg=0.0802 uniform=0.0926 gain=+0.0124 worst=0.0000 disagreement=1.0000
+cifar100 S2 anchor_samples_per_class=4 avg=0.0382 uniform=0.0452 gain=+0.0070 worst=0.0000 disagreement=1.0000
+cifar100 S2 anchor_samples_per_class=8 avg=0.0390 uniform=0.0450 gain=+0.0060 worst=0.0000 disagreement=1.0000
+cifar100 S2 anchor_samples_per_class=12 avg=0.0392 uniform=0.0450 gain=+0.0058 worst=0.0000 disagreement=1.0000
+cifar100 S3 reliability_rule=uniform avg=0.0808 teacher=0.0888 gain=+0.0080 worst=0.0000
+cifar100 S3 reliability_rule=per_class_accuracy avg=0.0808 teacher=0.0888 gain=+0.0080 worst=0.0000
+cifar100 S3 reliability_rule=confidence avg=0.0808 teacher=0.0892 gain=+0.0084 worst=0.0000
+cifar100 S3 reliability_rule=negative_entropy avg=0.0808 teacher=0.0890 gain=+0.0082 worst=0.0000
+cifar100 S3 reliability_rule=calibrated_confidence avg=0.0808 teacher=0.0570 gain=-0.0238 worst=0.0000
+cifar100 S3 reliability_rule=class_coverage_aware avg=0.0808 teacher=0.0872 gain=+0.0064 worst=0.0000
+cifar100 S3 teacher_temperature=1.0 avg=0.0808 teacher=0.0932 gain=+0.0124 worst=0.0000
+cifar100 S3 teacher_temperature=2.0 avg=0.0808 teacher=0.0892 gain=+0.0084 worst=0.0000
+cifar100 S3 teacher_temperature=4.0 avg=0.0808 teacher=0.0870 gain=+0.0062 worst=0.0000
+cifar100 S3 teacher_temperature=8.0 avg=0.0808 teacher=0.0838 gain=+0.0030 worst=0.0000
+cifar100 S3 weight_temperature=0.5 avg=0.0808 teacher=0.0926 gain=+0.0118 worst=0.0000
+cifar100 S3 weight_temperature=1.0 avg=0.0808 teacher=0.0932 gain=+0.0124 worst=0.0000
+cifar100 S3 weight_temperature=2.0 avg=0.0808 teacher=0.0932 gain=+0.0124 worst=0.0000
+cifar100 S3 weight_temperature=4.0 avg=0.0808 teacher=0.0932 gain=+0.0124 worst=0.0000
+cifar100 S4 maximum_client_weight=0.3 avg=0.0808 teacher=0.0932 gain=+0.0124 worst=0.0000
+cifar100 S4 maximum_client_weight=0.4 avg=0.0808 teacher=0.0932 gain=+0.0124 worst=0.0000
+cifar100 S4 maximum_client_weight=0.5 avg=0.0808 teacher=0.0932 gain=+0.0124 worst=0.0000
+cifar100 S4 maximum_client_weight=1.0 avg=0.0808 teacher=0.0932 gain=+0.0124 worst=0.0000
+cifar100 S4 shrinkage_to_uniform=0.0 avg=0.0808 teacher=0.0932 gain=+0.0124 worst=0.0000
+cifar100 S4 shrinkage_to_uniform=0.25 avg=0.0808 teacher=0.0932 gain=+0.0124 worst=0.0000
+cifar100 S4 shrinkage_to_uniform=0.5 avg=0.0808 teacher=0.0932 gain=+0.0124 worst=0.0000
+cifar100 S5 kd_lambda=0.25 avg=0.0808 teacher=0.0932 student=0.1276 gain=+0.0468 retention=3.774
+cifar100 S5 kd_lambda=0.5 avg=0.0808 teacher=0.0932 student=0.1112 gain=+0.0304 retention=2.452
+cifar100 S5 kd_lambda=0.75 avg=0.0808 teacher=0.0932 student=0.0954 gain=+0.0146 retention=1.177
+cifar100 S5 average_regularization=0.0 avg=0.0808 teacher=0.0932 student=0.1276 gain=+0.0468 retention=3.774
+cifar100 S5 average_regularization=0.0001 avg=0.0808 teacher=0.0932 student=0.1276 gain=+0.0468 retention=3.774
+cifar100 S5 average_regularization=0.001 avg=0.0808 teacher=0.0932 student=0.1276 gain=+0.0468 retention=3.774
+cifar100 S5 student_steps=20 avg=0.0808 teacher=0.0932 student=0.0994 gain=+0.0186 retention=1.500
+cifar100 S5 student_steps=50 avg=0.0808 teacher=0.0932 student=0.1276 gain=+0.0468 retention=3.774
+cifar100 S5 student_steps=100 avg=0.0808 teacher=0.0932 student=0.1720 gain=+0.0912 retention=7.355
+cifar100 S5 student_lr=0.05 avg=0.0808 teacher=0.0932 student=0.1276 gain=+0.0468 retention=3.774
+cifar100 S5 student_lr=0.1 avg=0.0808 teacher=0.0932 student=0.1720 gain=+0.0912 retention=7.355
+cifar100 S5 student_lr=0.2 avg=0.0808 teacher=0.0932 student=0.2344 gain=+0.1536 retention=12.387
+COMPLETE runs=89 passing_datasets=['cifar10', 'cifar100'] next_phase=single_seed_tfe_validation_for_passing_datasets

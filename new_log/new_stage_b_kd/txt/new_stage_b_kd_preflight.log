@@ -1,0 +1,4 @@
+PREFLIGHT_PASS branch=new-stage-b-mtt-anchor-kd seed_policy=[42]
+cifar10 mtt=480 dev=5000 source=official_mtt_only full_dependency=0
+cifar100 mtt=4800 dev=5000 source=official_mtt_only full_dependency=0
+locked_holdout_read=False official_test_read=False stage_c=False

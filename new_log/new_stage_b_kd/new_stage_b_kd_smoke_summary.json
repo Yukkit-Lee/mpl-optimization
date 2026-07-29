@@ -1,0 +1,227 @@
+{
+  "schema": "new_stage_b_kd_smoke_summary_v1",
+  "status": "COMPLETE",
+  "source_commit": "0865ee95df62dbde57ad884f09ce22950a051de8",
+  "seed_policy": [
+    42
+  ],
+  "cross_seed_stability_claimed": false,
+  "datasets": [
+    "cifar10",
+    "cifar100"
+  ],
+  "search_stages_completed": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "smoke_results": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "selected_local_config": {
+        "type": "local_heads",
+        "dataset": "cifar10",
+        "seed": 42,
+        "distribution": "severe",
+        "anchor_per_class": 4,
+        "local_epochs": 5,
+        "local_lr": 0.1,
+        "weight_decay": 0.0001,
+        "num_clients": 5,
+        "final_synchronization": "disabled",
+        "optimizer": "full_batch_gradient_descent_cross_entropy",
+        "shared_initialization": true
+      },
+      "selected_teacher_config": {
+        "rule": "uniform",
+        "teacher_temperature": 8.0,
+        "weight_temperature": 0.5,
+        "maximum_client_weight": 0.3,
+        "shrinkage_to_uniform": 0.0
+      },
+      "selected_student_config": {
+        "kd_lambda": 0.25,
+        "average_regularization": 0.001,
+        "student_steps": 100,
+        "student_lr": 0.1
+      },
+      "baseline_severe_accuracy": 0.1924,
+      "teacher_severe_accuracy": 0.194,
+      "teacher_severe_gain": 0.001600000000000018,
+      "student_severe_accuracy": 0.5514,
+      "student_severe_gain": 0.359,
+      "student_gain_retention": 224.37499999999747,
+      "diversity": {
+        "pairwise_parameter_cosine_distance": [
+          0.022320806980133057,
+          0.046178579330444336,
+          0.02374434471130371,
+          0.03259533643722534,
+          0.0464441180229187,
+          0.028604745864868164,
+          0.030819356441497803,
+          0.0398525595664978,
+          0.04321181774139404,
+          0.03987526893615723
+        ],
+        "mean_parameter_cosine_distance": 0.03536469340324402,
+        "pairwise_prediction_disagreement": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_prediction_disagreement": 1.0,
+        "pairwise_js_divergence": [
+          0.0010136347264051437,
+          0.0022110671270638704,
+          0.001092297025024891,
+          0.001571744680404663,
+          0.0022126350086182356,
+          0.001315062865614891,
+          0.001481937593780458,
+          0.001895336201414466,
+          0.002106017665937543,
+          0.0019098039483651519
+        ],
+        "mean_js_divergence": 0.0016809536842629313
+      },
+      "teacher_positive": true,
+      "student_available": true
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "selected_local_config": {
+        "type": "local_heads",
+        "dataset": "cifar100",
+        "seed": 42,
+        "distribution": "severe",
+        "anchor_per_class": 8,
+        "local_epochs": 40,
+        "local_lr": 0.2,
+        "weight_decay": 0.0001,
+        "num_clients": 5,
+        "final_synchronization": "disabled",
+        "optimizer": "full_batch_gradient_descent_cross_entropy",
+        "shared_initialization": true
+      },
+      "selected_teacher_config": {
+        "rule": "confidence",
+        "teacher_temperature": 1.0,
+        "weight_temperature": 2.0,
+        "maximum_client_weight": 0.3,
+        "shrinkage_to_uniform": 0.0
+      },
+      "selected_student_config": {
+        "kd_lambda": 0.25,
+        "average_regularization": 0.0,
+        "student_steps": 100,
+        "student_lr": 0.2
+      },
+      "baseline_severe_accuracy": 0.0808,
+      "teacher_severe_accuracy": 0.0932,
+      "teacher_severe_gain": 0.012400000000000008,
+      "student_severe_accuracy": 0.2344,
+      "student_severe_gain": 0.15360000000000001,
+      "student_gain_retention": 12.387096774193541,
+      "diversity": {
+        "pairwise_parameter_cosine_distance": [
+          0.10219669342041016,
+          0.12251555919647217,
+          0.10515493154525757,
+          0.11300337314605713,
+          0.12206476926803589,
+          0.1081397533416748,
+          0.1019478440284729,
+          0.12324082851409912,
+          0.12325578927993774,
+          0.11065709590911865
+        ],
+        "mean_parameter_cosine_distance": 0.11321766376495361,
+        "pairwise_prediction_disagreement": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean_prediction_disagreement": 1.0,
+        "pairwise_js_divergence": [
+          0.004724503494799137,
+          0.0058823563158512115,
+          0.0048707337118685246,
+          0.00527789955958724,
+          0.005818867590278387,
+          0.004964317195117474,
+          0.004753530025482178,
+          0.0058810897171497345,
+          0.005953430198132992,
+          0.005162266548722982
+        ],
+        "mean_js_divergence": 0.005328899435698986
+      },
+      "teacher_positive": true,
+      "student_available": true
+    }
+  ],
+  "decisions": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "severe_accuracy_gain": 0.359,
+      "severe_worst_class_gain": 0.276,
+      "iid_accuracy_delta": 0.3222,
+      "teacher_gain": 0.001600000000000018,
+      "student_gain_retention": 224.37499999999747,
+      "gates": {
+        "primary_effect": true,
+        "iid_safety": true,
+        "teacher_positive": true,
+        "student_retention": true,
+        "diversity_valid": true,
+        "lineage": true
+      },
+      "plaintext_confirmation_pass": true
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "severe_accuracy_gain": 0.15360000000000001,
+      "severe_worst_class_gain": 0.0,
+      "iid_accuracy_delta": 0.1738,
+      "teacher_gain": 0.012400000000000008,
+      "student_gain_retention": 12.387096774193541,
+      "gates": {
+        "primary_effect": true,
+        "iid_safety": true,
+        "teacher_positive": true,
+        "student_retention": true,
+        "diversity_valid": true,
+        "lineage": true
+      },
+      "plaintext_confirmation_pass": true
+    }
+  ],
+  "any_plaintext_confirmation_pass": true,
+  "all_required_datasets_pass": true,
+  "locked_holdout_read": false,
+  "official_test_read": false,
+  "full_data_initializer_loaded": false,
+  "next_phase": "single_seed_tfe_validation_for_passing_datasets"
+}
