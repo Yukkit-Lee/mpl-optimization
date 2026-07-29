@@ -1235,3 +1235,7 @@
 - 启动前资源：容器`nproc=32`，宿主AMD EPYC 9654（192 logical CPUs），约253GiB available RAM，`/root/autodl-tmp`约63GiB可用；无tmux或训练进程。现有`new_checkpoints/`约21GiB，继续按政策仅本地保留。
 - 发现VS Code触发的`git add --sparse`持续以100%单核扫描本地checkpoints且尚未产生已暂存文件；为防止21GiB checkpoint误入Git，已只终止该精确暂存进程，未删除/修改任何checkpoint或实验资产，Git index无残留lock。
 - 现有旧regularized-consensus脚本只按reference loss做参数聚合，不满足本任务的“40/class local pool + 8/class MTT anchor、预测空间teacher、全局student KD”定义；旧结果只能作历史诊断。后续将复用已审计Official-MTT和独立development split，不覆盖True Ours正式产物。
+- 单seed plaintext实现完成：新增独立`new_scripts/new_stage_b_kd/`，严格加载Official-MTT-only seed42资产和原训练集独立development split；支持每类local/anchor 40/8及4/12 anchor消融、5客户端IID/Dirichlet α=0.5/0.1、共享初始化且final sync关闭的本地交叉熵头、Uniform与六类class-aware reliability teacher、weight temperature/cap/shrinkage，以及从parameter-average初始化的CE+KD student。
+- S1--S6搜索器按文档顺序单因素执行并原子保存registry：local epochs→LR、anchor size、reliability→teacher T→weight T、weight cap→uniform shrinkage、lambda→mu→steps→student LR，最后对IID/Mild/Severe复核；本地头checkpoint按配置hash保存在`new_checkpoints/new_stage_b_kd/`，支持断联恢复且不上传Git。
+- 运行记录覆盖parameter cosine distance、prediction disagreement、JS divergence、local/per-class accuracy、Average/Uniform/Class-aware/oracle teacher、macro-F1、worst-class、teacher gain、student retention、分阶段runtime、peak RSS和模型SHA；通信量未测则保持`N/A`。
+- 新增seed42-only hard preflight和tmux用launch脚本；launch按`nproc`设置OMP/MKL/OpenBLAS/NumExpr线程为32，不限制单线程。静态编译、shell语法、5项split/partition/weight/teacher/student单元测试和资产/branch preflight全部通过；当前仍未启动正式smoke实验。
