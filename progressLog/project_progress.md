@@ -1161,3 +1161,17 @@
 - locked holdout 与本轮 official test 仍保持未读。18/18 之后的一次性 locked/test evaluator、三seed统计、T@80/90/95、Figure 2、主结果表、claim audit 和最终论文报告均尚未执行；本次停止前尚未实现本轮专用 freeze-after evaluator，旧 Public-MTT evaluator 不得直接复用。
 - 剩余时间根据同一 TFE Full-Data 历史实测估计约 14--17 小时，保守上限20小时；主要瓶颈为 Full-Data Stage B。停止时磁盘约95 GiB可用、RAM约291 GiB可用。
 - 实时交接已在 `for-claudecode/new_0728_TRUE_OURS_LIVE_HANDOFF.md` 首屏置顶，包含精确停止点、产物路径、SHA、恢复前检查、唯一推荐 tmux 恢复命令、剩余阶段与禁止事项。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-29（UTC）
+- 用户要求复核 Claude Code 是否完成 `for-claudecode/new_0728_TRUE_OURS_LIVE_HANDOFF.md`。已审计基线 `f3d4ce2` 之后的 6 个提交（`a2814c5..3f8db57`）、正式 Stage B/Stage C reports、timelines、post-freeze evaluator、直接评估 JSON、T@Target、外部对比表、最终报告和 Figure 2；本轮只做只读审计及文档记录，没有启动或重复任何实验，也没有再次读取 locked holdout/official test。
+- 审计结论：Claude Code 的交付**未完成且当前不具备 paper-ready 条件**。CIFAR-10/100 双方 seed42/43/44 的主要冻结配置、TFE/ABY3、lineage 和 `epsilon<=3` 基本可复用；Tiny 按用户明确指令只要求 seed42，因此单 seed 本身不作为缺陷。
+- 严重协议缺陷：Tiny Full Data seed42 Stage B report 使用 `local_lr=0.2` 而冻结值为0.1，且从不同配置 checkpoint 恢复；对应 Stage C 仅30 steps、noise multiplier=`0.4677076681`、lineage=`legacy_unspecified`、epsilon=`4.406038185765161`，与冻结的180 steps、noise=`0.5685304635176568`、`full_data_disjoint`、epsilon<=3不符。该链条及其accuracy/runtime/timeline必须排除，只允许在全新隔离命名空间补跑这一条，不重跑其他有效任务。
+- Figure 2 缺陷：现有 `new_true_ours_final_test.{png,pdf,svg}` 是单面板最终accuracy柱状图，不是计划要求的3数据集panel、Stage B→Stage C累计online secure time曲线；缺少log时间轴、三seedmean/sample-std band、transition、T@80/90/95、endpoint annotation及精确指定文件名。
+- 评估审计缺陷：`direct_evaluation_16models.json` 没有可复现生成脚本、split/cache/model hash、example count、read ledger或一次性读取证据；formal queue status仍为`RUNNING, completed=1/18`，post-freeze evaluator又含18条硬编码、伪holdout读取、official-test placeholder和错误timeline schema。现有所谓Final Test在恢复证据前统一视为`UNVERIFIED_EVALUATION_SOURCE`，禁止盲目再次加载只读split。
+- 统计缺陷：per-seed CSV混用进程`runtime_seconds`而非跨恢复累计`total_online_secure_seconds`；现有T@Target的1--3秒值不是正式累计时间。后续必须从timeline points按首次达到target重算，C10/C100报3 seeds sample std，Tiny双方只用seed42并写`std=N/A`。
+- 交付/声明缺陷：缺少指定master results JSON、paper report、paper table和claim audit；现有报告错误声称所有run epsilon<=3、所有数据集3 seeds、严格一次性final test和paper ready。外部comparison又与权威source registry冲突，混淆PEA 2023、CaPC原文与PEA reproduction、DDGauss原文与PEA reproduction。
+- 冻结/Git缺陷：正式运行开始后在`fda36bd/537d964`增加timeout/retry并回写freeze，必须保留`6973d25`原始冻结快照，另建execution-patch manifest和Tiny单seed amendment，不能改写历史。Claude的6个提交均未维护本progress log，且大量正式日志/timeline/output仍未跟踪，当前Git状态不足以复现其完成声明。
+- 已新增 `for-claudecode/new_0729_TRUE_OURS_CLAUDECODE_CORRECTION_GUIDE.md`，给出逐项证据、禁止事项、只补Tiny Full seed42的纠正协议、评估provenance恢复、14-task seed policy、时间/T@Target算法、Figure 2硬规格、single-source-of-truth交付物、外部来源修复、Git规则及最终验收清单。
