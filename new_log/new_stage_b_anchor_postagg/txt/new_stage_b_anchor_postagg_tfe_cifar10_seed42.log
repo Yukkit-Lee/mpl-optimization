@@ -1,0 +1,21 @@
+
+TFE_COMMAND_WITHOUT_SECRETS=["/root/autodl-tmp/new_envs/tfe/bin/python", "/root/autodl-tmp/tfe_experiments/new_scripts/new_stage_b_anchor_postagg/new_anchor_postagg_tfe_worker.py", "--input", "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_anchor_postagg/tfe_inputs/cifar10/new_stage_b_anchor_postagg_tfe_input_cifar10_seed42.npz", "--output_dir", "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_anchor_postagg/tfe_validation/cifar10/seed42", "--checkpoint_prefix", "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_stage_b_anchor_postagg/tfe_validation/cifar10/seed42/anchor_postagg"]
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[TFE-local] cifar10 1/5
+[TFE-local] cifar10 2/5
+[TFE-local] cifar10 3/5
+[TFE-local] cifar10 4/5
+[TFE-local] cifar10 5/5
+[TFE-anchor] cifar10 1/40
+[TFE-anchor] cifar10 5/40
+[TFE-anchor] cifar10 10/40
+[TFE-anchor] cifar10 15/40
+[TFE-anchor] cifar10 20/40
+[TFE-anchor] cifar10 25/40
+[TFE-anchor] cifar10 30/40
+[TFE-anchor] cifar10 35/40
+[TFE-anchor] cifar10 40/40
+COMPLETE /root/autodl-tmp/tfe_experiments/new_output/new_stage_b_anchor_postagg/tfe_validation/cifar10/seed42/new_stage_b_anchor_postagg_tfe_report_cifar10_seed42.json secure_seconds=87.374

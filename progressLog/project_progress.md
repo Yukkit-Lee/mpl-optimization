@@ -1376,3 +1376,7 @@
 - TFE实现提交`3a650c5`已推送；modern/legacy compile、shell语法、TFE API/custom-op import及6/6单测均通过。冻结输入准备完成：C10 P1 C1/C4/C5=`55.48/18.84/57.64%`、C5−C1=`+2.16pp`，precision16 P2=`+2.18pp`；C100为`10.18/8.08/17.62%`、P1=`+7.44pp`、P2=`+7.42pp`，endpoint量化未破坏方向。
 - 两个TFE输入合计约43MiB，均登记输入/partition/freeze SHA并保持Official-MTT-only、Full dependency=false、test/holdout unread。下一唯一操作是提交推送冻结输入和manifest，随后才在tmux正式启动C10→验证→C100梯级。
 - manifest/进度提交`aeca5e1`已推送，但审计发现仓库通用`*.npz`规则默认忽略了两份冻结输入，因此该提交尚未包含NPZ。输入不是checkpoint且是跨agent复现正式TFE所必需，将按旧KD TFE输入先例显式`git add -f`后单独提交推送；运行checkpoint仍不上传。
+- 两份冻结TFE输入已强制纳入Git并以提交`fb974da`推送；正式TFE随后在独立tmux `stage_b_anchor_postagg_tfe` 中按C10→即时校验→C100→全量校验运行，未重复plaintext搜索、未修改冻结配置，也未运行Stage C/DP/End-to-End/Tiny/额外seed。
+- 正式TFE/ABY3验证最终状态为`COMPLETE`。C10 TFE C1/C4/C5=`55.48/18.84/57.62%`，C5−C1=`+2.14pp`，相对plaintext增益保留率=`99.07%`，最大accuracy gap=`0.02pp`、最大参数绝对误差=`1.86e-4`；secure runtime=`87.37s`、graph build=`45.56s`、peak RSS=`2.95GiB`。
+- C100 TFE C1/C4/C5=`10.02/8.02/17.50%`，C5−C1=`+7.48pp`，相对plaintext增益保留率=`100.54%`，最大accuracy gap=`0.16pp`、最大参数绝对误差=`3.67e-4`；secure runtime=`862.18s`、graph build=`50.83s`、peak RSS=`8.97GiB`。两数据集均满足utility/correctness门，Official-MTT-only，Full dependency=false，test/locked holdout均未读取。
+- 下一唯一操作：先提交推送TFE报告、最终小模型和日志（大型恢复checkpoint仍仅本地），再生成并人工检查Table/Figure B1--B4、runtime/resource、split/claim/completion audit和12问final report；不再启动任何实验。
