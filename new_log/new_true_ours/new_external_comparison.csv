@@ -1,0 +1,5 @@
+method,year,dataset,test_acc,epsilon,delta,mpc,source,notes
+PEA,2025,CIFAR-10,~84%,N/A (encrypted agg),N/A,Yes,IEEE S&P,Different privacy framework; not directly comparable
+CaPC,2021,CIFAR-10,~85-90%,Per-sample PATE,N/A,Yes (MPC),ICLR 2021,PATE-based; different threat model
+DDGauss,2022,CIFAR-10,~85%,~0.7,1e-5,No,arXiv,Different setting (SL features)
+**True Ours**,2026,CIFAR-10/100/Tiny,0.6677/0.4221/0.2403,≤3,1e-5,TFE/ABY3,This work,Conditional DP; MPC confidentiality + DP gradient
