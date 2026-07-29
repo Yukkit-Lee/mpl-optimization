@@ -1,3 +1,4 @@
 dataset,seed,backend,finite,tfe_average_accuracy,tfe_student_accuracy,tfe_gain,plaintext_gain,gain_retention,utility_gate,correctness_pass,local_secure_seconds,student_secure_seconds,total_secure_seconds,peak_rss_gib
 tiny_synthetic,42,TFE_ABY3,True,,,,,,True,True,,,25.799586296081543,1.5313720703125
 cifar10,42,TFE_ABY3,True,0.1918,0.5516,0.3598,0.359,1.0022284122562675,True,True,58.49859118461609,62.63417029380798,121.13276147842407,4.716117858886719
+cifar100,42,TFE_ABY3,True,0.0798,0.2334,0.15360000000000001,0.15360000000000001,1.0,True,True,325.8906743526459,405.71581292152405,731.6064872741699,18.826885223388672

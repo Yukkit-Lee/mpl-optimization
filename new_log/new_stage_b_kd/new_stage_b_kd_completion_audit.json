@@ -1,0 +1,77 @@
+{
+  "schema": "new_stage_b_kd_completion_audit_v1",
+  "status": "COMPLETE",
+  "source_commit": "6823ee92666867e640dcf0cb2d1631cd696de5f4",
+  "passed": 13,
+  "total": 13,
+  "seed_policy": [
+    42
+  ],
+  "checks": [
+    {
+      "requirement": "dedicated branch",
+      "passed": true,
+      "evidence": "new-stage-b-mtt-anchor-kd"
+    },
+    {
+      "requirement": "single seed policy",
+      "passed": true,
+      "evidence": "{'all_phases': [42], 'future_extension_only_after_positive_single_seed_result': [43, 44]}"
+    },
+    {
+      "requirement": "disjoint split audit",
+      "passed": true,
+      "evidence": "manifest rows=2 audit present"
+    },
+    {
+      "requirement": "S1-S6 plaintext search",
+      "passed": true,
+      "evidence": "registered runs=89 tuning stages=['S1', 'S2', 'S3', 'S4', 'S5'] plus S6 confirmation table"
+    },
+    {
+      "requirement": "single-seed plaintext confirmation",
+      "passed": true,
+      "evidence": "rows=18 seed42 only"
+    },
+    {
+      "requirement": "causal anchor/KD decomposition",
+      "passed": true,
+      "evidence": "36 rows; anchor effective; class-aware Consensus not positive"
+    },
+    {
+      "requirement": "complete TFE/ABY3 ladder",
+      "passed": true,
+      "evidence": "available=['cifar10', 'cifar100', 'tiny_synthetic'] passed=['cifar10', 'cifar100', 'tiny_synthetic']"
+    },
+    {
+      "requirement": "lineage and unread evaluation boundary",
+      "passed": true,
+      "evidence": "locked/test=false, Full-Data initializer=false"
+    },
+    {
+      "requirement": "runtime/resource registry coverage",
+      "passed": true,
+      "evidence": "runtime=146 resource=146 expected=89+18+36+3"
+    },
+    {
+      "requirement": "mandatory reports, tables, figures, and remaining-seed plan",
+      "passed": true,
+      "evidence": "missing=[]"
+    },
+    {
+      "requirement": "checkpoint policy",
+      "passed": true,
+      "evidence": "no checkpoint tracked by Git"
+    },
+    {
+      "requirement": "forbidden experiment isolation",
+      "passed": true,
+      "evidence": "forbidden artifacts=[]"
+    },
+    {
+      "requirement": "remaining seeds are plan-only",
+      "passed": true,
+      "evidence": "no seeds43/44 result rows or launch authorization"
+    }
+  ]
+}

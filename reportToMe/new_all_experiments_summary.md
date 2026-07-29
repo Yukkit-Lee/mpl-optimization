@@ -1,11 +1,10 @@
 # 全部实验结果、证据边界与改进建议
 
-更新时间：2026-07-29 12:25（UTC）
+更新时间：2026-07-29 12:57（UTC）
 
-状态说明：本文汇总截至上述时间已经落盘并通过审计的结果。最新
-`new_stage_b_kd` 真实 TFE/ABY3 梯级仍在 tmux 中运行；tiny synthetic
-数值正确性门已通过，CIFAR-10/100 尚未完成，因此本文不提前写入其正式
-TFE 精度结论。
+状态说明：最新 `new_stage_b_kd` seed42 单种子任务已完成；tiny synthetic、
+CIFAR-10 和 CIFAR-100 的真实 TFE/ABY3 梯级全部通过。本文仍严格区分
+“安全复现了 CE+KD 路径”和“class-aware KD 是否有独立因果贡献”。
 
 ## 0. 先给结论
 
@@ -271,13 +270,17 @@ CE+KD 的 27.62%/26.60%。KD-only 在两数据集上均没有超过 Average。
 - **不支持**：KD 是主要增益来源；CIFAR-100 上 KD 还会损害 CE-only 结果；
 - 当前只有 seed42，不能报告跨 seed 稳定性或显著性。
 
-真实 TFE/ABY3 梯级截至本文更新时间的状态：
+真实 TFE/ABY3 梯级最终结果：
 
 - tiny synthetic 已通过：TFE 与 plaintext 的 Average weight/bias、teacher、
   student weight/bias 最大绝对误差均小于 `2.8e-5`，无 plaintext fallback；
 - secure runtime 为 25.80s，peak RSS 为 1.53GiB；
-- CIFAR-10 正在运行，CIFAR-100 尚待顺序执行；两者完成前不把 TFE utility
-  写成已验证结论；
+- CIFAR-10 TFE Average/student=`19.18/55.16%`，gain=`+35.98pp`，
+  保留 plaintext gain `100.22%`；secure runtime=`121.13s`，peak RSS=`4.72GiB`；
+- CIFAR-100 TFE Average/student=`7.98/23.34%`，gain=`+15.36pp`，
+  保留 plaintext gain `100.00%`；secure runtime=`731.61s`，peak RSS=`18.83GiB`；
+- C10/C100 输出 finite、无 fallback、方向/utility/lineage 门均通过，P1/TFE
+  最大参数绝对误差分别约 `2.90e-4/3.80e-4`；
 - 本任务严格停留在 Stage B，没有运行 Stage C、DP 或 end-to-end。
 
 权威结果位置：
@@ -289,10 +292,11 @@ CE+KD 的 27.62%/26.60%。KD-only 在两数据集上均没有超过 Average。
 - split 审计：`new_log/new_stage_b_kd/new_stage_b_kd_split_audit.md`
 - 当前 TFE 验证：`new_expTab/new_stage_b_kd/new_stage_b_kd_tfe_validation.csv`
 
-当前尚未为这组新实验生成正式图。若 TFE 梯级完成，最值得生成的不是只画
-“Average→Student 大涨”的宣传图，而是同时画出
-`Average / CE-only / KD-only / Uniform CE+KD / Class-aware CE+KD`，
-让 anchor 监督与 KD 的净贡献不可混淆。
+对应图已经生成于 `new_expFig/new_stage_b_kd/`：Figure B1 展示 Non-IID
+initializer quality，B2 明确分开 anchor CE 与 KD-over-CE，B3 展示明文和
+TFE runtime；S1--S5 覆盖 anchor/temperature sweep、P1/TFE 数值误差、
+class-weight 分布和逐类别变化。逐类别检查显示 C10 9/10、C100 93/100
+类别改善，因此平均增益并非只来自单一多数类。
 
 ## 6. Stage C：Fixed 与 Adaptive、裁剪和隐私会计
 
@@ -599,11 +603,12 @@ CIFAR-10 seed42 的关键结果：
 
    Consensus、precision20、Fixed vs Adaptive 都解释了为何最终设计选择 Secure Average + Adaptive。这些负结果能减少“只挑有利配置”的质疑。
 
-10. **完成 MTT-anchor 的真实 TFE 梯级并补齐跨 seed 复核。**
+10. **按冻结计划补齐 MTT-anchor 跨 seed 复核。**
 
-   当前只有 tiny synthetic 正确性门和 seed42 明文因果结果。应先完成正在运行的
-   CIFAR-10/100 TFE 验证；若 TFE 方向与数值门通过，再按独立计划补 seeds 43/44。
-   后续必须以 CE-only 为首要基线，不能再用 `Student−Average` 代替 KD 的净贡献。
+   seed42 的 tiny/C10/C100 TFE 梯级已全部通过，且 anchor 数据有效。
+   已生成 `plan/0729_new_stage_b_kd_remaining_seeds_plan.md`；它只规划
+   seeds43/44，不授权运行。后续必须以 CE-only 为首要基线，不能再用
+   `Student−Average` 代替 KD 的净贡献。
 
 ### P2：有时间再做
 
@@ -645,4 +650,5 @@ CIFAR-10 seed42 的关键结果：
 - 后续诊断表：`new_expTab/new_end2end_adaptive_followup/`
 - 系统修复表：`new_expTab/new_true_ours/new_tfe_system_formal_repaired.csv`
 - 最新 Stage-B anchor/KD：`new_log/new_stage_b_kd/` 与 `new_expTab/new_stage_b_kd/`
+- 最新 Stage-B anchor/KD final report：`reportToMe/new_stage_b_kd_final_report.md`
 - 进度与实验审计：`progressLog/project_progress.md`

@@ -1270,3 +1270,12 @@
 - 新增 `new_validate_stage_b_kd_completion.py`，逐项审计专用分支、单seed policy、split、89-run S1--S5+S6 confirmation、36-run因果分解、完整TFE梯级、lineage、必需报告/图、checkpoint政策、禁止实验隔离及remaining-seed plan-only边界。当前预审计按预期仍为INCOMPLETE，待C100与最终产物完成后必须达到全部通过。
 - 交付生成器补齐资源与supplementary覆盖：最终runtime/resource表将追加tiny/C10/C100 TFE graph-build、secure local/student、RSS、模型SHA并保持未实测通信量为N/A；新增逐类别TFE Average/student/delta CSV和Figure S5，用于检查增益是否只集中于少数类别。completion audit同步将这些资产列为硬门。
 - CIFAR-100 secure local 40/40完成，student推进到30/100；当前约15.7GiB RSS、约9.7核平均CPU，占用正常且磁盘约62GiB可用。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-29 12:57 UTC
+- seed42 TFE梯级全部完成并正常退出tmux：tiny/C10/C100三行均`correctness_pass=true`。C10 TFE Average/student=`19.18/55.16%`、gain=`+35.98pp`、plaintext gain retention=`100.22%`、secure time=`121.13s`、peak RSS=`4.72GiB`；C100为`7.98/23.34%`、`+15.36pp`、`100.00%`、`731.61s`、`18.83GiB`。最大参数绝对误差约`2.90e-4/3.80e-4`，均finite、TFE/ABY3、无fallback、Official-MTT-only、test/holdout unread。
+- 最终交付生成完成：18行main ablation、146行runtime/resource（89 search+18 confirmation+36 causal+3 TFE）、110行class-wise表、Figure B1/B2/B3和Supplementary S1--S5、diagnostic report、claim audit、12问final report，以及`plan/0729_new_stage_b_kd_remaining_seeds_plan.md`。剩余seed文档仅规划43/44，未运行也未授权运行。
+- 人工看图发现第一版Figure B3图例重复、Supplementary S1因factor字段不匹配为空；未接受该版本。绘图逻辑修正后重新生成，第二次人工检查通过，其余图无截断/错位。逐类别TFE结果为C10 9/10、C100 93/100类别改善。
+- completion audit最终`COMPLETE 13/13`：分支、单seed、split、S1--S6、因果分解、完整TFE、lineage、全runtime/resource、必需产物、checkpoint不入Git、禁止实验隔离及remaining-plan-only全部通过。结论保持因果诚实：anchor标签监督有效；class-aware Consensus/KD无独立正贡献，应作为negative result而非正模块。

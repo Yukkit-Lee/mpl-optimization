@@ -1,0 +1,4 @@
+TFE_VALIDATION rows=1 passed=['tiny_synthetic']
+TFE_VALIDATION rows=2 passed=['tiny_synthetic', 'cifar10']
+TFE_VALIDATION rows=3 passed=['tiny_synthetic', 'cifar10', 'cifar100']
+COMPLETE seed42 TFE ladder tiny+C10+C100

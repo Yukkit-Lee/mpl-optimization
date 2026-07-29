@@ -1,0 +1,58 @@
+
+TFE_COMMAND_WITHOUT_SECRETS=["/root/autodl-tmp/new_envs/tfe/bin/python", "/root/autodl-tmp/tfe_experiments/new_scripts/new_stage_b_kd/new_stage_b_kd_tfe_worker.py", "--input", "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_inputs/cifar100/new_stage_b_kd_tfe_input_cifar100_seed42.npz", "--output_dir", "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/cifar100/seed42", "--checkpoint_prefix", "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_stage_b_kd/tfe_validation/cifar100/seed42/new_stage_b_kd"]
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[TFE-local] dataset=cifar100 epoch=1/40
+[TFE-local] dataset=cifar100 epoch=2/40
+[TFE-local] dataset=cifar100 epoch=3/40
+[TFE-local] dataset=cifar100 epoch=4/40
+[TFE-local] dataset=cifar100 epoch=5/40
+[TFE-local] dataset=cifar100 epoch=6/40
+[TFE-local] dataset=cifar100 epoch=7/40
+[TFE-local] dataset=cifar100 epoch=8/40
+[TFE-local] dataset=cifar100 epoch=9/40
+[TFE-local] dataset=cifar100 epoch=10/40
+[TFE-local] dataset=cifar100 epoch=11/40
+[TFE-local] dataset=cifar100 epoch=12/40
+[TFE-local] dataset=cifar100 epoch=13/40
+[TFE-local] dataset=cifar100 epoch=14/40
+[TFE-local] dataset=cifar100 epoch=15/40
+[TFE-local] dataset=cifar100 epoch=16/40
+[TFE-local] dataset=cifar100 epoch=17/40
+[TFE-local] dataset=cifar100 epoch=18/40
+[TFE-local] dataset=cifar100 epoch=19/40
+[TFE-local] dataset=cifar100 epoch=20/40
+[TFE-local] dataset=cifar100 epoch=21/40
+[TFE-local] dataset=cifar100 epoch=22/40
+[TFE-local] dataset=cifar100 epoch=23/40
+[TFE-local] dataset=cifar100 epoch=24/40
+[TFE-local] dataset=cifar100 epoch=25/40
+[TFE-local] dataset=cifar100 epoch=26/40
+[TFE-local] dataset=cifar100 epoch=27/40
+[TFE-local] dataset=cifar100 epoch=28/40
+[TFE-local] dataset=cifar100 epoch=29/40
+[TFE-local] dataset=cifar100 epoch=30/40
+[TFE-local] dataset=cifar100 epoch=31/40
+[TFE-local] dataset=cifar100 epoch=32/40
+[TFE-local] dataset=cifar100 epoch=33/40
+[TFE-local] dataset=cifar100 epoch=34/40
+[TFE-local] dataset=cifar100 epoch=35/40
+[TFE-local] dataset=cifar100 epoch=36/40
+[TFE-local] dataset=cifar100 epoch=37/40
+[TFE-local] dataset=cifar100 epoch=38/40
+[TFE-local] dataset=cifar100 epoch=39/40
+[TFE-local] dataset=cifar100 epoch=40/40
+[TFE-student] dataset=cifar100 step=1/100
+[TFE-student] dataset=cifar100 step=10/100
+[TFE-student] dataset=cifar100 step=20/100
+[TFE-student] dataset=cifar100 step=30/100
+[TFE-student] dataset=cifar100 step=40/100
+[TFE-student] dataset=cifar100 step=50/100
+[TFE-student] dataset=cifar100 step=60/100
+[TFE-student] dataset=cifar100 step=70/100
+[TFE-student] dataset=cifar100 step=80/100
+[TFE-student] dataset=cifar100 step=90/100
+[TFE-student] dataset=cifar100 step=100/100
+COMPLETE report=/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/cifar100/seed42/new_stage_b_kd_tfe_report_cifar100_seed42.json model=/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/cifar100/seed42/new_stage_b_kd_tfe_model_cifar100_seed42.npz secure_seconds=731.606

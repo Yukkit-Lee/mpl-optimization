@@ -162,6 +162,25 @@ def main():
         )
     )
 
+    runtime_path = TABLE / "new_stage_b_kd_runtime_breakdown.csv"
+    resource_path = TABLE / "new_stage_b_kd_resource_summary.csv"
+    runtime_rows = load_csv(runtime_path) if runtime_path.is_file() else []
+    resource_rows = load_csv(resource_path) if resource_path.is_file() else []
+    runtime_keys = [row.get("run_key") for row in runtime_rows]
+    resource_keys = [row.get("run_key") for row in resource_rows]
+    checks.append(
+        check(
+            "runtime/resource registry coverage",
+            len(runtime_rows) == 146
+            and len(resource_rows) == 146
+            and len(set(runtime_keys)) == 146
+            and set(runtime_keys) == set(resource_keys),
+            "runtime={} resource={} expected=89+18+36+3".format(
+                len(runtime_rows), len(resource_rows)
+            ),
+        )
+    )
+
     required_files = [
         TABLE / "new_stage_b_kd_smoke_registry.csv",
         LOG / "new_stage_b_kd_smoke_summary.json",

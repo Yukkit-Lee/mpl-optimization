@@ -134,7 +134,7 @@ def build_main_table(confirmation):
     write_csv(TABLE / "new_stage_b_kd_main_ablation.csv", fields, rows)
 
 
-def augment_runtime_resource(runtime, tfe_rows):
+def augment_runtime_resource(runtime, tfe_rows, confirmation, causal):
     runtime_fields = [
         "run_key",
         "dataset",
@@ -151,8 +151,44 @@ def augment_runtime_resource(runtime, tfe_rows):
     combined_runtime = [
         {field: row.get(field, "") for field in runtime_fields}
         for row in runtime
-        if row.get("stage") != "TFE"
+        if row.get("stage") not in {"S6", "CAUSAL", "TFE"}
     ]
+    for index, row in enumerate(confirmation):
+        combined_runtime.append(
+            {
+                "run_key": "s6_{:02d}_{}_{}_{}".format(
+                    index, row["dataset"], row["distribution"], row["method"]
+                ),
+                "dataset": row["dataset"],
+                "stage": "S6",
+                "distribution": row["distribution"],
+                "method": row["method"],
+                "local_training_seconds": "N/A",
+                "anchor_inference_seconds": "N/A",
+                "teacher_aggregation_seconds": "N/A",
+                "student_kd_seconds": "N/A",
+                "secure_graph_build_seconds": "N/A",
+                "total_seconds": row["stage_b_runtime_seconds"],
+            }
+        )
+    for index, row in enumerate(causal["rows"]):
+        combined_runtime.append(
+            {
+                "run_key": "causal_{:02d}_{}_{}_{}".format(
+                    index, row["dataset"], row["distribution"], row["method"]
+                ),
+                "dataset": row["dataset"],
+                "stage": "CAUSAL",
+                "distribution": row["distribution"],
+                "method": row["method"],
+                "local_training_seconds": "N/A (reused frozen heads)",
+                "anchor_inference_seconds": "N/A",
+                "teacher_aggregation_seconds": "N/A",
+                "student_kd_seconds": row["student_kd_seconds"],
+                "secure_graph_build_seconds": "N/A",
+                "total_seconds": row["student_kd_seconds"],
+            }
+        )
     for dataset in ("tiny_synthetic",) + DATASETS:
         validation = tfe_rows[dataset]
         report = load_json(Path(validation["report_path"]))
@@ -193,8 +229,38 @@ def augment_runtime_resource(runtime, tfe_rows):
     combined_resources = [
         {field: row.get(field, "") for field in resource_fields}
         for row in resources
-        if row.get("stage") != "TFE"
+        if row.get("stage") not in {"S6", "CAUSAL", "TFE"}
     ]
+    for index, row in enumerate(confirmation):
+        combined_resources.append(
+            {
+                "run_key": "s6_{:02d}_{}_{}_{}".format(
+                    index, row["dataset"], row["distribution"], row["method"]
+                ),
+                "dataset": row["dataset"],
+                "stage": "S6",
+                "method": row["method"],
+                "peak_rss_gib": "N/A",
+                "output_model_sha256": "N/A",
+                "communication_bytes": "N/A",
+                "communication_rounds": "N/A",
+            }
+        )
+    for index, row in enumerate(causal["rows"]):
+        combined_resources.append(
+            {
+                "run_key": "causal_{:02d}_{}_{}_{}".format(
+                    index, row["dataset"], row["distribution"], row["method"]
+                ),
+                "dataset": row["dataset"],
+                "stage": "CAUSAL",
+                "method": row["method"],
+                "peak_rss_gib": "N/A",
+                "output_model_sha256": "N/A",
+                "communication_bytes": "N/A",
+                "communication_rounds": "N/A",
+            }
+        )
     for dataset in ("tiny_synthetic",) + DATASETS:
         row = tfe_rows[dataset]
         combined_resources.append(
@@ -343,7 +409,13 @@ def figure_b3(registry, runtime, tfe_rows):
         bottom = 0.0
         for category, label, color in zip(categories, category_labels, colors):
             value = float(selected[dataset][category])
-            axes[0].bar(DISPLAY[dataset], value, bottom=bottom, label=label, color=color)
+            axes[0].bar(
+                DISPLAY[dataset],
+                value,
+                bottom=bottom,
+                label=label if dataset == DATASETS[0] else None,
+                color=color,
+            )
             bottom += value
     axes[0].set_title("Plaintext selected configuration")
     axes[0].set_ylabel("Runtime (s)")
@@ -380,17 +452,25 @@ def supplementary_figures(registry, tfe_rows):
             for row in runs
             if row["dataset"] == dataset
             and row["stage"] == "S2"
-            and row["factor"] == "anchor_per_class"
+            and row["factor"] == "anchor_samples_per_class"
         ]
-        rows.sort(key=lambda row: float(row["factor_value"]))
-        axis.plot(
-            [float(row["factor_value"]) for row in rows],
-            [100.0 * float(row["teacher_accuracy"]) for row in rows],
-            marker="o",
-        )
+        groups = {}
+        for row in rows:
+            key = (row["config"]["local_epochs"], row["config"]["local_lr"])
+            groups.setdefault(key, []).append(row)
+        for (epochs, learning_rate), group in sorted(groups.items()):
+            group.sort(key=lambda row: float(row["factor_value"]))
+            axis.plot(
+                [float(row["factor_value"]) for row in group],
+                [100.0 * float(row["teacher_accuracy"]) for row in group],
+                marker="o",
+                label="{} epochs, LR {}".format(epochs, learning_rate),
+            )
         axis.set_title(DISPLAY[dataset])
         axis.set_xlabel("Anchor samples/class")
         axis.set_ylabel("Teacher dev accuracy (%)")
+        axis.set_xticks([4, 8, 12])
+        axis.legend(fontsize=8, frameon=False)
         axis.grid(alpha=0.25)
     fig.suptitle("Supplementary — Anchor-size sweep")
     save_figure(fig, "new_figureS1_anchor_size_sweep")
@@ -773,7 +853,7 @@ def main():
     figure_b3(registry, runtime, tfe_rows)
     supplementary_figures(registry, tfe_rows)
     build_classwise_accuracy()
-    augment_runtime_resource(runtime, tfe_rows)
+    augment_runtime_resource(runtime, tfe_rows, confirmation, causal)
     build_reports(smoke, causal, tfe_rows)
     build_remaining_seed_plan()
     print("COMPLETE Stage-B KD single-seed deliverables and remaining-seed plan")
