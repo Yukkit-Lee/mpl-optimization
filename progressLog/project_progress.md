@@ -1371,3 +1371,5 @@
 - 新增freeze生成器并设硬拒绝门：只有all-smoke-gates、split互斥和下一阶段全部正确时，才生成config/split freeze及manifest；将固定seed、数据/hash、C1/C4/C5、40-step预算、LR/mu、precision16、计时边界和禁止项。下一唯一操作是提交推送生成器，然后生成、审计并单独提交冻结资产，正式TFE在冻结提交推送前不会启动。
 - freeze生成器提交`6ed860f`推送后成功通过硬门，生成`FROZEN_AFTER_SMOKE_SUCCESS`配置/划分/manifest；config SHA=`9df91b28...839f0`、split-freeze SHA=`65d4ed41...86e3`，明确固定C10/C100 40 steps、LR0.1/0.2、mu1e-3、precision16、seed42 Severe C1/C4/C5及计时边界。split六场local∩anchor=0，development互斥，test/holdout仍未读。
 - 本次将同时提交全部plaintext registry/ablation/efficiency/trajectory/reuse/split证据和freeze文件；约13MiB派生C1/C3/C5模型仍只在`new_checkpoints/new_stage_b_anchor_postagg`本地保存，不纳入Git。下一唯一操作是在冻结资产提交推送后实现只读取freeze的TFE/ABY3 C1/C4/C5梯级。
+- plaintext证据与freeze资产提交`8a346ab`已推送，正式TFE启动条件现已满足但尚未运行。新增TFE实现只读取已冻结Severe配置：modern输入器重算P1 C1/C4/C5并登记precision16 endpoint P2；legacy Python3.6 worker在真实TFE/ABY3中秘密共享五方local/anchor/labels，执行安全本地训练、Secure Average和同预算C1/C5各40步CE；仅在最终correctness边界reveal三个模型。
+- 新TFE runner按C10→即时validator→C100→全量validator顺序运行并支持私有变量checkpoint恢复；validator要求finite、真实TFE/ABY3、无fallback、参数误差<=1e-2、accuracy gap<=0.5pp、TFE(C5−C1)保留plaintext至少80%且TFE C5>C4。大型运行checkpoint继续本地保存，正式输出报告/模型进入独立output命名空间。
