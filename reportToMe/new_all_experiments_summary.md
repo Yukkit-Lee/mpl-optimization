@@ -1,6 +1,11 @@
 # 全部实验结果、证据边界与改进建议
 
-更新时间：2026-07-29（UTC）
+更新时间：2026-07-29 12:25（UTC）
+
+状态说明：本文汇总截至上述时间已经落盘并通过审计的结果。最新
+`new_stage_b_kd` 真实 TFE/ABY3 梯级仍在 tmux 中运行；tiny synthetic
+数值正确性门已通过，CIFAR-10/100 尚未完成，因此本文不提前写入其正式
+TFE 精度结论。
 
 ## 0. 先给结论
 
@@ -13,6 +18,9 @@
 5. 当前最强的效率结论是“更快达到相同冻结效用目标”，而不是“三个数据集完整训练都更快”：Tiny 上 True Ours 达到 T@90 快 2.46 倍，但跑到双方各自最终模型时反而慢 1.52 倍。
 6. 当前正式结果全部是 development validation，不是新的 official-test 结果。历史 official-test 数值可以作为旧协议结果保留，但不能替代当前 True Ours 的冻结后最终评估。
 7. 当前 epsilon 只描述条件式 Stage-C 梯度机制。Stage-B initializer 是数据依赖且非 DP，因此不能声称端到端 record-level DP。
+8. 最新 MTT-anchor 实验进一步确认“有标签的蒸馏 anchor 数据有效”，但没有确认
+   “class-aware Consensus/KD 有独立正贡献”：CIFAR-10 的 KD 在 anchor CE 之上
+   仅增加 0.44pp，CIFAR-100 反而降低 3.56pp。
 
 因此，现有材料已经足以支撑论文中的方法可行性、压缩/效用、TFE 实现和达到目标精度的效率论证；但要把最新 True Ours 写成最终主结果，仍应补齐可信的冻结后测试集评估或明确把主表标为开发集结果。
 
@@ -227,6 +235,64 @@ Tiny 只有 seed42，所以不能报告方差或显著性。
 
 - `new_expTab/new_true_ours/new_true_ours_stage_b_screen.csv`
 - `new_expTab/new_true_ours/new_true_ours_stage_b_fedavg_screen.csv`
+
+### 5.5 最新 MTT-anchor KD/Consensus 因果实验（seed42）
+
+这轮新实验与上面的旧 Consensus 筛选不同：它从每类 48 个 Official MTT
+样本中严格拆出 local pool 和有标签 anchor pool，在 IID、mild 和 severe
+Non-IID 下比较 Secure Average、teacher、KD student，并额外做
+`anchor CE-only / KD-only / CE+KD` 因果分解。CIFAR-10/100 的
+local/anchor、development split 均互斥；未读取 locked holdout 或 official test，
+也未加载 Full-Data initializer。
+
+明文 S1--S6 共登记 89 个候选。机械筛选的 severe Non-IID 结果为：
+
+| 数据集 | Secure Average | Teacher | CE+KD Student | Student 相对 Average |
+|---|---:|---:|---:|---:|
+| CIFAR-10 | 19.24% | 19.40% | 55.14% | +35.90pp |
+| CIFAR-100 | 8.08% | 9.32% | 23.44% | +15.36pp |
+
+只看这张表会误以为 KD/Consensus 非常有效，因此又固定同一配置完成了
+36/36 因果消融：
+
+| 数据集（severe） | Anchor CE-only | Uniform CE+KD | Class-aware CE+KD | KD 相对 CE-only | Class-aware 相对 Uniform |
+|---|---:|---:|---:|---:|---:|
+| CIFAR-10 | 54.70% | 55.14% | 55.14% | +0.44pp | 0.00pp |
+| CIFAR-100 | 27.00% | 23.46% | 23.44% | −3.56pp | −0.02pp |
+
+IID/mild 结论一致：CIFAR-10 的 CE-only 已达到 54.48%/54.40%，CE+KD
+仅为 54.86%/54.40%；CIFAR-100 的 CE-only 为 29.78%/29.04%，高于
+CE+KD 的 27.62%/26.60%。KD-only 在两数据集上均没有超过 Average。
+
+因此这组实验实际证明的是：
+
+- **强支持**：Official MTT anchor 的有标签监督能显著改善 Stage-B initializer；
+- **不支持**：当前 class-aware teacher 相对 uniform teacher 有独立收益；
+- **不支持**：KD 是主要增益来源；CIFAR-100 上 KD 还会损害 CE-only 结果；
+- 当前只有 seed42，不能报告跨 seed 稳定性或显著性。
+
+真实 TFE/ABY3 梯级截至本文更新时间的状态：
+
+- tiny synthetic 已通过：TFE 与 plaintext 的 Average weight/bias、teacher、
+  student weight/bias 最大绝对误差均小于 `2.8e-5`，无 plaintext fallback；
+- secure runtime 为 25.80s，peak RSS 为 1.53GiB；
+- CIFAR-10 正在运行，CIFAR-100 尚待顺序执行；两者完成前不把 TFE utility
+  写成已验证结论；
+- 本任务严格停留在 Stage B，没有运行 Stage C、DP 或 end-to-end。
+
+权威结果位置：
+
+- 89-run registry：`new_expTab/new_stage_b_kd/new_stage_b_kd_smoke_registry.csv`
+- 明文确认表：`new_expTab/new_stage_b_kd/new_stage_b_kd_plaintext_confirmation.csv`
+- 36-run 因果表：`new_expTab/new_stage_b_kd/new_stage_b_kd_anchor_supervision_ablation.csv`
+- 因果 JSON：`new_log/new_stage_b_kd/new_stage_b_kd_anchor_supervision_ablation.json`
+- split 审计：`new_log/new_stage_b_kd/new_stage_b_kd_split_audit.md`
+- 当前 TFE 验证：`new_expTab/new_stage_b_kd/new_stage_b_kd_tfe_validation.csv`
+
+当前尚未为这组新实验生成正式图。若 TFE 梯级完成，最值得生成的不是只画
+“Average→Student 大涨”的宣传图，而是同时画出
+`Average / CE-only / KD-only / Uniform CE+KD / Class-aware CE+KD`，
+让 anchor 监督与 KD 的净贡献不可混淆。
 
 ## 6. Stage C：Fixed 与 Adaptive、裁剪和隐私会计
 
@@ -457,6 +523,8 @@ CIFAR-10 seed42 的关键结果：
 | True Ours 完整训练在所有数据集更快 | 不支持 | Tiny 完整流程慢 1.52× |
 | True Ours 在所有数据集精度更高 | 不支持 | CIFAR-10 低 4.29pp |
 | Consensus 在当前主路线有益 | 不支持 | strict screen 0 候选过门 |
+| 有标签 Official-MTT anchor 对 Stage B 有效 | 单 seed 强支持 | C10/C100 severe CE-only 相对 Average +35.46/+18.92pp |
+| Class-aware KD/Consensus 有独立正贡献 | 不支持 | 相对 uniform 为 0.00/−0.02pp，KD-over-CE 为 +0.44/−3.56pp |
 | Adaptive 显著优于 Fixed | 不支持 | 最佳差距约 0.04pp |
 | 当前主结果是最终 test accuracy | 不支持 | 当前 14/14 为 development-only |
 | 发布模型满足端到端 record DP | 不支持 | 数据依赖、非 DP Stage B initializer |
@@ -474,6 +542,7 @@ CIFAR-10 seed42 的关键结果：
 
 - Stage A accuracy-vs-steps；
 - Stage B Non-IID 历史实验及最新 Consensus 负结果；
+- 最新 MTT-anchor 因果分解（待 TFE 梯级完成后再定稿作图）；
 - Fixed vs Adaptive 负消融；
 - Adaptive C 轨迹；
 - secure-average-only 等价/加速表；
@@ -530,11 +599,17 @@ CIFAR-10 seed42 的关键结果：
 
    Consensus、precision20、Fixed vs Adaptive 都解释了为何最终设计选择 Secure Average + Adaptive。这些负结果能减少“只挑有利配置”的质疑。
 
+10. **完成 MTT-anchor 的真实 TFE 梯级并补齐跨 seed 复核。**
+
+   当前只有 tiny synthetic 正确性门和 seed42 明文因果结果。应先完成正在运行的
+   CIFAR-10/100 TFE 验证；若 TFE 方向与数值门通过，再按独立计划补 seeds 43/44。
+   后续必须以 CE-only 为首要基线，不能再用 `Student−Average` 代替 KD 的净贡献。
+
 ### P2：有时间再做
 
-10. 多机真实网络环境下复测 TFE runtime/通信，而不仅是当前服务器进程间运行。
-11. 增加更强但严格可比的外部基线；统一数据、特征、模型、epsilon/delta、party 数和硬件后再比较。
-12. 对 C10/C100 的时间曲线增加置信区间或 bootstrap；Tiny 必须等多 seed 才能画统计带。
+11. 多机真实网络环境下复测 TFE runtime/通信，而不仅是当前服务器进程间运行。
+12. 增加更强但严格可比的外部基线；统一数据、特征、模型、epsilon/delta、party 数和硬件后再比较。
+13. 对 C10/C100 的时间曲线增加置信区间或 bootstrap；Tiny 必须等多 seed 才能画统计带。
 
 ## 15. 推荐的最终论文实验组织
 
@@ -569,4 +644,5 @@ CIFAR-10 seed42 的关键结果：
 - 历史增量对比表：`new_expTab/new_incremental_comparison/`
 - 后续诊断表：`new_expTab/new_end2end_adaptive_followup/`
 - 系统修复表：`new_expTab/new_true_ours/new_tfe_system_formal_repaired.csv`
+- 最新 Stage-B anchor/KD：`new_log/new_stage_b_kd/` 与 `new_expTab/new_stage_b_kd/`
 - 进度与实验审计：`progressLog/project_progress.md`

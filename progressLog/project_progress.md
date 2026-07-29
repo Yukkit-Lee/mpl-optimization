@@ -1249,3 +1249,12 @@
 - TFE梯级实现完成但尚未运行：现代输入冻结器保存P1 plaintext Average/teacher/student与P2 precision16 endpoint量化敏感性；legacy Python3.6 worker在真实TFE/ABY3中秘密共享每客户端local MTT、anchor、标签和参数，执行与P1一致的full-batch local CE、uniform/confidence class teacher、从安全Average初始化的100-step CE+KD student，支持私有变量checkpoint恢复，仅在最终correctness边界reveal。
 - 新增tiny synthetic 2-client/4-D/3-class数值门、顺序runner（tiny→C10→C100）和modern validator；validator核验finite、ABY3、custom-op硬依赖、无fallback、lineage、P1/TFE数值差、方向、`TFE student >= Average+0.8pp`或保留80% plaintext gain，并输出安全runtime/RSS。现代/legacy `py_compile`、launch shell语法、TFE softmax/stack/transpose API存在性与6项单元测试均通过；必须先提交推送代码并冻结输入后才启动tmux。
 - TFE输入冻结完成：tiny synthetic及C10/C100 seed42 NPZ均生成并登记SHA，合计约42MiB；C10 P1 Average/student=`19.24/55.14%`、P2 endpoint precision16量化后完全相同，C100=`8.08/23.44%`且P2同样无变化。P2报告明确仅为endpoint量化敏感性、不是完整安全轨迹模拟；真正trajectory correctness由后续ABY3承担。TFE输入source commit=`b7d03c1`，locked/test仍未读取。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-29 12:25 UTC
+- 用户要求生成仓库全部实验的统一总结文档。已重新审计当前权威 master results、历史 Public-MTT/增量/Stage-C/TFE 表、图表目录、lineage 审计，以及最新 `new_stage_b_kd` 的89-run筛选和36-run因果消融。
+- 更新 `reportToMe/new_all_experiments_summary.md`：保留目的、精度、效率、证据边界、图表位置和分级改进项，并新增 MTT-anchor KD/Consensus 专节。关键结论为有标签 anchor 监督有效，但 class-aware Consensus/KD 无独立正贡献：severe C10/C100 的 CE-only 相对 Average 为 `+35.46/+18.92pp`，KD-over-CE 为 `+0.44/-3.56pp`，class-aware 相对 uniform 为 `0.00/-0.02pp`。
+- 文档明确当前新实验只有 seed42，不能做稳定性声明；TFE/ABY3 梯级仍在 tmux `stage_b_kd_tfe_seed42` 顺序运行。tiny synthetic 已通过 correctness（最大绝对误差 `<2.8e-5`、25.80s、1.53GiB），CIFAR-10正在运行、CIFAR-100待运行，因此没有把未完成的TFE效用写成正式结论。
+- 本轮未启动或重复任何实验，未读取 locked holdout/official test，未修改或提交 checkpoint。
