@@ -1,0 +1,3 @@
+COMPLETE manifest=/root/autodl-tmp/tfe_experiments/new_log/new_stage_b_kd/new_stage_b_kd_tfe_input_manifest.json inputs=2
+cifar10 P1_gain=+0.3590 P2_gain=+0.3590
+cifar100 P1_gain=+0.1536 P2_gain=+0.1536

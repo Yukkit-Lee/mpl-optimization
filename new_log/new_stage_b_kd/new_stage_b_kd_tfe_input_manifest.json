@@ -1,0 +1,144 @@
+{
+  "schema": "new_stage_b_kd_tfe_input_manifest_v1",
+  "status": "COMPLETE",
+  "source_commit": "b7d03c1975026fa9bc6ba98bf6c681f02e9419d3",
+  "seed_policy": [
+    42
+  ],
+  "rows": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "input_path": "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_inputs/cifar10/new_stage_b_kd_tfe_input_cifar10_seed42.npz",
+      "input_sha256": "494e4a9a819bc64a672577a2c6b75acd2f4824f9bd17c24b815c1fc2e6fa2955",
+      "configuration": {
+        "schema": "new_stage_b_kd_tfe_input_config_v1",
+        "dataset": "cifar10",
+        "seed": 42,
+        "distribution": "severe",
+        "num_clients": 5,
+        "feature_dim": 2048,
+        "num_classes": 10,
+        "anchor_samples_per_class": 4,
+        "local_epochs": 5,
+        "local_lr": 0.1,
+        "weight_decay": 0.0001,
+        "reliability_rule": "uniform",
+        "teacher_temperature": 8.0,
+        "weight_temperature": 0.5,
+        "maximum_client_weight": 0.3,
+        "cap_was_inactive_in_plaintext": true,
+        "shrinkage_to_uniform": 0.0,
+        "kd_lambda": 0.25,
+        "average_regularization": 0.001,
+        "student_steps": 100,
+        "student_lr": 0.1,
+        "fixedpoint_fractional": 16,
+        "matmul_chunk_size": 64,
+        "checkpoint_interval": 5,
+        "source_commit": "b7d03c1975026fa9bc6ba98bf6c681f02e9419d3",
+        "initializer_source": "official_mtt_only",
+        "full_data_initializer_dependency": false,
+        "locked_holdout_read": false,
+        "official_test_read": false
+      },
+      "client_counts": [
+        86,
+        82,
+        68,
+        141,
+        63
+      ],
+      "client_partition_hashes": [
+        "dafc911825588e57f9c47c8797a03429b56584a836b8682277c5ac7d4d70524e",
+        "59a86e20cf2f4c666219e6d15d33b60d16e58193b04b44e1e5ba3ebad6e24f93",
+        "0974ec94f4060edba5cccdd80cd7bc199838ec308bed5c8b20beb2dd6c362e40",
+        "051fbcc84121acf343cb7d7dc77859761145346c3917a184ffe667392c1ccfc6",
+        "23cce354656a2c53c5a2b4e545494dab021478a79a724a524584e06b1e00cfc3"
+      ],
+      "p1_plaintext": {
+        "average_accuracy": 0.1924,
+        "student_accuracy": 0.5514,
+        "gain": 0.359
+      },
+      "p2_endpoint_fixedpoint_quantization": {
+        "scope": "precision16 endpoint quantization sensitivity; not a full secure trajectory emulator",
+        "average_accuracy": 0.1924,
+        "student_accuracy": 0.5514,
+        "gain": 0.359,
+        "student_delta_vs_p1": 0.0
+      },
+      "locked_holdout_read": false,
+      "official_test_read": false
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "input_path": "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_inputs/cifar100/new_stage_b_kd_tfe_input_cifar100_seed42.npz",
+      "input_sha256": "35751f6e9a5c8ce62070b40ecb451c23fc8f673764080d9bf338b4220bbfb723",
+      "configuration": {
+        "schema": "new_stage_b_kd_tfe_input_config_v1",
+        "dataset": "cifar100",
+        "seed": 42,
+        "distribution": "severe",
+        "num_clients": 5,
+        "feature_dim": 2048,
+        "num_classes": 100,
+        "anchor_samples_per_class": 8,
+        "local_epochs": 40,
+        "local_lr": 0.2,
+        "weight_decay": 0.0001,
+        "reliability_rule": "confidence",
+        "teacher_temperature": 1.0,
+        "weight_temperature": 2.0,
+        "maximum_client_weight": 0.3,
+        "cap_was_inactive_in_plaintext": true,
+        "shrinkage_to_uniform": 0.0,
+        "kd_lambda": 0.25,
+        "average_regularization": 0.0,
+        "student_steps": 100,
+        "student_lr": 0.2,
+        "fixedpoint_fractional": 16,
+        "matmul_chunk_size": 64,
+        "checkpoint_interval": 10,
+        "source_commit": "b7d03c1975026fa9bc6ba98bf6c681f02e9419d3",
+        "initializer_source": "official_mtt_only",
+        "full_data_initializer_dependency": false,
+        "locked_holdout_read": false,
+        "official_test_read": false
+      },
+      "client_counts": [
+        804,
+        899,
+        680,
+        871,
+        746
+      ],
+      "client_partition_hashes": [
+        "f5e7f59ae1992a106f182b30b8523a6f39e0d11d2bb4866a337ac21792370369",
+        "f358fae588531889f605234f8791777b1a4bcac6123f0a6219cd24577dfeeae7",
+        "812ea9329e9159484ec11d1be85500a0ae9f5ad69e6ba833baa957b59995edbf",
+        "8a9d20fd7bb5526e26a07c69c392b720e98161753516ff390682bd4881505fb5",
+        "53767cd11a054eb26f4f7f5832bad13810552b845f70769063f418648152aa79"
+      ],
+      "p1_plaintext": {
+        "average_accuracy": 0.0808,
+        "student_accuracy": 0.2344,
+        "gain": 0.15360000000000001
+      },
+      "p2_endpoint_fixedpoint_quantization": {
+        "scope": "precision16 endpoint quantization sensitivity; not a full secure trajectory emulator",
+        "average_accuracy": 0.0808,
+        "student_accuracy": 0.2344,
+        "gain": 0.15360000000000001,
+        "student_delta_vs_p1": 0.0
+      },
+      "locked_holdout_read": false,
+      "official_test_read": false
+    }
+  ],
+  "p2_limitation_disclosed": true,
+  "locked_holdout_read": false,
+  "official_test_read": false,
+  "full_data_initializer_loaded": false
+}
