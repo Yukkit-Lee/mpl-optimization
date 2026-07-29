@@ -1,0 +1,4 @@
+COMPLETE rows=36 output=/root/autodl-tmp/tfe_experiments/new_log/new_stage_b_kd/new_stage_b_kd_anchor_supervision_ablation.json
+cifar10 anchor_CE_gain=+0.3546 class_vs_uniform_student=+0.0000 KD_over_CE=+0.0044
+cifar100 anchor_CE_gain=+0.1892 class_vs_uniform_student=-0.0002 KD_over_CE=-0.0356
+locked_holdout_read=False official_test_read=False stage_c=False
