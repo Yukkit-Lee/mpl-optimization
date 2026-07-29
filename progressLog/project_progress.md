@@ -1308,3 +1308,14 @@
 - 按计划plaintext gate，未启动TFE/ABY3；`new_stage_b_anchor_refinement_tfe_validation.csv`逐数据集登记`SKIPPED/plaintext_gate_failed`，不是缺失结果。未启动Stage C/DP/End-to-End/Tiny/额外seed，locked holdout与official test均未读取，Full initializer依赖为false。
 - 最终交付已生成：102行smoke registry、split manifest、diagnostic JSON/Markdown、10行B0--B4主表、TFE skip表、claim audit、十问final report、Figure B1--B4 PNG/PDF和completion audit。四张PNG已逐张人工检查，无截断/遮挡/空图；所有CSV source commit与summary的`77e9d9d`一致。
 - completion audit为`COMPLETE`，全部7项必需核心文件存在。客观结论为：uniform labeled MTT-anchor CE依然有效；但在当前40/8、seed42 compact-data协议中，高客户端分歧并不预测Secure Average错误，disagreement-weighted/top-disagreement refinement既无效用增益也无成本收益，应作为negative result而非新正模块。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-30（UTC）
+- 按持续目标重新对照 `plan/0730_new_stage_b_heterogeneity_aware_secure_anchor_refinement_prompt.md` 做逐项完成度审计。启动复核时分支/远端均为`5c5fe33`，无tmux或实验残留；容器32核、约472GiB available RAM、磁盘约23GiB可用，大型checkpoint仍仅本地存在。
+- 复核确认102行注册plaintext搜索已完整覆盖两数据集各51行：S1 steps/LR/mu=`4/3/3`，S2 D1--D3=`3`，S3 W1/W4=`2`、W2/W3=`8`，Case-1 class priority=`3`，S4 all/top50/30/20/10=`5`，有界caps/LR/mu诊断=`18`，以及IID B1/候选各1行。D1--D3均不识别Average错误、W1--W4无效用/成本收益、IID safety失败，已满足原计划negative stop；不得追加无限第二搜索或进入TFE。
+- 此次更严格的审计发现旧completion audit只覆盖7个mandatory core files，漏验证计划第14--16节的runtime/resource表、Table B2诊断表、完整Table B3 schema和split audit；旧Figure B1也缺KD，Figure B2只画聚合柱状而非逐anchor score-vs-loss，Figure B4缺B0 before-refinement线。因此此前`COMPLETE`证据范围偏窄，需要补齐而不重复正式搜索。
+- plaintext runner现增加逐候选anchor inference、disagreement、selection、weighted CE和candidate Stage-B timing；结果级登记历史local-head training、checkpoint cache-hit、Secure Average与评价时长；诊断JSON增加逐anchor标签、Average error/CE loss与D1--D3，供直接作图。所有通信字节/轮数继续明确`N/A_not_measured`。
+- 交付生成器升级为完整审计：新增runtime breakdown、resource summary、disagreement diagnosis、split audit；主表补refinement steps及full-recompute/current-cached Stage-B runtime；TFE表保留plaintext列并对fixed/TFE明确SKIPPED；Figure B1纳入KD、B2改逐anchor scatter、B4纳入B0/B1/B3；completion audit v2逐项验证注册family计数与28个核心/图形文件。
+- 工作区另有用户上传但尚未授权执行的后续文档 `plan/0730_new_stage_b_secure_heterogeneity_trigger_anchor_refinement_prompt.md`。它明确建立在本轮negative result上，改为“异质性标量触发是否启用全量uniform anchor CE”的新路线；当前持续目标仍指定原heterogeneity-aware disagreement计划，因此本轮不擅自切换方法或启动该新计划实验。

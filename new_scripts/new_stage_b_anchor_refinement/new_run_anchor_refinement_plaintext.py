@@ -28,6 +28,7 @@ from new_run_stage_b_kd_plaintext import (  # noqa: E402
 from new_stage_b_kd_core import (  # noqa: E402
     DATASETS,
     SEED,
+    average_head,
     atomic_json,
     head_probabilities,
     load_dataset_assets,
@@ -99,22 +100,33 @@ def candidate(
     cap_multiplier=None,
     scoring_scope: str = "sample",
 ) -> Dict[str, Any]:
-    client_anchor_probabilities = head_probabilities(
-        bundle["x_anchor"], bundle["weights"], bundle["biases"]
-    )
-    scores = disagreement_scores(client_anchor_probabilities)[metric]
-    raw_score_std = float(np.std(scores))
-    if scoring_scope == "class":
-        class_scores = np.asarray(
-            [
-                np.mean(scores[bundle["y_anchor"] == class_id])
-                for class_id in range(assets.num_classes)
-            ],
-            dtype=np.float32,
+    anchor_inference_seconds = 0.0
+    disagreement_seconds = 0.0
+    if weight_rule == "uniform":
+        scores = np.ones(len(bundle["y_anchor"]), dtype=np.float32)
+        raw_score_std = 0.0
+    else:
+        inference_started = time.perf_counter()
+        client_anchor_probabilities = head_probabilities(
+            bundle["x_anchor"], bundle["weights"], bundle["biases"]
         )
-        scores = class_scores[bundle["y_anchor"]]
-    elif scoring_scope != "sample":
-        raise ValueError("unknown scoring scope: {}".format(scoring_scope))
+        anchor_inference_seconds = time.perf_counter() - inference_started
+        disagreement_started = time.perf_counter()
+        scores = disagreement_scores(client_anchor_probabilities)[metric]
+        raw_score_std = float(np.std(scores))
+        if scoring_scope == "class":
+            class_scores = np.asarray(
+                [
+                    np.mean(scores[bundle["y_anchor"] == class_id])
+                    for class_id in range(assets.num_classes)
+                ],
+                dtype=np.float32,
+            )
+            scores = class_scores[bundle["y_anchor"]]
+        elif scoring_scope != "sample":
+            raise ValueError("unknown scoring scope: {}".format(scoring_scope))
+        disagreement_seconds = time.perf_counter() - disagreement_started
+    selection_started = time.perf_counter()
     weights = build_anchor_weights(
         scores,
         bundle["y_anchor"],
@@ -123,6 +135,7 @@ def candidate(
         soft_scale=soft_scale,
         cap_multiplier=cap_multiplier,
     )
+    anchor_selection_seconds = time.perf_counter() - selection_started
     weight, bias, timing = train_weighted_anchor_ce(
         bundle["x_anchor"],
         bundle["y_anchor"],
@@ -176,7 +189,16 @@ def candidate(
         "effective_anchor_count": timing["effective_anchor_count"],
         "total_anchor_count": len(bundle["y_anchor"]),
         "distance_from_average": timing["distance_from_average"],
+        "anchor_inference_seconds": anchor_inference_seconds,
+        "disagreement_seconds": disagreement_seconds,
+        "anchor_selection_seconds": anchor_selection_seconds,
         "refinement_seconds": timing["refinement_seconds"],
+        "candidate_stage_b_seconds": (
+            anchor_inference_seconds
+            + disagreement_seconds
+            + anchor_selection_seconds
+            + timing["refinement_seconds"]
+        ),
         "history": timing["history"],
         "source_commit": source_commit(),
         "initializer_source": "official_mtt_only",
@@ -198,6 +220,20 @@ def diagnose(assets, bundle, evaluation):
         + evaluation["average_bias"]
     )
     metrics = disagreement_scores(client_anchor_probabilities)
+    average_anchor_predictions = np.argmax(average_anchor_probabilities, axis=1)
+    average_anchor_errors = (
+        average_anchor_predictions != bundle["y_anchor"]
+    ).astype(np.int64)
+    average_anchor_losses = -np.log(
+        np.clip(
+            average_anchor_probabilities[
+                np.arange(len(bundle["y_anchor"])),
+                bundle["y_anchor"].astype(np.int64),
+            ],
+            1e-12,
+            1.0,
+        )
+    )
     return {
         "dataset": assets.dataset,
         "seed": SEED,
@@ -231,6 +267,14 @@ def diagnose(assets, bundle, evaluation):
             for name, scores in metrics.items()
         },
         "anchor_prediction_hash": sha256_array(client_anchor_probabilities),
+        "anchor_records": {
+            "labels": bundle["y_anchor"].tolist(),
+            "average_errors": average_anchor_errors.tolist(),
+            "average_cross_entropy": average_anchor_losses.tolist(),
+            "d1_variance": metrics["d1_variance"].tolist(),
+            "d2_mean_js": metrics["d2_mean_js"].tolist(),
+            "d3_vote_entropy": metrics["d3_vote_entropy"].tolist(),
+        },
         "source_commit": source_commit(),
         "locked_holdout_read": False,
         "official_test_read": False,
@@ -248,6 +292,9 @@ def run_dataset(dataset: str):
         local["local_lr"],
         local["weight_decay"],
     )
+    average_started = time.perf_counter()
+    average_head(bundle["weights"], bundle["biases"])
+    secure_average_seconds = time.perf_counter() - average_started
     evaluation = evaluate_local_bundle(assets, bundle)
     diagnostic = diagnose(assets, bundle, evaluation)
     rows = []
@@ -550,6 +597,14 @@ def run_dataset(dataset: str):
         "local_anchor_union": int(
             len(np.union1d(bundle["local_ids"], bundle["anchor_ids"]))
         ),
+        "runtime": {
+            "client_local_training_seconds": bundle["local_training_seconds"],
+            "local_checkpoint_cache_hit": bundle["cache_hit"],
+            "secure_average_seconds": secure_average_seconds,
+            "evaluation_and_diagnostic_seconds": evaluation[
+                "anchor_inference_seconds"
+            ],
+        },
         "diagnostic": diagnostic,
         "rows": rows,
         "selected": {
@@ -588,7 +643,9 @@ def write_csv(results):
         "gain_over_b0", "worst_class_gain_over_b0", "active_anchor_ratio",
         "weighted_anchor_mass", "anchor_weight_std", "uniform_equivalent",
         "effective_anchor_count", "total_anchor_count",
-        "distance_from_average", "refinement_seconds", "source_commit",
+        "distance_from_average", "anchor_inference_seconds",
+        "disagreement_seconds", "anchor_selection_seconds",
+        "refinement_seconds", "candidate_stage_b_seconds", "source_commit",
         "initializer_source", "full_data_initializer_dependency",
         "locked_holdout_read", "official_test_read",
     ]
