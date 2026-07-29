@@ -1,0 +1,177 @@
+{
+  "schema": "new_true_ours_formal_timeline_v1",
+  "status": "COMPLETE_DEVELOPMENT_ONLY",
+  "dataset": "cifar10",
+  "method": "true_ours",
+  "seed": 44,
+  "timing_boundary": "Stage-B secure graph/session start through Stage-C final model",
+  "stage_b_online_secure_seconds": 103.56928539276123,
+  "stage_c_online_secure_seconds": 102.16834735870361,
+  "total_online_secure_seconds": 205.73763275146484,
+  "points": [
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 5,
+      "cumulative_online_secure_seconds": 43.976181745529175,
+      "development_validation_accuracy": 0.62,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 10,
+      "cumulative_online_secure_seconds": 54.312875747680664,
+      "development_validation_accuracy": 0.6,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 15,
+      "cumulative_online_secure_seconds": 60.761955976486206,
+      "development_validation_accuracy": 0.62,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 20,
+      "cumulative_online_secure_seconds": 67.25183343887329,
+      "development_validation_accuracy": 0.62,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 25,
+      "cumulative_online_secure_seconds": 73.59689831733704,
+      "development_validation_accuracy": 0.7,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 30,
+      "cumulative_online_secure_seconds": 79.57646298408508,
+      "development_validation_accuracy": 0.68,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 35,
+      "cumulative_online_secure_seconds": 85.82728552818298,
+      "development_validation_accuracy": 0.68,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 40,
+      "cumulative_online_secure_seconds": 92.09360718727112,
+      "development_validation_accuracy": 0.68,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 1,
+      "cumulative_online_secure_seconds": 129.74178266525269,
+      "development_validation_accuracy": 0.6814,
+      "epsilon_so_far": 1.5757410972522907,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 16
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 10,
+      "cumulative_online_secure_seconds": 151.82927560806274,
+      "development_validation_accuracy": 0.6814,
+      "epsilon_so_far": 1.96845877549106,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 160
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 19,
+      "cumulative_online_secure_seconds": 158.73074412345886,
+      "development_validation_accuracy": 0.6804,
+      "epsilon_so_far": 2.16566715432907,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 304
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 27,
+      "cumulative_online_secure_seconds": 165.46008920669556,
+      "development_validation_accuracy": 0.6806,
+      "epsilon_so_far": 2.3088310082087133,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 432
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 36,
+      "cumulative_online_secure_seconds": 172.30311965942383,
+      "development_validation_accuracy": 0.681,
+      "epsilon_so_far": 2.4490965001325744,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 576
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 45,
+      "cumulative_online_secure_seconds": 175.7738163471222,
+      "development_validation_accuracy": 0.6812,
+      "epsilon_so_far": 2.5762821777608904,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 720
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 54,
+      "cumulative_online_secure_seconds": 182.53064060211182,
+      "development_validation_accuracy": 0.6802,
+      "epsilon_so_far": 2.694535698003,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 864
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 62,
+      "cumulative_online_secure_seconds": 189.40246748924255,
+      "development_validation_accuracy": 0.6808,
+      "epsilon_so_far": 2.793238156127674,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 992
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 71,
+      "cumulative_online_secure_seconds": 196.21517872810364,
+      "development_validation_accuracy": 0.6814,
+      "epsilon_so_far": 2.898557512541595,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 1136
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 80,
+      "cumulative_online_secure_seconds": 199.79707551002502,
+      "development_validation_accuracy": 0.6812,
+      "epsilon_so_far": 2.999999999999981,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 1280
+    }
+  ],
+  "locked_holdout_read": false,
+  "official_test_read": false
+}

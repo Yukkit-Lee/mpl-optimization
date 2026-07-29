@@ -1,0 +1,50 @@
+[FORMAL COMPLETE 1/18] true_ours cifar10 seed42
+[FORMAL COMPLETE 2/18] true_ours cifar10 seed43
+[FORMAL COMPLETE 3/18] true_ours cifar10 seed44
+[FORMAL COMPLETE 4/18] full_data cifar10 seed42
+[FORMAL COMPLETE 5/18] full_data cifar10 seed43
+[FORMAL COMPLETE 6/18] full_data cifar10 seed44
+[FORMAL COMPLETE 7/18] true_ours cifar100 seed42
+[FORMAL COMPLETE 8/18] true_ours cifar100 seed43
+[FORMAL COMPLETE 9/18] true_ours cifar100 seed44
+[FORMAL COMPLETE 10/18] full_data cifar100 seed42
+[FORMAL COMPLETE 1/18] true_ours cifar10 seed42
+[FORMAL COMPLETE 2/18] true_ours cifar10 seed43
+[FORMAL COMPLETE 3/18] true_ours cifar10 seed44
+[FORMAL COMPLETE 4/18] full_data cifar10 seed42
+[FORMAL COMPLETE 5/18] full_data cifar10 seed43
+[FORMAL COMPLETE 6/18] full_data cifar10 seed44
+[FORMAL COMPLETE 7/18] true_ours cifar100 seed42
+[FORMAL COMPLETE 8/18] true_ours cifar100 seed43
+[FORMAL COMPLETE 9/18] true_ours cifar100 seed44
+[FORMAL COMPLETE 10/18] full_data cifar100 seed42
+[FORMAL COMPLETE 11/18] full_data cifar100 seed43
+[FORMAL COMPLETE 12/18] full_data cifar100 seed44
+[FORMAL COMPLETE 13/18] true_ours tiny seed42
+[FORMAL COMPLETE 14/18] true_ours tiny seed43
+[FORMAL COMPLETE 15/18] true_ours tiny seed44
+Traceback (most recent call last):
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_true_ours/new_run_true_ours_formal_three_seed.py", line 703, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_true_ours/new_run_true_ours_formal_three_seed.py", line 580, in main
+    run_logged(command, paths["stage_b_log"], max_attempts=sb_attempts)
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_true_ours/new_run_true_ours_formal_three_seed.py", line 83, in run_logged
+    raise RuntimeError(
+RuntimeError: command failed with exit 124: /root/autodl-tmp/tfe_experiments/new_log/new_true_ours/txt/formal/new_formal_stage_b_full_data_tiny_seed42.log
+[FORMAL COMPLETE 1/18] true_ours cifar10 seed42
+[FORMAL COMPLETE 2/18] true_ours cifar10 seed43
+[FORMAL COMPLETE 3/18] true_ours cifar10 seed44
+[FORMAL COMPLETE 4/18] full_data cifar10 seed42
+[FORMAL COMPLETE 5/18] full_data cifar10 seed43
+[FORMAL COMPLETE 6/18] full_data cifar10 seed44
+[FORMAL COMPLETE 7/18] true_ours cifar100 seed42
+[FORMAL COMPLETE 8/18] true_ours cifar100 seed43
+[FORMAL COMPLETE 9/18] true_ours cifar100 seed44
+[FORMAL COMPLETE 10/18] full_data cifar100 seed42
+[FORMAL COMPLETE 11/18] full_data cifar100 seed43
+[FORMAL COMPLETE 12/18] full_data cifar100 seed44
+[FORMAL COMPLETE 13/18] true_ours tiny seed42
+[FORMAL COMPLETE 14/18] true_ours tiny seed43
+[FORMAL COMPLETE 15/18] true_ours tiny seed44
+[FORMAL COMPLETE 1/18] true_ours cifar10 seed42

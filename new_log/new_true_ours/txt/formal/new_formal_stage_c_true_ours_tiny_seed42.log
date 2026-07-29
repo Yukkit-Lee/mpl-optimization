@@ -1,0 +1,25 @@
+
+RUN_START 2026-07-28T20:30:31Z ATTEMPT 1/1
+COMMAND /root/autodl-tmp/new_envs/tfe/bin/python /root/autodl-tmp/tfe_experiments/new_stage_c_secure_dpsgd.py --feature_cache /root/autodl-tmp/tfe_experiments/new_cache/new_true_ours/official_mtt/stage_c/tiny/new_true_ours_stage_c_tiny_seed42.npz --feature_cache_mode npz --initializer /root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_formal/tiny/seed42/new_secure_stage_b_candidate_nokd_tiny_balanced_seed42.npz --dataset tiny --mode adaptive_dp --output_dir /root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_c/true_ours_formal/tiny/seed42 --checkpoint_prefix /root/autodl-tmp/tfe_experiments/new_checkpoints/new_true_ours/stage_c/true_ours_formal/tiny/seed42/new_stage_c --seed 42 --batch_size 64 --expected_batch_size 16 --sampling_mode poisson --steps 180 --learning_rate 0.002 --noise_multiplier 0.570962489730612 --count_noise_multiplier 8.0 --clip_c 1.0 --clipping_scope global --gamma 0.5 --eta_c 0.1 --c_min 0.05 --c_max 4.0 --warmup_steps 5 --update_interval 5 --delta 1e-05 --precision_fractional 16 --matmul_chunk_size 64 --checkpoint_interval 5 --initializer_privacy_status data_dependent_non_dp --input_lineage official_mtt_only --evaluation_split development_validation
+============================================================================================
+Stage C：TFE/ABY3 Secure adaptive_dp DP-SGD
+dataset=tiny samples=9600 graph_capacity=64 expected_batch=16 sampling=poisson steps=180 feature_dim=2048
+noise_multiplier=0.570962489730612 count_noise=8.0 delta=1e-05 cpu_policy=unrestricted
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageC] step=1/180 ref_acc=0.3145 C_t=1.00000 noisy_b=N/A
+[StageC] step=21/180 ref_acc=0.3142 C_t=1.03407 noisy_b=N/A
+[StageC] step=41/180 ref_acc=0.3148 C_t=1.12717 noisy_b=N/A
+[StageC] step=61/180 ref_acc=0.3151 C_t=1.16107 noisy_b=N/A
+[StageC] step=81/180 ref_acc=0.3137 C_t=1.17807 noisy_b=N/A
+[StageC] step=100/180 ref_acc=0.3146 C_t=1.13664 noisy_b=0.1475
+[StageC] step=120/180 ref_acc=0.3146 C_t=1.16798 noisy_b=0.9264
+[StageC] step=140/180 ref_acc=0.3144 C_t=1.17421 noisy_b=0.0441
+[StageC] step=160/180 ref_acc=0.3136 C_t=1.12260 noisy_b=0.4800
+[StageC] step=180/180 ref_acc=0.3141 C_t=1.22379 noisy_b=1.0000
+epsilon_C=3.000000 final_C=1.164017
+model=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_c/true_ours_formal/tiny/seed42/new_secure_stage_c_model_tiny_adaptive_dp_seed42.npz
+report=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_c/true_ours_formal/tiny/seed42/new_secure_stage_c_report_tiny_adaptive_dp_seed42.json

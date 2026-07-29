@@ -1,0 +1,33 @@
+{
+  "schema": "new_tiny_full_seed42_correction_status_v1",
+  "status": "PREFLIGHT_PASS",
+  "dataset": "tiny",
+  "method": "full_data",
+  "seed": 42,
+  "namespace": "full_data_formal_corrected_v2",
+  "preflight": {
+    "expected": {
+      "stage_b_local_epochs": 40,
+      "stage_b_batch_size": 16,
+      "stage_b_local_lr": 0.1,
+      "stage_c_steps": 180,
+      "stage_c_learning_rate": 0.002,
+      "stage_c_noise_multiplier": 0.5685304635176568,
+      "stage_c_gamma": 0.5,
+      "stage_c_eta_c": 0.1
+    },
+    "actual": {
+      "stage_b_local_epochs": 40,
+      "stage_b_batch_size": 16,
+      "stage_b_local_lr": 0.1,
+      "stage_c_steps": 180,
+      "stage_c_learning_rate": 0.002,
+      "stage_c_noise_multiplier": 0.5685304635176568,
+      "stage_c_gamma": 0.5,
+      "stage_c_eta_c": 0.1
+    },
+    "passed": true
+  },
+  "locked_holdout_read": false,
+  "official_test_read": false
+}

@@ -1,0 +1,17 @@
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=tiny split=balanced clients=5 feature_dim=2048 classes=200
+local_epochs=40 distill_epochs=0 batch_size=16 cpu_policy=runtime_unrestricted num_workers=N/A
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/full_data_formal/tiny/seed42
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+恢复 Stage B checkpoint: local=25 teacher=False distill=0
+[StageB-local] epoch=27/40
+[StageB-local] epoch=31/40
+[StageB-local] epoch=36/40
+[StageB-local] epoch=40/40
+selected_model=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/full_data_formal/tiny/seed42/new_secure_stage_b_selected_tiny_balanced_seed42.npz
+report=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/full_data_formal/tiny/seed42/new_secure_stage_b_report_tiny_balanced_seed42.json

@@ -1184,3 +1184,13 @@
 - 启动前检查：当前分支`new-true-ours-pea-figure2`，HEAD/远端均为`d90c08b`；无活动tmux或正式runner；`/root/autodl-tmp`约65GB可用，内存约297GiB available，容器`nproc=32`，宿主AMD EPYC 9654。现有`new_checkpoints/`约19GB且含0.5--1.1GB单文件，因此按用户最终指令只本地保留并记录SHA，不纳入Git。
 - 已创建`plan/0729_true_ours_minimal_correction_execution_plan.md`：固定14-task集合，只补跑Tiny Full Data seed42的干净Stage B→Adaptive Stage C；列出Phase 0现状固化、Phase 1协议/失效清单、Phase 2最小validator/runner、Phase 3 tmux纠正运行、Phase 4累计时间/T@Target、Phase 5三面板Figure 2/简化报告、Phase 6 Git/交接验收，以及每Phase退出门、禁止事项、checkpoint/log政策和6--9小时墙钟预算。
 - 本轮正式运行尚未启动；必须先提交推送该计划和progress，再进入代码修改与preflight。locked holdout/official test仍不读取。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-29（UTC）
+- Phase 0完成：计划与progress提交`eb6dff3`已推送到`new-true-ours-pea-figure2`。GitHub直连首次因GnuTLS超时失败；仅对该海外GitHub push使用用户`127.0.0.1:9999`代理后约4秒成功，未将代理用于本地训练或数据。
+- Phase 1完成：新增`new_true_ours_minimal_correction_policy.json`，固定C10/C100三seeds、Tiny仅seed42的14-task集合；新增旧Tiny Full seed42 superseded manifest和最小execution patch note。旧产物不删除/不覆盖，纠正命名空间固定为`full_data_formal_corrected_v2`。
+- Phase 2实现：新增`new_run_tiny_full_seed42_correction.py`，只授权Tiny Full seed42，使用独立output/checkpoint/log/timeline路径，并在正式启动前硬校验冻结split/code SHA、Stage B LR0.1/40 epochs/batch16、Stage C 180 steps/LR0.002/noise0.5685304635176568和development-only策略；checkpoint仍只本地保存并生成path/size/SHA manifest。
+- 新增`new_validate_minimal_correction.py`：按policy验证14条任务的Stage B/Stage C完整参数、TFE/ABY3、lineage、Poisson+CSPRNG、conditional epsilon、无fallback、development-only和timeline单调性。pre-correction实测为`PRE_CORRECTION_READY_13_OF_14 passed=13/14 missing=1 failed=0`；旧Tiny Full的Stage B和Stage C均被明确拒绝。纠正runner preflight输出`CORRECTION_PREFLIGHT_PASS tiny full_data seed42`。
+- 正式纠正实验仍未启动；先提交推送Phase 1/2代码、验证输出和全部已有formal日志/timeline/report，确保其他agent可见后再启动tmux。locked holdout/official test仍未读取。

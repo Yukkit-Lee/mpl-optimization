@@ -1,0 +1,50 @@
+{
+  "schema": "new_true_ours_minimal_correction_policy_v1",
+  "status": "USER_APPROVED_2026_07_29",
+  "base_freeze_commit": "6973d2528af611c98b60176538e9f6139f7477ab",
+  "base_config": "new_configs/new_true_ours/new_true_ours_config_freeze.json",
+  "base_targets": "new_configs/new_true_ours/new_true_ours_target_freeze.json",
+  "expected_seeds": {
+    "cifar10": [
+      42,
+      43,
+      44
+    ],
+    "cifar100": [
+      42,
+      43,
+      44
+    ],
+    "tiny": [
+      42
+    ]
+  },
+  "methods": [
+    "true_ours",
+    "full_data"
+  ],
+  "expected_task_count": 14,
+  "tiny_seed_policy_reason": "User explicitly approved Tiny-ImageNet seed42-only execution.",
+  "only_authorized_rerun": {
+    "dataset": "tiny",
+    "method": "full_data",
+    "seed": 42,
+    "namespace": "full_data_formal_corrected_v2"
+  },
+  "superseded_namespace": "full_data_formal",
+  "locked_holdout_read": false,
+  "official_test_read": false,
+  "evaluation_scope": "development_validation_only",
+  "checkpoint_git_policy": "local_only_with_path_size_sha256",
+  "log_git_policy": "commit_all_correction_and_formal_text_logs",
+  "prohibited": [
+    "rerun_valid_cifar10",
+    "rerun_valid_cifar100",
+    "rerun_tiny_true_ours_seed42",
+    "new_hyperparameter_tuning",
+    "fixed_dp_sgd",
+    "dp_mtt",
+    "locked_holdout_read",
+    "official_test_read"
+  ]
+}

@@ -1,0 +1,60 @@
+
+RUN_START 2026-07-28T11:16:26Z
+COMMAND /root/autodl-tmp/new_envs/tfe/bin/python /root/autodl-tmp/tfe_experiments/new_stage_b_secure_init.py --feature_cache /root/autodl-tmp/tfe_experiments/new_cache/new_true_ours/official_mtt/stage_b/cifar10/new_true_ours_stage_b_cifar10_seed43.npz --feature_cache_mode npz --dataset cifar10 --output_dir /root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_formal/cifar10/seed43 --checkpoint_prefix /root/autodl-tmp/tfe_experiments/new_checkpoints/new_true_ours/stage_b/true_ours_formal/cifar10/seed43/new_stage_b --seed 43 --num_clients 5 --split balanced --batch_size 8 --local_epochs 40 --local_lr 0.25 --weight_decay 0.0001 --client_weighting sample_count --fedavg_sync_interval 10 --distill_epochs 0 --lambda_kd 0 --reference_supervised_weight 0 --precision_fractional 16 --matmul_chunk_size 64 --checkpoint_interval 5 --formal_candidate_release --secure_average_only --development_checkpoint_evaluation --input_lineage official_mtt_only --shared_initialization
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar10 split=balanced clients=5 feature_dim=2048 classes=10
+local_epochs=40 distill_epochs=0 batch_size=8 cpu_policy=runtime_unrestricted num_workers=N/A
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_formal/cifar10/seed43
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageB-local] epoch=1/40
+[StageB-local] epoch=5/40
+[StageB-local] epoch=10/40
+Traceback (most recent call last):
+  File "/root/autodl-tmp/tfe_experiments/new_stage_b_secure_init.py", line 1669, in <module>
+    raise SystemExit(main())
+  File "/root/autodl-tmp/tfe_experiments/new_stage_b_secure_init.py", line 1419, in main
+    data, client_indices, initial_weights, initial_biases, args
+  File "/root/autodl-tmp/tfe_experiments/new_stage_b_secure_init.py", line 983, in run_secure_stage_b
+    save_checkpoint(graph, session, args.checkpoint_prefix, state)
+  File "/root/autodl-tmp/tfe_experiments/new_stage_b_secure_init.py", line 847, in save_checkpoint
+    graph["saver"].save(session, prefix)
+  File "/root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/training/saver.py", line 1203, in save
+    save_debug_info=save_debug_info)
+  File "/root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/training/saver.py", line 1246, in export_meta_graph
+    graph_def=ops.get_default_graph().as_graph_def(add_shapes=True),
+  File "/root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/framework/ops.py", line 3238, in as_graph_def
+    result, _ = self._as_graph_def(from_version, add_shapes)
+  File "/root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/framework/ops.py", line 3174, in _as_graph_def
+    if op.outputs:
+  File "/root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tensorflow_core/python/framework/ops.py", line 2133, in outputs
+    return self._outputs
+KeyboardInterrupt
+
+RUN_START 2026-07-28T11:34:22Z
+COMMAND /root/autodl-tmp/new_envs/tfe/bin/python /root/autodl-tmp/tfe_experiments/new_stage_b_secure_init.py --feature_cache /root/autodl-tmp/tfe_experiments/new_cache/new_true_ours/official_mtt/stage_b/cifar10/new_true_ours_stage_b_cifar10_seed43.npz --feature_cache_mode npz --dataset cifar10 --output_dir /root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_formal/cifar10/seed43 --checkpoint_prefix /root/autodl-tmp/tfe_experiments/new_checkpoints/new_true_ours/stage_b/true_ours_formal/cifar10/seed43/new_stage_b --seed 43 --num_clients 5 --split balanced --batch_size 8 --local_epochs 40 --local_lr 0.25 --weight_decay 0.0001 --client_weighting sample_count --fedavg_sync_interval 10 --distill_epochs 0 --lambda_kd 0 --reference_supervised_weight 0 --precision_fractional 16 --matmul_chunk_size 64 --checkpoint_interval 5 --formal_candidate_release --secure_average_only --development_checkpoint_evaluation --input_lineage official_mtt_only --shared_initialization
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar10 split=balanced clients=5 feature_dim=2048 classes=10
+local_epochs=40 distill_epochs=0 batch_size=8 cpu_policy=runtime_unrestricted num_workers=N/A
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_formal/cifar10/seed43
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+恢复 Stage B checkpoint: local=5 teacher=False distill=0
+[StageB-local] epoch=10/40
+[StageB-local] epoch=14/40
+[StageB-local] epoch=18/40
+[StageB-local] epoch=23/40
+[StageB-local] epoch=27/40
+[StageB-local] epoch=31/40
+[StageB-local] epoch=36/40
+[StageB-local] epoch=40/40
+selected_model=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_formal/cifar10/seed43/new_secure_stage_b_selected_cifar10_balanced_seed43.npz
+report=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_formal/cifar10/seed43/new_secure_stage_b_report_cifar10_balanced_seed43.json

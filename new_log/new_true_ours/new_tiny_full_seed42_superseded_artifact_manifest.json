@@ -1,0 +1,49 @@
+{
+  "schema": "new_true_ours_superseded_artifact_manifest_v1",
+  "status": "QUARANTINED_DO_NOT_USE_FOR_PAPER",
+  "dataset": "tiny",
+  "method": "full_data",
+  "seed": 42,
+  "paper_eligible": false,
+  "reasons": [
+    "Stage-B local_lr is 0.2 but the frozen value is 0.1.",
+    "Stage-B resumed from an incompatible checkpoint and therefore mixed configurations.",
+    "Stage-C steps is 30 but the frozen value is 180.",
+    "Stage-C noise multiplier is 0.4677076681 but the frozen value is 0.5685304635176568.",
+    "Stage-C input lineage is legacy_unspecified instead of full_data_disjoint.",
+    "Stage-C epsilon is 4.406038185765161 and exceeds the <=3 gate."
+  ],
+  "replacement_namespace": "full_data_formal_corrected_v2",
+  "artifacts": [
+    {
+      "path": "new_output/new_true_ours/stage_b/full_data_formal/tiny/seed42/new_secure_stage_b_report_tiny_balanced_seed42.json",
+      "size_bytes": 39810,
+      "sha256": "8413429425ac4a674f84107f67a3ef5d8eae3fd85d896644bb03dd4672e35170"
+    },
+    {
+      "path": "new_output/new_true_ours/stage_b/full_data_formal/tiny/seed42/new_secure_stage_b_candidate_nokd_tiny_balanced_seed42.npz",
+      "size_bytes": 883237,
+      "sha256": "e7ae0c5bbdd651cf825f1fda02d95708eed702c4a2dc9c7f06f64ca47ae32c37"
+    },
+    {
+      "path": "new_output/new_true_ours/stage_c/full_data_formal/tiny/seed42/new_secure_stage_c_report_tiny_adaptive_dp_seed42.json",
+      "size_bytes": 16620,
+      "sha256": "fbc17f5fa052aa965afd4e9316e55609895aeb191bbe3d63bf89d69c3b557e76"
+    },
+    {
+      "path": "new_output/new_true_ours/stage_c/full_data_formal/tiny/seed42/new_secure_stage_c_model_tiny_adaptive_dp_seed42.npz",
+      "size_bytes": 883548,
+      "sha256": "df956c44a3a12abf4c97ab7ff3f9c409b5af6973a0971a7be70f0ef2cbcb4645"
+    },
+    {
+      "path": "new_checkpoints/new_true_ours/stage_b/full_data_formal/tiny/seed42/new_stage_b_new_state.json",
+      "size_bytes": 17801,
+      "sha256": "9d15411c86b60d1a93bb781f13c0f7d2e74379913ef4ae5fcbabc02bf5e3a333"
+    },
+    {
+      "path": "new_checkpoints/new_true_ours/stage_c/full_data_formal/tiny/seed42_new_state.json",
+      "size_bytes": 12083,
+      "sha256": "e1c9c0c5022a65c231d2726a25765bc2322e2364e08a0c466843cc290c00909a"
+    }
+  ]
+}

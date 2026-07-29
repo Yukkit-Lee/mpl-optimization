@@ -1,0 +1,25 @@
+
+RUN_START 2026-07-28T13:28:31Z ATTEMPT 1/1
+COMMAND /root/autodl-tmp/new_envs/tfe/bin/python /root/autodl-tmp/tfe_experiments/new_stage_b_secure_init.py --feature_cache /root/autodl-tmp/tfe_experiments/new_cache/new_true_ours/official_mtt/stage_b/cifar100/new_true_ours_stage_b_cifar100_seed43.npz --feature_cache_mode npz --dataset cifar100 --output_dir /root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_formal/cifar100/seed43 --checkpoint_prefix /root/autodl-tmp/tfe_experiments/new_checkpoints/new_true_ours/stage_b/true_ours_formal/cifar100/seed43/new_stage_b --seed 43 --num_clients 5 --split balanced --batch_size 8 --local_epochs 80 --local_lr 0.25 --weight_decay 0.0001 --client_weighting sample_count --fedavg_sync_interval 20 --distill_epochs 0 --lambda_kd 0 --reference_supervised_weight 0 --precision_fractional 16 --matmul_chunk_size 64 --checkpoint_interval 5 --formal_candidate_release --secure_average_only --development_checkpoint_evaluation --input_lineage official_mtt_only
+============================================================================================
+Stage B：TFE/ABY3 Secure Consensus Initialization
+dataset=cifar100 split=balanced clients=5 feature_dim=2048 classes=100
+local_epochs=80 distill_epochs=0 batch_size=8 cpu_policy=runtime_unrestricted num_workers=N/A
+backend=tfe_mpc protocol=ABY3 precision_fractional=16 output=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_formal/cifar100/seed43
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageB-local] epoch=1/80
+[StageB-local] epoch=10/80
+[StageB-local] epoch=19/80
+[StageB-local] epoch=27/80
+[StageB-local] epoch=36/80
+[StageB-local] epoch=45/80
+[StageB-local] epoch=54/80
+[StageB-local] epoch=62/80
+[StageB-local] epoch=71/80
+[StageB-local] epoch=80/80
+selected_model=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_formal/cifar100/seed43/new_secure_stage_b_selected_cifar100_balanced_seed43.npz
+report=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/true_ours_formal/cifar100/seed43/new_secure_stage_b_report_cifar100_balanced_seed43.json

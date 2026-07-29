@@ -1,0 +1,25 @@
+
+RUN_START 2026-07-28T17:59:02Z ATTEMPT 1/1
+COMMAND /root/autodl-tmp/new_envs/tfe/bin/python /root/autodl-tmp/tfe_experiments/new_stage_c_secure_dpsgd.py --feature_cache /root/autodl-tmp/tfe_experiments/new_cache/new_true_ours/full_data_stage_c/cifar100/new_full_stage_c_cifar100_seed44.npz --feature_cache_mode memmap --initializer /root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_b/full_data_formal/cifar100/seed44/new_secure_stage_b_candidate_nokd_cifar100_balanced_seed44.npz --dataset cifar100 --mode adaptive_dp --output_dir /root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_c/full_data_formal/cifar100/seed44 --checkpoint_prefix /root/autodl-tmp/tfe_experiments/new_checkpoints/new_true_ours/stage_c/full_data_formal/cifar100/seed44/new_stage_c --seed 44 --batch_size 64 --expected_batch_size 16 --sampling_mode poisson --steps 20 --learning_rate 0.01 --noise_multiplier 0.5773884897632264 --count_noise_multiplier 8.0 --clip_c 2.0 --clipping_scope global --gamma 0.1 --eta_c 0.05 --c_min 0.05 --c_max 4.0 --warmup_steps 5 --update_interval 5 --delta 1e-05 --precision_fractional 16 --matmul_chunk_size 64 --checkpoint_interval 5 --initializer_privacy_status data_dependent_non_dp --input_lineage full_data_disjoint --evaluation_split development_validation
+============================================================================================
+Stage C：TFE/ABY3 Secure adaptive_dp DP-SGD
+dataset=cifar100 samples=5000 graph_capacity=64 expected_batch=16 sampling=poisson steps=20 feature_dim=2048
+noise_multiplier=0.5773884897632264 count_noise=8.0 delta=1e-05 cpu_policy=unrestricted
+============================================================================================
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[StageC] step=1/20 ref_acc=0.4412 C_t=2.00000 noisy_b=N/A
+[StageC] step=3/20 ref_acc=0.4414 C_t=2.00000 noisy_b=N/A
+[StageC] step=5/20 ref_acc=0.4390 C_t=2.00000 noisy_b=N/A
+[StageC] step=7/20 ref_acc=0.4356 C_t=2.00000 noisy_b=N/A
+[StageC] step=9/20 ref_acc=0.4376 C_t=2.00000 noisy_b=N/A
+[StageC] step=12/20 ref_acc=0.4366 C_t=1.95959 noisy_b=N/A
+[StageC] step=14/20 ref_acc=0.4350 C_t=1.95959 noisy_b=N/A
+[StageC] step=16/20 ref_acc=0.4344 C_t=1.94504 noisy_b=N/A
+[StageC] step=18/20 ref_acc=0.4330 C_t=1.94504 noisy_b=N/A
+[StageC] step=20/20 ref_acc=0.4338 C_t=1.94504 noisy_b=0.8579
+epsilon_C=3.000000 final_C=1.872543
+model=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_c/full_data_formal/cifar100/seed44/new_secure_stage_c_model_cifar100_adaptive_dp_seed44.npz
+report=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_c/full_data_formal/cifar100/seed44/new_secure_stage_c_report_cifar100_adaptive_dp_seed44.json
