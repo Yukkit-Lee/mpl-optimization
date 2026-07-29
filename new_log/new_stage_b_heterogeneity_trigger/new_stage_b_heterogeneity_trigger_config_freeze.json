@@ -1,0 +1,97 @@
+{
+  "schema": "new_stage_b_heterogeneity_trigger_config_freeze_v1",
+  "status": "NOT_FROZEN_PLAINTEXT_GATE_FAILED",
+  "frozen": false,
+  "reason": "S0 crossover premise failed and all registered trigger candidates exceeded the oracle-regret gate",
+  "candidate_for_diagnosis_only": {
+    "rule_type": "single_metric",
+    "metric": "H1_mean_tv",
+    "threshold": 0.21869851875313867,
+    "routed": [
+      {
+        "dataset": "cifar10",
+        "distribution": "iid",
+        "score": 0.0,
+        "trigger_bit": 0,
+        "b2_accuracy": 0.227,
+        "oracle_accuracy": 0.5768,
+        "oracle_regret": 0.3498
+      },
+      {
+        "dataset": "cifar10",
+        "distribution": "mild",
+        "score": 0.43909854851031327,
+        "trigger_bit": 1,
+        "b2_accuracy": 0.5576,
+        "oracle_accuracy": 0.5576,
+        "oracle_regret": 0.0
+      },
+      {
+        "dataset": "cifar10",
+        "distribution": "severe",
+        "score": 0.5904783787943806,
+        "trigger_bit": 1,
+        "b2_accuracy": 0.577,
+        "oracle_accuracy": 0.577,
+        "oracle_regret": 0.0
+      },
+      {
+        "dataset": "cifar100",
+        "distribution": "iid",
+        "score": 0.0,
+        "trigger_bit": 0,
+        "b2_accuracy": 0.1024,
+        "oracle_accuracy": 0.2212,
+        "oracle_regret": 0.1188
+      },
+      {
+        "dataset": "cifar100",
+        "distribution": "mild",
+        "score": 0.43739703750627734,
+        "trigger_bit": 1,
+        "b2_accuracy": 0.2034,
+        "oracle_accuracy": 0.2034,
+        "oracle_regret": 0.0
+      },
+      {
+        "dataset": "cifar100",
+        "distribution": "severe",
+        "score": 0.6546413847955496,
+        "trigger_bit": 1,
+        "b2_accuracy": 0.1762,
+        "oracle_accuracy": 0.1762,
+        "oracle_regret": 0.0
+      }
+    ],
+    "mean_oracle_regret": 0.0781,
+    "max_oracle_regret": 0.3498,
+    "gate_extreme_routing": true,
+    "gate_oracle_regret": false,
+    "gate_severe_recovery": true,
+    "gate_iid_safety": true,
+    "gate_cost_avoidance": true,
+    "all_mandatory_gates": false,
+    "candidate_name": "cifar100_iid_mild"
+  },
+  "datasets": [
+    "cifar10",
+    "cifar100"
+  ],
+  "distributions": [
+    "iid",
+    "mild",
+    "severe"
+  ],
+  "seed": 42,
+  "reveal_policy": "one_trigger_bit_only_if_formal_run_were_authorized",
+  "source_git_commit": "db2e0722896e6c90cf4e6ad2a94c3ff37770b4d8",
+  "experiment_source_git_commit": "3c4b989b5c33f4424663affa1291a51c596b9b50",
+  "split_manifest_path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_split_manifest.json",
+  "split_manifest_sha256": "e1e942e20836cc1e217ac4b8622b822014b9d16f90e9a5083b9746833192cbe9",
+  "policy_path": "new_configs/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_policy.json",
+  "policy_sha256": "3a3f786db9a2584ba6e37b018652a7e06d02f308ea2f485bde1b3eb78e2ce13c",
+  "official_mtt_only": true,
+  "full_data_initializer_dependency": false,
+  "locked_holdout_read": false,
+  "official_test_read": false
+}

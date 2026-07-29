@@ -1342,3 +1342,8 @@
 - 共完成22个注册候选（H1--H3全部中点、H3 10/25/50%、H3+H1 OR/AND）。最佳极端路由为H1 threshold=`0.218699`：IID no-refine、Mild/Severe refine，Extreme/Severe/IID/Cost gates机械通过，但mean/max oracle regret=`7.81/34.98pp`，远超`0.5/1.0pp`，所以所有mandatory gates失败；smoke=false，next=`NEGATIVE_STOP_S0_OR_TRIGGER_GATE`，partition_id=1和TFE均按文档跳过。
 - 负结果交付生成器已实现但尚未运行：将生成全部12个mandatory outputs、split/freeze/completion审计、四张表及Figure B1--B4；config/threshold freeze会明确`NOT_FROZEN_PLAINTEXT_GATE_FAILED`，TFE表明确SKIPPED，不会伪造secure runtime或触发结果。
 - 中断后恢复检查确认plaintext已正常结束、无残留tmux/TFE/trigger进程，HEAD与远端均为`dc158d0`；已有交付物不重复计算。人工审图发现Figure B4首个流程框中心位于x=0.02导致左边界裁切，现仅调整五个流程框为0.10--0.90的安全等距布局；不改变任何实验数据、门控或结论。
+- Figure B4布局修复提交`db2e072`已先推送，随后由该HEAD重新生成全套交付物；人工复核Figure B1--B4均无裁切、遮挡、空图或误标，B3标题明确其为plaintext runtime且secure runtime未测，B4明确因oracle-regret gate失败而未启动TFE/ABY3。
+- 最终逐项审计通过：4/4 count/metric/routing测试函数通过；6行metric、132行threshold明细、6行main table、18行runtime、18行utility、4行TFE skip均无NaN/Inf。22个注册候选由20个单指标阈值及H3+H1 OR/AND各1个组成，每个均覆盖6个场景，全部mandatory gate通过数为0。
+- 分割审计确认6个场景均为Official-MTT 40 local + 8 anchor/class、local∩anchor=0、development互斥并保存ID/checkpoint/config SHA；locked holdout与official test读取均为false，Full initializer依赖为false，raw private histograms未写入，仅保存hash和聚合H值。
+- 最终completion audit状态为`COMPLETE_NEGATIVE`，32个必需表/报告/图形文件均存在且非空；plaintext总runtime=`2.5427s`、peak RSS=`0.4147GiB`。config/threshold状态均为`NOT_FROZEN_PLAINTEXT_GATE_FAILED`，partition confirmation与TFE均为`SKIPPED_SMOKE_GATE`，严格满足计划负面停止条件且没有启动任何禁止实验。
+- 实验作用与论文边界：H1--H3确实能测量IID→Mild→Severe标签偏斜，但B1在六场全部显著优于B0，因此它们不能决定“何时才需要anchor CE”。该路线应作为seed42负结果/因果排雷，不应作为正Stage-B模块；安全论文表述、12问答案、完整数据与限制均已写入最终报告。

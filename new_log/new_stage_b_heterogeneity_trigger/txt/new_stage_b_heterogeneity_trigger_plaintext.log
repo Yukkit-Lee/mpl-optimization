@@ -1,0 +1,54 @@
+{
+  "crossover": {
+    "cifar10": {
+      "iid": {
+        "b0_accuracy": 0.227,
+        "b1_accuracy": 0.5768,
+        "b1_minus_b0_accuracy": 0.3498
+      },
+      "mild": {
+        "b0_accuracy": 0.2202,
+        "b1_accuracy": 0.5576,
+        "b1_minus_b0_accuracy": 0.3374
+      },
+      "severe": {
+        "b0_accuracy": 0.1884,
+        "b1_accuracy": 0.577,
+        "b1_minus_b0_accuracy": 0.38859999999999995
+      }
+    },
+    "cifar100": {
+      "iid": {
+        "b0_accuracy": 0.1024,
+        "b1_accuracy": 0.2212,
+        "b1_minus_b0_accuracy": 0.1188
+      },
+      "mild": {
+        "b0_accuracy": 0.0906,
+        "b1_accuracy": 0.2034,
+        "b1_minus_b0_accuracy": 0.1128
+      },
+      "severe": {
+        "b0_accuracy": 0.0808,
+        "b1_accuracy": 0.1762,
+        "b1_minus_b0_accuracy": 0.0954
+      }
+    }
+  },
+  "monotonicity": {
+    "H1_mean_tv": true,
+    "H2_entropy_deficit": true,
+    "H3_missing_class_ratio": true
+  },
+  "selected": {
+    "candidate_name": "cifar100_iid_mild",
+    "metric": "H1_mean_tv",
+    "threshold": 0.21869851875313867,
+    "mean_oracle_regret": 0.0781,
+    "max_oracle_regret": 0.3498,
+    "gate_extreme_routing": true,
+    "all_mandatory_gates": false
+  },
+  "smoke_pass": false,
+  "next_phase": "NEGATIVE_STOP_S0_OR_TRIGGER_GATE"
+}

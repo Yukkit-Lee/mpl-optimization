@@ -1,0 +1,188 @@
+{
+  "schema": "new_stage_b_heterogeneity_trigger_completion_audit_v1",
+  "status": "COMPLETE_NEGATIVE",
+  "source_git_commit": "db2e0722896e6c90cf4e6ad2a94c3ff37770b4d8",
+  "experiment_source_git_commit": "3c4b989b5c33f4424663affa1291a51c596b9b50",
+  "required_files": [
+    {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_reuse_audit.json",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expTab/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_metric_table.csv",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expTab/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_threshold_screen.csv",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_smoke_summary.json",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_smoke_report.md",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_config_freeze.json",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_threshold_freeze.json",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expTab/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_tfe_results.csv",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expTab/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_runtime.csv",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expTab/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_main_table.csv",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_claim_audit.md",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_final_report.md",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_split_manifest.json",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_split_audit.md",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_freeze_manifest.md",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expTab/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_utility_table.csv",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_heterogeneity_trigger/new_figure_b1_heterogeneity_vs_anchor_benefit.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_heterogeneity_trigger/new_figure_b1_heterogeneity_vs_anchor_benefit.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_heterogeneity_trigger/new_figure_b1_heterogeneity_vs_anchor_benefit.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_heterogeneity_trigger/new_figure_b1_heterogeneity_vs_anchor_benefit.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_heterogeneity_trigger/new_figure_b2_routed_stage_b_accuracy.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_heterogeneity_trigger/new_figure_b2_routed_stage_b_accuracy.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_heterogeneity_trigger/new_figure_b2_routed_stage_b_accuracy.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_heterogeneity_trigger/new_figure_b2_routed_stage_b_accuracy.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_heterogeneity_trigger/new_figure_b3_stage_b_runtime.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_heterogeneity_trigger/new_figure_b3_stage_b_runtime.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_heterogeneity_trigger/new_figure_b3_stage_b_runtime.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_heterogeneity_trigger/new_figure_b3_stage_b_runtime.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_heterogeneity_trigger/new_figure_b4_trigger_decision_diagram.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_heterogeneity_trigger/new_figure_b4_trigger_decision_diagram.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_heterogeneity_trigger/new_figure_b4_trigger_decision_diagram.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_heterogeneity_trigger/new_figure_b4_trigger_decision_diagram.pdf",
+      "exists": true,
+      "nonempty": true
+    }
+  ],
+  "datasets": [
+    "cifar10",
+    "cifar100"
+  ],
+  "distributions": [
+    "iid",
+    "mild",
+    "severe"
+  ],
+  "metric_rows": 6,
+  "threshold_candidates": 22,
+  "crossover_pass": false,
+  "smoke_pass": false,
+  "negative_stop_proven": true,
+  "tfe_status": "SKIPPED_SMOKE_GATE",
+  "raw_histograms_revealed": false,
+  "official_mtt_only": true,
+  "full_data_initializer_dependency": false,
+  "locked_holdout_read": false,
+  "official_test_read": false
+}

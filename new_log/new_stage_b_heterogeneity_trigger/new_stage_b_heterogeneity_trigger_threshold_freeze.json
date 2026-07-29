@@ -1,0 +1,30 @@
+{
+  "schema": "new_stage_b_heterogeneity_trigger_threshold_freeze_v1",
+  "status": "NOT_FROZEN_PLAINTEXT_GATE_FAILED",
+  "frozen": false,
+  "selected_metric_for_diagnosis": "H1_mean_tv",
+  "selected_threshold_for_diagnosis": 0.21869851875313867,
+  "mean_oracle_regret": 0.0781,
+  "max_oracle_regret": 0.3498,
+  "all_mandatory_gates": false,
+  "datasets": [
+    "cifar10",
+    "cifar100"
+  ],
+  "distributions": [
+    "iid",
+    "mild",
+    "severe"
+  ],
+  "seed": 42,
+  "source_git_commit": "db2e0722896e6c90cf4e6ad2a94c3ff37770b4d8",
+  "experiment_source_git_commit": "3c4b989b5c33f4424663affa1291a51c596b9b50",
+  "split_manifest_path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_split_manifest.json",
+  "split_manifest_sha256": "e1e942e20836cc1e217ac4b8622b822014b9d16f90e9a5083b9746833192cbe9",
+  "policy_path": "new_configs/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_policy.json",
+  "policy_sha256": "3a3f786db9a2584ba6e37b018652a7e06d02f308ea2f485bde1b3eb78e2ce13c",
+  "official_mtt_only": true,
+  "full_data_initializer_dependency": false,
+  "locked_holdout_read": false,
+  "official_test_read": false
+}
