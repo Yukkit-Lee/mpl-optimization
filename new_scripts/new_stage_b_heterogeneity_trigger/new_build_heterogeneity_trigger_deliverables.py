@@ -369,11 +369,11 @@ def build_figures(summary: Dict[str, Any], tables: Dict[str, List[Dict[str, Any]
     figure, axis = plt.subplots(figsize=(12, 3.4), constrained_layout=True)
     axis.axis("off")
     boxes = [
-        (0.02, "Secret-shared\nclient class counts"),
-        (0.25, "Secure H1/H2/H3\nheterogeneity score"),
-        (0.49, "Frozen threshold\ncomparison"),
+        (0.10, "Secret-shared\nclient class counts"),
+        (0.30, "Secure H1/H2/H3\nheterogeneity score"),
+        (0.50, "Frozen threshold\ncomparison"),
         (0.70, "Reveal one\ntrigger bit"),
-        (0.88, "0: Average\n1: Anchor CE"),
+        (0.90, "0: Average\n1: Anchor CE"),
     ]
     for x, text in boxes:
         axis.text(

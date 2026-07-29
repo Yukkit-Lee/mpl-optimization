@@ -1341,3 +1341,4 @@
 - H1/H2/H3均严格IID→Mild→Severe单调：C10 H1=`0/0.4391/0.5905`、H2=`0/0.2550/0.4352`、H3=`0/0.200/0.540`；C100为H1=`0/0.4374/0.6546`、H2=`0/0.1269/0.2504`、H3=`0/0.206/0.536`。这些指标能测标签skew，但不能预测anchor CE是否有益。
 - 共完成22个注册候选（H1--H3全部中点、H3 10/25/50%、H3+H1 OR/AND）。最佳极端路由为H1 threshold=`0.218699`：IID no-refine、Mild/Severe refine，Extreme/Severe/IID/Cost gates机械通过，但mean/max oracle regret=`7.81/34.98pp`，远超`0.5/1.0pp`，所以所有mandatory gates失败；smoke=false，next=`NEGATIVE_STOP_S0_OR_TRIGGER_GATE`，partition_id=1和TFE均按文档跳过。
 - 负结果交付生成器已实现但尚未运行：将生成全部12个mandatory outputs、split/freeze/completion审计、四张表及Figure B1--B4；config/threshold freeze会明确`NOT_FROZEN_PLAINTEXT_GATE_FAILED`，TFE表明确SKIPPED，不会伪造secure runtime或触发结果。
+- 中断后恢复检查确认plaintext已正常结束、无残留tmux/TFE/trigger进程，HEAD与远端均为`dc158d0`；已有交付物不重复计算。人工审图发现Figure B4首个流程框中心位于x=0.02导致左边界裁切，现仅调整五个流程框为0.10--0.90的安全等距布局；不改变任何实验数据、门控或结论。
