@@ -1358,3 +1358,7 @@
 - 启动前资源审计：容器可用`nproc=32`，宿主Intel Xeon Platinum 8474C，约472GiB available RAM；`/root/autodl-tmp`约20GiB可用，现有`new_checkpoints/`约22GiB。发现VS Code后台`git add --sparse`占用单核并扫描整个仓库，已只终止该精确进程，暂存区为空，未修改或删除任何数据/checkpoint。
 - 复用预审计：现有40 local + 8 anchor/class的Official-MTT划分、六个IID/Mild/Severe本地头、C4/C5结果和split/model hash可精确复用；旧KD的C10部分使用4-anchor协议，不能冒充本任务结果。当前缺口主要是同预算C0/C1、合法预注册C2/C3，以及C1/C3/C5逐步收敛轨迹和初始化来源因果门。
 - 初始工期评估：若注册plaintext显示C5相对C1/C3无独立精度或步数优势，约1--2小时完成负面停止和全套交付；若通过smoke并进入真实TFE/ABY3，预计总计4--8小时。下一唯一操作是提交并推送计划/进度基线，再实现低成本同预算plaintext因果比较。
+- 计划与进度基线提交`725fbf5`已推送至新分支。plaintext实现完成但尚未启动：新增冻结policy、同预算Anchor CE轨迹核心、注册顺序runner、最大线程launcher及5项确定性测试；C2/C3使用不访问development的固定client-0规则，Random使用与客户端共享初始参数一致的seed42初始化。
+- runner严格按计划在两个Severe场景顺序筛选steps 5/10/20/40→LR multiplier 0.25/0.5/1.0→mu 0/1e-4/1e-3，每个配置同时运行C1/C3/C5并按C5−C1、C5−C3、C5精度、低成本的预注册顺序选择；冻结后覆盖IID/Mild/Severe并保留每一步accuracy/F1/worst-class/CE/distance/time轨迹。
+- 新实现同时登记C0--C5、模型/config/split/checkpoint SHA、local/anchor/development互斥、refinement forward/backward/runtime、peak RSS及Stage-B内部Steps/Seconds@80/90/95；T@Target明确不是End-to-End指标。只有Gate A--F全部通过才将下一阶段设为freeze/TFE，否则自动负面停止。
+- 静态`py_compile`、launcher语法、policy hard gate及5/5个zero-step、toy convergence、step-efficiency、固定local选择、model-hash测试全部通过。下一唯一操作是提交推送实现代码，再在独立tmux中以32线程环境运行plaintext注册实验。

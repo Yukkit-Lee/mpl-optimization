@@ -1,0 +1,40 @@
+{
+  "schema": "new_stage_b_anchor_postagg_policy_v1",
+  "plan": "plan/0730_1_new_stage_b_mtt_anchor_post_aggregation_refinement_prompt.md",
+  "branch": "new-stage-b-mtt-anchor-postagg",
+  "datasets": ["cifar10", "cifar100"],
+  "seed": 42,
+  "clients": 5,
+  "distributions": ["iid", "mild", "severe"],
+  "local_per_class": 40,
+  "anchor_per_class": 8,
+  "random_initialization_seed": 42,
+  "local_selection_rule": "fixed_client_id_0_without_development_access",
+  "local_configs": {
+    "cifar10": {"epochs": 5, "learning_rate": 0.1, "weight_decay": 0.0001},
+    "cifar100": {"epochs": 40, "learning_rate": 0.2, "weight_decay": 0.0001}
+  },
+  "anchor_search": {
+    "steps": [5, 10, 20, 40],
+    "learning_rate_multipliers": [0.25, 0.5, 1.0],
+    "regularization_mu": [0.0, 0.0001, 0.001],
+    "base_learning_rate": {"cifar10": 0.1, "cifar100": 0.2},
+    "selection_order": ["C5_minus_C1", "C5_minus_C3", "C5_accuracy", "lower_cost"]
+  },
+  "tfe_fixed_point_precision": 16,
+  "tfe_allowed_only_after_all_smoke_gates": true,
+  "checkpoint_git_policy": "large_checkpoints_local_only",
+  "forbidden": [
+    "stage_c",
+    "adaptive_dp_sgd",
+    "fixed_dp_sgd",
+    "end_to_end",
+    "figure_2",
+    "end_to_end_t_target",
+    "official_test",
+    "locked_holdout",
+    "full_data_initializer",
+    "seeds_43_44",
+    "tiny_imagenet"
+  ]
+}
