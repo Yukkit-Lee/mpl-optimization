@@ -1,0 +1,75 @@
+{
+  "schema": "new_stage_b_kd_single_seed_policy_v1",
+  "status": "FROZEN_BEFORE_IMPLEMENTATION",
+  "source_branch": "new-stage-b-mtt-anchor-kd",
+  "source_parent_commit": "d2612d1bc07d05f189ba0a46baa4897671e01a3d",
+  "seed_policy": {
+    "all_phases": [
+      42
+    ],
+    "future_extension_only_after_positive_single_seed_result": [
+      43,
+      44
+    ]
+  },
+  "datasets": {
+    "required": [
+      "cifar10",
+      "cifar100"
+    ],
+    "optional": [
+      "tiny"
+    ]
+  },
+  "phases": {
+    "smoke": {
+      "seed": 42,
+      "distribution": "severe",
+      "backend": "plaintext_float"
+    },
+    "plaintext_confirmation": {
+      "seed": 42,
+      "distributions": [
+        "iid",
+        "mild",
+        "severe"
+      ],
+      "methods": [
+        "secure_average",
+        "uniform_logit_kd",
+        "selected_class_aware_consensus_kd"
+      ]
+    },
+    "secure_validation": {
+      "seed": 42,
+      "backend": "TFE_ABY3",
+      "allowed_only_after_plaintext_gate": true
+    }
+  },
+  "single_seed_success_gate": {
+    "severe_accuracy_gain_min": 0.01,
+    "severe_worst_class_gain_min": 0.02,
+    "iid_accuracy_drop_max": 0.005,
+    "teacher_gain_strictly_positive": true,
+    "student_teacher_gain_retention_min": 0.8,
+    "tfe_accuracy_gain_min": 0.008,
+    "tfe_plaintext_gain_retention_min": 0.8
+  },
+  "statistics_forbidden_in_current_task": [
+    "mean_across_seeds",
+    "sample_standard_deviation_across_seeds",
+    "paired_seed_stability",
+    "two_of_three_seed_claim"
+  ],
+  "forbidden": [
+    "stage_c",
+    "adaptive_dp_sgd",
+    "fixed_dp_sgd",
+    "official_test",
+    "locked_holdout",
+    "full_data_initializer",
+    "figure2",
+    "t_target",
+    "end_to_end_claim"
+  ]
+}

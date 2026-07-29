@@ -1224,3 +1224,14 @@
 - 报告以 `new_true_ours_master_results.json` 为当前权威来源，明确 14/14 为 development-only：C10/C100 各3 seeds、Tiny seed42-only；C10 True Ours 最终精度低 Full 4.29pp但 T@90 快2.54×，C100精度高5.40pp且 T@90 快2.53×，Tiny精度高4.21pp且 T@90 快2.46×、但完整流程慢1.52×。
 - 论文边界已统一：当前 epsilon 仅为 conditional Stage-C mechanism，非端到端 record DP；旧 hybrid Improved Ours、错误 Tiny Full、来源未验证 direct evaluation 和 `new_true_ours_final_test.*` 均明确排除出主结果；旧 incremental Ours 缺 Stage-B 计时，不能用于公平端到端 speedup。
 - 报告给出正文/补充材料/禁用图表清单，并将可信冻结后测试评估、CIFAR-10效用缺口、Tiny多seed、端到端隐私边界、通信量测量和指标语义统一列为分级改进项。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-29（UTC）
+- 新持续目标：执行 `plan/0729_new_stage_b_mtt_anchor_kd_consensus_agent_prompt.md` 的 Stage-B-only MTT-anchor KD/Consensus 实验。用户最新指令覆盖文档内所有三seed设计：当前 Phase A/B/C 的每项实验只运行 seed42；只有完整单seed任务证明数据/方法有效后，才生成 seeds43/44 扩展计划，不直接启动剩余seeds。
+- 已完整读取833行计划并冻结禁止边界：不运行Stage C、Adaptive/Fixed DP-SGD、End-to-End、Figure2或T@Target；不读取locked holdout/official test；不加载Full-Data initializer；所有候选保持`official_mtt_only`与Full依赖为0。
+- 创建隔离分支 `new-stage-b-mtt-anchor-kd`，父提交为 `d2612d1bc07d05f189ba0a46baa4897671e01a3d`。新增单seed policy JSON，并在原计划顶部写入runtime override，明确单seed confirmation/TFE门及禁止跨seed统计。
+- 启动前资源：容器`nproc=32`，宿主AMD EPYC 9654（192 logical CPUs），约253GiB available RAM，`/root/autodl-tmp`约63GiB可用；无tmux或训练进程。现有`new_checkpoints/`约21GiB，继续按政策仅本地保留。
+- 发现VS Code触发的`git add --sparse`持续以100%单核扫描本地checkpoints且尚未产生已暂存文件；为防止21GiB checkpoint误入Git，已只终止该精确暂存进程，未删除/修改任何checkpoint或实验资产，Git index无残留lock。
+- 现有旧regularized-consensus脚本只按reference loss做参数聚合，不满足本任务的“40/class local pool + 8/class MTT anchor、预测空间teacher、全局student KD”定义；旧结果只能作历史诊断。后续将复用已审计Official-MTT和独立development split，不覆盖True Ours正式产物。
