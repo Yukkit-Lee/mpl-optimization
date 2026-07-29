@@ -1280,3 +1280,15 @@
 - 人工看图发现第一版Figure B3图例重复、Supplementary S1因factor字段不匹配为空；未接受该版本。绘图逻辑修正后重新生成，第二次人工检查通过，其余图无截断/错位。逐类别TFE结果为C10 9/10、C100 93/100类别改善。
 - completion audit最终`COMPLETE 13/13`：分支、单seed、split、S1--S6、因果分解、完整TFE、lineage、全runtime/resource、必需产物、checkpoint不入Git、禁止实验隔离及remaining-plan-only全部通过。结论保持因果诚实：anchor标签监督有效；class-aware Consensus/KD无独立正贡献，应作为negative result而非正模块。
 - 完整代码/结果/图/日志/最终模型提交`a926570`已推送至远端同名分支；约1.1MiB最终TFE模型纳入Git，大型checkpoint仍仅本地保存。推送后HEAD与`origin/new-stage-b-mtt-anchor-kd`一致，三组TFE model/report SHA256逐项复核全部OK，无活动tmux或残留实验进程，磁盘约62GiB可用。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-30（UTC）
+- 新持续目标：严格执行 `plan/0730_new_stage_b_heterogeneity_aware_secure_anchor_refinement_prompt.md`，仅研究 Stage-B 的 heterogeneity-aware secure anchor refinement；本轮只允许 CIFAR-10/CIFAR-100、seed42、Severe Non-IID 主实验及 IID safety check，不启动 Stage C、任何 DP-SGD、End-to-End、Figure 2、Tiny、seeds43/44，也不读取 locked holdout/official test。
+- 已完整读取计划990行并冻结比较：B0=Secure Average，B1=uniform labeled-anchor CE，B2=disagreement-weighted CE，B3=top-disagreement CE，B4=已有KD负对照且不重新调参；主问题为 B2/B3 相对 B1 的效用增益，或在效用基本持平时是否至少减少30%的anchor/步骤/安全算子成本。
+- 创建隔离分支 `new-stage-b-secure-anchor-refinement`，父提交为 `ebf1f70`；所有新代码、配置、日志、表格、图和报告将写入独立的 `new_stage_b_anchor_refinement` 命名空间，不覆盖已有 True Ours、MTT-anchor KD 或其他正式产物。
+- 启动前环境复核：容器 `nproc=32`，宿主 Intel Xeon Platinum 8474C（192 logical CPUs），约473GiB可用内存；`/root/autodl-tmp`约25GiB可用，现有 `new_checkpoints/`约22GiB，后续大型checkpoint继续仅本地保存并监控磁盘。
+- 当前无活动tmux或实验进程。发现VS Code后台 `git add --sparse` 以约100%单核扫描仓库，可能误处理本地checkpoint；已只终止该精确Git进程，暂存区为空，未删除或修改任何checkpoint/数据。
+- 已确认上一轮冻结的Official-MTT-only 40 local + 8 anchor/class split、本地五客户端头及development-only评价资产可以只读复用，以避免重复训练；本轮会重新登记依赖路径、SHA256、partition/split hash与source commit，并保持Full initializer依赖为0、locked/test读取标志为false。
+- 下一步按计划顺序实现并运行plaintext Phase A：先诊断D1概率方差、D2 mean JS、D3 vote entropy对错误的检测能力，再依次筛选B1预算、disagreement定义、权重/阈值、top ratio与成本配置；只有注册搜索及success/negative gate完成后才决定是否进入真实TFE/ABY3 Phase B。
