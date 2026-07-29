@@ -1194,3 +1194,12 @@
 - Phase 2实现：新增`new_run_tiny_full_seed42_correction.py`，只授权Tiny Full seed42，使用独立output/checkpoint/log/timeline路径，并在正式启动前硬校验冻结split/code SHA、Stage B LR0.1/40 epochs/batch16、Stage C 180 steps/LR0.002/noise0.5685304635176568和development-only策略；checkpoint仍只本地保存并生成path/size/SHA manifest。
 - 新增`new_validate_minimal_correction.py`：按policy验证14条任务的Stage B/Stage C完整参数、TFE/ABY3、lineage、Poisson+CSPRNG、conditional epsilon、无fallback、development-only和timeline单调性。pre-correction实测为`PRE_CORRECTION_READY_13_OF_14 passed=13/14 missing=1 failed=0`；旧Tiny Full的Stage B和Stage C均被明确拒绝。纠正runner preflight输出`CORRECTION_PREFLIGHT_PASS tiny full_data seed42`。
 - 正式纠正实验仍未启动；先提交推送Phase 1/2代码、验证输出和全部已有formal日志/timeline/report，确保其他agent可见后再启动tmux。locked holdout/official test仍未读取。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-29 08:43 UTC
+- Phase 1/2提交`1173fa4`已推送，包含14-task policy、旧Tiny Full失效清单、最小validator/runner、13/14预验证结果，以及Claude遗留的全部formal文本日志、timelines和此前未跟踪的C10/C100 Full Stage-B reports。
+- 唯一纠正任务已在tmux `true_ours_tiny_full_correct_v2`启动。Stage B实际命令核对：Tiny Full Data seed42、全新`full_data_formal_corrected_v2`路径、40 epochs、batch16、LR0.1、uniform、no sync、secure-average-only、TFE/ABY3、`full_data_disjoint`。进程启动时CPU约1547%，未设置单线程限制。
+- 启动后约3分40秒已输出`epoch=1/40`，进程正常、RSS约3.6GB。外层可选runner tee因新目录尚未由内层runner创建而未接上；权威Stage-B日志已正常创建并完整记录命令/输出，atomic status=`STAGE_B_RUNNING`，训练和checkpoint不受影响。为避免重复实验没有重启，另建launch audit记录该外围日志偏差。
+- Stage B运行期间已并行实现`new_build_minimal_results_and_figure2.py`，硬门要求`COMPLETE_14_OF_14`后才生成master JSON、累计online-secure T@Target CSV、三面板log-time Figure 2 PNG/PDF/SVG和development-only简化报告；当前只完成语法与聚合helper测试，不会提前使用无效Tiny Full。

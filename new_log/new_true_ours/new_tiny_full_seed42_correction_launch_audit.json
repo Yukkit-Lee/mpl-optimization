@@ -1,0 +1,18 @@
+{
+  "schema": "new_tiny_full_seed42_correction_launch_audit_v1",
+  "launch_utc": "2026-07-29T08:43:25Z",
+  "tmux_session": "true_ours_tiny_full_correct_v2",
+  "runner_pid_at_launch": 599409,
+  "stage_b_pid_at_launch": 599447,
+  "working_directory": "/root/autodl-tmp/tfe_experiments",
+  "runner": "new_scripts/new_true_ours/new_run_tiny_full_seed42_correction.py",
+  "stage_b_log": "new_log/new_true_ours/txt/formal_corrected_v2/new_formal_stage_b_full_data_tiny_seed42.log",
+  "stage_c_log": "new_log/new_true_ours/txt/formal_corrected_v2/new_formal_stage_c_full_data_tiny_seed42.log",
+  "checkpoint_namespace": "new_checkpoints/new_true_ours/stage_b/full_data_formal_corrected_v2/tiny/seed42",
+  "thread_policy": "runtime_unrestricted",
+  "observed_stage_b_cpu_percent": 1547,
+  "locked_holdout_read": false,
+  "official_test_read": false,
+  "outer_tee_note": "The optional outer runner tee started before its new directory existed and did not attach. The authoritative per-stage logs and atomic correction status are unaffected. The run was not restarted to avoid duplicate work.",
+  "recovery_policy": "Resume only from a complete checkpoint in the corrected_v2 namespace with the same frozen configuration."
+}

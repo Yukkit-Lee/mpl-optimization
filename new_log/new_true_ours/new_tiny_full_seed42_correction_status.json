@@ -1,6 +1,6 @@
 {
   "schema": "new_tiny_full_seed42_correction_status_v1",
-  "status": "PREFLIGHT_PASS",
+  "status": "STAGE_B_RUNNING",
   "dataset": "tiny",
   "method": "full_data",
   "seed": 42,
