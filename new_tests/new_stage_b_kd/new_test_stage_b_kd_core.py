@@ -90,6 +90,27 @@ class StageBKDCoreTest(unittest.TestCase):
         self.assertTrue(np.isfinite(bias).all())
         self.assertGreaterEqual(diagnostics["distance_from_average"], 0.0)
 
+    def test_ce_only_ignores_teacher_probabilities(self):
+        rng = np.random.RandomState(7)
+        x_anchor = rng.normal(size=(16, 3)).astype(np.float32)
+        y_anchor = np.asarray([0, 1] * 8, dtype=np.int64)
+        average_weight = np.zeros((3, 2), dtype=np.float32)
+        average_bias = np.zeros(2, dtype=np.float32)
+        teacher_a = np.tile(np.asarray([[0.9, 0.1]], dtype=np.float32), (16, 1))
+        teacher_b = teacher_a[:, ::-1].copy()
+        output_a = train_student(
+            x_anchor, y_anchor, teacher_a, average_weight, average_bias,
+            temperature=2.0, kd_lambda=0.0, average_regularization=0.0,
+            student_steps=10, student_lr=0.1
+        )
+        output_b = train_student(
+            x_anchor, y_anchor, teacher_b, average_weight, average_bias,
+            temperature=2.0, kd_lambda=0.0, average_regularization=0.0,
+            student_steps=10, student_lr=0.1
+        )
+        np.testing.assert_allclose(output_a[0], output_b[0], atol=1e-7)
+        np.testing.assert_allclose(output_a[1], output_b[1], atol=1e-7)
+
 
 if __name__ == "__main__":
     unittest.main()
