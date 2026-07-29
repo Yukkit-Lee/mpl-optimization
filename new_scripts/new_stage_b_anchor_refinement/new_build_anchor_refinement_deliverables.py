@@ -48,6 +48,7 @@ def best_rows(result):
         for row in result["rows"]
         if row["distribution"] == "severe"
         and row["effective_disagreement_score_std"] > 1e-12
+        and not row["uniform_equivalent"]
     ]
     b2 = max(
         [row for row in informative if row["method"].startswith("B2")],

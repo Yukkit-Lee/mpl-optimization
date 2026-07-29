@@ -169,6 +169,8 @@ def candidate(
         "per_class_accuracy": metrics["per_class_accuracy"],
         "active_anchor_ratio": timing["active_anchor_ratio"],
         "weighted_anchor_mass": timing["weighted_anchor_mass"],
+        "anchor_weight_std": float(np.std(weights)),
+        "uniform_equivalent": bool(float(np.std(weights)) <= 1e-12),
         "effective_anchor_count": timing["effective_anchor_count"],
         "total_anchor_count": len(bundle["y_anchor"]),
         "distance_from_average": timing["distance_from_average"],
@@ -442,6 +444,7 @@ def run_dataset(dataset: str):
         row for row in rows if row["method"] != "B1_uniform_s1_steps"
         and row["weight_rule"] != "uniform"
         and row["effective_disagreement_score_std"] > 1e-12
+        and not row["uniform_equivalent"]
     ]
     best_method = max(
         all_method_rows,
@@ -457,6 +460,7 @@ def run_dataset(dataset: str):
         for row in cost_rows
         if row["initializer_accuracy"] >= b1["initializer_accuracy"] - 0.002
         and row["effective_anchor_count"] <= 0.7 * b1["effective_anchor_count"]
+        and not row["uniform_equivalent"]
     ]
     best_cost = (
         max(
@@ -580,7 +584,8 @@ def write_csv(results):
         "top_ratio", "soft_scale", "cap_multiplier", "b0_accuracy",
         "initializer_accuracy", "macro_f1", "worst_class_accuracy",
         "gain_over_b0", "worst_class_gain_over_b0", "active_anchor_ratio",
-        "weighted_anchor_mass", "effective_anchor_count", "total_anchor_count",
+        "weighted_anchor_mass", "anchor_weight_std", "uniform_equivalent",
+        "effective_anchor_count", "total_anchor_count",
         "distance_from_average", "refinement_seconds", "source_commit",
         "initializer_source", "full_data_initializer_dependency",
         "locked_holdout_read", "official_test_read",

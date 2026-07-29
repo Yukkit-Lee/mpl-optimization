@@ -1301,3 +1301,4 @@
 - 新增最终交付生成器：无论正负都生成main table、diagnostic report、claim audit、final report、B1--B4四图和completion audit；若plaintext失败，TFE validation CSV会明确登记`SKIPPED_PLAINTEXT_GATE`，而不是伪造安全后端结果。
 - class-level fallback完成后仍为强负结果：排除constant D3后，C10最佳informative B2相对B1为`10.00% vs 57.70%`（`-47.70pp`），C100为`2.90% vs 17.60%`（`-14.70pp`），IID safety也失败，且无满足30%成本门的候选；因此按计划禁止进入TFE。
 - 首次运行交付生成器被硬门拒绝：S2最终判断虽排除了constant D3，但S3/B3仍从早期并列精度规则继承D3，导致没有informative B3行。未生成completion结果；现修正S2选择链，要求metric score std非零，再重跑同一注册plaintext，不新增调参家族。
+- S2链修正后发现第二个选择边界：S4的`top_ratio=1.0`是计划中的all-anchor参考点，权重完全等于B1，却被总选择器误当B3最佳。真实稀疏B3 top-50%为C10 `22.48%`、C100 `10.96%`，仍低于B1 `57.70%/17.60%`。现为每行增加weight std与`uniform_equivalent`，禁止all-anchor参考点冒充方法结果；随后做最后一次同协议复跑。
