@@ -76,7 +76,9 @@ def near_best_lowest_cost(rows: List[Dict[str, Any]], tolerance: float = 0.002):
         key=lambda row: (
             row["steps"],
             row["effective_anchor_count"],
-            row["refinement_seconds"],
+            -row["initializer_accuracy"],
+            row["mu"],
+            row["learning_rate"],
         ),
     )
 
