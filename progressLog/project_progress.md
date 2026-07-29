@@ -1332,3 +1332,7 @@
 - 初始工期评估：plaintext复用审计+crossover+H1--H4+阈值筛选约20--60分钟；若smoke全门通过，真实TFE/ABY3约再需2--5小时，连同表图审计总计约3--7小时；若S0/crossover失败，约45--90分钟负向停止。
 - S0只读预审计发现新计划动机与现有完全匹配证据冲突：当前40/8、seed42、相同local-head与B1预算下，C10 IID B0/B1=`22.70/57.68%`（B1 `+34.98pp`），C100=`10.24/22.12%`（`+11.88pp`）；Severe同样是B1更优。更早的36行因果消融也显示IID anchor CE为正，`reportToMe/new_stage_b_kd_final_report.md`明确写有“Harm IID? No”。因此必须运行完全匹配的IID/Mild/Severe S0并审计计划前提，不能直接为理想结果制造阈值。
 - 下一步将复用exact-valid IID/Severe B0/B1，仅补Mild及必要hash/timing；计算H1--H4并屏幕化全部注册单阈值。若B1在全部分布均为oracle，任何“IID no-refine/Severe refine”触发器都会产生巨大IID oracle regret，届时按计划S0/negative stop生成完整负结果，不进入TFE。
+- trigger plaintext实现完成但尚未启动：新增隔离core/runner/tmux launcher与4项确定性测试。实现从私有client-class counts计算H1 mean-TV、H2 normalized entropy deficit、H3 missing-class ratio及H4 max-TV；不保存raw histogram，只登记其SHA。
+- runner严格先复用旧summary中exact-valid IID/Severe B0/B1，仅为缺失Mild计算B1；所有分布加载同一40/8 Official-MTT split和5客户端IID/Dirichlet alpha0.5/0.1协议。每行记录source commit、split/policy/model/config SHA、lineage/read flags、runtime及reuse状态。
+- 阈值搜索只使用文档注册的各数据集IID--Mild、Mild--Severe、IID--Severe中点；H3另含10/25/50%。单指标全失败时只补H3与H1的OR/AND两条简单规则，不拟合任意系数；每个候选显式计算六场路由、mean/max oracle regret与Gate1--5。
+- 静态编译、launch shell语法、policy hard gate和4项count/metric/routing单元测试全部通过。下一步须先提交推送代码，再由tmux运行plaintext；运行前没有trigger实验进程或已存在结果。
