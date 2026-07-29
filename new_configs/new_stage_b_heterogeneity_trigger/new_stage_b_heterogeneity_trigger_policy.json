@@ -1,0 +1,28 @@
+{
+  "schema": "new_stage_b_heterogeneity_trigger_policy_v1",
+  "plan": "plan/0730_new_stage_b_secure_heterogeneity_trigger_anchor_refinement_prompt.md",
+  "branch": "new-stage-b-secure-heterogeneity-trigger",
+  "datasets": ["cifar10", "cifar100"],
+  "seed": 42,
+  "clients": 5,
+  "distributions": {
+    "iid": "balanced_per_class_partition",
+    "mild": "dirichlet_alpha_0.5",
+    "severe": "dirichlet_alpha_0.1"
+  },
+  "anchor_per_class": 8,
+  "local_per_class": 40,
+  "metrics": ["H1_mean_tv", "H2_entropy_deficit", "H3_missing_class_ratio", "H4_max_tv_fallback"],
+  "reveal_policy": "one_trigger_bit_only",
+  "plaintext_before_tfe": true,
+  "official_mtt_only": true,
+  "full_data_initializer_dependency": false,
+  "locked_holdout_allowed": false,
+  "official_test_allowed": false,
+  "stage_c_allowed": false,
+  "dp_sgd_allowed": false,
+  "end_to_end_allowed": false,
+  "tiny_allowed": false,
+  "extra_seeds_allowed": false,
+  "checkpoint_git_policy": "large_checkpoints_local_only"
+}

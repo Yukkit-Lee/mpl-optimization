@@ -1321,3 +1321,14 @@
 - 工作区另有用户上传但尚未授权执行的后续文档 `plan/0730_new_stage_b_secure_heterogeneity_trigger_anchor_refinement_prompt.md`。它明确建立在本轮negative result上，改为“异质性标量触发是否启用全量uniform anchor CE”的新路线；当前持续目标仍指定原heterogeneity-aware disagreement计划，因此本轮不擅自切换方法或启动该新计划实验。
 - 审计代码冻结并推送后，在tmux中以约2224% CPU完成确定性复跑；102行数值与前次完全一致。交付v2首次生成即通过注册family与28个必需文件门；runtime表现为C10 B0/B1/B2/B3 full-recompute约`0.0084/0.0159/0.0169/0.0171s`，C100约`0.4129/0.4848/0.5882/0.5048s`，通信未测保持N/A。
 - 四张新PNG人工检查无空图、截断或遮挡：B1现含五种方法，B2为逐anchor disagreement-vs-Average loss散点，B3为active-ratio utility-cost，B4为B0/B1/B3逐类对照。检查发现KD来自prior registered protocol而非当前等预算40/8；为避免视觉误导，将图签改为`KD†`并在图内明确protocol差异，数值不变。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-30（UTC）
+- 用户纠正持续目标为 `plan/0730_new_stage_b_secure_heterogeneity_trigger_anchor_refinement_prompt.md`。该1111行计划已完整读取；旧prediction-disagreement路线停止，新任务只研究Stage-B的“安全标签异质性触发是否启用全量uniform MTT-anchor CE”，禁止Stage C、任何DP-SGD、End-to-End、Figure 2、locked/test、Full initializer、Tiny及seeds43/44。
+- 已创建独立分支 `new-stage-b-secure-heterogeneity-trigger`，父提交为旧路线完整审计提交`ba0763a`。新产物将只写入`new_stage_b_heterogeneity_trigger`命名空间，不覆盖旧KD/disagreement/True Ours/Public-MTT资产。
+- 中断恢复审计确认：新分支当前没有trigger代码、配置、日志或实验进程，因此不存在需要重复的trigger运行；只有用户上传的新计划和按政策不进Git的`new_checkpoints/`未跟踪。硬件为容器32核、约472GiB available RAM、磁盘约21GiB可用。
+- 初始工期评估：plaintext复用审计+crossover+H1--H4+阈值筛选约20--60分钟；若smoke全门通过，真实TFE/ABY3约再需2--5小时，连同表图审计总计约3--7小时；若S0/crossover失败，约45--90分钟负向停止。
+- S0只读预审计发现新计划动机与现有完全匹配证据冲突：当前40/8、seed42、相同local-head与B1预算下，C10 IID B0/B1=`22.70/57.68%`（B1 `+34.98pp`），C100=`10.24/22.12%`（`+11.88pp`）；Severe同样是B1更优。更早的36行因果消融也显示IID anchor CE为正，`reportToMe/new_stage_b_kd_final_report.md`明确写有“Harm IID? No”。因此必须运行完全匹配的IID/Mild/Severe S0并审计计划前提，不能直接为理想结果制造阈值。
+- 下一步将复用exact-valid IID/Severe B0/B1，仅补Mild及必要hash/timing；计算H1--H4并屏幕化全部注册单阈值。若B1在全部分布均为oracle，任何“IID no-refine/Severe refine”触发器都会产生巨大IID oracle regret，届时按计划S0/negative stop生成完整负结果，不进入TFE。
