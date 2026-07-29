@@ -1258,3 +1258,11 @@
 - 更新 `reportToMe/new_all_experiments_summary.md`：保留目的、精度、效率、证据边界、图表位置和分级改进项，并新增 MTT-anchor KD/Consensus 专节。关键结论为有标签 anchor 监督有效，但 class-aware Consensus/KD 无独立正贡献：severe C10/C100 的 CE-only 相对 Average 为 `+35.46/+18.92pp`，KD-over-CE 为 `+0.44/-3.56pp`，class-aware 相对 uniform 为 `0.00/-0.02pp`。
 - 文档明确当前新实验只有 seed42，不能做稳定性声明；TFE/ABY3 梯级仍在 tmux `stage_b_kd_tfe_seed42` 顺序运行。tiny synthetic 已通过 correctness（最大绝对误差 `<2.8e-5`、25.80s、1.53GiB），CIFAR-10正在运行、CIFAR-100待运行，因此没有把未完成的TFE效用写成正式结论。
 - 本轮未启动或重复任何实验，未读取 locked holdout/official test，未修改或提交 checkpoint。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-29 12:30 UTC
+- seed42 TFE梯级正常推进：tiny synthetic correctness已通过；CIFAR-10完成5/5个local epochs并推进到student 45/100，约4.6GiB RSS、持续使用CPU，无NaN/报错。runner与worker均由tmux `stage_b_kd_tfe_seed42`守护。
+- 新增最终交付生成器 `new_build_stage_b_kd_deliverables.py`，只有tiny+C10+C100三行TFE correctness全部通过才会运行；partial状态实测按预期以`REFUSE_PARTIAL_TFE missing=['cifar10', 'cifar100']`拒绝，避免将中间结果写成正式交付。
+- 生成器将在完整门后输出主ablation CSV、Figure B1/B2/B3、四张补充图、diagnostic report、claim audit、12问final report及seeds43/44剩余计划（仅计划不运行）。图B2强制展示CE-only和KD-over-CE因果分解，避免把anchor标签监督归因给Consensus。
