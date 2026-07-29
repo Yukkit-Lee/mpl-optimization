@@ -1347,3 +1347,14 @@
 - 分割审计确认6个场景均为Official-MTT 40 local + 8 anchor/class、local∩anchor=0、development互斥并保存ID/checkpoint/config SHA；locked holdout与official test读取均为false，Full initializer依赖为false，raw private histograms未写入，仅保存hash和聚合H值。
 - 最终completion audit状态为`COMPLETE_NEGATIVE`，32个必需表/报告/图形文件均存在且非空；plaintext总runtime=`2.5427s`、peak RSS=`0.4147GiB`。config/threshold状态均为`NOT_FROZEN_PLAINTEXT_GATE_FAILED`，partition confirmation与TFE均为`SKIPPED_SMOKE_GATE`，严格满足计划负面停止条件且没有启动任何禁止实验。
 - 实验作用与论文边界：H1--H3确实能测量IID→Mild→Severe标签偏斜，但B1在六场全部显著优于B0，因此它们不能决定“何时才需要anchor CE”。该路线应作为seed42负结果/因果排雷，不应作为正Stage-B模块；安全论文表述、12问答案、完整数据与限制均已写入最终报告。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-30（UTC）
+- 新持续目标：严格执行 `plan/0730_1_new_stage_b_mtt_anchor_post_aggregation_refinement_prompt.md`，只研究Stage-B的MTT-Anchor Post-Aggregation Supervised Refinement；范围固定为CIFAR-10/CIFAR-100、seed42、5客户端、IID/Mild/Severe，禁止Stage C、任何DP-SGD、End-to-End、Figure 2、T@Target、Tiny、seeds43/44、official test、locked holdout及Full-Data initializer。
+- 已完整读取计划1044行，文件SHA256=`452914c8d1570980cef6f8c91aff58699794deeb13d024875c3d248842238705`。核心因果门为同一Anchor/步数/LR/mu下比较C1 Random+Anchor、C3预注册Local+Anchor、C5 Secure Average+Anchor，并同时保留C0 Random与C4 Average；只有C5表现出独立最终精度或早期收敛优势才允许冻结并进入TFE/ABY3。
+- 创建隔离分支 `new-stage-b-mtt-anchor-postagg`，父提交=`163736ea064a2c30ff915c023ee0baabd042cdb9`；新文件只写入`new_stage_b_anchor_postagg`命名空间，大型checkpoint继续仅本地保存。
+- 启动前资源审计：容器可用`nproc=32`，宿主Intel Xeon Platinum 8474C，约472GiB available RAM；`/root/autodl-tmp`约20GiB可用，现有`new_checkpoints/`约22GiB。发现VS Code后台`git add --sparse`占用单核并扫描整个仓库，已只终止该精确进程，暂存区为空，未修改或删除任何数据/checkpoint。
+- 复用预审计：现有40 local + 8 anchor/class的Official-MTT划分、六个IID/Mild/Severe本地头、C4/C5结果和split/model hash可精确复用；旧KD的C10部分使用4-anchor协议，不能冒充本任务结果。当前缺口主要是同预算C0/C1、合法预注册C2/C3，以及C1/C3/C5逐步收敛轨迹和初始化来源因果门。
+- 初始工期评估：若注册plaintext显示C5相对C1/C3无独立精度或步数优势，约1--2小时完成负面停止和全套交付；若通过smoke并进入真实TFE/ABY3，预计总计4--8小时。下一唯一操作是提交并推送计划/进度基线，再实现低成本同预算plaintext因果比较。
