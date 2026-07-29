@@ -1382,3 +1382,7 @@
 - 下一唯一操作：先提交推送TFE报告、最终小模型和日志（大型恢复checkpoint仍仅本地），再生成并人工检查Table/Figure B1--B4、runtime/resource、split/claim/completion audit和12问final report；不再启动任何实验。
 - TFE正式结果、小模型与日志已由提交`78a8067`推送，大型恢复checkpoint保持本地且无活动tmux/实验进程。最终交付生成器已实现并通过`py_compile`与`git diff --check`，将只读取冻结plaintext/TFE结果：生成Table B1--B4、runtime/resource/class-wise表、双目录Figure B1--B4、split/claim/completion audit和12问final report，并对文件非空、PDF头、CSV NaN/Inf、TFE门及禁止实验做硬审计。
 - 下一唯一操作：提交推送交付生成器源码与本进度，然后从该提交运行生成器；运行只做已有模型development评价与绘图，不重新训练或调参。
+- 交付生成器源码提交`5835281`已推送，随后从该HEAD只读生成全套交付。completion audit状态=`COMPLETE`：34个必需文件全部存在且非空，PDF头有效，12份CSV无NaN/Inf token，plaintext all-gates、两套TFE utility/correctness、Official-MTT lineage、no-Full/no-test/no-locked及禁止实验隔离全部通过；`git fsck`正常。
+- Figure B1--B4 PNG已逐张人工检查：初始化来源五方法跨六场、C1/C3/C5六面板收敛、TFE C4→C5逐类别差值、C1/C4/C5安全runtime分解均无空图、裁切、遮挡或错误图例。TFE类别级改善为C10 `10/10`、C100 `84/100`，其余C100类别主要为持平；该结果来自本任务precision16正式模型，不复用旧KD类别统计。
+- 最终数值复核：main table 6行、Table B1 36行、step efficiency 18行、TFE一致性6行、runtime 42行、class-wise 110行；6/6核心单元测试函数通过。最终报告已完整回答12问并保持seed42/development-only/非E2E/非DP/未读test与locked限制。
+- 本任务已满足正面停止条件；下一唯一操作是提交推送全部表、图、审计、报告与本进度，确认HEAD=远端且工作区仅剩按政策不入Git的`new_checkpoints/`，然后停止。

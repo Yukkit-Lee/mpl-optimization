@@ -1,0 +1,223 @@
+{
+  "schema": "new_stage_b_anchor_postagg_completion_audit_v1",
+  "status": "COMPLETE",
+  "report_source_git_commit": "58352813ad6261486d225c1e3eebdb73b973849f",
+  "checks": {
+    "all_required_files_exist_and_nonempty": true,
+    "all_smoke_gates_pass": true,
+    "tfe_validation_complete": true,
+    "both_tfe_rows_correct": true,
+    "official_mtt_only": true,
+    "no_full_initializer_dependency": true,
+    "no_test_or_locked_read": true,
+    "no_forbidden_experiment": true,
+    "pdf_headers_valid": true,
+    "csv_no_nan_or_inf_tokens": true
+  },
+  "required_files": [
+    {
+      "path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_reuse_audit.json",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "def8a7d049e6bf4464cdae26321ef44ae8da94390160b1fe6a783eaca092742e"
+    },
+    {
+      "path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_split_audit.md",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "1702aabec5150443d700b789536180c2790071f267dabd8efc815ddd29394992"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_smoke_registry.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "44904ac56d806c28263b55087e4b1def90944d9a7e20113ed64b3b85043d4bcd"
+    },
+    {
+      "path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_smoke_summary.json",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "c1c5cc8dfd0d0851bc0638e070c0ef4955de2d3b0ebd89d58d5ee479e39acafe"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_init_source_ablation.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "3ee57cacaa5d5c4d6b2c4548b71ed56590efb870981c426ef5f9c44bf8d812a2"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_step_efficiency.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "c3fe8095471af5f095975248dfaad971e5bb4c75cee58246c5b92d9d1eac0bcc"
+    },
+    {
+      "path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_config_freeze.json",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "9df91b28ee3c1005ce9144b34c7d1c34912b9d78c7227a5f35f17c977ee839f0"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_tfe_results.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "fcdb5e01967909b48c70c417fa6353365d38f26903ba9b9585fd97fc058360ee"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_runtime.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "7dc1e273d93b6aa7a8c74ace12af846a37d476737d3b71e91a0c1d0221bcea25"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_main_table.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "a4a0187a181f20fa5452312e6326bbd68fcbc3ea391388cea1251bc6c746652d"
+    },
+    {
+      "path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_claim_audit.md",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "e40d9b9050d4d9348c1a40ca3f4be0047329e8a62af1d43d6316b50fe738a41a"
+    },
+    {
+      "path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_final_report.md",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "4ca81fcc71cf87ef6010be69997802217fb911b23f445b5cf8ef055677b0009f"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_runtime_breakdown.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "7dc1e273d93b6aa7a8c74ace12af846a37d476737d3b71e91a0c1d0221bcea25"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_resource_summary.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "348c2c97fb36cdd08a2ee08a4e9bd05d864d21d7ec809249037f653706b82925"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_table_b1_init_sources.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "43cb4d4c0854f605d56f16285e74dd8ec6a9b1b274cda547a13cd6402471e003"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_table_b3_step_efficiency.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "376832313ab7011f7417da2a397477ca48dc1dab78b85bdee5fbf4ff1159b193"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_table_b4_plaintext_tfe.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "72786ceaa225cfd164cbd8505110e7f46eb157ca167454e0462f4ac4165d967e"
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_classwise.csv",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "f84d32940b746e83d221e5bd97bca159d7fecd8758c3a5ffcd5ef5190f17e4dd"
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_postagg/new_figure_b1_initialization_sources.png",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "c9d46242e8e8f3a8e197d42b377e14cee7ea4f2c79be6aa7c406a6c421bdb320"
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_postagg/new_figure_b1_initialization_sources.pdf",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "298c7a170206b44f9090d3b0d2ca803717c87174cac2e0fe81fc1114dc63430e"
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_postagg/new_figure_b2_anchor_convergence.png",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "da97ac6007c661226e5038dee33c732156de5cc579fc4b027166ffd40940db91"
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_postagg/new_figure_b2_anchor_convergence.pdf",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "fc348aab2c7e964ee17b803e4e3387484712c5687274e0a3b8f1543bc2114651"
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_postagg/new_figure_b3_classwise_correction.png",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "61164a6f786ed402cf133da43df5e4359332c5db5f00b78c593b40e139d6beb4"
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_postagg/new_figure_b3_classwise_correction.pdf",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "b5304386dfa4f987f99f8c5a756d9e29e1118817434dbb325ca6a5ed1c5b589e"
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_postagg/new_figure_b4_stage_b_runtime.png",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "daecc48f3307d6cc0f59658d2191b74b6de8c225b09c3cda4c11b068e1cb9821"
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_postagg/new_figure_b4_stage_b_runtime.pdf",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "420cf997ed543fecb9e64f9352cb5c340b6c6a8f3af03405802affc57342b758"
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_postagg/new_figure_b1_initialization_sources.png",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "c9d46242e8e8f3a8e197d42b377e14cee7ea4f2c79be6aa7c406a6c421bdb320"
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_postagg/new_figure_b1_initialization_sources.pdf",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "298c7a170206b44f9090d3b0d2ca803717c87174cac2e0fe81fc1114dc63430e"
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_postagg/new_figure_b2_anchor_convergence.png",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "b2547b66be15e583b0e78d93898c9af7594adfd01dbb7d47b8a6eba3b7cd1168"
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_postagg/new_figure_b2_anchor_convergence.pdf",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "e76258de2bd37d4f78715818c951d9635d7c3d356803b6780d8d451864843535"
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_postagg/new_figure_b3_classwise_correction.png",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "61164a6f786ed402cf133da43df5e4359332c5db5f00b78c593b40e139d6beb4"
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_postagg/new_figure_b3_classwise_correction.pdf",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "b5304386dfa4f987f99f8c5a756d9e29e1118817434dbb325ca6a5ed1c5b589e"
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_postagg/new_figure_b4_stage_b_runtime.png",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "daecc48f3307d6cc0f59658d2191b74b6de8c225b09c3cda4c11b068e1cb9821"
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_postagg/new_figure_b4_stage_b_runtime.pdf",
+      "exists": true,
+      "nonempty": true,
+      "sha256": "420cf997ed543fecb9e64f9352cb5c340b6c6a8f3af03405802affc57342b758"
+    }
+  ]
+}
