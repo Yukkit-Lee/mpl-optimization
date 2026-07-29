@@ -1299,3 +1299,5 @@
 - 诊断显示真正有数值变化的D1/D2与Average错误方向相反：C10 AUROC=`0.2243/0.2218`、sample correlation=`-0.5435/-0.5386`、class-weakness correlation=`-0.6749/-0.6789`；C100 AUROC=`0.4168/0.4340`、对应相关性也为负。D3 score std为0、AUROC机械等于0.5；高分歧样本反而比低分歧样本更少出错。
 - 因此修正选择器以排除constant-score伪候选，并按计划Case 1补充class-level direct high-disagreement priority；只允许这个预注册fallback，不把“反转分歧”包装成原方法。若class-level仍失败，将完成negative-result表/图/报告并按plaintext gate停止TFE。
 - 新增最终交付生成器：无论正负都生成main table、diagnostic report、claim audit、final report、B1--B4四图和completion audit；若plaintext失败，TFE validation CSV会明确登记`SKIPPED_PLAINTEXT_GATE`，而不是伪造安全后端结果。
+- class-level fallback完成后仍为强负结果：排除constant D3后，C10最佳informative B2相对B1为`10.00% vs 57.70%`（`-47.70pp`），C100为`2.90% vs 17.60%`（`-14.70pp`），IID safety也失败，且无满足30%成本门的候选；因此按计划禁止进入TFE。
+- 首次运行交付生成器被硬门拒绝：S2最终判断虽排除了constant D3，但S3/B3仍从早期并列精度规则继承D3，导致没有informative B3行。未生成completion结果；现修正S2选择链，要求metric score std非零，再重跑同一注册plaintext，不新增调参家族。

@@ -312,8 +312,15 @@ def run_dataset(dataset: str):
         )
         rows.append(row)
         metric_rows.append(row)
+    informative_metric_rows = [
+        row
+        for row in metric_rows
+        if row["effective_disagreement_score_std"] > 1e-12
+    ]
+    if not informative_metric_rows:
+        raise ValueError("{} has no informative disagreement metric".format(dataset))
     best_metric = max(
-        metric_rows,
+        informative_metric_rows,
         key=lambda row: (
             row["initializer_accuracy"],
             row["worst_class_accuracy"],
