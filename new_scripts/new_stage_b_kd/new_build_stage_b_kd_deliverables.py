@@ -17,6 +17,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
+from new_stage_b_kd_core import evaluate_head, load_dataset_assets
+
 
 ROOT = Path(__file__).resolve().parents[2]
 LOG = ROOT / "new_log/new_stage_b_kd"
@@ -130,6 +132,88 @@ def build_main_table(confirmation):
             }
         )
     write_csv(TABLE / "new_stage_b_kd_main_ablation.csv", fields, rows)
+
+
+def augment_runtime_resource(runtime, tfe_rows):
+    runtime_fields = [
+        "run_key",
+        "dataset",
+        "stage",
+        "distribution",
+        "method",
+        "local_training_seconds",
+        "anchor_inference_seconds",
+        "teacher_aggregation_seconds",
+        "student_kd_seconds",
+        "secure_graph_build_seconds",
+        "total_seconds",
+    ]
+    combined_runtime = [
+        {field: row.get(field, "") for field in runtime_fields}
+        for row in runtime
+        if row.get("stage") != "TFE"
+    ]
+    for dataset in ("tiny_synthetic",) + DATASETS:
+        validation = tfe_rows[dataset]
+        report = load_json(Path(validation["report_path"]))
+        combined_runtime.append(
+            {
+                "run_key": "tfe_seed42_" + dataset,
+                "dataset": dataset,
+                "stage": "TFE",
+                "distribution": (
+                    "synthetic_balanced" if dataset == "tiny_synthetic" else "severe"
+                ),
+                "method": "selected_anchor_ce_plus_kd",
+                "local_training_seconds": report.get("local_secure_seconds", ""),
+                "anchor_inference_seconds": "N/A",
+                "teacher_aggregation_seconds": "N/A",
+                "student_kd_seconds": report.get("student_secure_seconds", ""),
+                "secure_graph_build_seconds": report.get("graph_build_seconds", ""),
+                "total_seconds": report["total_secure_seconds"],
+            }
+        )
+    write_csv(
+        TABLE / "new_stage_b_kd_runtime_breakdown.csv",
+        runtime_fields,
+        combined_runtime,
+    )
+
+    resource_fields = [
+        "run_key",
+        "dataset",
+        "stage",
+        "method",
+        "peak_rss_gib",
+        "output_model_sha256",
+        "communication_bytes",
+        "communication_rounds",
+    ]
+    resources = load_csv(TABLE / "new_stage_b_kd_resource_summary.csv")
+    combined_resources = [
+        {field: row.get(field, "") for field in resource_fields}
+        for row in resources
+        if row.get("stage") != "TFE"
+    ]
+    for dataset in ("tiny_synthetic",) + DATASETS:
+        row = tfe_rows[dataset]
+        combined_resources.append(
+            {
+                "run_key": "tfe_seed42_" + dataset,
+                "dataset": dataset,
+                "stage": "TFE",
+                "method": "selected_anchor_ce_plus_kd",
+                "peak_rss_gib": row["peak_rss_gib"],
+                "output_model_sha256": row["model_sha256"],
+                "communication_bytes": "N/A",
+                "communication_rounds": "N/A",
+            }
+        )
+    write_csv(
+        TABLE / "new_stage_b_kd_resource_summary.csv",
+        resource_fields,
+        combined_resources,
+    )
 
 
 def save_figure(fig, stem):
@@ -384,6 +468,75 @@ def supplementary_figures(registry, tfe_rows):
     save_figure(fig, "new_figureS4_class_weight_distributions")
 
 
+def build_classwise_accuracy():
+    rows = []
+    figure_values = {}
+    for dataset in DATASETS:
+        assets = load_dataset_assets(dataset, 42)
+        model_path = ROOT / (
+            "new_output/new_stage_b_kd/tfe_validation/{}/seed42/"
+            "new_stage_b_kd_tfe_model_{}_seed42.npz"
+        ).format(dataset, dataset)
+        with np.load(model_path, allow_pickle=False) as model:
+            average = evaluate_head(
+                assets.x_dev,
+                assets.y_dev,
+                model["average_weight"],
+                model["average_bias"],
+                assets.num_classes,
+            )
+            student = evaluate_head(
+                assets.x_dev,
+                assets.y_dev,
+                model["student_weight"],
+                model["student_bias"],
+                assets.num_classes,
+            )
+        average_values = average["per_class_accuracy"]
+        student_values = student["per_class_accuracy"]
+        delta = np.asarray(student_values) - np.asarray(average_values)
+        figure_values[dataset] = delta
+        for class_id, (left, right, difference) in enumerate(
+            zip(average_values, student_values, delta)
+        ):
+            rows.append(
+                {
+                    "dataset": dataset,
+                    "seed": 42,
+                    "class_id": class_id,
+                    "tfe_average_accuracy": left,
+                    "tfe_student_accuracy": right,
+                    "student_minus_average": difference,
+                    "evaluation_scope": "development_only",
+                }
+            )
+    fields = [
+        "dataset",
+        "seed",
+        "class_id",
+        "tfe_average_accuracy",
+        "tfe_student_accuracy",
+        "student_minus_average",
+        "evaluation_scope",
+    ]
+    write_csv(TABLE / "new_stage_b_kd_classwise_accuracy.csv", fields, rows)
+    fig, axes = plt.subplots(1, 2, figsize=(11.5, 4.0))
+    for axis, dataset in zip(axes, DATASETS):
+        delta = 100.0 * figure_values[dataset]
+        axis.bar(np.arange(len(delta)), delta, color=np.where(delta >= 0, "#54A24B", "#E45756"))
+        axis.axhline(0, color="black", linewidth=0.8)
+        axis.set_title(
+            "{}: {}/{} classes improved".format(
+                DISPLAY[dataset], int(np.sum(delta > 0)), len(delta)
+            )
+        )
+        axis.set_xlabel("Class ID")
+        axis.set_ylabel("Student − Average (pp)")
+        axis.grid(axis="y", alpha=0.22)
+    fig.suptitle("Supplementary — TFE class-wise initializer change")
+    save_figure(fig, "new_figureS5_classwise_accuracy_delta")
+
+
 def build_reports(smoke, causal, tfe_rows):
     selected = {row["dataset"]: row for row in smoke["smoke_results"]}
     decisions = {row["dataset"]: row for row in causal["decisions"]}
@@ -526,7 +679,7 @@ def build_reports(smoke, causal, tfe_rows):
         "- `new_expFig/new_stage_b_kd/new_figureB1_noniid_initializer_quality.{png,pdf}`",
         "- `new_expFig/new_stage_b_kd/new_figureB2_client_diversity_teacher_gain.{png,pdf}`",
         "- `new_expFig/new_stage_b_kd/new_figureB3_runtime_breakdown.{png,pdf}`",
-        "- Supplementary S1--S4 in the same directory.",
+        "- Supplementary S1--S5 and the class-wise CSV in the same result namespace.",
     ]
     write_text(REPORT / "new_stage_b_kd_final_report.md", "\n".join(final))
 
@@ -619,6 +772,8 @@ def main():
     figure_b2(smoke, causal)
     figure_b3(registry, runtime, tfe_rows)
     supplementary_figures(registry, tfe_rows)
+    build_classwise_accuracy()
+    augment_runtime_resource(runtime, tfe_rows)
     build_reports(smoke, causal, tfe_rows)
     build_remaining_seed_plan()
     print("COMPLETE Stage-B KD single-seed deliverables and remaining-seed plan")

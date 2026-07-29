@@ -173,6 +173,7 @@ def main():
         TABLE / "new_stage_b_kd_runtime_breakdown.csv",
         TABLE / "new_stage_b_kd_resource_summary.csv",
         TABLE / "new_stage_b_kd_main_ablation.csv",
+        TABLE / "new_stage_b_kd_classwise_accuracy.csv",
         PLAN / "0729_new_stage_b_kd_remaining_seeds_plan.md",
     ]
     figure_stems = [
@@ -183,6 +184,7 @@ def main():
         "new_figureS2_temperature_sweeps",
         "new_figureS3_plaintext_tfe_numerics",
         "new_figureS4_class_weight_distributions",
+        "new_figureS5_classwise_accuracy_delta",
     ]
     figure_files = [
         FIGURE / (stem + extension)
@@ -246,6 +248,7 @@ def main():
     payload = {
         "schema": "new_stage_b_kd_completion_audit_v1",
         "status": status,
+        "source_commit": run("git", "rev-parse", "HEAD"),
         "passed": passed,
         "total": len(checks),
         "seed_policy": [42],

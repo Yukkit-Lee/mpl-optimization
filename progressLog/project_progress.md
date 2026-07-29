@@ -1268,3 +1268,5 @@
 - 生成器将在完整门后输出主ablation CSV、Figure B1/B2/B3、四张补充图、diagnostic report、claim audit、12问final report及seeds43/44剩余计划（仅计划不运行）。图B2强制展示CE-only和KD-over-CE因果分解，避免把anchor标签监督归因给Consensus。
 - CIFAR-10真实TFE已完成并通过validator：Average/student=`19.18/55.16%`，gain=`+35.98pp`，相对P1 plaintext gain retention=`100.22%`；local/student/total secure time=`58.50/62.63/121.13s`，peak RSS=`4.72GiB`，所有输出finite且最大参数绝对误差约`2.90e-4`。随后同一runner自动进入CIFAR-100。
 - 新增 `new_validate_stage_b_kd_completion.py`，逐项审计专用分支、单seed policy、split、89-run S1--S5+S6 confirmation、36-run因果分解、完整TFE梯级、lineage、必需报告/图、checkpoint政策、禁止实验隔离及remaining-seed plan-only边界。当前预审计按预期仍为INCOMPLETE，待C100与最终产物完成后必须达到全部通过。
+- 交付生成器补齐资源与supplementary覆盖：最终runtime/resource表将追加tiny/C10/C100 TFE graph-build、secure local/student、RSS、模型SHA并保持未实测通信量为N/A；新增逐类别TFE Average/student/delta CSV和Figure S5，用于检查增益是否只集中于少数类别。completion audit同步将这些资产列为硬门。
+- CIFAR-100 secure local 40/40完成，student推进到30/100；当前约15.7GiB RSS、约9.7核平均CPU，占用正常且磁盘约62GiB可用。
