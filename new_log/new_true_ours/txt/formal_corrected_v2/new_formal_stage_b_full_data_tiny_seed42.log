@@ -12,3 +12,4 @@ WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-package
 WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
 
 [StageB-local] epoch=1/40
+[StageB-local] epoch=5/40
