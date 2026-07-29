@@ -1,0 +1,138 @@
+{
+  "schema": "new_stage_b_anchor_postagg_tfe_input_manifest_v1",
+  "status": "COMPLETE",
+  "source_git_commit": "3a650c5358f9c087a63fb52abf29bc044b2c0f81",
+  "freeze_sha256": "9df91b28ee3c1005ce9144b34c7d1c34912b9d78c7227a5f35f17c977ee839f0",
+  "rows": [
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "distribution": "severe",
+      "input_path": "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_anchor_postagg/tfe_inputs/cifar10/new_stage_b_anchor_postagg_tfe_input_cifar10_seed42.npz",
+      "input_sha256": "8e3df6aa64d471eb8703ac52dafdb0c8a93a8f82856bf21912f4179b252f666f",
+      "configuration": {
+        "schema": "new_stage_b_anchor_postagg_tfe_input_config_v1",
+        "dataset": "cifar10",
+        "seed": 42,
+        "distribution": "severe",
+        "num_clients": 5,
+        "feature_dim": 2048,
+        "num_classes": 10,
+        "local_epochs": 5,
+        "local_lr": 0.1,
+        "weight_decay": 0.0001,
+        "anchor_steps": 40,
+        "anchor_lr": 0.1,
+        "anchor_mu": 0.001,
+        "anchor_samples_per_class": 8,
+        "fixedpoint_fractional": 16,
+        "matmul_chunk_size": 64,
+        "checkpoint_interval": 5,
+        "freeze_path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_config_freeze.json",
+        "freeze_sha256": "9df91b28ee3c1005ce9144b34c7d1c34912b9d78c7227a5f35f17c977ee839f0",
+        "freeze_experiment_source": "d87b223527f13254b92f30529105177c88641adb",
+        "input_builder_source": "3a650c5358f9c087a63fb52abf29bc044b2c0f81",
+        "initializer_source": "official_mtt_only",
+        "full_data_initializer_dependency": false,
+        "test_read": false,
+        "locked_holdout_read": false
+      },
+      "client_counts": [
+        78,
+        76,
+        62,
+        128,
+        56
+      ],
+      "client_partition_hashes": [
+        "60efaf800cbf53428a5fcbbd4857a439f5f504dc64fce4b369da2224a1e3fdd9",
+        "e5d537333ab0a82f7972b430908e00029a0cbb47905cd4dde6a4b3941ccc8df1",
+        "7d9ee55c6bb29361d4bada70b6ac181e4d4dd318f7f57fdcf3fdc8529e458895",
+        "dd858e8ce3799c84df6f09f79fb96bfe8ef2642a2cac6cb9e2ebfc98f06b2f4b",
+        "79d5c14a7b9a0913739093cc486852ee365750d3c14a945df978ed4dd02606e2"
+      ],
+      "p1_plaintext_accuracy": {
+        "C1": 0.5548,
+        "C4": 0.1884,
+        "C5": 0.5764
+      },
+      "p1_c5_minus_c1": 0.021600000000000064,
+      "p2_endpoint_accuracy": {
+        "C1": 0.5546,
+        "C4": 0.1884,
+        "C5": 0.5764
+      },
+      "p2_c5_minus_c1": 0.02180000000000004,
+      "p2_limitation": "precision16 endpoint quantization sensitivity only; full trajectory correctness is tested by TFE",
+      "test_read": false,
+      "locked_holdout_read": false
+    },
+    {
+      "dataset": "cifar100",
+      "seed": 42,
+      "distribution": "severe",
+      "input_path": "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_anchor_postagg/tfe_inputs/cifar100/new_stage_b_anchor_postagg_tfe_input_cifar100_seed42.npz",
+      "input_sha256": "e8b435016c4cf848baf3d971886c6546f56bff984a54833dbb417b4a87343f0d",
+      "configuration": {
+        "schema": "new_stage_b_anchor_postagg_tfe_input_config_v1",
+        "dataset": "cifar100",
+        "seed": 42,
+        "distribution": "severe",
+        "num_clients": 5,
+        "feature_dim": 2048,
+        "num_classes": 100,
+        "local_epochs": 40,
+        "local_lr": 0.2,
+        "weight_decay": 0.0001,
+        "anchor_steps": 40,
+        "anchor_lr": 0.2,
+        "anchor_mu": 0.001,
+        "anchor_samples_per_class": 8,
+        "fixedpoint_fractional": 16,
+        "matmul_chunk_size": 64,
+        "checkpoint_interval": 10,
+        "freeze_path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_config_freeze.json",
+        "freeze_sha256": "9df91b28ee3c1005ce9144b34c7d1c34912b9d78c7227a5f35f17c977ee839f0",
+        "freeze_experiment_source": "d87b223527f13254b92f30529105177c88641adb",
+        "input_builder_source": "3a650c5358f9c087a63fb52abf29bc044b2c0f81",
+        "initializer_source": "official_mtt_only",
+        "full_data_initializer_dependency": false,
+        "test_read": false,
+        "locked_holdout_read": false
+      },
+      "client_counts": [
+        804,
+        899,
+        680,
+        871,
+        746
+      ],
+      "client_partition_hashes": [
+        "f5e7f59ae1992a106f182b30b8523a6f39e0d11d2bb4866a337ac21792370369",
+        "f358fae588531889f605234f8791777b1a4bcac6123f0a6219cd24577dfeeae7",
+        "812ea9329e9159484ec11d1be85500a0ae9f5ad69e6ba833baa957b59995edbf",
+        "8a9d20fd7bb5526e26a07c69c392b720e98161753516ff390682bd4881505fb5",
+        "53767cd11a054eb26f4f7f5832bad13810552b845f70769063f418648152aa79"
+      ],
+      "p1_plaintext_accuracy": {
+        "C1": 0.1018,
+        "C4": 0.0808,
+        "C5": 0.1762
+      },
+      "p1_c5_minus_c1": 0.0744,
+      "p2_endpoint_accuracy": {
+        "C1": 0.102,
+        "C4": 0.0808,
+        "C5": 0.1762
+      },
+      "p2_c5_minus_c1": 0.0742,
+      "p2_limitation": "precision16 endpoint quantization sensitivity only; full trajectory correctness is tested by TFE",
+      "test_read": false,
+      "locked_holdout_read": false
+    }
+  ],
+  "official_mtt_only": true,
+  "full_data_initializer_dependency": false,
+  "test_read": false,
+  "locked_holdout_read": false
+}
