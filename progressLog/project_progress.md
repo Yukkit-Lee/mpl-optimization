@@ -1239,3 +1239,4 @@
 - S1--S6搜索器按文档顺序单因素执行并原子保存registry：local epochs→LR、anchor size、reliability→teacher T→weight T、weight cap→uniform shrinkage、lambda→mu→steps→student LR，最后对IID/Mild/Severe复核；本地头checkpoint按配置hash保存在`new_checkpoints/new_stage_b_kd/`，支持断联恢复且不上传Git。
 - 运行记录覆盖parameter cosine distance、prediction disagreement、JS divergence、local/per-class accuracy、Average/Uniform/Class-aware/oracle teacher、macro-F1、worst-class、teacher gain、student retention、分阶段runtime、peak RSS和模型SHA；通信量未测则保持`N/A`。
 - 新增seed42-only hard preflight和tmux用launch脚本；launch按`nproc`设置OMP/MKL/OpenBLAS/NumExpr线程为32，不限制单线程。静态编译、shell语法、5项split/partition/weight/teacher/student单元测试和资产/branch preflight全部通过；当前仍未启动正式smoke实验。
+- split资产门完成：生成`new_stage_b_kd_split_manifest.json`与审计Markdown，CIFAR-10/100 seed42均登记每类anchor=4/8/12三种预注册变体；每个变体的local/anchor ID、SHA、类别直方图、intersection=0与union=全部48/class均写入。首选40 local+8 anchor；development来自冻结原训练集独立split且只用于评价，locked/test未读取。生成后hard preflight再次通过。
