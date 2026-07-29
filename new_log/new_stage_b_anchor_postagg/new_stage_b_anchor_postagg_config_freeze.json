@@ -1,0 +1,106 @@
+{
+  "schema": "new_stage_b_anchor_postagg_config_freeze_v1",
+  "status": "FROZEN_AFTER_SMOKE_SUCCESS",
+  "frozen": true,
+  "experiment_source_git_commit": "d87b223527f13254b92f30529105177c88641adb",
+  "freeze_generator_git_commit": "6ed860f78a9adc20002dd26c54ace15b614a1ceb",
+  "datasets": [
+    "cifar10",
+    "cifar100"
+  ],
+  "seed": 42,
+  "clients": 5,
+  "formal_distributions": [
+    "severe"
+  ],
+  "formal_methods": [
+    "C1_random_plus_anchor",
+    "C4_secure_average",
+    "C5_secure_average_plus_anchor"
+  ],
+  "selected_anchor_configs": {
+    "cifar10": {
+      "steps": 40,
+      "learning_rate": 0.1,
+      "mu": 0.001,
+      "selection_tuple": [
+        0.021600000000000064,
+        0.36160000000000003,
+        0.5764,
+        -40.0,
+        -0.001,
+        -0.1
+      ]
+    },
+    "cifar100": {
+      "steps": 40,
+      "learning_rate": 0.2,
+      "mu": 0.001,
+      "selection_tuple": [
+        0.0744,
+        0.11359999999999999,
+        0.1762,
+        -40.0,
+        -0.001,
+        -0.2
+      ]
+    }
+  },
+  "local_configs": {
+    "cifar10": {
+      "epochs": 5,
+      "learning_rate": 0.1,
+      "weight_decay": 0.0001
+    },
+    "cifar100": {
+      "epochs": 40,
+      "learning_rate": 0.2,
+      "weight_decay": 0.0001
+    }
+  },
+  "local_per_class": 40,
+  "anchor_per_class": 8,
+  "random_initialization_seed": 42,
+  "local_selection_rule": "fixed_client_id_0_without_development_access",
+  "batch_mode": "full_batch",
+  "feature_normalization": "audited_upstream_encoder_and_scaler",
+  "tfe_fixed_point_precision": 16,
+  "tfe_matmul_chunk_size": 64,
+  "timing_boundary": {
+    "local_secure_seconds": "all five client local updates",
+    "secure_average_seconds": "secure parameter average materialization",
+    "anchor_ce_seconds": "40 secure CE update steps per refined branch",
+    "total_stage_b_seconds": "local + average + selected anchor branch"
+  },
+  "success_gates": {
+    "gate_a_secure_average_independent_contribution": true,
+    "gate_b_aggregation_beats_local": true,
+    "gate_c_anchor_effective": true,
+    "gate_d_cross_distribution_direction": true,
+    "gate_e_class_robustness": true,
+    "gate_f_lineage": true,
+    "all_smoke_gates_pass": true
+  },
+  "severe_plaintext_deltas": {
+    "cifar10": {
+      "c5_minus_c1": 0.021600000000000064,
+      "c5_minus_c3": 0.36160000000000003,
+      "c5_minus_c4": 0.388
+    },
+    "cifar100": {
+      "c5_minus_c1": 0.0744,
+      "c5_minus_c3": 0.11359999999999999,
+      "c5_minus_c4": 0.0954
+    }
+  },
+  "policy_path": "new_configs/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_policy.json",
+  "policy_sha256": "6f58f3c4896b2a1f2b6cfbdedd22fa4d7edf72fe13aa5acd57702a1155d4fe52",
+  "split_manifest_path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_split_manifest.json",
+  "split_manifest_sha256": "3c69329b98f92d70ddf1610bf83e68b43f9c659cdcdd5b2407af2d575c218df6",
+  "locked_holdout_read": false,
+  "test_read": false,
+  "official_mtt_only": true,
+  "full_data_initializer_dependency": false,
+  "stage_c_run": false,
+  "end_to_end_run": false
+}

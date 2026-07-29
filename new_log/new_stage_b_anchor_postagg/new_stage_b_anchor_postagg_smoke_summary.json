@@ -1,0 +1,79 @@
+{
+  "schema": "new_stage_b_anchor_postagg_smoke_summary_v1",
+  "status": "COMPLETE",
+  "source_git_commit": "d87b223527f13254b92f30529105177c88641adb",
+  "policy_sha256": "6f58f3c4896b2a1f2b6cfbdedd22fa4d7edf72fe13aa5acd57702a1155d4fe52",
+  "split_manifest_path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_split_manifest.json",
+  "split_sha256": "3c69329b98f92d70ddf1610bf83e68b43f9c659cdcdd5b2407af2d575c218df6",
+  "selected_configs": {
+    "cifar10": {
+      "steps": 40,
+      "learning_rate": 0.1,
+      "mu": 0.001,
+      "selection_tuple": [
+        0.021600000000000064,
+        0.36160000000000003,
+        0.5764,
+        -40.0,
+        -0.001,
+        -0.1
+      ]
+    },
+    "cifar100": {
+      "steps": 40,
+      "learning_rate": 0.2,
+      "mu": 0.001,
+      "selection_tuple": [
+        0.0744,
+        0.11359999999999999,
+        0.1762,
+        -40.0,
+        -0.001,
+        -0.2
+      ]
+    }
+  },
+  "severe_deltas": {
+    "cifar10": {
+      "c5_minus_c1": 0.021600000000000064,
+      "c5_minus_c3": 0.36160000000000003,
+      "c5_minus_c4": 0.388
+    },
+    "cifar100": {
+      "c5_minus_c1": 0.0744,
+      "c5_minus_c3": 0.11359999999999999,
+      "c5_minus_c4": 0.0954
+    }
+  },
+  "direction_by_distribution": {
+    "iid": true,
+    "mild": true,
+    "severe": true
+  },
+  "speed_gate_by_dataset": {
+    "cifar10": false,
+    "cifar100": false
+  },
+  "gates": {
+    "gate_a_secure_average_independent_contribution": true,
+    "gate_b_aggregation_beats_local": true,
+    "gate_c_anchor_effective": true,
+    "gate_d_cross_distribution_direction": true,
+    "gate_e_class_robustness": true,
+    "gate_f_lineage": true,
+    "all_smoke_gates_pass": true
+  },
+  "next_phase": "FREEZE_THEN_TFE",
+  "registered_rows": 78,
+  "ablation_rows": 36,
+  "efficiency_rows": 18,
+  "runtime_seconds": 19.082799062132835,
+  "peak_rss_gib": 0.4317665100097656,
+  "official_mtt_only": true,
+  "full_data_initializer_dependency": false,
+  "test_read": false,
+  "locked_holdout_read": false,
+  "stage_c_run": false,
+  "end_to_end_run": false,
+  "tfe_status": "PENDING_FREEZE"
+}

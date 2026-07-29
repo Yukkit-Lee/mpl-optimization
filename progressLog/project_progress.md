@@ -1369,3 +1369,5 @@
 - 选择修正提交`d87b223`推送后，v2 plaintext在tmux以约2700% CPU完成并正常退出，总runtime约19.08s、peak RSS约0.432GiB。最终选择C10/C100均为40 steps、LR=`0.1/0.2`、mu=`1e-3`；Severe C5−C1=`+2.16/+7.44pp`、C5−C3=`+36.16/+11.36pp`、C5−C4=`+38.80/+9.54pp`。
 - 冻结配置在全部分布方向一致：C10 IID/Mild/Severe C5=`57.62/55.78/57.64%`，相对C1=`+2.14/+0.30/+2.16pp`；C100 C5=`22.12/20.34/17.62%`，相对C1=`+11.94/+10.16/+7.44pp`。IID下C5与合法固定client-0 C3近似（`+0.04/+0.14pp`），但Mild/Severe明显更优；Gate A--F全部通过。
 - 新增freeze生成器并设硬拒绝门：只有all-smoke-gates、split互斥和下一阶段全部正确时，才生成config/split freeze及manifest；将固定seed、数据/hash、C1/C4/C5、40-step预算、LR/mu、precision16、计时边界和禁止项。下一唯一操作是提交推送生成器，然后生成、审计并单独提交冻结资产，正式TFE在冻结提交推送前不会启动。
+- freeze生成器提交`6ed860f`推送后成功通过硬门，生成`FROZEN_AFTER_SMOKE_SUCCESS`配置/划分/manifest；config SHA=`9df91b28...839f0`、split-freeze SHA=`65d4ed41...86e3`，明确固定C10/C100 40 steps、LR0.1/0.2、mu1e-3、precision16、seed42 Severe C1/C4/C5及计时边界。split六场local∩anchor=0，development互斥，test/holdout仍未读。
+- 本次将同时提交全部plaintext registry/ablation/efficiency/trajectory/reuse/split证据和freeze文件；约13MiB派生C1/C3/C5模型仍只在`new_checkpoints/new_stage_b_anchor_postagg`本地保存，不纳入Git。下一唯一操作是在冻结资产提交推送后实现只读取freeze的TFE/ABY3 C1/C4/C5梯级。
