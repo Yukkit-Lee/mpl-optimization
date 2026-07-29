@@ -95,11 +95,24 @@ def candidate(
     top_ratio: float = 1.0,
     soft_scale: float = 0.15,
     cap_multiplier=None,
+    scoring_scope: str = "sample",
 ) -> Dict[str, Any]:
     client_anchor_probabilities = head_probabilities(
         bundle["x_anchor"], bundle["weights"], bundle["biases"]
     )
     scores = disagreement_scores(client_anchor_probabilities)[metric]
+    raw_score_std = float(np.std(scores))
+    if scoring_scope == "class":
+        class_scores = np.asarray(
+            [
+                np.mean(scores[bundle["y_anchor"] == class_id])
+                for class_id in range(assets.num_classes)
+            ],
+            dtype=np.float32,
+        )
+        scores = class_scores[bundle["y_anchor"]]
+    elif scoring_scope != "sample":
+        raise ValueError("unknown scoring scope: {}".format(scoring_scope))
     weights = build_anchor_weights(
         scores,
         bundle["y_anchor"],
@@ -133,6 +146,9 @@ def candidate(
         "method": method,
         "disagreement_metric": metric,
         "weight_rule": weight_rule,
+        "scoring_scope": scoring_scope,
+        "raw_disagreement_score_std": raw_score_std,
+        "effective_disagreement_score_std": float(np.std(scores)),
         "steps": int(steps),
         "learning_rate": float(lr),
         "mu": float(mu),
@@ -196,13 +212,18 @@ def diagnose(assets, bundle, evaluation):
         ],
         "secure_average_development_metrics": evaluation["average_metrics"],
         "metrics": {
-            name: diagnostic_metrics(
-                scores,
-                average_anchor_probabilities,
-                bundle["y_anchor"],
-                assets.num_classes,
-                evaluation["average_metrics"]["per_class_accuracy"],
-            )
+            name: {
+                **diagnostic_metrics(
+                    scores,
+                    average_anchor_probabilities,
+                    bundle["y_anchor"],
+                    assets.num_classes,
+                    evaluation["average_metrics"]["per_class_accuracy"],
+                ),
+                "score_min": float(np.min(scores)),
+                "score_max": float(np.max(scores)),
+                "score_std": float(np.std(scores)),
+            }
             for name, scores in metrics.items()
         },
         "anchor_prediction_hash": sha256_array(client_anchor_probabilities),
@@ -343,6 +364,30 @@ def run_dataset(dataset: str):
         ),
     )
 
+    # Case 1 in the plan: when sample-level disagreement is not predictive,
+    # explicitly test class-level anchor priority before declaring failure.
+    class_level_rows = []
+    if max(
+        item["auroc_average_error"]
+        for item in diagnostic["metrics"].values()
+    ) <= 0.60:
+        for metric in ("d1_variance", "d2_mean_js", "d3_vote_entropy"):
+            row = candidate(
+                assets,
+                bundle,
+                evaluation,
+                "severe",
+                "B2_case1_class_priority",
+                metric,
+                "linear",
+                selected_steps,
+                selected_lr,
+                selected_mu,
+                scoring_scope="class",
+            )
+            rows.append(row)
+            class_level_rows.append(row)
+
     cost_rows = []
     for ratio in (1.0, 0.5, 0.3, 0.2, 0.1):
         rule = selected_weight["weight_rule"]
@@ -389,6 +434,7 @@ def run_dataset(dataset: str):
     all_method_rows = [
         row for row in rows if row["method"] != "B1_uniform_s1_steps"
         and row["weight_rule"] != "uniform"
+        and row["effective_disagreement_score_std"] > 1e-12
     ]
     best_method = max(
         all_method_rows,
@@ -453,6 +499,7 @@ def run_dataset(dataset: str):
         top_ratio=best_method["top_ratio"],
         soft_scale=best_method["soft_scale"],
         cap_multiplier=best_method["cap_multiplier"],
+        scoring_scope=best_method["scoring_scope"],
     )
     rows.extend([iid_b1, iid_best])
 
@@ -463,8 +510,13 @@ def run_dataset(dataset: str):
     utility_pass = accuracy_gain >= 0.01 or worst_gain >= 0.02
     cost_pass = best_cost is not None
     iid_delta = iid_best["initializer_accuracy"] - iid_b1["initializer_accuracy"]
+    informative_diagnostics = [
+        item
+        for item in diagnostic["metrics"].values()
+        if item["score_std"] > 1e-12
+    ]
     auroc_best = max(
-        item["auroc_average_error"] for item in diagnostic["metrics"].values()
+        item["auroc_average_error"] for item in informative_diagnostics
     )
     return {
         "dataset": dataset,
@@ -515,7 +567,9 @@ def write_csv(results):
     TABLE_ROOT.mkdir(parents=True, exist_ok=True)
     fields = [
         "dataset", "seed", "backend", "distribution", "method",
-        "disagreement_metric", "weight_rule", "steps", "learning_rate", "mu",
+        "disagreement_metric", "weight_rule", "scoring_scope",
+        "raw_disagreement_score_std", "effective_disagreement_score_std",
+        "steps", "learning_rate", "mu",
         "top_ratio", "soft_scale", "cap_multiplier", "b0_accuracy",
         "initializer_accuracy", "macro_f1", "worst_class_accuracy",
         "gain_over_b0", "worst_class_gain_over_b0", "active_anchor_ratio",

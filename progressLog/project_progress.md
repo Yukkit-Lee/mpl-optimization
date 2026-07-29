@@ -1295,3 +1295,7 @@
 - Phase-A plaintext实现已完成但尚未启动：新增独立policy、核心数学、顺序runner、tmux launcher和4项确定性测试。实现包含D1/D2/D3、Average错误AUROC/precision@10/20/30/高低分歧错误率、class-wise weakness相关性、W0--W4、加权CE+漂移正则、active ratio/mass/distance/runtime，以及S1 steps→LR→mu、S2 metric、S3 weight、S4 cost、S5 IID safety的注册顺序。
 - 若第一轮B2/B3未达到相对B1的`+1pp accuracy/+2pp worst-class`门，runner只执行计划允许的有界诊断族（2x/4x/8x median cap、0.25x/0.5x LR、mu 1e-4/1e-3/1e-2），不做无限搜索；所有行写source commit与lineage/read flags。
 - C10/C100 Severe均复用上一轮已有anchor=8 checkpoint；IID若已有同配置checkpoint则读取，否则仅训练计划要求的IID safety本地头。split manifest将重新登记40/8每类直方图、ID hash、交并集及checkpoint SHA。
+- 首轮plaintext快速完成并正常退出tmux。B0→B1为C10 `18.84%→57.70%`、C100 `8.08%→17.60%`，再次确认uniform labeled-anchor CE有效；但首轮表面上的“B2等于B1”来自D3 vote entropy恒定后权重退化为uniform，不能算disagreement方法成功。
+- 诊断显示真正有数值变化的D1/D2与Average错误方向相反：C10 AUROC=`0.2243/0.2218`、sample correlation=`-0.5435/-0.5386`、class-weakness correlation=`-0.6749/-0.6789`；C100 AUROC=`0.4168/0.4340`、对应相关性也为负。D3 score std为0、AUROC机械等于0.5；高分歧样本反而比低分歧样本更少出错。
+- 因此修正选择器以排除constant-score伪候选，并按计划Case 1补充class-level direct high-disagreement priority；只允许这个预注册fallback，不把“反转分歧”包装成原方法。若class-level仍失败，将完成negative-result表/图/报告并按plaintext gate停止TFE。
+- 新增最终交付生成器：无论正负都生成main table、diagnostic report、claim audit、final report、B1--B4四图和completion audit；若plaintext失败，TFE validation CSV会明确登记`SKIPPED_PLAINTEXT_GATE`，而不是伪造安全后端结果。
