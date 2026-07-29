@@ -42,6 +42,7 @@ from new_stage_b_anchor_postagg_core import (  # noqa: E402
     classification_metrics,
     model_sha256,
     select_registered_local_client,
+    select_viable_causal_group,
     stable_sha256,
     step_efficiency,
     train_anchor_ce_trajectory,
@@ -436,7 +437,7 @@ def run() -> Dict[str, Any]:
                 registry.append(row)
                 group[source_name] = row
             step_groups.append(group)
-        selected_step_group = max(step_groups, key=causal_tuple)
+        selected_step_group = select_viable_causal_group(step_groups)
         selected_steps = selected_step_group["average"]["steps"]
 
         lr_groups: List[Dict[str, Dict[str, Any]]] = []
@@ -462,7 +463,7 @@ def run() -> Dict[str, Any]:
                 registry.append(row)
                 group[source_name] = row
             lr_groups.append(group)
-        selected_lr_group = max(lr_groups, key=causal_tuple)
+        selected_lr_group = select_viable_causal_group(lr_groups)
         selected_lr = selected_lr_group["average"]["learning_rate"]
 
         mu_groups: List[Dict[str, Dict[str, Any]]] = []
@@ -488,7 +489,7 @@ def run() -> Dict[str, Any]:
                 registry.append(row)
                 group[source_name] = row
             mu_groups.append(group)
-        selected_mu_group = max(mu_groups, key=causal_tuple)
+        selected_mu_group = select_viable_causal_group(mu_groups)
         selected_mu = selected_mu_group["average"]["mu"]
         selected_configs[dataset] = {
             "steps": selected_steps,

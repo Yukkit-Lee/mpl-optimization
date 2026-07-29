@@ -222,3 +222,35 @@ def step_efficiency(
 def select_registered_local_client() -> int:
     """Development-independent pre-registered local-head rule."""
     return 0
+
+
+def select_viable_causal_group(
+    groups: List[Dict[str, Dict[str, Any]]],
+    accuracy_tolerance: float = 0.003,
+) -> Dict[str, Dict[str, Any]]:
+    """Keep useful C5 endpoints, then apply the registered causal priorities.
+
+    Maximizing C5-C1 without an absolute-utility guard can mechanically choose
+    a nearly untrained model whose low final target is already met at step 0.
+    The tolerance is the plan's 0.3pp equivalence boundary; within that useful
+    set, C5-C1 and C5-C3 remain the first and second selection criteria.
+    """
+    if not groups:
+        raise ValueError("cannot select from an empty group list")
+    best_c5 = max(group["average"]["accuracy"] for group in groups)
+    viable = [
+        group
+        for group in groups
+        if group["average"]["accuracy"] >= best_c5 - float(accuracy_tolerance)
+    ]
+    return max(
+        viable,
+        key=lambda group: (
+            group["average"]["accuracy"] - group["random"]["accuracy"],
+            group["average"]["accuracy"] - group["local"]["accuracy"],
+            group["average"]["accuracy"],
+            -float(group["average"]["steps"]),
+            -float(group["average"]["mu"]),
+            -float(group["average"]["learning_rate"]),
+        ),
+    )

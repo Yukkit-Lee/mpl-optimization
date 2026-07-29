@@ -1363,3 +1363,6 @@
 - 新实现同时登记C0--C5、模型/config/split/checkpoint SHA、local/anchor/development互斥、refinement forward/backward/runtime、peak RSS及Stage-B内部Steps/Seconds@80/90/95；T@Target明确不是End-to-End指标。只有Gate A--F全部通过才将下一阶段设为freeze/TFE，否则自动负面停止。
 - 静态`py_compile`、launcher语法、policy hard gate及5/5个zero-step、toy convergence、step-efficiency、固定local选择、model-hash测试全部通过。下一唯一操作是提交推送实现代码，再在独立tmux中以32线程环境运行plaintext注册实验。
 - 实现提交`30d49b6`已推送后首次启动tmux，但在进入Python前即因镜像不存在`/usr/bin/time`退出，没有运行任何候选或生成checkpoint。launcher现移除该非必要外部依赖，继续使用runner内部已经覆盖的forward/backward/total/peak-RSS精确计时；修复提交推送后再启动，不会重复任何实验。
+- launcher修复提交`1673f86`推送后，plaintext在tmux中以约2800% CPU完成78行注册运行，总runtime约12.13s、peak RSS约0.431GiB，六个本地checkpoint全部cache hit。初版机械Gate A--F全通过，但审计发现纯lexicographic最大化C5−C1会选择绝对效用过低的配置：C10选5 steps/LR0.025时C5仅20.82%，导致Stage-B 80%/90%目标在step0即满足，不能接受为可靠正结果。
+- 已有注册曲线显示40-step配置同时具备较高效用与独立聚合贡献：C10 Severe C1/C3/C5=`55.54/21.72/57.70%`，C100=`10.36/6.26/17.60%`。选择规则现修正为先保留C5距该阶段注册最优不超过0.3pp的有效配置，再在该集合内严格按C5−C1、C5−C3、C5精度和低成本排序；0.3pp直接来自计划等价边界，不新增候选或搜索范围。
+- 新增单测证明选择器会拒绝“因果差看似更大但绝对C5几乎未训练”的病态候选。下一唯一操作是完成6/6测试并提交推送选择修正，然后重启runner；步骤阶段已有点作为审计证据保留，后续只会产生新选择链所需的40-step LR/mu与冻结跨分布轨迹。

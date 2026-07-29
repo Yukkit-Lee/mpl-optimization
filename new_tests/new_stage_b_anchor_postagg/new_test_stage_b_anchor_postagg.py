@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT / "new_scripts/new_stage_b_anchor_postagg"))
 from new_stage_b_anchor_postagg_core import (  # noqa: E402
     model_sha256,
     select_registered_local_client,
+    select_viable_causal_group,
     step_efficiency,
     train_anchor_ce_trajectory,
 )
@@ -70,3 +71,21 @@ def test_model_hash_changes_with_parameters():
     changed = weight.copy()
     changed[0, 0] = 1.0
     assert original != model_sha256(changed, bias)
+
+
+def test_causal_selection_rejects_pathologically_low_c5_endpoint():
+    def group(c1, c3, c5, steps):
+        return {
+            "random": {"accuracy": c1},
+            "local": {"accuracy": c3},
+            "average": {
+                "accuracy": c5,
+                "steps": steps,
+                "mu": 0.0,
+                "learning_rate": 0.1,
+            },
+        }
+
+    low = group(0.10, 0.10, 0.20, 5)
+    useful = group(0.55, 0.30, 0.58, 40)
+    assert select_viable_causal_group([low, useful]) is useful
