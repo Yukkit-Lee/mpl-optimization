@@ -1336,3 +1336,8 @@
 - runner严格先复用旧summary中exact-valid IID/Severe B0/B1，仅为缺失Mild计算B1；所有分布加载同一40/8 Official-MTT split和5客户端IID/Dirichlet alpha0.5/0.1协议。每行记录source commit、split/policy/model/config SHA、lineage/read flags、runtime及reuse状态。
 - 阈值搜索只使用文档注册的各数据集IID--Mild、Mild--Severe、IID--Severe中点；H3另含10/25/50%。单指标全失败时只补H3与H1的OR/AND两条简单规则，不拟合任意系数；每个候选显式计算六场路由、mean/max oracle regret与Gate1--5。
 - 静态编译、launch shell语法、policy hard gate和4项count/metric/routing单元测试全部通过。下一步须先提交推送代码，再由tmux运行plaintext；运行前没有trigger实验进程或已存在结果。
+- trigger代码提交`3c4b989`并推送后，plaintext在tmux中完成，实测启动阶段约1194% CPU、peak RSS约0.415GiB，总runtime约2.54s；5/6 local-head checkpoints命中，只有缺失的C10 Mild local head新建本地checkpoint，未重复已有IID/Severe训练。
+- S0完整crossover为：C10 IID/Mild/Severe B0→B1=`22.70→57.68 / 22.02→55.76 / 18.84→57.70%`，对应B1收益`+34.98/+33.74/+38.86pp`；C100=`10.24→22.12 / 9.06→20.34 / 8.08→17.62%`，收益`+11.88/+11.28/+9.54pp`。B1在六场全部为oracle，因此新计划要求的“IID B0 preferable/harmful B1”crossover明确失败。
+- H1/H2/H3均严格IID→Mild→Severe单调：C10 H1=`0/0.4391/0.5905`、H2=`0/0.2550/0.4352`、H3=`0/0.200/0.540`；C100为H1=`0/0.4374/0.6546`、H2=`0/0.1269/0.2504`、H3=`0/0.206/0.536`。这些指标能测标签skew，但不能预测anchor CE是否有益。
+- 共完成22个注册候选（H1--H3全部中点、H3 10/25/50%、H3+H1 OR/AND）。最佳极端路由为H1 threshold=`0.218699`：IID no-refine、Mild/Severe refine，Extreme/Severe/IID/Cost gates机械通过，但mean/max oracle regret=`7.81/34.98pp`，远超`0.5/1.0pp`，所以所有mandatory gates失败；smoke=false，next=`NEGATIVE_STOP_S0_OR_TRIGGER_GATE`，partition_id=1和TFE均按文档跳过。
+- 负结果交付生成器已实现但尚未运行：将生成全部12个mandatory outputs、split/freeze/completion审计、四张表及Figure B1--B4；config/threshold freeze会明确`NOT_FROZEN_PLAINTEXT_GATE_FAILED`，TFE表明确SKIPPED，不会伪造secure runtime或触发结果。
