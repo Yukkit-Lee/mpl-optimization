@@ -1266,3 +1266,5 @@
 - seed42 TFE梯级正常推进：tiny synthetic correctness已通过；CIFAR-10完成5/5个local epochs并推进到student 45/100，约4.6GiB RSS、持续使用CPU，无NaN/报错。runner与worker均由tmux `stage_b_kd_tfe_seed42`守护。
 - 新增最终交付生成器 `new_build_stage_b_kd_deliverables.py`，只有tiny+C10+C100三行TFE correctness全部通过才会运行；partial状态实测按预期以`REFUSE_PARTIAL_TFE missing=['cifar10', 'cifar100']`拒绝，避免将中间结果写成正式交付。
 - 生成器将在完整门后输出主ablation CSV、Figure B1/B2/B3、四张补充图、diagnostic report、claim audit、12问final report及seeds43/44剩余计划（仅计划不运行）。图B2强制展示CE-only和KD-over-CE因果分解，避免把anchor标签监督归因给Consensus。
+- CIFAR-10真实TFE已完成并通过validator：Average/student=`19.18/55.16%`，gain=`+35.98pp`，相对P1 plaintext gain retention=`100.22%`；local/student/total secure time=`58.50/62.63/121.13s`，peak RSS=`4.72GiB`，所有输出finite且最大参数绝对误差约`2.90e-4`。随后同一runner自动进入CIFAR-100。
+- 新增 `new_validate_stage_b_kd_completion.py`，逐项审计专用分支、单seed policy、split、89-run S1--S5+S6 confirmation、36-run因果分解、完整TFE梯级、lineage、必需报告/图、checkpoint政策、禁止实验隔离及remaining-seed plan-only边界。当前预审计按预期仍为INCOMPLETE，待C100与最终产物完成后必须达到全部通过。

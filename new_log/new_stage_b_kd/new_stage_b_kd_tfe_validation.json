@@ -1,0 +1,70 @@
+{
+  "schema": "new_stage_b_kd_tfe_validation_v1",
+  "status": "COMPLETE",
+  "source_commit": "751a5a906b64d9adf1c40e37ac6f5567b65dbcf2",
+  "seed_policy": [
+    42
+  ],
+  "rows": [
+    {
+      "dataset": "tiny_synthetic",
+      "seed": 42,
+      "backend": "TFE_ABY3",
+      "finite": true,
+      "comparisons": {
+        "average_weight_max_abs": 2.7393922209739685e-05,
+        "average_bias_max_abs": 9.694820619188249e-06,
+        "teacher_max_abs": 2.104043960571289e-05,
+        "student_weight_max_abs": 2.75271013379097e-05,
+        "student_bias_max_abs": 1.3933953596279025e-05
+      },
+      "tfe_average_accuracy": null,
+      "tfe_student_accuracy": null,
+      "tfe_gain": null,
+      "plaintext_gain": null,
+      "gain_retention": null,
+      "utility_gate": true,
+      "correctness_pass": true,
+      "total_secure_seconds": 25.799586296081543,
+      "peak_rss_gib": 1.5313720703125,
+      "report_path": "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/tiny_synthetic/seed42/new_stage_b_kd_tfe_report_tiny_synthetic_seed42.json",
+      "report_sha256": "8a7d13e2a1f09702685464e1a8942222a66784d8e85db24bc6c99926c9568904",
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/tiny_synthetic/seed42/new_stage_b_kd_tfe_model_tiny_synthetic_seed42.npz",
+      "model_sha256": "556f693856a805eee223de4c9c7261531fe651320332fd3b1df75cd2c8c3e0a5"
+    },
+    {
+      "dataset": "cifar10",
+      "seed": 42,
+      "backend": "TFE_ABY3",
+      "finite": true,
+      "comparisons": {
+        "average_weight_max_abs": 6.903544999659061e-05,
+        "average_bias_max_abs": 3.579258918762207e-05,
+        "teacher_max_abs": 5.014240741729736e-05,
+        "class_weights_max_abs": 0.0,
+        "student_weight_max_abs": 0.0002900189720094204,
+        "student_bias_max_abs": 8.658645674586296e-05
+      },
+      "tfe_average_accuracy": 0.1918,
+      "tfe_student_accuracy": 0.5516,
+      "tfe_gain": 0.3598,
+      "plaintext_average_accuracy": 0.1924,
+      "plaintext_student_accuracy": 0.5514,
+      "plaintext_gain": 0.359,
+      "gain_retention": 1.0022284122562675,
+      "utility_gate": true,
+      "correctness_pass": true,
+      "total_secure_seconds": 121.13276147842407,
+      "local_secure_seconds": 58.49859118461609,
+      "student_secure_seconds": 62.63417029380798,
+      "peak_rss_gib": 4.716117858886719,
+      "report_path": "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/cifar10/seed42/new_stage_b_kd_tfe_report_cifar10_seed42.json",
+      "report_sha256": "b42c0e038b9b78ef95b4880eb8c8c6ac846a5c56da6d49c92459e41397930906",
+      "model_path": "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/cifar10/seed42/new_stage_b_kd_tfe_model_cifar10_seed42.npz",
+      "model_sha256": "26de3ea142208810b9b9f8da0e78d5cc179672ed0a0bd25da3195fcf88e3f8a2"
+    }
+  ],
+  "locked_holdout_read": false,
+  "official_test_read": false,
+  "full_data_initializer_loaded": false
+}

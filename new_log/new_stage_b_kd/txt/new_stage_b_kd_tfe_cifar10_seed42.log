@@ -1,0 +1,33 @@
+
+TFE_COMMAND_WITHOUT_SECRETS=["/root/autodl-tmp/new_envs/tfe/bin/python", "/root/autodl-tmp/tfe_experiments/new_scripts/new_stage_b_kd/new_stage_b_kd_tfe_worker.py", "--input", "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_inputs/cifar10/new_stage_b_kd_tfe_input_cifar10_seed42.npz", "--output_dir", "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/cifar10/seed42", "--checkpoint_prefix", "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_stage_b_kd/tfe_validation/cifar10/seed42/new_stage_b_kd"]
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[TFE-local] dataset=cifar10 epoch=1/5
+[TFE-local] dataset=cifar10 epoch=2/5
+[TFE-local] dataset=cifar10 epoch=3/5
+[TFE-local] dataset=cifar10 epoch=4/5
+[TFE-local] dataset=cifar10 epoch=5/5
+[TFE-student] dataset=cifar10 step=1/100
+[TFE-student] dataset=cifar10 step=5/100
+[TFE-student] dataset=cifar10 step=10/100
+[TFE-student] dataset=cifar10 step=15/100
+[TFE-student] dataset=cifar10 step=20/100
+[TFE-student] dataset=cifar10 step=25/100
+[TFE-student] dataset=cifar10 step=30/100
+[TFE-student] dataset=cifar10 step=35/100
+[TFE-student] dataset=cifar10 step=40/100
+[TFE-student] dataset=cifar10 step=45/100
+[TFE-student] dataset=cifar10 step=50/100
+[TFE-student] dataset=cifar10 step=55/100
+[TFE-student] dataset=cifar10 step=60/100
+[TFE-student] dataset=cifar10 step=65/100
+[TFE-student] dataset=cifar10 step=70/100
+[TFE-student] dataset=cifar10 step=75/100
+[TFE-student] dataset=cifar10 step=80/100
+[TFE-student] dataset=cifar10 step=85/100
+[TFE-student] dataset=cifar10 step=90/100
+[TFE-student] dataset=cifar10 step=95/100
+[TFE-student] dataset=cifar10 step=100/100
+COMPLETE report=/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/cifar10/seed42/new_stage_b_kd_tfe_report_cifar10_seed42.json model=/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/cifar10/seed42/new_stage_b_kd_tfe_model_cifar10_seed42.npz secure_seconds=121.133

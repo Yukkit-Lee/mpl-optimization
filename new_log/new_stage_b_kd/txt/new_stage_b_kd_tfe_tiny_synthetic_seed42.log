@@ -1,0 +1,9 @@
+
+TFE_COMMAND_WITHOUT_SECRETS=["/root/autodl-tmp/new_envs/tfe/bin/python", "/root/autodl-tmp/tfe_experiments/new_scripts/new_stage_b_kd/new_stage_b_kd_tfe_worker.py", "--input", "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_inputs/tiny_synthetic/new_stage_b_kd_tfe_input_tiny_synthetic_seed42.npz", "--output_dir", "/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/tiny_synthetic/seed42", "--checkpoint_prefix", "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_stage_b_kd/tfe_validation/tiny_synthetic/seed42/new_stage_b_kd"]
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:121: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[TFE-local] dataset=tiny_synthetic epoch=1/1
+[TFE-student] dataset=tiny_synthetic step=1/1
+COMPLETE report=/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/tiny_synthetic/seed42/new_stage_b_kd_tfe_report_tiny_synthetic_seed42.json model=/root/autodl-tmp/tfe_experiments/new_output/new_stage_b_kd/tfe_validation/tiny_synthetic/seed42/new_stage_b_kd_tfe_model_tiny_synthetic_seed42.npz secure_seconds=25.800
