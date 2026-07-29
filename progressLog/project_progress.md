@@ -1292,3 +1292,6 @@
 - 当前无活动tmux或实验进程。发现VS Code后台 `git add --sparse` 以约100%单核扫描仓库，可能误处理本地checkpoint；已只终止该精确Git进程，暂存区为空，未删除或修改任何checkpoint/数据。
 - 已确认上一轮冻结的Official-MTT-only 40 local + 8 anchor/class split、本地五客户端头及development-only评价资产可以只读复用，以避免重复训练；本轮会重新登记依赖路径、SHA256、partition/split hash与source commit，并保持Full initializer依赖为0、locked/test读取标志为false。
 - 下一步按计划顺序实现并运行plaintext Phase A：先诊断D1概率方差、D2 mean JS、D3 vote entropy对错误的检测能力，再依次筛选B1预算、disagreement定义、权重/阈值、top ratio与成本配置；只有注册搜索及success/negative gate完成后才决定是否进入真实TFE/ABY3 Phase B。
+- Phase-A plaintext实现已完成但尚未启动：新增独立policy、核心数学、顺序runner、tmux launcher和4项确定性测试。实现包含D1/D2/D3、Average错误AUROC/precision@10/20/30/高低分歧错误率、class-wise weakness相关性、W0--W4、加权CE+漂移正则、active ratio/mass/distance/runtime，以及S1 steps→LR→mu、S2 metric、S3 weight、S4 cost、S5 IID safety的注册顺序。
+- 若第一轮B2/B3未达到相对B1的`+1pp accuracy/+2pp worst-class`门，runner只执行计划允许的有界诊断族（2x/4x/8x median cap、0.25x/0.5x LR、mu 1e-4/1e-3/1e-2），不做无限搜索；所有行写source commit与lineage/read flags。
+- C10/C100 Severe均复用上一轮已有anchor=8 checkpoint；IID若已有同配置checkpoint则读取，否则仅训练计划要求的IID safety本地头。split manifest将重新登记40/8每类直方图、ID hash、交并集及checkpoint SHA。

@@ -1,0 +1,21 @@
+{
+  "schema": "new_stage_b_anchor_refinement_policy_v1",
+  "plan": "plan/0730_new_stage_b_heterogeneity_aware_secure_anchor_refinement_prompt.md",
+  "datasets": ["cifar10", "cifar100"],
+  "seeds": [42],
+  "stage": "B_ONLY",
+  "anchor_per_class": 8,
+  "local_per_class": 40,
+  "primary_distribution": "severe",
+  "safety_distribution": "iid",
+  "locked_holdout_allowed": false,
+  "official_test_allowed": false,
+  "full_data_initializer_allowed": false,
+  "stage_c_allowed": false,
+  "dp_sgd_allowed": false,
+  "end_to_end_allowed": false,
+  "tiny_allowed": false,
+  "cross_seed_claim_allowed": false,
+  "checkpoint_git_policy": "large_checkpoints_local_only"
+}
+
