@@ -575,7 +575,8 @@ def main():
             # Full Data Stage B is heavy; wrap with timeout to survive TF 1.15 hangs
             if method == "full_data":
                 # Use shell timeout (kills entire process group, handles TF threads)
-                command = ["timeout", "--foreground", "-k", "60", "7200"] + command
+                sb_timeout_s = "14400" if dataset == "tiny" else "7200"
+                command = ["timeout", "--foreground", "-k", "60", sb_timeout_s] + command
             sb_attempts = 2 if method == "full_data" else 1
             run_logged(command, paths["stage_b_log"], max_attempts=sb_attempts)
         stage_b, stage_b_checks = validate_stage_b(

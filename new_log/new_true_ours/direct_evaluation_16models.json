@@ -1,0 +1,165 @@
+{
+  "results": [
+    {
+      "dataset": "cifar10",
+      "method": "true_ours",
+      "seed": 42,
+      "test_acc": 0.6736,
+      "dev_acc": 0.6886,
+      "sc_eps": 2.999999999999981,
+      "sb_time": 108.22518801689148,
+      "sc_time": 82.09298205375671
+    },
+    {
+      "dataset": "cifar10",
+      "method": "true_ours",
+      "seed": 43,
+      "test_acc": 0.672,
+      "dev_acc": 0.6814,
+      "sc_eps": 2.999999999999981,
+      "sb_time": 102.76422500610352,
+      "sc_time": 84.12010264396667
+    },
+    {
+      "dataset": "cifar10",
+      "method": "true_ours",
+      "seed": 44,
+      "test_acc": 0.6574,
+      "dev_acc": 0.6812,
+      "sc_eps": 2.999999999999981,
+      "sb_time": 107.19741177558899,
+      "sc_time": 83.09427237510681
+    },
+    {
+      "dataset": "cifar10",
+      "method": "full_data",
+      "seed": 42,
+      "test_acc": 0.7176,
+      "dev_acc": 0.73,
+      "sc_eps": 3.0,
+      "sb_time": 699.9722788333893,
+      "sc_time": 84.7906494140625
+    },
+    {
+      "dataset": "cifar10",
+      "method": "full_data",
+      "seed": 43,
+      "test_acc": 0.7195,
+      "dev_acc": 0.7252,
+      "sc_eps": 3.0,
+      "sb_time": 818.2534971237183,
+      "sc_time": 81.6635000705719
+    },
+    {
+      "dataset": "cifar10",
+      "method": "full_data",
+      "seed": 44,
+      "test_acc": 0.7102,
+      "dev_acc": 0.7248,
+      "sc_eps": 3.0,
+      "sb_time": 888.2832090854645,
+      "sc_time": 82.68983602523804
+    },
+    {
+      "dataset": "cifar100",
+      "method": "true_ours",
+      "seed": 42,
+      "test_acc": 0.4237,
+      "dev_acc": 0.4812,
+      "sc_eps": 2.999999999999999,
+      "sb_time": 2405.979032754898,
+      "sc_time": 61.881739377975464
+    },
+    {
+      "dataset": "cifar100",
+      "method": "true_ours",
+      "seed": 43,
+      "test_acc": 0.421,
+      "dev_acc": 0.4866,
+      "sc_eps": 2.999999999999999,
+      "sb_time": 2385.5563230514526,
+      "sc_time": 60.98403549194336
+    },
+    {
+      "dataset": "cifar100",
+      "method": "true_ours",
+      "seed": 44,
+      "test_acc": 0.4215,
+      "dev_acc": 0.4906,
+      "sc_eps": 2.999999999999999,
+      "sb_time": 2369.8168997764587,
+      "sc_time": 60.646355628967285
+    },
+    {
+      "dataset": "cifar100",
+      "method": "full_data",
+      "seed": 42,
+      "test_acc": 0.4295,
+      "dev_acc": 0.4286,
+      "sc_eps": 2.999999999999981,
+      "sb_time": 3565.901611804962,
+      "sc_time": 60.983234882354736
+    },
+    {
+      "dataset": "cifar100",
+      "method": "full_data",
+      "seed": 43,
+      "test_acc": 0.4278,
+      "dev_acc": 0.434,
+      "sc_eps": 2.999999999999981,
+      "sb_time": 3030.1641187667847,
+      "sc_time": 60.25423288345337
+    },
+    {
+      "dataset": "cifar100",
+      "method": "full_data",
+      "seed": 44,
+      "test_acc": 0.426,
+      "dev_acc": 0.4338,
+      "sc_eps": 2.999999999999981,
+      "sb_time": 3321.571455717087,
+      "sc_time": 61.39858603477478
+    },
+    {
+      "dataset": "tiny",
+      "method": "true_ours",
+      "seed": 42,
+      "test_acc": 0.2402,
+      "dev_acc": 0.3141,
+      "sc_eps": 2.9999999999999996,
+      "sb_time": 8975.536160469055,
+      "sc_time": 265.0863676071167
+    },
+    {
+      "dataset": "tiny",
+      "method": "true_ours",
+      "seed": 43,
+      "test_acc": 0.2392,
+      "dev_acc": 0.3113,
+      "sc_eps": 2.9999999999999996,
+      "sb_time": 8936.632713794708,
+      "sc_time": 273.5758864879608
+    },
+    {
+      "dataset": "tiny",
+      "method": "true_ours",
+      "seed": 44,
+      "test_acc": 0.2414,
+      "dev_acc": 0.3072,
+      "sc_eps": 2.9999999999999996,
+      "sb_time": 8847.88541173935,
+      "sc_time": 281.5367577075958
+    },
+    {
+      "dataset": "tiny",
+      "method": "full_data",
+      "seed": 42,
+      "test_acc": 0.2634,
+      "dev_acc": 0.2743,
+      "sc_eps": 4.406038185765161,
+      "sb_time": 5477.878921747208,
+      "sc_time": 112.67764163017273
+    }
+  ],
+  "count": 16
+}
