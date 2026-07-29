@@ -1,3 +1,7 @@
-dataset,seed,status,reason,backend,source_commit,locked_holdout_read,official_test_read
-cifar10,42,SKIPPED,plaintext_gate_failed,TFE_ABY3_not_started,77e9d9de31c32784cf7c1137939d29e86163073d,False,False
-cifar100,42,SKIPPED,plaintext_gate_failed,TFE_ABY3_not_started,77e9d9de31c32784cf7c1137939d29e86163073d,False,False
+dataset,seed,method,plaintext_accuracy,fixed_point_accuracy,tfe_accuracy,absolute_gap,status,reason,backend,source_commit,locked_holdout_read,official_test_read
+cifar10,42,B0_secure_average,0.1884,,,,SKIPPED,plaintext_gate_failed,TFE_ABY3_not_started,2565bd4bd3bcde2a923878e37172a47f3dd17e1a,False,False
+cifar10,42,B1_uniform_anchor_ce,0.577,,,,SKIPPED,plaintext_gate_failed,TFE_ABY3_not_started,2565bd4bd3bcde2a923878e37172a47f3dd17e1a,False,False
+cifar10,42,B3_best_informative,0.2248,,,,SKIPPED,plaintext_gate_failed,TFE_ABY3_not_started,2565bd4bd3bcde2a923878e37172a47f3dd17e1a,False,False
+cifar100,42,B0_secure_average,0.0808,,,,SKIPPED,plaintext_gate_failed,TFE_ABY3_not_started,2565bd4bd3bcde2a923878e37172a47f3dd17e1a,False,False
+cifar100,42,B1_uniform_anchor_ce,0.1762,,,,SKIPPED,plaintext_gate_failed,TFE_ABY3_not_started,2565bd4bd3bcde2a923878e37172a47f3dd17e1a,False,False
+cifar100,42,B3_best_informative,0.1094,,,,SKIPPED,plaintext_gate_failed,TFE_ABY3_not_started,2565bd4bd3bcde2a923878e37172a47f3dd17e1a,False,False

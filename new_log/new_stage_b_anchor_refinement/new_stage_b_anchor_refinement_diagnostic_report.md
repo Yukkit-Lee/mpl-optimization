@@ -8,7 +8,7 @@ Scope: CIFAR-10/100, seed42, Severe Non-IID, plaintext development-only.
 - d2_mean_js: AUROC=0.2218, sample correlation=-0.5386, class-weakness correlation=-0.6789, score std=0.000125386.
 - d3_vote_entropy: AUROC=0.5000, sample correlation=0.0000, class-weakness correlation=0.0000, score std=0.
 
-The informative probability metrics are negatively associated with Average errors; vote entropy is constant/degenerate. Direct sample- and class-level high-disagreement prioritization therefore has no valid error-detection signal.
+D1/D2 are negatively associated with Average errors; D3 vote entropy is constant. Direct sample- and class-level high-disagreement prioritization therefore lacks a valid error-targeting signal.
 
 ## CIFAR100
 
@@ -16,5 +16,5 @@ The informative probability metrics are negatively associated with Average error
 - d2_mean_js: AUROC=0.4340, sample correlation=-0.0873, class-weakness correlation=-0.2128, score std=7.59891e-05.
 - d3_vote_entropy: AUROC=0.5000, sample correlation=0.0000, class-weakness correlation=0.0000, score std=0.
 
-The informative probability metrics are negatively associated with Average errors; vote entropy is constant/degenerate. Direct sample- and class-level high-disagreement prioritization therefore has no valid error-detection signal.
+D1/D2 are negatively associated with Average errors; D3 vote entropy is constant. Direct sample- and class-level high-disagreement prioritization therefore lacks a valid error-targeting signal.
 

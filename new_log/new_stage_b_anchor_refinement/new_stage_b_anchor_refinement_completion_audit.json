@@ -1,40 +1,216 @@
 {
-  "schema": "new_stage_b_anchor_refinement_completion_audit_v1",
+  "schema": "new_stage_b_anchor_refinement_completion_audit_v2",
   "status": "COMPLETE",
-  "source_commit": "77e9d9de31c32784cf7c1137939d29e86163073d",
+  "source_commit": "2565bd4bd3bcde2a923878e37172a47f3dd17e1a",
   "required_files": [
     {
       "path": "new_expTab/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_smoke_registry.csv",
-      "exists": true
+      "exists": true,
+      "nonempty": true
     },
     {
       "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_smoke_summary.json",
-      "exists": true
+      "exists": true,
+      "nonempty": true
     },
     {
       "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_diagnostic_report.md",
-      "exists": true
+      "exists": true,
+      "nonempty": true
     },
     {
       "path": "new_expTab/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_tfe_validation.csv",
-      "exists": true
+      "exists": true,
+      "nonempty": true
     },
     {
       "path": "new_expTab/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_main_table.csv",
-      "exists": true
+      "exists": true,
+      "nonempty": true
     },
     {
       "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_claim_audit.md",
-      "exists": true
+      "exists": true,
+      "nonempty": true
     },
     {
       "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_final_report.md",
-      "exists": true
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_runtime_breakdown.csv",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_resource_summary.csv",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_disagreement_diagnosis.csv",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_split_manifest.json",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_split_audit.md",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_refinement/new_figure_b1_initializer_quality.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_refinement/new_figure_b1_initializer_quality.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_refinement/new_figure_b1_initializer_quality.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_refinement/new_figure_b1_initializer_quality.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_refinement/new_figure_b2_disagreement_vs_error.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_refinement/new_figure_b2_disagreement_vs_error.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_refinement/new_figure_b2_disagreement_vs_error.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_refinement/new_figure_b2_disagreement_vs_error.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_refinement/new_figure_b3_utility_cost.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_refinement/new_figure_b3_utility_cost.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_refinement/new_figure_b3_utility_cost.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_refinement/new_figure_b3_utility_cost.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_refinement/new_figure_b4_classwise.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_expFig/new_stage_b_anchor_refinement/new_figure_b4_classwise.pdf",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_refinement/new_figure_b4_classwise.png",
+      "exists": true,
+      "nonempty": true
+    },
+    {
+      "path": "new_output/new_stage_b_anchor_refinement/new_figure_b4_classwise.pdf",
+      "exists": true,
+      "nonempty": true
     }
   ],
+  "registered_family_checks": [
+    {
+      "dataset": "cifar10",
+      "counts": {
+        "B1_uniform_s1_steps": 4,
+        "B1_uniform_s1_lr": 3,
+        "B1_uniform_s1_mu": 3,
+        "B2_s2_metric": 3,
+        "B2_s3_weight": 2,
+        "B3_s3_weight": 8,
+        "B2_case1_class_priority": 3,
+        "B3_s4_cost": 5,
+        "diagnostic_capped_weight": 18,
+        "B1_iid_safety": 1,
+        "B2B3_iid_safety": 1
+      },
+      "expected": {
+        "B1_uniform_s1_steps": 4,
+        "B1_uniform_s1_lr": 3,
+        "B1_uniform_s1_mu": 3,
+        "B2_s2_metric": 3,
+        "B2_s3_weight": 2,
+        "B3_s3_weight": 8,
+        "B2_case1_class_priority": 3,
+        "B3_s4_cost": 5,
+        "diagnostic_capped_weight": 18,
+        "B1_iid_safety": 1,
+        "B2B3_iid_safety": 1
+      },
+      "pass": true
+    },
+    {
+      "dataset": "cifar100",
+      "counts": {
+        "B1_uniform_s1_steps": 4,
+        "B1_uniform_s1_lr": 3,
+        "B1_uniform_s1_mu": 3,
+        "B2_s2_metric": 3,
+        "B2_s3_weight": 2,
+        "B3_s3_weight": 8,
+        "B2_case1_class_priority": 3,
+        "B3_s4_cost": 5,
+        "diagnostic_capped_weight": 18,
+        "B1_iid_safety": 1,
+        "B2B3_iid_safety": 1
+      },
+      "expected": {
+        "B1_uniform_s1_steps": 4,
+        "B1_uniform_s1_lr": 3,
+        "B1_uniform_s1_mu": 3,
+        "B2_s2_metric": 3,
+        "B2_s3_weight": 2,
+        "B3_s3_weight": 8,
+        "B2_case1_class_priority": 3,
+        "B3_s4_cost": 5,
+        "diagnostic_capped_weight": 18,
+        "B1_iid_safety": 1,
+        "B2B3_iid_safety": 1
+      },
+      "pass": true
+    }
+  ],
+  "registered_candidates_total": 102,
   "plaintext_pass": false,
   "tfe_expected": false,
   "tfe_status": "SKIPPED_PLAINTEXT_GATE",
+  "negative_stop_proven": true,
   "locked_holdout_read": false,
   "official_test_read": false,
   "full_data_initializer_dependency": false

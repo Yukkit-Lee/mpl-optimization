@@ -2,42 +2,43 @@
 
 ## Outcome
 
-This is a registered negative result for the disagreement module. Uniform labeled-anchor CE remains effective, but high-disagreement weighting does not provide stable utility or cost benefits beyond B1 under the evaluated compact-data protocol. Because the plaintext gate failed on both datasets, TFE/ABY3 was not started.
+Registered negative result: uniform labeled-anchor CE is effective, but high-disagreement weighting provides neither utility nor cost benefits over B1. The plaintext gate failed on both datasets, so TFE/ABY3 was correctly not started.
 
 ### CIFAR10
 
-- B0 Secure Average: 18.84% accuracy.
-- B1 uniform anchor CE: 57.70% accuracy, 23.20% worst-class.
-- Best informative B2: 10.00% accuracy, 0.00% worst-class.
-- Best informative B3: 22.48% accuracy, 0.00% worst-class.
-- Best informative disagreement AUROC: 0.2243; IID safety delta vs B1: -35.86pp.
+- B0/B1/B2/B3 accuracy: 18.84% / 57.70% / 10.00% / 22.48%.
+- B1/B3 worst-class accuracy: 23.20% / 0.00%.
+- B1/B3 active anchors: 80 / 40.
+- Full-recompute Stage-B runtime B1/B3: 0.0269s / 0.0185s; the local-head training component is shared.
+- Best informative disagreement AUROC: 0.2243; IID delta vs B1: -35.86pp.
 
 ### CIFAR100
 
-- B0 Secure Average: 8.08% accuracy.
-- B1 uniform anchor CE: 17.62% accuracy, 0.00% worst-class.
-- Best informative B2: 2.92% accuracy, 0.00% worst-class.
-- Best informative B3: 10.94% accuracy, 0.00% worst-class.
-- Best informative disagreement AUROC: 0.4340; IID safety delta vs B1: -13.08pp.
+- B0/B1/B2/B3 accuracy: 8.08% / 17.62% / 2.92% / 10.94%.
+- B1/B3 worst-class accuracy: 0.00% / 0.00%.
+- B1/B3 active anchors: 800 / 400.
+- Full-recompute Stage-B runtime B1/B3: 0.5255s / 0.4984s; the local-head training component is shared.
+- Best informative disagreement AUROC: 0.4340; IID delta vs B1: -13.08pp.
 
 ## Ten required answers
 
-1. **Does disagreement detect Average mistakes?** No. D1/D2 are negatively correlated; D3 is constant.
-2. **Which metric is best?** None is a valid positive detector; selecting D3 by utility would merely reproduce uniform CE.
-3. **Does B2 beat B1?** No on either dataset.
-4. **Can it match B1 with fewer anchors/steps?** No registered configuration meets the 0.2pp/30% cost gate.
-5. **Does B3 beat B1?** No.
-6. **Does class-level fallback help?** No; direct high-disagreement class priority remains below B1.
-7. **Is IID safe?** No for the selected informative severe method; the drop exceeds 0.5pp.
-8. **Was TFE/ABY3 run?** No. The plan permits it only after a plaintext pass.
-9. **What remains useful?** B1 confirms that labeled Official-MTT anchors can strongly refine Secure Average.
-10. **What can be claimed?** Only the B1 anchor-supervision result and the negative disagreement finding, both seed42 development-only.
+1. **Does disagreement correlate with Average errors?** No; the informative metrics correlate in the opposite direction.
+2. **Which metric works best?** D1 on C10 and D2 on C100 by AUROC, but both are below 0.5 and therefore unusable as positive detectors.
+3. **Does guided CE beat uniform CE?** No.
+4. **Same accuracy with fewer anchors/steps?** No registered candidate meets the 0.2pp/30% gate.
+5. **Worst-class improvement?** No.
+6. **IID preserved?** No; the selected severe candidate violates the 0.5pp safety gate.
+7. **TFE/ABY3 reproduction?** Not attempted because the mandatory plaintext gate failed.
+8. **Extra Stage-B runtime?** Exact plaintext components are in the runtime table; secure runtime was not measured because Phase B was not authorized.
+9. **Positioning?** Negative result; B1 anchor supervision remains useful.
+10. **Paper-safe claims?** Seed42 development-only B1 benefit and the negative disagreement finding.
 
 ## Boundaries
 
-- Official-MTT-only initializer; Full dependency is false.
+- Official-MTT-only; Full initializer dependency is false.
 - locked holdout and official test were not read.
 - No Stage C, DP-SGD, End-to-End, Tiny, seeds43/44, or Figure 2.
-- B4 is reused from the prior registered KD protocol and is marked as a protocol-different negative control.
+- Communication was not measured and no communication-saving claim is made.
+- KD is a prior-protocol negative control and is explicitly marked protocol-different.
 
-Source commit: `77e9d9de31c32784cf7c1137939d29e86163073d`.
+Source commit: `2565bd4bd3bcde2a923878e37172a47f3dd17e1a`.
