@@ -1214,3 +1214,13 @@
 - 正式汇总：C10 Full/True final development accuracy=`72.67±0.29%/68.37±0.42%`、总online time=`945.34±36.70s/219.30±23.38s`、T@90=`136.69±4.02s/53.83±17.12s`；C100为`43.21±0.31%/48.61±0.47%`、`3536.64±125.19s/2463.02±18.63s`、T@90=`466.87±21.11s/184.34±0.65s`；Tiny seed42 Full/True为`27.20%/31.41%`、总online time=`6087.04s/9257.16s`、T@90=`1491.45s/607.48s`。Tiny明确`n=1,std N/A`。
 - Phase 5生成精确指定的三面板Figure 2 PNG/PDF/SVG和T@Target CSV。第一次人工看图发现C100/Tiny摘要框遮挡，未接受；绘图入口改为中性标题和左右固定紧凑摘要框后重新生成，第二次人工检查通过。最终图为3667×1250 PNG，PDF单页、SVG有效；无NaN/Inf，三个格式来自同一master JSON。图中log累计时间、Stage B→C虚线、C10/C100 sample-std band、Tiny n=1、T@80/90/95和conditional epsilon均明确。
 - 简化报告严格写明：C10/C100三seeds、Tiny seed42-only；所有accuracy为development validation；epsilon仅为conditional Stage C，不是end-to-end DP；locked holdout和official test本轮均未读取；旧Tiny Full和来源未验证direct evaluation均排除。
+
+---
+
+## 项目进展记录
+- 时间：2026-07-29（UTC）
+- 用户要求汇总仓库内全部实验，包括实验目的、精度/效率/目标指标、图表位置和改进方向。本轮只进行只读结果审计与文档整理，没有启动或重复任何实验，也没有读取 locked holdout/official test。
+- 新增 `reportToMe/new_all_experiments_summary.md`，按“当前正式主结果、历史 Public-MTT 主线、机制/系统消融、诊断结果、失效资产”分层梳理 Stage A、Stage B、Stage C、端到端、Full-Data 增量对比、True Ours 重建、TFE 系统和外部来源实验。
+- 报告以 `new_true_ours_master_results.json` 为当前权威来源，明确 14/14 为 development-only：C10/C100 各3 seeds、Tiny seed42-only；C10 True Ours 最终精度低 Full 4.29pp但 T@90 快2.54×，C100精度高5.40pp且 T@90 快2.53×，Tiny精度高4.21pp且 T@90 快2.46×、但完整流程慢1.52×。
+- 论文边界已统一：当前 epsilon 仅为 conditional Stage-C mechanism，非端到端 record DP；旧 hybrid Improved Ours、错误 Tiny Full、来源未验证 direct evaluation 和 `new_true_ours_final_test.*` 均明确排除出主结果；旧 incremental Ours 缺 Stage-B 计时，不能用于公平端到端 speedup。
+- 报告给出正文/补充材料/禁用图表清单，并将可信冻结后测试评估、CIFAR-10效用缺口、Tiny多seed、端到端隐私边界、通信量测量和指标语义统一列为分级改进项。
