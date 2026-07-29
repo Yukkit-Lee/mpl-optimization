@@ -317,7 +317,7 @@ def build_figures(
     selected: Dict[str, Dict[str, Any]],
 ) -> None:
     datasets = ["cifar10", "cifar100"]
-    labels = ["B0", "B1", "B2", "B3", "KD"]
+    labels = ["B0", "B1", "B2", "B3", "KD†"]
     colors = ["#777777", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6"]
     figure, axes = plt.subplots(1, 2, figsize=(11, 4), constrained_layout=True)
     for axis, dataset in zip(axes, datasets):
@@ -334,6 +334,14 @@ def build_figures(
         axis.set_ylim(0, max(values) * 115.0)
     figure.suptitle(
         "Figure B1: Stage-B initializer quality (seed42, Severe Non-IID)"
+    )
+    figure.text(
+        0.5,
+        0.005,
+        "† KD is a reused negative control from the prior registered protocol; "
+        "it is not an equal-budget current-40/8 comparison.",
+        ha="center",
+        fontsize=8,
     )
     save_figure(figure, "new_figure_b1_initializer_quality")
 
