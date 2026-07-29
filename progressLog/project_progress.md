@@ -1380,3 +1380,5 @@
 - 正式TFE/ABY3验证最终状态为`COMPLETE`。C10 TFE C1/C4/C5=`55.48/18.84/57.62%`，C5−C1=`+2.14pp`，相对plaintext增益保留率=`99.07%`，最大accuracy gap=`0.02pp`、最大参数绝对误差=`1.86e-4`；secure runtime=`87.37s`、graph build=`45.56s`、peak RSS=`2.95GiB`。
 - C100 TFE C1/C4/C5=`10.02/8.02/17.50%`，C5−C1=`+7.48pp`，相对plaintext增益保留率=`100.54%`，最大accuracy gap=`0.16pp`、最大参数绝对误差=`3.67e-4`；secure runtime=`862.18s`、graph build=`50.83s`、peak RSS=`8.97GiB`。两数据集均满足utility/correctness门，Official-MTT-only，Full dependency=false，test/locked holdout均未读取。
 - 下一唯一操作：先提交推送TFE报告、最终小模型和日志（大型恢复checkpoint仍仅本地），再生成并人工检查Table/Figure B1--B4、runtime/resource、split/claim/completion audit和12问final report；不再启动任何实验。
+- TFE正式结果、小模型与日志已由提交`78a8067`推送，大型恢复checkpoint保持本地且无活动tmux/实验进程。最终交付生成器已实现并通过`py_compile`与`git diff --check`，将只读取冻结plaintext/TFE结果：生成Table B1--B4、runtime/resource/class-wise表、双目录Figure B1--B4、split/claim/completion audit和12问final report，并对文件非空、PDF头、CSV NaN/Inf、TFE门及禁止实验做硬审计。
+- 下一唯一操作：提交推送交付生成器源码与本进度，然后从该提交运行生成器；运行只做已有模型development评价与绘图，不重新训练或调参。
