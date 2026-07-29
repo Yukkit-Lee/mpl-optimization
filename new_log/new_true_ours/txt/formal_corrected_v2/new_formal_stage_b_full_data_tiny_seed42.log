@@ -16,3 +16,5 @@ WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-package
 [StageB-local] epoch=10/40
 [StageB-local] epoch=14/40
 [StageB-local] epoch=18/40
+[StageB-local] epoch=23/40
+[StageB-local] epoch=27/40
