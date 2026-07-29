@@ -1,0 +1,41 @@
+{
+  "schema": "new_stage_b_anchor_refinement_completion_audit_v1",
+  "status": "COMPLETE",
+  "source_commit": "77e9d9de31c32784cf7c1137939d29e86163073d",
+  "required_files": [
+    {
+      "path": "new_expTab/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_smoke_registry.csv",
+      "exists": true
+    },
+    {
+      "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_smoke_summary.json",
+      "exists": true
+    },
+    {
+      "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_diagnostic_report.md",
+      "exists": true
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_tfe_validation.csv",
+      "exists": true
+    },
+    {
+      "path": "new_expTab/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_main_table.csv",
+      "exists": true
+    },
+    {
+      "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_claim_audit.md",
+      "exists": true
+    },
+    {
+      "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_final_report.md",
+      "exists": true
+    }
+  ],
+  "plaintext_pass": false,
+  "tfe_expected": false,
+  "tfe_status": "SKIPPED_PLAINTEXT_GATE",
+  "locked_holdout_read": false,
+  "official_test_read": false,
+  "full_data_initializer_dependency": false
+}

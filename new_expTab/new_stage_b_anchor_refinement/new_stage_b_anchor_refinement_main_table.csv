@@ -1,0 +1,11 @@
+dataset,seed,distribution,backend,method,protocol,development_accuracy,macro_f1,worst_class_accuracy,effective_anchor_count,refinement_seconds,source_commit,initializer_source,full_data_initializer_dependency,locked_holdout_read,official_test_read
+cifar10,42,severe,numpy_plaintext_float,B0_secure_average,current_40_8,0.1884,0.12819253338084108,0.0,0,0.0,77e9d9de31c32784cf7c1137939d29e86163073d,official_mtt_only,False,False,False
+cifar10,42,severe,numpy_plaintext_float,B1_uniform_anchor_ce,current_40_8,0.577,0.5631949288913124,0.232,80,0.007240206003189087,77e9d9de31c32784cf7c1137939d29e86163073d,official_mtt_only,False,False,False
+cifar10,42,severe,numpy_plaintext_float,B2_disagreement_weighted_ce,current_40_8,0.1,0.01818181818181818,0.0,79,0.0074305459856987,77e9d9de31c32784cf7c1137939d29e86163073d,official_mtt_only,False,False,False
+cifar10,42,severe,numpy_plaintext_float,B3_top_disagreement_ce,current_40_8,0.2248,0.11058797912950391,0.0,40,0.007102124392986298,77e9d9de31c32784cf7c1137939d29e86163073d,official_mtt_only,False,False,False
+cifar10,42,severe,numpy_plaintext_float,B4_existing_kd_negative_control,prior_registered_kd_protocol,0.5514,0.5425685812337468,0.276,,0.01454898715019226,77e9d9de31c32784cf7c1137939d29e86163073d,official_mtt_only,False,False,False
+cifar100,42,severe,numpy_plaintext_float,B0_secure_average,current_40_8,0.0808,0.05235395174537225,0.0,0,0.0,77e9d9de31c32784cf7c1137939d29e86163073d,official_mtt_only,False,False,False
+cifar100,42,severe,numpy_plaintext_float,B1_uniform_anchor_ce,current_40_8,0.1762,0.14503456505751008,0.0,800,0.11793994903564453,77e9d9de31c32784cf7c1137939d29e86163073d,official_mtt_only,False,False,False
+cifar100,42,severe,numpy_plaintext_float,B2_disagreement_weighted_ce,current_40_8,0.0292,0.013556619106358138,0.0,799,0.07448720932006836,77e9d9de31c32784cf7c1137939d29e86163073d,official_mtt_only,False,False,False
+cifar100,42,severe,numpy_plaintext_float,B3_top_disagreement_ce,current_40_8,0.1094,0.055589126389320336,0.0,400,0.11293205618858337,77e9d9de31c32784cf7c1137939d29e86163073d,official_mtt_only,False,False,False
+cifar100,42,severe,numpy_plaintext_float,B4_existing_kd_negative_control,prior_registered_kd_protocol,0.2344,0.20723536163691622,0.0,,0.19794462621212006,77e9d9de31c32784cf7c1137939d29e86163073d,official_mtt_only,False,False,False

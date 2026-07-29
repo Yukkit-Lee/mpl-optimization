@@ -1303,3 +1303,8 @@
 - 首次运行交付生成器被硬门拒绝：S2最终判断虽排除了constant D3，但S3/B3仍从早期并列精度规则继承D3，导致没有informative B3行。未生成completion结果；现修正S2选择链，要求metric score std非零，再重跑同一注册plaintext，不新增调参家族。
 - S2链修正后发现第二个选择边界：S4的`top_ratio=1.0`是计划中的all-anchor参考点，权重完全等于B1，却被总选择器误当B3最佳。真实稀疏B3 top-50%为C10 `22.48%`、C100 `10.96%`，仍低于B1 `57.70%/17.60%`。现为每行增加weight std与`uniform_equivalent`，禁止all-anchor参考点冒充方法结果；随后做最后一次同协议复跑。
 - uniform-equivalent修正后的真实最佳为C10 B3 `22.48%`（相对B1约`-35pp`）、C100 B3 `10.96%`（`-6.64pp`），utility/cost/IID gates均失败。审计同时发现B1同成本近最佳候选用毫秒runtime作tie-break会在`57.70/57.64%`间选择不同mu；改为确定性的“成本→精度→较小mu/LR”，消除机器时序对配置选择的影响后再冻结最终结果。
+- 最终确定性plaintext在tmux中完成102行注册候选，总runtime约8.09s、peak RSS约0.374GiB。C10 B0/B1/最佳B3=`18.84/57.70/22.48%`，B1配置40 steps/LR0.1/mu0，B3为D1 top-50%且相对B1 `-35.22pp`、worst-class `-23.2pp`；C100=`8.08/17.62/10.94%`，B1为40 steps/LR0.2/mu1e-3，B3相对B1 `-6.68pp`。两者均没有utility pass或成本pass。
+- disagreement诊断最终冻结：C10 informative best AUROC=`0.2243`，C100=`0.4340`，均低于随机0.5；D3 vote entropy恒定且不可选。IID safety中同一top-50%方法相对各自B1下降`35.86pp/13.08pp`，明确失败。class-level direct priority、caps、mu与较低LR的有界诊断均未挽救。
+- 按计划plaintext gate，未启动TFE/ABY3；`new_stage_b_anchor_refinement_tfe_validation.csv`逐数据集登记`SKIPPED/plaintext_gate_failed`，不是缺失结果。未启动Stage C/DP/End-to-End/Tiny/额外seed，locked holdout与official test均未读取，Full initializer依赖为false。
+- 最终交付已生成：102行smoke registry、split manifest、diagnostic JSON/Markdown、10行B0--B4主表、TFE skip表、claim audit、十问final report、Figure B1--B4 PNG/PDF和completion audit。四张PNG已逐张人工检查，无截断/遮挡/空图；所有CSV source commit与summary的`77e9d9d`一致。
+- completion audit为`COMPLETE`，全部7项必需核心文件存在。客观结论为：uniform labeled MTT-anchor CE依然有效；但在当前40/8、seed42 compact-data协议中，高客户端分歧并不预测Secure Average错误，disagreement-weighted/top-disagreement refinement既无效用增益也无成本收益，应作为negative result而非新正模块。

@@ -1,0 +1,36 @@
+{
+  "cifar10": {
+    "b0": 0.1884,
+    "b1": 0.577,
+    "best": 0.2248,
+    "gates": {
+      "accuracy_gain_vs_b1": -0.35219999999999996,
+      "worst_class_gain_vs_b1": -0.232,
+      "utility_pass": false,
+      "cost_pass": false,
+      "best_disagreement_auroc": 0.22426470588235295,
+      "disagreement_predictive_preferred": false,
+      "iid_delta_vs_b1": -0.3586,
+      "iid_safety_pass": false,
+      "lineage_pass": true,
+      "plaintext_pass": false
+    }
+  },
+  "cifar100": {
+    "b0": 0.0808,
+    "b1": 0.1762,
+    "best": 0.1094,
+    "gates": {
+      "accuracy_gain_vs_b1": -0.0668,
+      "worst_class_gain_vs_b1": 0.0,
+      "utility_pass": false,
+      "cost_pass": false,
+      "best_disagreement_auroc": 0.43401118808727507,
+      "disagreement_predictive_preferred": false,
+      "iid_delta_vs_b1": -0.13080000000000003,
+      "iid_safety_pass": false,
+      "lineage_pass": true,
+      "plaintext_pass": false
+    }
+  }
+}
