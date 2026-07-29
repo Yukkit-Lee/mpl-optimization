@@ -11,3 +11,15 @@ WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-package
 WARNING:tensorflow:From /root/autodl-tmp/new_envs/tfe/lib/python3.6/site-packages/tf_encrypted/__init__.py:122: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
 
 [StageC] step=1/180 ref_acc=0.2749 C_t=1.00000 noisy_b=N/A
+[StageC] step=21/180 ref_acc=0.2743 C_t=1.16182 noisy_b=N/A
+[StageC] step=41/180 ref_acc=0.2737 C_t=1.28360 noisy_b=N/A
+[StageC] step=61/180 ref_acc=0.2735 C_t=1.31927 noisy_b=N/A
+[StageC] step=81/180 ref_acc=0.2729 C_t=1.33192 noisy_b=N/A
+[StageC] step=100/180 ref_acc=0.2721 C_t=1.39748 noisy_b=0.2180
+[StageC] step=120/180 ref_acc=0.2733 C_t=1.47835 noisy_b=1.0000
+[StageC] step=140/180 ref_acc=0.2727 C_t=1.49997 noisy_b=0.9623
+[StageC] step=160/180 ref_acc=0.2724 C_t=1.44400 noisy_b=0.7030
+[StageC] step=180/180 ref_acc=0.2720 C_t=1.43559 noisy_b=0.7057
+epsilon_C=3.000000 final_C=1.406219
+model=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_c/full_data_formal_corrected_v2/tiny/seed42/new_secure_stage_c_model_tiny_adaptive_dp_seed42.npz
+report=/root/autodl-tmp/tfe_experiments/new_output/new_true_ours/stage_c/full_data_formal_corrected_v2/tiny/seed42/new_secure_stage_c_report_tiny_adaptive_dp_seed42.json

@@ -1,6 +1,6 @@
 {
   "schema": "new_tiny_full_seed42_correction_status_v1",
-  "status": "STAGE_C_RUNNING",
+  "status": "COMPLETE",
   "dataset": "tiny",
   "method": "full_data",
   "seed": 42,
@@ -40,5 +40,23 @@
     "candidate": true
   },
   "stage_b_report": "new_output/new_true_ours/stage_b/full_data_formal_corrected_v2/tiny/seed42/new_secure_stage_b_report_tiny_balanced_seed42.json",
-  "stage_b_report_sha256": "cf1da05fffa883baf5c603db09a9dc1568222367f10da9473c95c139909ca880"
+  "stage_b_report_sha256": "cf1da05fffa883baf5c603db09a9dc1568222367f10da9473c95c139909ca880",
+  "stage_c_checks": {
+    "complete_identity": true,
+    "lineage": true,
+    "tfe_aby3_no_fallback": true,
+    "poisson_accountant": true,
+    "conditional_claim": true,
+    "development_only": true,
+    "matched_stage_c_config": true,
+    "history_and_timing": true,
+    "finite_nonboundary_c": true
+  },
+  "stage_c_report": "new_output/new_true_ours/stage_c/full_data_formal_corrected_v2/tiny/seed42/new_secure_stage_c_report_tiny_adaptive_dp_seed42.json",
+  "stage_c_report_sha256": "a16016ce6b9e4737b835929012edb66a5b39938221c7c3c66d527d846705244c",
+  "timeline": "new_log/new_true_ours/formal_timelines/tiny/full_data_corrected_v2/new_true_ours_timeline_seed42.json",
+  "timeline_sha256": "1862b16118d5d5536cbc23bd119dd77fd95a46c6cea6d9ae50721b48ba16b397",
+  "total_online_secure_seconds": 6087.03896522522,
+  "checkpoint_manifest": "new_log/new_true_ours/new_tiny_full_seed42_corrected_checkpoint_manifest.json",
+  "checkpoint_file_count": 8
 }

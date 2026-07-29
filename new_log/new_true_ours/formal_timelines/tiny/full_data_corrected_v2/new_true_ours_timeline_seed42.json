@@ -1,0 +1,177 @@
+{
+  "schema": "new_true_ours_formal_timeline_v1",
+  "status": "COMPLETE_DEVELOPMENT_ONLY",
+  "dataset": "tiny",
+  "method": "full_data",
+  "seed": 42,
+  "timing_boundary": "Stage-B secure graph/session start through Stage-C final model",
+  "stage_b_online_secure_seconds": 5856.189736366272,
+  "stage_c_online_secure_seconds": 230.84922885894775,
+  "total_online_secure_seconds": 6087.03896522522,
+  "points": [
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 5,
+      "cumulative_online_secure_seconds": 761.9771919250488,
+      "development_validation_accuracy": 0.24,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 10,
+      "cumulative_online_secure_seconds": 1491.4517920017242,
+      "development_validation_accuracy": 0.267,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 15,
+      "cumulative_online_secure_seconds": 2213.543102502823,
+      "development_validation_accuracy": 0.266,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 20,
+      "cumulative_online_secure_seconds": 2938.9590780735016,
+      "development_validation_accuracy": 0.271,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 25,
+      "cumulative_online_secure_seconds": 3664.776614189148,
+      "development_validation_accuracy": 0.268,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 30,
+      "cumulative_online_secure_seconds": 4393.737153291702,
+      "development_validation_accuracy": 0.275,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 35,
+      "cumulative_online_secure_seconds": 5122.650937795639,
+      "development_validation_accuracy": 0.274,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_b",
+      "epoch_or_step": 40,
+      "cumulative_online_secure_seconds": 5843.873128890991,
+      "development_validation_accuracy": 0.261,
+      "epsilon_so_far": null,
+      "epsilon_scope": "not_applicable_non_dp_stage_b",
+      "processed_secure_examples": null
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 1,
+      "cumulative_online_secure_seconds": 5884.793252468109,
+      "development_validation_accuracy": 0.2749,
+      "epsilon_so_far": 2.3103303909428563,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 16
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 21,
+      "cumulative_online_secure_seconds": 5928.122725009918,
+      "development_validation_accuracy": 0.2743,
+      "epsilon_so_far": 2.6430502014287116,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 336
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 41,
+      "cumulative_online_secure_seconds": 5947.808599948883,
+      "development_validation_accuracy": 0.2737,
+      "epsilon_so_far": 2.7375447705384692,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 656
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 61,
+      "cumulative_online_secure_seconds": 5967.74609541893,
+      "development_validation_accuracy": 0.2735,
+      "epsilon_so_far": 2.800563517390944,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 976
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 81,
+      "cumulative_online_secure_seconds": 5987.6415338516235,
+      "development_validation_accuracy": 0.2729,
+      "epsilon_so_far": 2.847109064448037,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 1296
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 100,
+      "cumulative_online_secure_seconds": 6003.606952428818,
+      "development_validation_accuracy": 0.2721,
+      "epsilon_so_far": 2.8833614981028566,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 1600
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 120,
+      "cumulative_online_secure_seconds": 6022.747081518173,
+      "development_validation_accuracy": 0.2733,
+      "epsilon_so_far": 2.9215219359086717,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 1920
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 140,
+      "cumulative_online_secure_seconds": 6041.534866809845,
+      "development_validation_accuracy": 0.2727,
+      "epsilon_so_far": 2.951570688705449,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 2240
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 160,
+      "cumulative_online_secure_seconds": 6060.623514175415,
+      "development_validation_accuracy": 0.2724,
+      "epsilon_so_far": 2.975785344352724,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 2560
+    },
+    {
+      "stage": "stage_c",
+      "epoch_or_step": 180,
+      "cumulative_online_secure_seconds": 6079.08637714386,
+      "development_validation_accuracy": 0.272,
+      "epsilon_so_far": 2.999999999999999,
+      "epsilon_scope": "conditional_stage_c_mechanisms_only",
+      "processed_secure_examples": 2880
+    }
+  ],
+  "locked_holdout_read": false,
+  "official_test_read": false
+}

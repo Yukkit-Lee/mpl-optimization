@@ -351,7 +351,9 @@ def write_table(rows):
         "sample_std_seconds",
     ]
     with TABLE_PATH.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(
+            handle, fieldnames=fields, lineterminator="\n"
+        )
         writer.writeheader()
         writer.writerows(rows)
 
@@ -414,8 +416,7 @@ def draw_figure(master):
             if endpoint_std is not None:
                 acc_text += "±{:.1%}".format(endpoint_std)
             annotation = (
-                "{}\nAcc {}\nfeatures={}\nT@90={}\n"
-                "conditional ε={:.3f}"
+                "{}\nAcc {} | features={:,}\nT@90={} | conditional ε={:.3f}"
             ).format(
                 METHOD_LABELS[method],
                 acc_text,
@@ -423,14 +424,14 @@ def draw_figure(master):
                 display_time(result["time_to_target"]["T@90"]),
                 result["conditional_stage_c_epsilon_mean"],
             )
-            axis.annotate(
+            axis.text(
+                0.02 if method == "full_data" else 0.98,
+                0.97,
                 annotation,
-                xy=(x[-1], y[-1]),
-                xytext=(-5, 10 if method == "full_data" else -72),
-                textcoords="offset points",
-                ha="right",
-                va="bottom",
-                fontsize=7.3,
+                transform=axis.transAxes,
+                ha="left" if method == "full_data" else "right",
+                va="top",
+                fontsize=7.0,
                 color=color,
                 bbox={
                     "boxstyle": "round,pad=0.25",
@@ -464,7 +465,7 @@ def draw_figure(master):
         axis.legend(loc="lower right", fontsize=8)
     axes[0].set_ylabel("Development validation accuracy")
     fig.suptitle(
-        "True Ours reaches development targets with less secure feature work",
+        "Development accuracy versus cumulative online secure runtime",
         fontweight="bold",
     )
     fig.text(
@@ -485,6 +486,12 @@ def draw_figure(master):
             kwargs["dpi"] = 220
         fig.savefig(str(FIGURE_STEM) + "." + suffix, **kwargs)
     plt.close(fig)
+    svg_path = Path(str(FIGURE_STEM) + ".svg")
+    normalized_svg = "\n".join(
+        line.rstrip()
+        for line in svg_path.read_text(encoding="utf-8").splitlines()
+    )
+    svg_path.write_text(normalized_svg + "\n", encoding="utf-8")
 
 
 def format_mean_std(mean, std, percent=False):

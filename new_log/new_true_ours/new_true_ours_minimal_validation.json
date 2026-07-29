@@ -1,9 +1,9 @@
 {
   "schema": "new_true_ours_minimal_validation_v1",
-  "status": "PRE_CORRECTION_READY_13_OF_14",
+  "status": "COMPLETE_14_OF_14",
   "expected": 14,
-  "passed": 13,
-  "missing": 1,
+  "passed": 14,
+  "missing": 0,
   "failed": 0,
   "seed_policy": {
     "cifar10": [
@@ -618,12 +618,46 @@
       "dataset": "tiny",
       "method": "full_data",
       "seed": 42,
-      "status": "MISSING",
-      "missing": [
-        "new_output/new_true_ours/stage_b/full_data_formal_corrected_v2/tiny/seed42/new_secure_stage_b_report_tiny_balanced_seed42.json",
-        "new_output/new_true_ours/stage_c/full_data_formal_corrected_v2/tiny/seed42/new_secure_stage_c_report_tiny_adaptive_dp_seed42.json",
-        "new_log/new_true_ours/formal_timelines/tiny/full_data_corrected_v2/new_true_ours_timeline_seed42.json"
-      ]
+      "status": "PASS",
+      "stage_b_report": "new_output/new_true_ours/stage_b/full_data_formal_corrected_v2/tiny/seed42/new_secure_stage_b_report_tiny_balanced_seed42.json",
+      "stage_b_report_sha256": "cf1da05fffa883baf5c603db09a9dc1568222367f10da9473c95c139909ca880",
+      "stage_c_report": "new_output/new_true_ours/stage_c/full_data_formal_corrected_v2/tiny/seed42/new_secure_stage_c_report_tiny_adaptive_dp_seed42.json",
+      "stage_c_report_sha256": "a16016ce6b9e4737b835929012edb66a5b39938221c7c3c66d527d846705244c",
+      "timeline": "new_log/new_true_ours/formal_timelines/tiny/full_data_corrected_v2/new_true_ours_timeline_seed42.json",
+      "timeline_sha256": "1862b16118d5d5536cbc23bd119dd77fd95a46c6cea6d9ae50721b48ba16b397",
+      "stage_b_checks": {
+        "complete_identity": true,
+        "lineage": true,
+        "secure_average_only": true,
+        "matched_stage_b_config": true,
+        "checkpoint_development_curve": true,
+        "timing": true,
+        "candidate": true
+      },
+      "stage_c_checks": {
+        "complete_identity": true,
+        "lineage": true,
+        "tfe_aby3_no_fallback": true,
+        "poisson_accountant": true,
+        "conditional_claim": true,
+        "development_only": true,
+        "matched_stage_c_config": true,
+        "history_and_timing": true,
+        "finite_nonboundary_c": true
+      },
+      "timeline_checks": {
+        "identity": true,
+        "development_only": true,
+        "finite_positive_points": true,
+        "monotonic_time": true,
+        "stages_present": true,
+        "total_positive": true
+      },
+      "stage_b_online_secure_seconds": 5856.189736366272,
+      "stage_c_online_secure_seconds": 230.84922885894775,
+      "total_online_secure_seconds": 6087.03896522522,
+      "conditional_stage_c_epsilon": 2.999999999999999,
+      "final_development_accuracy": 0.272
     }
   ]
 }

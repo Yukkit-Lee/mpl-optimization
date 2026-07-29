@@ -1,10 +1,20 @@
 # 0729 True Ours 最小可信整改执行计划
 
-状态：`APPROVED_AND_STARTING`
+状态：`COMPLETE`
 
 创建日期：2026-07-29（UTC）
 
 执行分支：`new-true-ours-pea-figure2`
+
+完成摘要：
+
+- Phase 0–6全部完成；
+- 14/14 formal development-only任务通过validator；
+- 只补跑了Tiny Full Data seed42，未重跑其他有效任务；
+- locked holdout和official test未读取；
+- 三面板Figure 2、master JSON、T@Target CSV和简化报告已生成；
+- 大型checkpoint本地保留并通过SHA256 manifest验证；
+- 全部相关文本日志、reports、timelines、最终小型模型和图表提交Git。
 
 上游交接：
 
