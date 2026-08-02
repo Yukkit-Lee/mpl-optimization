@@ -1,0 +1,88 @@
+{
+  "schema": "unified_experiment_data_audit_v1",
+  "status": "PASS",
+  "source_git_commit": "704755d70d2475a6a306a1b09e4e5e65195baf6c",
+  "checks": {
+    "true_ours_14_of_14": true,
+    "true_ours_development_only": true,
+    "stage_a_sample_counts_correct": true,
+    "postagg_plaintext_rows": 6,
+    "postagg_tfe_rows": 2,
+    "postagg_tfe_gates_pass": true,
+    "completion_audits": {
+      "postagg": "COMPLETE",
+      "kd": "COMPLETE",
+      "refinement": "COMPLETE",
+      "trigger": "COMPLETE_NEGATIVE"
+    },
+    "lineage_commits_exist_and_are_ancestors": true,
+    "no_experiment_executed_by_report_builder": true
+  },
+  "source_hashes": {
+    "minimal_validation": {
+      "path": "new_log/new_true_ours/new_true_ours_minimal_validation.json",
+      "sha256": "fab5f180f9149f674641cd4a50f40c67eb1d98d313e73784f220ba06ec217c18"
+    },
+    "master_results": {
+      "path": "new_log/new_true_ours/new_true_ours_master_results.json",
+      "sha256": "7ab2aae7dffda65ed5a0bc9894dbda30aa9f2e02b433af0181f052c9f54f3e19"
+    },
+    "time_to_target": {
+      "path": "new_expTab/new_true_ours/new_figure2_time_to_target_table.csv",
+      "sha256": "13233c1ecfce849b7a94de331a8b2f1728deab1a7493408f35042a14cc8a2a32"
+    },
+    "stage_a": {
+      "path": "new_expTab/new_public_mtt_mainline/new_module_a_efficiency_summary.csv",
+      "sha256": "4c763c4e295e9a08f54332a152e84cf9242a4e3f1f680231a800b7cb1b5aa421"
+    },
+    "module_c": {
+      "path": "new_expTab/new_public_mtt_mainline/new_module_c_formal_summary.csv",
+      "sha256": "66a3555cd324e8b9497c874f824d1394c90d5b67824bee496d155e7bbc2bc003"
+    },
+    "historical_e2e": {
+      "path": "new_expTab/new_public_mtt_mainline/new_end_to_end_formal_summary.csv",
+      "sha256": "54887334737f6af01ba8b1724609a5807ca55bfa8454d89b6d2b9201952a288b"
+    },
+    "postagg_main": {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_main_table.csv",
+      "sha256": "a4a0187a181f20fa5452312e6326bbd68fcbc3ea391388cea1251bc6c746652d"
+    },
+    "postagg_tfe": {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_tfe_results.csv",
+      "sha256": "fcdb5e01967909b48c70c417fa6353365d38f26903ba9b9585fd97fc058360ee"
+    },
+    "postagg_audit": {
+      "path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_completion_audit.json",
+      "sha256": "448f736ecb57940f1185941064834f667458de1e237772714b4b67fd5e98c964"
+    },
+    "kd_causal": {
+      "path": "new_expTab/new_stage_b_kd/new_stage_b_kd_anchor_supervision_ablation.csv",
+      "sha256": "cce909a9e1c8d4c2734ec02af878fc2ed889b9f6d8b64a7550b8488e161e7fd7"
+    },
+    "kd_audit": {
+      "path": "new_log/new_stage_b_kd/new_stage_b_kd_completion_audit.json",
+      "sha256": "3766faa1313d5f5fc4fe6582217f3718d04043044cc45674c01c0b6886fd0758"
+    },
+    "refinement_main": {
+      "path": "new_expTab/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_main_table.csv",
+      "sha256": "3d03af5f42fd3ceff98a92faf5e77d055b316b78730ffede2c9bc6539921e888"
+    },
+    "refinement_audit": {
+      "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_completion_audit.json",
+      "sha256": "4c07c8d5a1fa9e648d7f77036656cf6ee7c81b0ddd72d5fe2b60fa066cbfd93d"
+    },
+    "trigger_main": {
+      "path": "new_expTab/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_main_table.csv",
+      "sha256": "a673d0f864be0af1cae4dacf2c7dffd58f5ee9bcd229a091d9a6a37dc9083da9"
+    },
+    "trigger_audit": {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_completion_audit.json",
+      "sha256": "63f8801a25286076ae78c6f6e38b5a4b5cb5158c9699721543453b3a055ed9d7"
+    }
+  },
+  "lineage_commits": [
+    "58352813ad6261486d225c1e3eebdb73b973849f",
+    "d87b223527f13254b92f30529105177c88641adb",
+    "fb974dae8cc9dfe1c63988358d7041163410dc4a"
+  ]
+}

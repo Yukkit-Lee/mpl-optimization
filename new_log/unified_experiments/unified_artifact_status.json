@@ -1,0 +1,159 @@
+{
+  "schema": "unified_experiment_artifact_status_v1",
+  "status": "COMPLETE_WITH_SCOPE_LIMITATIONS",
+  "source_git_commit": "704755d70d2475a6a306a1b09e4e5e65195baf6c",
+  "canonical_report": "reportToMe/unified_experiment_report.md",
+  "current_authoritative": [
+    {
+      "experiment": "true_ours_full_data_comparison",
+      "status": "COMPLETE_DEVELOPMENT_ONLY_14_OF_14",
+      "artifact": "new_log/new_true_ours/new_true_ours_master_results.json"
+    },
+    {
+      "experiment": "stage_a_official_mtt_efficiency",
+      "status": "COMPLETE",
+      "artifact": "new_expTab/new_public_mtt_mainline/new_module_a_efficiency_summary.csv"
+    },
+    {
+      "experiment": "stage_b_anchor_postagg",
+      "status": "COMPLETE_SEED42_TFE",
+      "artifact": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_completion_audit.json"
+    }
+  ],
+  "completed_negative": [
+    {
+      "experiment": "stage_b_kd_consensus_causality",
+      "status": "COMPLETE_NEGATIVE_CAUSAL_CONTRIBUTION",
+      "artifact": "new_log/new_stage_b_kd/new_stage_b_kd_completion_audit.json"
+    },
+    {
+      "experiment": "stage_b_disagreement_refinement",
+      "status": "COMPLETE_NEGATIVE",
+      "artifact": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_completion_audit.json"
+    },
+    {
+      "experiment": "stage_b_heterogeneity_trigger",
+      "status": "COMPLETE_NEGATIVE",
+      "artifact": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_completion_audit.json"
+    }
+  ],
+  "superseded_or_quarantined": [
+    {
+      "artifact": "new_log/new_true_ours/new_true_ours_formal_queue_status.json",
+      "reason": "historical interrupted queue snapshot; no active process"
+    },
+    {
+      "artifact": "new_log/new_true_ours/direct_evaluation_16models.json",
+      "reason": "unverified evaluation source; excluded from current claims"
+    },
+    {
+      "artifact": "new_log/new_true_ours/new_tiny_full_seed42_superseded_artifact_manifest.json",
+      "reason": "explicitly quarantined and superseded"
+    },
+    {
+      "artifact": "new_expTab/new_public_mtt_mainline/new_tfe_system_formal.csv",
+      "reason": "zero runtime/RSS placeholders; not a paper-ready system table"
+    }
+  ],
+  "boundaries": {
+    "current_official_test_read": false,
+    "current_locked_holdout_read": false,
+    "true_ours_accuracy_scope": "development_validation_only",
+    "stage_c_privacy_scope": "conditional_stage_c_only",
+    "end_to_end_record_level_dp": false,
+    "communication_measured": false
+  },
+  "legacy_inventory": {
+    "partial_json": [
+      "log/json/formalCrossStage_20260725_113359.partial.json",
+      "log/json/formalCrossStage_20260725_114535.partial.json",
+      "log/json/formalCrossStage_20260725_115027.partial.json",
+      "log/json/formalCrossStage_20260725_121001.partial.json"
+    ],
+    "legacy_mixed_schema_csv": [
+      {
+        "path": "expTab/moduleB_kd_noniid_official_cifar100_20260714_111336.csv",
+        "mixed_schema_rows": 17
+      },
+      {
+        "path": "expTab/moduleB_kd_noniid_official_cifar10_20260711_185835.csv",
+        "mixed_schema_rows": 9
+      },
+      {
+        "path": "expTab/moduleB_kd_noniid_official_cifar10_20260711_185926.csv",
+        "mixed_schema_rows": 17
+      },
+      {
+        "path": "expTab/moduleB_kd_noniid_official_cifar10_20260711_193539.csv",
+        "mixed_schema_rows": 17
+      },
+      {
+        "path": "expTab/moduleB_kd_noniid_official_tiny_20260714_112119.csv",
+        "mixed_schema_rows": 17
+      }
+    ],
+    "policy": "provenance_only_excluded_from_recursive_current_result_parsing"
+  },
+  "source_hashes": {
+    "minimal_validation": {
+      "path": "new_log/new_true_ours/new_true_ours_minimal_validation.json",
+      "sha256": "fab5f180f9149f674641cd4a50f40c67eb1d98d313e73784f220ba06ec217c18"
+    },
+    "master_results": {
+      "path": "new_log/new_true_ours/new_true_ours_master_results.json",
+      "sha256": "7ab2aae7dffda65ed5a0bc9894dbda30aa9f2e02b433af0181f052c9f54f3e19"
+    },
+    "time_to_target": {
+      "path": "new_expTab/new_true_ours/new_figure2_time_to_target_table.csv",
+      "sha256": "13233c1ecfce849b7a94de331a8b2f1728deab1a7493408f35042a14cc8a2a32"
+    },
+    "stage_a": {
+      "path": "new_expTab/new_public_mtt_mainline/new_module_a_efficiency_summary.csv",
+      "sha256": "4c763c4e295e9a08f54332a152e84cf9242a4e3f1f680231a800b7cb1b5aa421"
+    },
+    "module_c": {
+      "path": "new_expTab/new_public_mtt_mainline/new_module_c_formal_summary.csv",
+      "sha256": "66a3555cd324e8b9497c874f824d1394c90d5b67824bee496d155e7bbc2bc003"
+    },
+    "historical_e2e": {
+      "path": "new_expTab/new_public_mtt_mainline/new_end_to_end_formal_summary.csv",
+      "sha256": "54887334737f6af01ba8b1724609a5807ca55bfa8454d89b6d2b9201952a288b"
+    },
+    "postagg_main": {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_main_table.csv",
+      "sha256": "a4a0187a181f20fa5452312e6326bbd68fcbc3ea391388cea1251bc6c746652d"
+    },
+    "postagg_tfe": {
+      "path": "new_expTab/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_tfe_results.csv",
+      "sha256": "fcdb5e01967909b48c70c417fa6353365d38f26903ba9b9585fd97fc058360ee"
+    },
+    "postagg_audit": {
+      "path": "new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_completion_audit.json",
+      "sha256": "448f736ecb57940f1185941064834f667458de1e237772714b4b67fd5e98c964"
+    },
+    "kd_causal": {
+      "path": "new_expTab/new_stage_b_kd/new_stage_b_kd_anchor_supervision_ablation.csv",
+      "sha256": "cce909a9e1c8d4c2734ec02af878fc2ed889b9f6d8b64a7550b8488e161e7fd7"
+    },
+    "kd_audit": {
+      "path": "new_log/new_stage_b_kd/new_stage_b_kd_completion_audit.json",
+      "sha256": "3766faa1313d5f5fc4fe6582217f3718d04043044cc45674c01c0b6886fd0758"
+    },
+    "refinement_main": {
+      "path": "new_expTab/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_main_table.csv",
+      "sha256": "3d03af5f42fd3ceff98a92faf5e77d055b316b78730ffede2c9bc6539921e888"
+    },
+    "refinement_audit": {
+      "path": "new_log/new_stage_b_anchor_refinement/new_stage_b_anchor_refinement_completion_audit.json",
+      "sha256": "4c07c8d5a1fa9e648d7f77036656cf6ee7c81b0ddd72d5fe2b60fa066cbfd93d"
+    },
+    "trigger_main": {
+      "path": "new_expTab/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_main_table.csv",
+      "sha256": "a673d0f864be0af1cae4dacf2c7dffd58f5ee9bcd229a091d9a6a37dc9083da9"
+    },
+    "trigger_audit": {
+      "path": "new_log/new_stage_b_heterogeneity_trigger/new_stage_b_heterogeneity_trigger_completion_audit.json",
+      "sha256": "63f8801a25286076ae78c6f6e38b5a4b5cb5158c9699721543453b3a055ed9d7"
+    }
+  }
+}
