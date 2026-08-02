@@ -1,6 +1,10 @@
 {
   "schema": "new_true_ours_formal_queue_status_v1",
-  "status": "RUNNING",
+  "status": "SUPERSEDED_HISTORICAL_SNAPSHOT",
+  "original_status": "RUNNING",
+  "active_process": false,
+  "superseded_by": "new_log/new_true_ours/new_true_ours_minimal_validation.json",
+  "note": "This was the persisted queue state at manual interruption. It is not an active queue and must not be used as current experiment status.",
   "total": 18,
   "completed": 1,
   "rows": [

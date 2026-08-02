@@ -41,6 +41,7 @@ official_data/*.npz
 *.onnx
 init_model/
 log/finalModel/
+new_checkpoints/
 
 # Experiment outputs that should stay local unless explicitly needed
 wandb/

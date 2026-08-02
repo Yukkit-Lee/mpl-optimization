@@ -1386,3 +1386,16 @@
 - Figure B1--B4 PNG已逐张人工检查：初始化来源五方法跨六场、C1/C3/C5六面板收敛、TFE C4→C5逐类别差值、C1/C4/C5安全runtime分解均无空图、裁切、遮挡或错误图例。TFE类别级改善为C10 `10/10`、C100 `84/100`，其余C100类别主要为持平；该结果来自本任务precision16正式模型，不复用旧KD类别统计。
 - 最终数值复核：main table 6行、Table B1 36行、step efficiency 18行、TFE一致性6行、runtime 42行、class-wise 110行；6/6核心单元测试函数通过。最终报告已完整回答12问并保持seed42/development-only/非E2E/非DP/未读test与locked限制。
 - 本任务已满足正面停止条件；下一唯一操作是提交推送全部表、图、审计、报告与本进度，确认HEAD=远端且工作区仅剩按政策不入Git的`new_checkpoints/`，然后停止。
+
+---
+
+## 项目进展记录
+- 时间：2026-08-02（UTC）
+- 用户指定 `unified-experiments` 为后续统一分支并要求修复合并后审计问题；本轮只修改协作保护、配置/测试、状态与报告，不启动训练、TFE或任何正式实验。
+- 分支祖先审计确认 `BRANCH_CONSOLIDATION.md` 列出的8个远端分支全部包含于统一分支，且 True Ours、KD、anchor-refinement、heterogeneity-trigger、post-aggregation 各自命名空间相对原分支tip均为零差异；不存在合并丢文件或覆盖结果。
+- 文件审计通过：199个Python文件可编译、27个Shell脚本语法正常、244张图片与49个PDF可读、40个lineage commit引用全部存在且属于统一分支祖先；未发现冲突标记、损坏软链接或高置信度密钥。
+- 修复checkpoint协作风险：`.gitignore`现整体忽略`new_checkpoints/`，防止约23GiB、250个TensorFlow checkpoint/state文件被`git add .`误纳入；冻结TFE输入仍位于明确的`new_output/.../tfe_inputs`并保持已跟踪。
+- 新增根目录`README.md`与`AGENTS.md`，明确统一分支、权威报告入口、tmux/最大性能/进度提交规则、checkpoint禁入Git及论文claim边界；`BRANCH_CONSOLIDATION.md`补权威artifact优先级和默认分支要求。
+- 修复历史配置漂移：`new_prepare_formal_experiments.py`改为读取当前max-throughput policy，并将用户已排除的DP-MTT运行数固定为0、硬拒绝重新启用；对应回归测试改为验证`excluded_stage_a_dp_mtt_read_only`、`launch_allowed=false`与secure RNG只读证据。
+- `new_true_ours_formal_queue_status.json`由容易误判的`RUNNING`改为`SUPERSEDED_HISTORICAL_SNAPSHOT`，保留`original_status=RUNNING`并指向已完成14/14的minimal validation；没有删除历史行或哈希。
+- 下一唯一操作：提交推送上述基础修复，再实现只读统一报告/数据审计生成器，从现有权威CSV/JSON重建当前完整结论。

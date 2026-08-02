@@ -24,12 +24,12 @@ PLAN_TXT = OUTPUT_ROOT / "new_log" / "new_secure_feature" / "txt" / "new_formal_
 def calculate_run_counts(config: Dict) -> Dict[str, int]:
     datasets = len(config["datasets"])
     seeds = len(config["formal_seeds"])
-    parties = int(config["stage_a_dp_mtt"]["num_parties"])
-    experts = int(config["stage_a_dp_mtt"]["num_experts_per_party"])
     epsilon_points = len(config["stage_c_target_epsilons"])
     counts = {
-        "stage_a_dp_experts": datasets * seeds * parties * experts,
-        "stage_a_dp_mtt": datasets * seeds,
+        # DP-MTT was explicitly removed from the active mainline. Its read-only
+        # configuration remains for provenance and must never create queue rows.
+        "stage_a_dp_experts": 0,
+        "stage_a_dp_mtt": 0,
         "module_a_comparison": datasets * seeds * 4,
         # 18 个初始化收敛运行 + 81 个 Non-IID 方法运行。
         "module_b_formal": datasets * seeds * 2 + datasets * seeds * 3 * 3,
@@ -68,16 +68,17 @@ def render(payload: Dict) -> str:
         "datasets             : {}".format(config["datasets"]),
         "formal_seeds         : {}".format(config["formal_seeds"]),
         "tuning_seeds         : {}".format(config["tuning_seeds"]),
-        "cpu_threads/process  : {}".format(config["cpu_threads"]),
-        "DataLoader workers   : {}".format(config["num_workers"]),
+        "CPU thread policy    : {}".format(config["cpu_thread_policy"]),
+        "DataLoader policy    : {}".format(config["num_workers_policy"]),
         "GPU policy           : {}".format(config["gpu_policy"]),
         "feature_dim/norm     : {}/{}".format(
             config["feature_dim"], config["feature_l2_bound"]
         ),
         "Stage-C epsilon      : {}".format(config["stage_c_target_epsilons"]),
         "Stage-C delta        : {}".format(config["stage_c_delta"]),
-        "secure RNG backend   : {}".format(
-            config["stage_a_dp_mtt"]["secure_rng_backend"]
+        "DP-MTT status        : {}".format(config["dp_mtt_status"]),
+        "excluded RNG backend : {} (read-only)".format(
+            config["excluded_stage_a_dp_mtt_read_only"]["secure_rng_backend"]
         ),
         "",
         "[正式运行数量；validation tuning trials 另计且不得删除]",
@@ -105,15 +106,23 @@ def main() -> int:
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     args = parser.parse_args()
     config = json.loads(args.config.read_text(encoding="utf-8"))
-    if config["cpu_threads"] != 1 or config["num_workers"] != 0:
-        raise RuntimeError("正式配置必须 cpu_threads=1 且 num_workers=0")
+    if config.get("cpu_thread_policy") != "benchmark_max_throughput":
+        raise RuntimeError("正式配置必须使用最大吞吐 CPU 策略")
+    if config.get("num_workers_policy") != "benchmark_max_throughput":
+        raise RuntimeError("正式配置必须使用最大吞吐 DataLoader 策略")
     if len(set(config["formal_seeds"])) < 3:
         raise RuntimeError("正式实验至少需要 3 个不同 seed")
     if config.get("gpu_policy") != {
         "visible_devices": [0],
         "max_training_processes": 1,
+        "max_processes_per_gpu": 1,
     }:
         raise RuntimeError("本轮正式配置必须仅使用 GPU 0 且最多一个训练进程")
+    excluded = config.get("excluded_stage_a_dp_mtt_read_only", {})
+    if config.get("dp_mtt_status") != "EXCLUDED_BY_USER" or excluded.get(
+        "launch_allowed"
+    ) is not False:
+        raise RuntimeError("DP-MTT 必须保持用户排除且禁止生成运行队列")
     payload = {
         "schema": "new_formal_resolved_plan_v1",
         "config_path": str(args.config.resolve()),

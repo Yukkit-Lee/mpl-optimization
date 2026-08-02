@@ -57,7 +57,10 @@ class StageADPTrajectoryTests(unittest.TestCase):
     def test_formal_configuration_requires_secure_rng(self):
         config_path = ROOT / "new_configs" / "new_secure_feature" / "new_formal_config.json"
         config = json.loads(config_path.read_text(encoding="utf-8"))
-        self.assertIs(config["stage_a_dp_mtt"]["secure_rng_required"], True)
+        excluded = config["excluded_stage_a_dp_mtt_read_only"]
+        self.assertEqual(config["dp_mtt_status"], "EXCLUDED_BY_USER")
+        self.assertIs(excluded["launch_allowed"], False)
+        self.assertIs(excluded["secure_rng_required"], True)
 
     def test_secure_rng_has_no_silent_fallback(self):
         source = (ROOT / "new_stage_a_dp_experts.py").read_text(encoding="utf-8")
