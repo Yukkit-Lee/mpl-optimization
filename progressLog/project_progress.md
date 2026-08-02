@@ -1409,3 +1409,5 @@
 - 统一报告纠正旧文档的关键误导：MTT compact规模为480/4,800/9,600；True Ours是development-only 14/14且并非所有数据集最终都更快/更准；最新正Stage-B为Post-Aggregation Anchor CE；KD、disagreement和trigger保留为负结果；旧0秒TFE系统表、历史queue RUNNING和partial/mixed-schema资产均不再覆盖当前结论。
 - 依用户要求未继续执行任何测试；最终验证仅包含生成器内部CSV/JSON cardinality/状态/边界/SHA/lineage硬门、JSON解析、Markdown diff检查和远端状态检查，不包含训练、模型评价、TFE或测试套件。
 - GitHub仓库默认分支已由旧`main`修改为`unified-experiments`并经API确认，减少其他agent进入过期主线的风险。下一唯一操作：提交推送本轮全部统一报告/审计资产与进度，确认本地HEAD、远端分支和默认HEAD一致后停止。
+- 统一报告提交`37b8299`已推送。随后确认没有fetch/push/gc/repack等Git进程，只删除`.git/objects`中Git明确报告为garbage的12个`tmp_pack_*`和2个`tmp_obj_*`中断临时文件；garbage由14个/8.57GiB降为0，磁盘可用空间由约18GiB增至27GiB。未删除正式Git对象、实验资产或checkpoint。
+- 本轮到此停止：不运行测试、不补实验、不启动TFE。最终只需提交推送本条维护记录，并做分支/远端/default HEAD/工作区的只读确认。
