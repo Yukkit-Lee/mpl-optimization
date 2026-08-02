@@ -1411,3 +1411,14 @@
 - GitHub仓库默认分支已由旧`main`修改为`unified-experiments`并经API确认，减少其他agent进入过期主线的风险。下一唯一操作：提交推送本轮全部统一报告/审计资产与进度，确认本地HEAD、远端分支和默认HEAD一致后停止。
 - 统一报告提交`37b8299`已推送。随后确认没有fetch/push/gc/repack等Git进程，只删除`.git/objects`中Git明确报告为garbage的12个`tmp_pack_*`和2个`tmp_obj_*`中断临时文件；garbage由14个/8.57GiB降为0，磁盘可用空间由约18GiB增至27GiB。未删除正式Git对象、实验资产或checkpoint。
 - 本轮到此停止：不运行测试、不补实验、不启动TFE。最终只需提交推送本条维护记录，并做分支/远端/default HEAD/工作区的只读确认。
+
+---
+
+## 项目进展记录
+- 时间：2026-08-02（UTC）
+- 用户新增只读代码边界审计任务 `plan/new_framework_code_boundary_audit_prompt.md`；当前AutoDL为无卡/2GiB模式，本轮严格不运行测试、不加载模型/checkpoint、不启动TFE或实验，只读取代码、冻结配置及已有文本/JSON/CSV。
+- 逐项核验确认当前不存在“每客户端本地MTT→最新C5→Stage C”的单一正式链。Stage A实际使用固定Official-MTT公共上游资产和预计算2048-D特征；client-specific distillation及client-specific anchor均未实现。
+- 最新Post-Aggregation C5正式TFE并非明文客户端训练后上传θi：五份逻辑client features/labels、五个linear heads、Secure Average和Anchor CE均在单机三逻辑server的TFE/ABY3图内；global anchor由host提前按类平衡，最终C1/C4/C5参数reveal/save。
+- 当前True Ours Stage C没有消费最新C5。旧Secure-Average-only initializer先从Stage B reveal为普通NPZ，再由独立Stage-C进程reload/re-share；Poisson IDs由host `os.urandom`逐record选择，per-example clipping/noise/update在MPC，Ct/noisy count与development logits存在显式诊断reveal。
+- 隐私边界结论：Stage A Official-MTT无DP，Stage B只有MPC confidentiality且非record-level DP；ε≤3、δ=1e-5只覆盖条件式Stage-C sampled-gradient与adaptive count机制，不能声称端到端DP。最新C5未接Stage C，不能声称减少Stage-C iterations；Adaptive相对Fixed也没有持续utility提升。
+- 已生成四份只读审计交付：`reportToMe/new_framework_code_boundary_audit.md`、`new_framework_component_status.csv`、`new_framework_actual_execution_chain.md`和`new_framework_claim_support_matrix.md`，并加入报告索引。下一唯一操作：只做文本/CSV格式检查，提交计划原文、审计交付和本进度并推送`unified-experiments`，不执行测试。
