@@ -1399,3 +1399,6 @@
 - 修复历史配置漂移：`new_prepare_formal_experiments.py`改为读取当前max-throughput policy，并将用户已排除的DP-MTT运行数固定为0、硬拒绝重新启用；对应回归测试改为验证`excluded_stage_a_dp_mtt_read_only`、`launch_allowed=false`与secure RNG只读证据。
 - `new_true_ours_formal_queue_status.json`由容易误判的`RUNNING`改为`SUPERSEDED_HISTORICAL_SNAPSHOT`，保留`original_status=RUNNING`并指向已完成14/14的minimal validation；没有删除历史行或哈希。
 - 下一唯一操作：提交推送上述基础修复，再实现只读统一报告/数据审计生成器，从现有权威CSV/JSON重建当前完整结论。
+- 已实现 `new_build_unified_experiment_report.py`：它只读取已跟踪的权威CSV/JSON，不导入训练后端、不加载checkpoint、不调用TFE；运行前会硬校验14/14状态、Stage-A样本数、Post-Aggregation表行数与TFE门、各负结果completion状态、evaluation boundary、SHA256及Git lineage。
+- 生成器将统一重建完整跨实验报告、精简论文就绪度、报告入口索引、machine-readable artifact status与data audit；旧混合schema CSV和`.partial.json`只登记为历史provenance并从当前递归结果解析中隔离。
+- 本轮仅完成并推送生成器源码，尚未运行生成器、未改写报告，也未触发任何实验。下一唯一操作：从已推送提交运行只读生成器，逐项复核生成数字后再提交结果。
