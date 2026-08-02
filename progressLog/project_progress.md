@@ -1402,3 +1402,6 @@
 - 已实现 `new_build_unified_experiment_report.py`：它只读取已跟踪的权威CSV/JSON，不导入训练后端、不加载checkpoint、不调用TFE；运行前会硬校验14/14状态、Stage-A样本数、Post-Aggregation表行数与TFE门、各负结果completion状态、evaluation boundary、SHA256及Git lineage。
 - 生成器将统一重建完整跨实验报告、精简论文就绪度、报告入口索引、machine-readable artifact status与data audit；旧混合schema CSV和`.partial.json`只登记为历史provenance并从当前递归结果解析中隔离。
 - 本轮仅完成并推送生成器源码，尚未运行生成器、未改写报告，也未触发任何实验。下一唯一操作：从已推送提交运行只读生成器，逐项复核生成数字后再提交结果。
+- 只读生成器首次运行通过：15项权威输入全部存在，True Ours为14/14、Post-Aggregation为6行plaintext+2行正式TFE，Stage-A样本数/压缩率、completion状态、test/locked边界和Git lineage硬门均通过；已据此生成统一报告和machine-readable审计，未加载模型或checkpoint。
+- 用户随后明确当前AutoDL为无卡、2GiB内存模式并要求不要执行测试。已中断测试批次且不采纳任何部分测试输出；进程检查确认无`new_test_*`、unittest、pytest、训练或TFE残留。后续只做低内存文档/JSON检查、提交和远端状态核对，不再运行测试。
+- 修正报告生成器的Markdown行尾空格；先单独提交推送生成器与本进度，再从该已跟踪提交重新生成最终报告，以保证报告中的source commit可追溯。

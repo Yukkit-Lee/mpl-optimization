@@ -306,8 +306,8 @@ def build_report(data: Dict[str, Any], source: str) -> str:
     lines = [
         "# Unified Experiment Report",
         "",
-        "更新时间：2026-08-02（UTC）  ",
-        "权威分支：`unified-experiments`  ",
+        "更新时间：2026-08-02（UTC）",
+        "权威分支：`unified-experiments`",
         "报告生成提交：`{}`".format(source),
         "",
         "本报告是仓库当前唯一权威的跨实验总结。所有数字均由已跟踪的 CSV/JSON",
@@ -568,8 +568,8 @@ def build_report(data: Dict[str, Any], source: str) -> str:
 def build_readiness(data: Dict[str, Any], source: str) -> str:
     return """# Current Paper Readiness Assessment
 
-更新时间：2026-08-02（UTC）  
-状态：**READY WITH EXPLICIT SCOPE LIMITATIONS**  
+更新时间：2026-08-02（UTC）
+状态：**READY WITH EXPLICIT SCOPE LIMITATIONS**
 来源提交：`{source}`
 
 本文件已取代2026-07-28版本。完整数据、负结果和证据路径见
