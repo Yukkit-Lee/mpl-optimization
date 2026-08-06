@@ -1,0 +1,89 @@
+{
+  "schema": "new_spu_hardware_audit_v1",
+  "status": "COMPLETE",
+  "audit_time_utc": "2026-08-06T16:40:11Z",
+  "source_branch": "new-secretflow-spu-end2end",
+  "source_parent_commit": "52eb89ec27fd88940df295df2ebc686dd7d522e8",
+  "pre_implementation_git": {
+    "branch": "unified-experiments",
+    "head": "52eb89ec27fd88940df295df2ebc686dd7d522e8",
+    "status_short": "clean",
+    "diff_stat": "empty"
+  },
+  "host": {
+    "kernel": "Linux 5.4.0-155-generic x86_64",
+    "os": "Ubuntu 22.04.5 LTS",
+    "cpu_model": "Intel(R) Xeon(R) Platinum 8352V CPU @ 2.10GHz",
+    "host_sockets": 2,
+    "host_physical_cores_per_socket": 32,
+    "host_physical_cores": 64,
+    "host_logical_cpus": 128,
+    "threads_per_core": 2,
+    "host_numa_nodes": 2,
+    "host_numa_cpu_lists": {
+      "node0": "0-31,64-95",
+      "node1": "32-63,96-127"
+    }
+  },
+  "container_limits": {
+    "nproc": 32,
+    "cpu_affinity": "96-127",
+    "cpu_quota_us": 3200000,
+    "cpu_period_us": 100000,
+    "quota_cpu_equivalents": 32,
+    "allowed_cpu_count": 32,
+    "allowed_cpu_topology": "one SMT sibling for each of physical cores 32-63 on socket/NUMA node 1",
+    "allowed_memory_nodes": "0-1",
+    "memory_limit_bytes": 64424509440,
+    "memory_limit_gib": 60.0,
+    "swap_bytes": 0,
+    "numactl_available": false
+  },
+  "observed_resources": {
+    "cgroup_memory_usage_bytes": 2399416320,
+    "cgroup_memory_peak_bytes": 2852925440,
+    "root_autodl_tmp_total_bytes": 128849018880,
+    "root_autodl_tmp_used_bytes": 95113474048,
+    "root_autodl_tmp_available_bytes": 33735544832,
+    "root_autodl_tmp_use_percent": 74,
+    "repository_size_human": "68G"
+  },
+  "numeric_libraries": {
+    "base_python_numpy_blas": "scipy-openblas 0.3.30, DYNAMIC_ARCH, MAX_THREADS=64",
+    "system_blas": "libblas.so.3",
+    "openmp_runtime": "libgomp.so.1",
+    "cpu_simd": "AVX2 and AVX-512 available"
+  },
+  "conda": {
+    "version": "24.4.0",
+    "existing_environments": [
+      "/root/miniconda3",
+      "/root/autodl-tmp/new_envs/distillation",
+      "/root/autodl-tmp/new_envs/tfe"
+    ],
+    "spu_e2e_present_before_install": false
+  },
+  "execution_decision": {
+    "usable_cpu_units": 32,
+    "initial_party_thread_budget": "partition the 32 allowed CPUs across three local SPU parties plus orchestration; freeze only after microbenchmarking",
+    "memory_budget": "treat the 60 GiB cgroup limit, not host free output, as authoritative",
+    "disk_budget": "33.7 GB free; do not duplicate feature caches or commit checkpoints",
+    "stage_a_or_feature_extraction": "forbidden; reuse audited caches",
+    "anti_disconnect_required_before_any_experiment": true
+  },
+  "audit_commands": [
+    "uname -a",
+    "cat /etc/os-release",
+    "lscpu",
+    "lscpu -e=CPU,NODE,SOCKET,CORE,ONLINE,MAXMHZ",
+    "nproc",
+    "free -h",
+    "df -h",
+    "numactl --hardware || true",
+    "taskset -pc $$",
+    "cat /proc/self/status",
+    "conda info --envs",
+    "numpy.show_config()",
+    "read cgroup v1 cpu/cpuset/memory limits"
+  ]
+}

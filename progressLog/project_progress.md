@@ -1422,3 +1422,13 @@
 - 当前True Ours Stage C没有消费最新C5。旧Secure-Average-only initializer先从Stage B reveal为普通NPZ，再由独立Stage-C进程reload/re-share；Poisson IDs由host `os.urandom`逐record选择，per-example clipping/noise/update在MPC，Ct/noisy count与development logits存在显式诊断reveal。
 - 隐私边界结论：Stage A Official-MTT无DP，Stage B只有MPC confidentiality且非record-level DP；ε≤3、δ=1e-5只覆盖条件式Stage-C sampled-gradient与adaptive count机制，不能声称端到端DP。最新C5未接Stage C，不能声称减少Stage-C iterations；Adaptive相对Fixed也没有持续utility提升。
 - 已生成四份只读审计交付：`reportToMe/new_framework_code_boundary_audit.md`、`new_framework_component_status.csv`、`new_framework_actual_execution_chain.md`和`new_framework_claim_support_matrix.md`，并加入报告索引。下一唯一操作：只做文本/CSV格式检查，提交计划原文、审计交付和本进度并推送`unified-experiments`，不执行测试。
+
+---
+
+## 项目进展记录
+- 时间：2026-08-07（Asia/Shanghai）
+- 新持续目标：严格执行 `plan/0807_new_secretflow_spu_end2end_figure2_codex_prompt_v2.md`，新增SecretFlow-SPU第二后端，只运行CIFAR-10/CIFAR-100/Tiny-ImageNet的Full与Ours seed42共6条端到端正式任务；不重跑Stage A/特征编码，不做SPU消融，不改写任何TFE代码、日志、checkpoint或Figure 2。
+- 已完成计划要求的首个聊天硬门：逐数据集只读审计当前TFE Figure 2。Full和True Ours的Stage B均为5客户端安全轻量头训练后`secure_average_only`；Ours分别使用480/4,800/9,600条Official-MTT compact特征，当前旧图**不包含**最新Anchor CE。新SPU Ours将独立采用已验证的Secure Average + class-balanced labeled compact-anchor CE refinement。
+- 创建隔离分支`new-secretflow-spu-end2end`，父提交=`52eb89ec27fd88940df295df2ebc686dd7d522e8`；实现前已记录clean worktree、HEAD和空diff。`.gitignore`仅对本任务精确命名空间和0807计划添加例外，通用secret/token保护及`new_checkpoints/`禁入Git规则保持不变。
+- Phase A硬件审计完成：宿主2×32物理核/128线程、2 NUMA节点，但容器cpuset和quota均严格限制为CPU `96-127`/32 CPU；cgroup内存上限60GiB且无swap，不能采用`free`显示的251GiB宿主容量。项目盘剩余33.7GB，`numactl`未安装，OpenBLAS/libgomp和AVX-512可用。
+- 已生成`new_log/new_secretflow_spu/new_spu_hardware_audit.{json,md}`。CPU策略以实际32 CPU为上限，后续通过短SPU microbenchmark在三方进程间分配并冻结；特征就地复用、checkpoint保持本地。下一唯一操作是提交推送本阶段基线，再创建独立`spu_e2e`环境并记录精确版本。
