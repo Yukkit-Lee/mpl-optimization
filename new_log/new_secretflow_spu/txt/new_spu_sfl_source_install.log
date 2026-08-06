@@ -1,0 +1,17 @@
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple, https://pypi.org/simple
+Processing /root/autodl-tmp/secretflow_sfl_source
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: sfl
+  Building wheel for sfl (pyproject.toml): started
+  Building wheel for sfl (pyproject.toml): finished with status 'done'
+  Created wheel for sfl: filename=sfl-1.0.0.dev20260807-py3-none-any.whl size=455512 sha256=a55c4e02b2c078cf6dbe25f2977f801da2358c042cd65fbaa9fb40517b0817b1
+  Stored in directory: /tmp/pip-ephem-wheel-cache-y3ui0rc1/wheels/3c/a5/cc/90132d63d9c476d1739842791115d931d1796d7619b1116dd4
+Successfully built sfl
+Installing collected packages: sfl
+Successfully installed sfl-1.0.0.dev20260807
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.

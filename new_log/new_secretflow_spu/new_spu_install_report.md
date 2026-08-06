@@ -40,24 +40,37 @@ the index policy; it installed no SecretFlow dependencies. The second attempt
 reused the pip cache and completed normally. Both logs are retained with their
 SHA256 values in the environment manifest.
 
-## Why source installation was not selected
+## Targeted source installation
 
-SecretFlow's source option builds only the SecretFlow Python wheel from the
-moving `main` branch. Installing that wheel still resolves the same binary
-SPU, JAXLIB, PyArrow, and related dependencies, which were the actual download
-cost. The repository also warns that non-release builds are not production
-releases. Since the published wheel installed consistently and `pip check`
-passed, replacing it with `main` would reduce version reproducibility without
-removing the binary dependency downloads. Source installation remains a
-fallback only if the required SecretFlow device smoke exposes a release bug.
+The released SecretFlow 1.14 core imports an external `sfl.distributed`
+strategy for simulation mode. Following the user's source-install preference,
+the official `secretflow/sfl` repository was shallow-cloned and pinned at
+`c383e40f665063d7f7d87e437a73e015f87c435c`, then built from source as
+`sfl==1.0.0.dev20260807`. Its device scheduler requirements are pinned to
+Ray 2.52.0 and SecretFlow-RayFed 0.2.1a2.
+
+The source package was installed with `--no-deps` deliberately. Its monolithic
+metadata includes TensorFlow, PyTorch, audio/vision, ONNX, XGBoost, and
+`secretflow-lite==1.13.0b0`; those are unrelated to this SPU device pipeline,
+consume several GiB, and the lite 1.13 package would conflict with the selected
+SecretFlow 1.14 core namespace. The actual scheduler imports were diagnosed
+incrementally; only Ray/RayFed and Ray Tune's small import-time dependencies
+were added. Consequently the original core environment passed `pip check`,
+while the optional full-SFL metadata check reports intentionally absent FL
+algorithm extras. The real device smoke is the hard runtime gate.
+
+Source-SFL exposes its official strategy classes but the pinned commit does not
+register them as an import side effect. The isolated backend adapter therefore
+uses SecretFlow's public `add_distribution_modes` hook to register the official
+`SimulationStrategy`; neither installed source tree is patched.
 
 ## Version notes
 
-- `ray` is `NOT_INSTALLED`: SecretFlow 1.14.0b0 does not declare Ray as a
-  dependency. This is recorded explicitly rather than silently substituting a
-  package.
+- `ray==2.52.0`, `secretflow-rayfed==0.2.1a2`, and the pinned source-SFL build
+  provide the SecretFlow device scheduler. They are not used by the bare-SPU
+  quickstart gate.
 - The exact transitive environment is frozen in `new_spu_pip_freeze.txt`.
 - This environment is separate from `/root/autodl-tmp/new_envs/tfe`; no legacy
   TFE package or artifact was modified.
-- Environment size after installation is approximately 1.4 GiB. Project-disk
-  free space remains approximately 31 GiB.
+- Environment size after the targeted source extension is approximately 1.7
+  GiB. Project-disk free space remains approximately 30 GiB.
