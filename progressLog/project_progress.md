@@ -1432,3 +1432,7 @@
 - 创建隔离分支`new-secretflow-spu-end2end`，父提交=`52eb89ec27fd88940df295df2ebc686dd7d522e8`；实现前已记录clean worktree、HEAD和空diff。`.gitignore`仅对本任务精确命名空间和0807计划添加例外，通用secret/token保护及`new_checkpoints/`禁入Git规则保持不变。
 - Phase A硬件审计完成：宿主2×32物理核/128线程、2 NUMA节点，但容器cpuset和quota均严格限制为CPU `96-127`/32 CPU；cgroup内存上限60GiB且无swap，不能采用`free`显示的251GiB宿主容量。项目盘剩余33.7GB，`numactl`未安装，OpenBLAS/libgomp和AVX-512可用。
 - 已生成`new_log/new_secretflow_spu/new_spu_hardware_audit.{json,md}`。CPU策略以实际32 CPU为上限，后续通过短SPU microbenchmark在三方进程间分配并冻结；特征就地复用、checkpoint保持本地。下一唯一操作是提交推送本阶段基线，再创建独立`spu_e2e`环境并记录精确版本。
+- Phase A基线提交`b266da7`已推送至GitHub新分支。Phase B随后在tmux `spu_e2e_install`中完成，隔离环境位于`/root/autodl-tmp/new_envs/spu_e2e`，未修改legacy TFE环境；环境占用约1.4GiB，项目盘仍约31GiB可用。
+- 依据用户提供的SecretFlow/SPU GitHub主仓库与当前INSTALLATION文档，选择Python 3.10.20和官方发布wheel：SecretFlow=`1.14.0b0`、SPU=`0.9.4.dev20250618`、JAX/JAXLIB=`0.4.26`、NumPy=`1.26.4`、protobuf=`4.25.9`。当前SecretFlow不依赖Ray，明确登记`ray=NOT_INSTALLED`；`pip check`为`No broken requirements found`。
+- 下载源遵循用户策略：Conda Python从清华国内源直连；pip采用阿里PyPI主源并以`NO_PROXY`直连，阿里缺失的SecretFlow/SPU及其他包从官方PyPI fallback且仅官方流量使用用户9999代理。第一轮纯官方慢速下载在未安装依赖前安全中断，第二轮复用缓存并成功完成；两个安装日志均保留且登记SHA256。
+- 已生成`new_spu_environment_manifest.txt`、`new_spu_pip_freeze.txt`、`new_spu_install_report.md`。未采用SecretFlow `main`源码构建：Option 3仍需下载同一SPU/JAXLIB二进制依赖，且仓库警告main属于非发布版本；发布wheel一致性已通过，源码仅在device smoke证明确有release bug时作为单一fallback。下一唯一操作是提交推送Phase B，再以新tmux运行官方三方ABY3 quickstart smoke。
