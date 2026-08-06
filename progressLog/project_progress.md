@@ -1457,3 +1457,5 @@
 - source-SFL/device门禁实现提交`8f7401b`推送后首次执行在Ray启动前按硬门失败：SFL虽然声明Ray2.52，却仍从旧`ray._private.ray_option_utils`位置导入；Ray2.52自身已统一迁移到`ray._common.ray_option_utils`。未执行安全计算、未生成PASS报告、无Ray/SPU残留。
 - adapter现仅在进程内为同一Ray官方模块补旧路径alias，再导入官方SFL strategy；不修改site-packages，且报告实际模块位置。下一唯一操作是提交推送兼容修复与失败日志，再重跑真实SecretFlow device smoke；若出现下一处API漂移继续逐项诊断，绝不切换debug/plaintext fallback。
 - Ray路径兼容提交`a0f769a`推送后第二次门禁越过该导入，但仍在Ray启动前失败：SFL的`op_strategy.py`顶层无条件导入未使用的Interconnection strategy链，缺少其声明的`interconnection==0.2.0.dev0`。仍无安全计算/PASS产物/Ray残留。下一唯一操作是提交该失败证据，再从阿里优先源补这个实际import依赖后继续同一门禁。
+- 已在独立tmux中从阿里主源直连安装SFL声明的小型`interconnection==0.2.0.dev0`（23KiB wheel；官方PyPI仅作9999代理fallback），环境仍约1.7GiB、项目盘余约30GiB。其余TensorFlow/PyTorch/ONNX等完整FL extras保持有意不安装，不影响当前SPU device scheduler边界。
+- 进程内Ray 2.52兼容alias后，官方源码SFL `SimulationStrategy`现可由SecretFlow公共`add_distribution_modes`成功注册，登记模式包含SIMULATION且plaintext debug=false；纯导入诊断未启动Ray或安全计算。下一唯一操作是先提交推送本次环境freeze/安装日志，再在独立tmux重跑真实三方SecretFlow-SPU device门禁。

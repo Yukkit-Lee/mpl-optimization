@@ -7,7 +7,9 @@ Status: `COMPLETE`
 The isolated environment is `/root/autodl-tmp/new_envs/spu_e2e` (environment
 name `spu_e2e`) with Python 3.10.20. The installed paper backend is
 SecretFlow 1.14.0b0 with its declared compatible SPU
-0.9.4.dev20250618. `pip check` reports no broken requirements.
+0.9.4.dev20250618. The core-only environment passed `pip check`; after the
+targeted source-SFL extension, the full metadata check intentionally reports
+the uninstalled algorithm extras described below.
 
 The current SecretFlow repository installation guide requires Python 3.10 and
 recommends `pip install -U secretflow`. The current SPU repository supports
@@ -55,7 +57,10 @@ metadata includes TensorFlow, PyTorch, audio/vision, ONNX, XGBoost, and
 consume several GiB, and the lite 1.13 package would conflict with the selected
 SecretFlow 1.14 core namespace. The actual scheduler imports were diagnosed
 incrementally; only Ray/RayFed and Ray Tune's small import-time dependencies
-were added. Consequently the original core environment passed `pip check`,
+were added. SFL also imports its Interconnection strategy unconditionally, so
+the small declared `interconnection==0.2.0.dev0` package was installed from the
+Alibaba mirror even though this experiment uses SimulationStrategy. Consequently
+the original core environment passed `pip check`,
 while the optional full-SFL metadata check reports intentionally absent FL
 algorithm extras. The real device smoke is the hard runtime gate.
 
