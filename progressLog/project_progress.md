@@ -1442,3 +1442,6 @@
 - S1与quickstart门禁源码提交`3fd8f5c`已推送。S2--S4在tmux `spu_quickstart_smoke`中以`OMP/MKL/OPENBLAS/NUMEXPR_NUM_THREADS=8 JAX_PLATFORMS=cpu taskset -c 96-127 .../python new_spu_quickstart_smoke.py`运行，一次正常完成并由独立进程组清理全部三方节点。
 - 官方quickstart三方ABY3/FM128结果为`COMPLETE`：不同P1/P2来源的秘密输入完成安全加法、比较、矩阵乘及一次线性MSE更新，7/7 correctness checks通过，最大绝对误差为`2.98e-8`，elapsed=`1.84s`、driver peak RSS=`0.415GiB`；无fallback、未读取数据集/test/locked holdout。
 - 该结果只证明安装版SPU底层三方运行时和JAX编译链可用，不作为论文正式后端结果。下一唯一操作是提交推送S2--S4报告/日志，然后只读核验六组输入特征、split与最佳Anchor CE冻结配置，再实现并单独门禁SecretFlow SPU device正式接口。
+- S2--S4结果提交`df86678`已推送，固定端口逐一重新绑定成功且无SPU smoke进程残留。Phase D只读预审确认12份seed42 Stage-B/C缓存和3份split均存在，Full/Ours都是2048-D；Ours样本数为480/4,800/9,600，Full Stage-B实际冻结训练子集为34,900/34,000/68,000，匹配Stage-C为5,000/5,000/10,000。
+- 发现并公开登记证据边界：最新正向Post-Aggregation Anchor CE freeze只验证CIFAR-10/100，原策略明确禁止Tiny；因此Tiny不能声称已有最佳Anchor超参。Tiny将保持同一方法语义，以C100的40 steps/LR0.2/mu1e-3作为有界预正式起点，若需要只做单因素development诊断后冻结，不改已事前冻结的Figure-2 targets。
+- 已新增只读feature-reuse审计器，硬校验文件SHA/shape/dtype/row order/labels/lineage、Full/Ours Stage-C逐值一致、MTT每类48及40+8 local/anchor划分，并刻意不访问split中的locked-holdout成员。下一唯一操作是提交推送审计器，再从该提交生成Phase D两份审计产物；Stage A/feature extraction仍为0。
