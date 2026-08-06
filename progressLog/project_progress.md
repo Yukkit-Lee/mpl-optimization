@@ -1454,3 +1454,5 @@
 - 官方SFL源码pin提交`86e90ff`已推送。随后在tmux中成功安装`ray==2.52.0`、`secretflow-rayfed==0.2.1a2`，并从固定源码构建`sfl==1.0.0.dev20260807`；仅补充其顶层强制import所需的Ray Tune小依赖，环境约1.7GiB、项目盘余30GiB。Ray大wheel不在阿里源，按既定策略仅该官方fallback流量走9999。
 - SFL用`--no-deps`是有意兼容隔离：上游monolithic metadata包含数GiB且与SPU device无关的TensorFlow/PyTorch/ONNX等，并锁`secretflow-lite==1.13.0b0`，会与当前SecretFlow 1.14 core命名空间冲突。core环境原`pip check`通过；SFL完整extras未安装的metadata告警如实登记，正式device smoke作为运行时硬门。
 - pinned SFL源码暴露官方SimulationStrategy但未自动注册。新增隔离adapter只调用SecretFlow公共`add_distribution_modes` hook注册官方strategy，不patch安装包；新增device smoke将使用真实`secretflow.SPU`、3 PYU/Ray parties、ABY3/FM128/precision16和不同PYU私有X/y完成一次安全线性更新，明确禁用debug/PYU模拟、bare helper及fallback。下一唯一操作是更新freeze并提交推送源码/安装证据，再在tmux执行该device硬门。
+- source-SFL/device门禁实现提交`8f7401b`推送后首次执行在Ray启动前按硬门失败：SFL虽然声明Ray2.52，却仍从旧`ray._private.ray_option_utils`位置导入；Ray2.52自身已统一迁移到`ray._common.ray_option_utils`。未执行安全计算、未生成PASS报告、无Ray/SPU残留。
+- adapter现仅在进程内为同一Ray官方模块补旧路径alias，再导入官方SFL strategy；不修改site-packages，且报告实际模块位置。下一唯一操作是提交推送兼容修复与失败日志，再重跑真实SecretFlow device smoke；若出现下一处API漂移继续逐项诊断，绝不切换debug/plaintext fallback。
