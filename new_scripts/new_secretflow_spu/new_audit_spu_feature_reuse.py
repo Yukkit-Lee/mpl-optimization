@@ -116,10 +116,12 @@ def audit_dataset(dataset: str) -> dict[str, Any]:
             raise ValueError(f"Full Stage-C IDs mismatch: {dataset}")
         if npz_scalar(full_c, "test_loaded") != 0:
             raise ValueError("Full Stage-C cache reports test access")
-    if not np.array_equal(full_c_x, x_full[split_arrays["stage_c_train"]]):
-        raise ValueError(f"Full Stage-C feature values mismatch: {dataset}")
-    if not np.array_equal(full_c_y, y_full[split_arrays["stage_c_train"]]):
-        raise ValueError(f"Full Stage-C labels mismatch: {dataset}")
+    # In Stage C, x/y_encoder_train are the protected training pool while
+    # x/y_reference are the disjoint development-validation evaluation pool.
+    if not np.array_equal(full_c_y, y_full[split_arrays["development_validation"]]):
+        raise ValueError(f"Full Stage-C development labels mismatch: {dataset}")
+    if not np.array_equal(full_c_x, x_full[split_arrays["development_validation"]]):
+        raise ValueError(f"Full Stage-C development feature values mismatch: {dataset}")
     if not np.array_equal(full_selection_x, x_full[split_arrays["selection_internal"]]):
         raise ValueError(f"selection feature values mismatch: {dataset}")
     if not np.array_equal(full_selection_y, y_full[split_arrays["selection_internal"]]):
@@ -149,9 +151,9 @@ def audit_dataset(dataset: str) -> dict[str, Any]:
         if not np.array_equal(ours_b_y, np.asarray(ours_c["y_encoder_train"], dtype=np.int64)):
             raise ValueError(f"Stage-B/C MTT labels mismatch: {dataset}")
         if not np.array_equal(full_c_x, np.asarray(ours_c["x_reference"], dtype=np.float32)):
-            raise ValueError(f"Full/Ours Stage-C features mismatch: {dataset}")
+            raise ValueError(f"Full/Ours development features mismatch: {dataset}")
         if not np.array_equal(full_c_y, np.asarray(ours_c["y_reference"], dtype=np.int64)):
-            raise ValueError(f"Full/Ours Stage-C labels mismatch: {dataset}")
+            raise ValueError(f"Full/Ours development labels mismatch: {dataset}")
         if npz_scalar(ours_c, "test_loaded") != 0:
             raise ValueError("Ours Stage-C cache reports test access")
 
@@ -190,12 +192,12 @@ def audit_dataset(dataset: str) -> dict[str, Any]:
             "feature_store": file_row(feature_path, list(x_full.shape), str(x_full.dtype), len(x_full), "read-only memory-mapped full feature store"),
             "label_store_path": str(label_path.relative_to(ROOT)),
             "label_store_sha256": sha256_file(label_path),
-            "stage_c_cache": file_row(full_c_path, list(full_c_x.shape), str(full_c_x.dtype), len(full_c_x), "Stage-C protected training"),
+            "stage_c_cache": file_row(full_c_path, [len(split_arrays["stage_c_train"]), 2048], "float32", len(split_arrays["stage_c_train"]), "indexed Full Stage-C protected training"),
             "initializer_source": "full_data_disjoint",
         },
         "ours": {
             "stage_b_cache": file_row(ours_b_path, list(ours_b_x.shape), str(ours_b_x.dtype), len(ours_b_x), "Official-MTT compact Stage-B"),
-            "stage_c_cache": file_row(ours_c_path, list(full_c_x.shape), str(full_c_x.dtype), len(full_c_x), "matched Stage-C protected training"),
+            "stage_c_cache": file_row(ours_c_path, list(ours_b_x.shape), str(ours_b_x.dtype), len(ours_b_x), "Official-MTT compact Stage-C protected training"),
             "upstream_asset_path": upstream_path,
             "encoder_sha256": encoder_sha,
             "scaler_sha256": scaler_sha,
@@ -209,7 +211,8 @@ def audit_dataset(dataset: str) -> dict[str, Any]:
             "initializer_source": "official_mtt_only",
             "full_data_initializer_dependency": False,
         },
-        "matched_stage_c_values": True,
+        "matched_development_values": True,
+        "stage_c_training_sets_intentionally_differ": True,
         "development_shape": [len(dev_ids), 2048],
         "target_freeze_path": str(target_freeze.relative_to(ROOT)),
         "target_freeze_sha256": sha256_file(target_freeze),

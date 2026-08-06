@@ -1444,4 +1444,5 @@
 - 该结果只证明安装版SPU底层三方运行时和JAX编译链可用，不作为论文正式后端结果。下一唯一操作是提交推送S2--S4报告/日志，然后只读核验六组输入特征、split与最佳Anchor CE冻结配置，再实现并单独门禁SecretFlow SPU device正式接口。
 - S2--S4结果提交`df86678`已推送，固定端口逐一重新绑定成功且无SPU smoke进程残留。Phase D只读预审确认12份seed42 Stage-B/C缓存和3份split均存在，Full/Ours都是2048-D；Ours样本数为480/4,800/9,600，Full Stage-B实际冻结训练子集为34,900/34,000/68,000，匹配Stage-C为5,000/5,000/10,000。
 - 发现并公开登记证据边界：最新正向Post-Aggregation Anchor CE freeze只验证CIFAR-10/100，原策略明确禁止Tiny；因此Tiny不能声称已有最佳Anchor超参。Tiny将保持同一方法语义，以C100的40 steps/LR0.2/mu1e-3作为有界预正式起点，若需要只做单因素development诊断后冻结，不改已事前冻结的Figure-2 targets。
-- 已新增只读feature-reuse审计器，硬校验文件SHA/shape/dtype/row order/labels/lineage、Full/Ours Stage-C逐值一致、MTT每类48及40+8 local/anchor划分，并刻意不访问split中的locked-holdout成员。下一唯一操作是提交推送审计器，再从该提交生成Phase D两份审计产物；Stage A/feature extraction仍为0。
+- 已新增只读feature-reuse审计器，硬校验文件SHA/shape/dtype/row order/labels/lineage、Full/Ours development逐值一致、MTT每类48及40+8 local/anchor划分，并刻意不访问split中的locked-holdout成员。下一唯一操作是提交推送审计器，再从该提交生成Phase D两份审计产物；Stage A/feature extraction仍为0。
+- feature审计器提交`f820a6a`推送后首次运行在C10逐值门主动失败且未生成PASS产物。诊断确认不是缓存损坏：Stage-C cache的`x_reference/y_reference`语义是development evaluation，而受保护训练池是`x_encoder_train/y_encoder_train`；Full训练池为原数据Stage-C split，Ours训练池仍为Official-MTT compact，二者按论文预期在受保护数据量上不同。审计器现按资产生成代码修正角色映射，并继续要求Full/Ours development逐值相同；失败日志保留。

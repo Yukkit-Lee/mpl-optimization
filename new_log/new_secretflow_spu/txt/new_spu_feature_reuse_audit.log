@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_secretflow_spu/new_audit_spu_feature_reuse.py", line 279, in <module>
+    main()
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_secretflow_spu/new_audit_spu_feature_reuse.py", line 223, in main
+    rows = [audit_dataset(dataset) for dataset in DATASETS]
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_secretflow_spu/new_audit_spu_feature_reuse.py", line 223, in <listcomp>
+    rows = [audit_dataset(dataset) for dataset in DATASETS]
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_secretflow_spu/new_audit_spu_feature_reuse.py", line 120, in audit_dataset
+    raise ValueError(f"Full Stage-C feature values mismatch: {dataset}")
+ValueError: Full Stage-C feature values mismatch: cifar10
