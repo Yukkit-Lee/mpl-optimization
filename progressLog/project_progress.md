@@ -1439,3 +1439,6 @@
 - Phase B提交`9db98c5`已推送。Phase C S1已在独立tmux完成：`secretflow`、`spu`、`jax`、`jax.numpy`全部成功导入，版本输出与freeze一致；日志为`new_spu_import_smoke.log`，无fallback且未读取任何项目数据。
 - 已新增`new_spu_quickstart_smoke.py`，严格使用安装版官方`spu.utils.distributed`三节点配置（ABY3/FM128），覆盖秘密输入加法、比较、矩阵乘和一次安全线性头logits/MSE/update，并将最终reveal与plaintext参考做硬容差比较。脚本明确仅作为官方quickstart backend gate，不能冒充正式SecretFlow device后端。
 - 启动前再次确认`nproc=32`、cgroup内存上限60GiB、项目盘约31GiB可用、无其他tmux。下一唯一操作是先提交推送smoke源码与S1日志，再在tmux `spu_quickstart_smoke`中以`taskset -c 96-127`运行S2--S4；只有全部正确性门通过才进入feature reuse/正式pipeline实现。
+- S1与quickstart门禁源码提交`3fd8f5c`已推送。S2--S4在tmux `spu_quickstart_smoke`中以`OMP/MKL/OPENBLAS/NUMEXPR_NUM_THREADS=8 JAX_PLATFORMS=cpu taskset -c 96-127 .../python new_spu_quickstart_smoke.py`运行，一次正常完成并由独立进程组清理全部三方节点。
+- 官方quickstart三方ABY3/FM128结果为`COMPLETE`：不同P1/P2来源的秘密输入完成安全加法、比较、矩阵乘及一次线性MSE更新，7/7 correctness checks通过，最大绝对误差为`2.98e-8`，elapsed=`1.84s`、driver peak RSS=`0.415GiB`；无fallback、未读取数据集/test/locked holdout。
+- 该结果只证明安装版SPU底层三方运行时和JAX编译链可用，不作为论文正式后端结果。下一唯一操作是提交推送S2--S4报告/日志，然后只读核验六组输入特征、split与最佳Anchor CE冻结配置，再实现并单独门禁SecretFlow SPU device正式接口。

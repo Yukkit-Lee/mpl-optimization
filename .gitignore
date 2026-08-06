@@ -34,6 +34,8 @@ config/new_paths.autodl.env
 !new_expTab/new_secretflow_spu/**
 !new_expFig/new_secretflow_spu/
 !new_expFig/new_secretflow_spu/**
+new_scripts/new_secretflow_spu/**/__pycache__/
+new_scripts/new_secretflow_spu/**/*.py[cod]
 
 # Large data / datasets / extracted features
 data/
