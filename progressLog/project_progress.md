@@ -1459,3 +1459,6 @@
 - Ray路径兼容提交`a0f769a`推送后第二次门禁越过该导入，但仍在Ray启动前失败：SFL的`op_strategy.py`顶层无条件导入未使用的Interconnection strategy链，缺少其声明的`interconnection==0.2.0.dev0`。仍无安全计算/PASS产物/Ray残留。下一唯一操作是提交该失败证据，再从阿里优先源补这个实际import依赖后继续同一门禁。
 - 已在独立tmux中从阿里主源直连安装SFL声明的小型`interconnection==0.2.0.dev0`（23KiB wheel；官方PyPI仅作9999代理fallback），环境仍约1.7GiB、项目盘余约30GiB。其余TensorFlow/PyTorch/ONNX等完整FL extras保持有意不安装，不影响当前SPU device scheduler边界。
 - 进程内Ray 2.52兼容alias后，官方源码SFL `SimulationStrategy`现可由SecretFlow公共`add_distribution_modes`成功注册，登记模式包含SIMULATION且plaintext debug=false；纯导入诊断未启动Ray或安全计算。下一唯一操作是先提交推送本次环境freeze/安装日志，再在独立tmux重跑真实三方SecretFlow-SPU device门禁。
+- 环境补齐提交`6115398`推送后，真实SecretFlow device smoke在独立tmux一次完成：源码SFL SimulationStrategy + Ray三方PYU + `secretflow.SPU` ABY3/FM128/precision16，X/y来自不同PYU，完成1次安全线性MSE更新；logits/loss/weight/bias 4/4校验通过，最大绝对误差分别`2.75e-5/3.04e-6/3.66e-5/3.85e-5`，elapsed=`13.21s`、driver peak RSS=`0.458GiB`，无debug/bare-helper/plaintext fallback，test/locked holdout均未读。
+- smoke日志出现JAX多线程初始化早于Ray fork的上游deadlock风险警告，但本次实际正常启动、计算、reveal最终toy结果并退出；后续正式pipeline应调整初始化顺序并再次门禁，不应修改site-packages。退出后无raylet/gcs_server/tmux残留。
+- 用户要求立即暂停当前任务并交接，因此未开始P1--P4论文pipeline smoke、CPU microbenchmark、Tiny Anchor有界诊断、配置freeze或任何6条正式run。已创建`for-claudecode/new_0807_SECRETFLOW_SPU_LIVE_HANDOFF.md`，完整登记环境、资产语义、历史失败、PASS证据、科学边界、精确后续阶段与首个唯一动作；当前正式进度严格为`0/6`。
