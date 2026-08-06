@@ -1,0 +1,17 @@
+[2026-08-07 02:00:53.568] [info] [bigint_spi.cc:79] The default library used for BigInt operations is openssl
+INFO:root:Try init sf in SIMULATION mode
+INFO:root:set distribution mode to DISTRIBUTION_MODE.SIMULATION
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+2026-08-07 02:01:00,126	INFO worker.py:2023 -- Started a local Ray instance.
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/ray/_private/worker.py:2062: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/numpy/core/_methods.py:176: RuntimeWarning: overflow encountered in multiply
+  x = um.multiply(x, x, out=x)
+INFO:root:shutdown is called, barrier_on_shutdown True, on_error None
+2026-08-07 02:01:10,932	WARNING utils.py:458 -- Detecting docker specified CPUs. In previous versions of Ray, CPU detection in containers was incorrect. Please ensure that Ray has enough CPUs allocated. As a temporary workaround to revert to the prior behavior, set `RAY_USE_MULTIPROCESSING_CPU_COUNT=1` as an env var before starting Ray. Set the env var: `RAY_DISABLE_DOCKER_CPU_WARNING=1` to mute this warning.
+2026-08-07 02:01:11,130	INFO worker.py:2023 -- Started a local Ray instance.
+{"adapter": {"adapter": "SecretFlow public add_distribution_modes plugin hook", "plaintext_debug_mode": false, "ray_option_utils": "ray._common (compatibility alias for source-SFL)", "registered_modes": ["DEBUG", "INTERCONNECTION", "PRODUCTION", "RAY_PRODUCTION", "SIMULATION"], "simulation_strategy": "sfl.distributed.op_strategy.SimulationStrategy"}, "all_required_ops_supported": true, "backend": "SecretFlow-SPU device API", "checks": {"adaptive_clip_bound_update": true, "adaptive_clip_factor": true, "clip_select": true, "jax_lax_scan_loop": true, "jax_random_normal": true, "matmul": true, "softmax": true}, "locked_holdout_read": false, "notes": {"jax_lax_scan_loop": "lax.scan supported; stage-C step loop can run inside SPU", "jax_random_normal": "noise drawn inside the SPU function from a host-provided PRNG key; formal noise path must still be audited vs TFE three-party CSPRNG shares"}, "protocol": {"field": "FM128", "fxp_fraction_bits": 16, "protocol": "ABY3"}, "schema": "new_spu_jax_op_gate_v1", "status": "COMPLETE", "test_read": false}
+EXIT=0
