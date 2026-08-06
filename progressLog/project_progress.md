@@ -1436,3 +1436,6 @@
 - 依据用户提供的SecretFlow/SPU GitHub主仓库与当前INSTALLATION文档，选择Python 3.10.20和官方发布wheel：SecretFlow=`1.14.0b0`、SPU=`0.9.4.dev20250618`、JAX/JAXLIB=`0.4.26`、NumPy=`1.26.4`、protobuf=`4.25.9`。当前SecretFlow不依赖Ray，明确登记`ray=NOT_INSTALLED`；`pip check`为`No broken requirements found`。
 - 下载源遵循用户策略：Conda Python从清华国内源直连；pip采用阿里PyPI主源并以`NO_PROXY`直连，阿里缺失的SecretFlow/SPU及其他包从官方PyPI fallback且仅官方流量使用用户9999代理。第一轮纯官方慢速下载在未安装依赖前安全中断，第二轮复用缓存并成功完成；两个安装日志均保留且登记SHA256。
 - 已生成`new_spu_environment_manifest.txt`、`new_spu_pip_freeze.txt`、`new_spu_install_report.md`。未采用SecretFlow `main`源码构建：Option 3仍需下载同一SPU/JAXLIB二进制依赖，且仓库警告main属于非发布版本；发布wheel一致性已通过，源码仅在device smoke证明确有release bug时作为单一fallback。下一唯一操作是提交推送Phase B，再以新tmux运行官方三方ABY3 quickstart smoke。
+- Phase B提交`9db98c5`已推送。Phase C S1已在独立tmux完成：`secretflow`、`spu`、`jax`、`jax.numpy`全部成功导入，版本输出与freeze一致；日志为`new_spu_import_smoke.log`，无fallback且未读取任何项目数据。
+- 已新增`new_spu_quickstart_smoke.py`，严格使用安装版官方`spu.utils.distributed`三节点配置（ABY3/FM128），覆盖秘密输入加法、比较、矩阵乘和一次安全线性头logits/MSE/update，并将最终reveal与plaintext参考做硬容差比较。脚本明确仅作为官方quickstart backend gate，不能冒充正式SecretFlow device后端。
+- 启动前再次确认`nproc=32`、cgroup内存上限60GiB、项目盘约31GiB可用、无其他tmux。下一唯一操作是先提交推送smoke源码与S1日志，再在tmux `spu_quickstart_smoke`中以`taskset -c 96-127`运行S2--S4；只有全部正确性门通过才进入feature reuse/正式pipeline实现。
