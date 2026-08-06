@@ -1456,3 +1456,4 @@
 - pinned SFL源码暴露官方SimulationStrategy但未自动注册。新增隔离adapter只调用SecretFlow公共`add_distribution_modes` hook注册官方strategy，不patch安装包；新增device smoke将使用真实`secretflow.SPU`、3 PYU/Ray parties、ABY3/FM128/precision16和不同PYU私有X/y完成一次安全线性更新，明确禁用debug/PYU模拟、bare helper及fallback。下一唯一操作是更新freeze并提交推送源码/安装证据，再在tmux执行该device硬门。
 - source-SFL/device门禁实现提交`8f7401b`推送后首次执行在Ray启动前按硬门失败：SFL虽然声明Ray2.52，却仍从旧`ray._private.ray_option_utils`位置导入；Ray2.52自身已统一迁移到`ray._common.ray_option_utils`。未执行安全计算、未生成PASS报告、无Ray/SPU残留。
 - adapter现仅在进程内为同一Ray官方模块补旧路径alias，再导入官方SFL strategy；不修改site-packages，且报告实际模块位置。下一唯一操作是提交推送兼容修复与失败日志，再重跑真实SecretFlow device smoke；若出现下一处API漂移继续逐项诊断，绝不切换debug/plaintext fallback。
+- Ray路径兼容提交`a0f769a`推送后第二次门禁越过该导入，但仍在Ray启动前失败：SFL的`op_strategy.py`顶层无条件导入未使用的Interconnection strategy链，缺少其声明的`interconnection==0.2.0.dev0`。仍无安全计算/PASS产物/Ray残留。下一唯一操作是提交该失败证据，再从阿里优先源补这个实际import依赖后继续同一门禁。
