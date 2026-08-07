@@ -265,10 +265,13 @@ def main() -> None:
         coefficients = aggregation_weights(split_labels, client_indices, bcfg["client_weighting"])
         batches = int(np.ceil(len(client_indices[0]) / float(args.batch_size)))
         chunk_batches = int(args.batch_chunk_batches)
-        if chunk_batches <= 0 or batches % chunk_batches:
-            raise ValueError("batch_chunk_batches must be a positive divisor of per-client batches")
+        if chunk_batches <= 0 or chunk_batches > batches:
+            raise ValueError("batch_chunk_batches must be in [1, per-client batches]")
         if chunk_batches % args.unroll:
             raise ValueError("unroll must divide batch_chunk_batches")
+        remainder_batches = batches % chunk_batches
+        if remainder_batches and remainder_batches % args.unroll:
+            raise ValueError("unroll must also divide the final batch chunk")
 
         rng = np.random.RandomState(args.seed)
         initial_weights = [
@@ -302,6 +305,18 @@ def main() -> None:
             warm_y_s = alice(lambda pair: pair[1])(warm).to(spu)
             warm_w_s, warm_b_s = epoch_exec(warm_x_s, warm_y_s, client_w_s, client_b_s)
             sf.wait([warm_w_s, warm_b_s])
+            if remainder_batches:
+                warm_tail = pack_exec(
+                    data["b_cache_path"], data["cache_mode"], local_source_ids,
+                    client_indices, 0, args.batch_size, feature_dim, num_classes,
+                    args.seed, batches - remainder_batches, remainder_batches,
+                )
+                warm_tail_x_s = alice(lambda pair: pair[0])(warm_tail).to(spu)
+                warm_tail_y_s = alice(lambda pair: pair[1])(warm_tail).to(spu)
+                tail_w_s, tail_b_s = epoch_exec(
+                    warm_tail_x_s, warm_tail_y_s, client_w_s, client_b_s
+                )
+                sf.wait([tail_w_s, tail_b_s])
 
         stage_b_meta = checkpoint_dir / "stage_b_progress.json"
         state_meta = checkpoint_dir / "stage_c_progress.json"
@@ -325,11 +340,12 @@ def main() -> None:
 
         for epoch in range(start_epoch, effective["stage_b_local_epochs"]):
             for batch_start in range(0, batches, chunk_batches):
+                current_chunk_batches = min(chunk_batches, batches - batch_start)
                 with timer.measure("stage_b_private_pack_and_infeed"):
                     packed = pack_exec(
                         data["b_cache_path"], data["cache_mode"], local_source_ids,
                         client_indices, epoch, args.batch_size, feature_dim,
-                        num_classes, args.seed, batch_start, chunk_batches,
+                        num_classes, args.seed, batch_start, current_chunk_batches,
                     )
                     x_s = alice(lambda pair: pair[0])(packed).to(spu)
                     y_s = alice(lambda pair: pair[1])(packed).to(spu)
