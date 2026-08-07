@@ -72,7 +72,7 @@ METHODS = ("full_data", "true_ours")
 
 def build_private_epoch_packs(
     cache_path, cache_mode, source_indices, client_indices, epoch,
-    batch_size, feature_dim, num_classes, seed,
+    batch_size, feature_dim, num_classes, seed, batch_start, batch_count,
 ):
     """PYU-only packer with explicit local-to-source index mapping.
 
@@ -83,15 +83,16 @@ def build_private_epoch_packs(
     train_x, train_y = _load_stage_b_pool(cache_path, cache_mode)
     source_indices = np.asarray(source_indices, dtype=np.int64)
     clients = len(client_indices)
-    batches = int(np.ceil(len(client_indices[0]) / float(batch_size)))
-    x_pack = np.zeros((clients, batches, batch_size, feature_dim), dtype=np.float32)
-    y_pack = np.zeros((clients, batches, batch_size, num_classes), dtype=np.float32)
+    x_pack = np.zeros((clients, batch_count, batch_size, feature_dim), dtype=np.float32)
+    y_pack = np.zeros((clients, batch_count, batch_size, num_classes), dtype=np.float32)
     for client_id in range(clients):
-        for batch_id, local_ids in enumerate(
-            deterministic_batches(
-                client_indices[client_id], batch_size, seed, 1, epoch, client_id
-            )
-        ):
+        all_batches = deterministic_batches(
+            client_indices[client_id], batch_size, seed, 1, epoch, client_id
+        )
+        selected_batches = all_batches[batch_start : batch_start + batch_count]
+        if len(selected_batches) != batch_count:
+            raise ValueError("requested Stage-B batch chunk exceeds epoch")
+        for batch_id, local_ids in enumerate(selected_batches):
             original_ids = source_indices[np.asarray(local_ids, dtype=np.int64)]
             x_pack[client_id, batch_id] = train_x[original_ids]
             y_pack[client_id, batch_id] = one_hot(train_y[original_ids], num_classes)
@@ -149,6 +150,8 @@ def main() -> None:
     parser.add_argument("--method", choices=METHODS, required=True)
     parser.add_argument("--seed", type=int, default=42, choices=(42,))
     parser.add_argument("--batch_size", type=int, required=True)
+    parser.add_argument("--batch_chunk_batches", type=int, required=True)
+    parser.add_argument("--local_lr", type=float)
     parser.add_argument("--unroll", type=int, default=1)
     parser.add_argument("--block_steps", type=int, default=10)
     parser.add_argument("--resume", action="store_true")
@@ -195,8 +198,10 @@ def main() -> None:
         "method": args.method,
         "seed": args.seed,
         "stage_b_batch_size": args.batch_size,
+        "stage_b_batch_chunk_batches": args.batch_chunk_batches,
         "stage_b_batch_size_source": "explicit_pre_run_freeze",
         "stage_b_unroll": args.unroll,
+        "stage_b_local_lr": float(args.local_lr if args.local_lr is not None else bcfg["local_lr"]),
         "stage_b_shared_initialization": bool(bcfg["shared_initialization"]),
         "stage_b_local_epochs": min(
             int(bcfg["local_epochs"]),
@@ -259,8 +264,11 @@ def main() -> None:
         client_indices = make_client_splits(split_labels, 5, bcfg.get("split_kind", "balanced"), args.seed)
         coefficients = aggregation_weights(split_labels, client_indices, bcfg["client_weighting"])
         batches = int(np.ceil(len(client_indices[0]) / float(args.batch_size)))
-        if batches % args.unroll:
-            raise ValueError("unroll must divide per-client batch count")
+        chunk_batches = int(args.batch_chunk_batches)
+        if chunk_batches <= 0 or batches % chunk_batches:
+            raise ValueError("batch_chunk_batches must be a positive divisor of per-client batches")
+        if chunk_batches % args.unroll:
+            raise ValueError("unroll must divide batch_chunk_batches")
 
         rng = np.random.RandomState(args.seed)
         initial_weights = [
@@ -274,7 +282,7 @@ def main() -> None:
         client_b_s = np.stack(initial_biases, axis=0)
         epoch_exec = spu_multi_return(
             spu, make_secure_stage_b_formal(
-                bcfg["local_lr"], bcfg["weight_decay"], args.seed, args.unroll
+                effective["stage_b_local_lr"], bcfg["weight_decay"], args.seed, args.unroll
             )
         )
         average_exec = spu_multi_return(spu, make_secure_stage_b_average(coefficients, args.seed))
@@ -288,6 +296,7 @@ def main() -> None:
             warm = pack_exec(
                 data["b_cache_path"], data["cache_mode"], local_source_ids,
                 client_indices, 0, args.batch_size, feature_dim, num_classes, args.seed,
+                0, chunk_batches,
             )
             warm_x_s = alice(lambda pair: pair[0])(warm).to(spu)
             warm_y_s = alice(lambda pair: pair[1])(warm).to(spu)
@@ -315,25 +324,31 @@ def main() -> None:
                 ledger.wait("stage_b_resume", [client_w_s, client_b_s], "client_local_secret_state")
 
         for epoch in range(start_epoch, effective["stage_b_local_epochs"]):
-            with timer.measure("stage_b_private_pack_and_infeed"):
-                packed = pack_exec(
-                    data["b_cache_path"], data["cache_mode"], local_source_ids,
-                    client_indices, epoch, args.batch_size, feature_dim,
-                    num_classes, args.seed,
-                )
-                x_s = alice(lambda pair: pair[0])(packed).to(spu)
-                y_s = alice(lambda pair: pair[1])(packed).to(spu)
-                sf.wait([x_s, y_s])
-            with timer.measure("stage_b_online_secure"):
-                client_w_s, client_b_s = epoch_exec(x_s, y_s, client_w_s, client_b_s)
-                if int(bcfg["fedavg_sync_interval"]) > 0 and (
-                    (epoch + 1) % int(bcfg["fedavg_sync_interval"]) == 0
-                ):
+            for batch_start in range(0, batches, chunk_batches):
+                with timer.measure("stage_b_private_pack_and_infeed"):
+                    packed = pack_exec(
+                        data["b_cache_path"], data["cache_mode"], local_source_ids,
+                        client_indices, epoch, args.batch_size, feature_dim,
+                        num_classes, args.seed, batch_start, chunk_batches,
+                    )
+                    x_s = alice(lambda pair: pair[0])(packed).to(spu)
+                    y_s = alice(lambda pair: pair[1])(packed).to(spu)
+                    sf.wait([x_s, y_s])
+                with timer.measure("stage_b_online_secure"):
+                    client_w_s, client_b_s = epoch_exec(x_s, y_s, client_w_s, client_b_s)
+                    ledger.wait(
+                        "stage_b_epoch_{}_chunk_{}".format(epoch + 1, batch_start),
+                        [client_w_s, client_b_s], "client_local_secret_state",
+                    )
+            if int(bcfg["fedavg_sync_interval"]) > 0 and (
+                (epoch + 1) % int(bcfg["fedavg_sync_interval"]) == 0
+            ):
+                with timer.measure("stage_b_online_secure"):
                     client_w_s, client_b_s = sync_exec(client_w_s, client_b_s)
-                ledger.wait(
-                    "stage_b_epoch_{}".format(epoch + 1),
-                    [client_w_s, client_b_s], "client_local_secret_state",
-                )
+                    ledger.wait(
+                        "stage_b_epoch_{}_fedavg_sync".format(epoch + 1),
+                        [client_w_s, client_b_s], "client_local_secret_state",
+                    )
             with timer.measure("stage_b_secret_checkpoint"):
                 w_paths = dump_spu_object(spu, client_w_s, checkpoint_dir, "current", "client_w")
                 b_paths = dump_spu_object(spu, client_b_s, checkpoint_dir, "current", "client_b")
