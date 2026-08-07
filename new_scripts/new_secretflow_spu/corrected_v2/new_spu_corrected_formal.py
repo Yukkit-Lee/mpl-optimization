@@ -144,6 +144,7 @@ def main() -> None:
     parser.add_argument("--unroll", type=int, default=1)
     parser.add_argument("--block_steps", type=int, default=10)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--run_tag", default="")
     parser.add_argument("--development_gate", action="store_true")
     parser.add_argument("--max_stage_b_epochs", type=int)
     parser.add_argument("--max_stage_c_steps", type=int)
@@ -157,7 +158,12 @@ def main() -> None:
     num_classes = int(data["num_classes"])
     feature_dim = int(data["b_x"].shape[1])
     run_kind = "development_gate" if args.development_gate else "formal"
-    run_id = "corrected_v2_{}_{}_{}_seed42".format(run_kind, args.dataset, args.method)
+    if args.run_tag and not args.run_tag.replace("_", "").isalnum():
+        parser.error("run_tag may contain only letters, digits and underscores")
+    run_id = "corrected_v2_{}_{}_{}_seed42{}".format(
+        run_kind, args.dataset, args.method,
+        "_" + args.run_tag if args.run_tag else "",
+    )
     output_dir = OUT / run_id
     checkpoint_dir = CKPT / run_id
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -165,6 +171,11 @@ def main() -> None:
     trace_path = output_dir / "new_spu_corrected_trace.csv"
     report_path = LOG / "{}_report.json".format(run_id)
     LOG.mkdir(parents=True, exist_ok=True)
+    if args.resume and report_path.exists():
+        completed = json.loads(report_path.read_text(encoding="utf-8"))
+        if completed.get("status") == "COMPLETE":
+            print(json.dumps(completed, sort_keys=True), flush=True)
+            return
 
     bcfg = config["stage_b"]
     stage_c = config["stage_c"]
@@ -267,12 +278,19 @@ def main() -> None:
 
         stage_b_meta = checkpoint_dir / "stage_b_progress.json"
         start_epoch = 0
+        stage_b_complete = False
         if args.resume and stage_b_meta.exists():
             state = json.loads(stage_b_meta.read_text(encoding="utf-8"))
             start_epoch = int(state["epochs_done"])
-            client_w_s = load_spu_object(spu, state["client_w_share_paths"])
-            client_b_s = load_spu_object(spu, state["client_b_share_paths"])
-            ledger.wait("stage_b_resume", [client_w_s, client_b_s], "client_local_secret_state")
+            stage_b_complete = bool(state.get("stage_b_complete", False))
+            if stage_b_complete:
+                global_w_s = load_spu_object(spu, state["global_w_share_paths"])
+                global_b_s = load_spu_object(spu, state["global_b_share_paths"])
+                ledger.wait("stage_b_complete_resume", [global_w_s, global_b_s], "global_secret_state")
+            else:
+                client_w_s = load_spu_object(spu, state["client_w_share_paths"])
+                client_b_s = load_spu_object(spu, state["client_b_share_paths"])
+                ledger.wait("stage_b_resume", [client_w_s, client_b_s], "client_local_secret_state")
 
         for epoch in range(start_epoch, effective["stage_b_local_epochs"]):
             with timer.measure("stage_b_private_pack_and_infeed"):
@@ -304,10 +322,11 @@ def main() -> None:
                 })
             print("[StageB corrected] epoch={}/{}".format(epoch + 1, effective["stage_b_local_epochs"]), flush=True)
 
-        with timer.measure("stage_b_online_secure"):
-            global_w_s, global_b_s = average_exec(client_w_s, client_b_s)
-            ledger.wait("stage_b_final_average", [global_w_s, global_b_s], "global_secret_state")
-        if config["anchor_ce"]:
+        if not stage_b_complete:
+            with timer.measure("stage_b_online_secure"):
+                global_w_s, global_b_s = average_exec(client_w_s, client_b_s)
+                ledger.wait("stage_b_final_average", [global_w_s, global_b_s], "global_secret_state")
+        if config["anchor_ce"] and not stage_b_complete:
             anchor_exec = spu_multi_return(
                 spu, make_secure_anchor_ce(
                     config["anchor_steps"], config["anchor_lr"], config["anchor_mu"], args.seed
@@ -324,8 +343,18 @@ def main() -> None:
                 global_w_s, global_b_s = anchor_exec(anchor_x_s, anchor_y_s, global_w_s, global_b_s)
                 ledger.wait("stage_b_anchor_ce", [global_w_s, global_b_s], "global_secret_state")
         with timer.measure("stage_b_secret_checkpoint"):
-            global_w_paths = dump_spu_object(spu, global_w_s, checkpoint_dir, "stage_b", "global_w")
-            global_b_paths = dump_spu_object(spu, global_b_s, checkpoint_dir, "stage_b", "global_b")
+            if stage_b_complete:
+                global_w_paths = state["global_w_share_paths"]
+                global_b_paths = state["global_b_share_paths"]
+            else:
+                global_w_paths = dump_spu_object(spu, global_w_s, checkpoint_dir, "stage_b", "global_w")
+                global_b_paths = dump_spu_object(spu, global_b_s, checkpoint_dir, "stage_b", "global_b")
+                atomic_json(stage_b_meta, {
+                    "epochs_done": effective["stage_b_local_epochs"],
+                    "stage_b_complete": True,
+                    "global_w_share_paths": global_w_paths,
+                    "global_b_share_paths": global_b_paths,
+                })
 
         # ----- Stage C -----
         total_steps = effective["stage_c_steps"]
