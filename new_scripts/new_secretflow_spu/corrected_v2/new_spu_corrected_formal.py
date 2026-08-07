@@ -148,9 +148,12 @@ def main() -> None:
     parser.add_argument("--development_gate", action="store_true")
     parser.add_argument("--max_stage_b_epochs", type=int)
     parser.add_argument("--max_stage_c_steps", type=int)
+    parser.add_argument("--planned_stop_after_steps", type=int)
     args = parser.parse_args()
     if (args.max_stage_b_epochs or args.max_stage_c_steps) and not args.development_gate:
         parser.error("budget truncation is allowed only with --development_gate")
+    if args.planned_stop_after_steps and not args.development_gate:
+        parser.error("planned interruption is allowed only with --development_gate")
 
     os.environ.setdefault("RAY_USAGE_STATS_ENABLED", "0")
     config = load_config(args.dataset, args.method)
@@ -476,6 +479,14 @@ def main() -> None:
             })
             append_trace(trace_path, trace_rows)
             print("[StageC corrected] steps={}/{} acc={:.4f} eps={:.4f}".format(steps_done, total_steps, dev_accuracy, epsilon), flush=True)
+            if (
+                args.planned_stop_after_steps
+                and not args.resume
+                and steps_done == int(args.planned_stop_after_steps)
+            ):
+                raise RuntimeError(
+                    "PLANNED_DEVELOPMENT_GATE_STOP_AFTER_SECRET_CHECKPOINT"
+                )
 
         metadata = {
             stream: reveal_private_noise_metadata(pyus, paths, ledger, stream)
