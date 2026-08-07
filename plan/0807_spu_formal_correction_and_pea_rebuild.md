@@ -54,6 +54,8 @@ Hard gates:
 
 ## 4. Phase R1 — secure-state and DP correction
 
+Status: `IN_PROGRESS` (security smoke PASS; real-data development gate pending).
+
 ### R1.1 Stage B
 
 - Keep all five client weight/bias states as `SPUObject` values across epochs.
@@ -90,6 +92,8 @@ Hard gates:
 - A recovery smoke must prove that no sample/noise step is repeated.
 
 ## 5. Phase R2 — timing and CPU correction
+
+Status: `IN_PROGRESS` (correct cgroup sampler and disjoint phase timers implemented; benchmark pending).
 
 Measure separately:
 

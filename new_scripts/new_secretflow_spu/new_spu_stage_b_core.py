@@ -214,6 +214,30 @@ def make_secure_stage_b_average(
     return _fn
 
 
+def make_secure_stage_b_average_and_broadcast(agg_coeffs, seed):
+    """Secure FedAvg followed by an in-SPU broadcast to every client.
+
+    This is the synchronization primitive required by the corrected runner:
+    neither the averaged head nor any client-local head is reconstructed on
+    the driver between epochs.
+    """
+
+    def _fn(client_w, client_b):
+        num_clients = client_w.shape[0]
+        avg_w = client_w[0] * float(agg_coeffs[0])
+        avg_b = client_b[0] * float(agg_coeffs[0])
+        for client_id in range(1, num_clients):
+            avg_w = avg_w + client_w[client_id] * float(agg_coeffs[client_id])
+            avg_b = avg_b + client_b[client_id] * float(agg_coeffs[client_id])
+        return (
+            jnp.stack([avg_w for _ in range(num_clients)], axis=0),
+            jnp.stack([avg_b for _ in range(num_clients)], axis=0),
+        )
+
+    _fn.__name__ = "secure_stage_b_average_broadcast_{}".format(seed)
+    return _fn
+
+
 def make_secure_anchor_ce(
     anchor_steps,
     anchor_lr,
