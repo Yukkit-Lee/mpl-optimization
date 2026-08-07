@@ -1,4 +1,10 @@
-# SecretFlow-SPU 0807 任务完成报告
+# SecretFlow-SPU 0807 历史交付报告（已隔离，不可用于论文）
+
+> Status: `QUARANTINED_DIAGNOSTIC`。2026-08-07 后续代码审计发现正式
+> Stage-B 每轮 reveal 客户端本地模型、正式 DP 噪声由 driver 以公开确定性
+> seed 统一生成、正式 privacy accountant 缺失、有效 batch 与 freeze 不一致，
+> 且 online secure timing 未分离。以下内容仅保留为历史开发记录；当前权威
+> 状态见 `new_log/new_secretflow_spu/corrected_v2/new_spu_artifact_status.json`。
 
 更新时间：2026-08-07（Asia/Shanghai）
 分支：`new-secretflow-spu-end2end`

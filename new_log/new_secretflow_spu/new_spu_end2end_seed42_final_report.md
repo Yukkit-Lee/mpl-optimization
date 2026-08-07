@@ -1,4 +1,10 @@
-# SecretFlow-SPU end-to-end report (seed42)
+# SecretFlow-SPU end-to-end report (seed42) — QUARANTINED DIAGNOSTIC
+
+This historical report is not paper-formal evidence. A later code audit found
+client-local Stage-B reveals, driver-generated deterministic formal DP noise,
+no formal privacy-accountant execution, post-freeze effective batch changes,
+and an unseparated online-time boundary. Corrected work is tracked under
+`new_secretflow_spu/corrected_v2`.
 
 Backend: SecretFlow-SPU device API, ABY3, FM128, fxp_fraction_bits=16.
 
@@ -39,4 +45,3 @@ for CIFAR-10 (0.715 vs TFE 0.73) but larger for CIFAR-100.
   three-panel figure reports Tiny Ours only with a marked missing
   Full cell.
 - No communication measurement is reported (N/A).
-
