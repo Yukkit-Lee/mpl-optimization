@@ -197,6 +197,7 @@ def main() -> None:
         "stage_b_batch_size": args.batch_size,
         "stage_b_batch_size_source": "explicit_pre_run_freeze",
         "stage_b_unroll": args.unroll,
+        "stage_b_shared_initialization": bool(bcfg["shared_initialization"]),
         "stage_b_local_epochs": min(
             int(bcfg["local_epochs"]),
             args.max_stage_b_epochs or int(bcfg["local_epochs"]),
@@ -262,10 +263,15 @@ def main() -> None:
             raise ValueError("unroll must divide per-client batch count")
 
         rng = np.random.RandomState(args.seed)
-        initial_w = rng.normal(0.0, 0.01, size=(feature_dim, num_classes)).astype(np.float32)
-        initial_b = np.zeros((num_classes,), dtype=np.float32)
-        client_w_s = np.stack([initial_w] * 5)
-        client_b_s = np.stack([initial_b] * 5)
+        initial_weights = [
+            rng.normal(0.0, 0.01, size=(feature_dim, num_classes)).astype(np.float32)
+            for _ in range(5)
+        ]
+        if bool(bcfg["shared_initialization"]):
+            initial_weights = [initial_weights[0].copy() for _ in range(5)]
+        initial_biases = [np.zeros((num_classes,), dtype=np.float32) for _ in range(5)]
+        client_w_s = np.stack(initial_weights, axis=0)
+        client_b_s = np.stack(initial_biases, axis=0)
         epoch_exec = spu_multi_return(
             spu, make_secure_stage_b_formal(
                 bcfg["local_lr"], bcfg["weight_decay"], args.seed, args.unroll
