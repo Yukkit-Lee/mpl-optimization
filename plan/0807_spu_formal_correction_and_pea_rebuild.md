@@ -121,6 +121,8 @@ runs.
 
 ## 6. Phase R3 — correctness and bounded development tuning
 
+Status: `COMPLETE` (security, recovery, timing, full/tail chunk gates and bounded batch/LR tuning PASS).
+
 Run CIFAR-10 gates first:
 
 1. secure Stage-B state persistence and no-local-reveal test;
@@ -145,6 +147,8 @@ a stable useful configuration; do not perform an unbounded positive-result
 search.
 
 ## 7. Phase R4 — final freeze and formal runs
+
+Status: `IN_PROGRESS` (six-cell corrected-v2 config frozen; formal runs 0/6).
 
 Before any corrected formal run, freeze:
 
