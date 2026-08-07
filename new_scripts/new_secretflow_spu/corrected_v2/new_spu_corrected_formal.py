@@ -135,6 +135,14 @@ def append_trace(path: Path, rows: list[dict]) -> None:
     os.replace(temporary, path)
 
 
+def merge_prior_timing(timer: PhaseTimer, prior: dict) -> None:
+    """Add this process' already-measured setup to checkpointed phase totals."""
+    current = dict(timer.seconds)
+    timer.seconds = {str(key): float(value) for key, value in prior.items()}
+    for phase, seconds in current.items():
+        timer.add(phase, seconds)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", choices=DATASETS, required=True)
@@ -215,6 +223,7 @@ def main() -> None:
     memory_monitor = CgroupMemoryMonitor()
     memory_monitor.start()
     started = time.monotonic()
+    elapsed_offset = 0.0
     try:
         pyus = [sf.PYU(name) for name in names]
         alice = pyus[0]
@@ -280,10 +289,14 @@ def main() -> None:
             sf.wait([warm_w_s, warm_b_s])
 
         stage_b_meta = checkpoint_dir / "stage_b_progress.json"
+        state_meta = checkpoint_dir / "stage_c_progress.json"
         start_epoch = 0
         stage_b_complete = False
         if args.resume and stage_b_meta.exists():
             state = json.loads(stage_b_meta.read_text(encoding="utf-8"))
+            if not state_meta.exists() and state.get("timing_seconds"):
+                merge_prior_timing(timer, state["timing_seconds"])
+                elapsed_offset = float(state.get("raw_wall_seconds", 0.0))
             start_epoch = int(state["epochs_done"])
             stage_b_complete = bool(state.get("stage_b_complete", False))
             if stage_b_complete:
@@ -322,6 +335,8 @@ def main() -> None:
                     "epochs_done": epoch + 1,
                     "client_w_share_paths": w_paths,
                     "client_b_share_paths": b_paths,
+                    "timing_seconds": timer.seconds,
+                    "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
                 })
             print("[StageB corrected] epoch={}/{}".format(epoch + 1, effective["stage_b_local_epochs"]), flush=True)
 
@@ -357,6 +372,8 @@ def main() -> None:
                     "stage_b_complete": True,
                     "global_w_share_paths": global_w_paths,
                     "global_b_share_paths": global_b_paths,
+                    "timing_seconds": timer.seconds,
+                    "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
                 })
 
         # ----- Stage C -----
@@ -383,12 +400,14 @@ def main() -> None:
             )
             sf.wait(warm)
 
-        state_meta = checkpoint_dir / "stage_c_progress.json"
         steps_done = 0
         clip_s = np.float32(stage_c["clip_c"])
         trace_rows = []
         if args.resume and state_meta.exists():
             state = json.loads(state_meta.read_text(encoding="utf-8"))
+            if state.get("timing_seconds"):
+                merge_prior_timing(timer, state["timing_seconds"])
+                elapsed_offset = float(state.get("raw_wall_seconds", 0.0))
             steps_done = int(state["steps_done"])
             global_w_s = load_spu_object(spu, state["global_w_share_paths"])
             global_b_s = load_spu_object(spu, state["global_b_share_paths"])
@@ -452,6 +471,8 @@ def main() -> None:
                     "global_w_share_paths": w_paths,
                     "global_b_share_paths": b_paths,
                     "clip_share_paths": c_paths,
+                    "timing_seconds": timer.seconds,
+                    "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
                 })
             with timer.measure("stage_c_authorized_dp_release_and_dev_evaluation"):
                 public_w, public_b, public_c = ledger.reveal(
@@ -478,15 +499,24 @@ def main() -> None:
                 "delta": 1e-5,
             })
             append_trace(trace_path, trace_rows)
+            # Refresh metadata after evaluation/accounting so a resumed report
+            # includes every completed phase, not only secure execution.
+            atomic_json(state_meta, {
+                "steps_done": steps_done,
+                "global_w_share_paths": w_paths,
+                "global_b_share_paths": b_paths,
+                "clip_share_paths": c_paths,
+                "timing_seconds": timer.seconds,
+                "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
+            })
             print("[StageC corrected] steps={}/{} acc={:.4f} eps={:.4f}".format(steps_done, total_steps, dev_accuracy, epsilon), flush=True)
             if (
                 args.planned_stop_after_steps
                 and not args.resume
                 and steps_done == int(args.planned_stop_after_steps)
             ):
-                raise RuntimeError(
-                    "PLANNED_DEVELOPMENT_GATE_STOP_AFTER_SECRET_CHECKPOINT"
-                )
+                print("PLANNED_DEVELOPMENT_GATE_STOP_AFTER_SECRET_CHECKPOINT", flush=True)
+                return
 
         metadata = {
             stream: reveal_private_noise_metadata(pyus, paths, ledger, stream)
@@ -502,7 +532,7 @@ def main() -> None:
             "delta": 1e-5,
             "timing_seconds": timer.seconds,
             "online_secure_seconds": timer.seconds.get("stage_b_online_secure", 0.0) + timer.seconds.get("stage_c_online_secure", 0.0),
-            "raw_wall_seconds": time.monotonic() - started,
+            "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
             "resource_measurement": cgroup_delta(resource_start, cgroup_snapshot(), 32),
             "reveal_ledger": ledger.rows,
             "provider_metadata": metadata,
