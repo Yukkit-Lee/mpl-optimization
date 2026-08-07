@@ -1,0 +1,25 @@
+[2026-08-07 09:54:23.494] [info] [bigint_spi.cc:79] The default library used for BigInt operations is openssl
+INFO:root:Try init sf in SIMULATION mode
+INFO:root:set distribution mode to DISTRIBUTION_MODE.SIMULATION
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+2026-08-07 09:54:43,052	INFO worker.py:2023 -- Started a local Ray instance.
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/ray/_private/worker.py:2062: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+INFO:root:shutdown is called, barrier_on_shutdown True, on_error None
+Traceback (most recent call last):
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_secretflow_spu/new_spu_run_formal.py", line 537, in <module>
+    main()
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_secretflow_spu/new_spu_run_formal.py", line 340, in main
+    w, b, stage_b_seconds = stage_b_initializer(
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_secretflow_spu/new_spu_run_formal.py", line 247, in stage_b_initializer
+    x_s, y_s = packed_s
+TypeError: cannot unpack non-iterable SPUObject object
+2026-08-07 09:55:01,932	ERROR services.py:1411 -- 'NoneType' object is not iterable
+2026-08-07 09:55:01,933	WARNING utils.py:458 -- Detecting docker specified CPUs. In previous versions of Ray, CPU detection in containers was incorrect. Please ensure that Ray has enough CPUs allocated. As a temporary workaround to revert to the prior behavior, set `RAY_USE_MULTIPROCESSING_CPU_COUNT=1` as an env var before starting Ray. Set the env var: `RAY_DISABLE_DOCKER_CPU_WARNING=1` to mute this warning.
+2026-08-07 09:55:06,875	ERROR services.py:1411 -- 'NoneType' object is not iterable
+2026-08-07 09:55:06,878	WARNING utils.py:458 -- Detecting docker specified CPUs. In previous versions of Ray, CPU detection in containers was incorrect. Please ensure that Ray has enough CPUs allocated. As a temporary workaround to revert to the prior behavior, set `RAY_USE_MULTIPROCESSING_CPU_COUNT=1` as an env var before starting Ray. Set the env var: `RAY_DISABLE_DOCKER_CPU_WARNING=1` to mute this warning.
+2026-08-07 09:55:13,145	ERROR services.py:1411 -- 'NoneType' object is not iterable
+2026-08-07 09:55:13,148	WARNING utils.py:458 -- Detecting docker specified CPUs. In previous versions of Ray, CPU detection in containers was incorrect. Please ensure that Ray has enough CPUs allocated. As a temporary workaround to revert to the prior behavior, set `RAY_USE_MULTIPROCESSING_CPU_COUNT=1` as an env var before starting Ray. Set the env var: `RAY_DISABLE_DOCKER_CPU_WARNING=1` to mute this warning.

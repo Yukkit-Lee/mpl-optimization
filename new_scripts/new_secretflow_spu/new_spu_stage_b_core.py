@@ -138,6 +138,119 @@ def make_secure_stage_b(
     return _fn
 
 
+def make_secure_stage_b_formal(
+    local_lr,
+    weight_decay,
+    seed,
+    unroll=1,
+):
+    """Formal Stage-B single-epoch secure graph with mini-batch local training.
+
+    Matches the audited TFE semantics. The epoch loop lives in the Python
+    driver (each epoch re-shuffles batches via deterministic_batches, exactly
+    like TFE session.run), so each SPU call trains every client over its
+    deterministic mini-batches once and returns the updated local heads.
+
+    Inputs (all SPU arguments; scalar hyperparameters bound as Python ints):
+      x_batches:  (C, B, M, D)  per-client fixed mini-batch feature tensors
+      y_batches:  (C, B, M, K)  one-hot labels
+      init_w:     (D, K)        current local head weights
+      init_b:     (K,)          current local head biases
+    Returns updated (C, D, K) local weights and (C, K) local biases.
+    """
+    import jax.lax as lax
+
+    def _fn(x_batches, y_batches, init_w, init_b):
+        num_clients = x_batches.shape[0]
+        num_batches = x_batches.shape[1]
+        batch_size = x_batches.shape[2]
+
+        def client_scan(carry, xs):
+            w, b = carry
+            xb, yb = xs
+            logits = xb @ w + b
+            error = logits - yb
+            grad_w = (xb.T @ error) / float(batch_size)
+            grad_b = jnp.sum(error, axis=0) / float(batch_size)
+            grad_w = grad_w + float(weight_decay) * w
+            new_w = w - float(local_lr) * grad_w
+            new_b = b - float(local_lr) * grad_b
+            return (new_w, new_b), None
+
+        new_weights = []
+        new_biases = []
+        for client_id in range(num_clients):
+            (w, b), _ = lax.scan(
+                client_scan,
+                (init_w[client_id], init_b[client_id]),
+                (x_batches[client_id], y_batches[client_id]),
+                length=int(num_batches),
+                unroll=int(unroll),
+            )
+            new_weights.append(w)
+            new_biases.append(b)
+        return jnp.stack(new_weights, axis=0), jnp.stack(new_biases, axis=0)
+
+    _fn.__name__ = "secure_stage_b_one_epoch_{}".format(seed)
+    return _fn
+
+
+def make_secure_stage_b_average(
+    agg_coeffs,
+    seed,
+):
+    """Secure weighted average of client local heads."""
+
+    def _fn(client_w, client_b):
+        num_clients = client_w.shape[0]
+        avg_w = client_w[0] * float(agg_coeffs[0])
+        avg_b = client_b[0] * float(agg_coeffs[0])
+        for client_id in range(1, num_clients):
+            avg_w = avg_w + client_w[client_id] * float(agg_coeffs[client_id])
+            avg_b = avg_b + client_b[client_id] * float(agg_coeffs[client_id])
+        return avg_w, avg_b
+
+    _fn.__name__ = "secure_stage_b_average_{}".format(seed)
+    return _fn
+
+
+def make_secure_anchor_ce(
+    anchor_steps,
+    anchor_lr,
+    anchor_mu,
+    seed,
+):
+    """Secure class-balanced labeled compact-anchor CE refinement (proximal).
+
+    Inputs: anchor_x (A, D), anchor_y_onehot (A, K), init_w (D, K), init_b (K,).
+    """
+
+    def _fn(anchor_x, anchor_y_onehot, init_w, init_b):
+        avg_w = init_w
+        avg_b = init_b
+        reference_w = init_w
+        reference_b = init_b
+        num_anchor = anchor_x.shape[0]
+        for _ in range(int(anchor_steps)):
+            logits = anchor_x @ avg_w + avg_b
+            shifted = logits - jnp.max(logits, axis=1, keepdims=True)
+            probs = jnp.exp(shifted) / jnp.sum(
+                jnp.exp(shifted), axis=1, keepdims=True
+            )
+            error = probs - anchor_y_onehot
+            grad_w = (anchor_x.T @ error) / float(num_anchor)
+            grad_b = jnp.sum(error, axis=0) / float(num_anchor)
+            if float(anchor_mu) > 0.0:
+                grad_w = grad_w + 2.0 * float(anchor_mu) * (avg_w - reference_w)
+                grad_b = grad_b + 2.0 * float(anchor_mu) * (avg_b - reference_b)
+            avg_w = avg_w - float(anchor_lr) * grad_w
+            avg_b = avg_b - float(anchor_lr) * grad_b
+        return avg_w, avg_b
+
+    _fn.__name__ = "secure_anchor_ce_{}".format(seed)
+    return _fn
+
+
 def plaintext_stage_b_reference(
     x_clients,
     y_clients,
