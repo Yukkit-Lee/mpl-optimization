@@ -1479,3 +1479,10 @@
 - 当前正式run进度：CIFAR-10 Ours COMPLETE（dev acc 0.6862）；CIFAR-10 Full进行中（batch=64调整）。剩余CIFAR-100 Ours/Full、Tiny Ours/Full。
 - CIFAR-10 Full seed42正式run完成（batch=64后端调整）：Stage-B=2721.28s（40 epochs稳定~60s/epoch），Stage-C online=39.53s（80 steps/8 blocks），total online secure=2760.80s=46分钟，final development accuracy=**0.715**（TFE正式0.73，batch=64调整后差1.5pp可接受），final clip=0.954，peak RSS=1.71GiB，无fallback，test/locked holdout未读。trace CSV完整。checkpoint存`spu_cifar10_full_data_seed42/`。report=`new_spu_cifar10_full_data_seed42_report.json`。至此CIFAR-10两条正式run完成：Ours 0.6862 / Full 0.715。
 - 下一唯一操作：提交推送CIFAR-10两条正式结果与progressLog，随后启动CIFAR-100 Ours（Stage-B 4800样本，local_epochs=80，预计Stage-B更长）。
+- CIFAR-100 Ours seed42正式run启动。Ours训练池4000样本（每client 800），batch=8冻结下100 batches/epoch×80 epochs，实测109s/epoch≈2.4小时Stage-B不可接受。沿用用户批准的batch后端调整：batch=8→32（25 batches/epoch），实测稳定~45s/epoch，80 epochs约60分钟Stage-B可接受。已启动后台运行（epoch=6/80）。
+- 当前正式run进度：CIFAR-10 Ours(0.6862)/Full(0.715) COMPLETE；CIFAR-100 Ours进行中(batch=32)。剩余CIFAR-100 Full、Tiny Ours/Full。
+- CIFAR-100 Ours seed42正式run完成（batch=32后端调整）：Stage-B=3760.82s（80 epochs稳定~45s/epoch），Stage-C online=27.59s（20 steps/2 blocks），total online secure=3788.41s=63分钟，final development accuracy=**0.4034**（TFE正式0.48-0.49，低约0.08待评估，可能batch调整或Stage-C从SPU initializer出发差异），final clip=1.984，peak RSS=1.04GiB，无fallback，test/locked holdout未读。trace CSV完整。report=`new_spu_cifar100_true_ours_seed42_report.json`。
+- 当前正式run进度：CIFAR-10 Ours(0.6862)/Full(0.715)、CIFAR-100 Ours(0.4034) COMPLETE。剩余CIFAR-100 Full、Tiny Ours/Full。
+- CIFAR-100 Full seed42正式run完成（batch=64后端调整）：Stage-B=5764.55s（40 epochs稳定~143s/epoch，num_classes=100使matmul更重），Stage-C online=22.46s（20 steps/2 blocks），total online secure=5787.01s=96分钟，final development accuracy=**0.4028**（TFE正式0.43），final clip=1.992，peak RSS=1.83GiB，无fallback，test/locked holdout未读。report=`new_spu_cifar100_full_data_seed42_report.json`。
+- **关注点**：CIFAR-100 Ours(0.4034)与Full(0.4028)几乎持平，TFE中Ours(0.48)比Full(0.43)高0.05。SPU上CIFAR-100整体acc偏低（~0.40 vs TFE 0.43-0.48），疑似batch调整(32/64)对100类更难数据集影响更大。将在全部6条完成后统一评估并如实报告。
+- 当前正式run进度：CIFAR-10 Ours/Full、CIFAR-100 Ours/Full COMPLETE（4/6）。剩余Tiny Ours/Full。

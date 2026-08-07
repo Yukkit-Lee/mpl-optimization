@@ -1,0 +1,52 @@
+[2026-08-07 12:50:50.497] [info] [bigint_spi.cc:79] The default library used for BigInt operations is openssl
+INFO:root:Try init sf in SIMULATION mode
+INFO:root:set distribution mode to DISTRIBUTION_MODE.SIMULATION
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+2026-08-07 12:50:59,897	INFO worker.py:2023 -- Started a local Ray instance.
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/ray/_private/worker.py:2062: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+[StageB] num_batches=25 unroll=5
+[2026-08-07 12:51:09.541] [info] [thread_pool.cc:30] Create a fixed thread pool with size 127
+[2026-08-07 12:51:31,056 E 520686 523159] core_worker_process.cc:837: Failed to establish connection to the metrics exporter agent. Metrics will not be exported. Exporter agent status: RpcError: Running out of retries to initialize the metrics agent. rpc_code: 14
+[StageB] epoch=2/80 epoch_wall=43.9s
+[StageB] epoch=4/80 epoch_wall=46.0s
+[StageB] epoch=6/80 epoch_wall=45.4s
+[Stag[StageB] epoch=8/80 epoch_wall=148.6s
+[StageB] epoch=10/80 epoch_wall=149.4s
+[StageB] epoch=12/80 epoch_wall=148.4s
+[StageB] epoch=14/80 epoch_wall=148.8s
+[StageB] epoch=16/80 epoch_wall=150.3s
+[StageB] epoch=18/80 epoch_wall=148.0s
+[StageB] epoch=20/80 epoch_wall=149.4s
+[StageB] epoch=22/80 epoch_wall=149.8s
+[StageB] epoch=24/80 epoch_wall=150.2s
+[StageB] epoch=26/80 epoch_wall=149.8s
+[StageB] epoch=28/80 epoch_wall=149.8s
+[StageB] epoch=30/80 epoch_wall=130.9s
+INFO:root:shutdown is called, barrier_on_shutdown True, on_error None
+[2026-08-07 13:55:21,118 E 431336 431965] core_worker.cc:473: :info_message: Attempting to recover 1 lost objects by resubmitting their tasks or setting a new primary location from existing copies. To disable object reconstruction, set @ray.remote(max_retries=0).
+epoch=50/80 epoch_wall=45.1s
+[StageB] epoch=52/80 epoch_wall=46.1s
+[StageB] epoch=54/80 epoch_wall=45.0s
+[StageB] epoch=56/80 epoch_wall=45.2s
+[StageB] epoch=58/80 epoch_wall=44.4s
+[StageB] epoch=60/80 epoch_wall=45.4s
+[StageB] epoch=62/80 epoch_wall=44.9s
+[StageB] epoch=64/80 epoch_wall=45.8s
+[StageB] epoch=66/80 epoch_wall=45.7s
+[StageB] epoch=68/80 epoch_wall=43.7s
+[StageB] epoch=70/80 epoch_wall=45.1s
+[StageB] epoch=72/80 epoch_wall=45.6s
+[StageB] epoch=74/80 epoch_wall=44.3s
+[StageB] epoch=76/80 epoch_wall=45.3s
+[StageB] epoch=78/80 epoch_wall=45.0s
+[StageB] epoch=80/80 epoch_wall=45.6s
+[StageC] steps=10/20 dev_acc=0.4042 c=1.99219 online=15.4s
+[StageC] steps=20/20 dev_acc=0.4034 c=1.98441 online=27.6s
+INFO:root:shutdown is called, barrier_on_shutdown True, on_error None
+2026-08-07 13:54:16,152	WARNING utils.py:458 -- Detecting docker specified CPUs. In previous versions of Ray, CPU detection in containers was incorrect. Please ensure that Ray has enough CPUs allocated. As a temporary workaround to revert to the prior behavior, set `RAY_USE_MULTIPROCESSING_CPU_COUNT=1` as an env var before starting Ray. Set the env var: `RAY_DISABLE_DOCKER_CPU_WARNING=1` to mute this warning.
+2026-08-07 13:54:16,403	INFO worker.py:2023 -- Started a local Ray instance.
+{"backend": "SecretFlow-SPU device API", "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_secretflow_spu/spu_cifar100_true_ours_seed42", "cumulative_stage_c_online_secure_seconds": 27.5884, "dataset": "cifar100", "final_clip_bound": 1.984405517578125, "final_development_accuracy": 0.4034, "locked_holdout_read": false, "method": "true_ours", "official_test_read": false, "peak_driver_rss_gib": 1.0386466979980469, "protocol": {"field": "FM128", "fxp_fraction_bits": 16, "protocol": "ABY3"}, "run_id": "spu_cifar100_true_ours_seed42", "schema": "new_spu_formal_run_v1", "seed": 42, "stage_b_seconds": 3760.8242954686284, "status": "COMPLETE", "total_online_secure_seconds": 3788.4126954686285}
