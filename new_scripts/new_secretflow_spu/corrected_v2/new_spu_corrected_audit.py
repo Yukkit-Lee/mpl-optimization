@@ -52,18 +52,32 @@ def conditional_stage_c_epsilon(
 
 def cgroup_snapshot() -> dict[str, int]:
     root = Path("/sys/fs/cgroup")
-    cpu = {}
-    for line in (root / "cpu.stat").read_text(encoding="utf-8").splitlines():
-        key, value = line.split()
-        cpu[key] = int(value)
-    memory_current = int((root / "memory.current").read_text().strip())
-    peak_path = root / "memory.peak"
-    memory_peak = int(peak_path.read_text().strip()) if peak_path.exists() else memory_current
+    if (root / "cpu.stat").exists():
+        cpu = {}
+        for line in (root / "cpu.stat").read_text(encoding="utf-8").splitlines():
+            key, value = line.split()
+            cpu[key] = int(value)
+        cpu_usage_usec = int(cpu["usage_usec"])
+        memory_current = int((root / "memory.current").read_text().strip())
+        peak_path = root / "memory.peak"
+        memory_peak = int(peak_path.read_text().strip()) if peak_path.exists() else memory_current
+        version = 2
+    else:
+        cpu_usage_usec = int(
+            (root / "cpu,cpuacct/cpuacct.usage").read_text().strip()
+        ) // 1000
+        memory_root = root / "memory"
+        memory_current = int((memory_root / "memory.usage_in_bytes").read_text().strip())
+        memory_peak = int(
+            (memory_root / "memory.max_usage_in_bytes").read_text().strip()
+        )
+        version = 1
     return {
         "monotonic_ns": time.monotonic_ns(),
-        "cpu_usage_usec": int(cpu["usage_usec"]),
+        "cpu_usage_usec": cpu_usage_usec,
         "memory_current_bytes": memory_current,
         "memory_peak_bytes": memory_peak,
+        "cgroup_version": version,
     }
 
 
@@ -76,6 +90,7 @@ def cgroup_delta(start: dict[str, int], end: dict[str, int], allocated_cpus: int
         "cgroup_cpu_seconds": cpu_seconds,
         "cgroup_cpu_utilization_fraction_of_allocated_capacity": cpu_seconds / denominator,
         "memory_peak_gib": end["memory_peak_bytes"] / float(1 << 30),
+        "cgroup_version": int(end["cgroup_version"]),
         "measurement_scope": "whole_cgroup; run only without concurrent experiments",
     }
 
