@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import threading
 import time
 from pathlib import Path
 from typing import Any
@@ -104,6 +105,33 @@ class PhaseTimer:
 
     def measure(self, phase: str):
         return _TimerContext(self, phase)
+
+
+class CgroupMemoryMonitor:
+    """Poll current cgroup memory; v1 lifetime max cannot be reset per run."""
+
+    def __init__(self, interval_seconds: float = 0.25) -> None:
+        self.interval_seconds = float(interval_seconds)
+        self.peak_bytes = 0
+        self._stop = threading.Event()
+        self._thread = threading.Thread(target=self._run, daemon=True)
+
+    def start(self) -> None:
+        self._thread.start()
+
+    def _run(self) -> None:
+        while not self._stop.is_set():
+            try:
+                self.peak_bytes = max(
+                    self.peak_bytes, cgroup_snapshot()["memory_current_bytes"]
+                )
+            finally:
+                self._stop.wait(self.interval_seconds)
+
+    def stop(self) -> float:
+        self._stop.set()
+        self._thread.join(timeout=max(1.0, self.interval_seconds * 4.0))
+        return self.peak_bytes / float(1 << 30)
 
 
 class _TimerContext:

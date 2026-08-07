@@ -48,6 +48,7 @@ from new_spu_stage_b_core import (  # noqa: E402
 )
 from new_spu_stage_c_core import make_secure_stage_c_scan  # noqa: E402
 from new_spu_corrected_audit import (  # noqa: E402
+    CgroupMemoryMonitor,
     PhaseTimer,
     cgroup_delta,
     cgroup_snapshot,
@@ -197,6 +198,8 @@ def main() -> None:
     timer = PhaseTimer()
     ledger = RevealLedger()
     resource_start = cgroup_snapshot()
+    memory_monitor = CgroupMemoryMonitor()
+    memory_monitor.start()
     started = time.monotonic()
     try:
         pyus = [sf.PYU(name) for name in names]
@@ -468,6 +471,10 @@ def main() -> None:
             "checkpoint_kind": "per-party SPU secret shares",
             "checkpoint_paths": {"stage_b_w": global_w_paths, "stage_b_b": global_b_paths},
         })
+        report["resource_measurement"]["run_observed_memory_peak_gib"] = memory_monitor.stop()
+        report["resource_measurement"]["memory_peak_note"] = (
+            "run_observed peak is authoritative; cgroup v1 lifetime max may predate this run"
+        )
         atomic_json(report_path, report)
         print(json.dumps(report, sort_keys=True), flush=True)
     finally:
