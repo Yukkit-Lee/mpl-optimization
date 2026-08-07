@@ -1,0 +1,96 @@
+[2026-08-07 15:35:31.757] [info] [bigint_spi.cc:79] The default library used for BigInt operations is openssl
+INFO:root:Try init sf in SIMULATION mode
+INFO:root:set distribution mode to DISTRIBUTION_MODE.SIMULATION
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+2026-08-07 15:35:41,594	INFO worker.py:2023 -- Started a local Ray instance.
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/ray/_private/worker.py:2062: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+[StageB] num_batches=25 unroll=5
+[2026-08-07 15:35:50.878] [info] [thread_pool.cc:30] Create a fixed thread pool with size 127
+[2026-08-07 15:36:12,780 E 246946 247612] core_worker_process.cc:837: Failed to establish connection to the metrics exporter agent. Metrics will not be exported. Exporter agent status: RpcError: Running out of retries to initialize the metrics agent. rpc_code: 14
+[StageB] epoch=2/80 epoch_wall=57.5s
+[StageB] epoch=4/80 epoch_wall=57.2s
+[StageB] epoch=6/80 epoch_wall=57.5s
+[StageB] epoch=8/80 epoch_wall=57.7s
+[StageB] epoch=10/80 epoch_wall=57.8s
+[StageB] epoch=12/80 epoch_wall=57.7s
+[StageB] epoch=14/80 epoch_wall=57.6s
+[StageB] epoch=16/80 epoch_wall=58.5s
+[StageB] epoch=18/80 epoch_wall=58.3s
+[StageB] epoch=20/80 epoch_wall=58.3s
+[StageB] epoch=22/80 epoch_wall=58.0s
+[StageB] epoch=24/80 epoch_wall=58.2s
+[StageB] epoch=26/80 epoch_wall=58.8s
+[StageB] epoch=28/80 epoch_wall=58.4s
+[StageB] epoch=30/80 epoch_wall=58.0s
+[StageB] epoch=32/80 epoch_wall=58.1s
+[StageB] epoch=34/80 epoch_wall=58.3s
+[StageB] epoch=36/80 epoch_wall=57.8s
+[StageB] epoch=38/80 epoch_wall=57.5s
+[StageB] epoch=40/80 epoch_wall=57.9s
+[StageB] epoch=42/80 epoch_wall=57.5s
+[StageB] epoch=44/80 epoch_wall=57.5s
+[StageB] epoch=46/80 epoch_wall=57.5s
+[StageB] epoch=48/80 epoch_wall=56.9s
+[StageB] epoch=50/80 epoch_wall=57.7s
+[StageB] epoch=52/80 epoch_wall=57.4s
+[StageB] epoch=54/80 epoch_wall=57.4s
+[StageB] epoch=56/80 epoch_wall=57.0s
+[StageB] epoch=58/80 epoch_wall=57.6s
+[StageB] epoch=60/80 epoch_wall=57.4s
+[StageB] epoch=62/80 epoch_wall=57.9s
+[StageB] epoch=64/80 epoch_wall=57.6s
+[StageB] epoch=66/80 epoch_wall=57.7s
+[StageB] epoch=68/80 epoch_wall=58.1s
+[StageB] epoch=70/80 epoch_wall=58.1s
+[StageB] epoch=72/80 epoch_wall=57.8s
+[StageB] epoch=74/80 epoch_wall=57.7s
+[StageB] epoch=76/80 epoch_wall=58.2s
+[StageB] epoch=78/80 epoch_wall=58.3s
+[StageB] epoch=80/80 epoch_wall=58.5s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:317@PYU(alice) is very large (12 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.
+[StageC] steps=10/180 dev_acc=0.2525 c=0.95442 online=15.2s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 2x across cluster] (Ray deduplicates logs by default. Set RAY_DEDUP_LOGS=0 to disable log deduplication, or see https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#log-deduplication for more options.)[0m
+[StageC] steps=20/180 dev_acc=0.2521 c=0.86253 online=28.1s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=30/180 dev_acc=0.2524 c=0.81659 online=40.3s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=40/180 dev_acc=0.2522 c=0.78236 online=52.5s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=50/180 dev_acc=0.2527 c=0.70674 online=64.6s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=60/180 dev_acc=0.2522 c=0.68764 online=76.8s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=70/180 dev_acc=0.2528 c=0.62114 online=89.1s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=80/180 dev_acc=0.2523 c=0.56348 online=101.4s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=90/180 dev_acc=0.2526 c=0.51515 online=113.6s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=100/180 dev_acc=0.2527 c=0.46532 online=125.8s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=110/180 dev_acc=0.2528 c=0.42035 online=137.8s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=120/180 dev_acc=0.2525 c=0.40424 online=149.8s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=130/180 dev_acc=0.2528 c=0.36649 online=161.9s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=140/180 dev_acc=0.2528 c=0.33234 online=174.0s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=150/180 dev_acc=0.2529 c=0.33101 online=186.0s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=160/180 dev_acc=0.2525 c=0.30969 online=198.3s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=170/180 dev_acc=0.2526 c=0.28307 online=210.6s
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 3x across cluster][0m
+[StageC] steps=180/180 dev_acc=0.2526 c=0.26178 online=222.9s
+INFO:root:shutdown is called, barrier_on_shutdown True, on_error None
+2026-08-07 17:02:20,691	WARNING utils.py:458 -- Detecting docker specified CPUs. In previous versions of Ray, CPU detection in containers was incorrect. Please ensure that Ray has enough CPUs allocated. As a temporary workaround to revert to the prior behavior, set `RAY_USE_MULTIPROCESSING_CPU_COUNT=1` as an env var before starting Ray. Set the env var: `RAY_DISABLE_DOCKER_CPU_WARNING=1` to mute this warning.
+2026-08-07 17:02:20,927	INFO worker.py:2023 -- Started a local Ray instance.
+{"backend": "SecretFlow-SPU device API", "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_secretflow_spu/spu_tiny_true_ours_seed42", "cumulative_stage_c_online_secure_seconds": 222.9064, "dataset": "tiny", "final_clip_bound": 0.26177978515625, "final_development_accuracy": 0.2526, "locked_holdout_read": false, "method": "true_ours", "official_test_read": false, "peak_driver_rss_gib": 1.5278549194335938, "protocol": {"field": "FM128", "fxp_fraction_bits": 16, "protocol": "ABY3"}, "run_id": "spu_tiny_true_ours_seed42", "schema": "new_spu_formal_run_v1", "seed": 42, "stage_b_seconds": 4968.351368948817, "status": "COMPLETE", "total_online_secure_seconds": 5191.257768948817}
+[33m(raylet)[0m Warning: The remote function secretflow.device.device.pyu.<lambda>@new_spu_run_formal.py:489@PYU(alice) is very large (15 MiB). Check that its definition is not implicitly capturing a large array or other object in scope. Tip: use ray.put() to put large objects in the Ray object store.[32m [repeated 2x across cluster][0m

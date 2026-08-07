@@ -1,0 +1,23 @@
+{
+  "schema": "new_spu_formal_run_v1",
+  "dataset": "tiny",
+  "method": "true_ours",
+  "seed": 42,
+  "run_id": "spu_tiny_true_ours_seed42",
+  "backend": "SecretFlow-SPU device API",
+  "protocol": {
+    "protocol": "ABY3",
+    "field": "FM128",
+    "fxp_fraction_bits": 16
+  },
+  "status": "COMPLETE",
+  "locked_holdout_read": false,
+  "official_test_read": false,
+  "stage_b_seconds": 4968.351368948817,
+  "final_development_accuracy": 0.2526,
+  "final_clip_bound": 0.26177978515625,
+  "cumulative_stage_c_online_secure_seconds": 222.9064,
+  "total_online_secure_seconds": 5191.257768948817,
+  "peak_driver_rss_gib": 1.5278549194335938,
+  "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_secretflow_spu/spu_tiny_true_ours_seed42"
+}
