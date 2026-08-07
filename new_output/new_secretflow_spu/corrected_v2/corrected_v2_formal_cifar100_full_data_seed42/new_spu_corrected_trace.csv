@@ -1,0 +1,3 @@
+steps_done,cumulative_online_secure_seconds,stage_c_online_secure_seconds,development_accuracy,clip_bound,conditional_stage_c_epsilon,delta
+10,6172.219561,4.608307,0.4296,2.015656,2.87324967,1e-05
+20,6176.636389,9.025135,0.4252,2.016129,3.0,1e-05
