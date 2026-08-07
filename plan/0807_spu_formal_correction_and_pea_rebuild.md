@@ -54,7 +54,7 @@ Hard gates:
 
 ## 4. Phase R1 — secure-state and DP correction
 
-Status: `IN_PROGRESS` (security smoke and first real-data development gate PASS; interrupted-resume gate pending).
+Status: `COMPLETE` (security smoke, real-data gate and planned interruption/resume gate PASS).
 
 ### R1.1 Stage B
 
