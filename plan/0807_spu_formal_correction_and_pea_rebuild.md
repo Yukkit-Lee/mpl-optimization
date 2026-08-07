@@ -93,7 +93,7 @@ Status: `COMPLETE` (security smoke, real-data gate and planned interruption/resu
 
 ## 5. Phase R2 — timing and CPU correction
 
-Status: `IN_PROGRESS` (correct cgroup sampler and disjoint phase timers implemented; benchmark pending).
+Status: `IN_PROGRESS` (cgroup sampler, disjoint phase timers, and cross-process accumulation PASS; final freeze benchmark pending).
 
 Measure separately:
 

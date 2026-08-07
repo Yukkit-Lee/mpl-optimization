@@ -1,0 +1,18 @@
+[2026-08-07 18:53:05.839] [info] [bigint_spi.cc:79] The default library used for BigInt operations is openssl
+INFO:root:Try init sf in SIMULATION mode
+INFO:root:set distribution mode to DISTRIBUTION_MODE.SIMULATION
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+2026-08-07 18:53:13,221	INFO worker.py:2023 -- Started a local Ray instance.
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/ray/_private/worker.py:2062: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+[2026-08-07 18:53:20.194] [info] [thread_pool.cc:30] Create a fixed thread pool with size 127
+[StageB corrected] epoch=1/1
+[2026-08-07 18:53:44,327 E 808077 808710] core_worker_process.cc:837: Failed to establish connection to the metrics exporter agent. Metrics will not be exported. Exporter agent status: RpcError: Running out of retries to initialize the metrics agent. rpc_code: 14
+[StageC corrected] steps=10/20 acc=0.5700 eps=1.9685
+PLANNED_DEVELOPMENT_GATE_STOP_AFTER_SECRET_CHECKPOINT
+INFO:root:shutdown is called, barrier_on_shutdown True, on_error None
+2026-08-07 18:54:03,840	WARNING utils.py:458 -- Detecting docker specified CPUs. In previous versions of Ray, CPU detection in containers was incorrect. Please ensure that Ray has enough CPUs allocated. As a temporary workaround to revert to the prior behavior, set `RAY_USE_MULTIPROCESSING_CPU_COUNT=1` as an env var before starting Ray. Set the env var: `RAY_DISABLE_DOCKER_CPU_WARNING=1` to mute this warning.
+2026-08-07 18:54:04,054	INFO worker.py:2023 -- Started a local Ray instance.
