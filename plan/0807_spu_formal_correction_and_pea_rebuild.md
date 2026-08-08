@@ -148,7 +148,7 @@ search.
 
 ## 7. Phase R4 — final freeze and formal runs
 
-Status: `IN_PROGRESS` (six-cell corrected-v2 config frozen; formal runs 6/6).
+Status: `COMPLETE` (six-cell corrected-v2 formal runs 6/6).
 
 Before any corrected formal run, freeze:
 
