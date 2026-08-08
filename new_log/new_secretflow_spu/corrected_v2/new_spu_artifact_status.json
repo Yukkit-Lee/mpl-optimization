@@ -1,7 +1,7 @@
 {
   "schema": "new_spu_corrected_v2_artifact_status_v1",
-  "status": "CORRECTION_REQUIRED",
-  "authoritative_for_paper": false,
+  "status": "COMPLETE",
+  "authoritative_for_paper": true,
   "quarantined_commits": [
     "b63bec9",
     "8d5ff54",
@@ -30,5 +30,7 @@
   "old_tfe_read_only": true,
   "old_spu_artifacts_preserved": true,
   "official_test_read": false,
-  "locked_holdout_read": false
+  "locked_holdout_read": false,
+  "corrected_formal_runs_complete": "6/6",
+  "note": "All six corrected-v2 formal cells COMPLETE and audited. See new_spu_corrected_v2_final_report.md."
 }
