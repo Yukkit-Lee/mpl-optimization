@@ -1,0 +1,39 @@
+{
+  "schema": "new_spu_jax_op_gate_v1",
+  "status": "COMPLETE",
+  "backend": "SecretFlow-SPU device API",
+  "protocol": {
+    "protocol": "ABY3",
+    "field": "FM128",
+    "fxp_fraction_bits": 16
+  },
+  "adapter": {
+    "adapter": "SecretFlow public add_distribution_modes plugin hook",
+    "simulation_strategy": "sfl.distributed.op_strategy.SimulationStrategy",
+    "ray_option_utils": "ray._common (compatibility alias for source-SFL)",
+    "registered_modes": [
+      "DEBUG",
+      "INTERCONNECTION",
+      "PRODUCTION",
+      "RAY_PRODUCTION",
+      "SIMULATION"
+    ],
+    "plaintext_debug_mode": false
+  },
+  "checks": {
+    "matmul": true,
+    "softmax": true,
+    "adaptive_clip_factor": true,
+    "adaptive_clip_bound_update": true,
+    "clip_select": true,
+    "jax_random_normal": true,
+    "jax_lax_scan_loop": true
+  },
+  "notes": {
+    "jax_random_normal": "noise drawn inside the SPU function from a host-provided PRNG key; formal noise path must still be audited vs TFE three-party CSPRNG shares",
+    "jax_lax_scan_loop": "lax.scan supported; stage-C step loop can run inside SPU"
+  },
+  "all_required_ops_supported": true,
+  "test_read": false,
+  "locked_holdout_read": false
+}

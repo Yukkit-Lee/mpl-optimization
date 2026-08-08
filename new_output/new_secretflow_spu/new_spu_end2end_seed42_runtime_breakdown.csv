@@ -1,0 +1,7 @@
+dataset,method,status,environment_setup_seconds,stage_b_online_secure_seconds,stage_c_online_secure_seconds,compile_seconds,raw_wall_seconds,peak_driver_rss_gib
+cifar10,true_ours,COMPLETE,,272.1,51.6,not_separated_in_formal_trace,323.7,0.6025314331054688
+cifar10,full_data,COMPLETE,,2721.3,39.5,not_separated_in_formal_trace,2760.8,1.7062225341796875
+cifar100,true_ours,COMPLETE,,3760.8,27.6,not_separated_in_formal_trace,3788.4,1.0386466979980469
+cifar100,full_data,COMPLETE,,5764.5,22.5,not_separated_in_formal_trace,5787.0,1.8286781311035156
+tiny,true_ours,COMPLETE,,4968.4,222.9,not_separated_in_formal_trace,5191.3,1.5278549194335938
+tiny,full_data,NEGATIVE_STOP,,,,,,

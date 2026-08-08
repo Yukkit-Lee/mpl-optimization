@@ -1,0 +1,36 @@
+{
+  "schema": "new_spu_corrected_v2_artifact_status_v1",
+  "status": "COMPLETE",
+  "authoritative_for_paper": true,
+  "quarantined_commits": [
+    "b63bec9",
+    "8d5ff54",
+    "2ff21b9",
+    "9cf8992",
+    "4ed5369"
+  ],
+  "quarantined_formal_runs": {
+    "cifar10_true_ours_seed42": "QUARANTINED_DIAGNOSTIC",
+    "cifar10_full_data_seed42": "QUARANTINED_DIAGNOSTIC",
+    "cifar100_true_ours_seed42": "QUARANTINED_DIAGNOSTIC",
+    "cifar100_full_data_seed42": "QUARANTINED_DIAGNOSTIC",
+    "tiny_true_ours_seed42": "QUARANTINED_DIAGNOSTIC",
+    "tiny_full_data_seed42": "UNRESOLVED_RUNTIME_CRASH"
+  },
+  "blocking_findings": [
+    "stage_b_client_heads_revealed_each_epoch",
+    "formal_dp_noise_driver_generated_and_publicly_seeded",
+    "formal_privacy_accountant_absent",
+    "effective_batch_config_differs_from_freeze",
+    "online_secure_timing_boundary_not_separated",
+    "tiny_full_oom_not_directly_proven",
+    "required_trace_names_and_metadata_incomplete"
+  ],
+  "corrected_namespace": "new_secretflow_spu/corrected_v2",
+  "old_tfe_read_only": true,
+  "old_spu_artifacts_preserved": true,
+  "official_test_read": false,
+  "locked_holdout_read": false,
+  "corrected_formal_runs_complete": "6/6",
+  "note": "All six corrected-v2 formal cells COMPLETE and audited. See new_spu_corrected_v2_final_report.md."
+}

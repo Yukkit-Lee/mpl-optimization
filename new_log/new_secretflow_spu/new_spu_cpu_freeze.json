@@ -1,0 +1,51 @@
+{
+  "schema": "new_spu_cpu_freeze_v1",
+  "status": "FROZEN_BEFORE_FORMAL",
+  "backend": "SecretFlow-SPU device API",
+  "selection_criterion": "max secure steps/s on representative fixed-shape Stage-C secure step; no model accuracy used",
+  "selected": {
+    "tag": "cfg_omp8",
+    "omp_threads": 8,
+    "openblas_threads": 8,
+    "mkl_threads": 8,
+    "numexpr_threads": 8,
+    "sf_init_omp_num_threads": 8,
+    "sf_init_num_cpus": 30,
+    "taskset": "96-127",
+    "party_count": 3,
+    "party_threads_total": 24,
+    "cpu_quota": 32,
+    "oversubscription": false,
+    "headroom_for_orchestration": 8,
+    "secure_steps_per_second": 5.585,
+    "compute_wall_seconds": 6.4458,
+    "cpu_utilization_fraction": 1.0,
+    "peak_driver_rss_gib": 0.4964
+  },
+  "candidates": [
+    {"tag": "cfg_omp4", "omp_threads": 4, "secure_steps_per_second": 5.4224, "compute_wall_seconds": 6.6392, "cpu_utilization_fraction": 1.0, "peak_driver_rss_gib": 0.4963},
+    {"tag": "cfg_omp6", "omp_threads": 6, "secure_steps_per_second": 5.2352, "compute_wall_seconds": 6.8765, "cpu_utilization_fraction": 0.9999, "peak_driver_rss_gib": 0.4957},
+    {"tag": "cfg_omp8", "omp_threads": 8, "secure_steps_per_second": 5.585, "compute_wall_seconds": 6.4458, "cpu_utilization_fraction": 1.0, "peak_driver_rss_gib": 0.4964},
+    {"tag": "cfg_omp10", "omp_threads": 10, "secure_steps_per_second": 5.1207, "compute_wall_seconds": 7.0304, "cpu_utilization_fraction": 1.0, "peak_driver_rss_gib": 0.4955},
+    {"tag": "cfg_omp12", "omp_threads": 12, "secure_steps_per_second": 2.284, "compute_wall_seconds": 15.7618, "cpu_utilization_fraction": 1.0, "peak_driver_rss_gib": 0.4954},
+    {"tag": "cfg_omp16", "omp_threads": 16, "secure_steps_per_second": 1.4057, "compute_wall_seconds": 25.6098, "cpu_utilization_fraction": 1.0, "peak_driver_rss_gib": 0.496}
+  ],
+  "rejection_reason": {
+    "cfg_omp12": "3x12=36 threads exceeds 32-CPU quota -> severe oversubscription, throughput drops 2.4x",
+    "cfg_omp16": "3x16=48 threads far exceeds 32-CPU quota -> throughput drops 4.0x"
+  },
+  "workload_characterization": {
+    "capacity": 64,
+    "feature_dim": 2048,
+    "num_classes": 10,
+    "steps_per_repeat": 12,
+    "repeats": 3,
+    "total_secure_steps": 36,
+    "protocol": "ABY3",
+    "field": "FM128",
+    "fxp_fraction_bits": 16
+  },
+  "formal_run_application": "All six formal seed42 runs use OMP/OPENBLAS/MKL/NUMEXPR_NUM_THREADS=8, sf.init(num_cpus=30, omp_num_threads=8), taskset -c 96-127",
+  "test_read": false,
+  "locked_holdout_read": false
+}

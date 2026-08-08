@@ -1,8 +1,9 @@
 # Unified Experiment Report
 
-更新时间：2026-08-02（UTC）
+更新时间：2026-08-08（UTC）
 权威分支：`unified-experiments`
-报告生成提交：`704755d70d2475a6a306a1b09e4e5e65195baf6c`
+原统一审计提交：`704755d70d2475a6a306a1b09e4e5e65195baf6c`；本次合并验收源：
+`new-secretflow-spu-end2end@cfa2b9a`
 
 本报告是仓库当前唯一权威的跨实验总结。所有数字均由已跟踪的 CSV/JSON
 重新读取并通过 cardinality、状态、数据边界、SHA256 与 Git lineage 审计；
@@ -17,6 +18,7 @@
 5. disagreement weighting/top-selection与heterogeneity-trigger routing均为完成的负结果，不能包装为正模块。
 6. Stage-C epsilon只覆盖条件式Stage-C机制；数据依赖的Stage-B initializer非record-level DP，因此不能声称端到端DP。
 7. 当前权威True Ours与Post-Aggregation均未读取official test或locked holdout；历史final-test数字不进入当前主结论。
+8. corrected-v2 SecretFlow-SPU六条seed42均完成并复现同后端T@90定性趋势；可作单seed系统补充，但新SPU图仍有`features=…`占位符，dual-backend图也不是严格硬件归一化对比。
 
 ## 2. Stage A：Official MTT样本效率
 
@@ -114,6 +116,21 @@ H1--H3能测IID→Mild→Severe标签偏斜，但uniform anchor CE在六场均�
 
 旧`new_tfe_system_formal.csv`的runtime/RSS为0占位值，不是可发表系统测量。当前可用的真实系统数据来自True Ours timeline与Post-Aggregation TFE runtime/resource表；通信字节与轮数仍为N/A。
 
+### 6.4 Corrected SecretFlow-SPU后端（seed42）
+
+| Dataset | Method | Dev acc | Stage-B online | Stage-C online | Total online | T@90 | Peak memory |
+|---|---|---:|---:|---:|---:|---:|---:|
+| CIFAR-10 | True Ours | 68.64% | 110.36s | 25.50s | 135.85s | 113.6s | 13.41GiB |
+| CIFAR-10 | Full Data | 72.54% | 1060.62s | 25.75s | 1086.37s | 1063.8s | 14.86GiB |
+| CIFAR-100 | True Ours | 47.66% | 2565.84s | 8.27s | 2574.11s | 2570.0s | 14.35GiB |
+| CIFAR-100 | Full Data | 42.52% | 6167.61s | 9.03s | 6176.64s | 6172.2s | 17.46GiB |
+| Tiny | True Ours | 30.84% | 6061.03s | 223.63s | 6284.66s | 6067.6s | 22.83GiB |
+| Tiny | Full Data | 27.68% | 21148.71s | 223.98s | 21372.69s | 21154.7s | 23.26GiB |
+
+六条均为SecretFlow-SPU device API、ABY3/FM128/fxp16、seed42、development-only，conditional Stage-C `epsilon=3, delta=1e-5`；Stage-B client-state public reveal为0。独立验收确认report/trace SHA、完整冻结参数和runner SHA一致。True Ours在同一SPU后端首次观察到T@90的时间比Full短约9.4x/2.4x/3.5x，但这是单seed、backend-internal比较。
+
+当前仍有三个呈现/审计缺口：SPU Figure 2顶部feature count是占位符；结果builder的freeze hard gate没有在代码中覆盖所有冻结字段（本次已在外部逐项确认实际匹配）；正式report没有保存accountant版本、sample rate、count steps和state/config hash等完整provenance。旧Tiny Full只证明未解析的runtime crash，新结果可以说chunk后该cell成功完成，不能反向宣称旧故障已被直接证明为OOM。
+
 ## 7. 当前论文就绪度
 
 | Evidence | Status | Safe use |
@@ -122,6 +139,8 @@ H1--H3能测IID→Mild→Severe标签偏斜，但uniform anchor CE在六场均�
 | True Ours vs Full Data 14/14 | READY_WITH_SCOPE | 可作主结果，但必须标development validation；Tiny n=1 |
 | Post-Aggregation Anchor CE | READY_WITH_SCOPE | 正Stage-B/Non-IID扩展；seed42、C10/C100 |
 | Real TFE/ABY3 correctness/runtime | READY | 系统可行性；通信N/A |
+| Corrected SecretFlow-SPU 6/6 seed42 | READY_WITH_SCOPE | 单seed后端可行性/runtime；图中feature占位符修正后使用 |
+| TFE/SPU dual-backend candidate | SUPPLEMENTARY_ONLY | seed42轨迹示意；非严格硬件归一化比较 |
 | KD/Consensus causality | COMPLETE_NEGATIVE | 负消融；不可声称独立贡献 |
 | Disagreement refinement | COMPLETE_NEGATIVE | 负消融；TFE按门控跳过 |
 | Heterogeneity trigger | COMPLETE_NEGATIVE | 负消融；TFE按门控跳过 |
@@ -145,6 +164,9 @@ H1--H3能测IID→Mild→Severe标签偏斜，但uniform anchor CE在六场均�
 - Post-Aggregation审计：`new_log/new_stage_b_anchor_postagg/new_stage_b_anchor_postagg_completion_audit.json`
 - 统一machine status：`new_log/unified_experiments/unified_artifact_status.json`
 - 统一数据审计：`new_log/unified_experiments/unified_data_audit.json`
+- Corrected SPU验收与论文图表清单：`reportToMe/new_spu_corrected_v2_acceptance_and_paper_figure_inventory.md`
+- Corrected SPU主表：`new_output/new_secretflow_spu/corrected_v2/new_spu_corrected_v2_end2end_main_table.csv`
+- Corrected SPU哈希：`new_log/new_secretflow_spu/corrected_v2/new_spu_corrected_v2_hash_manifest.json`
 
 ## 10. 剩余缺口
 
@@ -152,3 +174,4 @@ H1--H3能测IID→Mild→Severe标签偏斜，但uniform anchor CE在六场均�
 - Post-Aggregation正结果目前只有seed42；若要声称跨seed稳定，需未来补seed43/44。
 - 外部方法PEA/CaPC/DDGauss精确对比仍需从原论文/官方仓库核对。
 - 通信量没有测量，系统表只能报告实际secure runtime和RSS。
+- 把corrected SPU图中的`features=…`替换为真实计数，并补齐结果builder完整freeze硬门与正式report accountant provenance；这些是呈现/审计修复，不要求重跑已有六条实验。

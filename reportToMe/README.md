@@ -3,6 +3,7 @@
 1. `unified_experiment_report.md` — complete canonical report.
 2. `paper_readiness_assessment.md` — concise current readiness view.
 3. Per-experiment final reports — protocol-specific detail.
+4. `new_spu_corrected_v2_acceptance_and_paper_figure_inventory.md` — independent SPU acceptance findings and paper-ready figure/table inventory.
 
 Framework implementation-boundary audit:
 

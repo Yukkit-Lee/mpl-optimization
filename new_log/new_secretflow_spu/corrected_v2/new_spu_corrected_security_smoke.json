@@ -1,0 +1,182 @@
+{
+  "schema": "new_spu_corrected_security_smoke_v1",
+  "status": "COMPLETE",
+  "run_id": "corrected_security_smoke_acb966c82679a146",
+  "backend": "SecretFlow-SPU device API",
+  "protocol": {
+    "protocol": "ABY3",
+    "field": "FM128",
+    "fxp_fraction_bits": 16
+  },
+  "adapter": {
+    "adapter": "SecretFlow public add_distribution_modes plugin hook",
+    "simulation_strategy": "sfl.distributed.op_strategy.SimulationStrategy",
+    "ray_option_utils": "ray._common (compatibility alias for source-SFL)",
+    "registered_modes": [
+      "DEBUG",
+      "INTERCONNECTION",
+      "PRODUCTION",
+      "RAY_PRODUCTION",
+      "SIMULATION"
+    ],
+    "plaintext_debug_mode": false
+  },
+  "checks": {
+    "stage_b_client_state_never_publicly_reconstructed": true,
+    "stage_b_state_kept_as_spu_objects": true,
+    "client_share_checkpoint_reload": true,
+    "global_share_checkpoint_reload": true,
+    "party_noise_commitments_distinct": true,
+    "party_noise_counters_monotonic": true,
+    "noise_entropy_not_persisted": true,
+    "finite_final_state": true,
+    "no_plaintext_fallback": true
+  },
+  "reveal_ledger": [
+    {
+      "label": "stage_b_epoch_1",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_client_share_checkpoint_reload",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_secure_average",
+      "scope": "global_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_share_checkpoint_reload",
+      "scope": "global_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_secure_steps",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "weight_provider_metadata",
+      "scope": "provider_public_metadata",
+      "reason": "audit monotonic counters and distinct commitments without noise reveal",
+      "public_reconstruction": true
+    },
+    {
+      "label": "bias_provider_metadata",
+      "scope": "provider_public_metadata",
+      "reason": "audit monotonic counters and distinct commitments without noise reveal",
+      "public_reconstruction": true
+    },
+    {
+      "label": "count_provider_metadata",
+      "scope": "provider_public_metadata",
+      "reason": "audit monotonic counters and distinct commitments without noise reveal",
+      "public_reconstruction": true
+    },
+    {
+      "label": "smoke_final_global_state",
+      "scope": "smoke_correctness_only",
+      "reason": "small synthetic correctness gate; forbidden for client-local state",
+      "public_reconstruction": true
+    }
+  ],
+  "provider_metadata": {
+    "weight": [
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "weight",
+        "requests_completed": 1,
+        "last_share_commitment": "d8441f32aea51888a899df9c3069f73df0854b768e59cd3693cca62185909147",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "weight",
+        "requests_completed": 1,
+        "last_share_commitment": "5e68e042815c9db78e701c5a48a94a1f51d694b99a1c37b2d6af63c88b1cc369",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "weight",
+        "requests_completed": 1,
+        "last_share_commitment": "8aa3ef1eef5b2675a58e44b5052c068b53c2ac2585962906207e0568e544a46f",
+        "entropy_persisted": false,
+        "share_persisted": false
+      }
+    ],
+    "bias": [
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "bias",
+        "requests_completed": 1,
+        "last_share_commitment": "265f9d14fa7652c36241343bfbc134a7fa199217f737d4f908e54917b4b7a4d4",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "bias",
+        "requests_completed": 1,
+        "last_share_commitment": "e26aa871be1cfc09ffd331c043a34195e55c4f86227236cec1829f27706e222e",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "bias",
+        "requests_completed": 1,
+        "last_share_commitment": "2ba5969e4529c343bd916ad9540cfb52a772a29e019fc17f26f379c9cedfcde3",
+        "entropy_persisted": false,
+        "share_persisted": false
+      }
+    ],
+    "count": [
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "count",
+        "requests_completed": 1,
+        "last_share_commitment": "3b7c09998e9a2f6ff979bd6cff785e36fa4e228947389e51ca8eacf841ba3193",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "count",
+        "requests_completed": 1,
+        "last_share_commitment": "4adb530bfe928da76aea26eed79e175e1a13422226bce070444528a28588235b",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "count",
+        "requests_completed": 1,
+        "last_share_commitment": "e02480b3267a60f7e21e63a236e6c88334f2b17e188b98778e58859d104d2430",
+        "entropy_persisted": false,
+        "share_persisted": false
+      }
+    ]
+  },
+  "final_clip_bound": 1.0118408203125,
+  "elapsed_seconds": 16.67508739233017,
+  "formal_run": false,
+  "official_test_read": false,
+  "locked_holdout_read": false
+}

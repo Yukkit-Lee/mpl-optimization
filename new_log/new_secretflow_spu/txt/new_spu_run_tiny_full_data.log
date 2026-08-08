@@ -1,0 +1,47 @@
+[2026-08-07 17:17:26.287] [info] [bigint_spi.cc:79] The default library used for BigInt operations is openssl
+INFO:root:Try init sf in SIMULATION mode
+INFO:root:set distribution mode to DISTRIBUTION_MODE.SIMULATION
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+2026-08-07 17:17:34,621	INFO worker.py:2023 -- Started a local Ray instance.
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/ray/_private/worker.py:2062: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+[StageB] num_batches=27 unroll=1
+[2026-08-07 17:17:44.242] [info] [thread_pool.cc:30] Create a fixed thread pool with size 127
+[2026-08-07 17:18:05,629 E 707837 708492] core_worker_process.cc:837: Failed to establish connection to the metrics exporter agent. Metrics will not be exported. Exporter agent status: RpcError: Running out of retries to initialize the metrics agent. rpc_code: 14
+INFO:root:shutdown is called, barrier_on_shutdown True, on_error None
+[33m(raylet)[0m A worker died or was killed while executing a task by an unexpected system error. To troubleshoot the problem, check the logs for the dead worker. Lease ID: 00000000bdda8d5f9d4b04d166c1d41bd17bc41d810dd34966b7692a1def9df4 Worker ID: e6ee9e7e17de040dda8f3c004fc8cd696d1888f8e7a8d00b147c7f63 Node ID: 82efa1ce3bf070f3f50a9b874f7a8be906283f7ee2e035b8cd10bc4f Worker IP address: 172.17.0.6 Worker port: 39153 Worker PID: 708499 Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. Some common causes include: (1) the process was killed by the OOM killer due to high memory usage, (2) ray stop --force was called, or (3) the worker crashed unexpectedly due to SIGSEGV or another unexpected error.
+Traceback (most recent call last):
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_secretflow_spu/new_spu_run_formal.py", line 598, in <module>
+    main()
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_secretflow_spu/new_spu_run_formal.py", line 401, in main
+    w, b, stage_b_seconds = stage_b_initializer(
+  File "/root/autodl-tmp/tfe_experiments/new_scripts/new_secretflow_spu/new_spu_run_formal.py", line 296, in stage_b_initializer
+    client_w, client_b = sf.reveal(
+  File "/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/secretflow/device/driver.py", line 147, in reveal
+    info, shares_chunk = x.device.outfeed_shares(x.shares_name)
+  File "/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/secretflow/device/device/spu.py", line 1240, in outfeed_shares
+    shares_chunk_count = sfd.get(
+  File "/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/secretflow/distributed/primitive.py", line 65, in get
+    return _sf_op_context.get(object_refs)
+  File "/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/secretflow/distributed/op_context.py", line 83, in get
+    return self._strategy.get(object_refs)
+  File "/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/sfl/distributed/op_strategy.py", line 276, in get
+    return ray.get(object_refs)
+  File "/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/ray/_private/worker.py", line 2972, in get
+    values, debugger_breakpoint = worker.get_objects(
+  File "/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/ray/_private/worker.py", line 1033, in get_objects
+    raise value
+ray.exceptions.ActorDiedError: The actor died unexpectedly before finishing this task.
+	class_name: SPURuntime
+	actor_id: 48b694eb72aafd38c45828f301000000
+	pid: 708499
+	namespace: 1aceebea-0e98-4beb-8c7c-82aa7826b66c
+	ip: 172.17.0.6
+The actor is dead because its worker process has died. Worker exit type: SYSTEM_ERROR Worker exit detail: Worker unexpectedly exits with a connection error code 2. End of file. Some common causes include: (1) the process was killed by the OOM killer due to high memory usage, (2) ray stop --force was called, or (3) the worker crashed unexpectedly due to SIGSEGV or another unexpected error.

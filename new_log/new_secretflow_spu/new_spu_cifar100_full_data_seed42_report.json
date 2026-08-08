@@ -1,0 +1,23 @@
+{
+  "schema": "new_spu_formal_run_v1",
+  "dataset": "cifar100",
+  "method": "full_data",
+  "seed": 42,
+  "run_id": "spu_cifar100_full_data_seed42",
+  "backend": "SecretFlow-SPU device API",
+  "protocol": {
+    "protocol": "ABY3",
+    "field": "FM128",
+    "fxp_fraction_bits": 16
+  },
+  "status": "COMPLETE",
+  "locked_holdout_read": false,
+  "official_test_read": false,
+  "stage_b_seconds": 5764.546816505492,
+  "final_development_accuracy": 0.4028,
+  "final_clip_bound": 1.9921875,
+  "cumulative_stage_c_online_secure_seconds": 22.4636,
+  "total_online_secure_seconds": 5787.010416505492,
+  "peak_driver_rss_gib": 1.8286781311035156,
+  "checkpoint": "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_secretflow_spu/spu_cifar100_full_data_seed42"
+}

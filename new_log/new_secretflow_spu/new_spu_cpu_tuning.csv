@@ -1,0 +1,7 @@
+tag,omp_threads,protocol,field,fxp_fraction_bits,capacity,feature_dim,num_classes,secure_steps,compute_wall_seconds,secure_steps_per_second,cpu_utilization_fraction,peak_driver_rss_gib,total_wall_seconds
+cfg_omp8,8,ABY3,FM128,16,64,2048,10,36,6.4458,5.585,1.0,0.4964,26.0653
+cfg_omp4,4,ABY3,FM128,16,64,2048,10,36,6.6392,5.4224,1.0,0.4963,24.0939
+cfg_omp6,6,ABY3,FM128,16,64,2048,10,36,6.8765,5.2352,0.9999,0.4957,24.2904
+cfg_omp10,10,ABY3,FM128,16,64,2048,10,36,7.0304,5.1207,1.0,0.4955,37.8207
+cfg_omp12,12,ABY3,FM128,16,64,2048,10,36,15.7618,2.284,1.0,0.4954,66.7968
+cfg_omp16,16,ABY3,FM128,16,64,2048,10,36,25.6098,1.4057,1.0,0.496,68.8219

@@ -1,0 +1,203 @@
+{
+  "schema": "new_spu_final_config_freeze_v1",
+  "status": "FROZEN_BEFORE_FORMAL",
+  "backend": "SecretFlow-SPU device API",
+  "cpu_freeze": "new_log/new_secretflow_spu/new_spu_cpu_freeze.json",
+  "datasets": {
+    "cifar10": {
+      "methods": {
+        "full_data": {
+          "anchor_ce": false,
+          "anchor_steps": null,
+          "anchor_lr": null,
+          "anchor_mu": null,
+          "stage_b": {
+            "local_epochs": 40,
+            "batch_size": 16,
+            "local_lr": 0.2,
+            "weight_decay": 0.0,
+            "client_weighting": "uniform",
+            "fedavg_sync_interval": 0,
+            "shared_initialization": false
+          },
+          "stage_c": {
+            "steps": 80,
+            "learning_rate": 0.002,
+            "noise_multiplier": 0.599962417876359,
+            "count_noise_multiplier": 8.0,
+            "clip_c": 1.0,
+            "gamma": 0.5,
+            "eta_c": 0.02,
+            "c_min": 0.05,
+            "c_max": 4.0,
+            "warmup_steps": 5,
+            "update_interval": 5,
+            "expected_batch": 16,
+            "graph_capacity": 64
+          }
+        },
+        "true_ours": {
+          "anchor_ce": true,
+          "anchor_steps": 40,
+          "anchor_lr": 0.1,
+          "anchor_mu": 0.001,
+          "stage_b": {
+            "local_epochs": 40,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 10,
+            "shared_initialization": true
+          },
+          "stage_c": {
+            "steps": 80,
+            "learning_rate": 0.002,
+            "noise_multiplier": 0.9417698189408995,
+            "count_noise_multiplier": 8.0,
+            "clip_c": 1.0,
+            "gamma": 0.5,
+            "eta_c": 0.02,
+            "c_min": 0.05,
+            "c_max": 4.0,
+            "warmup_steps": 5,
+            "update_interval": 5,
+            "expected_batch": 16,
+            "graph_capacity": 64
+          }
+        }
+      }
+    },
+    "cifar100": {
+      "methods": {
+        "full_data": {
+          "anchor_ce": false,
+          "anchor_steps": null,
+          "anchor_lr": null,
+          "anchor_mu": null,
+          "stage_b": {
+            "local_epochs": 40,
+            "batch_size": 16,
+            "local_lr": 0.2,
+            "weight_decay": 0.0,
+            "client_weighting": "uniform",
+            "fedavg_sync_interval": 0,
+            "shared_initialization": false
+          },
+          "stage_c": {
+            "steps": 20,
+            "learning_rate": 0.01,
+            "noise_multiplier": 0.5773884897632264,
+            "count_noise_multiplier": 8.0,
+            "clip_c": 2.0,
+            "gamma": 0.1,
+            "eta_c": 0.05,
+            "c_min": 0.05,
+            "c_max": 4.0,
+            "warmup_steps": 5,
+            "update_interval": 5,
+            "expected_batch": 16,
+            "graph_capacity": 64
+          }
+        },
+        "true_ours": {
+          "anchor_ce": true,
+          "anchor_steps": 40,
+          "anchor_lr": 0.2,
+          "anchor_mu": 0.001,
+          "stage_b": {
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.25,
+            "weight_decay": 0.0001,
+            "client_weighting": "sample_count",
+            "fedavg_sync_interval": 20,
+            "shared_initialization": false
+          },
+          "stage_c": {
+            "steps": 20,
+            "learning_rate": 0.01,
+            "noise_multiplier": 0.579859680523151,
+            "count_noise_multiplier": 8.0,
+            "clip_c": 2.0,
+            "gamma": 0.1,
+            "eta_c": 0.05,
+            "c_min": 0.05,
+            "c_max": 4.0,
+            "warmup_steps": 5,
+            "update_interval": 5,
+            "expected_batch": 16,
+            "graph_capacity": 64
+          }
+        }
+      }
+    },
+    "tiny": {
+      "methods": {
+        "full_data": {
+          "anchor_ce": false,
+          "anchor_steps": null,
+          "anchor_lr": null,
+          "anchor_mu": null,
+          "stage_b": {
+            "local_epochs": 40,
+            "batch_size": 16,
+            "local_lr": 0.1,
+            "weight_decay": 0.0,
+            "client_weighting": "uniform",
+            "fedavg_sync_interval": 0,
+            "shared_initialization": false
+          },
+          "stage_c": {
+            "steps": 180,
+            "learning_rate": 0.002,
+            "noise_multiplier": 0.5685304635176568,
+            "count_noise_multiplier": 8.0,
+            "clip_c": 1.0,
+            "gamma": 0.5,
+            "eta_c": 0.1,
+            "c_min": 0.05,
+            "c_max": 4.0,
+            "warmup_steps": 5,
+            "update_interval": 5,
+            "expected_batch": 16,
+            "graph_capacity": 64
+          }
+        },
+        "true_ours": {
+          "anchor_ce": true,
+          "anchor_steps": 40,
+          "anchor_lr": 0.2,
+          "anchor_mu": 0.001,
+          "stage_b": {
+            "local_epochs": 80,
+            "batch_size": 8,
+            "local_lr": 0.2,
+            "weight_decay": 0.0001,
+            "client_weighting": "uniform",
+            "fedavg_sync_interval": 1,
+            "shared_initialization": false
+          },
+          "stage_c": {
+            "steps": 180,
+            "learning_rate": 0.002,
+            "noise_multiplier": 0.570962489730612,
+            "count_noise_multiplier": 8.0,
+            "clip_c": 1.0,
+            "gamma": 0.5,
+            "eta_c": 0.1,
+            "c_min": 0.05,
+            "c_max": 4.0,
+            "warmup_steps": 5,
+            "update_interval": 5,
+            "expected_batch": 16,
+            "graph_capacity": 64
+          }
+        }
+      }
+    }
+  },
+  "privacy_claim": "conditional Stage-C DP only; Stage-A no DP; Stage-B MPC confidentiality only; no end-to-end record-level DP",
+  "locked_holdout_read": false,
+  "official_test_read": false
+}

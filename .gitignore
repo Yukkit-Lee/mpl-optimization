@@ -20,6 +20,23 @@ config/new_paths.autodl.env
 *secret*
 *token*
 
+# Paper SPU backend namespace (contains no credentials despite "secretflow" name)
+!plan/0807_new_secretflow_spu_end2end_figure2_codex_prompt_v2.md
+!new_scripts/new_secretflow_spu/
+!new_scripts/new_secretflow_spu/**
+!new_configs/new_secretflow_spu/
+!new_configs/new_secretflow_spu/**
+!new_log/new_secretflow_spu/
+!new_log/new_secretflow_spu/**
+!new_output/new_secretflow_spu/
+!new_output/new_secretflow_spu/**
+!new_expTab/new_secretflow_spu/
+!new_expTab/new_secretflow_spu/**
+!new_expFig/new_secretflow_spu/
+!new_expFig/new_secretflow_spu/**
+new_scripts/new_secretflow_spu/**/__pycache__/
+new_scripts/new_secretflow_spu/**/*.py[cod]
+
 # Large data / datasets / extracted features
 data/
 featureData/

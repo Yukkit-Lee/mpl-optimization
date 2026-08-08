@@ -1,0 +1,249 @@
+Channels:
+ - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+Platform: linux-64
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /root/autodl-tmp/new_envs/spu_e2e
+
+  added / updated specs:
+    - python=3.10
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    _libgcc_mutex-0.1          |             main           3 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    _openmp_mutex-5.1          |           52_gnu           7 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    bzip2-1.0.8                |       h5eee18b_6         262 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    ca-certificates-2026.7.16  |       h06a4308_0         106 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    ld_impl_linux-64-2.44      |       h9e0c5a2_3         725 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    libexpat-2.8.2             |       h7354ed3_1         126 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    libffi-3.4.8               |       h06d3fd0_3         137 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    libgcc-15.2.0              |       h69a1729_8         803 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    libgcc-ng-15.2.0           |       h166f726_8          28 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    libnsl-2.0.0               |       h5eee18b_0          31 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    libstdcxx-15.2.0           |       h39759b7_8         3.7 MB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    libuuid-1.41.5             |       h5eee18b_0          27 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    libxcb-1.17.0              |       h9b100fa_0         430 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    libzlib-1.3.2              |       h47b2149_0          60 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    ncurses-6.5                |       h7934f7d_0         1.1 MB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    openssl-3.5.7              |       h1b28b03_0         5.5 MB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    packaging-26.1             |  py310h06a4308_0         239 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    pip-26.1.2                 |     pyhc872135_0         1.1 MB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    pthread-stubs-0.3          |       h47b2149_2           7 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    python-3.10.20             |       h17756b0_1        24.2 MB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    readline-8.3               |       hc2a1206_0         471 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    setuptools-83.0.0          |  py310h06a4308_0         1.2 MB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    sqlite-3.53.2              |       h795bf6d_0         1.2 MB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    tk-8.6.15                  |       h54e0aa7_0         3.4 MB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    tzdata-2026c               |       he532380_0         117 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    wheel-0.47.0               |  py310h06a4308_0          56 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    xorg-libx11-1.8.12         |       h9b100fa_1         895 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    xorg-libxau-1.0.12         |       h9b100fa_0          13 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    xorg-libxdmcp-1.1.5        |       h9b100fa_0          19 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    xorg-xorgproto-2024.1      |       h47b2149_2         550 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    xz-5.8.2                   |       h448239c_0         621 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    zlib-1.3.2                 |       h47b2149_0          92 KB  https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    ------------------------------------------------------------
+                                           Total:        47.2 MB
+
+The following NEW packages will be INSTALLED:
+
+  _libgcc_mutex      anaconda/pkgs/main/linux-64::_libgcc_mutex-0.1-main 
+  _openmp_mutex      anaconda/pkgs/main/linux-64::_openmp_mutex-5.1-52_gnu 
+  bzip2              anaconda/pkgs/main/linux-64::bzip2-1.0.8-h5eee18b_6 
+  ca-certificates    anaconda/pkgs/main/linux-64::ca-certificates-2026.7.16-h06a4308_0 
+  ld_impl_linux-64   anaconda/pkgs/main/linux-64::ld_impl_linux-64-2.44-h9e0c5a2_3 
+  libexpat           anaconda/pkgs/main/linux-64::libexpat-2.8.2-h7354ed3_1 
+  libffi             anaconda/pkgs/main/linux-64::libffi-3.4.8-h06d3fd0_3 
+  libgcc             anaconda/pkgs/main/linux-64::libgcc-15.2.0-h69a1729_8 
+  libgcc-ng          anaconda/pkgs/main/linux-64::libgcc-ng-15.2.0-h166f726_8 
+  libnsl             anaconda/pkgs/main/linux-64::libnsl-2.0.0-h5eee18b_0 
+  libstdcxx          anaconda/pkgs/main/linux-64::libstdcxx-15.2.0-h39759b7_8 
+  libuuid            anaconda/pkgs/main/linux-64::libuuid-1.41.5-h5eee18b_0 
+  libxcb             anaconda/pkgs/main/linux-64::libxcb-1.17.0-h9b100fa_0 
+  libzlib            anaconda/pkgs/main/linux-64::libzlib-1.3.2-h47b2149_0 
+  ncurses            anaconda/pkgs/main/linux-64::ncurses-6.5-h7934f7d_0 
+  openssl            anaconda/pkgs/main/linux-64::openssl-3.5.7-h1b28b03_0 
+  packaging          anaconda/pkgs/main/linux-64::packaging-26.1-py310h06a4308_0 
+  pip                anaconda/pkgs/main/noarch::pip-26.1.2-pyhc872135_0 
+  pthread-stubs      anaconda/pkgs/main/linux-64::pthread-stubs-0.3-h47b2149_2 
+  python             anaconda/pkgs/main/linux-64::python-3.10.20-h17756b0_1 
+  readline           anaconda/pkgs/main/linux-64::readline-8.3-hc2a1206_0 
+  setuptools         anaconda/pkgs/main/linux-64::setuptools-83.0.0-py310h06a4308_0 
+  sqlite             anaconda/pkgs/main/linux-64::sqlite-3.53.2-h795bf6d_0 
+  tk                 anaconda/pkgs/main/linux-64::tk-8.6.15-h54e0aa7_0 
+  tzdata             anaconda/pkgs/main/noarch::tzdata-2026c-he532380_0 
+  wheel              anaconda/pkgs/main/linux-64::wheel-0.47.0-py310h06a4308_0 
+  xorg-libx11        anaconda/pkgs/main/linux-64::xorg-libx11-1.8.12-h9b100fa_1 
+  xorg-libxau        anaconda/pkgs/main/linux-64::xorg-libxau-1.0.12-h9b100fa_0 
+  xorg-libxdmcp      anaconda/pkgs/main/linux-64::xorg-libxdmcp-1.1.5-h9b100fa_0 
+  xorg-xorgproto     anaconda/pkgs/main/linux-64::xorg-xorgproto-2024.1-h47b2149_2 
+  xz                 anaconda/pkgs/main/linux-64::xz-5.8.2-h448239c_0 
+  zlib               anaconda/pkgs/main/linux-64::zlib-1.3.2-h47b2149_0 
+
+
+
+Downloading and Extracting Packages: ...working... done
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+#
+# To activate this environment, use
+#
+#     $ conda activate /root/autodl-tmp/new_envs/spu_e2e
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+Requirement already satisfied: pip in /root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages (26.1.2)
+Collecting pip
+  Downloading pip-26.2.1-py3-none-any.whl.metadata (4.6 kB)
+Requirement already satisfied: setuptools in /root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages (83.0.0)
+Requirement already satisfied: wheel in /root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages (0.47.0)
+Requirement already satisfied: packaging>=24.0 in /root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages (from wheel) (26.1)
+Downloading pip-26.2.1-py3-none-any.whl (1.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 1.1 MB/s  0:00:01
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 26.1.2
+    Uninstalling pip-26.1.2:
+      Successfully uninstalled pip-26.1.2
+Successfully installed pip-26.2.1
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+Collecting secretflow==1.14.0b0
+  Using cached secretflow-1.14.0b0-py3-none-any.whl.metadata (6.4 kB)
+Collecting click (from secretflow==1.14.0b0)
+  Downloading click-8.4.2-py3-none-any.whl.metadata (2.6 kB)
+Collecting grpcio>=1.56.2 (from secretflow==1.14.0b0)
+  Downloading grpcio-1.83.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.7 kB)
+Collecting jax<=0.4.26,>=0.4.16 (from jax[cpu]<=0.4.26,>=0.4.16->secretflow==1.14.0b0)
+  Downloading jax-0.4.26-py3-none-any.whl.metadata (23 kB)
+Collecting jaxlib<=0.4.26,>=0.4.16 (from secretflow==1.14.0b0)
+  Downloading jaxlib-0.4.26-cp310-cp310-manylinux2014_x86_64.whl.metadata (1.8 kB)
+Collecting numpy<2,>=1.22.0 (from secretflow==1.14.0b0)
+  Downloading numpy-1.26.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Collecting pandas==1.5.3 (from secretflow==1.14.0b0)
+  Downloading pandas-1.5.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+Collecting protobuf<5,>=4 (from secretflow==1.14.0b0)
+  Downloading protobuf-4.25.9-cp37-abi3-manylinux2014_x86_64.whl.metadata (541 bytes)
+Collecting pyarrow==14.0.2 (from secretflow==1.14.0b0)
+  Downloading pyarrow-14.0.2-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Collecting duckdb==1.0.0 (from secretflow==1.14.0b0)
+  Downloading duckdb-1.0.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (762 bytes)
+Collecting aiobotocore==2.17.0 (from secretflow==1.14.0b0)
+  Downloading aiobotocore-2.17.0-py3-none-any.whl.metadata (23 kB)
+Collecting s3fs==2024.2.0 (from secretflow==1.14.0b0)
+  Downloading s3fs-2024.2.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting scikit-learn==1.5.2 (from secretflow==1.14.0b0)
+  Downloading scikit_learn-1.5.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (13 kB)
+Collecting aiohttp<4,>=3.9.4 (from secretflow==1.14.0b0)
+  Downloading aiohttp-3.14.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Collecting sqlglot==25.5.1 (from secretflow==1.14.0b0)
+  Downloading sqlglot-25.5.1-py3-none-any.whl.metadata (19 kB)
+Collecting requests==2.32.3 (from secretflow==1.14.0b0)
+  Downloading requests-2.32.3-py3-none-any.whl.metadata (4.6 kB)
+Collecting multiprocess==0.70.18 (from secretflow==1.14.0b0)
+  Downloading multiprocess-0.70.18-py310-none-any.whl.metadata (7.5 kB)
+Collecting sdc-apis==0.1.0.dev240320 (from secretflow==1.14.0b0)
+  Downloading sdc_apis-0.1.0.dev240320-py3-none-any.whl.metadata (562 bytes)
+Collecting sdc-sdk==0.1.0.dev240320 (from secretflow==1.14.0b0)
+  Downloading sdc_sdk-0.1.0.dev240320-cp310-cp310-manylinux2014_x86_64.whl.metadata (587 bytes)
+Collecting kuscia==0.0.3b0 (from secretflow==1.14.0b0)
+  Downloading kuscia-0.0.3b0-py3-none-any.whl.metadata (204 bytes)
+Collecting spu==0.9.4.dev20250618 (from secretflow==1.14.0b0)
+  Downloading spu-0.9.4.dev20250618-cp310-cp310-manylinux2014_x86_64.whl.metadata (6.8 kB)
+Collecting sf-sml==0.1.0.dev20250623 (from secretflow==1.14.0b0)
+  Downloading sf_sml-0.1.0.dev20250623-py3-none-manylinux2014_x86_64.whl.metadata (4.7 kB)
+Collecting sf-heu==0.6.0.dev20250514 (from secretflow==1.14.0b0)
+  Downloading sf_heu-0.6.0.dev20250514-cp310-cp310-manylinux2014_x86_64.whl.metadata (6.8 kB)
+Collecting secretflow_serving_lib==0.10.0.dev20250414 (from secretflow==1.14.0b0)
+  Downloading secretflow_serving_lib-0.10.0.dev20250414-cp310-cp310-manylinux2014_x86_64.whl.metadata (1.9 kB)
+Collecting secretflow-dataproxy==0.5.0.dev20250416 (from secretflow==1.14.0b0)
+  Downloading secretflow_dataproxy-0.5.0.dev20250416-cp310-cp310-manylinux2014_x86_64.whl.metadata (478 bytes)
+Collecting secretflow-spec==1.1.0b0 (from secretflow==1.14.0b0)
+  Downloading secretflow_spec-1.1.0b0-py3-none-any.whl.metadata (1.0 kB)
+Collecting aioitertools<1.0.0,>=0.5.1 (from aiobotocore==2.17.0->secretflow==1.14.0b0)
+  Downloading aioitertools-0.13.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting botocore<1.35.94,>=1.35.74 (from aiobotocore==2.17.0->secretflow==1.14.0b0)
+  Downloading botocore-1.35.93-py3-none-any.whl.metadata (5.7 kB)
+Collecting python-dateutil<3.0.0,>=2.1 (from aiobotocore==2.17.0->secretflow==1.14.0b0)
+  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting jmespath<2.0.0,>=0.7.1 (from aiobotocore==2.17.0->secretflow==1.14.0b0)
+  Downloading jmespath-1.1.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting multidict<7.0.0,>=6.0.0 (from aiobotocore==2.17.0->secretflow==1.14.0b0)
+  Downloading multidict-6.7.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+Collecting urllib3!=2.2.0,<3,>=1.25.4 (from aiobotocore==2.17.0->secretflow==1.14.0b0)
+  Downloading urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting wrapt<2.0.0,>=1.10.10 (from aiobotocore==2.17.0->secretflow==1.14.0b0)
+  Downloading wrapt-1.17.4rc1-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.4 kB)
+Collecting dill>=0.4.0 (from multiprocess==0.70.18->secretflow==1.14.0b0)
+  Downloading dill-0.4.1-py3-none-any.whl.metadata (10 kB)
+Collecting pytz>=2020.1 (from pandas==1.5.3->secretflow==1.14.0b0)
+  Downloading pytz-2026.3.post1-py2.py3-none-any.whl.metadata (22 kB)
+Collecting charset-normalizer<4,>=2 (from requests==2.32.3->secretflow==1.14.0b0)
+  Downloading charset_normalizer-3.4.9-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (41 kB)
+Collecting idna<4,>=2.5 (from requests==2.32.3->secretflow==1.14.0b0)
+  Downloading idna-3.18-py3-none-any.whl.metadata (6.1 kB)
+Collecting certifi>=2017.4.17 (from requests==2.32.3->secretflow==1.14.0b0)
+  Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+Collecting fsspec==2024.2.0 (from s3fs==2024.2.0->secretflow==1.14.0b0)
+  Downloading fsspec-2024.2.0-py3-none-any.whl.metadata (6.8 kB)
+Collecting scipy>=1.6.0 (from scikit-learn==1.5.2->secretflow==1.14.0b0)
+  Downloading scipy-1.15.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Collecting joblib>=1.2.0 (from scikit-learn==1.5.2->secretflow==1.14.0b0)
+  Downloading joblib-1.5.3-py3-none-any.whl.metadata (5.5 kB)
+Collecting threadpoolctl>=3.1.0 (from scikit-learn==1.5.2->secretflow==1.14.0b0)
+  Downloading threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+Collecting cryptography (from sdc-sdk==0.1.0.dev240320->secretflow==1.14.0b0)
+  Downloading cryptography-50.0.0-cp39-abi3-manylinux_2_34_x86_64.whl.metadata (4.3 kB)
+Collecting grpcio>=1.56.2 (from secretflow==1.14.0b0)
+  Downloading grpcio-1.56.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.0 kB)
+Collecting cloudpickle>=2.0.0 (from spu==0.9.4.dev20250618->secretflow==1.14.0b0)
+  Downloading cloudpickle-3.1.2-py3-none-any.whl.metadata (7.1 kB)
+Collecting cachetools>=5.0.0 (from spu==0.9.4.dev20250618->secretflow==1.14.0b0)
+  Downloading cachetools-7.1.7-py3-none-any.whl.metadata (5.5 kB)
+Collecting termcolor>=2.0.0 (from spu==0.9.4.dev20250618->secretflow==1.14.0b0)
+  Downloading termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp<4,>=3.9.4->secretflow==1.14.0b0)
+  Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp<4,>=3.9.4->secretflow==1.14.0b0)
+  Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting async-timeout<6.0,>=4.0 (from aiohttp<4,>=3.9.4->secretflow==1.14.0b0)
+  Downloading async_timeout-5.0.1-py3-none-any.whl.metadata (5.1 kB)
+Collecting attrs>=17.3.0 (from aiohttp<4,>=3.9.4->secretflow==1.14.0b0)
+  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp<4,>=3.9.4->secretflow==1.14.0b0)
+  Downloading frozenlist-1.8.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Collecting propcache>=0.2.0 (from aiohttp<4,>=3.9.4->secretflow==1.14.0b0)
+  Downloading propcache-0.5.2-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (16 kB)
+Collecting typing_extensions>=4.4 (from aiohttp<4,>=3.9.4->secretflow==1.14.0b0)
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting yarl<2.0,>=1.17.0 (from aiohttp<4,>=3.9.4->secretflow==1.14.0b0)
+  Downloading yarl-1.24.5-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (103 kB)
+Collecting ml-dtypes>=0.2.0 (from jax<=0.4.26,>=0.4.16->jax[cpu]<=0.4.26,>=0.4.16->secretflow==1.14.0b0)
+  Downloading ml_dtypes-0.5.4-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.9 kB)
+Collecting opt-einsum (from jax<=0.4.26,>=0.4.16->jax[cpu]<=0.4.26,>=0.4.16->secretflow==1.14.0b0)
+  Downloading opt_einsum-3.4.0-py3-none-any.whl.metadata (6.3 kB)
+Collecting six>=1.5 (from python-dateutil<3.0.0,>=2.1->aiobotocore==2.17.0->secretflow==1.14.0b0)
+  Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting cffi>=2.0.0 (from cryptography->sdc-sdk==0.1.0.dev240320->secretflow==1.14.0b0)
+  Downloading cffi-2.1.1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography->sdc-sdk==0.1.0.dev240320->secretflow==1.14.0b0)
+  Downloading pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+Using cached secretflow-1.14.0b0-py3-none-any.whl (737 kB)
+Downloading aiobotocore-2.17.0-py3-none-any.whl (77 kB)
+Downloading duckdb-1.0.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.5/18.5 MB 381.6 kB/s  0:00:55
+Downloading kuscia-0.0.3b0-py3-none-any.whl (114 kB)
+Downloading multiprocess-0.70.18-py310-none-any.whl (134 kB)
+Downloading pandas-1.5.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.1/12.1 MB 603.4 kB/s  0:00:20
+Downloading pyarrow-14.0.2-cp310-cp310-manylinux_2_28_x86_64.whl (38.0 MB)
+   ━━━━╸                                    4.5/38.0 MB 587.0 kB/s eta 0:00:58
+ERROR: Operation cancelled by user

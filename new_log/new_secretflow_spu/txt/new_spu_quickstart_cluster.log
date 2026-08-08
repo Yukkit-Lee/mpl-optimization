@@ -1,0 +1,115 @@
+[2026-08-07 01:09:45,779] [ForkServerProcess-1] Starting grpc server at 127.0.0.1:61327
+[2026-08-07 01:09:45,779] [ForkServerProcess-3] Starting grpc server at 127.0.0.1:61329
+[2026-08-07 01:09:45,785] [ForkServerProcess-2] Starting grpc server at 127.0.0.1:61328
+[2026-08-07 01:09:45,833] [ForkServerProcess-1] Run : builtin_spu_init at node:0
+[2026-08-07 01:09:45,834] [ForkServerProcess-2] Run : builtin_spu_init at node:1
+[2026-08-07 01:09:45,834] [ForkServerProcess-3] Run : builtin_spu_init at node:2
+I0807 01:09:45.851371 13606     0 external/brpc~/src/brpc/server.cpp:1195] Server[yacl::link::transport::internal::ReceiverServiceImpl] is serving on port=61437.
+W0807 01:09:45.851406 13606     0 external/brpc~/src/brpc/server.cpp:1201] Builtin services are disabled according to ServerOptions.has_builtin_services
+I0807 01:09:45.852417 13607     0 external/brpc~/src/brpc/server.cpp:1195] Server[yacl::link::transport::internal::ReceiverServiceImpl] is serving on port=61438.
+W0807 01:09:45.852470 13607     0 external/brpc~/src/brpc/server.cpp:1201] Builtin services are disabled according to ServerOptions.has_builtin_services
+I0807 01:09:45.853117 13608     0 external/brpc~/src/brpc/server.cpp:1195] Server[yacl::link::transport::internal::ReceiverServiceImpl] is serving on port=61439.
+W0807 01:09:45.853138 13608     0 external/brpc~/src/brpc/server.cpp:1201] Builtin services are disabled according to ServerOptions.has_builtin_services
+[2026-08-07 01:09:45,860] [ForkServerProcess-2] spu-runtime (SPU) initialized
+[2026-08-07 01:09:45,860] [ForkServerProcess-1] spu-runtime (SPU) initialized
+[2026-08-07 01:09:45,861] [ForkServerProcess-3] spu-runtime (SPU) initialized
+[2026-08-07 01:09:45,866] [ForkServerProcess-1] Run : make_x at node:0
+[2026-08-07 01:09:45,870] [ForkServerProcess-2] Run : make_y at node:1
+[2026-08-07 01:09:45,876] [ForkServerProcess-1] Run : make_shares at node:0
+[2026-08-07 01:09:45,903] [ForkServerProcess-1] RunR: builtin_fetch_meta at node:0
+[2026-08-07 01:09:45,910] [ForkServerProcess-2] Run : make_shares at node:1
+[2026-08-07 01:09:45,939] [ForkServerProcess-2] RunR: builtin_fetch_meta at node:1
+[2026-08-07 01:09:45,963] [ForkServerProcess-1] Run : builtin_spu_run at node:0
+[2026-08-07 01:09:45,964] [ForkServerProcess-2] Run : builtin_spu_run at node:1
+[2026-08-07 01:09:45,964] [ForkServerProcess-3] Run : builtin_spu_run at node:2
+[2026-08-07 01:09:45,967] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:45,971] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:45,972] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:45.972] [info] [api.cc:172] [Profiling] SPU execution secure_add completed, input processing took 1.266e-06s, execution took 0.001175786s, output processing took 3.731e-06s, total time 0.001180783s.
+[2026-08-07 01:09:45.972] [info] [api.cc:220] HLO profiling: total time 6.6419e-05
+[2026-08-07 01:09:45.972] [info] [api.cc:223] - pphlo.add, executed 1 times, duration 6.6419e-05s, send bytes 0 recv bytes 0, send actions 0, recv actions 0
+[2026-08-07 01:09:45.972] [info] [api.cc:233] Link details: total send bytes 0, recv bytes 0, send actions 0, recv actions 0
+[2026-08-07 01:09:45,976] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:45,982] [ForkServerProcess-1] RunR: builtin_fetch_meta at node:0
+[2026-08-07 01:09:45,989] [ForkServerProcess-1] Run : make_shares at node:0
+[2026-08-07 01:09:45,992] [ForkServerProcess-1] RunR: builtin_fetch_meta at node:0
+[2026-08-07 01:09:45,997] [ForkServerProcess-2] Run : make_shares at node:1
+[2026-08-07 01:09:46,001] [ForkServerProcess-2] RunR: builtin_fetch_meta at node:1
+[2026-08-07 01:09:46,019] [ForkServerProcess-1] Run : builtin_spu_run at node:0
+[2026-08-07 01:09:46,019] [ForkServerProcess-2] Run : builtin_spu_run at node:1
+[2026-08-07 01:09:46,020] [ForkServerProcess-3] Run : builtin_spu_run at node:2
+[2026-08-07 01:09:46,022] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46,022] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,022] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,026] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46.032] [info] [api.cc:172] [Profiling] SPU execution secure_compare completed, input processing took 1.443e-06s, execution took 0.008254298s, output processing took 5.499e-06s, total time 0.00826124s.
+[2026-08-07 01:09:46.032] [info] [api.cc:220] HLO profiling: total time 0.007305087
+[2026-08-07 01:09:46.032] [info] [api.cc:223] - pphlo.less, executed 1 times, duration 0.007305087s, send bytes 204 recv bytes 204, send actions 9, recv actions 9
+[2026-08-07 01:09:46.032] [info] [api.cc:233] Link details: total send bytes 204, recv bytes 204, send actions 9, recv actions 9
+[2026-08-07 01:09:46,035] [ForkServerProcess-1] RunR: builtin_fetch_meta at node:0
+[2026-08-07 01:09:46,038] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,040] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46,042] [ForkServerProcess-3] RunR: builtin_fetch_object at node:2
+[2026-08-07 01:09:46,045] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,047] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46,049] [ForkServerProcess-3] RunR: builtin_fetch_object at node:2
+[2026-08-07 01:09:46,051] [ForkServerProcess-1] Run : <lambda> at node:0
+[2026-08-07 01:09:46,054] [ForkServerProcess-2] Run : <lambda> at node:1
+[2026-08-07 01:09:46,059] [ForkServerProcess-1] Run : make_shares at node:0
+[2026-08-07 01:09:46,062] [ForkServerProcess-1] RunR: builtin_fetch_meta at node:0
+[2026-08-07 01:09:46,068] [ForkServerProcess-2] Run : make_shares at node:1
+[2026-08-07 01:09:46,071] [ForkServerProcess-2] RunR: builtin_fetch_meta at node:1
+[2026-08-07 01:09:46,090] [ForkServerProcess-3] Run : builtin_spu_run at node:2
+[2026-08-07 01:09:46,090] [ForkServerProcess-2] Run : builtin_spu_run at node:1
+[2026-08-07 01:09:46,090] [ForkServerProcess-1] Run : builtin_spu_run at node:0
+[2026-08-07 01:09:46,093] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,093] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,095] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46,097] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46.100] [info] [api.cc:172] [Profiling] SPU execution secure_matmul completed, input processing took 1.326e-06s, execution took 0.003200676s, output processing took 4.658e-06s, total time 0.00320666s.
+[2026-08-07 01:09:46.100] [info] [api.cc:220] HLO profiling: total time 0.00231778
+[2026-08-07 01:09:46.100] [info] [api.cc:223] - pphlo.dot, executed 1 times, duration 0.00231778s, send bytes 144 recv bytes 160, send actions 3, recv actions 4
+[2026-08-07 01:09:46.100] [info] [api.cc:233] Link details: total send bytes 144, recv bytes 160, send actions 3, recv actions 4
+[2026-08-07 01:09:46,103] [ForkServerProcess-1] RunR: builtin_fetch_meta at node:0
+[2026-08-07 01:09:46,106] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,109] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46,111] [ForkServerProcess-3] RunR: builtin_fetch_object at node:2
+[2026-08-07 01:09:46,113] [ForkServerProcess-1] Run : <lambda> at node:0
+[2026-08-07 01:09:46,116] [ForkServerProcess-2] Run : <lambda> at node:1
+[2026-08-07 01:09:46,121] [ForkServerProcess-1] Run : make_shares at node:0
+[2026-08-07 01:09:46,123] [ForkServerProcess-1] RunR: builtin_fetch_meta at node:0
+[2026-08-07 01:09:46,128] [ForkServerProcess-2] Run : make_shares at node:1
+[2026-08-07 01:09:46,131] [ForkServerProcess-2] RunR: builtin_fetch_meta at node:1
+[2026-08-07 01:09:46,198] [ForkServerProcess-1] Run : builtin_spu_run at node:0
+[2026-08-07 01:09:46,199] [ForkServerProcess-2] Run : builtin_spu_run at node:1
+[2026-08-07 01:09:46,199] [ForkServerProcess-3] Run : builtin_spu_run at node:2
+[2026-08-07 01:09:46,201] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46,201] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,202] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,204] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46.214] [info] [api.cc:172] [Profiling] SPU execution secure_linear_step completed, input processing took 6.544e-06s, execution took 0.010205983s, output processing took 1.2209e-05s, total time 0.010224736s.
+[2026-08-07 01:09:46.214] [info] [api.cc:220] HLO profiling: total time 0.008113485
+[2026-08-07 01:09:46.214] [info] [api.cc:223] - pphlo.dot, executed 2 times, duration 0.004401577s, send bytes 304 recv bytes 320, send actions 5, recv actions 6
+[2026-08-07 01:09:46.214] [info] [api.cc:223] - pphlo.multiply, executed 5 times, duration 0.003021707s, send bytes 428 recv bytes 428, send actions 9, recv actions 9
+[2026-08-07 01:09:46.214] [info] [api.cc:223] - pphlo.reduce, executed 2 times, duration 0.000433704s, send bytes 0 recv bytes 0, send actions 0, recv actions 0
+[2026-08-07 01:09:46.214] [info] [api.cc:223] - pphlo.add, executed 4 times, duration 9.8525e-05s, send bytes 0 recv bytes 0, send actions 0, recv actions 0
+[2026-08-07 01:09:46.214] [info] [api.cc:223] - pphlo.negate, executed 3 times, duration 5.398e-05s, send bytes 0 recv bytes 0, send actions 0, recv actions 0
+[2026-08-07 01:09:46.214] [info] [api.cc:223] - pphlo.broadcast, executed 3 times, duration 3.3965e-05s, send bytes 0 recv bytes 0, send actions 0, recv actions 0
+[2026-08-07 01:09:46.214] [info] [api.cc:223] - pphlo.constant, executed 3 times, duration 2.3468e-05s, send bytes 0 recv bytes 0, send actions 0, recv actions 0
+[2026-08-07 01:09:46.214] [info] [api.cc:223] - pphlo.free, executed 20 times, duration 1.766e-05s, send bytes 0 recv bytes 0, send actions 0, recv actions 0
+[2026-08-07 01:09:46.214] [info] [api.cc:223] - pphlo.convert, executed 1 times, duration 1.6788e-05s, send bytes 0 recv bytes 0, send actions 0, recv actions 0
+[2026-08-07 01:09:46.214] [info] [api.cc:223] - pphlo.transpose, executed 1 times, duration 1.2111e-05s, send bytes 0 recv bytes 0, send actions 0, recv actions 0
+[2026-08-07 01:09:46.214] [info] [api.cc:233] Link details: total send bytes 732, recv bytes 748, send actions 14, recv actions 15
+[2026-08-07 01:09:46,217] [ForkServerProcess-1] RunR: builtin_fetch_meta at node:0
+[2026-08-07 01:09:46,220] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,223] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46,225] [ForkServerProcess-3] RunR: builtin_fetch_object at node:2
+[2026-08-07 01:09:46,227] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,229] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46,231] [ForkServerProcess-3] RunR: builtin_fetch_object at node:2
+[2026-08-07 01:09:46,233] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,235] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46,237] [ForkServerProcess-3] RunR: builtin_fetch_object at node:2
+[2026-08-07 01:09:46,239] [ForkServerProcess-1] RunR: builtin_fetch_object at node:0
+[2026-08-07 01:09:46,241] [ForkServerProcess-2] RunR: builtin_fetch_object at node:1
+[2026-08-07 01:09:46,243] [ForkServerProcess-3] RunR: builtin_fetch_object at node:2

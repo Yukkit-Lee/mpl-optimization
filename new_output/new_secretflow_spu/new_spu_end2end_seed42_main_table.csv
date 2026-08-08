@@ -1,0 +1,7 @@
+dataset,method,status,final_development_accuracy,tfe_reference_development_accuracy,stage_b_online_secure_seconds,stage_c_online_secure_seconds,total_online_secure_seconds,final_clip_bound,peak_driver_rss_gib,t80_seconds,t90_seconds,t95_seconds,test_read,locked_holdout_read
+cifar10,true_ours,COMPLETE,0.6862,0.6886,272.1,51.6,323.7,1.115478515625,0.6025314331054688,291.8,291.8,,false,false
+cifar10,full_data,COMPLETE,0.715,0.73,2721.3,39.5,2760.8,0.9541473388671875,1.7062225341796875,2730.9,2730.9,2730.9,false,false
+cifar100,true_ours,COMPLETE,0.4034,0.4866,3760.8,27.6,3788.4,1.984405517578125,1.0386466979980469,3776.2,3776.2,,false,false
+cifar100,full_data,COMPLETE,0.4028,0.434,5764.5,22.5,5787.0,1.9921875,1.8286781311035156,5777.1,5777.1,,false,false
+tiny,true_ours,COMPLETE,0.2526,0.3141,4968.4,222.9,5191.3,0.26177978515625,1.5278549194335938,4983.5,4983.5,,false,false
+tiny,full_data,NEGATIVE_STOP,,0.272,,,,,,,,,false,false

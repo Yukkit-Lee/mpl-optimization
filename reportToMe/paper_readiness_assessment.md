@@ -1,6 +1,6 @@
 # Current Paper Readiness Assessment
 
-更新时间：2026-08-02（UTC）
+更新时间：2026-08-08（UTC）
 状态：**READY WITH EXPLICIT SCOPE LIMITATIONS**
 来源提交：`704755d70d2475a6a306a1b09e4e5e65195baf6c`
 
@@ -17,6 +17,9 @@
   Post-Aggregation正式结果，不使用旧0秒占位System表。
 - Secure Average + Official-MTT Anchor CE：正Stage-B/Non-IID扩展，当前为
   CIFAR-10/100 seed42 development-only。
+- corrected-v2 SecretFlow-SPU六条seed42可作为后端可行性/runtime补充；正式数值已
+  独立回读，但SPU 1x3图的`features=…`需先修正，dual-backend只作非硬件归一化
+  seed42示意。
 
 ## 只适合作为负/补充实验
 
@@ -33,6 +36,7 @@
 - 三个数据集最终都更快、更准。
 - class-aware KD、disagreement weighting或trigger routing是正贡献。
 - 通信字节或轮数降低；没有测量。
+- SPU相对TFE的严格硬件归一化加速，或SPU六条具有跨seed显著性；当前SPU均n=1。
 
 ## 投稿前最值得补的内容
 
