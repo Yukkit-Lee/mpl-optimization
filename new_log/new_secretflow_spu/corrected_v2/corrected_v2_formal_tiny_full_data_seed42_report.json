@@ -1,0 +1,3768 @@
+{
+  "schema": "new_spu_corrected_formal_v2",
+  "status": "COMPLETE",
+  "run_id": "corrected_v2_formal_tiny_full_data_seed42",
+  "run_kind": "formal",
+  "backend": "SecretFlow-SPU device API",
+  "protocol": {
+    "protocol": "ABY3",
+    "field": "FM128",
+    "fxp_fraction_bits": 16
+  },
+  "adapter": {
+    "adapter": "SecretFlow public add_distribution_modes plugin hook",
+    "simulation_strategy": "sfl.distributed.op_strategy.SimulationStrategy",
+    "ray_option_utils": "ray._common (compatibility alias for source-SFL)",
+    "registered_modes": [
+      "DEBUG",
+      "INTERCONNECTION",
+      "PRODUCTION",
+      "RAY_PRODUCTION",
+      "SIMULATION"
+    ],
+    "plaintext_debug_mode": false
+  },
+  "effective_config": {
+    "dataset": "tiny",
+    "method": "full_data",
+    "seed": 42,
+    "stage_b_batch_size": 64,
+    "stage_b_batch_chunk_batches": 16,
+    "stage_b_batch_size_source": "explicit_pre_run_freeze",
+    "stage_b_unroll": 1,
+    "stage_b_local_lr": 0.4,
+    "stage_b_shared_initialization": false,
+    "stage_b_local_epochs": 40,
+    "stage_c_steps": 180,
+    "stage_c_block_steps": 10,
+    "formal_run": true
+  },
+  "confidentiality_scope": "Stage-B client-local and global state remain secret-shared",
+  "privacy_scope": "conditional Stage-C record-level DP only; Stage-B is non-DP",
+  "official_test_read": false,
+  "locked_holdout_read": false,
+  "final_development_accuracy": 0.2768,
+  "conditional_stage_c_epsilon": 2.999999999999999,
+  "delta": 1e-05,
+  "timing_seconds": {
+    "stage_b_compile_warmup": 44.096278600394726,
+    "stage_b_private_pack_and_infeed": 4244.747208148241,
+    "stage_b_online_secure": 21148.707820415497,
+    "stage_b_secret_checkpoint": 18.467232935130596,
+    "stage_c_compile_warmup": 9.854800522327423,
+    "stage_c_private_infeed_and_noise_generation": 195.10503189265728,
+    "stage_c_online_secure": 223.97744093835354,
+    "stage_c_secret_checkpoint": 1.6581533700227737,
+    "stage_c_authorized_dp_release_and_dev_evaluation": 9.10060328990221,
+    "stage_c_privacy_accounting": 107.09254612028599
+  },
+  "online_secure_seconds": 21372.68526135385,
+  "raw_wall_seconds": 26070.57897826284,
+  "resource_measurement": {
+    "wall_seconds": 26070.580438029,
+    "cgroup_cpu_seconds": 346413.496113,
+    "cgroup_cpu_utilization_fraction_of_allocated_capacity": 0.4152351643747936,
+    "memory_peak_gib": 23.356098175048828,
+    "cgroup_version": 1,
+    "measurement_scope": "whole_cgroup; run only without concurrent experiments",
+    "run_observed_memory_peak_gib": 23.264785766601562,
+    "memory_peak_note": "run_observed peak is authoritative; cgroup v1 lifetime max may predate this run"
+  },
+  "reveal_ledger": [
+    {
+      "label": "stage_b_epoch_1_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_1_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_2_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_3_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_4_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_5_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_6_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_7_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_8_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_9_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_10_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_11_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_12_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_13_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_14_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_15_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_16_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_17_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_18_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_19_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_20_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_21_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_22_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_23_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_24_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_25_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_26_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_27_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_28_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_29_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_30_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_31_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_32_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_33_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_34_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_35_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_36_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_37_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_38_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_39_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_0",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_16",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_32",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_48",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_64",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_80",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_96",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_112",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_128",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_144",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_160",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_176",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_192",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_epoch_40_chunk_208",
+      "scope": "client_local_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_b_final_average",
+      "scope": "global_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_steps_10",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_10",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_20",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_20",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_30",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_30",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_40",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_40",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_50",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_50",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_60",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_60",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_70",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_70",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_80",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_80",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_90",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_90",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_100",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_100",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_110",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_110",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_120",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_120",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_130",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_130",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_140",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_140",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_150",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_150",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_160",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_160",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_170",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_170",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "stage_c_steps_180",
+      "scope": "dp_secret_state",
+      "reason": "secure synchronization; sf.wait returns no value",
+      "public_reconstruction": false
+    },
+    {
+      "label": "stage_c_global_release_180",
+      "scope": "conditional_dp_global_state",
+      "reason": "DP trajectory release for development-only utility trace",
+      "public_reconstruction": true
+    },
+    {
+      "label": "weight_provider_metadata",
+      "scope": "provider_public_metadata",
+      "reason": "audit monotonic counters and distinct commitments without noise reveal",
+      "public_reconstruction": true
+    },
+    {
+      "label": "bias_provider_metadata",
+      "scope": "provider_public_metadata",
+      "reason": "audit monotonic counters and distinct commitments without noise reveal",
+      "public_reconstruction": true
+    },
+    {
+      "label": "count_provider_metadata",
+      "scope": "provider_public_metadata",
+      "reason": "audit monotonic counters and distinct commitments without noise reveal",
+      "public_reconstruction": true
+    }
+  ],
+  "provider_metadata": {
+    "weight": [
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "weight",
+        "requests_completed": 18,
+        "last_share_commitment": "495f80c0d52b6ec92113852da41e07a2e9280415fd3295ea93074825c999dcd6",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "weight",
+        "requests_completed": 18,
+        "last_share_commitment": "046ad77d9bec7f17c6fe45076ccc2c55372953baef0647cecb5162b415f5e037",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "weight",
+        "requests_completed": 18,
+        "last_share_commitment": "017d3a6d488c5f4a1f96dc5e4c7ae4d99a452afc2ee203c4ad18f9d1190ab6e1",
+        "entropy_persisted": false,
+        "share_persisted": false
+      }
+    ],
+    "bias": [
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "bias",
+        "requests_completed": 18,
+        "last_share_commitment": "ab9cbb8dfe3bbfc84a231afe21b553f66c231a211173519a75f2f2dee828cb59",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "bias",
+        "requests_completed": 18,
+        "last_share_commitment": "6b0dc935864dc49120470631f1b08ec23d95d5602186aefff719aacc9e61182d",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "bias",
+        "requests_completed": 18,
+        "last_share_commitment": "fd67ba86ca0a2a91f1ee4f73187b5ce07e2810411124c37d5ec7be7005056888",
+        "entropy_persisted": false,
+        "share_persisted": false
+      }
+    ],
+    "count": [
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "count",
+        "requests_completed": 18,
+        "last_share_commitment": "9b305d4cd6c281fce40ea313add6a21b0d56aa6b9ad211589c3d65eb41c23010",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "count",
+        "requests_completed": 18,
+        "last_share_commitment": "fc2e92650a96be7595ee3fe8efaaf9bb29d549ba8642be597c83dadbc77ae36d",
+        "entropy_persisted": false,
+        "share_persisted": false
+      },
+      {
+        "schema": "new_spu_private_noise_state_v1",
+        "stream": "count",
+        "requests_completed": 18,
+        "last_share_commitment": "dc9ee20e00fc9a6acc757a377d8634517f1b866741112c51b68f5ca7466827a1",
+        "entropy_persisted": false,
+        "share_persisted": false
+      }
+    ]
+  },
+  "stage_b_local_index_mapping_fixed": true,
+  "stage_b_client_state_public_reveals": 0,
+  "checkpoint_kind": "per-party SPU secret shares",
+  "checkpoint_paths": {
+    "stage_b_w": [
+      "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_secretflow_spu/corrected_v2/corrected_v2_formal_tiny_full_data_seed42/stage_b/spu_shares/alice/global_w.pkl",
+      "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_secretflow_spu/corrected_v2/corrected_v2_formal_tiny_full_data_seed42/stage_b/spu_shares/bob/global_w.pkl",
+      "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_secretflow_spu/corrected_v2/corrected_v2_formal_tiny_full_data_seed42/stage_b/spu_shares/carol/global_w.pkl"
+    ],
+    "stage_b_b": [
+      "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_secretflow_spu/corrected_v2/corrected_v2_formal_tiny_full_data_seed42/stage_b/spu_shares/alice/global_b.pkl",
+      "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_secretflow_spu/corrected_v2/corrected_v2_formal_tiny_full_data_seed42/stage_b/spu_shares/bob/global_b.pkl",
+      "/root/autodl-tmp/tfe_experiments/new_checkpoints/new_secretflow_spu/corrected_v2/corrected_v2_formal_tiny_full_data_seed42/stage_b/spu_shares/carol/global_b.pkl"
+    ]
+  }
+}
