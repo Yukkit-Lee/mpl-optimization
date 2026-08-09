@@ -13,7 +13,8 @@
 修改后可以先做零训练配置检查：
 
 ```bash
-python new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py \
+/root/autodl-tmp/new_envs/distillation/bin/python \
+  new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py \
   --check-only
 ```
 
@@ -43,7 +44,8 @@ cd /root/autodl-tmp/tfe_experiments
 df -h /root/autodl-tmp
 free -h
 tmux new -s figure6_manual_tune
-python new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py \
+/root/autodl-tmp/new_envs/distillation/bin/python \
+  new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py \
   --workers 2 2>&1 | tee new_log/new_paper_adaptive/txt/new_user_tuned_attempt.log
 ```
 
@@ -57,7 +59,8 @@ python new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptiv
 ```bash
 cd /root/autodl-tmp/tfe_experiments
 tmux new -s figure6_formal
-python new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py \
+/root/autodl-tmp/new_envs/distillation/bin/python \
+  new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py \
   --workers 6 2>&1 | tee new_log/new_paper_adaptive/txt/new_user_tuned_formal.log
 ```
 
@@ -67,7 +70,8 @@ python new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptiv
 
 ```bash
 cd /root/autodl-tmp/tfe_experiments
-python new_scripts/new_paper_figures/new_build_figure6.py \
+/root/autodl-tmp/new_envs/distillation/bin/python \
+  new_scripts/new_paper_figures/new_build_figure6.py \
   --input new_log/new_paper_adaptive/new_user_tuned_fixed_vs_adaptive_formal.json \
   --output-stem new_figure6_user_tuned \
   --table new_expTab/new_paper_adaptive/new_figure6_user_tuned_summary.csv
@@ -101,3 +105,8 @@ python new_scripts/new_paper_figures/new_build_figure6.py \
 最终论文必须说明这是“相同隐私预算、分别调参”的 best-configuration 比较，而非
 matched steps/batch/LR 的单因素因果消融。调参只看 development validation；禁止
 使用 official test 或 locked holdout 选择参数。
+
+如果看到 `ModuleNotFoundError: No module named 'opacus'`，说明命令误用了
+`/root/miniconda3/bin/python`。不要在base环境重复安装依赖，直接使用上面明确写出的
+`/root/autodl-tmp/new_envs/distillation/bin/python`；该环境已验证包含
+`opacus==1.5.4`。

@@ -8,7 +8,8 @@ batch 和 Adaptive count releases 单独校准梯度噪声，使最终 epsilon �
 运行方式（仓库根目录）：
 
     tmux new -s figure6_user_tune
-    python new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py \
+    /root/autodl-tmp/new_envs/distillation/bin/python \
+        new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py \
         --workers 6
 
 ``--workers`` 是同时运行的任务数。默认最多并行六个 mode-seed 任务；它只影响
@@ -19,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import importlib.util
 import json
 import sys
 from concurrent.futures import ProcessPoolExecutor
@@ -53,6 +55,23 @@ REQUIRED_KEYS = {
     "gamma", "eta_c", "warmup_steps", "update_interval",
     "count_noise_multiplier", "c_min", "c_max", "target_epsilon", "delta",
 }
+
+# 本项目恢复好的现代环境。不要在base Python中重复安装一套Opacus；直接使用这个
+# 已验证环境，避免PyTorch/Opacus版本漂移。
+MODERN_PYTHON = ROOT.parent / "new_envs/distillation/bin/python"
+
+
+def ensure_runtime_dependencies() -> None:
+    """在创建多进程worker前检查Opacus，并给出可直接复制的中文修复命令。"""
+    if importlib.util.find_spec("opacus") is not None:
+        return
+    command = f"{MODERN_PYTHON} {Path(__file__).relative_to(ROOT)} --workers 6"
+    raise ModuleNotFoundError(
+        "当前Python环境缺少opacus，尚未启动任何训练。\n"
+        f"当前解释器: {sys.executable}\n"
+        f"请改用已恢复的modern环境执行:\n  {command}\n"
+        "也可以先运行: source /root/autodl-tmp/new_envs/distillation/bin/activate"
+    )
 
 
 def validate_config(name: str, config: dict, expected_mode: str) -> None:
@@ -129,6 +148,7 @@ def main() -> None:
     args = parser.parse_args()
     if args.workers <= 0:
         raise ValueError("--workers 必须大于0")
+    ensure_runtime_dependencies()
 
     # 这里只要求相同隐私预算；steps、LR、batch、C 等均允许不同。
     validate_config("FIXED_CONFIG", FIXED_CONFIG, "fixed_dp")

@@ -8,7 +8,8 @@ steps、学习率、batch 和裁剪参数都可以不同。
 
     tmux new -s figure6_tune
     cd /root/autodl-tmp/tfe_experiments
-    python new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py \
+    /root/autodl-tmp/new_envs/distillation/bin/python \
+        new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py \
         --workers 2
 
 正式三 seed：把 RNG_SEEDS 改回 [42, 43, 44] 后运行同一命令。结果会写入
