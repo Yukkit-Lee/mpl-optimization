@@ -4,7 +4,7 @@
 
 | 编号 | 文件/位置 | 主要证明 | 关键边界 |
 |---|---|---|---|
-| Figure 2 | `new_expFig/paper_experiment/new_figure2_dual_backend_pea_i_errorbars.{png,pdf}` | TFE和SPU的真实发布轨迹及最终效用；绝对T@Target效率由配套表证明 | development；统一发布序号横轴；TFE C10/C100 n=3，Tiny与SPU n=1；不跨后端比绝对速度 |
+| Figure 2 | `new_expFig/paper_experiment/new_figure2_dual_backend_pea_i_errorbars.{png,pdf}` | TFE完整准确率—时间轨迹；SPU最终效用—时间Pareto端点及T@90加速 | development；横轴均为累计在线安全分钟、线性无断轴；TFE C10/C100 n=3，Tiny与SPU n=1；不跨后端比绝对速度 |
 | Figure 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | 蒸馏载体更快达到冻结目标，Ours按目标处提前停止 | n=3；原冻结协议的定点只读official-test |
 | Figure 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_bars.{png,pdf}` | 异构条件下Secure Average+Anchor优于主要初始化对照 | development，seed42，n=1 |
 | Figure 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Anchor修正轨迹及初始化来源差异 | development，seed42，n=1，因此不画误差条 |

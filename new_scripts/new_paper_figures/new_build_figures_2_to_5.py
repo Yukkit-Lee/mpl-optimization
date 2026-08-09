@@ -105,11 +105,7 @@ def figure2():
         for method, color in (("full_data", FULL_BLUE), ("true_ours", OURS_RED)):
             result = master["datasets"][dataset]["methods"][method]
             curve = result["curve"]
-            # PEA Figure 2 uses iteration on x.  Use the same archived-release
-            # index definition for both backend rows so the genuine trajectory
-            # is legible without a broken or nonlinear time axis.  Absolute
-            # time-to-target remains available in the audited companion table.
-            x = np.arange(1, len(curve["time_seconds"]) + 1, dtype=int)
+            x = np.asarray(curve["time_seconds"], dtype=float) / 60.0
             y = np.asarray(curve["accuracy_mean"], dtype=float)
             std = curve["accuracy_sample_std"]
             top.plot(x, y, color=color, linewidth=2.15, linestyle="-")
@@ -119,41 +115,72 @@ def figure2():
         for target in targets:
             top.axhline(target, color="#808080", linestyle="--", linewidth=0.65, alpha=0.42)
         top.set_title(DATASET_LABELS[dataset], fontweight="bold")
-        top.set_xlabel("Archived secure release index")
+        top.set_xlabel("Cumulative online secure time (min)")
         top.text(
             0.025, 0.955, "TFE / ABY3", transform=top.transAxes, ha="left", va="top",
             fontsize=8, fontweight="bold", color="#444444",
             bbox=dict(boxstyle="round,pad=0.2", facecolor="white", edgecolor="#BBBBBB", alpha=0.88),
         )
 
-        for method, color, marker in (
-            ("full_data", SPU_FULL_ORANGE, "s"),
-            ("true_ours", SPU_OURS_CYAN, "D"),
+        t90_minutes = {}
+        for method, color, marker, label in (
+            ("full_data", SPU_FULL_ORANGE, "s", "Full Data"),
+            ("true_ours", SPU_OURS_CYAN, "D", "Ours"),
         ):
             rows = grouped[(dataset, method)]
             if not rows:
                 raise ValueError("missing SPU series {} {}".format(dataset, method))
-            x = np.arange(1, len(rows) + 1, dtype=int)
-            y = np.asarray([float(item["development_accuracy"]) for item in rows])
-            bottom.plot(
-                x, y, color=color, linewidth=1.9, linestyle="-", marker=marker,
-                markersize=4.7, markeredgecolor="white", markeredgewidth=0.45,
+            times = np.asarray(
+                [float(item["cumulative_online_secure_seconds"]) for item in rows]
+            ) / 60.0
+            accuracies = np.asarray(
+                [float(item["development_accuracy"]) for item in rows]
+            )
+            target_t90 = float(rows[0]["target_T90"])
+            reached = times[accuracies >= target_t90]
+            if len(reached) == 0:
+                raise ValueError("SPU series does not reach T@90: {} {}".format(dataset, method))
+            t90_minutes[method] = float(reached[0])
+
+            # The corrected SPU traces begin after the expensive Stage B and
+            # are already essentially converged (only 0.02--0.44pp variation).
+            # Plot the genuine final utility/time endpoint rather than joining
+            # near-constant releases into a visually misleading curve.
+            final_x = float(times[-1])
+            final_y = float(accuracies[-1])
+            bottom.scatter(
+                [final_x], [final_y], color=color, marker=marker, s=78,
+                edgecolor="white", linewidth=0.65, zorder=5,
+            )
+            offset = (-8, 0) if method == "full_data" else (8, 0)
+            bottom.annotate(
+                "{}\n{:.1f} min, {:.2%}".format(label, final_x, final_y),
+                (final_x, final_y), xytext=offset, textcoords="offset points",
+                ha="right" if method == "full_data" else "left",
+                va="center", fontsize=7.2, color=color, fontweight="bold",
             )
         for target in [
             float(grouped[(dataset, "full_data")][0][key])
             for key in ("target_T80", "target_T90", "target_T95")
         ]:
             bottom.axhline(target, color="#808080", linestyle="--", linewidth=0.65, alpha=0.42)
-        bottom.set_xlabel("Archived secure release index")
+        speedup = t90_minutes["full_data"] / t90_minutes["true_ours"]
+        bottom.set_xlabel("Total cumulative online secure time (min; lower is better)")
         bottom.text(
-            0.025, 0.955, "SecretFlow-SPU", transform=bottom.transAxes, ha="left", va="top",
+            0.025, 0.955, "SecretFlow-SPU endpoints", transform=bottom.transAxes, ha="left", va="top",
             fontsize=8, fontweight="bold", color="#444444",
             bbox=dict(boxstyle="round,pad=0.2", facecolor="white", edgecolor="#BBBBBB", alpha=0.88),
         )
+        bottom.text(
+            0.975, 0.955, "Ours T@90: {:.2f}x faster".format(speedup),
+            transform=bottom.transAxes, ha="right", va="top", fontsize=8,
+            fontweight="bold", color=SPU_OURS_CYAN,
+            bbox=dict(boxstyle="round,pad=0.2", facecolor="white", edgecolor=SPU_OURS_CYAN, alpha=0.88),
+        )
 
         for ax in (top, bottom):
-            # One small integer field and one linear presentation in both rows.
-            # Explicit plain ticks prevent scientific-offset labels.
+            # Both rows use measured cumulative online secure time in minutes.
+            # Plain linear ticks avoid broken axes and scientific-offset labels.
             ax.set_xscale("linear")
             ax.xaxis.set_major_locator(MaxNLocator(5))
             ax.ticklabel_format(axis="x", style="plain", useOffset=False)
@@ -165,18 +192,18 @@ def figure2():
     handles = [
         Line2D([0], [0], color=FULL_BLUE, lw=2.2, ls="-", label="TFE Full Data"),
         Line2D([0], [0], color=OURS_RED, lw=2.2, ls="-", label="TFE Ours"),
-        Line2D([0], [0], color=SPU_FULL_ORANGE, lw=2.2, ls="-", marker="s", label="SPU Full Data"),
-        Line2D([0], [0], color=SPU_OURS_CYAN, lw=2.2, ls="-", marker="D", label="SPU Ours"),
+        Line2D([0], [0], color=SPU_FULL_ORANGE, lw=0, marker="s", markersize=7, label="SPU Full Data endpoint"),
+        Line2D([0], [0], color=SPU_OURS_CYAN, lw=0, marker="D", markersize=7, label="SPU Ours endpoint"),
         Line2D([0], [0], color="#808080", lw=0.8, ls="--", label="T@80/90/95"),
     ]
     fig.legend(handles=handles, loc="lower center", ncol=5, frameon=False, bbox_to_anchor=(0.5, -0.002))
-    fig.suptitle("Utility trajectories across archived secure releases", fontweight="bold")
+    fig.suptitle("Secure-training utility versus cumulative online time", fontweight="bold")
     fig.text(
         0.5,
         -0.047,
         "I-bars show sample standard deviation for TFE n=3; Tiny TFE and all SPU panels are n=1. "
-        "Both rows use the same integer archived-release index on linear, unbroken axes; SPU has 8/2/18 genuine releases per method. "
-        "Absolute cumulative secure time and T@80/90/95 are reported in the audited companion table; backend rows are not hardware-normalized.",
+        "Top: complete TFE accuracy-time trajectories. Bottom: genuine final SPU utility/time endpoints; near-flat post-Stage-B releases are not joined into pseudo-convergence curves. "
+        "All x values are measured cumulative online secure minutes on linear, unbroken axes; T@Target values are in the audited companion table. Backend rows are not hardware-normalized.",
         ha="center",
         fontsize=8,
     )
