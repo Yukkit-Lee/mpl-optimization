@@ -111,7 +111,7 @@ sign of the result.
 - [x] Implement a manuscript figure builder with hard source assertions.
 - [x] Generate and visually inspect Figures 2--5 in PNG and PDF.
 - [x] Update English/Chinese captions and paths.
-- [ ] Ask the user whether Table 4 should be removed after showing the new
+- [x] Ask the user whether Table 4 should be removed after showing the new
   Figure 4 and explaining retained information.
 
 ### Phase C — Adaptive diagnostic and formal run
@@ -119,9 +119,9 @@ sign of the result.
 - [x] Audit the latest initializer-to-Stage-C code boundary.
 - [x] Freeze the bounded screen, metrics, seeds, and acceptance criterion.
 - [x] Run the plaintext screen in tmux at maximum safe CPU utilization.
-- [ ] Freeze finalists; run the smallest matched formal matrix needed for the
+- [x] Freeze finalists; run the smallest matched formal matrix needed for the
   stated criterion, with interruption recovery and complete provenance.
-- [ ] Generate Figure 6, Table 5, and an honest result report.
+- [x] Generate Figure 6, Table 5, and an honest result report.
 
 ### Phase D — external and systems evidence
 
@@ -132,9 +132,9 @@ sign of the result.
 
 ### Phase E — manuscript and repository completion
 
-- [ ] Update both language versions of Section 5.
-- [ ] Run artifact/hash/path/numerical-boundary audits and inspect every PNG.
-- [ ] Update progress and final report, commit, and push to
+- [x] Update both language versions of Section 5.
+- [x] Run artifact/hash/path/numerical-boundary audits and inspect every PNG.
+- [x] Update progress and final report, commit, and push to
   `unified-experiments`.
 
 ## 6. Stop conditions

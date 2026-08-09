@@ -1,0 +1,99 @@
+{
+  "by_seed": {
+    "42": {
+      "fixed": {
+        "seed": 42,
+        "mode": "fixed_dp",
+        "final_accuracy": 0.5886,
+        "best_accuracy": 0.591,
+        "early_auc": 0.5827166666666667,
+        "final_c": 2.0,
+        "noise_multiplier": 1.212443875622383,
+        "accounted_epsilon": 2.999999999999912,
+        "count_releases": 0,
+        "runtime_seconds": 5.840258359909058
+      },
+      "adaptive": {
+        "seed": 42,
+        "mode": "adaptive_dp",
+        "final_accuracy": 0.5882,
+        "best_accuracy": 0.59,
+        "early_auc": 0.58215,
+        "final_c": 1.3458193032495294,
+        "noise_multiplier": 1.2132567857604013,
+        "accounted_epsilon": 2.9999999999999045,
+        "count_releases": 63,
+        "runtime_seconds": 6.179717779159546
+      },
+      "adaptive_minus_fixed_pp": -0.0400000000000067,
+      "adaptive_minus_fixed_early_auc_pp": -0.05666666666667153
+    },
+    "43": {
+      "fixed": {
+        "seed": 43,
+        "mode": "fixed_dp",
+        "final_accuracy": 0.5844,
+        "best_accuracy": 0.5868,
+        "early_auc": 0.5820333333333334,
+        "final_c": 2.0,
+        "noise_multiplier": 1.212443875622383,
+        "accounted_epsilon": 2.999999999999912,
+        "count_releases": 0,
+        "runtime_seconds": 5.781652212142944
+      },
+      "adaptive": {
+        "seed": 43,
+        "mode": "adaptive_dp",
+        "final_accuracy": 0.5878,
+        "best_accuracy": 0.5878,
+        "early_auc": 0.5827666666666667,
+        "final_c": 1.4927719265963406,
+        "noise_multiplier": 1.2132567857604013,
+        "accounted_epsilon": 2.9999999999999045,
+        "count_releases": 63,
+        "runtime_seconds": 6.78818416595459
+      },
+      "adaptive_minus_fixed_pp": 0.33999999999999586,
+      "adaptive_minus_fixed_early_auc_pp": 0.07333333333332526
+    },
+    "44": {
+      "fixed": {
+        "seed": 44,
+        "mode": "fixed_dp",
+        "final_accuracy": 0.5872,
+        "best_accuracy": 0.5888,
+        "early_auc": 0.5848833333333334,
+        "final_c": 2.0,
+        "noise_multiplier": 1.212443875622383,
+        "accounted_epsilon": 2.999999999999912,
+        "count_releases": 0,
+        "runtime_seconds": 5.907439708709717
+      },
+      "adaptive": {
+        "seed": 44,
+        "mode": "adaptive_dp",
+        "final_accuracy": 0.5882,
+        "best_accuracy": 0.589,
+        "early_auc": 0.5849166666666666,
+        "final_c": 1.3264882861580107,
+        "noise_multiplier": 1.2132567857604013,
+        "accounted_epsilon": 2.9999999999999045,
+        "count_releases": 63,
+        "runtime_seconds": 6.595746040344238
+      },
+      "adaptive_minus_fixed_pp": 0.09999999999998899,
+      "adaptive_minus_fixed_early_auc_pp": 0.003333333333321864
+    }
+  },
+  "mean_adaptive_minus_fixed_pp": 0.13333333333332606,
+  "sample_std_adaptive_minus_fixed_pp": 0.19218047073866273,
+  "mean_adaptive_minus_fixed_early_auc_pp": 0.006666666666658531,
+  "checks": {
+    "mean_final_gain_at_least_threshold": false,
+    "same_positive_sign_all_seeds": false,
+    "adaptive_mean_early_auc_not_worse": true,
+    "epsilon_all_matched": true
+  },
+  "positive_rule_pass": false,
+  "tfe_formal_authorized_by_gate": false
+}

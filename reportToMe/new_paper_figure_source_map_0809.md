@@ -8,6 +8,7 @@
 | 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | Nine frozen Module-A JSON runs | n=3 with sample-SD I-bars | Official-test values from fixed-interval read-only formal reporting; Ours truncated at last seed's first frozen-target release |
 | 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_lollipop.{png,pdf}` | Stage-B initialization-source ablation CSV | seed42, n=1, no bars | Development validation; no test or locked holdout read |
 | 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Stage-B trajectory JSON | seed42, n=1, no bars | Development validation; no test or locked holdout read |
+| 6 | `new_expFig/paper_experiment/new_figure6_adaptive_clipping_matched_pea.{png,pdf}` | Frozen latest-initializer formal plaintext JSON | n=3 with sample-SD I-bars | CIFAR-10 development validation; conditional Stage-C epsilon=3; clipped fraction is a non-private diagnostic |
 
 The builder is `new_scripts/new_paper_figures/new_build_figures_2_to_5.py`.
 It aborts on missing files, incomplete master status, an unexpected evaluation
@@ -27,8 +28,10 @@ scope, or a Stage-B test/holdout flag.
    The redesigned plot makes the heterogeneity pattern easier to read, while the
    table preserves exact values. Table 4 should be removed only after the user
    decides whether exact in-body values are worth the duplication.
-5. Figure 6 and Table 5 remain pending a new matched Adaptive experiment. The
-   historical Fixed-vs-Adaptive grid is negative and cannot be relabeled as a
-   positive contribution.
+5. Figure 6 and Table 5 use the preregistered formal seeds 42/43/44 after a
+   bounded screen. Adaptive gains `+0.133 +/- 0.192 pp` over Fixed, below the
+   preregistered `+1 pp` gate and with one negative seed. TFE was therefore not
+   authorized; this is functional threshold tracking, not a positive utility
+   contribution.
 6. Figure 7 is not yet supported by a matched owner-count × dimension × network
    matrix. It should be skipped unless the evidentiary gain justifies that cost.

@@ -1,13 +1,13 @@
 # Unified Experiment Report
 
-更新时间：2026-08-08（UTC）
+更新时间：2026-08-09（UTC）
 权威分支：`unified-experiments`
 原统一审计提交：`704755d70d2475a6a306a1b09e4e5e65195baf6c`；本次合并验收源：
 `new-secretflow-spu-end2end@cfa2b9a`
 
 本报告是仓库当前唯一权威的跨实验总结。所有数字均由已跟踪的 CSV/JSON
 重新读取并通过 cardinality、状态、数据边界、SHA256 与 Git lineage 审计；
-本次没有启动训练、TFE 或任何正式实验。
+8月8日统一验收未启动实验；8月9日仅新增一组预注册的三种子Adaptive明文门控，门控失败后未启动TFE。
 
 ## 1. 总结结论
 
@@ -18,7 +18,8 @@
 5. disagreement weighting/top-selection与heterogeneity-trigger routing均为完成的负结果，不能包装为正模块。
 6. Stage-C epsilon只覆盖条件式Stage-C机制；数据依赖的Stage-B initializer非record-level DP，因此不能声称端到端DP。
 7. 当前权威True Ours与Post-Aggregation均未读取official test或locked holdout；历史final-test数字不进入当前主结论。
-8. corrected-v2 SecretFlow-SPU六条seed42均完成并复现同后端T@90定性趋势；可作单seed系统补充，但新SPU图仍有`features=…`占位符，dual-backend图也不是严格硬件归一化对比。
+8. corrected-v2 SecretFlow-SPU六条seed42均完成并复现同后端T@90定性趋势；新的2x3论文Figure 2已移除占位框并纳入TFE三seed误差条，但仍不是跨后端硬件归一化比较。
+9. 使用最新C5 initializer的Adaptive三种子正式明文门控仅比Fixed高0.133pp，未达到预注册+1pp且seed42为负；因此未启动TFE，不能将Adaptive包装成正效用模块。
 
 ## 2. Stage A：Official MTT样本效率
 
@@ -108,15 +109,27 @@ H1--H3能测IID→Mild→Severe标签偏斜，但uniform anchor CE在六场均�
 
 该历史消融中Adaptive没有持续效用优势，适合作为负/机制消融。当前True Ours Stage C使用Adaptive，但epsilon只对条件式Stage-C机制成立。
 
-### 6.2 历史End-to-End
+### 6.2 最新initializer的正式Adaptive门控（2026-08-09）
+
+| CIFAR-10, ε=3, n=3 | Final dev accuracy | Early AUC | Final C | Count releases |
+|---|---:|---:|---:|---:|
+| Fixed DP | 58.673% ± 0.214pp | 58.321% ± 0.149pp | 2.000 ± 0.000 | 0 |
+| Adaptive DP | 58.807% ± 0.023pp | 58.328% ± 0.145pp | 1.388 ± 0.091 | 63 |
+
+Adaptive−Fixed为`+0.133 ± 0.192pp`，逐seed为`-0.040/+0.340/+0.100pp`。
+两者epsilon均为3，Adaptive会计包含63次count release。该结果未通过预注册的
+均值至少+1pp且三seed同号门槛，因此没有启动TFE；它证明自适应阈值跟踪可运行，
+不证明效用优于最佳Fixed。Figure 6与Table 5已据此如实改写。
+
+### 6.3 历史End-to-End
 
 早期18/18 Random-subset Fixed vs Official-MTT Consensus Adaptive结果可以作为历史补充证据，但协议已被当前Full Data vs True Ours公平主比较取代，不应进入当前主表。
 
-### 6.3 TFE系统表
+### 6.4 TFE系统表
 
 旧`new_tfe_system_formal.csv`的runtime/RSS为0占位值，不是可发表系统测量。当前可用的真实系统数据来自True Ours timeline与Post-Aggregation TFE runtime/resource表；通信字节与轮数仍为N/A。
 
-### 6.4 Corrected SecretFlow-SPU后端（seed42）
+### 6.5 Corrected SecretFlow-SPU后端（seed42）
 
 | Dataset | Method | Dev acc | Stage-B online | Stage-C online | Total online | T@90 | Peak memory |
 |---|---|---:|---:|---:|---:|---:|---:|
@@ -129,7 +142,7 @@ H1--H3能测IID→Mild→Severe标签偏斜，但uniform anchor CE在六场均�
 
 六条均为SecretFlow-SPU device API、ABY3/FM128/fxp16、seed42、development-only，conditional Stage-C `epsilon=3, delta=1e-5`；Stage-B client-state public reveal为0。独立验收确认report/trace SHA、完整冻结参数和runner SHA一致。True Ours在同一SPU后端首次观察到T@90的时间比Full短约9.4x/2.4x/3.5x，但这是单seed、backend-internal比较。
 
-当前仍有三个呈现/审计缺口：SPU Figure 2顶部feature count是占位符；结果builder的freeze hard gate没有在代码中覆盖所有冻结字段（本次已在外部逐项确认实际匹配）；正式report没有保存accountant版本、sample rate、count steps和state/config hash等完整provenance。旧Tiny Full只证明未解析的runtime crash，新结果可以说chunk后该cell成功完成，不能反向宣称旧故障已被直接证明为OOM。
+当前仍有两个审计缺口：结果builder的freeze hard gate没有在代码中覆盖所有冻结字段（本次已在外部逐项确认实际匹配）；正式report没有保存accountant版本、sample rate、count steps和state/config hash等完整provenance。旧Tiny Full只证明未解析的runtime crash，新结果可以说chunk后该cell成功完成，不能反向宣称旧故障已被直接证明为OOM。旧SPU 1x3图中的feature占位符不再使用，论文改用无summary box的新2x3 Figure 2。
 
 ## 7. 当前论文就绪度
 
@@ -144,7 +157,7 @@ H1--H3能测IID→Mild→Severe标签偏斜，但uniform anchor CE在六场均�
 | KD/Consensus causality | COMPLETE_NEGATIVE | 负消融；不可声称独立贡献 |
 | Disagreement refinement | COMPLETE_NEGATIVE | 负消融；TFE按门控跳过 |
 | Heterogeneity trigger | COMPLETE_NEGATIVE | 负消融；TFE按门控跳过 |
-| Fixed vs Adaptive | SUPPLEMENTARY_NEGATIVE | Adaptive无持续显著优势 |
+| Latest-initializer Fixed vs Adaptive | COMPLETE_NON_SUPERIOR | 主文Figure 6/Table 5可用于诚实负消融；TFE按门控跳过 |
 | Current official-test main table | NOT_AVAILABLE | 当前权威路线未读取official test |
 | End-to-end record-level DP | NOT_SUPPORTED | Stage-B initializer数据依赖且非DP |
 | Communication reduction | NOT_MEASURED | 不得声称 |
@@ -167,11 +180,12 @@ H1--H3能测IID→Mild→Severe标签偏斜，但uniform anchor CE在六场均�
 - Corrected SPU验收与论文图表清单：`reportToMe/new_spu_corrected_v2_acceptance_and_paper_figure_inventory.md`
 - Corrected SPU主表：`new_output/new_secretflow_spu/corrected_v2/new_spu_corrected_v2_end2end_main_table.csv`
 - Corrected SPU哈希：`new_log/new_secretflow_spu/corrected_v2/new_spu_corrected_v2_hash_manifest.json`
+- 论文Figure 2--6 source map：`reportToMe/new_paper_figure_source_map_0809.md`
+- 最新Adaptive正式评估：`reportToMe/new_adaptive_latest_initializer_formal_assessment_0809.md`
 
 ## 10. 剩余缺口
 
 - 若投稿主表必须报告official test，需要另行设计一次冻结后、可审计的最终读取；本次未运行。
 - Post-Aggregation正结果目前只有seed42；若要声称跨seed稳定，需未来补seed43/44。
-- 外部方法PEA/CaPC/DDGauss精确对比仍需从原论文/官方仓库核对。
 - 通信量没有测量，系统表只能报告实际secure runtime和RSS。
-- 把corrected SPU图中的`features=…`替换为真实计数，并补齐结果builder完整freeze硬门与正式report accountant provenance；这些是呈现/审计修复，不要求重跑已有六条实验。
+- 补齐SPU结果builder完整freeze硬门与正式report accountant provenance；这些是审计修复，不要求重跑已有六条实验。

@@ -1,0 +1,30 @@
+{
+  "schema": "new_paper_experiment_completion_audit_0809_v1",
+  "status": "PASS",
+  "branch": "unified-experiments",
+  "source_commit_for_formal_gate": "e4b7e32",
+  "formal_result_sha256": "3709c4d4d28cf766b551784e427349394fd01e0a62a7111fa27424cff5abc858",
+  "formal_per_run_csv_sha256": "4b069bf751650e585e037c5361d29b0ccde445c36990ee2a6af45519fc96e7fe",
+  "checks": {
+    "formal_six_runs_complete": true,
+    "epsilon_all_matched": true,
+    "official_test_read": false,
+    "locked_holdout_read": false,
+    "adaptive_positive_rule_pass": false,
+    "tfe_formal_launched": false,
+    "manuscript_image_paths_exist": true,
+    "manuscript_result_placeholders_absent": true,
+    "figures_2_to_6_png_pdf_readable": true,
+    "figure_6_visually_inspected": true,
+    "figure_7_omission_documented": true,
+    "table_4_retained_pending_user_decision": true
+  },
+  "figure_sha256": {
+    "figure2_png": "34e125d4b4fec86c765579d1478dab767899e9736cd5853353daf98f8df112e8",
+    "figure3_png": "4ae9720c119cf6083eef25c2da42a249e7d0ce6705b2d1782079b8c10a88d225",
+    "figure4_png": "39a0d079a2bed8e81ae3a4f51690c74c906ae3d5331ca0f1479927847a0f235d",
+    "figure5_png": "b2c355f1136c520c10958d90939998364a5e07d28cfba8a99ae646a09eefef75",
+    "figure6_png": "49fdf55f24a22679326eb6d8861828c55e7f767a63d667bf23db218e545f0287"
+  },
+  "scientific_boundary": "Adaptive tracks the clipping bound but is non-superior under the preregistered utility gate; no TFE follow-up is authorized."
+}
