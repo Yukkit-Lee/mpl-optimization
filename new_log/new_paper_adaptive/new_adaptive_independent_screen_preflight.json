@@ -1,0 +1,42 @@
+{
+  "schema": "new_adaptive_independent_screen_preflight_v1",
+  "status": "READY_NOT_STARTED",
+  "branch": "unified-experiments",
+  "source_commit_requirement": "commit and push all listed code/config before tmux launch",
+  "hardware": {
+    "logical_cpus_visible": 32,
+    "cpu_model": "Intel Xeon Platinum 8352V",
+    "cgroup_cpu_quota_cores": 32,
+    "cgroup_memory_limit_gib": 60,
+    "host_memory_available_gib_at_preflight": 220,
+    "disk_free_gib_at_preflight": 29,
+    "gpu_required": false,
+    "active_experiment_processes": 0,
+    "active_tmux_sessions": 0
+  },
+  "execution": {
+    "tmux_session": "paper_adaptive_independent_screen_0809",
+    "workers": 24,
+    "candidate_count": 400,
+    "thread_limit_injected": false,
+    "exact_command": "cd /root/autodl-tmp/tfe_experiments && /root/autodl-tmp/new_envs/distillation/bin/python new_scripts/new_paper_adaptive/new_tune_adaptive_only_latest_initializer.py --workers 24 2>&1 | tee new_log/new_paper_adaptive/txt/new_adaptive_independent_screen.log"
+  },
+  "sha256": {
+    "freeze": "d78c60d8970e0187fa2c0dcd86443ed1411ea7fa68eb1dc5b110d7e62f61bb3e",
+    "screen_runner": "9b1e0f4f52194950a598163b62f199b50eee543fffaf00938d2b0554da7a93cd",
+    "formal_runner": "2a3e1fee4765c54b1f1aaa426e6805642f6c82446ab15ad0352d62e444eb53b0",
+    "figure6_builder": "50fdc0127eedfe91d4ef62cd1976cbc25153258d429e7624d093cc96ff068ee0",
+    "fixed_result_source": "3709c4d4d28cf766b551784e427349394fd01e0a62a7111fa27424cff5abc858",
+    "initializer": "c7156719beb18f58dc5d539afca061627e91b7c722c7415bf415a710843ab3ec",
+    "feature_cache": "3a36afc71b800fee5069bf158c427efcc0f451dadfc8aca9d469cd7e707d719c"
+  },
+  "boundaries": {
+    "fixed_rerun": false,
+    "fixed_tuning": false,
+    "adaptive_only_screen": true,
+    "shared_condition": "epsilon=3, delta=1e-5, data, initializer, evaluation split",
+    "official_test_read": false,
+    "locked_holdout_read": false,
+    "privacy_scope": "conditional_stage_c_only"
+  }
+}

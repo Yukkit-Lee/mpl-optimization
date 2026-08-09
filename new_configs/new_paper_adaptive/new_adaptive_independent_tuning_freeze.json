@@ -1,0 +1,58 @@
+{
+  "schema": "new_adaptive_independent_tuning_freeze_v1",
+  "status": "FROZEN_BEFORE_ADAPTIVE_ONLY_SCREEN",
+  "dataset": "cifar10",
+  "evaluation_split": "development_validation",
+  "official_test_read": false,
+  "locked_holdout_read": false,
+  "initializer": "new_output/new_stage_b_anchor_postagg/tfe_validation/cifar10/seed42/new_stage_b_anchor_postagg_tfe_model_cifar10_seed42.npz",
+  "initializer_member": "c5_weight/c5_bias",
+  "feature_cache": "new_cache/new_true_ours/official_mtt/stage_c/cifar10/new_true_ours_stage_c_cifar10_seed42.npz",
+  "fixed_result_source": "new_log/new_paper_adaptive/new_adaptive_latest_initializer_formal_plaintext.json",
+  "fixed_immutable": {
+    "mode": "fixed_dp",
+    "steps": 320,
+    "learning_rate": 0.001,
+    "clip_c": 2.0,
+    "rng_seeds": [42, 43, 44]
+  },
+  "shared_privacy_only": {
+    "target_epsilon": 3.0,
+    "delta": 1e-5
+  },
+  "screen_rng_seed": 17,
+  "formal_rng_seeds": [42, 43, 44],
+  "adaptive_defaults": {
+    "mode": "adaptive_dp",
+    "steps": 320,
+    "learning_rate": 0.001,
+    "expected_batch_size": 16,
+    "clip_c": 2.0,
+    "gamma": 0.5,
+    "eta_c": 0.02,
+    "warmup_steps": 5,
+    "update_interval": 5,
+    "count_noise_multiplier": 8.0,
+    "c_min": 0.05,
+    "c_max": 4.0
+  },
+  "stages": {
+    "adaptive_budget_lr_batch": {
+      "steps": [160, 320, 640, 960],
+      "learning_rate": [0.0005, 0.001, 0.002, 0.003, 0.005, 0.008, 0.01],
+      "expected_batch_size": [8, 16, 32, 64]
+    },
+    "adaptive_controller": {
+      "initial_c": [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0],
+      "gamma": [0.1, 0.3, 0.5, 0.7, 0.9],
+      "eta_c": [0.005, 0.01, 0.02, 0.05, 0.1, 0.2]
+    },
+    "adaptive_update_schedule": {
+      "warmup_steps": [0, 5, 10, 20],
+      "update_interval": [2, 5, 10, 20],
+      "count_noise_multiplier": [4.0, 8.0, 16.0]
+    }
+  },
+  "selection_rule": "adaptive only: maximize final development-validation accuracy, then early AUC, then lower runtime; fixed result is never rerun or used to choose an adaptive candidate",
+  "comparison_scope": "same epsilon/data/initializer/evaluation only; optimizer and compute parameters may differ by user-authorized advisor-approved protocol"
+}
