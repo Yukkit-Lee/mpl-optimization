@@ -4,9 +4,9 @@
 
 | Figure | Output | Frozen sources | Repeats / uncertainty | Audited boundary |
 |---|---|---|---|---|
-| 2 | `new_expFig/paper_experiment/new_figure2_dual_backend_pea_i_errorbars.{png,pdf}` | `new_true_ours_master_results.json`; corrected-v2 SPU plot CSV | TFE CIFAR: n=3 with sample-SD I-bars; TFE Tiny/SPU: n=1, no bars | Development validation; conditional Stage-C epsilon; rows not hardware-normalized |
-| 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | Nine frozen Module-A JSON runs | n=3 with sample-SD I-bars | Official-test values from fixed-interval read-only formal reporting; Ours truncated at last seed's first frozen-target release |
-| 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_lollipop.{png,pdf}` | Stage-B initialization-source ablation CSV | seed42, n=1, no bars | Development validation; no test or locked holdout read |
+| 2 | `new_expFig/paper_experiment/new_figure2_dual_backend_pea_i_errorbars.{png,pdf}` | `new_true_ours_master_results.json`; corrected-v2 SPU plot CSV | TFE CIFAR: n=3 with sample-SD I-bars; TFE Tiny/SPU: n=1, no bars | Development validation; conditional Stage-C epsilon; rows not hardware-normalized; SPU insets expose all genuine 8/2/18 releases |
+| 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | Nine frozen Module-A JSON runs | n=3 with sample-SD I-bars | Official-test values from fixed-interval read-only formal reporting; per-seed convergence requires all later points within terminal +/-0.5pp, then uses latest seed cut |
+| 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_bars.{png,pdf}` | Stage-B initialization-source ablation CSV | seed42, n=1, no error bars | Development validation; 2x3 grouped bars; no test or locked holdout read |
 | 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Stage-B trajectory JSON | seed42, n=1, no bars | Development validation; no test or locked holdout read |
 | 6 | `new_expFig/paper_experiment/new_figure6_adaptive_clipping_matched_pea.{png,pdf}` | Frozen latest-initializer formal plaintext JSON | n=3 with sample-SD I-bars | CIFAR-10 development validation; conditional Stage-C epsilon=3; clipped fraction is a non-private diagnostic |
 

@@ -6,7 +6,7 @@
 |---|---|---|---|
 | Figure 2 | `new_expFig/paper_experiment/new_figure2_dual_backend_pea_i_errorbars.{png,pdf}` | TFE和SPU内部，Ours比Full更快达到目标 | development；TFE C10/C100 n=3，Tiny与SPU n=1；不跨后端比绝对速度 |
 | Figure 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | 蒸馏载体更快达到冻结目标，Ours按目标处提前停止 | n=3；原冻结协议的定点只读official-test |
-| Figure 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_lollipop.{png,pdf}` | 异构条件下Secure Average+Anchor优于主要初始化对照 | development，seed42，n=1 |
+| Figure 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_bars.{png,pdf}` | 异构条件下Secure Average+Anchor优于主要初始化对照 | development，seed42，n=1 |
 | Figure 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Anchor修正轨迹及初始化来源差异 | development，seed42，n=1，因此不画误差条 |
 | Figure 6 | `new_expFig/paper_experiment/new_figure6_adaptive_clipping_matched_pea.{png,pdf}` | Adaptive能跟踪阈值，但没有证明优于最佳Fixed | CIFAR-10 development，n=3，epsilon=3；被裁剪比例是非私有诊断 |
 | Table 4 | `初稿_真实密态环境.md` §5.4 | Figure 4的精确数值 | 与Figure 4重复；等待用户决定移到补充材料或保留 |
