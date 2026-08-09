@@ -1,0 +1,24 @@
+{
+  "schema": "new_adaptive_independent_formal_preflight_v1",
+  "status": "READY_NOT_STARTED",
+  "branch": "unified-experiments",
+  "tmux_session": "paper_adaptive_independent_formal_0809",
+  "exact_command": "cd /root/autodl-tmp/tfe_experiments && /root/autodl-tmp/new_envs/distillation/bin/python new_scripts/new_paper_adaptive/new_run_adaptive_independent_formal.py --workers 3 2>&1 | tee new_log/new_paper_adaptive/txt/new_adaptive_independent_formal.log",
+  "adaptive_tasks": 3,
+  "fixed_tasks": 0,
+  "sha256": {
+    "formal_freeze": "e6fa321073e1ba770518836990094944909dd02f307061f0d2cbad53d04247f2",
+    "formal_runner": "2a3e1fee4765c54b1f1aaa426e6805642f6c82446ab15ad0352d62e444eb53b0",
+    "screen_result": "d62be3ca77fe5c3c38107699cb7e26669c93478c307fd50c06edae858aca596e",
+    "fixed_result_source": "3709c4d4d28cf766b551784e427349394fd01e0a62a7111fa27424cff5abc858"
+  },
+  "boundaries": {
+    "fixed_rerun": false,
+    "fixed_parameters_immutable": true,
+    "adaptive_config_frozen_before_formal": true,
+    "official_test_read": false,
+    "locked_holdout_read": false,
+    "target_epsilon": 3.0,
+    "privacy_scope": "conditional_stage_c_only"
+  }
+}

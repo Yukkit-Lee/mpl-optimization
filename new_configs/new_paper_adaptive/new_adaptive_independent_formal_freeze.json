@@ -1,0 +1,44 @@
+{
+  "schema": "new_adaptive_independent_formal_freeze_v1",
+  "status": "FROZEN_BEFORE_ADAPTIVE_FORMAL",
+  "source_screen": "new_log/new_paper_adaptive/new_adaptive_independent_screen.json",
+  "source_screen_sha256": "d62be3ca77fe5c3c38107699cb7e26669c93478c307fd50c06edae858aca596e",
+  "fixed_result_source": "new_log/new_paper_adaptive/new_adaptive_latest_initializer_formal_plaintext.json",
+  "fixed_result_source_sha256": "3709c4d4d28cf766b551784e427349394fd01e0a62a7111fa27424cff5abc858",
+  "fixed_immutable": {
+    "mode": "fixed_dp",
+    "steps": 320,
+    "learning_rate": 0.001,
+    "clip_c": 2.0,
+    "rng_seeds": [42, 43, 44]
+  },
+  "formal_rng_seeds": [42, 43, 44],
+  "adaptive_config": {
+    "mode": "adaptive_dp",
+    "steps": 160,
+    "learning_rate": 0.003,
+    "expected_batch_size": 32,
+    "clip_c": 2.0,
+    "gamma": 0.5,
+    "eta_c": 0.1,
+    "warmup_steps": 0,
+    "update_interval": 5,
+    "count_noise_multiplier": 16.0,
+    "c_min": 0.05,
+    "c_max": 4.0,
+    "target_epsilon": 3.0,
+    "delta": 1e-5
+  },
+  "selection_result": {
+    "candidate_count": 400,
+    "screen_rng_seed": 17,
+    "final_development_accuracy": 0.6044,
+    "early_auc": 0.5896166666666667,
+    "final_c": 1.219566685385553,
+    "gradient_noise_multiplier": 1.5608125224422842,
+    "count_releases": 32
+  },
+  "comparison_scope": "same epsilon/data/initializer/evaluation; independently tuned optimizer and compute parameters",
+  "official_test_read": false,
+  "locked_holdout_read": false
+}

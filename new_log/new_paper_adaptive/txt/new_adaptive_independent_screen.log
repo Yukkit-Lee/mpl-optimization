@@ -1,0 +1,24 @@
+{
+  "candidate_count": 400,
+  "best_adaptive": {
+    "stage": "winner",
+    "steps": 160,
+    "learning_rate": 0.003,
+    "expected_batch_size": 32,
+    "initial_c": 2.0,
+    "gamma": 0.5,
+    "eta_c": 0.1,
+    "warmup_steps": 0,
+    "update_interval": 5,
+    "count_noise_multiplier": 16.0,
+    "final_accuracy": 0.6044,
+    "best_accuracy": 0.6044,
+    "early_auc": 0.5896166666666667,
+    "final_c": 1.219566685385553,
+    "gradient_noise_multiplier": 1.5608125224422842,
+    "accounted_epsilon": 2.999999999999914,
+    "count_releases": 32,
+    "runtime_seconds": 8.418976068496704
+  },
+  "output": "new_log/new_paper_adaptive/new_adaptive_independent_screen.json"
+}
