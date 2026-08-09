@@ -28,8 +28,8 @@ DATASET_LABELS = {
 FULL_BLUE = "#2C7BB6"
 OURS_RED = "#D7191C"
 ORANGE = "#FDAE61"
-SPU_FULL_ORANGE = "#FF7F0E"
-SPU_OURS_CYAN = "#17BECF"
+SPU_FULL_SAMPLENET_NP = "#E377C2"
+SPU_OURS_SAMPLENET_DP = "#9467BD"
 DARK = "#333333"
 
 
@@ -97,15 +97,10 @@ def figure2():
             if any(right <= left for left, right in zip(times, times[1:])):
                 raise ValueError("SPU cumulative time is not strictly increasing")
 
-    fig = plt.figure(figsize=(16.0, 8.8))
-    outer = fig.add_gridspec(
-        2, 3, height_ratios=(1.0, 1.0), hspace=0.30, wspace=0.28
-    )
+    # Figure 2(a): retain the original TFE accuracy/time visual grammar.
+    fig, axes = plt.subplots(1, 3, figsize=(15.8, 4.5))
     for col_idx, dataset in enumerate(DATASETS):
-        top = fig.add_subplot(outer[0, col_idx])
-        short_grid = outer[1, col_idx].subgridspec(1, 2, wspace=0.08)
-        short_left = fig.add_subplot(short_grid[0, 0])
-        short_right = fig.add_subplot(short_grid[0, 1], sharey=short_left)
+        top = axes[col_idx]
         targets = list(master["datasets"][dataset]["targets"].values())
         for method, color in (("full_data", FULL_BLUE), ("true_ours", OURS_RED)):
             result = master["datasets"][dataset]["methods"][method]
@@ -131,7 +126,27 @@ def figure2():
             fontsize=8, fontweight="bold", color="#444444",
             bbox=dict(boxstyle="round,pad=0.2", facecolor="white", edgecolor="#BBBBBB", alpha=0.88),
         )
+        top.yaxis.set_major_formatter(PercentFormatter(1.0))
+        top.grid(True, alpha=0.16)
+        top.set_ylabel("Development-validation accuracy")
+    tfe_handles = [
+        Line2D([0], [0], color=FULL_BLUE, lw=2.2, label="Full Data"),
+        Line2D([0], [0], color=OURS_RED, lw=2.2, label="Ours"),
+        Line2D([0], [0], color="#808080", lw=0.8, ls="--", label="T@80/90/95"),
+    ]
+    fig.legend(tfe_handles, [h.get_label() for h in tfe_handles], loc="lower center", ncol=3, frameon=False, bbox_to_anchor=(0.5, -0.005))
+    fig.suptitle("TFE / ABY3: development accuracy versus cumulative online secure time", fontweight="bold")
+    fig.subplots_adjust(left=0.07, right=0.985, top=0.86, bottom=0.20, wspace=0.28)
+    save(fig, "new_figure2a_tfe_pea_i_errorbars")
 
+    # Figure 2(b): SPU gets its own y semantics and layout.  PEA Figure 2's
+    # SampleNet-NP pink and SampleNet-DP purple are used for Full and Ours.
+    fig = plt.figure(figsize=(16.0, 4.8))
+    outer = fig.add_gridspec(1, 3, wspace=0.28)
+    for col_idx, dataset in enumerate(DATASETS):
+        short_grid = outer[0, col_idx].subgridspec(1, 2, wspace=0.08)
+        short_left = fig.add_subplot(short_grid[0, 0])
+        short_right = fig.add_subplot(short_grid[0, 1], sharey=short_left)
         # SPU's Stage-B cost separates Ours and Full by tens to hundreds of
         # minutes, while each genuine Stage-C trace spans only a few minutes.
         # Two adjacent short windows preserve the absolute time values and make
@@ -139,8 +154,8 @@ def figure2():
         # the omitted interval; no observation is interpolated across it.
         delta_series = []
         for ax, method, color, marker, window_label in (
-            (short_left, "true_ours", SPU_OURS_CYAN, "D", "Ours short window"),
-            (short_right, "full_data", SPU_FULL_ORANGE, "s", "Full Data short window"),
+            (short_left, "true_ours", SPU_OURS_SAMPLENET_DP, "D", "Ours short window"),
+            (short_right, "full_data", SPU_FULL_SAMPLENET_NP, "s", "Full Data short window"),
         ):
             rows = grouped[(dataset, method)]
             if not rows:
@@ -200,32 +215,20 @@ def figure2():
         short_right.plot((-0.025, 0.025), (-0.012, 0.012), transform=short_right.transAxes, **break_style)
         short_right.plot((-0.025, 0.025), (0.988, 1.012), transform=short_right.transAxes, **break_style)
 
-        top.yaxis.set_major_formatter(PercentFormatter(1.0))
-        for ax in (top, short_left, short_right):
+        for ax in (short_left, short_right):
             ax.grid(True, alpha=0.16)
         short_left.yaxis.set_major_formatter(FormatStrFormatter("%.2f"))
-        top.set_ylabel("Development-validation accuracy")
         short_left.set_ylabel("Accuracy change from first release (pp)", fontsize=8)
-    handles = [
-        Line2D([0], [0], color=FULL_BLUE, lw=2.2, ls="-", label="TFE Full Data"),
-        Line2D([0], [0], color=OURS_RED, lw=2.2, ls="-", label="TFE Ours"),
-        Line2D([0], [0], color=SPU_FULL_ORANGE, lw=2.0, marker="s", markersize=5, label="SPU Full Data"),
-        Line2D([0], [0], color=SPU_OURS_CYAN, lw=2.0, marker="D", markersize=5, label="SPU Ours"),
-        Line2D([0], [0], color="#808080", lw=0.8, ls="--", label="T@80/90/95"),
+        short_left.set_title(DATASET_LABELS[dataset], fontweight="bold", x=1.04)
+    spu_handles = [
+        Line2D([0], [0], color=SPU_FULL_SAMPLENET_NP, lw=2.0, marker="s", markersize=5, label="Full Data"),
+        Line2D([0], [0], color=SPU_OURS_SAMPLENET_DP, lw=2.0, marker="D", markersize=5, label="Ours"),
+        Line2D([0], [0], color="#808080", lw=0.8, ls="--", label="First-release baseline"),
     ]
-    fig.legend(handles=handles, loc="lower center", ncol=5, frameon=False, bbox_to_anchor=(0.5, -0.002))
-    fig.suptitle("Development accuracy versus cumulative online secure time", fontweight="bold")
-    fig.text(
-        0.5,
-        -0.047,
-        "I-bars show sample standard deviation for TFE n=3; Tiny TFE and all SPU panels are n=1. "
-        "Top: original TFE log-seconds trajectories with sample-SD I-bars (n=3 where available). Bottom: SPU short-axis windows show genuine accuracy change from each method's first release (pp); absolute start/final accuracy is printed. "
-        "Diagonal marks omit only the empty time interval; absolute T@Target uses original cumulative times. Backend rows are not hardware-normalized.",
-        ha="center",
-        fontsize=8,
-    )
-    fig.subplots_adjust(left=0.07, right=0.985, top=0.91, bottom=0.13)
-    save(fig, "new_figure2_dual_backend_pea_i_errorbars")
+    fig.legend(spu_handles, [h.get_label() for h in spu_handles], loc="lower center", ncol=3, frameon=False, bbox_to_anchor=(0.5, -0.005))
+    fig.suptitle("SecretFlow-SPU: local post-Stage-B accuracy change", fontweight="bold")
+    fig.subplots_adjust(left=0.07, right=0.985, top=0.84, bottom=0.22)
+    save(fig, "new_figure2b_spu_short_axis_deltas")
 
 
 def module_a_runs():

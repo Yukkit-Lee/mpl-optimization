@@ -4,7 +4,8 @@
 
 | Figure | Output | Frozen sources | Repeats / uncertainty | Audited boundary |
 |---|---|---|---|---|
-| 2 | `new_expFig/paper_experiment/new_figure2_dual_backend_pea_i_errorbars.{png,pdf}` | `new_true_ours_master_results.json`; corrected-v2 SPU plot CSV | TFE CIFAR: n=3 with sample-SD I-bars; TFE Tiny/SPU: n=1, no bars | Development validation; top=original TFE log-seconds trajectories; bottom=paired SPU short windows with y=accuracy change from each method's first release (pp), absolute endpoints printed, explicit break marks and all 8/2/18 releases; T@Target uses original cumulative time; rows are not hardware-normalized |
+| 2(a) | `new_expFig/paper_experiment/new_figure2a_tfe_pea_i_errorbars.{png,pdf}` | `new_true_ours_master_results.json` | TFE CIFAR-10/100: n=3 with sample-SD I-bars; Tiny: n=1, no bar | Development validation; original TFE log-seconds trajectories and Stage-B-to-C dotted lines |
+| 2(b) | `new_expFig/paper_experiment/new_figure2b_spu_short_axis_deltas.{png,pdf}` | corrected-v2 SPU plot CSV | SPU: n=1, no uncertainty bars | Development validation; paired short windows with y=accuracy change from each method's first release (pp), absolute endpoints printed, explicit break marks and all 8/2/18 releases; T@Target uses original cumulative time; not hardware-normalized against TFE |
 | 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | Nine frozen Module-A JSON runs | n=3 with sample-SD I-bars | Official-test values from fixed-interval read-only formal reporting; per-seed convergence requires all later points within terminal +/-0.5pp, then uses latest seed cut |
 | 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_bars.{png,pdf}` | Stage-B initialization-source ablation CSV | seed42, n=1, no error bars | Development validation; 2x3 grouped bars; no test or locked holdout read |
 | 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Stage-B trajectory JSON | seed42, n=1, no bars | Development validation; no test or locked holdout read |
@@ -31,14 +32,17 @@ scope, or a Stage-B test/holdout flag.
    T@Target is computed from the original absolute times, not the displayed
    window width. This demonstrates backend reproduction, not a
    hardware-normalized TFE-versus-SPU comparison.
-4. Figure 4 and Table 4 currently contain the same six cells and four methods.
+4. The former combined `new_figure2_dual_backend_pea_i_errorbars` is retained
+   only as a superseded historical artifact. The manuscript uses the split
+   2(a)/2(b) files so unlike y-axis semantics are never placed in one figure.
+5. Figure 4 and Table 4 currently contain the same six cells and four methods.
    The redesigned plot makes the heterogeneity pattern easier to read, while the
    table preserves exact values. Table 4 should be removed only after the user
    decides whether exact in-body values are worth the duplication.
-5. Figure 6 and Table 5 use the preregistered formal seeds 42/43/44 after a
+6. Figure 6 and Table 5 use the preregistered formal seeds 42/43/44 after a
    bounded screen. Adaptive gains `+0.133 +/- 0.192 pp` over Fixed, below the
    preregistered `+1 pp` gate and with one negative seed. TFE was therefore not
    authorized; this is functional threshold tracking, not a positive utility
    contribution.
-6. Figure 7 is not yet supported by a matched owner-count × dimension × network
+7. Figure 7 is not yet supported by a matched owner-count × dimension × network
    matrix. It should be skipped unless the evidentiary gain justifies that cost.
