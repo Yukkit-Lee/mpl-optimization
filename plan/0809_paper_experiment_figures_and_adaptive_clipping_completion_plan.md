@@ -104,13 +104,13 @@ sign of the result.
 - [x] Fast-forward local branch without losing the concurrently edited draft.
 - [x] Verify resource gate: 32 CPUs, 60 GiB cgroup memory, 29 GiB free disk,
   no GPU, no active experiment/tmux session.
-- [ ] Produce the exact figure/table source map and unsupported-claim list.
+- [x] Produce the exact figure/table source map and unsupported-claim list.
 
 ### Phase B — existing-data figure rebuild
 
-- [ ] Implement a manuscript figure builder with hard source assertions.
-- [ ] Generate and visually inspect Figures 2--5 in PNG and PDF.
-- [ ] Update English/Chinese captions and paths.
+- [x] Implement a manuscript figure builder with hard source assertions.
+- [x] Generate and visually inspect Figures 2--5 in PNG and PDF.
+- [x] Update English/Chinese captions and paths.
 - [ ] Ask the user whether Table 4 should be removed after showing the new
   Figure 4 and explaining retained information.
 
