@@ -25,8 +25,11 @@ Shared paths, colors, saving and I-bar helpers are in
 Figure-specific data selection. The former
 `new_build_figures_2_to_5.py` remains only as a thin compatibility wrapper that
 calls the four independent builders. Each builder documents safe visual
-parameters versus evidence-defining parameters and aborts on its own provenance
-or evaluation-scope gates.
+parameters versus evidence-defining parameters. Plotting does not compute or
+compare the SHA256 of any input JSON/CSV and does not read a hash manifest or
+completion-audit file. A user may therefore edit a source JSON and redraw
+immediately. File parsing, required-field/cardinality checks, and evaluation-
+scope gates remain active because they are not hash checks.
 
 ## Important limitations
 

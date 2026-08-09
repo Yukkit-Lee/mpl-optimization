@@ -43,7 +43,12 @@ PNG_DPI = 240
 
 
 def read_json(path: Path):
-    """读取必需的 JSON；文件缺失时直接失败，禁止静默使用替代数据。"""
+    """读取必需的 JSON，但不计算或比对 SHA256。
+
+    绘图只要求文件存在且 JSON 格式可以解析，因此用户修改 JSON 数值后可以
+    直接重新绘图，无需同步更新任何 hash manifest。各 Figure 脚本仍会检查
+    必需字段、记录数量和 test/holdout 等科学边界，避免画出结构不完整的数据。
+    """
     if not path.is_file():
         raise FileNotFoundError(path)
     return json.loads(path.read_text(encoding="utf-8"))
