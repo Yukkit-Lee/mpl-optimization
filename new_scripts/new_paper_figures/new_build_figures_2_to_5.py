@@ -28,6 +28,8 @@ DATASET_LABELS = {
 FULL_BLUE = "#2C7BB6"
 OURS_RED = "#D7191C"
 ORANGE = "#FDAE61"
+SPU_FULL_ORANGE = "#FF7F0E"
+SPU_OURS_CYAN = "#17BECF"
 DARK = "#333333"
 
 
@@ -95,22 +97,19 @@ def figure2():
             if any(right <= left for left, right in zip(times, times[1:])):
                 raise ValueError("SPU cumulative time is not strictly increasing")
 
-    fig = plt.figure(figsize=(16.0, 8.8))
-    grid = fig.add_gridspec(2, 6, height_ratios=(1.0, 1.0), hspace=0.30, wspace=0.16)
-    top_axes = []
-    bottom_pairs = []
+    fig, axes = plt.subplots(2, 3, figsize=(15.8, 8.6), sharey="col")
     for col_idx, dataset in enumerate(DATASETS):
-        top = fig.add_subplot(grid[0, 2 * col_idx : 2 * col_idx + 2])
-        left = fig.add_subplot(grid[1, 2 * col_idx], sharey=top)
-        right = fig.add_subplot(grid[1, 2 * col_idx + 1], sharey=top)
-        top_axes.append(top)
-        bottom_pairs.append((left, right))
-
+        top = axes[0, col_idx]
+        bottom = axes[1, col_idx]
         targets = list(master["datasets"][dataset]["targets"].values())
         for method, color in (("full_data", FULL_BLUE), ("true_ours", OURS_RED)):
             result = master["datasets"][dataset]["methods"][method]
             curve = result["curve"]
-            x = np.asarray(curve["time_seconds"], dtype=float)
+            # PEA Figure 2 uses iteration on x.  Use the same archived-release
+            # index definition for both backend rows so the genuine trajectory
+            # is legible without a broken or nonlinear time axis.  Absolute
+            # time-to-target remains available in the audited companion table.
+            x = np.arange(1, len(curve["time_seconds"]) + 1, dtype=int)
             y = np.asarray(curve["accuracy_mean"], dtype=float)
             std = curve["accuracy_sample_std"]
             top.plot(x, y, color=color, linewidth=2.15, linestyle="-")
@@ -119,72 +118,65 @@ def figure2():
                 i_errorbars(top, x, y, np.asarray(std, dtype=float), color)
         for target in targets:
             top.axhline(target, color="#808080", linestyle="--", linewidth=0.65, alpha=0.42)
-        top.set_xscale("log")
         top.set_title(DATASET_LABELS[dataset], fontweight="bold")
-        top.set_xlabel("Cumulative online secure time (s, log scale)")
+        top.set_xlabel("Archived secure release index")
         top.text(
             0.025, 0.955, "TFE / ABY3", transform=top.transAxes, ha="left", va="top",
             fontsize=8, fontweight="bold", color="#444444",
             bbox=dict(boxstyle="round,pad=0.2", facecolor="white", edgecolor="#BBBBBB", alpha=0.88),
         )
 
-        # The SPU Stage-B time is much larger than each Stage-C release span.
-        # Use two broken cumulative-time windows so all archived releases are
-        # legible while retaining their original absolute x values.
-        for ax, method, color, marker, window_label in (
-            (left, "true_ours", OURS_RED, "D", "Ours window"),
-            (right, "full_data", FULL_BLUE, "s", "Full Data window"),
+        for method, color, marker in (
+            ("full_data", SPU_FULL_ORANGE, "s"),
+            ("true_ours", SPU_OURS_CYAN, "D"),
         ):
             rows = grouped[(dataset, method)]
             if not rows:
                 raise ValueError("missing SPU series {} {}".format(dataset, method))
-            x = np.asarray([float(item["cumulative_online_secure_seconds"]) for item in rows])
+            x = np.arange(1, len(rows) + 1, dtype=int)
             y = np.asarray([float(item["development_accuracy"]) for item in rows])
-            ax.plot(x, y, color=color, linewidth=1.8, linestyle="--", marker=marker, markersize=4.0)
-            span = max(float(np.ptp(x)), 1.0)
-            ax.set_xlim(float(x.min()) - 0.10 * span, float(x.max()) + 0.10 * span)
-            for target in [float(rows[0][key]) for key in ("target_T80", "target_T90", "target_T95")]:
-                ax.axhline(target, color="#808080", linestyle="--", linewidth=0.65, alpha=0.42)
-            ax.xaxis.set_major_locator(MaxNLocator(3))
-            ax.ticklabel_format(axis="x", style="plain", useOffset=False)
-            ax.set_xlabel(window_label + "\nCumulative time (s)", fontsize=8)
-            if method == "full_data":
-                ax.text(0.5, 0.955, "{} releases / method".format(len(rows)), transform=ax.transAxes, ha="center", va="top", fontsize=7, color="#555555")
-        left.text(
-            0.03, 0.955, "SecretFlow-SPU", transform=left.transAxes, ha="left", va="top",
+            bottom.plot(
+                x, y, color=color, linewidth=1.9, linestyle="-", marker=marker,
+                markersize=4.7, markeredgecolor="white", markeredgewidth=0.45,
+            )
+        for target in [
+            float(grouped[(dataset, "full_data")][0][key])
+            for key in ("target_T80", "target_T90", "target_T95")
+        ]:
+            bottom.axhline(target, color="#808080", linestyle="--", linewidth=0.65, alpha=0.42)
+        bottom.set_xlabel("Archived secure release index")
+        bottom.text(
+            0.025, 0.955, "SecretFlow-SPU", transform=bottom.transAxes, ha="left", va="top",
             fontsize=8, fontweight="bold", color="#444444",
             bbox=dict(boxstyle="round,pad=0.2", facecolor="white", edgecolor="#BBBBBB", alpha=0.88),
         )
-        left.spines["right"].set_visible(False)
-        right.spines["left"].set_visible(False)
-        right.tick_params(axis="y", left=False, labelleft=False)
-        # Diagonal break marks indicate the omitted cumulative-time interval.
-        kwargs = dict(color="#555555", clip_on=False, linewidth=1.0)
-        left.plot((0.975, 1.025), (-0.012, 0.012), transform=left.transAxes, **kwargs)
-        left.plot((0.975, 1.025), (0.988, 1.012), transform=left.transAxes, **kwargs)
-        right.plot((-0.025, 0.025), (-0.012, 0.012), transform=right.transAxes, **kwargs)
-        right.plot((-0.025, 0.025), (0.988, 1.012), transform=right.transAxes, **kwargs)
 
-        for ax in (top, left, right):
+        for ax in (top, bottom):
+            # One small integer field and one linear presentation in both rows.
+            # Explicit plain ticks prevent scientific-offset labels.
+            ax.set_xscale("linear")
+            ax.xaxis.set_major_locator(MaxNLocator(5))
+            ax.ticklabel_format(axis="x", style="plain", useOffset=False)
             ax.yaxis.set_major_formatter(PercentFormatter(1.0))
             ax.grid(True, alpha=0.16)
         if col_idx == 0:
             top.set_ylabel("Development-validation accuracy")
-            left.set_ylabel("Development-validation accuracy")
+            bottom.set_ylabel("Development-validation accuracy")
     handles = [
         Line2D([0], [0], color=FULL_BLUE, lw=2.2, ls="-", label="TFE Full Data"),
         Line2D([0], [0], color=OURS_RED, lw=2.2, ls="-", label="TFE Ours"),
-        Line2D([0], [0], color=FULL_BLUE, lw=2.2, ls="--", marker="s", label="SPU Full Data"),
-        Line2D([0], [0], color=OURS_RED, lw=2.2, ls="--", marker="D", label="SPU Ours"),
+        Line2D([0], [0], color=SPU_FULL_ORANGE, lw=2.2, ls="-", marker="s", label="SPU Full Data"),
+        Line2D([0], [0], color=SPU_OURS_CYAN, lw=2.2, ls="-", marker="D", label="SPU Ours"),
         Line2D([0], [0], color="#808080", lw=0.8, ls="--", label="T@80/90/95"),
     ]
     fig.legend(handles=handles, loc="lower center", ncol=5, frameon=False, bbox_to_anchor=(0.5, -0.002))
-    fig.suptitle("End-to-end utility versus cumulative secure time", fontweight="bold")
+    fig.suptitle("Utility trajectories across archived secure releases", fontweight="bold")
     fig.text(
         0.5,
         -0.047,
         "I-bars show sample standard deviation for TFE n=3; Tiny TFE and all SPU panels are n=1. "
-        "SPU uses broken absolute cumulative-time windows so every genuine 8/2/18 release is visible; backend rows are not hardware-normalized.",
+        "Both rows use the same integer archived-release index on linear, unbroken axes; SPU has 8/2/18 genuine releases per method. "
+        "Absolute cumulative secure time and T@80/90/95 are reported in the audited companion table; backend rows are not hardware-normalized.",
         ha="center",
         fontsize=8,
     )
