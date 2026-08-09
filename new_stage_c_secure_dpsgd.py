@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-# 用途：在 TFE/ABY3 中对 2048 维特征执行 Fixed/Adaptive DP-SGD。
+# 用途：在 TFE/ABY3 中对 2048 维特征执行单条 Fixed/Adaptive DP-SGD。
+#
+# Module C 消融通常不要手写本文件的长命令，而应先修改
+# new_configs/new_public_mtt_mainline/new_mainline_config.json 中的
+# module_c_formal.mode_parameters，再运行 new_prepare_module_c_formal.py 生成队列。
+# 直接运行示例可执行 `python new_stage_c_secure_dpsgd.py --help` 查看完整必填路径。
 
 from __future__ import print_function
 
@@ -668,22 +673,34 @@ def parse_args():
         choices=["deterministic_fixed_size", "poisson"],
         default="deterministic_fixed_size",
     )
-    parser.add_argument("--steps", type=int, default=100)
-    parser.add_argument("--learning_rate", type=float, default=0.02)
-    parser.add_argument("--noise_multiplier", type=float, default=1.2)
-    parser.add_argument("--count_noise_multiplier", type=float, default=8.0)
-    parser.add_argument("--clip_c", type=float, default=1.0)
+    # 两种方法均可分别调节：steps、learning_rate、batch和clip_c。
+    # Fixed中clip_c始终不变；Adaptive中它是初始值C0，之后按私有统计更新。
+    parser.add_argument("--steps", type=int, default=100, help="DP-SGD更新总步数")
+    parser.add_argument("--learning_rate", type=float, default=0.02, help="优化器学习率")
+    parser.add_argument(
+        "--noise_multiplier", type=float, default=1.2,
+        help="梯度噪声倍率；应由目标epsilon、采样率和steps重新校准，不要随意猜",
+    )
+    parser.add_argument(
+        "--count_noise_multiplier", type=float, default=8.0,
+        help="Adaptive私有count机制噪声倍率；Fixed不会消耗该机制",
+    )
+    parser.add_argument(
+        "--clip_c", type=float, default=1.0,
+        help="Fixed固定裁剪阈值C，或Adaptive初始阈值C0",
+    )
     parser.add_argument(
         "--clipping_scope",
         choices=["global", "parameter_block"],
         default="global",
     )
-    parser.add_argument("--gamma", type=float, default=0.5)
-    parser.add_argument("--eta_c", type=float, default=0.05)
-    parser.add_argument("--c_min", type=float, default=0.05)
-    parser.add_argument("--c_max", type=float, default=4.0)
-    parser.add_argument("--warmup_steps", type=int, default=10)
-    parser.add_argument("--update_interval", type=int, default=5)
+    # 以下参数仅对Adaptive更新C_t有实际作用，Fixed模式下不会改变C。
+    parser.add_argument("--gamma", type=float, default=0.5, help="Adaptive目标未裁剪比例")
+    parser.add_argument("--eta_c", type=float, default=0.05, help="Adaptive阈值更新速度")
+    parser.add_argument("--c_min", type=float, default=0.05, help="Adaptive阈值下界")
+    parser.add_argument("--c_max", type=float, default=4.0, help="Adaptive阈值上界")
+    parser.add_argument("--warmup_steps", type=int, default=10, help="Adaptive开始更新C前的预热步数")
+    parser.add_argument("--update_interval", type=int, default=5, help="Adaptive每隔多少步更新一次C")
     parser.add_argument("--exploding_c_patience", type=int, default=5)
     parser.add_argument("--delta", type=float, default=1e-5)
     parser.add_argument("--precision_fractional", type=int, default=16)

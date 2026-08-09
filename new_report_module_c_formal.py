@@ -1,9 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Aggregate the complete formal Module C grid and render paper artifacts."""
+"""聚合完整的 Module C Fixed/Adaptive 消融结果并生成图表。
 
+历史正式结果（默认）：
+
+    python new_report_module_c_formal.py
+
+聚合用户隔离运行（必须与生成队列时的run-tag完全一致）：
+
+    python new_report_module_c_formal.py --run-tag user_ablation_v1
+
+自定义tag的JSON、CSV、TXT和图片均使用该tag命名，不覆盖旧正式产物。只有
+对应队列的全部任务完成后才能聚合；本脚本不会启动训练。
+"""
+
+import argparse
 import csv
 import json
+import re
 import statistics
 from pathlib import Path
 
@@ -60,6 +74,42 @@ def early_auc(history):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="聚合Module C消融结果")
+    parser.add_argument(
+        "--run-tag",
+        default="formal",
+        help="必须与new_prepare_module_c_formal.py使用的run-tag一致",
+    )
+    args = parser.parse_args()
+    run_tag = args.run_tag
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*", run_tag):
+        raise ValueError("run-tag只能包含英文、数字、点、下划线和短横线")
+    output_namespace = (
+        "module_c_formal"
+        if run_tag == "formal"
+        else "module_c_{}".format(run_tag)
+    )
+    source = ROOT / "new_output/new_public_mtt_mainline" / output_namespace
+    suffix = "formal" if run_tag == "formal" else run_tag
+    json_output = (
+        ROOT
+        / "new_log/new_public_mtt_mainline/json/new_module_c_{}_report.json".format(
+            suffix
+        )
+    )
+    txt_output = (
+        ROOT
+        / "new_log/new_public_mtt_mainline/txt/new_module_c_{}_report.txt".format(
+            suffix
+        )
+    )
+    csv_output = (
+        ROOT
+        / "new_expTab/new_public_mtt_mainline/new_module_c_{}_summary.csv".format(
+            suffix
+        )
+    )
+
     config = load_config()
     formal = config["module_c_formal"]
     runs = []
@@ -69,7 +119,7 @@ def main():
             for epsilon in formal["target_epsilons"]:
                 tag = epsilon_tag(epsilon)
                 for seed in formal["seeds"]:
-                    directory = SOURCE / dataset / mode / tag / "seed{}".format(seed)
+                    directory = source / dataset / mode / tag / "seed{}".format(seed)
                     matches = list(
                         directory.glob("new_secure_stage_c_report_*.json")
                     )
@@ -220,8 +270,13 @@ def main():
         axis.grid(alpha=0.25)
     axes[0].legend(frameon=False)
     figure.tight_layout()
-    privacy_png = FIGURE_ROOT / "new_figureC_stage_c_privacy_utility.png"
-    privacy_pdf = FIGURE_ROOT / "new_figureC_stage_c_privacy_utility.pdf"
+    figure_suffix = "" if run_tag == "formal" else "_{}".format(run_tag)
+    privacy_png = FIGURE_ROOT / (
+        "new_figureC_stage_c_privacy_utility" + figure_suffix + ".png"
+    )
+    privacy_pdf = FIGURE_ROOT / (
+        "new_figureC_stage_c_privacy_utility" + figure_suffix + ".pdf"
+    )
     figure.savefig(privacy_png, dpi=220)
     figure.savefig(privacy_pdf)
     plt.close(figure)
@@ -248,13 +303,17 @@ def main():
         axis.set_ylabel(r"$C_t$")
         axis.grid(alpha=0.25)
     figure.tight_layout()
-    clipping_png = FIGURE_ROOT / "new_figureC_stage_c_clipping_trajectory.png"
-    clipping_pdf = FIGURE_ROOT / "new_figureC_stage_c_clipping_trajectory.pdf"
+    clipping_png = FIGURE_ROOT / (
+        "new_figureC_stage_c_clipping_trajectory" + figure_suffix + ".png"
+    )
+    clipping_pdf = FIGURE_ROOT / (
+        "new_figureC_stage_c_clipping_trajectory" + figure_suffix + ".pdf"
+    )
     figure.savefig(clipping_png, dpi=220)
     figure.savefig(clipping_pdf)
     plt.close(figure)
 
-    CSV_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    csv_output.parent.mkdir(parents=True, exist_ok=True)
     csv_rows = []
     for row in groups:
         csv_rows.append(
@@ -275,18 +334,26 @@ def main():
                 "communication_rounds": "N/A",
             }
         )
-    with CSV_OUTPUT.open("w", encoding="utf-8", newline="") as handle:
+    with csv_output.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(
             handle, fieldnames=list(csv_rows[0]), lineterminator="\n"
         )
         writer.writeheader()
         writer.writerows(csv_rows)
 
+    runs_expected = (
+        len(config["datasets"])
+        * len(formal["modes"])
+        * len(formal["target_epsilons"])
+        * len(formal["seeds"])
+    )
     payload = {
         "schema": "new_module_c_formal_report_v1",
+        "run_tag": run_tag,
+        "output_namespace": output_namespace,
         "status": "COMPLETE",
         "formal_result": True,
-        "runs_expected": 54,
+        "runs_expected": runs_expected,
         "runs_completed": len(runs),
         "test_loaded": False,
         "dp_mtt_status": "EXCLUDED_BY_USER",
@@ -297,7 +364,7 @@ def main():
         "adaptive_quality_gate_at_epsilon3": gains,
         "runs": runs,
         "artifacts": {
-            "csv": str(CSV_OUTPUT),
+            "csv": str(csv_output),
             "privacy_utility_png": str(privacy_png),
             "privacy_utility_pdf": str(privacy_pdf),
             "clipping_trajectory_png": str(clipping_png),
@@ -309,14 +376,16 @@ def main():
             "A failed +1pp adaptive gate is reported as a negative result and is not hidden.",
         ],
     }
-    JSON_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    JSON_OUTPUT.write_text(
+    json_output.parent.mkdir(parents=True, exist_ok=True)
+    json_output.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    TXT_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    txt_output.parent.mkdir(parents=True, exist_ok=True)
     lines = [
         "Module C formal report",
-        "runs=54/54 test_loaded=False released_model_record_dp_valid=True",
+        "runs={}/{} test_loaded=False released_model_record_dp_valid=True".format(
+            len(runs), runs_expected
+        ),
     ]
     for row in groups:
         lines.append(
@@ -332,16 +401,18 @@ def main():
                 dataset, gate["adaptive_minus_fixed"], gate["passed"]
             )
         )
-    TXT_OUTPUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print("module_c_formal status=COMPLETE runs=54")
+    txt_output.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(
+        "module_c status=COMPLETE run_tag={} runs={}".format(run_tag, len(runs))
+    )
     for dataset, gate in gains.items():
         print(
             "{} adaptive_gain_eps3={:.6f} passed={}".format(
                 dataset, gate["adaptive_minus_fixed"], gate["passed"]
             )
         )
-    print("json={}".format(JSON_OUTPUT))
-    print("csv={}".format(CSV_OUTPUT))
+    print("json={}".format(json_output))
+    print("csv={}".format(csv_output))
     print("figures={},{}".format(privacy_png, clipping_png))
     return 0
 

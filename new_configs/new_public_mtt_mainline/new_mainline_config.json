@@ -211,6 +211,29 @@
     "count_noise_multiplier": 8.0,
     "warmup_steps": 5,
     "update_interval": 5,
+    "mode_parameters": {
+      "fixed_dp": {
+        "datasets": {
+          "cifar10": {"steps": 10, "batch_size": 16, "learning_rate": 0.002, "clip_c": 1.0},
+          "cifar100": {"steps": 20, "batch_size": 16, "learning_rate": 0.002, "clip_c": 1.0},
+          "tiny": {"steps": 30, "batch_size": 16, "learning_rate": 0.002, "clip_c": 1.0}
+        }
+      },
+      "adaptive_dp": {
+        "datasets": {
+          "cifar10": {"steps": 10, "batch_size": 16, "learning_rate": 0.002, "clip_c": 1.0},
+          "cifar100": {"steps": 20, "batch_size": 16, "learning_rate": 0.002, "clip_c": 1.0},
+          "tiny": {"steps": 30, "batch_size": 16, "learning_rate": 0.002, "clip_c": 1.0}
+        },
+        "count_noise_multiplier": 8.0,
+        "warmup_steps": 5,
+        "update_interval": 5,
+        "gamma": 0.5,
+        "eta_c": 0.05,
+        "c_min": 0.05,
+        "c_max": 4.0
+      }
+    },
     "checkpoint_interval": 2,
     "initializer_privacy_status": "data_independent",
     "test_loaded": false
