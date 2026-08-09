@@ -116,18 +116,18 @@ sign of the result.
 
 ### Phase C — Adaptive diagnostic and formal run
 
-- [ ] Audit the latest initializer-to-Stage-C code boundary.
-- [ ] Freeze the bounded screen, metrics, seeds, and acceptance criterion.
-- [ ] Run the plaintext screen in tmux at maximum safe CPU utilization.
+- [x] Audit the latest initializer-to-Stage-C code boundary.
+- [x] Freeze the bounded screen, metrics, seeds, and acceptance criterion.
+- [x] Run the plaintext screen in tmux at maximum safe CPU utilization.
 - [ ] Freeze finalists; run the smallest matched formal matrix needed for the
   stated criterion, with interruption recovery and complete provenance.
 - [ ] Generate Figure 6, Table 5, and an honest result report.
 
 ### Phase D — external and systems evidence
 
-- [ ] Verify Table 6 against primary publications and the local source registry.
-- [ ] Simplify Table 7 and audit its six numerical rows.
-- [ ] Decide Figure 7: build from sufficient existing evidence or document an
+- [x] Verify Table 6 against primary publications and the local source registry.
+- [x] Simplify Table 7 and audit its six numerical rows.
+- [x] Decide Figure 7: build from sufficient existing evidence or document an
   explicit skip with estimated cost and missing measurements.
 
 ### Phase E — manuscript and repository completion
