@@ -22,6 +22,13 @@
 右轴只画 Adaptive 的动态裁剪阈值 C_t。横轴是私有更新步，不是运行时间。
 脚本不校验输入 JSON 的 SHA256，但会检查状态、数据集、方法、seed、epsilon
 和 test/holdout 门，防止误画不完整或越界数据。
+
+若用户单独重跑了CIFAR-100，可增加：
+
+    --cifar100-override \
+      new_log/new_paper_adaptive/new_user_tuned_fixed_vs_adaptive_cifar100_formal.json
+
+此参数只替换CIFAR-100六条轨迹，CIFAR-10/Tiny仍从默认三数据集JSON读取。
 """
 
 from __future__ import annotations
@@ -103,6 +110,33 @@ def load_runs(path: Path) -> dict[tuple[str, str], list[dict]]:
         runs.sort(key=lambda item: int(item["row"]["seed"]))
         if [int(item["row"]["seed"]) for item in runs] != list(SEEDS):
             raise ValueError(f"{key}没有且仅有seed 42/43/44")
+    return grouped
+
+
+def load_single_dataset_override(path: Path, dataset: str) -> dict[str, list[dict]]:
+    """读取用户单独重跑的数据集结果，用它替换三数据集JSON中的对应六条。"""
+    payload = read_json(path)
+    if payload.get("status") != "COMPLETE" or payload.get("dataset") != dataset:
+        raise ValueError(f"覆盖结果不是已完成的{dataset}: {path}")
+    if payload.get("official_test_read") is not False:
+        raise ValueError("覆盖结果读取了official test，拒绝绘图")
+    if payload.get("locked_holdout_read") is not False:
+        raise ValueError("覆盖结果读取了locked holdout，拒绝绘图")
+    grouped = {mode: [] for mode in MODES}
+    for item in payload.get("detailed", []):
+        row = item.get("row", {})
+        mode = row.get("mode")
+        if mode not in grouped or int(row.get("seed", -1)) not in SEEDS:
+            raise ValueError(f"覆盖结果出现未注册mode/seed: {mode}/{row.get('seed')}")
+        if abs(float(row.get("accounted_epsilon")) - EPSILON) > 1e-8:
+            raise ValueError(f"覆盖结果epsilon不是{EPSILON}: {mode}/seed{row.get('seed')}")
+        if not item.get("history"):
+            raise ValueError(f"覆盖结果轨迹为空: {mode}/seed{row.get('seed')}")
+        grouped[mode].append(item)
+    for mode, runs in grouped.items():
+        runs.sort(key=lambda item: int(item["row"]["seed"]))
+        if [int(item["row"]["seed"]) for item in runs] != list(SEEDS):
+            raise ValueError(f"覆盖结果{dataset}/{mode}没有且仅有seed42/43/44")
     return grouped
 
 
@@ -189,11 +223,21 @@ def main() -> None:
         help="PNG/PDF文件名（不含扩展名）",
     )
     parser.add_argument(
+        "--cifar100-override", default=None,
+        help="可选：用户新跑的CIFAR-100六条JSON；替换默认输入中的CIFAR-100",
+    )
+    parser.add_argument(
         "--table", default=str(DEFAULT_TABLE.relative_to(ROOT)),
         help="汇总CSV路径；相对路径以仓库根目录为准",
     )
     args = parser.parse_args()
     grouped = load_runs(resolve_path(args.input))
+    if args.cifar100_override:
+        override = load_single_dataset_override(
+            resolve_path(args.cifar100_override), "cifar100"
+        )
+        for mode in MODES:
+            grouped[("cifar100", mode)] = override[mode]
 
     fig, axes = plt.subplots(1, 3, figsize=FIGSIZE)
     summary_rows = []

@@ -6,6 +6,11 @@
 2. 实验入口：`new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py`
 3. 绘图入口：`new_scripts/new_paper_figures/new_build_figure6.py`
 
+CIFAR-100现在有独立中文参数入口：
+`new_scripts/new_paper_adaptive/new_user_editable_figure6_cifar100_config.py`。
+运行同一runner时增加`--dataset-config cifar100`；完整命令见
+`reportToMe/new_cifar100_figure6_and_tiny_extra_seeds_run_guide_0810.md`。
+
 参数入口已经用中文逐项解释。Fixed 和 Adaptive 是两套完全独立的字典；代码不再
 锁定或复用旧 Fixed 结果。唯一强制相同的是 `target_epsilon` 和 `delta`，两边都
 读取同一数据、initializer、development-validation split 和同一组 RNG seed。

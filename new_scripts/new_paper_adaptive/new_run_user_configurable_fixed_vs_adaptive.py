@@ -10,7 +10,10 @@ batch 和 Adaptive count releases 单独校准梯度噪声，使最终 epsilon �
     tmux new -s figure6_user_tune
     /root/autodl-tmp/new_envs/distillation/bin/python \
         new_scripts/new_paper_adaptive/new_run_user_configurable_fixed_vs_adaptive.py \
-        --workers 6
+        --dataset-config cifar10 --workers 6
+
+CIFAR-100改用``--dataset-config cifar100``，其参数集中在
+``new_user_editable_figure6_cifar100_config.py``，输出不会覆盖CIFAR-10。
 
 ``--workers`` 是同时运行的任务数。默认最多并行六个 mode-seed 任务；它只影响
 速度，不改变实验参数。正式运行前请先检查 CPU、内存、磁盘，并保留 tmux 日志。
@@ -38,15 +41,19 @@ from new_scripts.new_paper_adaptive.new_screen_latest_initializer_fixed_vs_adapt
     load_inputs,
     run_candidate,
 )
-from new_scripts.new_paper_adaptive.new_user_editable_figure6_config import (  # noqa: E402
-    ADAPTIVE_CONFIG,
-    FEATURE_CACHE,
-    FIXED_CONFIG,
-    INITIALIZER,
-    OUTPUT_CSV,
-    OUTPUT_JSON,
-    RNG_SEEDS,
+from new_scripts.new_paper_adaptive import (  # noqa: E402
+    new_user_editable_figure6_config as cifar10_user_config,
 )
+from new_scripts.new_paper_adaptive import (  # noqa: E402
+    new_user_editable_figure6_cifar100_config as cifar100_user_config,
+)
+
+
+# 命令行只负责选择参数文件；所有真正可调数值仍集中在两个中文配置文件中。
+USER_CONFIGS = {
+    "cifar10": cifar10_user_config,
+    "cifar100": cifar100_user_config,
+}
 
 
 # 训练器真正需要的全部字段。缺字段时立即报错，避免跑几小时后才发现配置不完整。
@@ -61,11 +68,14 @@ REQUIRED_KEYS = {
 MODERN_PYTHON = ROOT.parent / "new_envs/distillation/bin/python"
 
 
-def ensure_runtime_dependencies() -> None:
+def ensure_runtime_dependencies(dataset_config: str) -> None:
     """在创建多进程worker前检查Opacus，并给出可直接复制的中文修复命令。"""
     if importlib.util.find_spec("opacus") is not None:
         return
-    command = f"{MODERN_PYTHON} {Path(__file__).relative_to(ROOT)} --workers 6"
+    command = (
+        f"{MODERN_PYTHON} {Path(__file__).relative_to(ROOT)} "
+        f"--dataset-config {dataset_config} --workers 6"
+    )
     raise ModuleNotFoundError(
         "当前Python环境缺少opacus，尚未启动任何训练。\n"
         f"当前解释器: {sys.executable}\n"
@@ -96,19 +106,19 @@ def validate_config(name: str, config: dict, expected_mode: str) -> None:
             raise ValueError("Adaptive 的 C 范围无效")
 
 
-def make_input_descriptor() -> dict:
+def make_input_descriptor(user_config) -> dict:
     """构造 load_inputs 所需的只读输入描述，并明确禁止 official test。"""
     return {
-        "initializer": INITIALIZER,
-        "feature_cache": FEATURE_CACHE,
+        "initializer": user_config.INITIALIZER,
+        "feature_cache": user_config.FEATURE_CACHE,
     }
 
 
-def make_tasks(weight, bias, data):
+def make_tasks(weight, bias, data, user_config):
     """为每个 seed 分别创建 Fixed 和 Adaptive 任务，两边参数互不覆盖。"""
     tasks = []
-    for seed in RNG_SEEDS:
-        for base in (FIXED_CONFIG, ADAPTIVE_CONFIG):
+    for seed in user_config.RNG_SEEDS:
+        for base in (user_config.FIXED_CONFIG, user_config.ADAPTIVE_CONFIG):
             config = dict(base)       # 复制，避免训练器意外修改用户配置对象。
             config["rng_seed"] = int(seed)
             tasks.append((config, weight, bias, data))
@@ -138,6 +148,10 @@ def result_row(config: dict, result: dict) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description="用户可配置的 Figure 6 Fixed/Adaptive 正式实验")
     parser.add_argument(
+        "--dataset-config", choices=sorted(USER_CONFIGS), default="cifar10",
+        help="选择中文参数入口；默认cifar10，CIFAR-100请显式写cifar100",
+    )
+    parser.add_argument(
         "--workers", type=int, default=6,
         help="并行任务数；三seed×两方法最多6个任务，单seed建议设2",
     )
@@ -148,31 +162,40 @@ def main() -> None:
     args = parser.parse_args()
     if args.workers <= 0:
         raise ValueError("--workers 必须大于0")
-    ensure_runtime_dependencies()
+    ensure_runtime_dependencies(args.dataset_config)
+    user_config = USER_CONFIGS[args.dataset_config]
+    dataset = str(user_config.DATASET)
+    fixed_config = user_config.FIXED_CONFIG
+    adaptive_config = user_config.ADAPTIVE_CONFIG
+    rng_seeds = user_config.RNG_SEEDS
 
     # 这里只要求相同隐私预算；steps、LR、batch、C 等均允许不同。
-    validate_config("FIXED_CONFIG", FIXED_CONFIG, "fixed_dp")
-    validate_config("ADAPTIVE_CONFIG", ADAPTIVE_CONFIG, "adaptive_dp")
-    if float(FIXED_CONFIG["target_epsilon"]) != float(ADAPTIVE_CONFIG["target_epsilon"]):
+    validate_config("FIXED_CONFIG", fixed_config, "fixed_dp")
+    validate_config("ADAPTIVE_CONFIG", adaptive_config, "adaptive_dp")
+    if float(fixed_config["target_epsilon"]) != float(adaptive_config["target_epsilon"]):
         raise ValueError("公平比较要求 Fixed 与 Adaptive 的 target_epsilon 相同")
-    if float(FIXED_CONFIG["delta"]) != float(ADAPTIVE_CONFIG["delta"]):
+    if float(fixed_config["delta"]) != float(adaptive_config["delta"]):
         raise ValueError("公平比较要求 Fixed 与 Adaptive 的 delta 相同")
-    if not RNG_SEEDS or len(set(RNG_SEEDS)) != len(RNG_SEEDS):
+    if not rng_seeds or len(set(rng_seeds)) != len(rng_seeds):
         raise ValueError("RNG_SEEDS 不能为空或包含重复值")
 
     if args.check_only:
         print(json.dumps({
             "status": "CONFIG_VALID",
-            "rng_seeds": RNG_SEEDS,
-            "fixed_config": FIXED_CONFIG,
-            "adaptive_config": ADAPTIVE_CONFIG,
-            "task_count": 2 * len(RNG_SEEDS),
+            "dataset": dataset,
+            "config_file": str(Path(user_config.__file__).relative_to(ROOT)),
+            "rng_seeds": rng_seeds,
+            "fixed_config": fixed_config,
+            "adaptive_config": adaptive_config,
+            "task_count": 2 * len(rng_seeds),
             "training_started": False,
         }, ensure_ascii=False, indent=2))
         return
 
-    model_path, cache_path, weight, bias, data = load_inputs(make_input_descriptor())
-    tasks = make_tasks(weight, bias, data)
+    model_path, cache_path, weight, bias, data = load_inputs(
+        make_input_descriptor(user_config)
+    )
+    tasks = make_tasks(weight, bias, data, user_config)
     with ProcessPoolExecutor(max_workers=min(args.workers, len(tasks))) as executor:
         results = list(executor.map(run_candidate, tasks))
 
@@ -189,7 +212,7 @@ def main() -> None:
 
     # 同 seed 比较可以减少随机性造成的干扰，但不要求两种方法参数相同。
     by_seed = {}
-    for seed in RNG_SEEDS:
+    for seed in rng_seeds:
         fixed = next(row for row in rows if row["seed"] == seed and row["mode"] == "fixed_dp")
         adaptive = next(row for row in rows if row["seed"] == seed and row["mode"] == "adaptive_dp")
         by_seed[str(seed)] = {
@@ -208,12 +231,13 @@ def main() -> None:
     payload = {
         "schema": "new_user_configurable_fixed_vs_adaptive_v1",
         "status": "COMPLETE",
+        "dataset": dataset,
         "comparison_scope": "same epsilon/delta/data/initializer/evaluation; all optimizer and compute parameters independently user-configurable",
         "initializer": str(model_path.relative_to(ROOT)),
         "feature_cache": str(cache_path.relative_to(ROOT)),
-        "rng_seeds": list(RNG_SEEDS),
-        "fixed_config": dict(FIXED_CONFIG),
-        "adaptive_config": dict(ADAPTIVE_CONFIG),
+        "rng_seeds": list(rng_seeds),
+        "fixed_config": dict(fixed_config),
+        "adaptive_config": dict(adaptive_config),
         "by_seed": by_seed,
         "mean_adaptive_minus_fixed_pp": float(np.mean(gains)),
         # n=1 诊断没有可定义的样本标准差，因此明确写 null，不伪造误差条。
@@ -226,8 +250,8 @@ def main() -> None:
         "locked_holdout_read": False,
     }
 
-    out_json = ROOT / OUTPUT_JSON
-    out_csv = ROOT / OUTPUT_CSV
+    out_json = ROOT / user_config.OUTPUT_JSON
+    out_csv = ROOT / user_config.OUTPUT_CSV
     out_json.parent.mkdir(parents=True, exist_ok=True)
     out_json.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     out_csv.parent.mkdir(parents=True, exist_ok=True)
@@ -240,8 +264,9 @@ def main() -> None:
         "by_seed": by_seed,
         "mean_adaptive_minus_fixed_pp": payload["mean_adaptive_minus_fixed_pp"],
         "sample_std_adaptive_minus_fixed_pp": payload["sample_std_adaptive_minus_fixed_pp"],
-        "output_json": OUTPUT_JSON,
-        "output_csv": OUTPUT_CSV,
+        "dataset": dataset,
+        "output_json": user_config.OUTPUT_JSON,
+        "output_csv": user_config.OUTPUT_CSV,
     }, ensure_ascii=False, indent=2))
 
 

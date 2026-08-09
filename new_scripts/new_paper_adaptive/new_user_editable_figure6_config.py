@@ -18,6 +18,8 @@ steps、学习率、batch 和裁剪参数都可以不同。
 
 # --------------------------- 输入数据（通常不要改） ---------------------------
 
+DATASET = "cifar10"           # 结果中的数据集标识；CIFAR-100请使用对应独立配置文件。
+
 # Stage-B C5 初始化模型。更换它意味着实验问题改变，不能再与当前 Figure 6 直接比较。
 INITIALIZER = (
     "new_output/new_stage_b_anchor_postagg/tfe_validation/cifar10/seed42/"
