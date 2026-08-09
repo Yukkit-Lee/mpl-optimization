@@ -1,5 +1,10 @@
 # Adaptive-only独立调参与Figure 6重建计划（2026-08-09）
 
+状态：`COMPLETE`。Adaptive-only 400候选screen与三seed formal均完成；Fixed未
+重跑。Adaptive formal相对Fixed逐seed提升`+0.14/+0.62/+0.44pp`，新版Figure 6
+已生成并视觉验收。详细边界见
+`reportToMe/new_adaptive_independent_tuning_assessment_0809.md`。
+
 ## 目标
 
 固定现有Fixed-DP三seed正式结果及其全部参数，不重跑、不调节Fixed；仅要求

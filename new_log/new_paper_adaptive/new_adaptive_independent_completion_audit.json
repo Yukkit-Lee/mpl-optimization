@@ -1,0 +1,53 @@
+{
+  "schema": "new_adaptive_independent_completion_audit_v1",
+  "status": "COMPLETE",
+  "screen_candidates": 400,
+  "formal_adaptive_runs": 3,
+  "fixed_rerun": false,
+  "fixed_immutable_verified": true,
+  "formal_seeds": [42, 43, 44],
+  "target_epsilon": 3.0,
+  "adaptive_final_accuracy_mean_percent": 59.07333333333333,
+  "adaptive_final_accuracy_sample_std_pp": 0.08082903768654941,
+  "fixed_final_accuracy_mean_percent": 58.67333333333334,
+  "fixed_final_accuracy_sample_std_pp": 0.2138535324312703,
+  "adaptive_minus_fixed_per_seed_pp": [0.14, 0.62, 0.44],
+  "adaptive_minus_fixed_mean_pp": 0.39999999999999664,
+  "adaptive_minus_fixed_sample_std_pp": 0.24248711305964404,
+  "adaptive_config": {
+    "steps": 160,
+    "learning_rate": 0.003,
+    "expected_batch_size": 32,
+    "initial_c": 2.0,
+    "gamma": 0.5,
+    "eta_c": 0.1,
+    "warmup_steps": 0,
+    "update_interval": 5,
+    "count_noise_multiplier": 16.0,
+    "count_releases": 32
+  },
+  "fixed_config": {
+    "steps": 320,
+    "learning_rate": 0.001,
+    "expected_batch_size": 16,
+    "clip_c": 2.0,
+    "count_releases": 0
+  },
+  "sha256": {
+    "formal_result_json": "9d12fd405e870f8cbb29fc540e3ac2fa468a1df02f61d94de92d69e7302258c7",
+    "formal_result_csv": "b9623408e3d2c609c5fdd18e4aee2d15e458359b5e273492df0e1b8101c7dd67",
+    "figure6_png": "3790bb79485ed89cc7b6760b4026a0d5e65a789151608d5df498e31de529d694",
+    "figure6_pdf": "3bf5329af1c979479fc092eaff66b4e81df149786e8ca1c24beb8bafa4ee6045",
+    "summary_csv": "ff15ed67a592bdcb81b08e384596dd4929578768cf76100041ca37bb31e547bd",
+    "formal_log": "fe391dc54b639c3444ec22d112aa397345b0cc20c5b3cbefe2ffff5e4fbcffbf"
+  },
+  "boundaries": {
+    "comparison": "same epsilon/data/initializer/evaluation; independently tuned optimizer and compute parameters",
+    "official_test_read": false,
+    "locked_holdout_read": false,
+    "privacy_scope": "conditional_stage_c_only",
+    "clipped_fraction": "nonprivate_diagnostic_not_protocol_release",
+    "matched_compute_budget_claim_allowed": false
+  },
+  "figure6_visual_check": "PASS"
+}

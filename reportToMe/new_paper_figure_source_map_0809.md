@@ -9,7 +9,7 @@
 | 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | Nine frozen Module-A JSON runs | n=3 with sample-SD I-bars | Official-test values from fixed-interval read-only formal reporting; per-seed convergence requires all later points within terminal +/-0.5pp, then uses latest seed cut |
 | 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_bars.{png,pdf}` | Stage-B initialization-source ablation CSV | seed42, n=1, no error bars | Development validation; 2x3 grouped bars; no test or locked holdout read |
 | 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Stage-B trajectory JSON | seed42, n=1, no bars | Development validation; no test or locked holdout read |
-| 6 | `new_expFig/paper_experiment/new_figure6_adaptive_clipping_matched_pea.{png,pdf}` | Frozen latest-initializer formal plaintext JSON | n=3 with sample-SD I-bars | CIFAR-10 development validation; conditional Stage-C epsilon=3; clipped fraction is a non-private diagnostic |
+| 6 | `new_expFig/paper_experiment/new_figure6_adaptive_independently_tuned_pea.{png,pdf}` | Frozen Fixed source + Adaptive-only 400-candidate screen and three-seed formal JSON | n=3 with sample-SD I-bars | CIFAR-10 development validation; same epsilon/data/initializer but independently tuned optimizer/compute parameters; clipped fraction is a non-private diagnostic |
 
 Each figure has an independent documented builder:
 
@@ -19,6 +19,7 @@ Each figure has an independent documented builder:
 | 3 | `new_scripts/new_paper_figures/new_build_figure3.py` | `python new_scripts/new_paper_figures/new_build_figure3.py` |
 | 4 | `new_scripts/new_paper_figures/new_build_figure4.py` | `python new_scripts/new_paper_figures/new_build_figure4.py` |
 | 5 | `new_scripts/new_paper_figures/new_build_figure5.py` | `python new_scripts/new_paper_figures/new_build_figure5.py` |
+| 6 | `new_scripts/new_paper_figures/new_build_figure6.py` | `python new_scripts/new_paper_figures/new_build_figure6.py` |
 
 Shared paths, colors, saving and I-bar helpers are in
 `new_scripts/new_paper_figures/new_paper_figure_common.py`; it contains no
@@ -55,10 +56,11 @@ scope gates remain active because they are not hash checks.
    The redesigned plot makes the heterogeneity pattern easier to read, while the
    table preserves exact values. Table 4 should be removed only after the user
    decides whether exact in-body values are worth the duplication.
-6. Figure 6 and Table 5 use the preregistered formal seeds 42/43/44 after a
-   bounded screen. Adaptive gains `+0.133 +/- 0.192 pp` over Fixed, below the
-   preregistered `+1 pp` gate and with one negative seed. TFE was therefore not
-   authorized; this is functional threshold tracking, not a positive utility
-   contribution.
+6. The current Figure 6 keeps the previous Fixed seed42/43/44 results frozen
+   and independently tunes only Adaptive over 400 development candidates.
+   Adaptive gains `+0.400 +/- 0.242 pp`, with all three seed gains positive.
+   Because steps, batch and learning rate differ, this is a same-epsilon,
+   independently tuned comparison rather than a matched-compute causal
+   isolation. The old matched Figure 6 is retained as historical evidence.
 7. Figure 7 is not yet supported by a matched owner-count × dimension × network
    matrix. It should be skipped unless the evidentiary gain justifies that cost.

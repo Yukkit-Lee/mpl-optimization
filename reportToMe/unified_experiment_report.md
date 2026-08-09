@@ -116,10 +116,15 @@ H1--H3能测IID→Mild→Severe标签偏斜，但uniform anchor CE在六场均�
 | Fixed DP | 58.673% ± 0.214pp | 58.321% ± 0.149pp | 2.000 ± 0.000 | 0 |
 | Adaptive DP | 58.807% ± 0.023pp | 58.328% ± 0.145pp | 1.388 ± 0.091 | 63 |
 
-Adaptive−Fixed为`+0.133 ± 0.192pp`，逐seed为`-0.040/+0.340/+0.100pp`。
-两者epsilon均为3，Adaptive会计包含63次count release。该结果未通过预注册的
-均值至少+1pp且三seed同号门槛，因此没有启动TFE；它证明自适应阈值跟踪可运行，
-不证明效用优于最佳Fixed。Figure 6与Table 5已据此如实改写。
+上述matched结果Adaptive−Fixed为`+0.133 ± 0.192pp`，逐seed为
+`-0.040/+0.340/+0.100pp`。随后按用户与导师确认的same-epsilon独立调优口径，
+Fixed三seed及steps320/LR.001/C2保持冻结且不重跑，只对Adaptive执行400候选
+development screen。冻结胜者steps160/LR.003/batch32/C0=2/gamma=.5/eta=.1在
+formal seeds42/43/44的最终准确率为`59.073% ± 0.081pp`，相对Fixed
+`58.673% ± 0.214pp`逐seed提升`+0.14/+0.62/+0.44pp`，均值
+`+0.400 ± 0.242pp`；双方epsilon均为3，Adaptive计入32次count release。
+Figure 6与Table 5采用该最新结果。因两者steps/batch/LR不同，只能声明
+same-epsilon independently-tuned comparison，不能声明matched compute-budget因果效应。
 
 ### 6.3 历史End-to-End
 
