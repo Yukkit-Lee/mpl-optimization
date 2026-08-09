@@ -1,0 +1,38 @@
+{
+  "schema": "new_adaptive_latest_initializer_screen_preflight_v1",
+  "status": "PASS_BEFORE_LAUNCH",
+  "timestamp_utc": "2026-08-09T10:05:10Z",
+  "git_commit": "cba7ca6",
+  "branch": "unified-experiments",
+  "tmux_session": "paper_adaptive_screen_0809",
+  "command": "env OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 /root/autodl-tmp/new_envs/distillation/bin/python new_scripts/new_paper_adaptive/new_screen_latest_initializer_fixed_vs_adaptive.py --workers 8",
+  "log": "new_log/new_paper_adaptive/txt/new_adaptive_latest_initializer_screen.log",
+  "resources": {
+    "cgroup_memory_limit_bytes": 64424509440,
+    "cgroup_memory_current_bytes": 2923847680,
+    "cpus": 32,
+    "cpuset": "0-31",
+    "disk_free_bytes": 30963757056,
+    "gpu_available": false,
+    "active_experiment_tmux_before_launch": false
+  },
+  "parallelism": {
+    "process_workers": 8,
+    "blas_threads_per_worker": 4,
+    "maximum_requested_cpu_threads": 32,
+    "single_thread_constraint": false
+  },
+  "sha256": {
+    "freeze": "735fc78ad6b7044463f174f8ef4380ec8022dfef82dc8ea4c4d964ccd7e2c79c",
+    "runner": "2adf4e81b3d4345a1b957d448e247cd631ad7ceeacedaaad4608db2e51a3efb4",
+    "initializer": "c7156719beb18f58dc5d539afca061627e91b7c722c7415bf415a710843ab3ec",
+    "feature_cache": "3a36afc71b800fee5069bf158c427efcc0f451dadfc8aca9d469cd7e707d719c"
+  },
+  "privacy_and_evaluation": {
+    "target_epsilon": 3.0,
+    "delta": 1e-5,
+    "adaptive_count_releases_accounted": true,
+    "official_test_read": false,
+    "locked_holdout_read": false
+  }
+}
