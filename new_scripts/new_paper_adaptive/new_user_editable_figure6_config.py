@@ -33,14 +33,15 @@ FEATURE_CACHE = (
 # 正式论文图建议至少使用三个预先确定的随机种子。
 # 调参阶段可以临时改成 [17] 以节省时间，但单 seed 只能用于诊断，不能报告误差条。
 RNG_SEEDS = [42, 43, 44]
+# RNG_SEEDS = [17]
 
 
 # --------------------------- Fixed DP 可调参数 -------------------------------
 
 FIXED_CONFIG = {
     "mode": "fixed_dp",          # 方法类型；Fixed 必须保持 fixed_dp。
-    "steps": 320,                # 私有梯度更新次数；越大通常更慢且会影响所需噪声。
-    "learning_rate": 0.001,      # 学习率；过小收敛慢，过大可能震荡或精度下降。
+    "steps": 280,                # 私有梯度更新次数；越大通常更慢且会影响所需噪声。
+    "learning_rate": 0.013,      # 学习率；过小收敛慢，过大可能震荡或精度下降。
     "expected_batch_size": 16,   # Poisson 采样的期望 batch；会改变采样率和隐私会计。
     "clip_c": 2.0,               # 固定裁剪阈值 C；Fixed 全程不更新该数值。
     "target_epsilon": 3.0,       # 目标隐私预算；公平比较时应与 Adaptive 完全相同。
@@ -62,7 +63,7 @@ FIXED_CONFIG = {
 ADAPTIVE_CONFIG = {
     "mode": "adaptive_dp",       # 方法类型；Adaptive 必须保持 adaptive_dp。
     "steps": 160,                # 可与 Fixed 不同；每次改变后都会重新校准梯度噪声。
-    "learning_rate": 0.003,      # Adaptive 自己的学习率，不需要与 Fixed 相同。
+    "learning_rate": 0.002,      # Adaptive 自己的学习率，不需要与 Fixed 相同。
     "expected_batch_size": 32,   # Adaptive 自己的期望 batch，也可与 Fixed 不同。
     "clip_c": 2.0,               # 初始裁剪阈值 C0，不是最终 C。
     "gamma": 0.5,                # 目标“低于阈值”的 noisy fraction，取值应在 0 到 1。

@@ -26,7 +26,7 @@
 - KD/Consensus因果分解：独立KD贡献不成立。
 - Disagreement-guided refinement：效用和成本门失败。
 - Heterogeneity-trigger routing：oracle regret门失败。
-- Fixed vs Adaptive：旧matched对照无稳定优势；最新same-epsilon独立调优中Adaptive三seed均为正增益，平均`+0.40 ± 0.24pp`，但steps/batch/LR不同且增益小于1pp，应写成有限的best-config优势而非纯因果消融或大幅提升。
+- Fixed vs Adaptive：旧matched对照无稳定优势；最新用户配置明文对照中Adaptive三seed均为正增益，平均`+11.60 ± 1.75pp`。但Fixed使用LR.013并从最佳归档`56.85%`退化至最终`47.33%`，且双方steps/batch/LR均不同；只能写成same-epsilon完整配置优势，不能写成裁剪单因素因果贡献或TFE结果。
 - 旧End-to-End：协议不同且已被当前公平主比较取代。
 
 ## 当前不能声称

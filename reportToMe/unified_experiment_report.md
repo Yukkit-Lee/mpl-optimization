@@ -7,7 +7,7 @@
 
 本报告是仓库当前唯一权威的跨实验总结。所有数字均由已跟踪的 CSV/JSON
 重新读取并通过 cardinality、状态、数据边界、SHA256 与 Git lineage 审计；
-8月8日统一验收未启动实验；8月9日仅新增一组预注册的三种子Adaptive明文门控，门控失败后未启动TFE。
+8月8日统一验收未启动实验；8月9日先完成预注册三种子Adaptive明文门控，随后按用户与导师允许双方独立配置的口径完成最新三种子明文比较；两者均未启动TFE。
 
 ## 1. 总结结论
 
@@ -19,7 +19,7 @@
 6. Stage-C epsilon只覆盖条件式Stage-C机制；数据依赖的Stage-B initializer非record-level DP，因此不能声称端到端DP。
 7. 当前权威True Ours与Post-Aggregation均未读取official test或locked holdout；历史final-test数字不进入当前主结论。
 8. corrected-v2 SecretFlow-SPU六条seed42均完成并复现同后端T@90定性趋势；新的2x3论文Figure 2已移除占位框并纳入TFE三seed误差条，但仍不是跨后端硬件归一化比较。
-9. 使用最新C5 initializer的Adaptive三种子正式明文门控仅比Fixed高0.133pp，未达到预注册+1pp且seed42为负；因此未启动TFE，不能将Adaptive包装成正效用模块。
+9. 使用最新C5 initializer的历史matched明文门控仅比Fixed高0.133pp且未启动TFE；当前论文另报告用户独立配置的same-epsilon明文结果（Adaptive最终高`11.60 ± 1.75pp`），但Fixed在高学习率下明显后期退化，因此它只证明完整配置差异，不能隔离Adaptive clipping因果贡献或声称TFE复现。
 
 ## 2. Stage A：Official MTT样本效率
 
@@ -125,6 +125,15 @@ formal seeds42/43/44的最终准确率为`59.073% ± 0.081pp`，相对Fixed
 `+0.400 ± 0.242pp`；双方epsilon均为3，Adaptive计入32次count release。
 Figure 6与Table 5采用该最新结果。因两者steps/batch/LR不同，只能声明
 same-epsilon independently-tuned comparison，不能声明matched compute-budget因果效应。
+
+用户随后开放Fixed与Adaptive双方参数并完成最新三seed明文运行：Fixed采用
+steps280/LR.013/batch16/C2，最终`47.333% ± 1.561pp`，但最佳归档点为
+`56.853% ± 0.090pp`；Adaptive采用steps160/LR.002/batch32/C0=2/gamma=.5/
+eta=.1，最终`58.933% ± 0.194pp`、finalC=`1.267 ± 0.010`。逐seed最终增益
+`+9.80/+13.30/+11.70pp`，均值`+11.600 ± 1.752pp`，early-AUC差`+8.333pp`。
+当前论文Figure 6/Table 5已改用这份最新结果。由于Fixed高学习率造成明显后期退化，
+该证据只能表示same-epsilon用户完整配置差异，不能隔离Adaptive clipping因果贡献；
+且它是plaintext development消融，不是TFE结果。
 
 ### 6.3 历史End-to-End
 

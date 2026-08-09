@@ -208,7 +208,7 @@ def main():
     fig.legend(handles=handles, loc="lower center", ncol=2, frameon=False, bbox_to_anchor=(0.5, -0.015))
     epsilon = float(next(iter(runs["fixed_dp"]))["row"]["accounted_epsilon"])
     fig.suptitle(
-        rf"Independently configured clipping comparison on CIFAR-10 ($\epsilon={epsilon:g}$)",
+        rf"Plaintext independently configured clipping comparison on CIFAR-10 ($\epsilon={epsilon:g}$)",
         fontweight="bold",
     )
     fig.tight_layout(rect=(0, 0.07, 1, 0.94))

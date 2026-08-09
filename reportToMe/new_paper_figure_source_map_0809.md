@@ -9,7 +9,7 @@
 | 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | Nine frozen Module-A JSON runs | n=3 with sample-SD I-bars | Official-test values from fixed-interval read-only formal reporting; per-seed convergence requires all later points within terminal +/-0.5pp, then uses latest seed cut |
 | 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_bars.{png,pdf}` | Stage-B initialization-source ablation CSV | seed42, n=1, no error bars | Development validation; 2x3 grouped bars; no test or locked holdout read |
 | 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Stage-B trajectory JSON | seed42, n=1, no bars | Development validation; no test or locked holdout read |
-| 6 | `new_expFig/paper_experiment/new_figure6_adaptive_independently_tuned_pea.{png,pdf}` | Frozen Fixed source + Adaptive-only 400-candidate screen and three-seed formal JSON | n=3 with sample-SD I-bars | CIFAR-10 development validation; same epsilon/data/initializer but independently tuned optimizer/compute parameters; clipped fraction is a non-private diagnostic |
+| 6 | `new_expFig/paper_experiment/new_figure6_user_tuned_plaintext.{png,pdf}` | `new_user_tuned_fixed_vs_adaptive_formal.json` | n=3 with sample-SD I-bars | Plaintext CIFAR-10 development validation; same epsilon/data/initializer/seeds but independently configured optimizer/compute parameters; clipped fraction is a non-private diagnostic; not TFE |
 
 Each figure has an independent documented builder:
 
@@ -19,7 +19,7 @@ Each figure has an independent documented builder:
 | 3 | `new_scripts/new_paper_figures/new_build_figure3.py` | `python new_scripts/new_paper_figures/new_build_figure3.py` |
 | 4 | `new_scripts/new_paper_figures/new_build_figure4.py` | `python new_scripts/new_paper_figures/new_build_figure4.py` |
 | 5 | `new_scripts/new_paper_figures/new_build_figure5.py` | `python new_scripts/new_paper_figures/new_build_figure5.py` |
-| 6 | `new_scripts/new_paper_figures/new_build_figure6.py` | `python new_scripts/new_paper_figures/new_build_figure6.py` |
+| 6 | `new_scripts/new_paper_figures/new_build_figure6.py` | `/root/autodl-tmp/new_envs/distillation/bin/python new_scripts/new_paper_figures/new_build_figure6.py --input new_log/new_paper_adaptive/new_user_tuned_fixed_vs_adaptive_formal.json --output-stem new_figure6_user_tuned_plaintext --table new_expTab/new_paper_adaptive/new_figure6_user_tuned_plaintext_summary.csv` |
 
 Shared paths, colors, saving and I-bar helpers are in
 `new_scripts/new_paper_figures/new_paper_figure_common.py`; it contains no
@@ -56,11 +56,14 @@ scope gates remain active because they are not hash checks.
    The redesigned plot makes the heterogeneity pattern easier to read, while the
    table preserves exact values. Table 4 should be removed only after the user
    decides whether exact in-body values are worth the duplication.
-6. The current Figure 6 keeps the previous Fixed seed42/43/44 results frozen
-   and independently tunes only Adaptive over 400 development candidates.
-   Adaptive gains `+0.400 +/- 0.242 pp`, with all three seed gains positive.
-   Because steps, batch and learning rate differ, this is a same-epsilon,
-   independently tuned comparison rather than a matched-compute causal
-   isolation. The old matched Figure 6 is retained as historical evidence.
+6. The current Figure 6 uses the latest user-configured plaintext run for both
+   methods. Adaptive gains `+11.600 +/- 1.752 pp`, with all three seed gains
+   positive. Fixed uses steps280/LR.013/batch16 and falls from a mean best
+   archived accuracy of 56.853% to 47.333% at the final checkpoint; Adaptive
+   uses steps160/LR.002/batch32 and finishes at 58.933%. Because steps, batch,
+   learning rate and terminal behavior differ, this is a same-epsilon complete-
+   configuration comparison rather than a causal isolation of clipping. It is
+   plaintext and cannot be described as TFE evidence. Older matched and
+   Adaptive-only-tuned Figure 6 files are retained as historical evidence.
 7. Figure 7 is not yet supported by a matched owner-count × dimension × network
    matrix. It should be skipped unless the evidentiary gain justifies that cost.
