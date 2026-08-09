@@ -14,7 +14,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
-from matplotlib.ticker import FormatStrFormatter, MaxNLocator, PercentFormatter
+from matplotlib.ticker import FormatStrFormatter, PercentFormatter
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -185,8 +185,14 @@ def figure2():
             ax.set_xlim(window_min - 0.08 * span, window_max + 0.08 * span)
             ax.axhline(0.0, color="#808080", linestyle="--", linewidth=0.7, alpha=0.5)
             ax.set_xlabel(window_label + "\nCumulative time (min)", fontsize=8)
-            ax.xaxis.set_major_locator(MaxNLocator(3))
-            ax.ticklabel_format(axis="x", style="plain", useOffset=False)
+            # Keep tick labels away from the diagonal break.  In particular,
+            # Tiny's left-window 105.0 and right-window 352.5 labels otherwise
+            # collide in the narrow gap even though the axes are distinct.
+            candidate_ticks = np.linspace(window_min, window_max, 4)
+            ax.set_xticks(
+                candidate_ticks[:-1] if ax is short_left else candidate_ticks[1:]
+            )
+            ax.xaxis.set_major_formatter(FormatStrFormatter("%.2f"))
             ax.text(
                 0.97, 0.955, "{} releases".format(len(rows)), transform=ax.transAxes,
                 ha="right", va="top", fontsize=7, color="#555555",
