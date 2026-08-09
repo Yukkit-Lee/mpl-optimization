@@ -1,0 +1,38 @@
+{
+  "initial_accuracy": 0.5762,
+  "best_fixed": {
+    "stage": "fixed_bound",
+    "mode": "fixed_dp",
+    "steps": 320,
+    "learning_rate": 0.001,
+    "clip_c": 2.0,
+    "gamma": 0.5,
+    "eta_c": 0.05,
+    "final_accuracy": 0.5998,
+    "best_accuracy": 0.5998,
+    "early_auc": 0.5887833333333333,
+    "final_c": 2.0,
+    "noise_multiplier": 1.212443875622383,
+    "accounted_epsilon": 2.999999999999912,
+    "count_releases": 0,
+    "runtime_seconds": 4.748195648193359
+  },
+  "best_adaptive": {
+    "stage": "adaptive",
+    "mode": "adaptive_dp",
+    "steps": 320,
+    "learning_rate": 0.001,
+    "clip_c": 2.0,
+    "gamma": 0.5,
+    "eta_c": 0.02,
+    "final_accuracy": 0.5994,
+    "best_accuracy": 0.5994,
+    "early_auc": 0.5885833333333333,
+    "final_c": 1.3523823016691723,
+    "noise_multiplier": 1.2132567857604013,
+    "accounted_epsilon": 2.9999999999999045,
+    "count_releases": 63,
+    "runtime_seconds": 4.350239515304565
+  },
+  "adaptive_minus_fixed_pp": -0.039999999999995595
+}

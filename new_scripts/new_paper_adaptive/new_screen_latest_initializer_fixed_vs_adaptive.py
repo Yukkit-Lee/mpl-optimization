@@ -120,8 +120,12 @@ def run_candidate(payload):
             grad_b += gradient_rng.normal(0.0, scale, grad_b.shape)
             weight -= config["learning_rate"] * grad_w
             bias -= config["learning_rate"] * grad_b
-            fraction_below = float(np.mean(norm_squared <= current_c * current_c))
-            clipped_fraction = 1.0 - fraction_below
+            below_count = float(np.sum(norm_squared <= current_c * current_c))
+            # Match the secure Poisson graph: padded examples contribute zero
+            # and the count statistic is normalized by the expected batch,
+            # not by the realized random batch size.
+            fraction_below = below_count / float(config["expected_batch_size"])
+            clipped_fraction = 1.0 - below_count / float(len(ids))
             norm_mean = float(np.mean(np.sqrt(norm_squared)))
         else:
             fraction_below = 0.0

@@ -1,0 +1,36 @@
+{
+  "schema": "new_adaptive_latest_initializer_screen_semantic_retry_preflight_v1",
+  "status": "PASS_BEFORE_RETRY",
+  "timestamp_utc": "2026-08-09T10:09:28Z",
+  "runner_sha256": "807c52666d301f8dea467712c342135b79ca772af662cbffd2e73a1458c6fde6",
+  "tmux_session": "paper_adaptive_screen_0809_semantic_retry",
+  "command": "env OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 /root/autodl-tmp/new_envs/distillation/bin/python new_scripts/new_paper_adaptive/new_screen_latest_initializer_fixed_vs_adaptive.py --workers 8",
+  "log": "new_log/new_paper_adaptive/txt/new_adaptive_latest_initializer_screen_attempt3.log",
+  "resources": {
+    "cgroup_memory_limit_bytes": 64424509440,
+    "cgroup_memory_current_bytes": 2936586240,
+    "cpus": 32,
+    "disk_free_bytes": 30954065920
+  },
+  "attempt": 3,
+  "reason": "align Poisson clipping-count normalization with the secure TFE graph",
+  "change": "fraction_below = below_count / expected_batch_size; nonprivate diagnostic clipped_fraction remains normalized by realized nonempty batch size",
+  "search_grid_changed": false,
+  "selection_rule_changed": false,
+  "privacy_accountant_changed": false,
+  "quarantined_attempt2": {
+    "fixed_accuracy": 0.5998,
+    "adaptive_accuracy": 0.5994,
+    "adaptive_minus_fixed_pp": -0.04,
+    "json": "new_log/new_paper_adaptive/new_adaptive_latest_initializer_screen_attempt2_semantic_mismatch.json",
+    "csv": "new_expTab/new_paper_adaptive/new_adaptive_latest_initializer_screen_attempt2_semantic_mismatch.csv",
+    "log": "new_log/new_paper_adaptive/txt/new_adaptive_latest_initializer_screen_attempt2_semantic_mismatch.log"
+  },
+  "quarantined_attempt2_sha256": {
+    "json": "42c512d1c20bc1f105c00cd7e55f95d1ae33a0707518708f9f4a7b38dd653f3f",
+    "csv": "f0a0fe3958493c47b18a3ed3cf8cdebd4f8b25b307df6f01a2a047ee0f80444a",
+    "log": "7dc467f001f66a27a38f5f609d2ad1de1b4f99c1f323b053a6f7c65c8d095c80"
+  },
+  "official_test_read": false,
+  "locked_holdout_read": false
+}

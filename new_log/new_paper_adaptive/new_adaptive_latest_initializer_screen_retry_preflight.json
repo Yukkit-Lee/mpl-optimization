@@ -1,6 +1,6 @@
 {
   "schema": "new_adaptive_latest_initializer_screen_retry_preflight_v1",
-  "status": "PASS_BEFORE_RETRY",
+  "status": "COMPLETED_BUT_QUARANTINED_SEMANTIC_MISMATCH",
   "timestamp_utc": "2026-08-09T10:06:32Z",
   "source_git_commit_before_fix": "947dd39",
   "branch": "unified-experiments",
