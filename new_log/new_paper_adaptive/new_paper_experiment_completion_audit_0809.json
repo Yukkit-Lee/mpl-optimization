@@ -20,10 +20,10 @@
     "table_4_retained_pending_user_decision": true
   },
   "figure_sha256": {
-    "figure2_png": "34e125d4b4fec86c765579d1478dab767899e9736cd5853353daf98f8df112e8",
-    "figure3_png": "4ae9720c119cf6083eef25c2da42a249e7d0ce6705b2d1782079b8c10a88d225",
-    "figure4_png": "39a0d079a2bed8e81ae3a4f51690c74c906ae3d5331ca0f1479927847a0f235d",
-    "figure5_png": "b2c355f1136c520c10958d90939998364a5e07d28cfba8a99ae646a09eefef75",
+    "figure2_png": "eb61450c4cb8a0a435ddfb13147e69f523897b5c406adabcc09b977c20a26759",
+    "figure3_png": "ab31b01aeeb9fe39e5d0d443cfbacd26495d52a5167150be483f8fe3afbed6dc",
+    "figure4_png": "609a6c880c09b2265ce574e7730d3b7a84d5524f330f1ae0caec6223501a9bcf",
+    "figure5_png": "cccc975e526de5985992749e50285faad2770a02a58686d8670a71aed34297fe",
     "figure6_png": "49fdf55f24a22679326eb6d8861828c55e7f767a63d667bf23db218e545f0287"
   },
   "scientific_boundary": "Adaptive tracks the clipping bound but is non-superior under the preregistered utility gate; no TFE follow-up is authorized."

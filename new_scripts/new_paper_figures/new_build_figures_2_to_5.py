@@ -14,8 +14,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
-from matplotlib.ticker import PercentFormatter
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+from matplotlib.ticker import MaxNLocator, PercentFormatter
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -86,75 +85,92 @@ def figure2():
         if int(row["n"]) != 1:
             raise ValueError("corrected-v2 SPU plot data must be n=1")
         grouped[(row["dataset"], row["method"])].append(row)
+    expected_releases = {"cifar10": 8, "cifar100": 2, "tiny": 18}
+    for dataset in DATASETS:
+        for method in ("full_data", "true_ours"):
+            rows = grouped[(dataset, method)]
+            if len(rows) != expected_releases[dataset]:
+                raise ValueError("SPU release cardinality mismatch: {} {}".format(dataset, method))
+            times = [float(row["cumulative_online_secure_seconds"]) for row in rows]
+            if any(right <= left for left, right in zip(times, times[1:])):
+                raise ValueError("SPU cumulative time is not strictly increasing")
 
-    fig, axes = plt.subplots(2, 3, figsize=(15.4, 8.6), sharey="col")
-    for row_idx, backend in enumerate(("TFE / ABY3", "SecretFlow-SPU")):
-        for col_idx, dataset in enumerate(DATASETS):
-            ax = axes[row_idx, col_idx]
-            targets = []
-            for method, color in (("full_data", FULL_BLUE), ("true_ours", OURS_RED)):
-                if row_idx == 0:
-                    result = master["datasets"][dataset]["methods"][method]
-                    curve = result["curve"]
-                    x = np.asarray(curve["time_seconds"], dtype=float)
-                    y = np.asarray(curve["accuracy_mean"], dtype=float)
-                    std = curve["accuracy_sample_std"]
-                    n = int(result["n"])
-                    transition = float(np.median(result["stage_transition_seconds"]))
-                    targets = list(master["datasets"][dataset]["targets"].values())
-                else:
-                    rows = grouped[(dataset, method)]
-                    if not rows:
-                        raise ValueError("missing SPU series {} {}".format(dataset, method))
-                    x = np.asarray([float(item["cumulative_online_secure_seconds"]) for item in rows])
-                    y = np.asarray([float(item["development_accuracy"]) for item in rows])
-                    std = None
-                    n = 1
-                    transition = float(rows[0]["stage_b_to_c_transition_seconds"])
-                    targets = [float(rows[0][key]) for key in ("target_T80", "target_T90", "target_T95")]
-                label = "Full Data" if method == "full_data" else "Ours"
-                linestyle = "-" if row_idx == 0 else "--"
-                marker = None if row_idx == 0 else ("s" if method == "full_data" else "D")
-                ax.plot(
-                    x, y, color=color, linewidth=2.15, linestyle=linestyle,
-                    marker=marker, markersize=4.2, label="{} {} (n={})".format(backend, label, n),
-                )
-                ax.scatter([x[-1]], [y[-1]], s=25, color=color, marker=marker or "o", zorder=4)
-                if std is not None:
-                    i_errorbars(ax, x, y, np.asarray(std, dtype=float), color)
-            for target in targets:
+    fig = plt.figure(figsize=(16.0, 8.8))
+    grid = fig.add_gridspec(2, 6, height_ratios=(1.0, 1.0), hspace=0.30, wspace=0.16)
+    top_axes = []
+    bottom_pairs = []
+    for col_idx, dataset in enumerate(DATASETS):
+        top = fig.add_subplot(grid[0, 2 * col_idx : 2 * col_idx + 2])
+        left = fig.add_subplot(grid[1, 2 * col_idx], sharey=top)
+        right = fig.add_subplot(grid[1, 2 * col_idx + 1], sharey=top)
+        top_axes.append(top)
+        bottom_pairs.append((left, right))
+
+        targets = list(master["datasets"][dataset]["targets"].values())
+        for method, color in (("full_data", FULL_BLUE), ("true_ours", OURS_RED)):
+            result = master["datasets"][dataset]["methods"][method]
+            curve = result["curve"]
+            x = np.asarray(curve["time_seconds"], dtype=float)
+            y = np.asarray(curve["accuracy_mean"], dtype=float)
+            std = curve["accuracy_sample_std"]
+            top.plot(x, y, color=color, linewidth=2.15, linestyle="-")
+            top.scatter([x[-1]], [y[-1]], s=25, color=color, zorder=4)
+            if std is not None:
+                i_errorbars(top, x, y, np.asarray(std, dtype=float), color)
+        for target in targets:
+            top.axhline(target, color="#808080", linestyle="--", linewidth=0.65, alpha=0.42)
+        top.set_xscale("log")
+        top.set_title(DATASET_LABELS[dataset], fontweight="bold")
+        top.set_xlabel("Cumulative online secure time (s, log scale)")
+        top.text(
+            0.025, 0.955, "TFE / ABY3", transform=top.transAxes, ha="left", va="top",
+            fontsize=8, fontweight="bold", color="#444444",
+            bbox=dict(boxstyle="round,pad=0.2", facecolor="white", edgecolor="#BBBBBB", alpha=0.88),
+        )
+
+        # The SPU Stage-B time is much larger than each Stage-C release span.
+        # Use two broken cumulative-time windows so all archived releases are
+        # legible while retaining their original absolute x values.
+        for ax, method, color, marker, window_label in (
+            (left, "true_ours", OURS_RED, "D", "Ours window"),
+            (right, "full_data", FULL_BLUE, "s", "Full Data window"),
+        ):
+            rows = grouped[(dataset, method)]
+            if not rows:
+                raise ValueError("missing SPU series {} {}".format(dataset, method))
+            x = np.asarray([float(item["cumulative_online_secure_seconds"]) for item in rows])
+            y = np.asarray([float(item["development_accuracy"]) for item in rows])
+            ax.plot(x, y, color=color, linewidth=1.8, linestyle="--", marker=marker, markersize=4.0)
+            span = max(float(np.ptp(x)), 1.0)
+            ax.set_xlim(float(x.min()) - 0.10 * span, float(x.max()) + 0.10 * span)
+            for target in [float(rows[0][key]) for key in ("target_T80", "target_T90", "target_T95")]:
                 ax.axhline(target, color="#808080", linestyle="--", linewidth=0.65, alpha=0.42)
-            ax.set_xscale("log")
+            ax.xaxis.set_major_locator(MaxNLocator(3))
+            ax.ticklabel_format(axis="x", style="plain", useOffset=False)
+            ax.set_xlabel(window_label + "\nCumulative time (s)", fontsize=8)
+            if method == "full_data":
+                ax.text(0.5, 0.955, "{} releases / method".format(len(rows)), transform=ax.transAxes, ha="center", va="top", fontsize=7, color="#555555")
+        left.text(
+            0.03, 0.955, "SecretFlow-SPU", transform=left.transAxes, ha="left", va="top",
+            fontsize=8, fontweight="bold", color="#444444",
+            bbox=dict(boxstyle="round,pad=0.2", facecolor="white", edgecolor="#BBBBBB", alpha=0.88),
+        )
+        left.spines["right"].set_visible(False)
+        right.spines["left"].set_visible(False)
+        right.tick_params(axis="y", left=False, labelleft=False)
+        # Diagonal break marks indicate the omitted cumulative-time interval.
+        kwargs = dict(color="#555555", clip_on=False, linewidth=1.0)
+        left.plot((0.975, 1.025), (-0.012, 0.012), transform=left.transAxes, **kwargs)
+        left.plot((0.975, 1.025), (0.988, 1.012), transform=left.transAxes, **kwargs)
+        right.plot((-0.025, 0.025), (-0.012, 0.012), transform=right.transAxes, **kwargs)
+        right.plot((-0.025, 0.025), (0.988, 1.012), transform=right.transAxes, **kwargs)
+
+        for ax in (top, left, right):
             ax.yaxis.set_major_formatter(PercentFormatter(1.0))
-            ax.grid(True, which="both", alpha=0.16)
-            ax.set_xlabel("Cumulative online secure time (s, log scale)")
-            if row_idx == 0:
-                ax.set_title(DATASET_LABELS[dataset], fontweight="bold")
-            if col_idx == 0:
-                ax.set_ylabel("Development-validation accuracy")
-            ax.text(
-                0.025, 0.955, backend, transform=ax.transAxes, ha="left", va="top",
-                fontsize=8, fontweight="bold", color="#444444",
-                bbox=dict(boxstyle="round,pad=0.2", facecolor="white", edgecolor="#BBBBBB", alpha=0.88),
-            )
-            if row_idx == 1:
-                # Cumulative time is dominated by Stage B, so the genuine
-                # Stage-C releases cluster tightly in the main panel.  This
-                # inset exposes every archived release without changing the
-                # end-to-end time axis above.
-                detail = inset_axes(ax, width="47%", height="39%", loc="lower right", borderpad=1.0)
-                for method, color in (("full_data", FULL_BLUE), ("true_ours", OURS_RED)):
-                    rows = grouped[(dataset, method)]
-                    rel = np.asarray([float(item["cumulative_online_secure_seconds"]) for item in rows])
-                    rel = rel - float(rows[0]["stage_b_to_c_transition_seconds"])
-                    values = np.asarray([float(item["development_accuracy"]) for item in rows])
-                    marker = "s" if method == "full_data" else "D"
-                    detail.plot(rel, values, color=color, linestyle="--", marker=marker, markersize=3.0, linewidth=1.1)
-                detail.yaxis.set_major_formatter(PercentFormatter(1.0))
-                detail.tick_params(labelsize=6)
-                detail.grid(alpha=0.15)
-                detail.set_title("Stage-C detail ({} releases)".format(len(grouped[(dataset, "true_ours")])), fontsize=6.5)
-                detail.set_xlabel("Stage-C online (s)", fontsize=6.2)
+            ax.grid(True, alpha=0.16)
+        if col_idx == 0:
+            top.set_ylabel("Development-validation accuracy")
+            left.set_ylabel("Development-validation accuracy")
     handles = [
         Line2D([0], [0], color=FULL_BLUE, lw=2.2, ls="-", label="TFE Full Data"),
         Line2D([0], [0], color=OURS_RED, lw=2.2, ls="-", label="TFE Ours"),
@@ -168,11 +184,11 @@ def figure2():
         0.5,
         -0.047,
         "I-bars show sample standard deviation for TFE n=3; Tiny TFE and all SPU panels are n=1. "
-        "SPU insets show every genuine Stage-C release; backend rows are not hardware-normalized.",
+        "SPU uses broken absolute cumulative-time windows so every genuine 8/2/18 release is visible; backend rows are not hardware-normalized.",
         ha="center",
         fontsize=8,
     )
-    fig.tight_layout(rect=(0, 0.05, 1, 0.96))
+    fig.subplots_adjust(left=0.07, right=0.985, top=0.91, bottom=0.13)
     save(fig, "new_figure2_dual_backend_pea_i_errorbars")
 
 
