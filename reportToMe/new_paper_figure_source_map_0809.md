@@ -9,7 +9,7 @@
 | 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | Nine frozen Module-A JSON runs | n=3 with sample-SD I-bars | Official-test values from fixed-interval read-only formal reporting; per-seed convergence requires all later points within terminal +/-0.5pp, then uses latest seed cut |
 | 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_bars.{png,pdf}` | Stage-B initialization-source ablation CSV | seed42, n=1, no error bars | Development validation; 2x3 grouped bars; no test or locked holdout read |
 | 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Stage-B trajectory JSON | seed42, n=1, no bars | Development validation; no test or locked holdout read |
-| 6 | `new_expFig/paper_experiment/new_figure6_user_tuned_plaintext.{png,pdf}` | `new_user_tuned_fixed_vs_adaptive_formal.json` | n=3 with sample-SD I-bars | Plaintext CIFAR-10 development validation; same epsilon/data/initializer/seeds but independently configured optimizer/compute parameters; clipped fraction is a non-private diagnostic; not TFE |
+| 6 | `new_expFig/paper_experiment/new_figure6_user_tuned_three_datasets.{png,pdf}` | `new_user_tuned_fixed_vs_adaptive_multidataset_formal.json` (3 datasets x 2 methods x 3 seeds) | Accuracy: n=3 with sample-SD I-bars; Adaptive C_t: mean only, no bars | Development validation; same epsilon/input within dataset but independently configured methods; no official-test/locked-holdout read |
 
 Each figure has an independent documented builder:
 
@@ -19,7 +19,7 @@ Each figure has an independent documented builder:
 | 3 | `new_scripts/new_paper_figures/new_build_figure3.py` | `python new_scripts/new_paper_figures/new_build_figure3.py` |
 | 4 | `new_scripts/new_paper_figures/new_build_figure4.py` | `python new_scripts/new_paper_figures/new_build_figure4.py` |
 | 5 | `new_scripts/new_paper_figures/new_build_figure5.py` | `python new_scripts/new_paper_figures/new_build_figure5.py` |
-| 6 | `new_scripts/new_paper_figures/new_build_figure6.py` | `/root/autodl-tmp/new_envs/distillation/bin/python new_scripts/new_paper_figures/new_build_figure6.py --input new_log/new_paper_adaptive/new_user_tuned_fixed_vs_adaptive_formal.json --output-stem new_figure6_user_tuned_plaintext --table new_expTab/new_paper_adaptive/new_figure6_user_tuned_plaintext_summary.csv` |
+| 6 | `new_scripts/new_paper_figures/new_build_figure6.py` | `/root/autodl-tmp/new_envs/distillation/bin/python new_scripts/new_paper_figures/new_build_figure6.py` |
 
 Shared paths, colors, saving and I-bar helpers are in
 `new_scripts/new_paper_figures/new_paper_figure_common.py`; it contains no
@@ -56,14 +56,14 @@ scope gates remain active because they are not hash checks.
    The redesigned plot makes the heterogeneity pattern easier to read, while the
    table preserves exact values. Table 4 should be removed only after the user
    decides whether exact in-body values are worth the duplication.
-6. The current Figure 6 uses the latest user-configured plaintext run for both
-   methods. Adaptive gains `+11.600 +/- 1.752 pp`, with all three seed gains
-   positive. Fixed uses steps280/LR.013/batch16 and falls from a mean best
-   archived accuracy of 56.853% to 47.333% at the final checkpoint; Adaptive
-   uses steps160/LR.002/batch32 and finishes at 58.933%. Because steps, batch,
-   learning rate and terminal behavior differ, this is a same-epsilon complete-
-   configuration comparison rather than a causal isolation of clipping. It is
-   plaintext and cannot be described as TFE evidence. Older matched and
-   Adaptive-only-tuned Figure 6 files are retained as historical evidence.
+6. The current Figure 6 reuses the user-configured CIFAR-10 result and extends
+   exactly those Fixed/Adaptive configurations to CIFAR-100 and Tiny ImageNet.
+   Adaptive final gains are `+11.600 +/- 1.752`, `+6.447 +/- 0.163`, and
+   `+4.123 +/- 0.417 pp`. The methods use different steps/LR/batch, so this is a
+   same-epsilon complete-configuration comparison rather than an adaptive-clip
+   causal isolation. Tiny uses the available Official-MTT-only True-Ours
+   Stage-B selected initializer, while CIFAR-10/100 use C5-family initializers.
+   The gray secondary axis is mean Adaptive C_t without uncertainty; Fixed C is
+   not drawn. The x coordinate is private-update index, not wall-clock time.
 7. Figure 7 is not yet supported by a matched owner-count × dimension × network
    matrix. It should be skipped unless the evidentiary gain justifies that cost.

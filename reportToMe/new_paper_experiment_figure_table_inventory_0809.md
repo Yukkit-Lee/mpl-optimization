@@ -9,9 +9,9 @@
 | Figure 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | 蒸馏载体更快达到冻结目标，Ours按目标处提前停止 | n=3；原冻结协议的定点只读official-test |
 | Figure 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_bars.{png,pdf}` | 异构条件下Secure Average+Anchor优于主要初始化对照 | development，seed42，n=1 |
 | Figure 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Anchor修正轨迹及初始化来源差异 | development，seed42，n=1，因此不画误差条 |
-| Figure 6 | `new_expFig/paper_experiment/new_figure6_user_tuned_plaintext.{png,pdf}` | 最新用户配置下Adaptive三个seed均优于Fixed | 明文CIFAR-10 development，n=3，epsilon=3；双方steps/batch/LR不同，Fixed后期显著退化；属于完整配置比较而非裁剪单因素因果证据；被裁剪比例是非私有诊断；不是TFE |
+| Figure 6 | `new_expFig/paper_experiment/new_figure6_user_tuned_three_datasets.{png,pdf}` | 三数据集上独立配置Fixed/Adaptive的准确率轨迹及Adaptive C_t行为 | development，n=3，epsilon=3；同数据集内共享输入但两方法优化参数不同；准确率有I型样本标准差，灰色Adaptive C_t无误差条；横轴为更新步而非时间 |
 | Table 4 | `初稿_真实密态环境.md` §5.4 | Figure 4的精确数值 | 与Figure 4重复；等待用户决定移到补充材料或保留 |
-| Table 5 | `初稿_真实密态环境.md` §5.5 | 最新用户配置Fixed/Adaptive的三seed最终、最佳归档、AUC和C结果 | 明文development；同epsilon但不同steps/batch/LR；Fixed LR.013后期退化；不能称matched compute或TFE结果 |
+| Table 5 | `初稿_真实密态环境.md` §5.5 | 三数据集独立配置Fixed/Adaptive的最终准确率、AUC和最终C | development，n=3，epsilon=3；Adaptive最终增益为C10 +11.600、C100 +6.447、Tiny +4.123pp；属于完整配置比较而非裁剪单因素因果消融 |
 | Table 6 | `初稿_真实密态环境.md` §5.6 | 本地matched control与公开文献背景 | 只有同后端本地成对行可直接比较；外部行不是统一排行榜 |
 | Table 7 | `初稿_真实密态环境.md` §5.7 | Plaintext与TFE数值一致性 | Severe、seed42；只报告accuracy/gap |
 | Table 8 | `初稿_真实密态环境.md` §5.7 | corrected SPU时间与内存分解 | n=1；conditional Stage-C DP；无统一通信字节计数 |

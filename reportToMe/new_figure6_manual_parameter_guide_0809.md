@@ -64,28 +64,30 @@ tmux new -s figure6_formal
   --workers 6 2>&1 | tee new_log/new_paper_adaptive/txt/new_user_tuned_formal.log
 ```
 
-## 5. 绘制你的 Figure 6
+## 5. 当前论文 Figure 6
 
-将 `--input` 改成配置文件中 `OUTPUT_JSON` 的值：
+当前正文Figure 6使用用户分别配置的Fixed/Adaptive参数：CIFAR-10直接复用已完成
+结果，CIFAR-100和Tiny用相同两套方法参数补齐三seed。输入为：
+
+`new_log/new_paper_adaptive/new_user_tuned_fixed_vs_adaptive_multidataset_formal.json`
+
+运行：
 
 ```bash
 cd /root/autodl-tmp/tfe_experiments
 /root/autodl-tmp/new_envs/distillation/bin/python \
-  new_scripts/new_paper_figures/new_build_figure6.py \
-  --input new_log/new_paper_adaptive/new_user_tuned_fixed_vs_adaptive_formal.json \
-  --output-stem new_figure6_user_tuned \
-  --table new_expTab/new_paper_adaptive/new_figure6_user_tuned_summary.csv
+  new_scripts/new_paper_figures/new_build_figure6.py
 ```
 
 生成：
 
-- `new_expFig/paper_experiment/new_figure6_user_tuned.png`
-- `new_expFig/paper_experiment/new_figure6_user_tuned.pdf`
-- `new_expTab/new_paper_adaptive/new_figure6_user_tuned_summary.csv`
+- `new_expFig/paper_experiment/new_figure6_user_tuned_three_datasets.png`
+- `new_expFig/paper_experiment/new_figure6_user_tuned_three_datasets.pdf`
+- `new_expTab/new_paper_adaptive/new_figure6_user_tuned_three_datasets_summary.csv`
 
-绘图不验证 JSON 哈希，也不要求 Fixed 冻结。它只检查 JSON 可解析、两方法 seed
-一致、epsilon 一致、没有读取 test/holdout。n=1 时不会伪造误差条，n>=2 时使用
-真实 seed 样本标准差。
+绘图不验证JSON哈希，但会检查整体状态、18条数据的dataset/mode/seed、epsilon=3、
+test/holdout门和轨迹结构。准确率使用三seed样本标准差；右轴只画Adaptive平均C_t
+且不画C误差条。CIFAR-10源JSON仍单独保留，并在三数据集结果中标记为复用而非重跑。
 
 ## 6. 参数含义和注意事项
 

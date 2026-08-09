@@ -1,13 +1,13 @@
 # Unified Experiment Report
 
-更新时间：2026-08-09（UTC）
+更新时间：2026-08-10（UTC）
 权威分支：`unified-experiments`
 原统一审计提交：`704755d70d2475a6a306a1b09e4e5e65195baf6c`；本次合并验收源：
 `new-secretflow-spu-end2end@cfa2b9a`
 
 本报告是仓库当前唯一权威的跨实验总结。所有数字均由已跟踪的 CSV/JSON
 重新读取并通过 cardinality、状态、数据边界、SHA256 与 Git lineage 审计；
-8月8日统一验收未启动实验；8月9日先完成预注册三种子Adaptive明文门控，随后按用户与导师允许双方独立配置的口径完成最新三种子明文比较；两者均未启动TFE。
+8月8日统一验收未启动实验；8月9日完成预注册三种子Adaptive门控与用户独立配置的CIFAR-10比较；8月10日复用CIFAR-10并以相同两套配置补齐CIFAR-100/Tiny三种子结果。
 
 ## 1. 总结结论
 
@@ -19,7 +19,7 @@
 6. Stage-C epsilon只覆盖条件式Stage-C机制；数据依赖的Stage-B initializer非record-level DP，因此不能声称端到端DP。
 7. 当前权威True Ours与Post-Aggregation均未读取official test或locked holdout；历史final-test数字不进入当前主结论。
 8. corrected-v2 SecretFlow-SPU六条seed42均完成并复现同后端T@90定性趋势；新的2x3论文Figure 2已移除占位框并纳入TFE三seed误差条，但仍不是跨后端硬件归一化比较。
-9. 使用最新C5 initializer的历史matched明文门控仅比Fixed高0.133pp且未启动TFE；当前论文另报告用户独立配置的same-epsilon明文结果（Adaptive最终高`11.60 ± 1.75pp`），但Fixed在高学习率下明显后期退化，因此它只证明完整配置差异，不能隔离Adaptive clipping因果贡献或声称TFE复现。
+9. 当前Figure 6/Table 5采用三数据集same-epsilon独立配置结果，Adaptive最终高`11.600 ± 1.752`、`6.447 ± 0.163`和`4.123 ± 0.417pp`；但Fixed在高学习率下明显后期退化，且双方steps/LR/batch不同，因此只证明完整配置差异，不能隔离Adaptive clipping因果贡献或声称真实时间加速。
 
 ## 2. Stage A：Official MTT样本效率
 
@@ -123,17 +123,21 @@ development screen。冻结胜者steps160/LR.003/batch32/C0=2/gamma=.5/eta=.1在
 formal seeds42/43/44的最终准确率为`59.073% ± 0.081pp`，相对Fixed
 `58.673% ± 0.214pp`逐seed提升`+0.14/+0.62/+0.44pp`，均值
 `+0.400 ± 0.242pp`；双方epsilon均为3，Adaptive计入32次count release。
-Figure 6与Table 5采用该最新结果。因两者steps/batch/LR不同，只能声明
-same-epsilon independently-tuned comparison，不能声明matched compute-budget因果效应。
+该结果保留为历史matched门控，不是当前Figure 6/Table 5的数据源。
 
-用户随后开放Fixed与Adaptive双方参数并完成最新三seed明文运行：Fixed采用
+用户随后开放Fixed与Adaptive双方参数并完成CIFAR-10三seed运行：Fixed采用
 steps280/LR.013/batch16/C2，最终`47.333% ± 1.561pp`，但最佳归档点为
 `56.853% ± 0.090pp`；Adaptive采用steps160/LR.002/batch32/C0=2/gamma=.5/
 eta=.1，最终`58.933% ± 0.194pp`、finalC=`1.267 ± 0.010`。逐seed最终增益
 `+9.80/+13.30/+11.70pp`，均值`+11.600 ± 1.752pp`，early-AUC差`+8.333pp`。
-当前论文Figure 6/Table 5已改用这份最新结果。由于Fixed高学习率造成明显后期退化，
-该证据只能表示same-epsilon用户完整配置差异，不能隔离Adaptive clipping因果贡献；
-且它是plaintext development消融，不是TFE结果。
+8月10日按用户指示复用这六条CIFAR-10结果，并使用相同两套方法配置补齐CIFAR-100
+与Tiny ImageNet各三seed。CIFAR-100 Fixed/Adaptive最终为
+`12.613 ± 0.172%`/`19.060 ± 0.040%`，增益`+6.447 ± 0.163pp`；Tiny为
+`27.420 ± 0.348%`/`31.543 ± 0.078%`，增益`+4.123 ± 0.417pp`。18条均为
+epsilon3且未读取official test/locked holdout。Tiny使用可用的Official-MTT-only
+True-Ours Stage-B selected初始化器，C10/C100使用C5系列初始化器。当前Figure 6和
+Table 5使用该三数据集结果。由于双方steps/LR/batch不同且Fixed后期退化，这仍是
+完整配置比较，不能隔离Adaptive clipping的单因素贡献或证明真实时间加速。
 
 ### 6.3 历史End-to-End
 
@@ -171,7 +175,7 @@ eta=.1，最终`58.933% ± 0.194pp`、finalC=`1.267 ± 0.010`。逐seed最终增
 | KD/Consensus causality | COMPLETE_NEGATIVE | 负消融；不可声称独立贡献 |
 | Disagreement refinement | COMPLETE_NEGATIVE | 负消融；TFE按门控跳过 |
 | Heterogeneity trigger | COMPLETE_NEGATIVE | 负消融；TFE按门控跳过 |
-| Latest-initializer Fixed vs Adaptive | COMPLETE_NON_SUPERIOR | 主文Figure 6/Table 5可用于诚实负消融；TFE按门控跳过 |
+| User-configured Fixed vs Adaptive (3 datasets) | READY_WITH_SCOPE | 主文Figure 6/Table 5；same-epsilon完整配置比较，非裁剪单因素因果证据 |
 | Current official-test main table | NOT_AVAILABLE | 当前权威路线未读取official test |
 | End-to-end record-level DP | NOT_SUPPORTED | Stage-B initializer数据依赖且非DP |
 | Communication reduction | NOT_MEASURED | 不得声称 |

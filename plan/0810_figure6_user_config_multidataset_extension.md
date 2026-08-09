@@ -1,6 +1,6 @@
 # Figure 6用户独立配置三数据集扩展计划（2026-08-10）
 
-状态：`RUN_READY`
+状态：`COMPLETE`
 
 ## 目标
 
@@ -30,11 +30,11 @@ Adaptive方法参数，新增CIFAR-100与Tiny ImageNet各三seed结果，最终�
 ## 阶段
 
 1. `COMPLETE`：资源、输入、依赖、配置与SHA预检；
-2. `PENDING`：提交并推送runner/plan/preflight；
-3. `PENDING`：在tmux运行12个新增任务；
-4. `PENDING`：核验epsilon、三seed完整性、输入边界和结果；
-5. `PENDING`：按用户版式重画Figure 6、更新Table 5与5.5；
-6. `PENDING`：视觉检查、文档同步、提交推送。
+2. `COMPLETE`：提交并推送runner/plan/preflight；
+3. `COMPLETE`：在tmux运行12个新增任务；
+4. `COMPLETE`：核验epsilon、三seed完整性、输入边界和结果；
+5. `COMPLETE`：按用户版式重画Figure 6、更新Table 5与5.5；
+6. `COMPLETE`：视觉检查、文档同步、提交推送。
 
 ## 图形语义
 
@@ -43,3 +43,13 @@ Adaptive方法参数，新增CIFAR-100与Tiny ImageNet各三seed结果，最终�
 - 右轴：仅Adaptive平均`C_t`灰线，不画Fixed C、不画C误差条；
 - 横轴为private-update step；更少步数只有在达到稳定且有竞争力准确率时才表示
   迭代收敛更快，不代表绝对运行时间更短。
+
+## 完成结果
+
+- 12条新增任务全部COMPLETE；CIFAR-10六条从SHA锁定源结果复用；
+- 全部18条均为epsilon3，official test与locked holdout均未读；
+- Adaptive相对Fixed最终增益：CIFAR-10 `+11.600 ± 1.752pp`、CIFAR-100
+  `+6.447 ± 0.163pp`、Tiny `+4.123 ± 0.417pp`；
+- 正式图：`new_figure6_user_tuned_three_datasets.{png,pdf}`；
+- 科学边界：两方法steps/LR/batch不同，结果是完整配置对比，不是Adaptive
+  clipping的单因素因果证据，也不证明真实时间加速。
