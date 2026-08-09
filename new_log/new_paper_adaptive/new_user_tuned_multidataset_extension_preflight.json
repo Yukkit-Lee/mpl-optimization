@@ -1,0 +1,37 @@
+{
+  "schema": "new_user_tuned_multidataset_extension_preflight_v1",
+  "status": "PASS",
+  "training_started": false,
+  "date": "2026-08-10",
+  "branch": "unified-experiments",
+  "modern_python": "/root/autodl-tmp/new_envs/distillation/bin/python",
+  "opacus_version": "1.5.4",
+  "cpu_quota": "3200000/100000 = 32 CPUs",
+  "memory_limit_bytes": 64424509440,
+  "memory_current_bytes_at_preflight": 3917012992,
+  "disk_available_bytes_at_preflight": 30781181952,
+  "cifar10_reused_not_rerun": true,
+  "new_datasets": ["cifar100", "tiny"],
+  "new_task_count": 12,
+  "workers": 12,
+  "runner": "new_scripts/new_paper_adaptive/new_run_user_configurable_multidataset_extension.py",
+  "runner_sha256": "57cf2e36d4c4d2897899d6acd76cc7bfad72ccc31746b5e003b5b97331841a85",
+  "parameter_source": "new_scripts/new_paper_adaptive/new_user_editable_figure6_config.py",
+  "parameter_source_sha256": "18c15a965dff2c836f3dade08b1d9b73f0e736f66f0526fdfb145db3c43414c5",
+  "cifar10_source": "new_log/new_paper_adaptive/new_user_tuned_fixed_vs_adaptive_formal.json",
+  "cifar10_source_sha256": "55a68519f1640ac94c415ed9e0f6ab5ff539aafbf458646394ecfb536c5f0824",
+  "inputs": {
+    "cifar100": {
+      "initializer_sha256": "c93a765f69a09960eeea3617676a3696b5c3a82c645ef383d069cbbebeef659c",
+      "feature_cache_sha256": "20a4542844b94846d6ab5c576d0a09193bff779a63fe7232f63b8ca7fbd8c8fb"
+    },
+    "tiny": {
+      "initializer_sha256": "b7ba6026aa75d627cb6758aa151305a8c231cd549aae635bb4ec6398ebd62b91",
+      "feature_cache_sha256": "35d03903ccca6c0822e3ae9fae36dbdd7609da6a83f53fe5cf29770c1da0ce17"
+    }
+  },
+  "exact_command": "/root/autodl-tmp/new_envs/distillation/bin/python new_scripts/new_paper_adaptive/new_run_user_configurable_multidataset_extension.py --workers 12 2>&1 | tee new_log/new_paper_adaptive/txt/new_user_tuned_multidataset_extension.log",
+  "tmux_session": "figure6_multidataset_extension_0810",
+  "official_test_read": false,
+  "locked_holdout_read": false
+}
