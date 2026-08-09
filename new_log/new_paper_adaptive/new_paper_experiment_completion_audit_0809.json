@@ -22,9 +22,9 @@
   "figure_sha256": {
     "figure2a_tfe_png": "37c5b6e6816c6501dbce5221728f9007ee6cf1da9bd343825a522ab83a896ee7",
     "figure2b_spu_png": "0dcf85f2e890a556b33bd3eadc37b950cba11b9b88faffc25c3e58e2b60e6ee5",
-    "figure3_png": "ab31b01aeeb9fe39e5d0d443cfbacd26495d52a5167150be483f8fe3afbed6dc",
-    "figure4_png": "609a6c880c09b2265ce574e7730d3b7a84d5524f330f1ae0caec6223501a9bcf",
-    "figure5_png": "cccc975e526de5985992749e50285faad2770a02a58686d8670a71aed34297fe",
+    "figure3_png": "682fed88a323d8a22c36f65cfcb20fcd5cff8bfd19da5c5286886c29098c2b92",
+    "figure4_png": "c0e6514114a7605f5dcc315194c4e0cec41d445ed2a47100639a6c62eda52939",
+    "figure5_png": "b2c355f1136c520c10958d90939998364a5e07d28cfba8a99ae646a09eefef75",
     "figure6_png": "49fdf55f24a22679326eb6d8861828c55e7f767a63d667bf23db218e545f0287"
   },
   "scientific_boundary": "Adaptive tracks the clipping bound but is non-superior under the preregistered utility gate; no TFE follow-up is authorized."

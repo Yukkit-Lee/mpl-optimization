@@ -11,9 +11,22 @@
 | 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Stage-B trajectory JSON | seed42, n=1, no bars | Development validation; no test or locked holdout read |
 | 6 | `new_expFig/paper_experiment/new_figure6_adaptive_clipping_matched_pea.{png,pdf}` | Frozen latest-initializer formal plaintext JSON | n=3 with sample-SD I-bars | CIFAR-10 development validation; conditional Stage-C epsilon=3; clipped fraction is a non-private diagnostic |
 
-The builder is `new_scripts/new_paper_figures/new_build_figures_2_to_5.py`.
-It aborts on missing files, incomplete master status, an unexpected evaluation
-scope, or a Stage-B test/holdout flag.
+Each figure has an independent documented builder:
+
+| Figure | Builder | Run from repository root |
+|---|---|---|
+| 2(a)/(b) | `new_scripts/new_paper_figures/new_build_figure2.py` | `python new_scripts/new_paper_figures/new_build_figure2.py` |
+| 3 | `new_scripts/new_paper_figures/new_build_figure3.py` | `python new_scripts/new_paper_figures/new_build_figure3.py` |
+| 4 | `new_scripts/new_paper_figures/new_build_figure4.py` | `python new_scripts/new_paper_figures/new_build_figure4.py` |
+| 5 | `new_scripts/new_paper_figures/new_build_figure5.py` | `python new_scripts/new_paper_figures/new_build_figure5.py` |
+
+Shared paths, colors, saving and I-bar helpers are in
+`new_scripts/new_paper_figures/new_paper_figure_common.py`; it contains no
+Figure-specific data selection. The former
+`new_build_figures_2_to_5.py` remains only as a thin compatibility wrapper that
+calls the four independent builders. Each builder documents safe visual
+parameters versus evidence-defining parameters and aborts on its own provenance
+or evaluation-scope gates.
 
 ## Important limitations
 
