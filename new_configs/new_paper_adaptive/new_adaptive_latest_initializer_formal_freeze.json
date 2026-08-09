@@ -1,0 +1,45 @@
+{
+  "schema": "new_adaptive_latest_initializer_formal_freeze_v1",
+  "status": "FROZEN_BEFORE_FORMAL_PLAINTEXT",
+  "source_screen": "new_log/new_paper_adaptive/new_adaptive_latest_initializer_screen.json",
+  "source_screen_sha256": "6f51770f17141c252feffca481329993d75fcd2ba1d2a1ef5309fa75a4bbd895",
+  "source_runner_sha256": "807c52666d301f8dea467712c342135b79ca772af662cbffd2e73a1458c6fde6",
+  "dataset": "cifar10",
+  "rng_seeds": [42, 43, 44],
+  "fixed": {
+    "mode": "fixed_dp",
+    "steps": 320,
+    "learning_rate": 0.001,
+    "clip_c": 2.0,
+    "gamma": 0.5,
+    "eta_c": 0.05
+  },
+  "adaptive": {
+    "mode": "adaptive_dp",
+    "steps": 320,
+    "learning_rate": 0.001,
+    "clip_c": 2.0,
+    "gamma": 0.5,
+    "eta_c": 0.02
+  },
+  "shared": {
+    "target_epsilon": 3.0,
+    "delta": 1e-5,
+    "expected_batch_size": 16,
+    "warmup_steps": 5,
+    "update_interval": 5,
+    "count_noise_multiplier": 8.0,
+    "c_min": 0.05,
+    "c_max": 4.0,
+    "gradient_noise_common_random_numbers": true,
+    "evaluation_split": "development_validation",
+    "official_test_read": false,
+    "locked_holdout_read": false
+  },
+  "positive_rule": {
+    "minimum_mean_final_gain_pp": 1.0,
+    "same_gain_sign_all_seeds": true,
+    "adaptive_mean_early_auc_not_worse": true,
+    "launch_tfe_only_if_pass": true
+  }
+}

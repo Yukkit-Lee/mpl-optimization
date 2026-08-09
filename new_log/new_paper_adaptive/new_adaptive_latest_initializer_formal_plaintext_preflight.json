@@ -1,0 +1,22 @@
+{
+  "schema": "new_adaptive_latest_initializer_formal_plaintext_preflight_v1",
+  "status": "PASS_BEFORE_LAUNCH",
+  "timestamp_utc": "2026-08-09T10:13:44Z",
+  "source_git_commit": "5b3a46d",
+  "branch": "unified-experiments",
+  "tmux_session": "paper_adaptive_formal_plaintext_0809",
+  "command": "env OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 /root/autodl-tmp/new_envs/distillation/bin/python new_scripts/new_paper_adaptive/new_run_latest_initializer_formal_plaintext.py 2>&1 | tee new_log/new_paper_adaptive/txt/new_adaptive_latest_initializer_formal_plaintext.log",
+  "log": "new_log/new_paper_adaptive/txt/new_adaptive_latest_initializer_formal_plaintext.log",
+  "parallelism": "6 mode-seed tasks in parallel; BLAS may use up to 4 threads per task",
+  "resources": {
+    "cgroup_memory_limit_bytes": 64424509440,
+    "cgroup_memory_current_bytes": 2954158080,
+    "cpus": 32,
+    "disk_free_bytes": 30942990336
+  },
+  "source_screen_sha256": "6f51770f17141c252feffca481329993d75fcd2ba1d2a1ef5309fa75a4bbd895",
+  "formal_freeze_sha256": "0ef04dc7dd785a6346570b5cc13b21c364b6423881049e1c02352a292590d6b7",
+  "formal_runner_sha256": "925d804ff6b3c04419e8dd61d6ea5f567bc7d075ad2851041ded08e52dd56921",
+  "official_test_read": false,
+  "locked_holdout_read": false
+}
