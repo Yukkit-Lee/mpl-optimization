@@ -4,7 +4,7 @@
 
 | Figure | Output | Frozen sources | Repeats / uncertainty | Audited boundary |
 |---|---|---|---|---|
-| 2 | `new_expFig/paper_experiment/new_figure2_dual_backend_pea_i_errorbars.{png,pdf}` | `new_true_ours_master_results.json`; corrected-v2 SPU plot CSV | TFE CIFAR: n=3 with sample-SD I-bars; TFE Tiny/SPU: n=1, no bars | Development validation; top=original TFE log-seconds trajectories; bottom=paired SPU short windows in minutes with explicit break marks and all 8/2/18 genuine releases; T@Target uses original cumulative time; rows are not hardware-normalized |
+| 2 | `new_expFig/paper_experiment/new_figure2_dual_backend_pea_i_errorbars.{png,pdf}` | `new_true_ours_master_results.json`; corrected-v2 SPU plot CSV | TFE CIFAR: n=3 with sample-SD I-bars; TFE Tiny/SPU: n=1, no bars | Development validation; top=original TFE log-seconds trajectories; bottom=paired SPU short windows with y=accuracy change from each method's first release (pp), absolute endpoints printed, explicit break marks and all 8/2/18 releases; T@Target uses original cumulative time; rows are not hardware-normalized |
 | 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | Nine frozen Module-A JSON runs | n=3 with sample-SD I-bars | Official-test values from fixed-interval read-only formal reporting; per-seed convergence requires all later points within terminal +/-0.5pp, then uses latest seed cut |
 | 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_bars.{png,pdf}` | Stage-B initialization-source ablation CSV | seed42, n=1, no error bars | Development validation; 2x3 grouped bars; no test or locked holdout read |
 | 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Stage-B trajectory JSON | seed42, n=1, no bars | Development validation; no test or locked holdout read |
@@ -25,9 +25,12 @@ scope, or a Stage-B test/holdout flag.
 3. Figure 2 SPU short-window curves are corrected-v2 seed42 results. The left
    and right windows retain the original cumulative-time coordinates after a
    seconds-to-minutes unit conversion, while diagonal marks disclose the empty
-   interval omitted between Ours and Full. T@Target is computed from the
-   original absolute times, not the displayed window width. This demonstrates
-   backend reproduction, not a hardware-normalized TFE-versus-SPU comparison.
+   interval omitted between Ours and Full. The SPU y coordinate is the exact
+   percentage-point difference from that method's first archived accuracy; the
+   absolute start/final values are printed, and no smoothing is applied.
+   T@Target is computed from the original absolute times, not the displayed
+   window width. This demonstrates backend reproduction, not a
+   hardware-normalized TFE-versus-SPU comparison.
 4. Figure 4 and Table 4 currently contain the same six cells and four methods.
    The redesigned plot makes the heterogeneity pattern easier to read, while the
    table preserves exact values. Table 4 should be removed only after the user

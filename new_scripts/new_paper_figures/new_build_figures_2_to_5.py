@@ -14,7 +14,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
-from matplotlib.ticker import MaxNLocator, PercentFormatter
+from matplotlib.ticker import FormatStrFormatter, MaxNLocator, PercentFormatter
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -98,11 +98,14 @@ def figure2():
                 raise ValueError("SPU cumulative time is not strictly increasing")
 
     fig = plt.figure(figsize=(16.0, 8.8))
-    grid = fig.add_gridspec(2, 6, height_ratios=(1.0, 1.0), hspace=0.30, wspace=0.16)
+    outer = fig.add_gridspec(
+        2, 3, height_ratios=(1.0, 1.0), hspace=0.30, wspace=0.28
+    )
     for col_idx, dataset in enumerate(DATASETS):
-        top = fig.add_subplot(grid[0, 2 * col_idx : 2 * col_idx + 2])
-        short_left = fig.add_subplot(grid[1, 2 * col_idx], sharey=top)
-        short_right = fig.add_subplot(grid[1, 2 * col_idx + 1], sharey=top)
+        top = fig.add_subplot(outer[0, col_idx])
+        short_grid = outer[1, col_idx].subgridspec(1, 2, wspace=0.08)
+        short_left = fig.add_subplot(short_grid[0, 0])
+        short_right = fig.add_subplot(short_grid[0, 1], sharey=short_left)
         targets = list(master["datasets"][dataset]["targets"].values())
         for method, color in (("full_data", FULL_BLUE), ("true_ours", OURS_RED)):
             result = master["datasets"][dataset]["methods"][method]
@@ -134,6 +137,7 @@ def figure2():
         # Two adjacent short windows preserve the absolute time values and make
         # every archived release visible.  The diagonal marks explicitly denote
         # the omitted interval; no observation is interpolated across it.
+        delta_series = []
         for ax, method, color, marker, window_label in (
             (short_left, "true_ours", SPU_OURS_CYAN, "D", "Ours short window"),
             (short_right, "full_data", SPU_FULL_ORANGE, "s", "Full Data short window"),
@@ -144,9 +148,16 @@ def figure2():
             x = np.asarray(
                 [float(item["cumulative_online_secure_seconds"]) for item in rows]
             ) / 60.0
-            y = np.asarray(
+            absolute_y = np.asarray(
                 [float(item["development_accuracy"]) for item in rows]
             )
+            # The absolute SPU accuracy changes by only 0.02--0.44pp after
+            # Stage B, so a full-scale accuracy axis necessarily looks flat.
+            # Show the genuine local change in percentage points relative to
+            # the first archived release, while printing the absolute start and
+            # final accuracies in each window.  No smoothing or rescaling of x.
+            y = (absolute_y - absolute_y[0]) * 100.0
+            delta_series.append(y)
             transition = float(rows[0]["stage_b_to_c_transition_seconds"]) / 60.0
             ax.plot(
                 x, y, color=color, linewidth=1.9, linestyle="-", marker=marker,
@@ -157,10 +168,7 @@ def figure2():
             window_max = float(x.max())
             span = max(window_max - window_min, 1.0 / 60.0)
             ax.set_xlim(window_min - 0.08 * span, window_max + 0.08 * span)
-            for target in [
-                float(rows[0][key]) for key in ("target_T80", "target_T90", "target_T95")
-            ]:
-                ax.axhline(target, color="#808080", linestyle="--", linewidth=0.65, alpha=0.42)
+            ax.axhline(0.0, color="#808080", linestyle="--", linewidth=0.7, alpha=0.5)
             ax.set_xlabel(window_label + "\nCumulative time (min)", fontsize=8)
             ax.xaxis.set_major_locator(MaxNLocator(3))
             ax.ticklabel_format(axis="x", style="plain", useOffset=False)
@@ -168,6 +176,16 @@ def figure2():
                 0.97, 0.955, "{} releases".format(len(rows)), transform=ax.transAxes,
                 ha="right", va="top", fontsize=7, color="#555555",
             )
+            ax.text(
+                0.5, 0.045,
+                "absolute: {:.2%} -> {:.2%}".format(absolute_y[0], absolute_y[-1]),
+                transform=ax.transAxes, ha="center", va="bottom", fontsize=6.8,
+                color=color,
+            )
+        delta_min = min(0.0, *(float(values.min()) for values in delta_series))
+        delta_max = max(0.0, *(float(values.max()) for values in delta_series))
+        delta_pad = max(0.03, 0.18 * max(delta_max - delta_min, 0.01))
+        short_left.set_ylim(delta_min - delta_pad, delta_max + delta_pad)
         short_left.text(
             0.03, 0.955, "SecretFlow-SPU", transform=short_left.transAxes, ha="left", va="top",
             fontsize=8, fontweight="bold", color="#444444",
@@ -182,12 +200,12 @@ def figure2():
         short_right.plot((-0.025, 0.025), (-0.012, 0.012), transform=short_right.transAxes, **break_style)
         short_right.plot((-0.025, 0.025), (0.988, 1.012), transform=short_right.transAxes, **break_style)
 
+        top.yaxis.set_major_formatter(PercentFormatter(1.0))
         for ax in (top, short_left, short_right):
-            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
             ax.grid(True, alpha=0.16)
-        if col_idx == 0:
-            top.set_ylabel("Development-validation accuracy")
-            short_left.set_ylabel("Development-validation accuracy")
+        short_left.yaxis.set_major_formatter(FormatStrFormatter("%.2f"))
+        top.set_ylabel("Development-validation accuracy")
+        short_left.set_ylabel("Accuracy change from first release (pp)", fontsize=8)
     handles = [
         Line2D([0], [0], color=FULL_BLUE, lw=2.2, ls="-", label="TFE Full Data"),
         Line2D([0], [0], color=OURS_RED, lw=2.2, ls="-", label="TFE Ours"),
@@ -201,8 +219,8 @@ def figure2():
         0.5,
         -0.047,
         "I-bars show sample standard deviation for TFE n=3; Tiny TFE and all SPU panels are n=1. "
-        "Top: original TFE log-seconds trajectories with sample-SD I-bars (n=3 where available). Bottom: SPU short-axis windows in minutes, retaining all genuine 8/2/18 releases per method. "
-        "Diagonal marks omit only the empty interval between Ours and Full windows; absolute T@Target uses the original cumulative times. Backend rows are not hardware-normalized.",
+        "Top: original TFE log-seconds trajectories with sample-SD I-bars (n=3 where available). Bottom: SPU short-axis windows show genuine accuracy change from each method's first release (pp); absolute start/final accuracy is printed. "
+        "Diagonal marks omit only the empty time interval; absolute T@Target uses original cumulative times. Backend rows are not hardware-normalized.",
         ha="center",
         fontsize=8,
     )

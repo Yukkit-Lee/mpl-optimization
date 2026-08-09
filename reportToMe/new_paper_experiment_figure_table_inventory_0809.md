@@ -4,7 +4,7 @@
 
 | 编号 | 文件/位置 | 主要证明 | 关键边界 |
 |---|---|---|---|
-| Figure 2 | `new_expFig/paper_experiment/new_figure2_dual_backend_pea_i_errorbars.{png,pdf}` | 原始TFE准确率—时间轨迹；SPU短轴展开全部真实发布点 | development；TFE累计秒数对数轴，SPU分钟短窗带明确断口；TFE C10/C100 n=3，Tiny与SPU n=1；T@Target仍按原始绝对时间 |
+| Figure 2 | `new_expFig/paper_experiment/new_figure2_dual_backend_pea_i_errorbars.{png,pdf}` | 原始TFE准确率—时间轨迹；SPU短轴以首发布为基准展开真实微小准确率变化 | development；TFE累计秒数对数轴；SPU分钟短窗、纵轴为变化pp且标绝对端点、带明确断口；TFE C10/C100 n=3，Tiny与SPU n=1；T@Target仍按原始绝对时间 |
 | Figure 3 | `new_expFig/paper_experiment/new_figure3_compact_carrier_fast_convergence.{png,pdf}` | 蒸馏载体更快达到冻结目标，Ours按目标处提前停止 | n=3；原冻结协议的定点只读official-test |
 | Figure 4 | `new_expFig/paper_experiment/new_figure4_initializer_source_bars.{png,pdf}` | 异构条件下Secure Average+Anchor优于主要初始化对照 | development，seed42，n=1 |
 | Figure 5 | `new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}` | Anchor修正轨迹及初始化来源差异 | development，seed42，n=1，因此不画误差条 |
