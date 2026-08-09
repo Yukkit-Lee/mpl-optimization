@@ -1,0 +1,26 @@
+{
+  "schema": "new_adaptive_latest_initializer_screen_retry_preflight_v1",
+  "status": "PASS_BEFORE_RETRY",
+  "timestamp_utc": "2026-08-09T10:06:32Z",
+  "source_git_commit_before_fix": "947dd39",
+  "branch": "unified-experiments",
+  "attempt": 2,
+  "previous_attempt": {
+    "candidate_started": false,
+    "result_generated": false,
+    "failure": "ModuleNotFoundError for repository-root privacy calibration module",
+    "log": "new_log/new_paper_adaptive/txt/new_adaptive_latest_initializer_screen_attempt1_failed.log"
+  },
+  "fix_scope": "insert repository ROOT into sys.path before multiprocessing workers import privacy calibration",
+  "runner_sha256_after_fix": "f26c7579e5b456b26c252c963255bacd400738e4240f472f458291347551aed5",
+  "unchanged_sha256": {
+    "freeze": "735fc78ad6b7044463f174f8ef4380ec8022dfef82dc8ea4c4d964ccd7e2c79c",
+    "initializer": "c7156719beb18f58dc5d539afca061627e91b7c722c7415bf415a710843ab3ec",
+    "feature_cache": "3a36afc71b800fee5069bf158c427efcc0f451dadfc8aca9d469cd7e707d719c"
+  },
+  "tmux_session": "paper_adaptive_screen_0809_retry",
+  "command": "env OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 /root/autodl-tmp/new_envs/distillation/bin/python new_scripts/new_paper_adaptive/new_screen_latest_initializer_fixed_vs_adaptive.py --workers 8",
+  "log": "new_log/new_paper_adaptive/txt/new_adaptive_latest_initializer_screen_attempt2.log",
+  "official_test_read": false,
+  "locked_holdout_read": false
+}

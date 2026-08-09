@@ -9,6 +9,7 @@ import hashlib
 import json
 import math
 import os
+import sys
 import time
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
@@ -17,6 +18,8 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 FREEZE = ROOT / "new_configs/new_paper_adaptive/new_adaptive_latest_initializer_screen_freeze.json"
 OUT_JSON = ROOT / "new_log/new_paper_adaptive/new_adaptive_latest_initializer_screen.json"
 OUT_CSV = ROOT / "new_expTab/new_paper_adaptive/new_adaptive_latest_initializer_screen.csv"

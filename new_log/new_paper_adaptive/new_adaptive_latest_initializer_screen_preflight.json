@@ -1,6 +1,6 @@
 {
   "schema": "new_adaptive_latest_initializer_screen_preflight_v1",
-  "status": "PASS_BEFORE_LAUNCH",
+  "status": "FAILED_BEFORE_CANDIDATES_IMPORT_PATH",
   "timestamp_utc": "2026-08-09T10:05:10Z",
   "git_commit": "cba7ca6",
   "branch": "unified-experiments",
@@ -34,5 +34,11 @@
     "adaptive_count_releases_accounted": true,
     "official_test_read": false,
     "locked_holdout_read": false
+  },
+  "observed_failure": {
+    "candidate_started": false,
+    "cause": "worker could not import repository-root privacy calibration module",
+    "log": "new_log/new_paper_adaptive/txt/new_adaptive_latest_initializer_screen_attempt1_failed.log",
+    "result_generated": false
   }
 }
