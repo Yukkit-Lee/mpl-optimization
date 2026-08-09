@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
-"""Build manuscript Figure 5 (same-budget anchor convergence).
+"""生成论文 Figure 5（相同预算下的 anchor 收敛曲线）。
 
-Run from the repository root:
+在仓库根目录运行：
 
     python new_scripts/new_paper_figures/new_build_figure5.py
 
-Input:
+输入：
     new_log/new_stage_b_anchor_postagg/
     new_stage_b_anchor_postagg_trajectories.json
-Output:
+输出：
     new_expFig/paper_experiment/new_figure5_anchor_convergence_pea.{png,pdf}
 
-Safe visual parameters below include figure size, method colors, line width and
-marker size.  The selected methods, history steps, development accuracies,
-dataset/distribution panels and privacy gates are experimental semantics.  Do
-not smooth, interpolate or truncate histories in this plotting script.  Only
-seed42 trajectories exist, so adding uncertainty bars would be scientifically
-invalid without new independent runs.
+下方可安全调整的视觉参数包括图尺寸、方法颜色、线宽和终点标记大小。所选
+方法、历史 step、开发集准确率、数据集/分布面板以及隐私门属于实验语义。
+本绘图脚本不得对历史轨迹进行平滑、插值或截断。当前只有 seed42 的轨迹，
+因此在没有新增独立重复实验时，添加不确定性误差条在科学上是不成立的。
 """
 
 from __future__ import annotations
@@ -35,12 +33,12 @@ from new_paper_figure_common import (
 )
 
 
-# Safe visual parameters.
+# 可安全调整的视觉参数。
 FIGSIZE = (14.2, 7.0)
 LINE_WIDTH = 2.0
 ENDPOINT_SIZE = 18
 
-# Audited methods/panels; changing these changes the scientific comparison.
+# 已审计的方法与面板；修改这些内容会改变科学比较对象。
 DATASETS = ("cifar10", "cifar100")
 DISTRIBUTIONS = ("iid", "mild", "severe")
 METHOD_COLORS = {
@@ -61,6 +59,7 @@ SOURCE = (
 
 
 def load_trajectories():
+    """读取 Stage-B 轨迹，并检查完成状态及 test/holdout 隐私门。"""
     trajectories = read_json(SOURCE)
     if (
         trajectories["status"] != "COMPLETE"

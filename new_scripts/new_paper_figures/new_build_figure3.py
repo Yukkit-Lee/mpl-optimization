@@ -1,21 +1,20 @@
 #!/usr/bin/env python3
-"""Build manuscript Figure 3 (compact-carrier convergence).
+"""生成论文 Figure 3（紧凑载体的收敛曲线）。
 
-Run from the repository root:
+在仓库根目录运行：
 
     python new_scripts/new_paper_figures/new_build_figure3.py
 
-Input: nine frozen JSON files under
+输入：以下目录中的 9 个冻结 JSON 文件：
 ``new_log/new_public_mtt_mainline/json/new_module_a_runs/{dataset}/``.
-Output: ``new_expFig/paper_experiment/``
+输出：``new_expFig/paper_experiment/`` 下的
 ``new_figure3_compact_carrier_fast_convergence.{png,pdf}``.
 
-Safe visual parameters below include figure size, colors, line width and I-bar
-density.  ``CONVERGENCE_TOLERANCE`` is not merely cosmetic: it defines the
-audited stopping annotation (all later archived values must remain within 0.5pp
-of each seed's terminal value).  Do not change it without updating the paper's
-method/caption and re-auditing the conclusion.  Frozen targets, seeds, histories
-and official-test scope must never be edited by this plotting script.
+下方可安全调整的视觉参数包括图尺寸、颜色、线宽和 I 型误差条密度。
+``CONVERGENCE_TOLERANCE`` 不是纯视觉参数：它定义了经审计的停止标注，
+即每个 seed 此后的全部归档值都必须处于其终值的 0.5 个百分点范围内。
+若不同时修改论文方法/图注并重新审计结论，不得修改该值。本绘图脚本也
+不得改动冻结目标、seed、历史轨迹或 official-test 的使用范围。
 """
 
 from __future__ import annotations
@@ -38,7 +37,7 @@ from new_paper_figure_common import (
 )
 
 
-# Safe visual parameters.
+# 可安全调整的视觉参数。
 FIGSIZE = (14.8, 4.5)
 LINE_WIDTH = 2.1
 ERRORBAR_COUNT = 7
@@ -54,14 +53,14 @@ COLORS = {
     "official_mtt": OURS_RED,
 }
 
-# Audited semantic parameter: 0.005 accuracy = 0.5 percentage points.
+# 已审计的科学语义参数：0.005 accuracy 等于 0.5 个百分点。
 CONVERGENCE_TOLERANCE = 0.005
 SEEDS = (42, 43, 44)
 RUN_ROOT = ROOT / "new_log/new_public_mtt_mainline/json/new_module_a_runs"
 
 
 def load_runs():
-    """Load the exact 3 datasets x 3 seeds and enforce reporting scope."""
+    """读取严格限定的 3 个数据集 x 3 个 seed，并检查报告适用范围。"""
     rows = []
     for dataset in DATASETS:
         for seed in SEEDS:
@@ -104,9 +103,9 @@ def main():
             std = values.std(axis=0, ddof=1)
 
             if method == "official_mtt":
-                # For each seed, find the first checkpoint after which every
-                # later archived value stays within the audited tolerance of
-                # that seed's terminal value; use the latest seed boundary.
+                # 对每个 seed，找到首个满足以下条件的 checkpoint：其后的全部
+                # 归档值都保持在该 seed 终值的审计容差内；最后取三个 seed 中
+                # 最晚的边界作为图中 Ours 的收敛停止点。
                 seed_cuts = []
                 for item in results:
                     seed_values = np.asarray(

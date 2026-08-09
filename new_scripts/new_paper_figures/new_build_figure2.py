@@ -1,25 +1,23 @@
 #!/usr/bin/env python3
-"""Build the split manuscript Figure 2(a) TFE and Figure 2(b) SPU.
+"""生成拆分后的论文 Figure 2(a) TFE 与 Figure 2(b) SPU。
 
-Run from the repository root:
+在仓库根目录运行：
 
     python new_scripts/new_paper_figures/new_build_figure2.py
 
-Inputs (frozen experimental evidence):
+输入（已冻结的实验依据）：
     new_log/new_true_ours/new_true_ours_master_results.json
     new_output/new_secretflow_spu/new_figure2_spu_corrected_v2_plot_data.csv
 
-Outputs:
+输出：
     new_expFig/paper_experiment/new_figure2a_tfe_pea_i_errorbars.{png,pdf}
     new_expFig/paper_experiment/new_figure2b_spu_short_axis_deltas.{png,pdf}
 
-Safe visual parameters are grouped immediately below.  Figure size, spacing,
-line width, marker size, colors, tick precision and error-bar density may be
-adjusted without changing results.  Do NOT change input paths, expected release
-counts, target definitions, time fields, n values, delta calculation, or the
-Stage-B transition field merely to improve appearance: those define the plotted
-experimental evidence.  Tiny TFE and all SPU series are n=1, so uncertainty
-bars must not be invented for them.
+下方集中列出了可以安全调整的视觉参数。图尺寸、间距、线宽、标记大小、
+颜色、刻度精度和误差条密度都不会改变实验结果。禁止仅为美化图片而修改
+输入路径、预期发布点数量、目标定义、时间字段、n 值、差值计算方式或
+Stage-B 转换字段，因为这些内容定义了图中的实验依据。Tiny TFE 和全部
+SPU 曲线均为 n=1，因此不得为它们编造不确定性误差条。
 """
 
 from __future__ import annotations
@@ -45,22 +43,22 @@ from new_paper_figure_common import (
 )
 
 
-# ------------------------- Safe visual parameters -------------------------
-TFE_FIGSIZE = (15.8, 4.5)       # width, height in inches
+# ------------------------- 可安全调整的视觉参数 -------------------------
+TFE_FIGSIZE = (15.8, 4.5)       # 图宽、图高，单位为英寸
 SPU_FIGSIZE = (16.0, 4.8)
-TFE_PANEL_WSPACE = 0.28         # horizontal space between datasets
+TFE_PANEL_WSPACE = 0.28         # 不同数据集子图之间的横向间距
 SPU_DATASET_WSPACE = 0.28
-SPU_SHORT_WINDOW_WSPACE = 0.08  # gap between Ours/Full short windows
-TFE_ERRORBAR_COUNT = 9          # sparse I-bars per n=3 curve
+SPU_SHORT_WINDOW_WSPACE = 0.08  # Ours 与 Full Data 两个短窗之间的间距
+TFE_ERRORBAR_COUNT = 9          # 每条 n=3 曲线显示的稀疏 I 型误差条数量
 LINE_WIDTH = 2.15
 SPU_MARKER_SIZE = 4.7
 SPU_TICK_DECIMALS = 2
 
-# PEA Figure 2 SampleNet-NP (pink) and SampleNet-DP (purple).
+# 采用 PEA Figure 2 中 SampleNet-NP（粉色）与 SampleNet-DP（紫色）的配色。
 SPU_FULL_COLOR = "#E377C2"
 SPU_OURS_COLOR = "#9467BD"
 
-# ------------------------- Evidence invariants ----------------------------
+# ------------------------- 不得改动的实验依据 ----------------------------
 TFE_MASTER = ROOT / "new_log/new_true_ours/new_true_ours_master_results.json"
 SPU_PLOT_DATA = (
     ROOT
@@ -70,7 +68,7 @@ EXPECTED_SPU_RELEASES = {"cifar10": 8, "cifar100": 2, "tiny": 18}
 
 
 def load_and_validate():
-    """Load Figure 2 sources and enforce their audited cardinality/scope."""
+    """读取 Figure 2 数据，并强制检查已审计的数量与适用范围。"""
     master = read_json(TFE_MASTER)
     if master["status"] != "COMPLETE_DEVELOPMENT_ONLY_14_OF_14":
         raise ValueError("TFE master is not complete")
@@ -96,7 +94,7 @@ def load_and_validate():
 
 
 def build_tfe(master):
-    """Build Figure 2(a): original TFE log-seconds accuracy/time curves."""
+    """生成 Figure 2(a)：原始 TFE 准确率—时间对数曲线。"""
     fig, axes = plt.subplots(1, 3, figsize=TFE_FIGSIZE)
     for col_idx, dataset in enumerate(DATASETS):
         ax = axes[col_idx]
@@ -114,7 +112,7 @@ def build_tfe(master):
                     ax, x, y, np.asarray(std, dtype=float), color,
                     count=TFE_ERRORBAR_COUNT,
                 )
-            # Experimental field: median transition over the available seeds.
+            # 实验字段：对现有 seed 的 Stage-B 转换时间取中位数。
             ax.axvline(
                 float(np.median(result["stage_transition_seconds"])),
                 color=color,
@@ -166,7 +164,7 @@ def build_tfe(master):
 
 
 def build_spu(grouped):
-    """Build Figure 2(b): SPU short windows and exact local accuracy deltas."""
+    """生成 Figure 2(b)：SPU 局部短窗与精确准确率变化量。"""
     fig = plt.figure(figsize=SPU_FIGSIZE)
     outer = fig.add_gridspec(1, 3, wspace=SPU_DATASET_WSPACE)
     for col_idx, dataset in enumerate(DATASETS):
@@ -188,8 +186,8 @@ def build_spu(grouped):
             absolute_y = np.asarray(
                 [float(item["development_accuracy"]) for item in rows]
             )
-            # Experimental transformation: exact percentage-point difference
-            # from the first archived release; never smooth or fit this series.
+            # 实验数据变换：计算相对第一次归档发布的精确百分点差值；
+            # 禁止对该序列进行平滑、拟合或人为补点。
             y = (absolute_y - absolute_y[0]) * 100.0
             delta_series.append(y)
             transition = float(rows[0]["stage_b_to_c_transition_seconds"]) / 60.0
@@ -211,7 +209,7 @@ def build_spu(grouped):
             ax.axhline(0.0, color="#808080", linestyle="--", linewidth=0.7, alpha=0.5)
             ax.set_xlabel(window_label + "\nCumulative time (min)", fontsize=8)
 
-            # Visual-only tick placement: omit the two labels nearest the break.
+            # 仅影响显示的刻度布局：隐藏断口两侧最靠近中央的两个标签。
             candidate_ticks = np.linspace(window_min, window_max, 4)
             ax.set_xticks(
                 candidate_ticks[:-1] if ax is short_left else candidate_ticks[1:]
@@ -235,7 +233,7 @@ def build_spu(grouped):
                 color=color,
             )
 
-        # Shared delta range inside a dataset preserves Ours/Full comparability.
+        # 同一数据集内共享纵轴变化范围，保证 Ours 与 Full Data 可以直接比较。
         delta_min = min(0.0, *(float(values.min()) for values in delta_series))
         delta_max = max(0.0, *(float(values.max()) for values in delta_series))
         delta_pad = max(0.03, 0.18 * max(delta_max - delta_min, 0.01))

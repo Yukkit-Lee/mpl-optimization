@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Compatibility wrapper that rebuilds manuscript Figures 2--5.
+"""一次性重建论文 Figure 2--5 的兼容入口。
 
-Each Figure now has its own documented, independently runnable script:
+每张图现在都有带中文说明、可独立运行的脚本：
 
     python new_scripts/new_paper_figures/new_build_figure2.py
     python new_scripts/new_paper_figures/new_build_figure3.py
     python new_scripts/new_paper_figures/new_build_figure4.py
     python new_scripts/new_paper_figures/new_build_figure5.py
 
-Run this wrapper only when all four figures should be regenerated together:
+只有需要同时重新生成四张图时才运行本入口：
 
     python new_scripts/new_paper_figures/new_build_figures_2_to_5.py
 
-Do not add Figure-specific plotting logic here; put it in the corresponding
-individual script so data sources and adjustable parameters remain discoverable.
+不要在本文件中加入任何具体 Figure 的绘图逻辑；应将逻辑放进对应的独立
+脚本，使每张图的数据来源、参数含义和可调范围都能被直接找到。
 """
 
 from new_build_figure2 import main as build_figure2
