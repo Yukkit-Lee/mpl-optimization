@@ -1602,3 +1602,6 @@
 - 启动正式矩阵3/6 CIFAR-100 True Ours（b32/chunk25/lr1.0，80 epochs，有anchor）。监控脚本已设。
 - 正式矩阵3/6完成：CIFAR-100 True Ours seed42完整轨迹。Stage-B 19点（epoch0+每5epoch×16+pre/post-anchor），Stage-C 2点，final dev acc=0.4774（对照corrected-v2 0.4766），eps=3.0，client reveals=0，audit全过。
 - 下一唯一操作：提交推送cell 3，启动CIFAR-100 Full Data（b64/chunk16/lr0.8，40 epochs）。
+- 启动正式矩阵4/6 CIFAR-100 Full Data（b64/chunk16/lr0.8，40 epochs，无anchor）。监控脚本已设。
+- 正式矩阵4/6完成：CIFAR-100 Full Data seed42完整轨迹。Stage-B 9点，Stage-C 2点，final dev acc=0.4260（对照corrected-v2 0.4252），eps=3.0，client reveals=0，audit全过。
+- 下一唯一操作：提交推送cell 4，启动Tiny True Ours（b64/chunk25/lr0.8，80 epochs，有anchor）。

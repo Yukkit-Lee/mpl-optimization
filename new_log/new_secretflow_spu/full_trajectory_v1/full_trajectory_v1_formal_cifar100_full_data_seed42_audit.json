@@ -1,0 +1,33 @@
+{
+  "schema": "new_spu_full_trajectory_audit_v1",
+  "dataset": "cifar100",
+  "method": "full_data",
+  "passed": true,
+  "gates": {
+    "status_complete": true,
+    "run_kind_formal": true,
+    "schema_v1": true,
+    "seed_42": true,
+    "backend": true,
+    "protocol_aby3_fm128_fxp16": true,
+    "stage_b_point_count": true,
+    "stage_c_strict_steps": true,
+    "stage_b_client_public_reveals_0": true,
+    "no_client_local_public_reconstruction": true,
+    "stage_b_public_only_aggregate_logits": true,
+    "evaluation_used_for_training_false": true,
+    "epsilon_within_target": true,
+    "delta_1e5": true,
+    "final_acc_matches_trace": true,
+    "official_test_unread": true,
+    "locked_holdout_unread": true,
+    "all_finite": true,
+    "trace_monotonic": true
+  },
+  "report_sha256": "4abc5cc94fcc201534ac9153f63c3133dadb4557ecb8deb559a83156e43b13f6",
+  "trace_sha256": "168cff763ef6a5e38a14fad2b197f00d43ba013bd28cfd1860390040d1c02d60",
+  "stage_b_trace_points": 9,
+  "expected_stage_b_points": 9,
+  "stage_c_trace_points": 2,
+  "report_path": "/root/autodl-tmp/tfe_experiments/new_log/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_cifar100_full_data_seed42_report.json"
+}
