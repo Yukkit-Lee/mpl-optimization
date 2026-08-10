@@ -1596,3 +1596,6 @@
 - 下一唯一操作：提交推送G1-G3产物，然后按冻结顺序启动正式六条（先C10 Ours）。
 - 正式矩阵1/6完成：CIFAR-10 True Ours seed42完整轨迹。Stage-B 11个轨迹点（epoch0+每5epoch×8+pre/post-anchor），Stage-C 8点（steps 10-80），final dev acc=0.6858（对照corrected-v2 0.6864），eps=3.0。Stage-B online=58.93s、eval=20.84s、Stage-C online=12.17s。client reveals=0。audit全过（修复CSV字符串'False'被当作真值的gate bug）。中途修复combined trace列统一+resume provider metadata空指针。
 - 下一唯一操作：提交推送cell 1，启动CIFAR-10 Full Data（b64/chunk10/lr0.8）。
+- 启动正式矩阵2/6 CIFAR-10 Full Data（b64/chunk10/lr0.8，无anchor，40 epochs）。预计Stage-B约1.5-2小时+eval+Stage-C。监控脚本已设。
+- 正式矩阵2/6完成：CIFAR-10 Full Data seed42完整轨迹。Stage-B 9点（epoch0+每5epoch×8，无anchor），Stage-C 8点，final dev acc=0.7248（对照corrected-v2 0.7254），eps=3.0，client reveals=0，audit全过。
+- 下一唯一操作：提交推送cell 2，启动CIFAR-100 True Ours（b32/chunk25/lr1.0，80 epochs）。
