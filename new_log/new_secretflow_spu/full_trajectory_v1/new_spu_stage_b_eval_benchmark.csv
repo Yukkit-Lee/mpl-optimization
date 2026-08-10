@@ -1,0 +1,6 @@
+tag,feature_dim,num_classes,dev_rows,eval_chunk_rows,chunk_count,omp_threads,mean_eval_wall_seconds,peak_driver_rss_gib,decision
+c10_omp8_chunk250,2048,10,5000,250,20,8,3.7504,0.623,keep
+c10_omp8_chunk500,2048,10,5000,500,10,8,4.2391,0.6399,slower
+c10_omp10_chunk250,2048,10,5000,250,20,10,3.6441,0.6205,+2.8pct_under_5pct_gate
+tiny_omp8_chunk250,2048,200,10000,250,40,8,11.7625,0.6673,keep
+tiny_omp10_chunk250,2048,200,10000,250,40,10,12.3231,0.6657,slower

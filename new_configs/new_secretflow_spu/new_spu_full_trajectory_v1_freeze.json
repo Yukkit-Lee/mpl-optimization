@@ -1,0 +1,52 @@
+{
+  "schema": "new_spu_full_trajectory_v1_freeze",
+  "status": "FROZEN_BEFORE_FORMAL",
+  "seed": 42,
+  "backend": "SecretFlow-SPU device API",
+  "protocol": {"protocol": "ABY3", "field": "FM128", "fxp_fraction_bits": 16},
+  "cpu": {
+    "omp_threads": 8,
+    "num_cpus": 30,
+    "taskset_cpuset": "224-255",
+    "omp10_candidate_rejected": "C10 +2.8% / Tiny -4.8%, both under the 5% gate; OMP8 frozen"
+  },
+  "evaluation": {
+    "stage_b_eval_interval_epochs": 5,
+    "stage_b_eval_chunk_rows": 250,
+    "chunk500_candidate_rejected": "C10 4.24s vs 3.75s at 250, slower"
+  },
+  "stage_c": {"block_steps": 10, "unroll": 1},
+  "cells": {
+    "cifar10_true_ours": {"batch_size": 8, "batch_chunk_batches": 10, "local_lr": 0.25},
+    "cifar10_full_data": {"batch_size": 64, "batch_chunk_batches": 10, "local_lr": 0.8},
+    "cifar100_true_ours": {"batch_size": 32, "batch_chunk_batches": 25, "local_lr": 1.0},
+    "cifar100_full_data": {"batch_size": 64, "batch_chunk_batches": 16, "local_lr": 0.8},
+    "tiny_true_ours": {"batch_size": 64, "batch_chunk_batches": 25, "local_lr": 0.8},
+    "tiny_full_data": {"batch_size": 64, "batch_chunk_batches": 16, "local_lr": 0.4}
+  },
+  "stage_b_eval_overhead_estimate": {
+    "cifar10": {"dev_rows": 5000, "per_checkpoint_seconds": 3.75},
+    "cifar100": {"dev_rows": 5000, "per_checkpoint_seconds": 3.75},
+    "tiny": {"dev_rows": 10000, "per_checkpoint_seconds": 11.76}
+  },
+  "evaluation_total_estimated_seconds": {
+    "cifar10_true_ours": 12, "cifar10_full_data": 12,
+    "cifar100_true_ours": 20, "cifar100_full_data": 12,
+    "tiny_true_ours": 26, "tiny_full_data": 12
+  },
+  "targets": {
+    "cifar10": {"T@80": 0.58128, "T@90": 0.65394, "T@95": 0.69027},
+    "cifar100": {"T@80": 0.34464, "T@90": 0.38772, "T@95": 0.40926},
+    "tiny": {"T@80": 0.22120, "T@90": 0.24885, "T@95": 0.262675}
+  },
+  "scientific_boundaries": {
+    "seed42_n1": true,
+    "development_only": true,
+    "conditional_stage_c_dp_only": true,
+    "stage_b_non_dp": true,
+    "official_test_read": false,
+    "locked_holdout_read": false,
+    "no_client_local_reveal": true,
+    "public_only_aggregate_dev_logits": true
+  }
+}

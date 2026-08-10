@@ -1,0 +1,16 @@
+[2026-08-11 01:23:17.624] [info] [bigint_spi.cc:79] The default library used for BigInt operations is openssl
+INFO:root:Try init sf in SIMULATION mode
+INFO:root:set distribution mode to DISTRIBUTION_MODE.SIMULATION
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/subprocess.py:1796: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _posixsubprocess.fork_exec(
+2026-08-11 01:23:24,846	INFO worker.py:2023 -- Started a local Ray instance.
+/root/autodl-tmp/new_envs/spu_e2e/lib/python3.10/site-packages/ray/_private/worker.py:2062: FutureWarning: Tip: In future versions of Ray, Ray will no longer override accelerator visible devices env var if num_gpus=0 or num_gpus=None (default). To enable this behavior and turn off this error message, set RAY_ACCEL_ENV_VAR_OVERRIDE_ON_ZERO=0
+  warnings.warn(
+[2026-08-11 01:23:30.100] [info] [thread_pool.cc:30] Create a fixed thread pool with size 255
+[benchmark] compile_warmup: 0.15s
+INFO:root:shutdown is called, barrier_on_shutdown True, on_error None
+2026-08-11 01:23:44,338	WARNING utils.py:458 -- Detecting docker specified CPUs. In previous versions of Ray, CPU detection in containers was incorrect. Please ensure that Ray has enough CPUs allocated. As a temporary workaround to revert to the prior behavior, set `RAY_USE_MULTIPROCESSING_CPU_COUNT=1` as an env var before starting Ray. Set the env var: `RAY_DISABLE_DOCKER_CPU_WARNING=1` to mute this warning.
+2026-08-11 01:23:44,533	INFO worker.py:2023 -- Started a local Ray instance.
+{"chunk_count": 10, "dev_rows": 5000, "eval_chunk_rows": 500, "feature_dim": 2048, "mean_eval_wall_seconds": 4.2391, "num_classes": 10, "omp_threads": 8, "peak_driver_rss_gib": 0.6399, "repeat_wall_seconds": [4.1364, 4.3419], "tag": "c10_omp8_chunk500"}

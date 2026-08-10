@@ -1,0 +1,15 @@
+{
+  "tag": "tiny_omp10_chunk250",
+  "feature_dim": 2048,
+  "num_classes": 200,
+  "dev_rows": 10000,
+  "eval_chunk_rows": 250,
+  "chunk_count": 40,
+  "omp_threads": 10,
+  "repeat_wall_seconds": [
+    12.7441,
+    11.9021
+  ],
+  "mean_eval_wall_seconds": 12.3231,
+  "peak_driver_rss_gib": 0.6657
+}
