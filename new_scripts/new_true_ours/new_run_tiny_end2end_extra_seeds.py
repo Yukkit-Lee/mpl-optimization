@@ -192,7 +192,8 @@ def stage_c_command(
     return [
         "env",
         f"NEW_MODERN_PYTHON={ROOT.parent / 'new_envs/distillation/bin/python'}",
-        f"PYTHONPATH={ROOT}",
+        # 冻结Stage-B loader会在顶层导入memmap模块；同时暴露仓库根和new_scripts。
+        f"PYTHONPATH={ROOT}:{ROOT / 'new_scripts'}",
         str(TFE_PYTHON), str(stage_c_script),
         "--feature_cache", str(paths["stage_c_cache"]),
         "--feature_cache_mode", paths["cache_mode"],
