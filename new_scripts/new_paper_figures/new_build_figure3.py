@@ -52,6 +52,11 @@ COLORS = {
     "random_subset": ORANGE,
     "official_mtt": OURS_RED,
 }
+ANNOTATION_POSITIONS = {
+    "cifar10": (0.31, 0.96),
+    "cifar100": (0.32, 0.96),
+    "tiny": (0.24, 0.95),
+}
 
 # 已审计的科学语义参数：0.005 accuracy 等于 0.5 个百分点。
 CONVERGENCE_TOLERANCE = 0.005
@@ -143,17 +148,33 @@ def main():
                 ax.annotate(
                     "converged\n{} steps".format(int(steps[-1])),
                     (steps[-1], mean[-1]),
-                    xytext=(-7, 11),
-                    textcoords="offset points",
-                    ha="right",
+                    xytext=ANNOTATION_POSITIONS[dataset],
+                    textcoords="axes fraction",
+                    ha="center",
+                    va="top",
                     fontsize=7,
                     color=OURS_RED,
+                    bbox=dict(
+                        boxstyle="round,pad=0.18",
+                        facecolor="white",
+                        edgecolor="none",
+                        alpha=0.92,
+                    ),
+                    arrowprops=dict(
+                        arrowstyle="-",
+                        color=OURS_RED,
+                        linewidth=0.7,
+                        shrinkA=1.5,
+                        shrinkB=3.0,
+                    ),
                 )
         ax.axhline(target, color="#777777", ls="--", lw=0.8, alpha=0.6)
         ax.text(
             0.98, target, "frozen target", transform=ax.get_yaxis_transform(),
             ha="right", va="bottom", fontsize=7, color="#666666",
         )
+        ymin, ymax = ax.get_ylim()
+        ax.set_ylim(ymin, ymax + 0.08 * (ymax - ymin))
         ax.set_title(DATASET_LABELS[dataset], fontweight="bold")
         ax.set_xlabel("Optimizer steps")
         ax.grid(alpha=0.18)
@@ -164,14 +185,7 @@ def main():
         handles, labels, loc="lower center", ncol=3, frameon=False,
         bbox_to_anchor=(0.5, -0.02),
     )
-    fig.text(
-        0.5,
-        -0.065,
-        "Mean with I-shaped sample-SD bars over seeds 42/43/44. Ours stops only after every seed remains within 0.5pp of its terminal accuracy (X); no extrapolation.",
-        ha="center",
-        fontsize=8,
-    )
-    fig.tight_layout(rect=(0, 0.06, 1, 1))
+    fig.tight_layout(rect=(0, 0.04, 1, 1))
     save_figure(fig, "new_figure3_compact_carrier_fast_convergence")
     print("PASS built Figure 3 in", OUT)
 

@@ -47,9 +47,9 @@ METHOD_COLORS = {
     "C5_secure_average_plus_anchor": OURS_RED,
 }
 METHOD_LABELS = {
-    "C1_random_plus_anchor": "Random + Anchor",
-    "C3_fixed_local0_plus_anchor": "Local-0 + Anchor",
-    "C5_secure_average_plus_anchor": "Average + Anchor",
+    "C1_random_plus_anchor": "Random Init. + Anchor",
+    "C3_fixed_local0_plus_anchor": "Single-Party Init. + Anchor",
+    "C5_secure_average_plus_anchor": "Secure Average + Anchor",
 }
 SOURCE = (
     ROOT
@@ -110,10 +110,6 @@ def main():
                 ax.set_ylabel(
                     DATASET_LABELS[dataset] + "\nDevelopment accuracy (%)"
                 )
-            ax.text(
-                0.98, 0.04, "seed 42 (n=1)", transform=ax.transAxes,
-                ha="right", fontsize=7, color="#666666",
-            )
     handles = [
         Line2D(
             [0], [0], color=color, lw=2.1, label=METHOD_LABELS[method]
@@ -125,13 +121,6 @@ def main():
         bbox_to_anchor=(0.5, -0.005),
     )
     fig.suptitle("Same-budget anchor-refinement convergence", fontweight="bold")
-    fig.text(
-        0.5,
-        -0.045,
-        "Only seed 42 trajectories exist, so no uncertainty bars are drawn.",
-        ha="center",
-        fontsize=8,
-    )
     fig.tight_layout(rect=(0, 0.04, 1, 0.96))
     save_figure(fig, "new_figure5_anchor_convergence_pea")
     print("PASS built Figure 5 in", OUT)

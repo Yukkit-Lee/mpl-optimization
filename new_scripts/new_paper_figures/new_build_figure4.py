@@ -42,16 +42,16 @@ METHODS = (
     "C5_secure_average_plus_anchor",
 )
 LABELS = (
-    "Random + Anchor",
-    "Local-0 + Anchor",
-    "Secure Average",
-    "Average + Anchor",
+    "Random Init. + Anchor",
+    "Single-Party Init. + Anchor",
+    "Secure Average Only",
+    "Secure Average + Anchor",
 )
 SHORT_LABELS = (
-    "Random\n+Anchor",
-    "Local-0\n+Anchor",
-    "Secure\nAverage",
-    "Average\n+Anchor",
+    "Random Init.\n+ Anchor",
+    "Single-Party Init.\n+ Anchor",
+    "Secure Average\nOnly",
+    "Secure Average\n+ Anchor",
 )
 SOURCE = (
     ROOT
@@ -124,10 +124,6 @@ def main():
             ax.set_xticks(xpos)
             ax.set_xticklabels(SHORT_LABELS, fontsize=7)
             ax.set_ylim(0, Y_LIMITS[dataset])
-            ax.text(
-                0.98, 0.04, "n=1", transform=ax.transAxes, ha="right",
-                fontsize=7, color="#666666",
-            )
     fig.suptitle(
         "Initializer-source ablation under heterogeneous partitions",
         fontweight="bold",
@@ -140,14 +136,7 @@ def main():
         handles=handles, loc="lower center", ncol=4, frameon=False,
         bbox_to_anchor=(0.5, -0.005),
     )
-    fig.text(
-        0.5,
-        -0.042,
-        "Seed 42 (n=1); no uncertainty estimate. Red denotes the proposed secure-average-plus-anchor initializer.",
-        ha="center",
-        fontsize=8,
-    )
-    fig.tight_layout(rect=(0, 0.055, 1, 0.96))
+    fig.tight_layout(rect=(0, 0.045, 1, 0.96))
     save_figure(fig, "new_figure4_initializer_source_bars")
     print("PASS built Figure 4 in", OUT)
 
