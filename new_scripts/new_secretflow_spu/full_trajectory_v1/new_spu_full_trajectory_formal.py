@@ -761,8 +761,23 @@ def main() -> None:
         if final_epsilon > 3.0 + 1e-6:
             raise AssertionError("conditional Stage-C epsilon exceeds target: {}".format(final_epsilon))
 
-        # Combined trajectory for audit/plot.
-        combined = list(trace_rows) + list(sc_rows)
+        # Combined trajectory for audit/plot. Unify column sets so the CSV
+        # writer sees every field from both the Stage-B and Stage-C rows.
+        combined = []
+        for row in list(trace_rows) + list(sc_rows):
+            base = {
+                "stage": None, "epoch_or_step": None,
+                "cumulative_training_online_secure_seconds": None,
+                "cumulative_instrumented_wall_seconds": None,
+                "evaluation_online_secure_seconds": None,
+                "evaluation_reveal_seconds": None,
+                "development_accuracy": None,
+                "epsilon_so_far": None, "epsilon_scope": None,
+                "clip_bound": None, "conditional_stage_c_epsilon": None,
+                "delta": None, "used_for_training": None,
+            }
+            base.update(row)
+            combined.append(base)
         combined_path = output_dir / "new_spu_full_trajectory_trace.csv"
         append_trace(combined_path, combined)
 
