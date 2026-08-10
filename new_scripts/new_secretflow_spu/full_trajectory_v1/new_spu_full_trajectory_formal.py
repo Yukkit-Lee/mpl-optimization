@@ -171,6 +171,8 @@ def main() -> None:
     parser.add_argument("--block_steps", type=int, default=10)
     parser.add_argument("--stage_b_eval_interval", type=int, default=5)
     parser.add_argument("--stage_b_eval_chunk_rows", type=int, default=250)
+    parser.add_argument("--no_stage_b_eval", action="store_true")
+    parser.add_argument("--max_stage_b_epochs", type=int)
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
 
@@ -210,17 +212,21 @@ def main() -> None:
             args.local_lr if args.local_lr is not None else bcfg["local_lr"]
         ),
         "stage_b_shared_initialization": bool(bcfg["shared_initialization"]),
-        "stage_b_local_epochs": int(bcfg["local_epochs"]),
+        "stage_b_local_epochs": int(
+            min(int(bcfg["local_epochs"]), args.max_stage_b_epochs or int(bcfg["local_epochs"]))
+        ),
         "stage_c_steps": int(stage_c["steps"]),
         "stage_c_block_steps": args.block_steps,
         "stage_b_eval_interval_epochs": eval_interval,
         "stage_b_eval_chunk_rows": eval_chunk_rows,
+        "stage_b_eval_enabled": not args.no_stage_b_eval,
+        "run_kind": "development_gate" if args.max_stage_b_epochs else "formal",
         "cpu": {
             "omp_threads": int(os.environ.get("OMP_NUM_THREADS", "8")),
             "num_cpus": 30,
             "taskset_cpuset": os.environ.get("TASKSSET_CPUSET", "unknown"),
         },
-        "formal_run": True,
+        "formal_run": not args.max_stage_b_epochs,
     }
     atomic_json(output_dir / "effective_config.json", {"base": config, "effective": effective})
 
@@ -310,9 +316,11 @@ def main() -> None:
         sync_exec = spu_multi_return(
             spu, make_secure_stage_b_average_and_broadcast(coefficients, args.seed)
         )
-        eval_forward_exec = spu_multi_return(
-            spu, make_secure_stage_b_eval_forward()
-        )
+        eval_forward_exec = None
+        if not args.no_stage_b_eval:
+            eval_forward_exec = spu_multi_return(
+                spu, make_secure_stage_b_eval_forward()
+            )
         pack_exec = alice(build_private_epoch_packs)
 
         # Compile Stage-B epoch graph with shape-identical private packs.
@@ -343,12 +351,13 @@ def main() -> None:
         dev_rows = int(data["c_x_dev"].shape[0])
         chunks = split_development_rows(dev_rows, eval_chunk_rows)
         assert_chunk_cover(chunks, dev_rows)
-        with timer.measure("stage_b_eval_compile_warmup"):
-            z_dev = np.zeros((eval_chunk_rows, feature_dim), np.float32)
-            z_w = np.zeros((feature_dim, num_classes), np.float32)
-            z_b = np.zeros((num_classes,), np.float32)
-            warm_logits = eval_forward_exec(z_dev, z_w, z_b)
-            sf.wait([warm_logits])
+        if not args.no_stage_b_eval:
+            with timer.measure("stage_b_eval_compile_warmup"):
+                z_dev = np.zeros((eval_chunk_rows, feature_dim), np.float32)
+                z_w = np.zeros((feature_dim, num_classes), np.float32)
+                z_b = np.zeros((num_classes,), np.float32)
+                warm_logits = eval_forward_exec(z_dev, z_w, z_b)
+                sf.wait([warm_logits])
 
         stage_b_meta = checkpoint_dir / "stage_b_progress.json"
         stage_b_trace = output_dir / "stage_b_trace.csv"
@@ -439,7 +448,7 @@ def main() -> None:
             return row
 
         # Epoch 0 point (initialized model).
-        if start_epoch == 0:
+        if start_epoch == 0 and not args.no_stage_b_eval:
             trace_rows.append(stage_b_evaluate(0, "stage_b_epoch0", ledger, timer, spu))
             append_trace(stage_b_trace, trace_rows)
 
@@ -484,7 +493,7 @@ def main() -> None:
                     "timing_seconds": timer.seconds,
                     "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
                 })
-            if (epoch + 1) % eval_interval == 0:
+            if (epoch + 1) % eval_interval == 0 and not args.no_stage_b_eval:
                 trace_rows.append(
                     stage_b_evaluate(epoch + 1, "stage_b_epoch{}".format(epoch + 1), ledger, timer, spu)
                 )
@@ -514,7 +523,7 @@ def main() -> None:
                 aw_s, ab_s = anchor_exec(anchor_x_s, anchor_y_s, global_w_s, global_b_s)
                 sf.wait([aw_s, ab_s])
             # Pre-anchor point (uses the averaged head before refinement).
-            if not stage_b_complete:
+            if not stage_b_complete and not args.no_stage_b_eval:
                 pre_anchor_row = stage_b_evaluate(
                     effective["stage_b_local_epochs"], "stage_b_pre_anchor", ledger, timer, spu
                 )
@@ -526,11 +535,12 @@ def main() -> None:
                     "stage_b_anchor_ce", [global_w_s, global_b_s], "global_secret_state"
                 )
             # Post-anchor point.
-            post_anchor_row = stage_b_evaluate(
-                effective["stage_b_local_epochs"], "stage_b_post_anchor", ledger, timer, spu
-            )
-            trace_rows.append(post_anchor_row)
-            append_trace(stage_b_trace, trace_rows)
+            if not args.no_stage_b_eval:
+                post_anchor_row = stage_b_evaluate(
+                    effective["stage_b_local_epochs"], "stage_b_post_anchor", ledger, timer, spu
+                )
+                trace_rows.append(post_anchor_row)
+                append_trace(stage_b_trace, trace_rows)
         with timer.measure("stage_b_secret_checkpoint"):
             if stage_b_complete:
                 global_w_paths = state["global_w_share_paths"]

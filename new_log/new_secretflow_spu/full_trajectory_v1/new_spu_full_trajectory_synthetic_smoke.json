@@ -1,0 +1,24 @@
+{
+  "schema": "new_spu_full_trajectory_synthetic_smoke_v1",
+  "status": "PASS",
+  "development_accuracy": 0.4,
+  "reloaded_development_accuracy": 0.4,
+  "evaluation_matches_after_checkpoint_roundtrip": true,
+  "stage_b_client_state_public_reveals": 0,
+  "public_reveals": [
+    {
+      "label": "smoke_eval_logits",
+      "scope": "aggregate_development_logits",
+      "reason": "synthetic smoke evaluation",
+      "public_reconstruction": true
+    },
+    {
+      "label": "smoke_reload_logits",
+      "scope": "aggregate_development_logits",
+      "reason": "synthetic smoke reloaded evaluation",
+      "public_reconstruction": true
+    }
+  ],
+  "official_test_read": false,
+  "locked_holdout_read": false
+}
