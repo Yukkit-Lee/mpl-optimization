@@ -753,10 +753,12 @@ def main() -> None:
                 flush=True,
             )
 
-        metadata = {
-            stream: reveal_private_noise_metadata(pyus, paths, ledger, stream)
-            for stream, paths in provider_paths.items()
-        }
+        metadata = {}
+        if all(paths is not None for paths in provider_paths.values()):
+            metadata = {
+                stream: reveal_private_noise_metadata(pyus, paths, ledger, stream)
+                for stream, paths in provider_paths.items()
+            }
         final_epsilon = conditional_stage_c_epsilon(stage_c, total_steps, len(data["c_x"]))
         if final_epsilon > 3.0 + 1e-6:
             raise AssertionError("conditional Stage-C epsilon exceeds target: {}".format(final_epsilon))
