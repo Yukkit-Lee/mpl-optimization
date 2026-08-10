@@ -173,6 +173,8 @@ def main() -> None:
     parser.add_argument("--stage_b_eval_chunk_rows", type=int, default=250)
     parser.add_argument("--no_stage_b_eval", action="store_true")
     parser.add_argument("--max_stage_b_epochs", type=int)
+    parser.add_argument("--run_tag", default="")
+    parser.add_argument("--stage_b_only", action="store_true")
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
 
@@ -181,7 +183,9 @@ def main() -> None:
     data = load_data(args.dataset, args.method, args.seed)
     num_classes = int(data["num_classes"])
     feature_dim = int(data["b_x"].shape[1])
-    run_id = "full_trajectory_v1_formal_{}_{}_seed42".format(args.dataset, args.method)
+    run_id = "full_trajectory_v1_formal_{}_{}_seed42{}".format(
+        args.dataset, args.method, "_" + args.run_tag if args.run_tag else ""
+    )
     output_dir = OUT / run_id
     checkpoint_dir = CKPT / run_id
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -561,6 +565,35 @@ def main() -> None:
                     "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
                 })
 
+        if args.stage_b_only:
+            report.update({
+                "status": "COMPLETE",
+                "final_development_accuracy": (
+                    float(trace_rows[-1]["development_accuracy"])
+                    if trace_rows and not args.no_stage_b_eval
+                    else None
+                ),
+                "conditional_stage_c_epsilon": None,
+                "delta": 1e-5,
+                "timing_seconds": timer.seconds,
+                "online_secure_seconds": timer.seconds.get("stage_b_online_secure", 0.0),
+                "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
+                "resource_measurement": cgroup_delta(resource_start, cgroup_snapshot(), 32),
+                "reveal_ledger": ledger.rows,
+                "provider_metadata": {},
+                "stage_b_client_state_public_reveals": 0,
+                "stage_b_trace_points": len(trace_rows),
+                "stage_b_expected_points": expected_b_points,
+                "stage_c_trace_points": 0,
+                "evaluation_scope": "aggregate development logits only; used_for_training=false",
+                "checkpoint_kind": "per-party SPU secret shares",
+                "checkpoint_paths": {"stage_b_w": global_w_paths, "stage_b_b": global_b_paths},
+            })
+            report["resource_measurement"]["run_observed_memory_peak_gib"] = memory_monitor.stop()
+            atomic_json(report_path, report)
+            print(json.dumps(report, sort_keys=True), flush=True)
+            return
+
         # ----- Stage C -----
         total_steps = effective["stage_c_steps"]
         block_steps = int(args.block_steps)
@@ -724,9 +757,12 @@ def main() -> None:
         append_trace(combined_path, combined)
 
         # Expected Stage-B point count audit (pre-registered).
-        expected_b_points = 1 + effective["stage_b_local_epochs"] // eval_interval
-        if config["anchor_ce"]:
-            expected_b_points += 2  # pre-anchor + post-anchor
+        if args.no_stage_b_eval:
+            expected_b_points = 0
+        else:
+            expected_b_points = 1 + effective["stage_b_local_epochs"] // eval_interval
+            if config["anchor_ce"]:
+                expected_b_points += 2  # pre-anchor + post-anchor
         actual_b_points = len(trace_rows)
         if actual_b_points != expected_b_points:
             raise AssertionError(
