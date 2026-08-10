@@ -565,6 +565,16 @@ def main() -> None:
                     "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
                 })
 
+        # Expected Stage-B point count audit (pre-registered), computed once
+        # here so both the stage_b_only gate report and the full-run audit use
+        # the same number.
+        if args.no_stage_b_eval:
+            expected_b_points = 0
+        else:
+            expected_b_points = 1 + effective["stage_b_local_epochs"] // eval_interval
+            if config["anchor_ce"]:
+                expected_b_points += 2  # pre-anchor + post-anchor
+
         if args.stage_b_only:
             report.update({
                 "status": "COMPLETE",
@@ -756,13 +766,6 @@ def main() -> None:
         combined_path = output_dir / "new_spu_full_trajectory_trace.csv"
         append_trace(combined_path, combined)
 
-        # Expected Stage-B point count audit (pre-registered).
-        if args.no_stage_b_eval:
-            expected_b_points = 0
-        else:
-            expected_b_points = 1 + effective["stage_b_local_epochs"] // eval_interval
-            if config["anchor_ce"]:
-                expected_b_points += 2  # pre-anchor + post-anchor
         actual_b_points = len(trace_rows)
         if actual_b_points != expected_b_points:
             raise AssertionError(
