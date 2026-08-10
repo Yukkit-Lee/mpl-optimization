@@ -107,7 +107,8 @@ def audit_cell(dataset, method):
             for e in report["reveal_ledger"]
         ),
         "evaluation_used_for_training_false": all(
-            not r.get("used_for_training", False) for r in trace
+            str(r.get("used_for_training", "False")).strip().lower() != "true"
+            for r in trace
         ),
         "epsilon_within_target": float(report["conditional_stage_c_epsilon"]) <= 3.000001,
         "delta_1e5": float(report["delta"]) == 1e-5,

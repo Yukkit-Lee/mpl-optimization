@@ -1594,3 +1594,5 @@
 - 下一唯一操作：OMP8/10 × eval_chunk_rows=250/500对比benchmark，然后G2 Tiny exact-shape eval smoke + G3 freeze。
 - G1/G2/G3 完成。C10 eval benchmark：OMP8 chunk250=3.75s、chunk500=4.24s、OMP10 chunk250=3.64s；Tiny exact-shape（D=2048/K=200/dev 10000）OMP8 chunk250=11.76s、OMP10 chunk250=12.32s。**OMP10未达5%门（C10快2.8%、Tiny慢4.8%）→正式CPU freeze=OMP8，eval_chunk_rows=250**（chunk500更慢）。Tiny 26次评估外推约5分钟<<3h。生成`new_spu_full_trajectory_v1_freeze.json`（cells/CPU/eval/targets/科学边界全冻结）、`new_spu_full_trajectory_preflight.md`（G0-G2全PASS）、`new_spu_stage_b_eval_benchmark.csv`。G0-G3全部通过，可启动正式矩阵。
 - 下一唯一操作：提交推送G1-G3产物，然后按冻结顺序启动正式六条（先C10 Ours）。
+- 正式矩阵1/6完成：CIFAR-10 True Ours seed42完整轨迹。Stage-B 11个轨迹点（epoch0+每5epoch×8+pre/post-anchor），Stage-C 8点（steps 10-80），final dev acc=0.6858（对照corrected-v2 0.6864），eps=3.0。Stage-B online=58.93s、eval=20.84s、Stage-C online=12.17s。client reveals=0。audit全过（修复CSV字符串'False'被当作真值的gate bug）。中途修复combined trace列统一+resume provider metadata空指针。
+- 下一唯一操作：提交推送cell 1，启动CIFAR-10 Full Data（b64/chunk10/lr0.8）。
