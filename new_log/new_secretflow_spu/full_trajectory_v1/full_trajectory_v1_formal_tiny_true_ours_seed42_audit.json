@@ -1,0 +1,33 @@
+{
+  "schema": "new_spu_full_trajectory_audit_v1",
+  "dataset": "tiny",
+  "method": "true_ours",
+  "passed": true,
+  "gates": {
+    "status_complete": true,
+    "run_kind_formal": true,
+    "schema_v1": true,
+    "seed_42": true,
+    "backend": true,
+    "protocol_aby3_fm128_fxp16": true,
+    "stage_b_point_count": true,
+    "stage_c_strict_steps": true,
+    "stage_b_client_public_reveals_0": true,
+    "no_client_local_public_reconstruction": true,
+    "stage_b_public_only_aggregate_logits": true,
+    "evaluation_used_for_training_false": true,
+    "epsilon_within_target": true,
+    "delta_1e5": true,
+    "final_acc_matches_trace": true,
+    "official_test_unread": true,
+    "locked_holdout_unread": true,
+    "all_finite": true,
+    "trace_monotonic": true
+  },
+  "report_sha256": "d82a5efead3f3bd7e485e4e15118a83bead32a835409337eaa769fa3a46c7cf3",
+  "trace_sha256": "113e10a85bbe81d13d16013dbf6bb6e12a6cec2293500c05cabe1d3811dcb845",
+  "stage_b_trace_points": 19,
+  "expected_stage_b_points": 19,
+  "stage_c_trace_points": 18,
+  "report_path": "/root/autodl-tmp/tfe_experiments/new_log/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_tiny_true_ours_seed42_report.json"
+}

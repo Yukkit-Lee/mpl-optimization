@@ -1605,3 +1605,6 @@
 - 启动正式矩阵4/6 CIFAR-100 Full Data（b64/chunk16/lr0.8，40 epochs，无anchor）。监控脚本已设。
 - 正式矩阵4/6完成：CIFAR-100 Full Data seed42完整轨迹。Stage-B 9点，Stage-C 2点，final dev acc=0.4260（对照corrected-v2 0.4252），eps=3.0，client reveals=0，audit全过。
 - 下一唯一操作：提交推送cell 4，启动Tiny True Ours（b64/chunk25/lr0.8，80 epochs，有anchor）。
+- 启动正式矩阵5/6 Tiny-ImageNet True Ours（b64/chunk25/lr0.8，80 epochs，有anchor）。监控脚本已设。
+- 正式矩阵5/6完成：Tiny-ImageNet True Ours seed42完整轨迹。Stage-B 19点（epoch0+每5epoch×16+pre/post-anchor），Stage-C 18点，final dev acc=0.3075（对照corrected-v2 0.3084），eps=3.0，client reveals=0，audit全过。
+- 下一唯一操作：提交推送cell 5，启动Tiny Full Data（b64/chunk16/lr0.4，40 epochs，无anchor）。
