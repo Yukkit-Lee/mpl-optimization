@@ -1629,3 +1629,4 @@
 - 2026-08-11 serial supervisor: CIFAR-100 true_ours seed43 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
 - 2026-08-12新增`new_spu_wait_verify_and_shutdown.sh`收尾守护器：它不训练、不重跑、不替代audit，只等待C100四条新增cell都具备`COMPLETE + audit.passed`证据；若队列/runner提前消失则明确失败且不关机。四条齐全后它先调用12-cell最终`--check`，仅在通过时再调用带显式确认的`--shutdown --confirm-shutdown`。该守护器以不匹配SPU训练会话规则的独立tmux名称运行，避免自身导致验收误报。
 - 2026-08-11 serial supervisor: CIFAR-100 true_ours seed44 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
+- 2026-08-11 serial supervisor: CIFAR-100 full_data seed43 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
