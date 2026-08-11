@@ -64,7 +64,22 @@ while :; do
   sleep 60
 done
 
-# supervisor 的最后一次 push 可能刚完成；最终门包含 HEAD=origin 的检查。
+# 最后一条 audit/report 落盘和 supervisor tmux 会话退出之间存在很短的竞态。
+# 最终 verifier 正确要求没有 SPU 任务；因此在调用它之前，明确等待队列和
+# runner 完全消失，避免把一个已完成但尚未退出的 supervisor 误报成失败。
+for _ in $(seq 1 12); do
+  if ! pgrep -af "$queue_pattern" >/dev/null && ! pgrep -af "$runner_pattern" >/dev/null; then
+    break
+  fi
+  echo "[$(date -u +%FT%TZ)] finalization guard: waiting for completed queue/session to exit"
+  sleep 15
+done
+if pgrep -af "$queue_pattern" >/dev/null || pgrep -af "$runner_pattern" >/dev/null; then
+  echo "FINALIZATION_GUARD_FAILED: completed artifacts exist but queue/runner did not exit within 180 seconds" >&2
+  exit 1
+fi
+
+# supervisor 的最后一次 push 已完成；最终门还会检查 HEAD=origin。
 if ! bash "$verifier" --check; then
   echo "FINALIZATION_GUARD_FAILED: final verification refused shutdown" >&2
   exit 1

@@ -1628,5 +1628,6 @@
 - 2026-08-12最终验收/关机脚本的Git清洁门收窄为12条正式cell各自的`report/audit/trace/effective_config`及本进度文档；运行期tee日志、历史gate和用户无关绘图不会造成误报。验证范围、训练完成门和远端同步门均未放宽，仍只有全部12条正式证据已提交、无SPU任务、HEAD已推送时才允许显式确认关机。
 - 2026-08-11 serial supervisor: CIFAR-100 true_ours seed43 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
 - 2026-08-12新增`new_spu_wait_verify_and_shutdown.sh`收尾守护器：它不训练、不重跑、不替代audit，只等待C100四条新增cell都具备`COMPLETE + audit.passed`证据；若队列/runner提前消失则明确失败且不关机。四条齐全后它先调用12-cell最终`--check`，仅在通过时再调用带显式确认的`--shutdown --confirm-shutdown`。该守护器以不匹配SPU训练会话规则的独立tmux名称运行，避免自身导致验收误报。
+- 2026-08-12加固收尾守护器的完成竞态：四条报告/audit齐全后，最多等待180秒让串行监督器、tmux和正式runner完全退出，再调用最终验收。若仍有任务则明确失败且不关机，避免报告刚落盘时被“仍有SPU会话”这一正确门禁误判并永久退出。
 - 2026-08-11 serial supervisor: CIFAR-100 true_ours seed44 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
 - 2026-08-11 serial supervisor: CIFAR-100 full_data seed43 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
