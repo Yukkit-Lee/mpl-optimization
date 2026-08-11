@@ -33,11 +33,12 @@ PLOT_DATA = ROOT / "new_output/new_secretflow_spu/new_figure2_spu_full_trajector
 DATASETS = ("cifar10", "cifar100", "tiny")
 DATASET_LABELS = {"cifar10": "CIFAR-10", "cifar100": "CIFAR-100", "tiny": "Tiny ImageNet"}
 METHODS = ("full_data", "true_ours")
-# 与 Figure 2(a) 保持同一方法颜色，便于跨后端直接识别。
-COLORS = {"full_data": "#2C7BB6", "true_ours": "#D7191C"}
+# SPU 后端使用既定的粉色/紫色方法配色。
+COLORS = {"full_data": "#E377C2", "true_ours": "#9467BD"}
 
 # 只影响排版，不改变任何实验数值。
-FIGSIZE = (15.8, 4.5)
+# 略微补偿 tight-bbox 的横向差异，使导出的 PDF 尺寸与 Figure 2(a) 对齐。
+FIGSIZE = (15.833, 4.5)
 PANEL_WSPACE = 0.28
 LINE_WIDTH = 2.2
 PNG_DPI = 600
@@ -146,7 +147,7 @@ def main() -> None:
         )
     axes[0].set_ylabel("Development-validation accuracy")
 
-    # 图例文字、线型和位置与 Figure 2(a) 完全一致；n=1 在正文中说明。
+    # 图例文字、线型和位置与 Figure 2(a) 保持一致。
     handles = [
         Line2D([0], [0], color=COLORS["full_data"], lw=2.2, label="Full Data"),
         Line2D([0], [0], color=COLORS["true_ours"], lw=2.2, label="Ours"),
@@ -162,21 +163,20 @@ def main() -> None:
         left=0.07, right=0.985, top=0.96, bottom=0.20,
         wspace=PANEL_WSPACE,
     )
-    output_stem = "new_figure2b_spu_full_trajectory_seed42_unified_notitle_bold"
-    for suffix in ("png", "pdf", "svg"):
-        kwargs = {"bbox_inches": "tight"}
-        if suffix == "png":
-            kwargs["dpi"] = PNG_DPI
-        output_path = FIG_DIR / (output_stem + "." + suffix)
-        fig.savefig(output_path, **kwargs)
-        if suffix == "svg":
-            # Matplotlib 的 SVG path 行默认带尾随空格；机械清理以保持
-            # git diff --check 可通过，不改变任何向量内容或渲染结果。
-            svg_text = output_path.read_text(encoding="utf-8")
-            output_path.write_text(
-                "\n".join(line.rstrip() for line in svg_text.splitlines()) + "\n",
-                encoding="utf-8",
-            )
+    output_stem = "new_figure2b_spu_full_trajectory_seed42_pink_purple_notitle_bold"
+    png_path = FIG_DIR / (output_stem + ".png")
+    pdf_path = FIG_DIR / (output_stem + ".pdf")
+    svg_path = FIG_DIR / (output_stem + ".svg")
+    fig.savefig(png_path, dpi=PNG_DPI, bbox_inches="tight")
+    fig.savefig(pdf_path, bbox_inches="tight")
+    fig.savefig(svg_path, bbox_inches="tight")
+    # Matplotlib 的 SVG path 行默认带尾随空格；机械清理以保持
+    # git diff --check 可通过，不改变任何向量内容或渲染结果。
+    svg_text = svg_path.read_text(encoding="utf-8")
+    svg_path.write_text(
+        "\n".join(line.rstrip() for line in svg_text.splitlines()) + "\n",
+        encoding="utf-8",
+    )
     plt.close(fig)
     print("saved full-trajectory figures to", FIG_DIR)
 
