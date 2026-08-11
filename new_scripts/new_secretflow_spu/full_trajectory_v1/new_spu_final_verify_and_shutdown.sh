@@ -83,8 +83,19 @@ PY
   fi
 done
 
-# 3) 仅限制本任务必须提交的路径。无关用户工作区保持允许且不被脚本修改。
-if git status --porcelain -- progressLog/project_progress.md "$log_dir" "$out_dir" | grep -q .; then
+# 3) 仅限制每条正式 cell 的四份必需产物和进度文档。不能把运行时 tee
+# 日志、旧 gate 产物或用户自己的其它图表修改误判为本任务未提交；它们不属于
+# 最终验收的必要证据，也不应被本脚本删除或强制提交。
+status_paths=("progressLog/project_progress.md")
+for run_id in "${required[@]}"; do
+  status_paths+=(
+    "$log_dir/${run_id}_report.json"
+    "$log_dir/${run_id}_audit.json"
+    "$out_dir/$run_id/new_spu_full_trajectory_trace.csv"
+    "$out_dir/$run_id/effective_config.json"
+  )
+done
+if git status --porcelain -- "${status_paths[@]}" | grep -q .; then
   note_fail "SPU正式产物或进度文档仍有未提交变更"
 else
   note_pass "SPU正式产物与进度文档已提交"

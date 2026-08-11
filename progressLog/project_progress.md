@@ -1625,3 +1625,4 @@
 - 2026-08-12严格串行正式矩阵进展：CIFAR-10 Full Data seed44从零独占运行完成，final development accuracy=72.34%、epsilon=3、online-secure=859.997s、raw wall=2124.945s、Stage-B 9点/Stage-C 8点。强化audit全PASS（与seed43相同的协议、reveal、provider、trace、privacy、test/holdout及cpuset门）；C10两条Full新增seed至此齐全。下一条严格串行cell为CIFAR-100 True Ours seed43。
 - 2026-08-12为防止控制端断开导致严格串行队列停滞，新增`new_spu_serial_remaining_queue.sh`监督器。它只等待当前C100 Ours seed43完成（不重跑），然后以冻结参数依次运行Ours seed44、Full seed43、Full seed44；每条都必须COMPLETE、强化audit PASS、更新本进度文档、精确暂存本cell产物、commit+push后才进入下一条。任一失败即退出；不触发图表生成或关机，最终仍须由`new_spu_final_verify_and_shutdown.sh`完成总验收门。
 - 2026-08-12监督器首次启动在Bash `set -u`下因同一条`local`声明内引用尚未赋值的method/seed变量退出，未启动任何新训练、未影响正在运行的C100 Ours seed43。已将变量赋值和run-id构造拆为两条声明并重新做语法检查；修复后监督器仅等待现有seed43报告，不重复训练。
+- 2026-08-12最终验收/关机脚本的Git清洁门收窄为12条正式cell各自的`report/audit/trace/effective_config`及本进度文档；运行期tee日志、历史gate和用户无关绘图不会造成误报。验证范围、训练完成门和远端同步门均未放宽，仍只有全部12条正式证据已提交、无SPU任务、HEAD已推送时才允许显式确认关机。
