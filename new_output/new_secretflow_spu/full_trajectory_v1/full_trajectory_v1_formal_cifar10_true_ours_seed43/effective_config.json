@@ -1,0 +1,57 @@
+{
+  "base": {
+    "anchor_ce": true,
+    "anchor_steps": 40,
+    "anchor_lr": 0.1,
+    "anchor_mu": 0.001,
+    "stage_b": {
+      "local_epochs": 40,
+      "batch_size": 8,
+      "local_lr": 0.25,
+      "weight_decay": 0.0001,
+      "client_weighting": "sample_count",
+      "fedavg_sync_interval": 10,
+      "shared_initialization": true
+    },
+    "stage_c": {
+      "steps": 80,
+      "learning_rate": 0.002,
+      "noise_multiplier": 0.9417698189408995,
+      "count_noise_multiplier": 8.0,
+      "clip_c": 1.0,
+      "gamma": 0.5,
+      "eta_c": 0.02,
+      "c_min": 0.05,
+      "c_max": 4.0,
+      "warmup_steps": 5,
+      "update_interval": 5,
+      "expected_batch": 16,
+      "graph_capacity": 64
+    }
+  },
+  "effective": {
+    "schema": "new_spu_full_trajectory_v1",
+    "dataset": "cifar10",
+    "method": "true_ours",
+    "seed": 43,
+    "stage_b_batch_size": 8,
+    "stage_b_batch_chunk_batches": 10,
+    "stage_b_batch_size_source": "explicit_pre_run_freeze",
+    "stage_b_unroll": 1,
+    "stage_b_local_lr": 0.25,
+    "stage_b_shared_initialization": true,
+    "stage_b_local_epochs": 40,
+    "stage_c_steps": 80,
+    "stage_c_block_steps": 10,
+    "stage_b_eval_interval_epochs": 5,
+    "stage_b_eval_chunk_rows": 250,
+    "stage_b_eval_enabled": true,
+    "run_kind": "formal",
+    "cpu": {
+      "omp_threads": 8,
+      "num_cpus": 30,
+      "taskset_cpuset": "96-127"
+    },
+    "formal_run": true
+  }
+}

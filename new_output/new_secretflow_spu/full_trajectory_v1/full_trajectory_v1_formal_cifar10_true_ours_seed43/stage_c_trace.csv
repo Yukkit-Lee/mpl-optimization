@@ -1,0 +1,9 @@
+stage,epoch_or_step,cumulative_training_online_secure_seconds,cumulative_instrumented_wall_seconds,evaluation_online_secure_seconds,evaluation_reveal_seconds,development_accuracy,clip_bound,conditional_stage_c_epsilon,delta,used_for_training
+stage_c,10,91.984695,148.607226,0.0,0.0,0.6786,1.007828,1.96845878,1e-05,False
+stage_c,20,94.632041,154.856438,0.0,0.0,0.679,1.027679,2.18487358,1e-05,False
+stage_c,30,96.199106,159.741643,0.0,0.0,0.6792,1.039764,2.35679203,1e-05,False
+stage_c,40,97.807764,165.610384,0.0,0.0,0.6786,1.043854,2.50661413,1e-05,False
+stage_c,50,99.803664,172.234214,0.0,0.0,0.6786,1.060318,2.64266063,1e-05,False
+stage_c,60,101.837637,177.939372,0.0,0.0,0.679,1.064468,2.7685862,1e-05,False
+stage_c,70,103.660978,183.46704,0.0,0.0,0.6784,1.081253,2.88704399,1e-05,False
+stage_c,80,105.734639,189.869085,0.0,0.0,0.6788,1.098297,3.0,1e-05,False
