@@ -261,7 +261,9 @@ def main() -> None:
             "schema": SCHEMA,
             "status": "RUNNING",
             "run_id": run_id,
-            "run_kind": "formal",
+            # 正式矩阵为 formal；简短 gate 必须显式标为 development_gate，
+            # 避免无意中被汇总器当作论文证据。
+            "run_kind": effective["run_kind"],
             "backend": "SecretFlow-SPU device API",
             "protocol": protocol,
             "adapter": adapter,
