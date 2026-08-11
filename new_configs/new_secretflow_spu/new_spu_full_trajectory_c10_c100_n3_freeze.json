@@ -2,7 +2,7 @@
   "schema": "new_spu_full_trajectory_c10_c100_n3_freeze_v1",
   "status": "FROZEN_BEFORE_FORMAL",
   "created_utc": "2026-08-11T15:56:24Z",
-  "source_git_commit": "8067aef1738a43571be6cda9ea3588dba3034960",
+  "source_git_commit": "f97e3ffc833eeae3cb198087e0d78edc7b1782d5",
   "scope": {
     "datasets": ["cifar10", "cifar100"],
     "methods": ["true_ours", "full_data"],
@@ -48,7 +48,7 @@
     "cifar100_full_data": {"batch_size": 64, "batch_chunk_batches": 16, "local_lr": 0.8}
   },
   "source_sha256": {
-    "runner": "d3a92673c7d9b4a85c93c534950d6cfc1cc79ffd7ae034803874a18deeaf7138",
+    "runner": "a26349e6c6af16c4e45833f9cfb4494f76ba976dfe4959146b20e843db76aa35",
     "audit": "feb5f264323e3258e16f67f05c40c737ced601a9bf5ccc597efee628deaeeeeb",
     "stage_b_eval": "34323843b1739e4abdc96174bdaf9271aa0facd927007a268bf4fe2e811f932f",
     "base_loader": "17e3c52df1aaa957ab5ff750011797e9de7fc1319edcc2847ad731011c792738"
