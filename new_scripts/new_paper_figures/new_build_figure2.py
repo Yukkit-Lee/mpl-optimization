@@ -147,11 +147,18 @@ def build_tfe(master):
         )
 
     handles = [
-        Line2D([0], [0], color=FULL_BLUE, lw=2.2, label="Full Data"),
-        Line2D([0], [0], color=OURS_RED, lw=2.2, label="Ours"),
+        Line2D([0], [0], color=FULL_BLUE, lw=2.2, label="Full Data_TFE"),
+        Line2D([0], [0], color=OURS_RED, lw=2.2, label="Ours_TFE"),
         Line2D([0], [0], color="#808080", lw=0.8, ls="--", label="T@80/90/95"),
     ]
-    fig.legend(handles=handles, loc="lower center", ncol=3, frameon=False, bbox_to_anchor=(0.5, -0.005))
+    fig.legend(
+        handles=handles,
+        loc="lower center",
+        ncol=3,
+        frameon=False,
+        bbox_to_anchor=(0.5, -0.005),
+        fontsize=13,
+    )
     fig.suptitle(
         "TFE / ABY3: development accuracy versus cumulative online secure time",
         fontweight="bold",
@@ -280,10 +287,36 @@ def build_spu(grouped):
     save_figure(fig, "new_figure2b_spu_short_axis_deltas")
 
 
+def build_combined_backend_legend():
+    """Export a standalone backend-aware legend for the six-panel layout."""
+    fig = plt.figure(figsize=(9.0, 0.55))
+    handles = [
+        Line2D([0], [0], color=FULL_BLUE, lw=2.4, label="Full Data_TFE"),
+        Line2D([0], [0], color=OURS_RED, lw=2.4, label="Ours_TFE"),
+        Line2D([0], [0], color=SPU_FULL_COLOR, lw=2.4, label="Full Data_SPU"),
+        Line2D([0], [0], color=SPU_OURS_COLOR, lw=2.4, label="Ours_SPU"),
+        Line2D(
+            [0], [0], color="#808080", lw=1.0, ls="--", label="T@80/90/95"
+        ),
+    ]
+    fig.legend(
+        handles=handles,
+        loc="center",
+        ncol=5,
+        frameon=False,
+        fontsize=13,
+        handlelength=2.3,
+        handletextpad=0.6,
+        columnspacing=1.3,
+    )
+    save_figure(fig, "new_figure2_combined_backend_legend")
+
+
 def main():
     master, grouped = load_and_validate()
     build_tfe(master)
     build_spu(grouped)
+    build_combined_backend_legend()
     print("PASS built Figure 2(a)/(b) in", OUT)
 
 

@@ -149,14 +149,15 @@ def main() -> None:
 
     # 图例文字、线型和位置与 Figure 2(a) 保持一致。
     handles = [
-        Line2D([0], [0], color=COLORS["full_data"], lw=2.2, label="Full Data"),
-        Line2D([0], [0], color=COLORS["true_ours"], lw=2.2, label="Ours"),
+        Line2D([0], [0], color=COLORS["full_data"], lw=2.2, label="Full Data_SPU"),
+        Line2D([0], [0], color=COLORS["true_ours"], lw=2.2, label="Ours_SPU"),
         Line2D([0], [0], color="#777777", lw=0.8, ls="--",
                label="T@80/90/95"),
     ]
     fig.legend(
         handles=handles, loc="lower center", ncol=3, frameon=False,
         bbox_to_anchor=(0.5, -0.005),
+        fontsize=13,
     )
     apply_bold_typography(fig)
     fig.subplots_adjust(
