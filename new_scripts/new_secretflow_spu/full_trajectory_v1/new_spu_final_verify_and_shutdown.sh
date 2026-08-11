@@ -90,8 +90,9 @@ else
   note_pass "SPU正式产物与进度文档已提交"
 fi
 
-# 4) 关机前必须确认当前提交与远端同一提交，避免结果只留在本机。
-git fetch origin unified-experiments --quiet
+# 4) 关机前必须确认当前提交与已同步的远端跟踪引用一致，避免结果只留在本机。
+# 这里刻意不做 git fetch：关机脚本必须在无交互认证时也能安全工作；每个正式
+# cell完成后由运行器使用配置的GIT_ASKPASS执行明确的 push，随后该跟踪引用更新。
 if [[ "$(git rev-parse HEAD)" != "$(git rev-parse origin/unified-experiments)" ]]; then
   note_fail "HEAD未与origin/unified-experiments同步"
 else
