@@ -1,0 +1,67 @@
+{
+  "schema": "new_spu_full_trajectory_c10_c100_n3_freeze_v1",
+  "status": "FROZEN_BEFORE_FORMAL",
+  "created_utc": "2026-08-11T15:56:24Z",
+  "source_git_commit": "8067aef1738a43571be6cda9ea3588dba3034960",
+  "scope": {
+    "datasets": ["cifar10", "cifar100"],
+    "methods": ["true_ours", "full_data"],
+    "new_seeds": [43, 44],
+    "formal_cells": 8,
+    "existing_seed42_reused_read_only": true,
+    "tiny_new_runs": false
+  },
+  "backend": {
+    "name": "SecretFlow-SPU device API",
+    "protocol": "ABY3",
+    "field": "FM128",
+    "fxp_fraction_bits": 16,
+    "single_host_simulation": true
+  },
+  "server": {
+    "observed_cpu_model": "Intel Xeon Platinum 8352V",
+    "cpuset": "96-127",
+    "allocated_vcpus": 32,
+    "ray_num_cpus": 30,
+    "omp_threads_per_party": 8,
+    "total_party_omp_threads": 24,
+    "cgroup_memory_limit_gib": 60
+  },
+  "evaluation": {
+    "stage_b_eval_interval_epochs": 5,
+    "stage_b_eval_chunk_rows": 250,
+    "include_evaluation_in_training_online_time": false,
+    "development_only": true,
+    "official_test_read": false,
+    "locked_holdout_read": false
+  },
+  "common": {
+    "unroll": 1,
+    "stage_c_block_steps": 10,
+    "conditional_stage_c_epsilon": 3.0,
+    "delta": 0.00001
+  },
+  "cells": {
+    "cifar10_true_ours": {"batch_size": 8, "batch_chunk_batches": 10, "local_lr": 0.25},
+    "cifar10_full_data": {"batch_size": 64, "batch_chunk_batches": 10, "local_lr": 0.8},
+    "cifar100_true_ours": {"batch_size": 32, "batch_chunk_batches": 25, "local_lr": 1.0},
+    "cifar100_full_data": {"batch_size": 64, "batch_chunk_batches": 16, "local_lr": 0.8}
+  },
+  "source_sha256": {
+    "runner": "d3a92673c7d9b4a85c93c534950d6cfc1cc79ffd7ae034803874a18deeaf7138",
+    "audit": "feb5f264323e3258e16f67f05c40c737ced601a9bf5ccc597efee628deaeeeeb",
+    "stage_b_eval": "34323843b1739e4abdc96174bdaf9271aa0facd927007a268bf4fe2e811f932f",
+    "base_loader": "17e3c52df1aaa957ab5ff750011797e9de7fc1319edcc2847ad731011c792738"
+  },
+  "acceptance": {
+    "status_complete": true,
+    "seed_matches": true,
+    "trace_complete_and_monotonic": true,
+    "stage_b_client_public_reveals": 0,
+    "stage_b_aggregate_logits_releases_nonempty": true,
+    "provider_metadata_present": true,
+    "effective_cpuset_recorded": true,
+    "conditional_epsilon_at_most_3": true,
+    "no_test_or_locked_holdout": true
+  }
+}
