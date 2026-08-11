@@ -10,11 +10,18 @@
 横轴为 cumulative_training_online_secure_seconds，竖直点线为 Stage B→C
 转换时刻。本图 n=1，因此不绘制伪造误差。
 
+数据来源链：
+1. ``new_build_spu_full_trajectory_results.py`` 读取 6 个正式 report JSON；
+2. 曲线点来自每个运行目录中的 ``new_spu_full_trajectory_trace.csv``；
+3. builder 将它们汇总为 ``new_figure2_spu_full_trajectory_plot_data.csv``；
+4. 本脚本只读取该汇总 CSV，不读取也不校验任何 JSON 哈希清单。
+
 输出使用 ``*_unified_notitle_bold`` 新文件名，不覆盖旧候选图。
 """
 
 from __future__ import annotations
 
+import argparse
 import csv
 from pathlib import Path
 
@@ -28,7 +35,21 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[3]
 FIG_DIR = ROOT / "new_expFig/paper_experiment/spu_full_trajectory_v1"
-PLOT_DATA = ROOT / "new_output/new_secretflow_spu/new_figure2_spu_full_trajectory_plot_data.csv"
+
+# 论文 Figure 2(b) 真正直接读取的是这个汇总 CSV，而不是某一个 JSON。
+# 该 CSV 由 new_build_spu_full_trajectory_results.py 生成。builder 会读取以下
+# 6 个正式 report JSON（dataset × method），但曲线坐标本身来自相应 trace CSV：
+#   new_log/new_secretflow_spu/full_trajectory_v1/
+#     full_trajectory_v1_formal_{cifar10|cifar100|tiny}_
+#     {full_data|true_ours}_seed42_report.json
+# 曲线点来源：
+#   new_output/new_secretflow_spu/full_trajectory_v1/
+#     full_trajectory_v1_formal_{dataset}_{method}_seed42/
+#     new_spu_full_trajectory_trace.csv
+# 绘图入口不读取 hash manifest，也不要求输入文件匹配任何预设 SHA256。
+DEFAULT_PLOT_DATA = (
+    ROOT / "new_output/new_secretflow_spu/new_figure2_spu_full_trajectory_plot_data.csv"
+)
 
 DATASETS = ("cifar10", "cifar100", "tiny")
 DATASET_LABELS = {"cifar10": "CIFAR-10", "cifar100": "CIFAR-100", "tiny": "Tiny ImageNet"}
@@ -59,17 +80,59 @@ def apply_bold_typography(fig):
             tick.set_fontsize(max(9.5, tick.get_fontsize()))
 
 
-def load_plot_data():
+def parse_args():
+    parser = argparse.ArgumentParser(description="绘制 SPU end-to-end Figure 2(b)")
+    parser.add_argument(
+        "--plot-data",
+        type=Path,
+        default=DEFAULT_PLOT_DATA,
+        help=(
+            "要读取的汇总轨迹 CSV。默认使用 builder 生成的正式 plot-data；"
+            "不执行 JSON 或 SHA256 哈希校验。"
+        ),
+    )
+    return parser.parse_args()
+
+
+def load_plot_data(plot_data: Path):
+    """读取绘图 CSV；只检查画图必需字段，不限制文件哈希或生成来源。"""
+    required_columns = {
+        "dataset",
+        "method",
+        "stage",
+        "epoch_or_step",
+        "cumulative_training_online_secure_seconds",
+        "development_accuracy",
+        "target_T80",
+        "target_T90",
+        "target_T95",
+    }
+    if not plot_data.is_file():
+        raise FileNotFoundError("找不到 SPU Figure 2 绘图数据: {}".format(plot_data))
+
     rows = {}
-    with PLOT_DATA.open(newline="", encoding="utf-8") as handle:
-        for row in csv.DictReader(handle):
+    with plot_data.open(newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        missing = required_columns.difference(reader.fieldnames or ())
+        if missing:
+            raise ValueError("绘图 CSV 缺少字段: {}".format(sorted(missing)))
+        for row in reader:
             rows.setdefault((row["dataset"], row["method"]), []).append(row)
+
+    expected_series = {
+        (dataset, method) for dataset in DATASETS for method in METHODS
+    }
+    missing_series = expected_series.difference(rows)
+    if missing_series:
+        raise ValueError("绘图 CSV 缺少数据序列: {}".format(sorted(missing_series)))
     return rows
 
 
 def main() -> None:
+    args = parse_args()
     FIG_DIR.mkdir(parents=True, exist_ok=True)
-    data = load_plot_data()
+    # 这里只按 CSV 内容画图；不会读取历史 hash manifest，也不会比较 SHA256。
+    data = load_plot_data(args.plot_data.resolve())
     mpl.rcParams.update({
         "font.family": "sans-serif",
         "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
@@ -179,6 +242,7 @@ def main() -> None:
         encoding="utf-8",
     )
     plt.close(fig)
+    print("plot_data:", args.plot_data.resolve())
     print("saved full-trajectory figures to", FIG_DIR)
 
 

@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
-"""Merge the six full-trajectory SPU cells into paper tables and hash manifest.
+"""Merge the six full-trajectory SPU cells into paper tables and plot data.
 
 Reads ONLY the exact full-trajectory report/trace paths, hard-asserts 6/6
 COMPLETE + per-cell audit gates, and writes:
   - new_spu_full_trajectory_main_table.csv
   - new_spu_full_trajectory_time_to_target.csv
   - new_spu_full_trajectory_runtime_breakdown.csv
-  - new_spu_full_trajectory_hash_manifest.json
   - new_figure2_spu_full_trajectory_plot_data.csv
+
+绘图链不再生成或校验 SHA256 manifest。必要的文件存在性、JSON/CSV 结构和
+COMPLETE 状态检查仍保留，防止把缺字段或未完成运行误画成论文结果。
 """
 
 from __future__ import annotations
 
 import csv
-import hashlib
 import json
 from pathlib import Path
 
@@ -35,15 +36,6 @@ TARGETS = {
     "tiny": {"T@80": 0.22120, "T@90": 0.24885, "T@95": 0.262675},
 }
 
-
-def sha256_file(path):
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def time_to_target(trace, target):
     for row in trace:
         if float(row["development_accuracy"]) >= target:
@@ -53,20 +45,24 @@ def time_to_target(trace, target):
 
 def main() -> None:
     TAB.mkdir(parents=True, exist_ok=True)
-    report_paths = {}
-    trace_paths = {}
     main_rows = []
     for dataset in DATASETS:
         for method in METHODS:
             run_id = "full_trajectory_v1_formal_{}_{}_seed42".format(dataset, method)
+            # 这里是 Figure 2(b) 上游读取的 6 个正式 JSON：
+            # new_log/new_secretflow_spu/full_trajectory_v1/
+            # full_trajectory_v1_formal_{dataset}_{method}_seed42_report.json
+            # JSON 提供最终精度、计时、状态和配置；曲线逐点坐标来自下面的 trace CSV。
             report_path = LOG / "{}_report.json".format(run_id)
             output_dir = OUT / run_id
             trace_path = output_dir / "new_spu_full_trajectory_trace.csv"
+            if not report_path.is_file():
+                raise FileNotFoundError("找不到正式 SPU report JSON: {}".format(report_path))
+            if not trace_path.is_file():
+                raise FileNotFoundError("找不到正式 SPU trace CSV: {}".format(trace_path))
             report = json.loads(report_path.read_text(encoding="utf-8"))
             with trace_path.open(newline="", encoding="utf-8") as handle:
                 trace = list(csv.DictReader(handle))
-            report_paths["{}_{}".format(dataset, method)] = report_path
-            trace_paths["{}_{}".format(dataset, method)] = trace_path
 
             if report["status"] != "COMPLETE":
                 raise AssertionError("cell {} {} not COMPLETE".format(dataset, method))
@@ -164,22 +160,8 @@ def main() -> None:
         writer.writeheader()
         writer.writerows(brk_rows)
 
-    # hash manifest.
-    manifest = {
-        "schema": "new_spu_full_trajectory_hash_manifest_v1",
-        "reports": {
-            key: {"path": str(path), "sha256": sha256_file(path)}
-            for key, path in report_paths.items()
-        },
-        "traces": {
-            key: {"path": str(path), "sha256": sha256_file(path)}
-            for key, path in trace_paths.items()
-        },
-    }
-    manifest_path = LOG / "new_spu_full_trajectory_hash_manifest.json"
-    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-
     # plot data (x = cumulative training online secure).
+    # 此处直接重新读取 report/trace 并生成绘图 CSV，不比较任何历史 SHA256。
     plot_rows = []
     for dataset in DATASETS:
         for method in METHODS:
@@ -216,7 +198,6 @@ def main() -> None:
     print("main_table:", main_path)
     print("time_to_target:", tt_path)
     print("runtime_breakdown:", brk_path)
-    print("hash_manifest:", manifest_path)
     print("plot_data:", plot_path)
     print("ALL SIX FULL-TRAJECTORY CELLS MERGED")
     return 0
