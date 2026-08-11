@@ -1613,3 +1613,4 @@
 - Step 7结果汇总完成。builder生成main table（六条acc/轨迹点数/T@80/90/95）、time_to_target（真实Stage-B起算加速比）、runtime breakdown、hash manifest（6 report+6 trace SHA256）、plot data。生成PEA风格完整轨迹图（视觉检查通过：连续Stage-B+Stage-C轨迹、C100不再只有2点、Tiny 9/19点）。final report记录六条。
 - **T@Target真实加速比**（完整Stage-B轨迹起算）：CIFAR-10 Ours T@90=13.9s vs Full=85.2s（6.1x）、CIFAR-100 84.5s vs 634.4s（7.5x）、Tiny 384.4s vs 5008.9s（13.0x）。旧Stage-C代理值291.8s/3776s/4983s被真实轨迹值替代。
 - 下一唯一操作：提交推送Step 7产物，更新handoff完成状态，向用户汇报六条完整轨迹完成。
+- 2026-08-11用户决定SPU仅保留seed42（n=1），取消CIFAR-10/CIFAR-100额外seed计划，本轮未启动任何训练。按远端`unified-experiments`HEAD=`f459a19`的论文Figure 2样式重绘SPU完整轨迹候选图：保持冻结plot-data SHA256=`87759bd6...`不变，Full Data/Ours分别使用粉色`#E377C2`/紫色`#9467BD`；全局字体、坐标、刻度和图例加粗，图例置于底部居中，取消整图标题与底部小字。对数横轴上不可显示的epoch0/time=0点仍保留在原CSV，纵轴范围仅由x>0的可见真实轨迹与T@80/90/95决定，避免隐形epoch0将纵轴拉至近0%；不插值、不平滑、不改数据。新PNG/PDF/SVG使用`*_notitle_bold`命名不覆盖旧图，PNG已实际打开检查；语法、绘图执行、`git diff --check`和三格式SHA256均通过。
