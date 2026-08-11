@@ -1608,3 +1608,5 @@
 - 启动正式矩阵5/6 Tiny-ImageNet True Ours（b64/chunk25/lr0.8，80 epochs，有anchor）。监控脚本已设。
 - 正式矩阵5/6完成：Tiny-ImageNet True Ours seed42完整轨迹。Stage-B 19点（epoch0+每5epoch×16+pre/post-anchor），Stage-C 18点，final dev acc=0.3075（对照corrected-v2 0.3084），eps=3.0，client reveals=0，audit全过。
 - 下一唯一操作：提交推送cell 5，启动Tiny Full Data（b64/chunk16/lr0.4，40 epochs，无anchor）。
+- 启动正式矩阵6/6 Tiny-ImageNet Full Data（b64/chunk16/lr0.4，40 epochs，无anchor，68000样本预计最久约3-4小时）。监控脚本已设（240分钟上限）。
+- Tiny Full(6/6)运行中：epoch=1/40，每epoch约10分钟（68000样本×200类），预计6小时。SPU 250% CPU、cgroup内存27.1GiB（<60上限无OOM）。持续低频监控。
