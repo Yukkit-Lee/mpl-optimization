@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""生成与论文 Figure 2 排版一致的 SPU 完整轨迹候选图。
+"""生成与论文 Figure 2(a) 视觉语法一致的 SPU 完整轨迹图。
 
 运行方式（在仓库根目录）：
 
@@ -10,7 +10,7 @@
 横轴为 cumulative_training_online_secure_seconds，竖直点线为 Stage B→C
 转换时刻。本图 n=1，因此不绘制伪造误差。
 
-输出使用 ``*_notitle_bold`` 新文件名，不覆盖旧候选图。
+输出使用 ``*_unified_notitle_bold`` 新文件名，不覆盖旧候选图。
 """
 
 from __future__ import annotations
@@ -31,17 +31,15 @@ FIG_DIR = ROOT / "new_expFig/paper_experiment/spu_full_trajectory_v1"
 PLOT_DATA = ROOT / "new_output/new_secretflow_spu/new_figure2_spu_full_trajectory_plot_data.csv"
 
 DATASETS = ("cifar10", "cifar100", "tiny")
-DATASET_LABELS = {"cifar10": "CIFAR-10", "cifar100": "CIFAR-100", "tiny": "Tiny-ImageNet"}
+DATASET_LABELS = {"cifar10": "CIFAR-10", "cifar100": "CIFAR-100", "tiny": "Tiny ImageNet"}
 METHODS = ("full_data", "true_ours")
-# 用户指定的原 SPU 配色：Full Data 粉色，Ours 紫色。
-COLORS = {"full_data": "#E377C2", "true_ours": "#9467BD"}
-METHOD_LABELS = {"full_data": "Full Data", "true_ours": "True Ours"}
+# 与 Figure 2(a) 保持同一方法颜色，便于跨后端直接识别。
+COLORS = {"full_data": "#2C7BB6", "true_ours": "#D7191C"}
 
 # 只影响排版，不改变任何实验数值。
 FIGSIZE = (15.8, 4.5)
 PANEL_WSPACE = 0.28
 LINE_WIDTH = 2.2
-MARKER_SIZE = 3.5
 PNG_DPI = 600
 
 
@@ -111,11 +109,8 @@ def main() -> None:
             y_visible = y[visible]
             visible_y.extend(y_visible.tolist())
             color = COLORS[method]
-            axis.plot(
-                x_visible, y_visible, color=color, linewidth=LINE_WIDTH,
-                marker="o", markersize=MARKER_SIZE,
-            )
-            axis.scatter([x_visible[-1]], [y_visible[-1]], color=color, s=32, zorder=5)
+            axis.plot(x_visible, y_visible, color=color, linewidth=LINE_WIDTH)
+            axis.scatter([x_visible[-1]], [y_visible[-1]], color=color, s=25, zorder=5)
             # Stage B->C transition: first point whose stage == stage_c.
             transition_x = next(
                 (float(r["cumulative_training_online_secure_seconds"]) for r in ordered
@@ -139,7 +134,7 @@ def main() -> None:
         axis.yaxis.set_major_formatter(PercentFormatter(1.0))
         axis.set_title(DATASET_LABELS[dataset], fontweight="bold")
         axis.set_xlabel("Cumulative online secure time (s, log scale)")
-        axis.grid(True, which="both", alpha=0.18)
+        axis.grid(True, which="both", alpha=0.16)
         axis.text(
             0.025, 0.955, "SPU / ABY3",
             transform=axis.transAxes, ha="left", va="top",
@@ -151,12 +146,10 @@ def main() -> None:
         )
     axes[0].set_ylabel("Development-validation accuracy")
 
-    # 图例与论文 Figure 2 一致：整图底部居中，不在子图内挡曲线。
+    # 图例文字、线型和位置与 Figure 2(a) 完全一致；n=1 在正文中说明。
     handles = [
-        Line2D([0], [0], color=COLORS["full_data"], lw=2.2,
-               marker="o", markersize=4, label="Full Data (n=1)"),
-        Line2D([0], [0], color=COLORS["true_ours"], lw=2.2,
-               marker="o", markersize=4, label="Ours (n=1)"),
+        Line2D([0], [0], color=COLORS["full_data"], lw=2.2, label="Full Data"),
+        Line2D([0], [0], color=COLORS["true_ours"], lw=2.2, label="Ours"),
         Line2D([0], [0], color="#777777", lw=0.8, ls="--",
                label="T@80/90/95"),
     ]
@@ -166,10 +159,10 @@ def main() -> None:
     )
     apply_bold_typography(fig)
     fig.subplots_adjust(
-        left=0.07, right=0.985, top=0.91, bottom=0.20,
+        left=0.07, right=0.985, top=0.96, bottom=0.20,
         wspace=PANEL_WSPACE,
     )
-    output_stem = "new_figure2_spu_full_trajectory_seed42_notitle_bold"
+    output_stem = "new_figure2b_spu_full_trajectory_seed42_unified_notitle_bold"
     for suffix in ("png", "pdf", "svg"):
         kwargs = {"bbox_inches": "tight"}
         if suffix == "png":
