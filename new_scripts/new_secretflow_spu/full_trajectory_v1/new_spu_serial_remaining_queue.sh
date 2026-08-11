@@ -12,7 +12,8 @@ auditor=new_scripts/new_secretflow_spu/full_trajectory_v1/new_audit_spu_full_tra
 logdir=new_log/new_secretflow_spu/full_trajectory_v1
 
 wait_complete() {
-  local method="$1" seed="$2" id="full_trajectory_v1_formal_cifar100_${method}_seed${seed}"
+  local method="$1" seed="$2"
+  local id="full_trajectory_v1_formal_cifar100_${method}_seed${seed}"
   local report="$logdir/${id}_report.json"
   while [[ ! -f "$report" ]]; do sleep 60; done
   "$py" - "$report" <<'PY'
@@ -23,7 +24,8 @@ PY
 }
 
 audit_commit_push() {
-  local method="$1" seed="$2" id="full_trajectory_v1_formal_cifar100_${method}_seed${seed}"
+  local method="$1" seed="$2"
+  local id="full_trajectory_v1_formal_cifar100_${method}_seed${seed}"
   "$py" "$auditor" --dataset cifar100 --method "$method" --seed "$seed"
   printf '%s\n' "- $(date -u +%F) serial supervisor: CIFAR-100 ${method} seed${seed} COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell." >> progressLog/project_progress.md
   git add "$logdir/new_spu_full_trajectory_cifar100_${method}_seed${seed}.log" "$logdir/${id}_audit.json" "new_output/new_secretflow_spu/full_trajectory_v1/${id}"
