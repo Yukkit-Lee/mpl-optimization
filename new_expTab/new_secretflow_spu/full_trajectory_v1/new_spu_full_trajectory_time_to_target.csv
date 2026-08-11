@@ -1,0 +1,10 @@
+dataset,target,true_ours_seconds,full_data_seconds,speedup_ratio,time_reduction_percentage,note
+cifar10,T@80,6.8,85.2,12.5x,92.0%,first observed preregistered checkpoint reaching target; not interpolated
+cifar10,T@90,13.9,85.2,6.1x,83.7%,first observed preregistered checkpoint reaching target; not interpolated
+cifar10,T@95,Not Reached,85.2,,,first observed preregistered checkpoint reaching target; not interpolated
+cifar100,T@80,84.5,634.4,7.5x,86.7%,first observed preregistered checkpoint reaching target; not interpolated
+cifar100,T@90,84.5,634.4,7.5x,86.7%,first observed preregistered checkpoint reaching target; not interpolated
+cifar100,T@95,84.5,1974.0,23.4x,95.7%,first observed preregistered checkpoint reaching target; not interpolated
+tiny,T@80,384.4,2828.6,7.4x,86.4%,first observed preregistered checkpoint reaching target; not interpolated
+tiny,T@90,384.4,5008.9,13.0x,92.3%,first observed preregistered checkpoint reaching target; not interpolated
+tiny,T@95,384.4,7001.3,18.2x,94.5%,first observed preregistered checkpoint reaching target; not interpolated

@@ -1610,3 +1610,6 @@
 - 下一唯一操作：提交推送cell 5，启动Tiny Full Data（b64/chunk16/lr0.4，40 epochs，无anchor）。
 - 启动正式矩阵6/6 Tiny-ImageNet Full Data（b64/chunk16/lr0.4，40 epochs，无anchor，68000样本预计最久约3-4小时）。监控脚本已设（240分钟上限）。
 - Tiny Full(6/6)运行中：epoch=1/40，每epoch约10分钟（68000样本×200类），预计6小时。SPU 250% CPU、cgroup内存27.1GiB（<60上限无OOM）。持续低频监控。
+- Step 7结果汇总完成。builder生成main table（六条acc/轨迹点数/T@80/90/95）、time_to_target（真实Stage-B起算加速比）、runtime breakdown、hash manifest（6 report+6 trace SHA256）、plot data。生成PEA风格完整轨迹图（视觉检查通过：连续Stage-B+Stage-C轨迹、C100不再只有2点、Tiny 9/19点）。final report记录六条。
+- **T@Target真实加速比**（完整Stage-B轨迹起算）：CIFAR-10 Ours T@90=13.9s vs Full=85.2s（6.1x）、CIFAR-100 84.5s vs 634.4s（7.5x）、Tiny 384.4s vs 5008.9s（13.0x）。旧Stage-C代理值291.8s/3776s/4983s被真实轨迹值替代。
+- 下一唯一操作：提交推送Step 7产物，更新handoff完成状态，向用户汇报六条完整轨迹完成。

@@ -1,0 +1,55 @@
+{
+  "schema": "new_spu_full_trajectory_hash_manifest_v1",
+  "reports": {
+    "cifar10_full_data": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_log/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_cifar10_full_data_seed42_report.json",
+      "sha256": "5a45ecaad83875e69fbd7b7e9143e9c8a15bb632d46ae58dfbbfc87b5e168374"
+    },
+    "cifar10_true_ours": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_log/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_cifar10_true_ours_seed42_report.json",
+      "sha256": "826bc62f5dfb161cef0ef209e3fb944268be058263efb5deaa5548a6f1174e7f"
+    },
+    "cifar100_full_data": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_log/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_cifar100_full_data_seed42_report.json",
+      "sha256": "4abc5cc94fcc201534ac9153f63c3133dadb4557ecb8deb559a83156e43b13f6"
+    },
+    "cifar100_true_ours": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_log/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_cifar100_true_ours_seed42_report.json",
+      "sha256": "3125dd95d11c245457bc08c7bf6e4ec171e572e3f604a0cc9c24323d6618298a"
+    },
+    "tiny_full_data": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_log/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_tiny_full_data_seed42_report.json",
+      "sha256": "1cb9be7e968e1929cbfeb991edc78cc4c55ddb6e18f45777f96ef419465e4ede"
+    },
+    "tiny_true_ours": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_log/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_tiny_true_ours_seed42_report.json",
+      "sha256": "d82a5efead3f3bd7e485e4e15118a83bead32a835409337eaa769fa3a46c7cf3"
+    }
+  },
+  "traces": {
+    "cifar10_full_data": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_output/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_cifar10_full_data_seed42/new_spu_full_trajectory_trace.csv",
+      "sha256": "efd33c12651e3af78feefc54109a7c4fc978e9d10a2eb7af6df6ae31c0e9a3f5"
+    },
+    "cifar10_true_ours": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_output/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_cifar10_true_ours_seed42/new_spu_full_trajectory_trace.csv",
+      "sha256": "6cce38c83ec285fd64a1f4e4bf4a3978314d9fefc4b462bffe5b944668d82b11"
+    },
+    "cifar100_full_data": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_output/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_cifar100_full_data_seed42/new_spu_full_trajectory_trace.csv",
+      "sha256": "168cff763ef6a5e38a14fad2b197f00d43ba013bd28cfd1860390040d1c02d60"
+    },
+    "cifar100_true_ours": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_output/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_cifar100_true_ours_seed42/new_spu_full_trajectory_trace.csv",
+      "sha256": "5b034bb106eb640518de70906d6831c115b4eaf796badd069eadd8ceb6a67248"
+    },
+    "tiny_full_data": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_output/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_tiny_full_data_seed42/new_spu_full_trajectory_trace.csv",
+      "sha256": "6218db820d2dc974ed39880b4c64d9415980814b62f1a1ee1d1bb1ff3597bede"
+    },
+    "tiny_true_ours": {
+      "path": "/root/autodl-tmp/tfe_experiments/new_output/new_secretflow_spu/full_trajectory_v1/full_trajectory_v1_formal_tiny_true_ours_seed42/new_spu_full_trajectory_trace.csv",
+      "sha256": "113e10a85bbe81d13d16013dbf6bb6e12a6cec2293500c05cabe1d3811dcb845"
+    }
+  }
+}
