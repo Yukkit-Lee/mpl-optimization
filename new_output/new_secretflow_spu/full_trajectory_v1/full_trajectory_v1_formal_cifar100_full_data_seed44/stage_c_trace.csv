@@ -1,0 +1,3 @@
+stage,epoch_or_step,cumulative_training_online_secure_seconds,cumulative_instrumented_wall_seconds,evaluation_online_secure_seconds,evaluation_reveal_seconds,development_accuracy,clip_bound,conditional_stage_c_epsilon,delta,used_for_training
+stage_c,10,3314.674808,4567.517461,0.0,0.0,0.4422,2.007812,2.87324967,1e-05,False
+stage_c,20,3317.966879,4575.839821,0.0,0.0,0.44,1.984451,3.0,1e-05,False

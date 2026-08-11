@@ -1,0 +1,12 @@
+stage,epoch_or_step,cumulative_training_online_secure_seconds,cumulative_instrumented_wall_seconds,evaluation_online_secure_seconds,evaluation_reveal_seconds,development_accuracy,epsilon_so_far,epsilon_scope,clip_bound,conditional_stage_c_epsilon,delta,used_for_training
+stage_b_epoch0,0,0.0,37.895774,5.192255,0.0,0.0104,,not_applicable_non_dp_stage_b,,,,False
+stage_b_epoch5,5,413.703529,600.270698,7.685431,0.0,0.3966,,not_applicable_non_dp_stage_b,,,,False
+stage_b_epoch10,10,828.272009,1165.228654,10.636972,0.0,0.4216,,not_applicable_non_dp_stage_b,,,,False
+stage_b_epoch15,15,1236.886073,1725.623135,13.729875,0.0,0.428,,not_applicable_non_dp_stage_b,,,,False
+stage_b_epoch20,20,1649.916186,2289.34559,16.713012,0.0,0.4322,,not_applicable_non_dp_stage_b,,,,False
+stage_b_epoch25,25,2061.076502,2851.448197,19.505178,0.0,0.431,,not_applicable_non_dp_stage_b,,,,False
+stage_b_epoch30,30,2471.107758,3412.471863,22.377051,0.0,0.4406,,not_applicable_non_dp_stage_b,,,,False
+stage_b_epoch35,35,2886.856515,3978.29808,25.051506,0.0,0.4408,,not_applicable_non_dp_stage_b,,,,False
+stage_b_epoch40,40,3310.989956,4554.660108,28.139748,0.0,0.4412,,not_applicable_non_dp_stage_b,,,,False
+stage_c,10,3314.674808,4567.517461,0.0,0.0,0.4422,,,2.007812,2.87324967,1e-05,False
+stage_c,20,3317.966879,4575.839821,0.0,0.0,0.44,,,1.984451,3.0,1e-05,False

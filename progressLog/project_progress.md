@@ -1631,3 +1631,4 @@
 - 2026-08-12加固收尾守护器的完成竞态：四条报告/audit齐全后，最多等待180秒让串行监督器、tmux和正式runner完全退出，再调用最终验收。若仍有任务则明确失败且不关机，避免报告刚落盘时被“仍有SPU会话”这一正确门禁误判并永久退出。
 - 2026-08-11 serial supervisor: CIFAR-100 true_ours seed44 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
 - 2026-08-11 serial supervisor: CIFAR-100 full_data seed43 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
+- 2026-08-11 serial supervisor: CIFAR-100 full_data seed44 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
