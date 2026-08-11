@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Full SPU end-to-end trajectory runner (seed42), schema new_spu_full_trajectory_v1.
+"""Full SPU end-to-end trajectory runner (formal seeds 42/43/44), schema v1.
 
 Rebuilds the six corrected-v2 cells from Stage-B epoch 0 with preregistered
 checkpoint evaluations, so Figure 2 can show a continuous real Stage-B ->
@@ -163,7 +163,8 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", choices=DATASETS, required=True)
     parser.add_argument("--method", choices=METHODS, required=True)
-    parser.add_argument("--seed", type=int, default=42, choices=(42,))
+    # 三个预注册正式随机种子。除此三者外不允许静默扩张搜索。
+    parser.add_argument("--seed", type=int, default=42, choices=(42, 43, 44))
     parser.add_argument("--batch_size", type=int, required=True)
     parser.add_argument("--batch_chunk_batches", type=int, required=True)
     parser.add_argument("--local_lr", type=float)
@@ -183,8 +184,8 @@ def main() -> None:
     data = load_data(args.dataset, args.method, args.seed)
     num_classes = int(data["num_classes"])
     feature_dim = int(data["b_x"].shape[1])
-    run_id = "full_trajectory_v1_formal_{}_{}_seed42{}".format(
-        args.dataset, args.method, "_" + args.run_tag if args.run_tag else ""
+    run_id = "full_trajectory_v1_formal_{}_{}_seed{}{}".format(
+        args.dataset, args.method, args.seed, "_" + args.run_tag if args.run_tag else ""
     )
     output_dir = OUT / run_id
     checkpoint_dir = CKPT / run_id
@@ -228,7 +229,9 @@ def main() -> None:
         "cpu": {
             "omp_threads": int(os.environ.get("OMP_NUM_THREADS", "8")),
             "num_cpus": 30,
-            "taskset_cpuset": os.environ.get("TASKSSET_CPUSET", "unknown"),
+            # 由 tmux 正式命令显式写入，不再用旧版本的拼写错误变量
+            # TASKSSET_CPUSET，以便审计实际 CPU 绑定范围。
+            "taskset_cpuset": os.environ.get("TASKSET_CPUSET", "unknown"),
         },
         "formal_run": not args.max_stage_b_epochs,
     }
@@ -393,6 +396,9 @@ def main() -> None:
             if stage_b_trace.exists():
                 with stage_b_trace.open(newline="", encoding="utf-8") as handle:
                     trace_rows = list(csv.DictReader(handle))
+            # 断点恢复时保留已发生的公开发布审计账本，不能用新 ledger
+            # 覆盖旧的 Stage-B aggregate-logits 记录。
+            ledger.rows = list(state.get("reveal_ledger", ledger.rows))
 
         def stage_b_evaluate(epoch_or_step, stage_label, ledger, timer, spu):
             """Side-effect-free aggregate dev evaluation of the 5 secret heads."""
@@ -496,6 +502,7 @@ def main() -> None:
                     "client_b_share_paths": b_paths,
                     "timing_seconds": timer.seconds,
                     "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
+                    "reveal_ledger": ledger.rows,
                 })
             if (epoch + 1) % eval_interval == 0 and not args.no_stage_b_eval:
                 trace_rows.append(
@@ -563,6 +570,7 @@ def main() -> None:
                     "global_b_share_paths": global_b_paths,
                     "timing_seconds": timer.seconds,
                     "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
+                    "reveal_ledger": ledger.rows,
                 })
 
         # Expected Stage-B point count audit (pre-registered), computed once
@@ -631,6 +639,9 @@ def main() -> None:
         clip_s = np.float32(stage_c["clip_c"])
         stage_c_trace = output_dir / "stage_c_trace.csv"
         sc_rows = []
+        # 每个 stream 的私有 noise-state 路径必须写入 checkpoint，以便
+        # 在 Stage-C 已完成但 final report 未写入时仍可审计 provider metadata。
+        provider_paths = {"weight": None, "bias": None, "count": None}
         if args.resume and state_meta.exists():
             state = json.loads(state_meta.read_text(encoding="utf-8"))
             if state.get("timing_seconds"):
@@ -643,11 +654,12 @@ def main() -> None:
             if stage_c_trace.exists():
                 with stage_c_trace.open(newline="", encoding="utf-8") as handle:
                     sc_rows = list(csv.DictReader(handle))
+            ledger.rows = list(state.get("reveal_ledger", ledger.rows))
+            provider_paths = dict(state.get("provider_paths", provider_paths))
             ledger.wait(
                 "stage_c_resume", [global_w_s, global_b_s, clip_s], "dp_secret_state"
             )
 
-        provider_paths = {"weight": None, "bias": None, "count": None}
         while steps_done < total_steps:
             block_ids = [
                 poisson_batch_indices(len(data["c_x"]), expected_batch, random_bytes=os.urandom)
@@ -706,6 +718,8 @@ def main() -> None:
                     "clip_share_paths": c_paths,
                     "timing_seconds": timer.seconds,
                     "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
+                    "reveal_ledger": ledger.rows,
+                    "provider_paths": provider_paths,
                 })
             with timer.measure("stage_c_authorized_dp_release_and_dev_evaluation"):
                 public_w, public_b, public_c = ledger.reveal(
@@ -745,6 +759,8 @@ def main() -> None:
                 "clip_share_paths": c_paths,
                 "timing_seconds": timer.seconds,
                 "raw_wall_seconds": elapsed_offset + time.monotonic() - started,
+                "reveal_ledger": ledger.rows,
+                "provider_paths": provider_paths,
             })
             print(
                 "[StageC trajectory] steps={}/{} acc={:.4f} eps={:.4f}".format(

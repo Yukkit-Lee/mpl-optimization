@@ -38,8 +38,10 @@ def sha256_file(path):
     return digest.hexdigest()
 
 
-def audit_cell(dataset, method):
-    run_id = "full_trajectory_v1_formal_{}_{}_seed42".format(dataset, method)
+def audit_cell(dataset, method, seed):
+    """审计一个预注册正式 seed，不将 seed42 的文件误用为
+    seed43/44 的证据。"""
+    run_id = "full_trajectory_v1_formal_{}_{}_seed{}".format(dataset, method, seed)
     report_path = LOG / "{}_report.json".format(run_id)
     if not report_path.exists():
         return {
@@ -79,7 +81,7 @@ def audit_cell(dataset, method):
         "status_complete": report.get("status") == "COMPLETE",
         "run_kind_formal": report.get("run_kind") == "formal",
         "schema_v1": report.get("schema") == "new_spu_full_trajectory_v1",
-        "seed_42": ec.get("seed") == 42,
+        "registered_seed": ec.get("seed") == seed,
         "backend": report.get("backend") == "SecretFlow-SPU device API",
         "protocol_aby3_fm128_fxp16": (
             report.get("protocol", {}).get("protocol") == "ABY3"
@@ -104,6 +106,13 @@ def audit_cell(dataset, method):
                 "aggregate_development_logits", "global_secret_state",
                 "conditional_dp_global_state", "provider_public_metadata",
             )
+            for e in report["reveal_ledger"]
+        ),
+        # 新运行不允许以空 ledger “过关”：每个预注册 Stage-B
+        # checkpoint 至少产生一次 aggregate logits 公开发布。
+        "stage_b_aggregate_logits_releases_nonempty": any(
+            e.get("public_reconstruction")
+            and e.get("scope") == "aggregate_development_logits"
             for e in report["reveal_ledger"]
         ),
         "evaluation_used_for_training_false": all(
@@ -133,6 +142,12 @@ def audit_cell(dataset, method):
                 [float(r["cumulative_training_online_secure_seconds"]) for r in trace][1:],
             )
         ),
+        "recorded_taskset_cpuset": ec.get("cpu", {}).get("taskset_cpuset") not in (None, "", "unknown"),
+        "provider_metadata_present": all(
+            stream in report.get("provider_metadata", {})
+            and bool(report["provider_metadata"][stream])
+            for stream in ("weight", "bias", "count")
+        ),
     }
     audit = {
         "schema": "new_spu_full_trajectory_audit_v1",
@@ -156,8 +171,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", choices=DATASETS, required=True)
     parser.add_argument("--method", choices=METHODS, required=True)
+    parser.add_argument("--seed", type=int, choices=(42, 43, 44), required=True)
     args = parser.parse_args()
-    result = audit_cell(args.dataset, args.method)
+    result = audit_cell(args.dataset, args.method, args.seed)
     print(json.dumps(result, indent=2, sort_keys=True))
     if not result.get("passed"):
         raise SystemExit(1)
