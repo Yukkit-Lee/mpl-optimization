@@ -1632,3 +1632,4 @@
 - 2026-08-11 serial supervisor: CIFAR-100 true_ours seed44 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
 - 2026-08-11 serial supervisor: CIFAR-100 full_data seed43 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
 - 2026-08-11 serial supervisor: CIFAR-100 full_data seed44 COMPLETE and strengthened audit PASS; exact artifacts committed/pushed before next cell.
+- 2026-08-28论文投稿后新服务器迁移准备：先安全快进同步远端论文编辑至`unified-experiments@5e9bcf4a`（最后一个SPU正式实验提交仍为`ca2ced9a`），再新增`forNewServer/NEW_SERVER_OPERATION_GUIDE.md`，集中记录权威分支/提交、目录地图、modern/TFE/SPU三套环境、MTT数据与缓存/checkpoint布局、首次恢复验收、Figures 2--6绘图入口、正式SPU矩阵、科学边界、常见故障、安全规则和新Agent首条任务模板。文档明确统一报告的SPU seed42摘要已被后续CIFAR-10/CIFAR-100 seed43/44正式report补全所更新，旧Figure 2(b)仍为corrected-v2 n=1数据源，迁移后不得误当成已聚合n=3图；本次未启动任何实验，也未修改或暂存既有用户工作树改动。
